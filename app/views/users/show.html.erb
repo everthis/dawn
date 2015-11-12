@@ -1,5 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<% provide(:title, @user.name) %>
+<h1>
+  <%= gravatar_for @user %>
+  <%= @user.name %>
+</h1>
+
 <p>
   <strong>Name:</strong>
   <%= @user.name %>
@@ -8,6 +14,21 @@
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
+</p>
+
+<p>
+  <strong>password_digest:</strong>
+  <%= @user.password_digest %>
+</p>
+
+<p>
+  <strong>created_at:</strong>
+  <%= @user.created_at %>
+</p>
+
+<p>
+  <strong>updated_at:</strong>
+  <%= @user.updated_at %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
