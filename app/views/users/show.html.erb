@@ -16,20 +16,15 @@
   <%= @user.email %>
 </p>
 
-<p>
-  <strong>password_digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <strong>created_at:</strong>
-  <%= @user.created_at %>
-</p>
-
-<p>
-  <strong>updated_at:</strong>
-  <%= @user.updated_at %>
-</p>
+<div class="col-md-8">
+  <% if @user.microposts.any? %>
+    <h3>Microposts (<%= @user.microposts.count %>)</h3>
+    <ol class="microposts">
+      <%= render @microposts %>
+    </ol>
+    <%= will_paginate @microposts %>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

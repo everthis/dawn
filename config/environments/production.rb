@@ -82,8 +82,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
    :address              => "smtp.qq.com",
    :port                 => 587,
-   :user_name            => "1147972301@qq.com",
-   :password             => "83538107!!!",
+   :user_name            => "",
+   :password             => "",
    :authentication       => "plain",
   :enable_starttls_auto => true
   }
