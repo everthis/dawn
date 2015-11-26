@@ -31,6 +31,8 @@ gem 'unicorn'
 
 gem 'faker'
 
+gem 'normalize-rails'
+
 gem 'will_paginate'
 
 # Use Capistrano for deployment
