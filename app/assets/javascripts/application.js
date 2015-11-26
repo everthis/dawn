@@ -26,5 +26,8 @@ function hideDropdowns(ev) {
     ev.target.getElementsByClassName('dropdown-menu')[0].classList.remove('show');
   }
 }
-dropdown.addEventListener('mouseenter', showDropdowns);
-dropdown.addEventListener('mouseleave', hideDropdowns);
+if (dropdown) {
+  dropdown.addEventListener('mouseenter', showDropdowns);
+  dropdown.addEventListener('mouseleave', hideDropdowns);
+
+}
