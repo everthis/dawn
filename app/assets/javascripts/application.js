@@ -14,3 +14,17 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+var dropdown = document.getElementsByClassName('dropdown')[0];
+function showDropdowns(ev) {
+  if (ev.target === ev.currentTarget) {
+    ev.target.getElementsByClassName('dropdown-menu')[0].classList.add('show');
+  }
+}
+function hideDropdowns(ev) {
+  if (ev.target === ev.currentTarget) {
+    ev.target.getElementsByClassName('dropdown-menu')[0].classList.remove('show');
+  }
+}
+dropdown.addEventListener('mouseenter', showDropdowns);
+dropdown.addEventListener('mouseleave', hideDropdowns);

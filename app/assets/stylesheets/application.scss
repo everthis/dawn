@@ -10,6 +10,30 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require normalize-rails
  *= require_tree .
  *= require_self
  */
+
+.nav {
+	.first-layer {
+		display: inline-block;
+		vertical-align: top;
+	}
+	.dropdown {
+		position: relative;
+	}
+	.dropdown-menu {
+		display: none;
+		position: absolute;
+		list-style: square;
+		padding: 0 0 0 1em;
+		background-color: #fff;
+		&.show {
+			display: inline-block;
+		}
+	}
+	.dropdown-per-li {
+		text-indent: -5px;
+	}
+}
