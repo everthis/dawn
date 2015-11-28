@@ -33,10 +33,7 @@ class MicropostsController < ApplicationController
       render 'static_pages/home'
     end
   end 
-  
 
-  # PATCH/PUT /microposts/1
-  # PATCH/PUT /microposts/1.json
   def update
     respond_to do |format|
       if @micropost.update(micropost_params)

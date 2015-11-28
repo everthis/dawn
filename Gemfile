@@ -19,6 +19,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'net-ssh'
+gem "passenger"
 gem 'sdoc', group: :doc
 
 group :development, :test do
