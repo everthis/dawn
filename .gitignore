@@ -21,3 +21,5 @@
 
 # Ignore uploaded test images.
 /public/uploads
+
+Gemfile.lock
