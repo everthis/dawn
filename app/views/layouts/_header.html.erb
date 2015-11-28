@@ -2,7 +2,6 @@
     <nav>
       <ul class="nav">
         <li class="first-layer"><%= link_to "homepage", root_path, id: "logo" %></li>
-        <li class="first-layer"><%= link_to "Home", root_path %></li>
         <li class="first-layer"><%= link_to "Help", help_path %></li>
         <% if logged_in? %>
           <li class="first-layer"><%= link_to "Users", users_path %></li>
