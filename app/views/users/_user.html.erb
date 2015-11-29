@@ -1,13 +1,14 @@
-    <div class="per-row">
-      <span><%= gravatar_for user, size: 50 %></span>
-      <span><%= link_to user.name, user %></span>
-      <span><%= user.name %></span>
-      <span><%= user.email %></span>
-      <span><%= link_to 'Show', user %></span>
-      <span><%= link_to 'Edit', edit_user_path(user) %></span>
-      <% if current_user.admin? && !current_user?(user) %>
-        | <%= link_to "delete", user, method: :delete,
-                                      data: { confirm: "You sure?" } %>
-      <% end %>
-      
-    </div>
+<div class="per-row">
+  <span><%= gravatar_for user, size: 50 %></span>
+  <span><%= link_to user.name, user %></span>
+  <span><%= user.name %></span>
+  <span><%= user.email %></span>
+  <span><%= link_to 'Show', user %></span>
+  <span><%= link_to 'Edit', edit_user_path(user) %></span>
+  <% if current_user.admin? && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+  
+</div>
+
