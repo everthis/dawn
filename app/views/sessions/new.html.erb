@@ -11,12 +11,7 @@
       <div class="row">
         <%= f.label :password, class: 'form-label' %>
         <%= f.password_field :password, class: 'form-control' %>
-      </div>
-
-      <div class="row">
-        <%= f.label :password, class: 'form-label' %>
-        <%= link_to "(forgot password)", new_password_reset_path %>
-        <%= f.password_field :password, class: 'form-control' %>
+        <%= link_to "(forgot password?)", new_password_reset_path, class: 'form-extra' %>
       </div>
 
       <div class="row">

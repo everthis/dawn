@@ -52,6 +52,9 @@ div {
 }
 .pagination {
     text-align: center;
+    li {
+      display: inline;
+    }
 }
 
 #error_explanation {
