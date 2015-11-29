@@ -15,6 +15,13 @@
  *= require_self
  */
 
+@import "partials/var";
+html {
+	box-sizing: border-box;
+	* {
+		box-sizing: border-box;
+	}
+}
 .nav {
 	.first-layer {
 		display: inline-block;
@@ -36,4 +43,13 @@
 	.dropdown-per-li {
 		text-indent: -5px;
 	}
+}
+
+.alert-success {
+	background-color: $success-bg-color;
+	color: $success-color;
+}
+.alert-danger {
+	background-color: $danger-bg-color;
+	color: $danger-color; 
 }
