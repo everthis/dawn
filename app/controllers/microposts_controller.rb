@@ -13,18 +13,6 @@ class MicropostsController < ApplicationController
     end
   end 
 
-  def update
-    respond_to do |format|
-      if @micropost.update(micropost_params)
-        format.html { redirect_to @micropost, notice: 'Micropost was successfully updated.' }
-        format.json { render :show, status: :ok, location: @micropost }
-      else
-        format.html { render :edit }
-        format.json { render json: @micropost.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def destroy
     @micropost.destroy
     flash[:success] = "Micropost deleted"
@@ -32,16 +20,9 @@ class MicropostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_micropost
-      @micropost = Micropost.find(params[:id])
-    end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    # def micropost_params
-    #   params.require(:micropost).permit(:content, :user_id)
-    # end
-    
     def micropost_params
       params.require(:micropost).permit(:content, :picture)
     end
