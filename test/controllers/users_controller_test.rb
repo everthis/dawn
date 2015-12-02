@@ -58,11 +58,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should redirect update when logged in as wrong user" do
-    log_in_as(@other_user)
-    patch :update, id: @user, user: { name: @user.name, email: @user.email }
-    assert_redirected_to root_url
-  end
 
   test "should not allow the admin attribute to be edited via the web" do
     log_in_as(@other_user)
