@@ -1,2 +1,5 @@
-$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
-$("#followers").html('<%= @user.followers.count %>');
+(function(){
+	var doc = document;
+	doc.getElementById('follow_form').innerHTML = "<%= escape_javascript(render('users/unfollow')) %>";
+	doc.getElementById('followers').innerHTML = "<%= @user.followers.count %>";
+})();

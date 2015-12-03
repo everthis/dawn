@@ -27,7 +27,7 @@ User.create!(name:  "Example User",
 end
 
 users = User.order(:created_at).take(6)
-50.times do
+10.times do
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.microposts.create!(content: content) }
 end
@@ -35,7 +35,7 @@ end
 # Following relationships
 users = User.all
 user  = users.first
-following = users[2..50]
-followers = users[3..40]
+following = users[2..10]
+followers = users[3..10]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
