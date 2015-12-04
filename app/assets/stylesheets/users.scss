@@ -38,3 +38,35 @@
 .extra {
 	text-align: center;
 }
+.user-info-card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	width: 50rem;
+	margin: 0 auto;
+	border: 1px solid #e1e8ed;
+	.info {
+		padding: 0 1rem;
+	}
+	.card-block-btn {
+		width: 100%;
+	}
+	.card-link-following {
+
+	}
+	.card-link-followers {
+		padding: 0 1rem;
+	}
+}
+.summary {
+	padding: 1rem;
+	width: 50rem;
+	margin: 0 auto;
+	border: 1px solid #e1e8ed;
+	.user_info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

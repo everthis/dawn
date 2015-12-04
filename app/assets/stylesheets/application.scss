@@ -23,6 +23,12 @@ html {
 	}
 }
 .nav {
+	display: flex;
+	justify-content: center;
+	.static-links,
+	.user-links {
+		padding: 0 2rem;
+	}
 	.first-layer {
 		display: inline-block;
 		vertical-align: top;

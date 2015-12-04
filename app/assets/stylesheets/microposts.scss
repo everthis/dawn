@@ -5,3 +5,35 @@
 .profile-post {
 	font-size: 12px;
 }
+.feeds {
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.microposts {
+	padding: 0;
+	width: 50rem;
+	border: 1px solid #e1e8ed;
+}
+
+.micropost {
+	display: flex;
+	border-top: 1px solid #e1e8ed;
+	padding: .8rem 1rem;
+	&:first-child {
+		border-top: none;
+	}
+	.avatar-section {
+		flex-basis: 5rem;
+		display: flex;
+	    align-items: flex-start;
+	    font-size: 0; // get rid of whitespace gap
+	}
+	.content {
+		flex-grow: 1;
+	}
+	.micropost-img {
+		max-height: 665px;
+		overflow: hidden;
+	}
+}

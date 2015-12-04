@@ -1,27 +1,26 @@
 <% provide(:title, "Home") %>
 
 <% if logged_in? %>
-    <aside class="col-md-4">
-      <section class="user_info">
-        <%= render 'shared/user_info' %>
-      </section>
-      <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
-      <section class="micropost_form">
-        <%= render 'shared/micropost_form' %>
-      </section>
-    </aside>
-    <div class="col-md-8">
-      <h3>Micropost Feed</h3>
-      <%= render 'shared/feed' %>
-    </div>
-<% else %>
-<div class="center jumbotron">
+<div class="summary">
+  <section class="user_info">
+    <span class="avatar">
+      <%= link_to gravatar_for(current_user, size: 50), current_user %>
+    </span>
+    <span class="info">
+      <%= render 'shared/user_info' %>
+      <%= render 'shared/stats' %>
+    </span>
+  </section>
 
-  <h1>Welcome to the everthis</h1>
+  <section class="micropost_form">
+    <%= render 'shared/micropost_form' %>
+  </section>
 </div>
-
+<div class="feeds">
+  <h3>Micropost Feed</h3>
+  <%= render 'shared/feed' %>
+</div>
+<% else %>
 <%= link_to image_tag("rails.png", alt: "Rails logo"),
             'http://rubyonrails.org/' %>
 <% end %>
