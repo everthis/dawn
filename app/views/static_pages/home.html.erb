@@ -4,7 +4,7 @@
 <div class="summary">
   <section class="user_info">
     <span class="avatar">
-      <%= link_to gravatar_for(current_user, size: 50), current_user %>
+      <%= link_to avatar_for(current_user), current_user, class: "user-link" %>
     </span>
     <span class="info">
       <%= render 'shared/user_info' %>
@@ -14,6 +14,9 @@
 
   <section class="micropost_form">
     <%= render 'shared/micropost_form' %>
+    <div class="tweet-box hide" contenteditable="true" spellcheck="true" role="textbox" data-placeholder-default="What's happening?">
+      <div></div>
+    </div>
   </section>
 </div>
 <div class="feeds">

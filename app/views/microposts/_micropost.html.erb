@@ -1,6 +1,6 @@
 <li class="micropost" id="micropost-<%= micropost.id %>">
   <section class="avatar-section">
-    <%= link_to gravatar_for(micropost.user, size: 50), micropost.user, class: "avatar" %>
+    <%= link_to avatar_for(micropost.user, size: "small_thumb"), micropost.user, class: "avatar" %>
   </section>
   <section class="content">
     <div class="micropost-info">

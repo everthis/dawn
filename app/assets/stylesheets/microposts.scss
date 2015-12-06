@@ -5,6 +5,17 @@
 .profile-post {
 	font-size: 12px;
 }
+.new-post-text {
+	outline: none;
+	width: 100%;
+	max-width: 100%;
+}
+.new-post-toolbar {
+	text-align: center;
+	.btn-submit {
+		display: inline-block;
+	}
+}
 .feeds {
 	display: flex;
     align-items: center;

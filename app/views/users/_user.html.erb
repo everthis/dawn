@@ -1,7 +1,6 @@
 <div class="per-row">
-  <span><%= gravatar_for user, size: 50 %></span>
+  <span><%= avatar_for user, size: "small_thumb" %></span>
   <span><%= link_to user.name, user %></span>
-  <span><%= user.name %></span>
   <span><%= user.email %></span>
   <span><%= link_to 'Show', user %></span>
   <span><%= link_to 'Edit', edit_user_path(user) %></span>

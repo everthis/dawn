@@ -22,6 +22,16 @@ html {
 		box-sizing: border-box;
 	}
 }
+.hide {
+	display: none;
+}
+.center {
+	text-align: center;
+}
+.user-link {
+	display: inline-block;
+	font-size: 0;
+}
 .nav {
 	display: flex;
 	justify-content: center;
@@ -58,4 +68,7 @@ html {
 .alert-danger {
 	background-color: $danger-bg-color;
 	color: $danger-color; 
+}
+.alert-info {
+	background-color: $info-bg-color;
 }

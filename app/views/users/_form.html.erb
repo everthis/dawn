@@ -2,6 +2,13 @@
   <div class="row">
     <%= render 'shared/error_messages', object: f.object %>
   </div>
+  
+  <% if logged_in? %>
+  <div class="gravatar_edit">
+    <%= avatar_for @user %>
+    <%= f.file_field :avatars, accept: 'image/jpeg,image/gif,image/png', id: "profile-avatar" %>
+  </div>
+  <% end %>
 
   <div class="row">
     <%= f.label :name, class: 'form-label' %>
