@@ -80,14 +80,28 @@
 		padding: 0 1rem;
 	}
 }
+.s-avatar {
+
+}
+.userName {
+	padding: 0 .2rem;
+}
+.email {
+	@extend .userName;
+}
+.show-link {
+	@extend .userName;
+}
 .tweet-box[contenteditable="true"] {
 	outline: none;
     border: 1px solid rgba(74, 145, 60, 0.25);
     padding: 8px 10px;
     color: #4A913C;
-    &:before {
-	    content: attr(data-placeholder-default);
-	    color: #ccd6dd;
-	    position: absolute;
-	}
+    &.showPlaceholder {
+	    &:before {
+		    content: attr(data-placeholder-default);
+		    color: #ccd6dd;
+		    position: absolute;
+		}
+    }
 }
