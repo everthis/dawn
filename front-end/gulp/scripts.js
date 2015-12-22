@@ -15,9 +15,12 @@ function webpackWrapper(watch, test, callback) {
     watch: watch,
     module: {
       preLoaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader'}],
-      loaders: [{ test: /\.js$/, exclude: /node_modules/, loaders: ['ng-annotate', 'babel-loader']}]
+      loaders: [{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']}]
     },
-    output: { filename: 'index.module.js' }
+    output: { filename: 'index.module.js' },
+    eslint: {
+      configFile: path.join(path.resolve(__dirname, '../'), '.eslintrc')
+    }
   };
 
   if(watch) {
@@ -41,9 +44,9 @@ function webpackWrapper(watch, test, callback) {
     }
   };
 
-  var sources = [ path.join(conf.paths.src, '/app/index.module.js') ];
+  var sources = [ path.join(conf.paths.src, '/javascripts/application.js') ];
   if (test) {
-    sources.push(path.join(conf.paths.src, '/app/**/*.spec.js'));
+    sources.push(path.join(conf.paths.src, '/tests/**/*.spec.js'));
   }
 
   return gulp.src(sources)

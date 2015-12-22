@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var conf = require('./conf');
 
 var browserSync = require('browser-sync');
-var browserSyncSpa = require('browser-sync-spa');
+// var browserSyncSpa = require('browser-sync-spa');
 
 var util = require('util');
 
@@ -16,9 +16,10 @@ function browserSyncInit(baseDir, browser) {
 
   var routes = null;
   if(baseDir === conf.paths.src || (util.isArray(baseDir) && baseDir.indexOf(conf.paths.src) !== -1)) {
-    routes = {
-      '/bower_components': 'bower_components'
-    };
+    // routes = {
+    //   '/bower_components': 'bower_components'
+    // };
+    routes = {};
   }
 
   var server = {
@@ -33,18 +34,23 @@ function browserSyncInit(baseDir, browser) {
    *
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.9.0/README.md
    */
-  // server.middleware = proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', changeOrigin: true});
+  server.middleware = proxyMiddleware('/', {target: 'http://localhost:3000', changeOrigin: false});
 
   browserSync.instance = browserSync.init({
     startPath: '/',
     server: server,
-    browser: browser
+    browser: browser,
+    ghostMode: {
+        clicks: true,
+        forms: true,
+        scroll: true
+    }
   });
 }
 
-browserSync.use(browserSyncSpa({
-  selector: '[ng-app]'// Only needed for angular apps
-}));
+// browserSync.use(browserSyncSpa({
+//   selector: '[ng-app]'// Only needed for angular apps
+// }));
 
 gulp.task('serve', ['watch'], function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);

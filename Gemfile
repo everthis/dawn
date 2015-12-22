@@ -6,15 +6,12 @@ gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
-gem 'normalize-rails'
 gem 'will_paginate'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'coffee-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'net-ssh'
-gem 'jquery-rails'
 gem "passenger"
 gem 'sdoc', group: :doc
 

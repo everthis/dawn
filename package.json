@@ -1,7 +1,9 @@
 {
   "name": "dawn",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "normalize.css": "^3.0.3"
+  },
   "scripts": {
     "test": "gulp test"
   },
@@ -41,12 +43,10 @@
     "karma-jasmine": "~0.3.6",
     "karma-phantomjs-launcher": "~0.2.1",
     "lodash": "~3.10.1",
-    "main-bower-files": "~2.9.0",
     "phantomjs": "~1.9.18",
     "q": "^1.4.1",
     "uglify-save-license": "~0.4.1",
     "webpack-stream": "~2.1.1",
-    "wiredep": "~2.2.2",
     "wrench": "~1.5.8"
   },
   "engines": {

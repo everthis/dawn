@@ -10,65 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require normalize-rails
  *= require_tree .
  *= require_self
  */
 
-@import "partials/var";
-html {
-	box-sizing: border-box;
-	* {
-		box-sizing: border-box;
-	}
-}
-.hide {
-	display: none;
-}
-.center {
-	text-align: center;
-}
-.user-link {
-	display: inline-block;
-	font-size: 0;
-}
-.nav {
-	display: flex;
-	justify-content: center;
-	.static-links,
-	.user-links {
-		padding: 0 2rem;
-	}
-	.first-layer {
-		display: inline-block;
-		vertical-align: top;
-	}
-	.dropdown {
-		position: relative;
-	}
-	.dropdown-menu {
-		display: none;
-		position: absolute;
-		list-style: square;
-		padding: 0 0 0 1em;
-		background-color: #fff;
-		&.show {
-			display: inline-block;
-		}
-	}
-	.dropdown-per-li {
-		text-indent: -5px;
-	}
-}
-
-.alert-success {
-	background-color: $success-bg-color;
-	color: $success-color;
-}
-.alert-danger {
-	background-color: $danger-bg-color;
-	color: $danger-color; 
-}
-.alert-info {
-	background-color: $info-bg-color;
-}
