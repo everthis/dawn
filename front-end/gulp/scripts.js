@@ -51,7 +51,7 @@ function webpackWrapper(watch, test, callback) {
 
   return gulp.src(sources)
     .pipe(webpack(webpackOptions, null, webpackChangeHandler))
-    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')));
+    .pipe(gulp.dest(path.join(conf.paths.ror_app, '/assets/javascripts')));
 }
 
 gulp.task('scripts', function () {

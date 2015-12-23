@@ -16,8 +16,8 @@ gulp.task('watch', ['scripts:watch', 'inject'], function () {
   gulp.watch([path.join(conf.paths.ror_app, '/*.erb')], ['inject-reload']);
 
   gulp.watch([
-    path.join(conf.paths.src, '/app/**/*.css'),
-    path.join(conf.paths.src, '/app/**/*.scss')
+    path.join(conf.paths.src, '/stylesheets/**/*.css'),
+    path.join(conf.paths.src, '/stylesheets/**/*.scss')
   ], function(event) {
     if(isOnlyChange(event)) {
       gulp.start('styles-reload');
