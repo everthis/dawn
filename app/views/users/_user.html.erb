@@ -1,9 +1,11 @@
 <div class="per-row">
-  <span><%= avatar_for user, size: "small_thumb" %></span>
-  <span><%= link_to user.name, user %></span>
-  <span><%= user.email %></span>
-  <span><%= link_to 'Show', user %></span>
-  <span><%= link_to 'Edit', edit_user_path(user) %></span>
+  <span class="s-avatar"><%= avatar_for user, size: "small_thumb" %></span>
+  <span class="userName"><%= link_to user.name, user %></span>
+  <span class="email"><%= user.email %></span>
+  <span class="show-link"><%= link_to 'Show', user %></span>
+  <% if current_user.admin? || current_user?(user) %>
+  <span class="edit-link"><%= link_to 'Edit', edit_user_path(user) %></span>
+  <% end %>
   <% if current_user.admin? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete,
                                   data: { confirm: "You sure?" } %>

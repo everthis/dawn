@@ -1,0 +1,17 @@
+@mixin clearfix() {
+    &:before, &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin inline-block-fix($element) {
+    font-size: 0;
+    > #{$element} {
+        display: inline-block;
+        vertical-align: top;
+    }
+}

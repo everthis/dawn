@@ -1,0 +1,13 @@
+.alert {
+	&-success {
+		background-color: $success-bg-color;
+		color: $success-color;
+	}
+	&-danger {
+		background-color: $danger-bg-color;
+		color: $danger-color; 
+	}
+	&-info {
+		background-color: $info-bg-color;
+	}
+}

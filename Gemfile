@@ -6,27 +6,25 @@ gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
-gem 'normalize-rails'
 gem 'will_paginate'
-gem 'sass-rails'
 gem 'uglifier'
-gem 'coffee-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'net-ssh'
-gem 'jquery-rails'
 gem "passenger"
 gem 'sdoc', group: :doc
+gem "guard"
 
 group :development, :test do
   gem 'sqlite3'
+  gem "rack-livereload"
+  gem 'guard-livereload'
   gem 'byebug'
   gem 'web-console'
   gem 'spring'
 end
 
 group :test do
-  gem 'guard'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'guard-minitest'

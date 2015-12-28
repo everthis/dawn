@@ -1,0 +1,12 @@
+$list: uu oo ll;
+@mixin tt() {
+	@each $var in $list {
+		.#{$var} {
+			display: block;
+		}
+	}
+}
+
+.tt {
+	@include tt();
+}

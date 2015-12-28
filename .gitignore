@@ -23,3 +23,7 @@
 /public/uploads
 
 Gemfile.lock
+
+# Ignore node_modules
+/front-end/node_modules
+/node_modules
