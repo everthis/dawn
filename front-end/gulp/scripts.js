@@ -17,7 +17,7 @@ function webpackWrapper(watch, test, callback) {
       preLoaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader'}],
       loaders: [{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']}]
     },
-    output: { filename: 'index.module.js' },
+    output: { filename: 'application.js' },
     eslint: {
       configFile: path.join(path.resolve(__dirname, '../'), '.eslintrc')
     }

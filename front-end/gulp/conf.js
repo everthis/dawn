@@ -17,6 +17,7 @@ exports.paths = {
   tmp: '.tmp',
   e2e: 'e2e',
   ror_app: 'app',
+  ror_public: 'public',
   node_modules: 'node_modules'
 
 };

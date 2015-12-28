@@ -2,10 +2,12 @@
     <nav class="nav">
       <ul class="static-links">
         <li class="first-layer"><%= link_to "homepage", root_path, id: "logo" %></li>
+        <li class="first-layer"><%= link_to "api", apis_path %></li>
         <li class="first-layer"><%= link_to "Help", help_path %></li>
         <li class="first-layer"><%= link_to "Contact", contact_path %></li>
         <li class="first-layer"><%= link_to "About", about_path %></li>
         <li class="first-layer"><%= link_to "Log", log_path %></li>
+        <li class="first-layer"><%= link_to "Demo", demo_path %></li>
       </ul>
       <ul class="user-links">
         <% if logged_in? %>

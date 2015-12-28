@@ -20,6 +20,15 @@ module Dawn
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.assets.enabled = true
+    # Make public assets requireable in manifest files
+    config.assets.paths << Rails.root.join(".tmp", "assets", "javascripts")
+    config.assets.paths << Rails.root.join(".tmp", "assets", "stylesheets")
+
+    # disable auto generate assets
+    config.generators.stylesheets = false
+    config.generators.javascripts = false
+    
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     # Include the authenticity token in remote forms.

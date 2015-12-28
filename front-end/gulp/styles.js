@@ -66,6 +66,6 @@ var buildStyles = function() {
     .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
-    .pipe($.rename("index.css"))
+    // .pipe($.rename("app.css"))
     .pipe(gulp.dest(path.join(conf.paths.ror_app, '/assets/stylesheets/')));
 };

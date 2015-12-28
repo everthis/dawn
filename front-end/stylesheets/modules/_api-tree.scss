@@ -1,0 +1,129 @@
+.apis {
+
+}
+.add-api {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 10px;
+    margin: 0 0 1em 0;
+}
+.per-api {
+    padding: 0 0 0 0;
+    margin: 0 0 2em 0;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 5px 4px -5px purple;
+}
+.api-edit {
+    border: 1px solid #ddd;
+    padding: 0 10px;
+    margin: 0 1em 0 0;
+    cursor: pointer;
+}
+.api-uri {
+    &:disabled {
+        background-color: #ddd;
+    }
+}
+.api-save {
+    @extend .api-edit;
+}
+.api-test {
+    @extend .api-edit;
+}
+.api-tree-wrapper {
+    position: relative;
+}
+.api-tree {
+    position: relative;
+    padding: .3em 0 0 62px;
+}
+.api-svg {
+    position: absolute;
+    margin: 0 0 0 -30px;
+    &:not(:root) {
+        overflow: visible;
+    }
+    .api-svg-path {
+        stroke: purple;
+        stroke-width: 1;
+        fill: transparent;
+    }
+}
+i {
+    cursor: pointer;
+}
+.layer {
+    margin: 0 0 1em 0;
+    width: 23em;
+    border-right: 1px solid #ddd;
+}
+.add-dataroot-child {
+    position: absolute;
+    top: .5em;
+    left: .8em;
+    @extend %mark;
+    background-color: green;
+}
+.del-dataroot-child {
+    @extend %mark;
+    position: absolute;
+    top: 36px;
+    left: .8em;
+    background-color: red;
+}
+
+.leaf {
+    display: inline-block;
+    height: 22px;
+    width: 469px;
+    padding: 0 .5em;
+    position: absolute;
+    margin: 0 0 1.3em 0;
+    white-space: nowrap;
+    text-align: center;
+    @include inline-block-fix(input);
+    @include inline-block-fix(i);
+    .remove-child {
+        background-color: #F00;
+        margin: 2px .2em 0 0;
+        @extend %mark;
+    }
+    input, i {
+        font-size: 12px;
+    }
+    input {
+        width: 130px;
+        height: 20px;
+    }
+    i {
+        width: 20px;
+    }
+    .add-child {
+        background-color: blue;
+        margin: 2px 0 0 .2em;
+        @extend %mark;
+    }
+    .gap-mark {
+    }
+    .leaf-key {
+        padding: 0 1em;
+    }
+    .add-sibling {
+        position: absolute;
+        top: 130%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.data-raw {
+    @extend .api-edit;
+}
+.data-beautify {
+    @extend .api-edit;
+}
+.data-highlight {
+    @extend .api-edit;
+}
+.data-preview {
+    @extend .api-edit;
+}
