@@ -15,7 +15,7 @@ var perApiTpl = '<div class="api-info">' +
                     '<span class="api-save">save</span>' +
                     '<span class="api-test">test</span>' +
                 '</div>' +
-                '<div class="api-tree-wrapper"><div class="api-tree"></div></div>' +
+                '<div class="api-tree-wrapper"><div class="api-tree-frame"><svg class="api-svg" width="100%" height="100%"></svg></div><div class="api-tree"></div></div>' +
                 '<div class="api-data">' +
                     '<div class="data-views-control">' +
                         '<span class="data-raw">raw</span>' +
@@ -44,16 +44,18 @@ var initRectObj = {
   height: 0
 };
 
-export function apiDom() {
-  this.$apis = document.getElementsByClassName('apis')[0];
-  var preApisLen = this.$apis.getElementsByClassName('per-api').length;
-  var newDocFrag = document.createDocumentFragment();
+function createPerApi() {
   var perApiEle = document.createElement('div');
   perApiEle.setAttribute('class', 'per-api');
   perApiEle.innerHTML = perApiTpl;
+  return perApiEle;
+}
 
-  newDocFrag.appendChild(perApiEle);
-  this.$apis.appendChild(newDocFrag);
+export function ApiDom() {
+  this.$apis = document.getElementsByClassName('apis')[0];
+  var preApisLen = this.$apis.getElementsByClassName('per-api').length;
+
+  this.$apis.appendChild(createPerApi());
 
   this.bindEventsToMRCAPI();
 
@@ -63,29 +65,29 @@ export function apiDom() {
   this.$apiTree = recentApi.getElementsByClassName('api-tree')[0];
   this.$apiTree.appendChild(createLeaf('_data_root', 1, 0, initRectObj));
 
+  this.$apiTreeFrame = recentApi.getElementsByClassName('api-tree-frame')[0];
+
   this.initApiTree();
 
   this.calcDimensions();
-
-  this.initSVG();
 
   this.bindEventsToMRCE();
 
   this.apiReturnData = '';
 }
 
-apiDom.prototype.storeApiReturnData = function(data) {
+ApiDom.prototype.storeApiReturnData = function(data) {
   this.apiReturnData = data;
   this.$dataBeautify.click();
 };
-apiDom.prototype.jsonView = function(data) {
+ApiDom.prototype.jsonView = function(data) {
   var $pre = document.createElement('pre');
   $pre.innerHTML = data;
   this.$dataView.innerHTML = '';
   this.$dataView.appendChild($pre);
 
 };
-apiDom.prototype.bindEventsToMRCAPI = function() {
+ApiDom.prototype.bindEventsToMRCAPI = function() {
   var that = this;
   var newlyCreatedApiNode = this.$apis.lastChild;
 
@@ -110,29 +112,29 @@ apiDom.prototype.bindEventsToMRCAPI = function() {
     $apiUri.disabled = true;
   });
 
-  $apiTest.addEventListener('click', function(ev) {
-    xhr($apiMethod.value, $apiUri.value, that.storeApiReturnData.bind(that));
+  $apiTest.addEventListener('click', ev => {
+    xhr($apiMethod.value, $apiUri.value, this.storeApiReturnData.bind(that));
   });
 
-  $dataRaw.addEventListener('click', function(ev) {
-    that.jsonView(that.apiReturnData);
+  $dataRaw.addEventListener('click', ev => {
+    this.jsonView(this.apiReturnData);
   });
 
-  this.$dataBeautify.addEventListener('click', function(ev) {
-    that.jsonView(beautifyJSON(JSON.parse(that.apiReturnData)));
+  this.$dataBeautify.addEventListener('click', ev => {
+    this.jsonView(beautifyJSON(JSON.parse(this.apiReturnData)));
   });
 
-  $dataHighlight.addEventListener('click', function(ev) {
-    that.jsonView(hightlightJSON(JSON.parse(that.apiReturnData)));
+  $dataHighlight.addEventListener('click', ev => {
+    this.jsonView(hightlightJSON(JSON.parse(this.apiReturnData)));
   });
 
-  $dataPreview.addEventListener('click', function(ev) {
-    that.jsonView('This feature has not been accomplished yet.');
+  $dataPreview.addEventListener('click', ev => {
+    this.jsonView('This feature has not been accomplished yet.');
   });
 
 };
 
-apiDom.prototype.operateDataRootChild = function() {
+ApiDom.prototype.operateDataRootChild = function() {
   var that = this;
   var addMark = document.createElement('span');
   addMark.className = 'add-dataroot-child';
@@ -161,15 +163,7 @@ apiDom.prototype.operateDataRootChild = function() {
 
 };
 
-apiDom.prototype.initSVG = function() {
-  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttributeNS(null, 'width', this.dimensionArr[0] * 520 + 'px');
-  svg.setAttributeNS(null, 'height', this.dimensionArr[1] * 52 + 'px');
-  svg.setAttribute('class', 'api-svg');
-  this.$apiTree.insertBefore(svg, this.$apiTree.firstChild);
-};
-
-apiDom.prototype.initApiTree = function() {
+ApiDom.prototype.initApiTree = function() {
   this.apiTree = new Tree('_data_root');
   this.apiTree.add(1, '_data_root', this.apiTree.traverseBF);
 
@@ -178,7 +172,7 @@ apiDom.prototype.initApiTree = function() {
   return this.apiTree;
 };
 
-apiDom.prototype.delNode = function(ctx) {
+ApiDom.prototype.delNode = function(ctx) {
   var currentLeaf = ctx.currentTarget.closest('.leaf');
   var currentIdx = +ctx.currentTarget.parentNode.dataset.index;
   var parentIdx = isNaN(+ctx.currentTarget.parentNode.dataset.parent) ? '_data_root' : +ctx.currentTarget.parentNode.dataset.parent;
@@ -193,7 +187,7 @@ apiDom.prototype.delNode = function(ctx) {
   this.setParentNodeVal(parentIdx);
 
 };
-apiDom.prototype.removeNodesFromDom = function(arr) {
+ApiDom.prototype.removeNodesFromDom = function(arr) {
   var allLeaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
   var allLeavesLen = allLeaves.length;
   for (var i = 0; i < allLeavesLen; i++) {
@@ -211,23 +205,22 @@ function nodesArrToIdxArr(nodesArr) {
   return idxArr;
 }
 
-apiDom.prototype.bindEventsToMRCE = function() {
-  var that = this;
+ApiDom.prototype.bindEventsToMRCE = function() {
   var leaves = this.$apiTree.getElementsByClassName('leaf');
   var leavesLen = leaves.length;
   var newlyCreatedLeaf = leaves[leavesLen - 1];
   var $addChild = newlyCreatedLeaf.getElementsByClassName('add-child')[0];
-  $addChild.addEventListener('click', function(ctx) {
-    that.addChild(ctx);
+  $addChild.addEventListener('click', ctx => {
+    this.addChild(ctx);
   });
 
   var $removeChild = newlyCreatedLeaf.getElementsByClassName('remove-child')[0];
-  $removeChild.addEventListener('click', function(ctx) {
-    that.delNode(ctx);
+  $removeChild.addEventListener('click', ctx => {
+    this.delNode(ctx);
   });
 
 };
-apiDom.prototype.setParentNodeVal = function(idx) {
+ApiDom.prototype.setParentNodeVal = function(idx) {
   var leaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
   var queue = this.apiTree.traverseDirectChild(idx);
   var queueLen = queue._newestIndex - queue._oldestIndex;
@@ -242,7 +235,7 @@ apiDom.prototype.setParentNodeVal = function(idx) {
     };
   };
 };
-apiDom.prototype.addChild = function(ctx) {
+ApiDom.prototype.addChild = function(ctx) {
   this.leafIndex += 1;
   var parentIdex = +ctx.currentTarget.parentNode.dataset.index;
   var nodeLevel = +ctx.currentTarget.parentNode.dataset.level + 1;
@@ -290,9 +283,11 @@ function createLeaf(parentIdx, nodeIdx, nodeLevel, rectObj) {
   newLeaf.appendChild(generateLeafSpan(parentIdx, nodeIdx, nodeLevel, rectObj));
   return newLeaf;
 }
-apiDom.prototype.styleNodes = function(styleObj) {
+ApiDom.prototype.styleNodes = function(styleObj) {
   var leaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
-  var leafIdx, offsetY, originalX;
+  var leafIdx, offsetY, originalX = '';
+
+  var stylesArr = [], xValue, yValue;
 
   for (var i = 0; i < leaves.length; i++) {
     originalX = getTranslateX(leaves[i]);
@@ -303,12 +298,17 @@ apiDom.prototype.styleNodes = function(styleObj) {
         offsetY = styleObj[styleObjIdx] * 52;
       };
     }
-    leaves[i].style['transform'] = 'translate3d(' + originalX + 'px, ' + offsetY + 'px, 0)';
+    stylesArr.push([originalX, offsetY]);
   };
+
+  for (var j = 0, stylesArrLen = stylesArr.length; j < stylesArrLen; j++) {
+    leaves[j].style['transform'] = 'translate3d(' + stylesArr[j][0] + 'px, ' + stylesArr[j][1] + 'px, 0)';
+  }
+
   this.dimensionArr = this.calcDimensions();
   this.drawSVG();
 };
-apiDom.prototype.addSibling = function(ctx) {
+ApiDom.prototype.addSibling = function(ctx) {
   this.leafIndex += 1;
   var parentIdx = +ctx.currentTarget.parentNode.dataset.parent;
   var nodeLevel = +ctx.currentTarget.parentNode.dataset.level;
@@ -337,28 +337,37 @@ function cloneRectObj(obj) {
 }
 
 /* manipulate SVG */
-apiDom.prototype.clearSVG = function() {
-  var svg = this.$apiTree.getElementsByClassName('api-svg')[0];
+ApiDom.prototype.clearSVG = function() {
+  var svg = this.$apiTreeFrame.getElementsByClassName('api-svg')[0];
   while (svg.lastChild) {
     svg.removeChild(svg.lastChild);
   }
 };
-
-apiDom.prototype.drawSVG = function() {
+/**
+ * [drawSVG description]
+ * @return {[type]} [description]
+ */
+ApiDom.prototype.drawSVG = function() {
   this.clearSVG();
   var that = this;
+  var svgPartials = [];
   var callback = function(node) {
     if (node.parent !== null) {
-      that.drawSingleSVG(node.data, node.column, node.parent.totaloffsetylevel, (node.totaloffsetylevel - node.parent.totaloffsetylevel));
+      svgPartials.push(that.createSingleSVG(node.data, node.column, node.parent.totaloffsetylevel, (node.totaloffsetylevel - node.parent.totaloffsetylevel)));
     };
   };
   this.apiTree.traverseDF(callback);
+
+  var docFrag = document.createDocumentFragment();
+  for (var i = 0; i < svgPartials.length; i++) {
+    docFrag.appendChild(svgPartials[i]);
+  }
+  this.$apiTreeFrame.getElementsByClassName('api-svg')[0].appendChild(docFrag);
+
 };
 
-apiDom.prototype.drawSingleSVG = function(idx, hori, parentVert, dvert) {
-  var svg = this.$apiTree.getElementsByClassName('api-svg')[0];
-  svg.setAttributeNS(null, 'width', this.dimensionArr[0] * 520 + 'px');
-  svg.setAttributeNS(null, 'height', this.dimensionArr[1] * 52 + 'px');
+ApiDom.prototype.createSingleSVG = function(idx, hori, parentVert, dvert) {
+
   var svgns = 'http://www.w3.org/2000/svg';
   var newPath = document.createElementNS(svgns, 'path');
   var controlRate = 0.2;
@@ -381,24 +390,21 @@ apiDom.prototype.drawSingleSVG = function(idx, hori, parentVert, dvert) {
                                      tx + ' ' + ty + '');
   newPath.setAttribute('class', 'api-svg-path');
   newPath.setAttribute('data-idx', idx);
-  svg.appendChild(newPath);
+
+  return newPath;
 };
 
 /* calculate dimensions */
-apiDom.prototype.calcDimensions = function() {
+ApiDom.prototype.calcDimensions = function() {
   this.dimensionArr = this.apiTree.maxLevels();
   var horiMax, verticalMax, horiArr = [], vertArr = [];
   for (var i = 0, x = this.dimensionArr.length; i < x; i++) {
     horiArr.push(this.dimensionArr[i].length);
-    // vertArr.push(Math.max.apply(null, dimensionArr[i]));
   };
   horiMax = Math.max.apply(null, horiArr);
-  // verticalMax = vertArr.reduce(function(a, b) {
-  //   return a + b;
-  // });
   verticalMax = this.apiTree._root.childrenlevel;
-  this.$apiTree.style.width = horiMax * 520 + 'px';
-  this.$apiTree.style.height = verticalMax * 52 + 'px';
+  this.$apiTreeFrame.style.width = horiMax * 520 + 'px';
+  this.$apiTreeFrame.style.height = verticalMax * 52 + 'px';
   this.dimensionArr = [horiMax, verticalMax];
   return [horiMax, verticalMax];
 
@@ -406,9 +412,8 @@ apiDom.prototype.calcDimensions = function() {
 
 /* calculate offset */
 
-apiDom.prototype.nodeLeftOffset = function(el) {
+ApiDom.prototype.nodeLeftOffset = function(el) {
   var elRectObject = el.getBoundingClientRect();
-  // var bodyRectObj = document.body.getBoundingClientRect();
   var bodyRectObj = this.$apiTree.getBoundingClientRect();
   var cloneBodyRectObj = cloneRectObj(bodyRectObj);
   var cloneElRectObject = cloneRectObj(elRectObject);

@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   get    'help'    => 'static_pages#help'
   get    'about'   => 'static_pages#about'
   get    'contact' => 'static_pages#contact'
-  get    'log'     => 'static_pages#log'
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
+  get 'log' => 'logs#index'
+  # for the sake of debugging
   get 'demo' => 'demo#home'
 
   resources :apis
