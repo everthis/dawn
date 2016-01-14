@@ -92,6 +92,12 @@
 .show-link {
 	@extend .userName;
 }
+.show-link + .edit-link {
+	margin-left: .5rem;
+}
+.edit-link + .delete-user {
+	margin-left: .5rem;
+}
 .tweet-box[contenteditable="true"] {
 	outline: none;
     border: 1px solid rgba(74, 145, 60, 0.25);
