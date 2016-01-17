@@ -13,10 +13,11 @@
 	}
 	.card-link-following {
 		padding: $user-following-link-padding;
-		margin: $user-following-link-margin;
+		// margin: $user-following-link-margin;
 	}
 	.card-link-followers {
-		padding: 0 1rem;
+		padding: $user-following-link-padding;
+		margin: 0 0 0 1rem
 	}
 	.user-avatars {
 	    display: flex;

@@ -1,3 +1,106 @@
 .micropost-text {
 	word-break: break-all;
+	padding: 0.5rem 0;
+}
+.new-post,
+.profile-post {
+	font-size: 12px;
+}
+.new-post-text {
+	outline: none;
+	width: 100%;
+	max-width: 100%;
+}
+.new-post-toolbar {
+	@include clearfix();
+	text-align: center;
+
+	.image-upload {
+		position: relative;
+		float: left;
+
+	}
+	.micropost-input-file {
+		width: 0.1px;
+		height: 0.1px; /* width and height are set to 0.1px instead of just 0px. Setting the property values to zero ends up throwing the element out of tab party in some browsers.  */
+		opacity: 0;
+		overflow: hidden;
+		position: absolute;
+		z-index: -1;
+		+ label {
+	    color: #000;
+	    background-color: #fff;
+	    display: inline-block;
+	    cursor: pointer;
+	    border-radius: 4px;
+	    box-shadow: none;
+	    outline: none;
+	    border: 1px solid #999;
+	    line-height: 1rem;
+	    height: 1rem;
+	    padding: .5rem 2rem;
+	    box-sizing: content-box;
+	    max-width: 20rem;
+	    * {
+	    	pointer-events: none; /* deal with Possible Touch Issues */
+	    }
+		}
+		&:focus + label,
+		+ label:hover {
+		    background-color: #000;
+		    color: #fff;
+		}
+		&:focus + label {
+			// outline: 1px dotted #000;
+			// outline: -webkit-focus-ring-color auto 5px;
+		}
+	}
+	.btn-submit {
+		display: inline-block;
+		float: right;
+		background-color: #fff;
+    border-radius: 4px;
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #999;
+    line-height: 1rem;
+    height: 1rem;
+    padding: .5rem 2rem;
+    box-sizing: content-box;
+    &:hover {
+    	@extend %btn-hover-state;
+    }
+	}
+}
+.feeds {
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.microposts {
+	padding: 0;
+	width: 50rem;
+	border: 1px solid #e1e8ed;
+}
+
+.micropost {
+	display: flex;
+	border-top: 1px solid #e1e8ed;
+	padding: .8rem 1rem;
+	&:first-child {
+		border-top: none;
+	}
+	.avatar-section {
+		flex-basis: 5rem;
+		display: flex;
+    align-items: flex-start;
+    font-size: 0; // get rid of whitespace gap
+	}
+	.content {
+		flex: 1;
+	}
+	.micropost-img {
+		max-height: 665px;
+		overflow: hidden;
+	}
 }
