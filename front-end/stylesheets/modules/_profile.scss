@@ -2,22 +2,8 @@
 	display: flex;
 	align-items: center;
 }
-.follow-avatar-name {
-	margin: 0 2px;
-	.user-avatars &:hover {
-		background-color: initial;
-		color: #333;
-	} 
-	.avatar {
-		font-size: 0;
-	}
-	.name {
-		text-align: center;
-	}
-}
-.user-avatars {
-    display: flex;
-}
+
+
 .navbar {
 	height: 3em;
 }

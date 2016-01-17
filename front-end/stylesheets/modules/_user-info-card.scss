@@ -1,0 +1,47 @@
+.user-info-card {
+  @extend %card-box;
+	.self-info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.info {
+		padding: 0 1rem;
+	}
+	.card-block-btn {
+		width: 100%;
+	}
+	.card-link-following {
+		padding: $user-following-link-padding;
+		// margin: $user-following-link-margin;
+	}
+	.card-link-followers {
+		padding: $user-following-link-padding;
+		margin: 0 0 0 1rem
+	}
+	.user-avatars {
+	    display: flex;
+	    padding: .3rem 0 0 0;
+	    &:hover {
+  			background-color: initial;
+  			color: #333;
+  		} 
+	}
+	.follow-avatar-name {
+		margin: 0 2px;
+		.avatar {
+			font-size: 0;
+		}
+		.name {
+			text-align: center;
+		}
+	}
+	.follow {
+		&-status {
+			padding: $follow-status-padding;
+		}
+		&-action {
+			padding: $follow-action-padding;
+		}
+	}
+}
