@@ -1,20 +1,23 @@
 <% provide(:title, @user.name) %>
-  <div class="user-info-card">
+<div class="user-info-card">
+  <div class="self-info">
     <section class="avatar">
       <%= avatar_for @user %>
     </section>
     <section class="info">
-      <div class="user-name"><%= @user.name %></div>
+      <span class="user-name"><%= @user.name %></span>
+      <span><%= pluralize(@user.microposts.count, "micropost") %></span>
       <%= render 'shared/stats' %>
       <%= render 'follow_form' if logged_in? %>
     </section>
   </div>
-  <div class="feeds">
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
-      </ol>
-      <%= will_paginate @microposts %>
-    <% end %>
-  </div>
+</div>
+<div class="feeds">
+  <% if @user.microposts.any? %>
+    <h3>Microposts (<%= @user.microposts.count %>)</h3>
+    <ol class="microposts">
+      <%= render @microposts %>
+    </ol>
+    <%= will_paginate @microposts %>
+  <% end %>
+</div>

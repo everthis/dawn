@@ -17,6 +17,7 @@ Use classes to define visual presentation patterns1*/
 
 
 
+/* import all globals */
 @import "globals/variables";
 @import "globals/functions";
 @import "globals/mixins";
@@ -24,7 +25,11 @@ Use classes to define visual presentation patterns1*/
 @import "globals/math";
 @import "globals/common";
 
+/* import all modules */
 @import "modules/users";
+@import "modules/user-info-card";
+@import "modules/tweet-box";
+@import "modules/micropost";
 @import "modules/alert";
 @import "modules/api-tree";
 @import "modules/card";
@@ -33,5 +38,10 @@ Use classes to define visual presentation patterns1*/
 @import "modules/nav";
 @import "modules/profile";
 @import "modules/form";
+
+/* import all pages */
+@import "pages/index";
+
+
 
 @import "debug";

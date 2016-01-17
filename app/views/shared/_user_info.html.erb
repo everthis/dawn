@@ -1,6 +1,4 @@
-
 <section>
-	<div><%= current_user.name %></div>
-	<span><%= link_to "view my profile", current_user %></span>
+	<span><%= link_to current_user.name, current_user %></span>
 	<span><%= pluralize(current_user.microposts.count, "micropost") %></span>
 </section>

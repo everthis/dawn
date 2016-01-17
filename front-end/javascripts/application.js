@@ -1,4 +1,5 @@
 import {dataLinks} from './modules/dataLinks';
+import {home} from './modules/homepage';
 import {apiTree} from './api-tree/app-index';
 dataLinks();
 // apiTree();
@@ -8,13 +9,12 @@ dataLinks();
 
 (() => {
   let routes = {
+  	'/': home,
     '/apis': apiTree
   };
   let pathName = window.location.pathname;
-  for (pathName in routes) {
-    if (routes.hasOwnProperty(pathName)) {
-      routes[pathName].apply(null);
-    }
+  if (routes.hasOwnProperty(pathName)) {
+    routes[pathName].apply(null);
   }
 
 })();

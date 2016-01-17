@@ -15,8 +15,14 @@ function processDataLink(e) {
     handleMethod(e.target);
   }
 }
-// Handles "data-method" on links such as:
-// <a href="/users/5" data-method="delete" rel="nofollow" data-confirm="Are you sure?">Delete</a>
+
+/**
+ * [handleMethod description]
+ * @param  {HTMLElement} link [description]
+ * @return {[type]}      [description]
+ * Handles "data-method" on links such as:
+ * <a href="/users/5" data-method="delete" rel="nofollow" data-confirm="Are you sure?">Delete</a>
+ */
 function handleMethod(link) {
   var href = link.getAttribute('href'),
     method = link.dataset.method,

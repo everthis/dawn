@@ -6,12 +6,13 @@ function setFocus(el) {
   sel.removeAllRanges();
   sel.addRange(range);
 }
-var doc = document;
-var tb = doc.getElementsByClassName('tweet-box')[0];
-var tbd = tb.getElementsByTagName('div')[0];
-var tbdString = '<div><br></div>';
+export function tweetBox() {
+  var doc = document;
+  var tb = doc.getElementsByClassName('tweet-box')[0];
+  var tbd = tb.getElementsByTagName('div')[0];
+  var tbdString = '<div><br></div>';
 
-tb.addEventListener('focus', function(ev) {
+  tb.addEventListener('focus', function(ev) {
     tb.classList.remove('condensed');
     if (tb.getElementsByTagName('div') && tb.getElementsByTagName('div')[0].innerText.trim().length) {
 
@@ -24,7 +25,7 @@ tb.addEventListener('focus', function(ev) {
       tbd.innerHTML = '<br>';
     }
   });
-tb.addEventListener('keyup', function(ev) {
+  tb.addEventListener('keyup', function(ev) {
     if (tb.innerHTML) {
       if (tb.getElementsByTagName('div')[0] && tb.getElementsByTagName('div')[0].textContent) {
         tb.classList.remove('showPlaceholder');
@@ -39,14 +40,14 @@ tb.addEventListener('keyup', function(ev) {
     };
   });
 
-tb.addEventListener('keydown', function(ev) {
+  tb.addEventListener('keydown', function(ev) {
     if (tb.getElementsByTagName('div')[0] && tb.getElementsByTagName('div')[0].textContent) {
       tb.classList.remove('showPlaceholder');
     };
     if (tb.innerHTML === '<br>') {
-      console.log('null');
       tb.innerHTML = tbdString;
       setFocus(tb.getElementsByTagName('div')[0]);
     }
   });
+}
 

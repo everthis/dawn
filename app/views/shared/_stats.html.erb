@@ -1,5 +1,5 @@
 <% @user ||= current_user %>
-<div class="stats">
+<div class="follow-status">
   <a class="card-link-following" href="<%= following_user_path(@user) %>">
     <strong id="following" class="stat">
       <%= @user.following.count %>

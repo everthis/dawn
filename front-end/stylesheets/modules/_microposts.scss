@@ -37,11 +37,11 @@
 	.avatar-section {
 		flex-basis: 5rem;
 		display: flex;
-	    align-items: flex-start;
-	    font-size: 0; // get rid of whitespace gap
+    align-items: flex-start;
+    font-size: 0; // get rid of whitespace gap
 	}
 	.content {
-		flex-grow: 1;
+		flex: 1;
 	}
 	.micropost-img {
 		max-height: 665px;

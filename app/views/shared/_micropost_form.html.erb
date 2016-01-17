@@ -1,7 +1,10 @@
 <%= form_for(@micropost, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "What's happening?", class: "new-post-text" %>
+    <%= f.text_area :content, type: "hidden", placeholder: "What's happening?", class: "new-post-text" %>
+    <div class="tweet-box condensed tweet-box-text" contenteditable="true" spellcheck="true" role="textbox" data-placeholder-default="What's happening?">
+      <div>What's happening?</div>
+    </div>
   </div>
   <div class="new-post-toolbar">
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', id: "micropost_picture" %>
@@ -18,6 +21,19 @@
       if (size_in_megabytes > 5) {
         alert('Maximum file size is 5MB. Please choose a smaller file.');
       }
-    })
+    });
+
+    var tbt = document.getElementsByClassName('tweet-box-text')[0];
+    var postText = document.getElementsByClassName('new-post-text')[0];
+    var submitBtn = document.getElementsByClassName('btn-submit')[0];
+
+    submitBtn.addEventListener('click', function() {
+      if(tbt.textContent.trim() === 'What\'s happening?'){
+        postText.value = '';
+      } else {
+        postText.value = tbt.textContent.trim();
+      }
+    });
+
   })();
 </script>
