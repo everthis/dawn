@@ -19,3 +19,46 @@
     background-color: #000;
     color: #fff;
 }
+%ellipsis {
+    /**
+     * 1. Hide any overflow
+     * 2. Prevent any line-break
+     * 3. Add ellipsis at end of line
+     */
+    overflow: hidden;        /* 1 */
+    white-space: nowrap;     /* 2 */
+    text-overflow: ellipsis; /* 3 */
+}
+%reverse-ellipsis {
+  text-overflow: clip;
+  position: relative;
+  background-color: white;
+  &:before {
+    content: '\02026';
+    position: absolute;
+    z-index: 1;
+    left: -1em;
+    background-color: inherit;
+    padding-left: 1em;
+    margin-left: 0.5em;
+  }
+  span {
+    min-width: 100%;
+    position: relative;
+    display: inline-block;
+    float: right;
+    overflow: visible;
+    background-color: inherit;
+    text-indent: 0.5em;
+    &:before {
+        content: '';
+        position: absolute;
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        background-color: inherit;
+        z-index: 200;
+        left: -.5em;
+    }
+  }
+}

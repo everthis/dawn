@@ -37,9 +37,8 @@
 	    outline: none;
 	    border: 1px solid #999;
 	    line-height: 1rem;
-	    height: 1rem;
-	    padding: .5rem 2rem;
-	    box-sizing: content-box;
+	    height: 26px;
+	    padding: .5rem 1rem;
 	    max-width: 20rem;
 	    * {
 	    	pointer-events: none; /* deal with Possible Touch Issues */

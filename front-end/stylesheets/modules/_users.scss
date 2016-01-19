@@ -54,7 +54,7 @@
 	@extend .userName;
 }
 .show-link {
-	@extend .userName;
+	margin-left: .5rem;
 }
 .show-link + .edit-link {
 	margin-left: .5rem;

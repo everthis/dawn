@@ -9,6 +9,7 @@
   <% if current_user.admin? && !current_user?(user) %>
     <%= link_to "delete", user, class: "delete-user", method: :delete, data: { confirm: "You sure?" } %>
   <% end %>
-  
+
+  <%= render 'follow_form', object: @user = user if logged_in? %>
 </div>
 

@@ -21,3 +21,9 @@ body {
 textarea[type="hidden"] {
     display: none;
 }
+.ellipsis {
+	@extend %ellipsis;
+}
+.reverse-ellipsis {
+	@extend %reverse-ellipsis;
+}
