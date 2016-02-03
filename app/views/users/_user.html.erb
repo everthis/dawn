@@ -1,4 +1,4 @@
-<div class="per-row">
+<div class="per-row <%= cycle('list_line_odd', 'list_line_even') %>">
   <span class="s-avatar"><%= avatar_for user, size: "small_thumb" %></span>
   <span class="userName"><%= link_to user.name, user %></span>
   <span class="email"><%= user.email %></span>
@@ -9,6 +9,7 @@
   <% if current_user.admin? && !current_user?(user) %>
     <%= link_to "delete", user, class: "delete-user", method: :delete, data: { confirm: "You sure?" } %>
   <% end %>
-  
+
+  <%= render 'follow_form', object: @user = user if logged_in? %>
 </div>
 

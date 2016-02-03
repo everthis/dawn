@@ -26,12 +26,12 @@
   <% end %>
 </section>
 
-<div class="">
+<div class="users-list">
   <h3 class="center"><%= @title %></h3>
   <% if @users.any? %>
-    <ul class="users follow">
+    <div class=" follow">
       <%= render @users %>
-    </ul>
+    </div>
     <%= will_paginate %>
   <% end %>
 </div>
