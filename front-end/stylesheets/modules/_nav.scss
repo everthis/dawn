@@ -5,9 +5,11 @@
 .nav {
 	display: flex;
 	justify-content: center;
+	position: relative;
 	.static-links,
 	.user-links {
 		padding: 0 2rem;
+		position: relative;
 	}
 	.first-layer {
 		display: inline-block;
