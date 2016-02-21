@@ -1,12 +1,14 @@
 <%= form_for(@user) do |f| %>
-  <div class="row">
-    <%= render 'shared/error_messages', object: f.object %>
-  </div>
+  <% if f.object.errors.any? %>
+    <div class="">
+      <%= render 'shared/error_messages', object: f.object %>
+    </div>
+  <% end %>
   
   <% if logged_in? %>
   <div class="gravatar_edit">
     <%= avatar_for @user %>
-    <%= f.file_field :avatars, accept: 'image/jpeg,image/gif,image/png', id: "profile-avatar" %>
+    <%= render :partial => "shared/img_upload", :locals=>{:f=>f, :name=>:avatars} %>
   </div>
   <% end %>
 
