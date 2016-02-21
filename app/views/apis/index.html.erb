@@ -1,4 +1,17 @@
 <header>This Way, Sir!</header>
+	<%= will_paginate %>
+	  <%= render @apis %>
+	<%= will_paginate %>
 <div class="apis">
     <div class="add-api"><input class="add-api-btn" type="button" value="add API"></div>
 </div>
+
+<script>
+	document.addEventListener('click', function(ev) {
+		var id = undefined;
+		if (ev.target.classList.contains("api-li")) {
+		  	id = +ev.target.dataset.apiId;
+		  	
+		}
+	});
+</script>
