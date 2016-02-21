@@ -15,3 +15,13 @@
         vertical-align: top;
     }
 }
+
+@mixin sameHeightLineheight($height) {
+    height: $height;
+    line-height: $height;
+}
+
+@mixin square($val) {
+    height: $val;
+    width: $val;
+}

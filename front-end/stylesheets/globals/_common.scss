@@ -17,6 +17,29 @@ body {
 .center {
 	text-align: center;
 }
+input:not([type=checkbox]) {
+	appearance: none;
+}
+input,
+select {
+	border: none;
+	&:focus { 
+		outline: none; 
+	}
+}
+input:-webkit-autofill, 
+textarea:-webkit-autofill, 
+select:-webkit-autofill {
+  box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: #000;
+  &:focus {
+  	box-shadow: 0 0 0 1000px white inset;
+  	-webkit-text-fill-color: #000;
+  }
+}
+input[type="hidden"] {
+	display: none !important;
+}
 
 textarea[type="hidden"] {
     display: none;

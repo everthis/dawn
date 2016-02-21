@@ -1,4 +1,6 @@
 .user-info-card {
+	background-image: linear-gradient(180deg, rgba(255,255,255,0) 60%, #fff),
+										linear-gradient(70deg, #e0f1ff 32%, #fffae3);
   @extend %card-box;
 	.self-info {
 		display: flex;
