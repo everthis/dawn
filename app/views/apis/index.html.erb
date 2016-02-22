@@ -6,12 +6,3 @@
     <div class="add-api"><input class="add-api-btn" type="button" value="add API"></div>
 </div>
 
-<script>
-	document.addEventListener('click', function(ev) {
-		var id = undefined;
-		if (ev.target.classList.contains("api-li")) {
-		  	id = +ev.target.dataset.apiId;
-		  	
-		}
-	});
-</script>

@@ -1,48 +1,3 @@
-export function XHR(method, reqUrl, params) {
-  let req = new XMLHttpRequest();
-  let processedData = null;
-  let processedReqUrl = reqUrl;
-
-  req.addEventListener('progress', updateProgress);
-  req.addEventListener('load', transferComplete);
-  req.addEventListener('error', transferFailed);
-  req.addEventListener('abort', transferCanceled);
-
-  req.open(method, processedReqUrl);
-  req.send(processedData);
-
-  // progress on transfers from the server to the client (downloads)
-  function updateProgress(oEvent) {
-    if (oEvent.lengthComputable) {
-      var percentComplete = oEvent.loaded / oEvent.total;
-    } else {
-      // Unable to compute progress information since the total size is unknown
-    }
-  }
-
-  function transferComplete(evt) {
-    console.log('The transfer is complete.');
-  }
-
-  function transferFailed(evt) {
-    console.log('An error occurred while transferring the file.');
-  }
-
-  function transferCanceled(evt) {
-    console.log('The transfer has been canceled by the user.');
-  }
-}
-
-// Make sure that every Ajax request sends the CSRF token
-CSRFProtection: function(xhr) {
-  var token = rails.csrfToken();
-  if (token) xhr.setRequestHeader('X-CSRF-Token', token);
-},
-// Make sure that all forms have actual up-to-date tokens (cached forms contain old ones)
-refreshCSRFTokens: function(){
-  $('form input[name="' + rails.csrfParam() + '"]').val(rails.csrfToken());
-},
-
 /**
 // B-> Here you define its functions and its payload
 var mdnAPI = 'https://developer.mozilla.org/en-US/search.json';
@@ -76,7 +31,7 @@ $http(mdnAPI)
  */
 
 // A-> $http function is implemented in order to follow the standard Adapter pattern
-function $http(url) {
+export function $http(url) {
 
   // A small example of object
   var core = {
@@ -141,5 +96,10 @@ function $http(url) {
       return core.ajax('DELETE', url, args);
     }
   };
-};
+}
 // End A
+
+
+
+
+
