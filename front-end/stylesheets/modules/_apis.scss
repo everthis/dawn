@@ -1,4 +1,4 @@
-.apis {
+.api-ul-wrapper {
 	input {
 		border: 1px solid #999;
 	}
@@ -11,7 +11,7 @@
 		padding: .5rem;
 	}
 	.api-li {
-		padding: .5rem;
+		padding: .5rem 1.5rem;
 		border: 1px solid #ddd;
 		& + .api-li {
 			margin-top: .5rem;

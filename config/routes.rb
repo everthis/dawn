@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get    'help'    => 'static_pages#help'
   get    'about'   => 'static_pages#about'
   get    'contact' => 'static_pages#contact'
+  get    'dev'     => 'static_pages#dev'
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
@@ -14,6 +15,14 @@ Rails.application.routes.draw do
   get 'demo' => 'demo#home'
 
   resources :apis
+  # resources :apis, :defaults => { :format => 'json' } do
+    # member do
+    #   post :update_api
+    #   put :update_api
+    #   patch :update_api
+    # end
+  # end
+
   resources :users do
     member do
       get :following, :followers

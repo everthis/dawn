@@ -1,13 +1,13 @@
 import {xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {ApiDom} from './tree-dom';
 
-export function apiTree() {
+export function apiTree(data) {
   var addApiBtn = document.getElementsByClassName('add-api-btn')[0];
   var apisArr = [];
-  addApiBtn.addEventListener('click', function() {
-    var newApi = new ApiDom();
+  // addApiBtn.addEventListener('click', function() {
+    var newApi = new ApiDom(data);
     apisArr.push(newApi);
-  });
+  // });
 }
 
 function cb(data) {

@@ -1,31 +1,38 @@
 'use strict';
 import {Tree} from './tree';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
-var perApiTpl = '<div class="api-info">' +
-                    '<label class="api-label">API:</label>' +
-                    '<input class="api-uri" placeholder="" value="http://127.0.0.1:4567/foo" disabled="true" /> ' +
-                    '<label class="api-label">method:</label>' +
-                    '<select class="api-method">' +
-                        '<option value="GET" selected>GET</option>' +
-                        '<option value="POST">POST</option>' +
-                        '<option value="PATCH">PATCH</option>' +
-                        '<option value="DELETE">DELETE</option>' +
-                    '</select>' +
-                    '<span class="api-edit">edit</span>' +
-                    '<span class="api-save">save</span>' +
-                    '<span class="api-test">test</span>' +
-                '</div>' +
-                '<div class="api-tree-wrapper"><div class="api-tree-frame"><svg class="api-svg" width="100%" height="100%"></svg></div><div class="api-tree"></div></div>' +
-                '<div class="api-data">' +
-                    '<div class="data-views-control">' +
-                        '<span class="data-raw">raw</span>' +
-                        '<span class="data-beautify">beautify</span>' +
-                        '<span class="data-highlight">syntaxHighlight</span>' +
-                        '<span class="data-preview">preview</span>' +
-                    '</div>' +
-                    '<div class="data-view json">' +
-                    '</div>' +
-                '</div>';
+
+function perApiTpl(data) {
+  let tpl =
+      `<div class="api-info">
+          <label class="api-label">API:</label>
+          <input class="api-uri" placeholder="" value="" disabled="true" /> 
+          <label class="api-label">method:</label>
+          <select class="api-method">
+              <option value="GET" selected>GET</option>
+              <option value="POST">POST</option>
+              <option value="PATCH">PATCH</option>
+              <option value="DELETE">DELETE</option>
+          </select>
+          <label>section</label>
+          <input class="api-section" />
+          <span class="api-edit">edit</span>
+          <span class="api-save" data-method="patch" data-action="/apis/${data.id}" >save</span>
+          <span class="api-test">test</span>
+      </div>
+      <div class="api-tree-wrapper"><div class="api-tree-frame"><svg class="api-svg" width="100%" height="100%"></svg></div><div class="api-tree"></div></div>
+      <div class="api-data">
+          <div class="data-views-control">
+              <span class="data-raw">raw</span>
+              <span class="data-beautify">beautify</span>
+              <span class="data-highlight">syntaxHighlight</span>
+              <span class="data-preview">preview</span>
+          </div>
+          <div class="data-view json">
+          </div>
+      </div>`;
+  return tpl;
+}
 
 var leafContentTpl = '<i class="remove-child">-</i>' +
                      '<input type="text" class="leaf-key" placeholder="key" />' +
@@ -44,18 +51,20 @@ var initRectObj = {
   height: 0
 };
 
-function createPerApi() {
+function createPerApi(data) {
   var perApiEle = document.createElement('div');
   perApiEle.setAttribute('class', 'per-api');
-  perApiEle.innerHTML = perApiTpl;
+  perApiEle.dataset.id = data.id;
+  perApiEle.innerHTML = perApiTpl(data);
+  perApiEle.getElementsByClassName('api-uri')[0].value = data.uri;
   return perApiEle;
 }
 
-export function ApiDom() {
-  this.$apis = document.getElementsByClassName('apis')[0];
+export function ApiDom(data) {
+  this.$apis = document.body.getElementsByClassName('apis')[0];
   var preApisLen = this.$apis.getElementsByClassName('per-api').length;
 
-  this.$apis.appendChild(createPerApi());
+  this.$apis.appendChild(createPerApi(data));
 
   this.bindEventsToMRCAPI();
 

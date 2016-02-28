@@ -31,36 +31,35 @@ $http(mdnAPI)
  */
 
 // A-> $http function is implemented in order to follow the standard Adapter pattern
-export function $http(url) {
+import {serialize} from './serialize';
+import {isEmpty, mergeObj, addPrefixToObj, wrapObj} from './utilities';
+import {rorParams as RPs} from './csrf';
 
+export function $http(url) {
   // A small example of object
   var core = {
 
     // Method that performs the ajax request
-    ajax: function(method, url, args) {
-
+    ajax: function(method, url, args = {}, prefix) {
+      // for Rails
+      // url = url + '.json';
       // Creating a promise
       var promise = new Promise(function(resolve, reject) {
 
         // Instantiates the XMLHttpRequest
         var client = new XMLHttpRequest();
-        var uri = url;
 
-        if (args && (method === 'POST' || method === 'PUT')) {
-          uri += '?';
-          var argcount = 0;
-          for (var key in args) {
-            if (args.hasOwnProperty(key)) {
-              if (argcount++) {
-                uri += '&';
-              }
-              uri += encodeURIComponent(key) + '=' + encodeURIComponent(args[key]);
-            }
-          }
-        }
-
-        client.open(method, uri);
-        client.send();
+        if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+          let uri = JSON.stringify(extendGeneralParams(wrapObj(args, prefix)));
+          client.open(method, url);
+          // client.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          client.setRequestHeader('Content-type', 'application/json');
+          client.send(uri);
+        } else if (method === 'GET') {
+          let uri = serialize(extendGeneralParams(addPrefixToObj(args, prefix)));
+          client.open(method, url + '?' + uri);
+          client.send();
+        };
 
         client.onload = function() {
           if (this.status >= 200 && this.status < 300) {
@@ -83,23 +82,31 @@ export function $http(url) {
 
   // Adapter pattern
   return {
-    'get': function(args) {
-      return core.ajax('GET', url, args);
+    'get': function(args, prefix) {
+      return core.ajax('GET', url, args, prefix);
     },
-    'post': function(args) {
-      return core.ajax('POST', url, args);
+    'post': function(args, prefix) {
+      return core.ajax('POST', url, args, prefix);
     },
-    'put': function(args) {
-      return core.ajax('PUT', url, args);
+    'put': function(args, prefix) {
+      return core.ajax('PUT', url, args, prefix);
     },
-    'delete': function(args) {
-      return core.ajax('DELETE', url, args);
+    'patch': function(args, prefix) {
+      return core.ajax('PATCH', url, args, prefix);
+    },
+    'delete': function(args, prefix) {
+      return core.ajax('DELETE', url, args, prefix);
     }
   };
 }
+
+function extendGeneralParams(obj) {
+  let csrfParam = RPs.csrfParam(),
+    csrfToken = RPs.csrfToken();
+  let generalObj = {};
+  generalObj.utf8 = '✓';
+  generalObj[csrfParam] = csrfToken;
+  return mergeObj(obj, generalObj);
+}
 // End A
-
-
-
-
 
