@@ -1,5 +1,6 @@
 'use strict';
 import {Tree} from './tree';
+import {popup} from '../common/popup';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 
 function perApiTpl(data) {
@@ -60,21 +61,21 @@ function createPerApi(data) {
   return perApiEle;
 }
 
-export function ApiDom(data) {
-  this.$apis = document.body.getElementsByClassName('apis')[0];
-  var preApisLen = this.$apis.getElementsByClassName('per-api').length;
+export function ApiDom(data, containerNode) {
+  this.apiContainer = containerNode;
 
-  this.$apis.appendChild(createPerApi(data));
+  this.apiContainer.appendChild(createPerApi(data));
 
+  this.apiEle = this.apiContainer.getElementsByClassName('per-api')[0];
+  
   this.bindEventsToMRCAPI();
 
   this.leafIndex = 1;
 
-  var recentApi = this.$apis.getElementsByClassName('per-api')[preApisLen];
-  this.$apiTree = recentApi.getElementsByClassName('api-tree')[0];
+  this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
   this.$apiTree.appendChild(createLeaf('_data_root', 1, 0, initRectObj));
 
-  this.$apiTreeFrame = recentApi.getElementsByClassName('api-tree-frame')[0];
+  this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
 
   this.initApiTree();
 
@@ -98,7 +99,7 @@ ApiDom.prototype.jsonView = function(data) {
 };
 ApiDom.prototype.bindEventsToMRCAPI = function() {
   var that = this;
-  var newlyCreatedApiNode = this.$apis.lastChild;
+  var newlyCreatedApiNode = this.apiEle;
 
   var $apiEdit = newlyCreatedApiNode.getElementsByClassName('api-edit')[0];
   var $apiSave = newlyCreatedApiNode.getElementsByClassName('api-save')[0];
@@ -166,7 +167,8 @@ ApiDom.prototype.operateDataRootChild = function() {
   delMark.textContent = '-';
   delMark.addEventListener('click', function(ev) {
       /* this API is deleted. */
-      that.$apis.removeChild(ev.currentTarget.closest('.per-api'));
+      popup(ev);
+      // that.apiContainer.removeChild(ev.currentTarget.closest('.per-api'));
     });
   this.$apiTree.insertBefore(delMark, this.$apiTree.firstChild);
 

@@ -101,8 +101,8 @@ export function $http(url) {
 }
 
 function extendGeneralParams(obj) {
-  let csrfParam = RPs.csrfParam(),
-    csrfToken = RPs.csrfToken();
+  let csrfParam = RPs.csrfParam();
+  let csrfToken = RPs.csrfToken();
   let generalObj = {};
   generalObj.utf8 = '✓';
   generalObj[csrfParam] = csrfToken;

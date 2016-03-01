@@ -1,15 +1,16 @@
 import {$http} from '../common/ajax';
 import {html} from '../common/template';
 import {insertAfter} from '../common/utilities';
-import {apiTree} from '../api-tree/app-index';
+import {ApiDom} from '../api-tree/tree-dom';
 
 let rootAPI = window.location.origin + '/apis';
 let payload = {};
+let apisArr = [];
 
 var callback = {
-  success: function(data) {
-    console.log(1, 'success', JSON.parse(data));
-    apiTree(JSON.parse(data));
+  getApiSuccess: function(data) {
+    let newApi = new ApiDom(JSON.parse(data), this);
+    apisArr.push(newApi);
   },
   getAllApisSuccess: function(data) {
     renderAllApis(data);
@@ -17,6 +18,9 @@ var callback = {
   },
   patchSuccess: function(data) {
     console.log(JSON.parse(data));
+  },
+  success: function(data) {
+    console.log(data);
   },
   error: function(data) {
     console.log(2, 'error', JSON.parse(data));
@@ -26,13 +30,21 @@ export function initXhr() {
   getAllApis();
   document.addEventListener('click', bindEvent);
 }
+
+function toggleFoldLi(context) {
+  context.classList.toggle('unfold');
+}
 function bindevents() {
-  let apiLis = document.getElementsByClassName('api-li');
+  let apiLis = document.getElementsByClassName('api-li-description');
   [].slice.call(apiLis).forEach(function(element, index) {
     element.addEventListener('click', function(ev) {
-      $http(rootAPI + '/' + ev.currentTarget.dataset.apiId)
+      toggleFoldLi(this);
+      if (this.nextElementSibling) {
+        return;
+      };
+      $http(rootAPI + '/' + this.parentNode.dataset.apiId)
       .get(payload)
-      .then(callback.success)
+      .then(callback.getApiSuccess.bind(this.parentNode))
       .catch(callback.error);
     });
   });
@@ -43,9 +55,10 @@ function renderAllApis(data) {
       <ul class="api-ul">
       ${data.map(item => html`
           <li class="api-li" data-api-id="$${item.id}">
-            <div>
-              <span class="api-li-name">$${item.name}</span>
-              <span class="api-li-uri">$${item.uri}</span>
+            <div class="api-li-description">
+              <span class="api-li-collapse"><svg class="icon icon-down"><use xlink:href="#icon-down"></use></svg></span>
+              <span class="api-li-uri">$${item.uri || "(No uri)"}</span>
+              <span class="api-li-name">$${item.name ? item.name : "(No name)"}</span>
             </div>
           </li>
       `)}

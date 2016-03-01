@@ -7,9 +7,8 @@
     margin: 0 0 1em 0;
 }
 .per-api {
-    padding: 0 0 0 0;
-    margin: 0 0 2em 0;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem 0 2rem 0;
+    margin: 0 1rem 0 1rem;
     box-shadow: 0 5px 4px -5px purple;
 }
 .api-edit {
@@ -31,6 +30,9 @@
 }
 .api-tree-wrapper {
     position: relative;
+}
+.api-data {
+    padding: .5rem 0 0 0;
 }
 .api-tree-frame {
     padding: 0 0 0 30px;

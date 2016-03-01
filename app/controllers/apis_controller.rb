@@ -9,6 +9,11 @@ class ApisController < ApplicationController
   end
 
   def create
+    @api = Api.new(user_params)
+    if @api.save
+      @api.send_activation_email
+    else
+    end
   end
 
   def show
@@ -31,10 +36,21 @@ class ApisController < ApplicationController
     end
   end
 
+  def destroy
+    @api = Api.find(params[:id])
+    respond_to do |format|
+      if @api.destroy
+        format.json { render :json => {:status => "Ok", :message => "API has been deleted."} }
+      else
+        format.json { render json: @api.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
     def user_params
-      params.require(:api).permit(:id, :section, :data)
+      params.require(:api).permit(:method, :name, :uri, :section, :data )
     end
 
     def ensure_json_request  

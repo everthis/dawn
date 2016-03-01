@@ -40,7 +40,7 @@ export function wrapObj(obj, wrapper) {
  * [insertAfter description: According to MDN if the element is last (and so nextSibling is null) the newNode will be appended as expected]
  * @param  {[type]} newNode       [description]
  * @param  {[type]} referenceNode [description]
- * @return {[type]}               [description]
+ * @return {undefined}               [description]
  */
 export function insertAfter(newNode, referenceNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);

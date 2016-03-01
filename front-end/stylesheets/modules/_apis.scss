@@ -11,10 +11,27 @@
 		padding: .5rem;
 	}
 	.api-li {
-		padding: .5rem 1.5rem;
-		border: 1px solid #ddd;
+		border-top: 1px solid #999;
+		border-bottom: 1px solid #ddd;
+		border-left: 1px solid #999;
+		border-right: 1px solid #999;
 		& + .api-li {
-			margin-top: .5rem;
+			margin-top: 1.5rem;
+		}
+	}
+	.api-li-uri {
+		display: inline-block;
+		width: 20rem;
+		padding: 0 0 0 1rem;
+	}
+	.api-li-description {
+		padding: .5rem 1rem;
+		& + .per-api {
+			display: none;
+			border-top: 1px solid #ddd;
+		}
+		&.unfold + .per-api {
+			display: block;
 		}
 	}
 }
