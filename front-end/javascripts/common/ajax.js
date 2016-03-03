@@ -49,7 +49,7 @@ export function $http(url) {
         // Instantiates the XMLHttpRequest
         var client = new XMLHttpRequest();
 
-        if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
+        if (method === 'POST' || method === 'PUT' || method === 'PATCH' || method === 'DELETE') {
           let uri = JSON.stringify(extendGeneralParams(wrapObj(args, prefix)));
           client.open(method, url);
           // client.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

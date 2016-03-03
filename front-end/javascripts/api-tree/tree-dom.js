@@ -3,11 +3,11 @@ import {Tree} from './tree';
 import {popup} from '../common/popup';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 
-function perApiTpl(data) {
+function perApiTpl(data, isNewApi = false) {
   let tpl =
       `<div class="api-info">
           <label class="api-label">API:</label>
-          <input class="api-uri" placeholder="" value="" disabled="true" /> 
+          <input class="api-uri" placeholder="" value="" /> 
           <label class="api-label">method:</label>
           <select class="api-method">
               <option value="GET" selected>GET</option>
@@ -17,8 +17,7 @@ function perApiTpl(data) {
           </select>
           <label>section</label>
           <input class="api-section" />
-          <span class="api-edit">edit</span>
-          <span class="api-save" data-method="patch" data-action="/apis/${data.id}" >save</span>
+          <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
           <span class="api-test">test</span>
       </div>
       <div class="api-tree-wrapper"><div class="api-tree-frame"><svg class="api-svg" width="100%" height="100%"></svg></div><div class="api-tree"></div></div>
@@ -52,19 +51,25 @@ var initRectObj = {
   height: 0
 };
 
-function createPerApi(data) {
+function patchOrPost(isNewApi) {
+  return isNewApi ? 'POST' : 'PATCH';
+}
+function saveOrCreate(data, isNewApi) {
+  return isNewApi ? '' : `/${data.id}`;
+}
+function createPerApi(data, isNewApi) {
   var perApiEle = document.createElement('div');
   perApiEle.setAttribute('class', 'per-api');
   perApiEle.dataset.id = data.id;
-  perApiEle.innerHTML = perApiTpl(data);
-  perApiEle.getElementsByClassName('api-uri')[0].value = data.uri;
+  perApiEle.innerHTML = perApiTpl(data, isNewApi);
+  perApiEle.getElementsByClassName('api-uri')[0].value = isNewApi ? '' : data.uri;
   return perApiEle;
 }
 
-export function ApiDom(data, containerNode) {
+export function ApiDom(data, containerNode, isNewApi) {
   this.apiContainer = containerNode;
 
-  this.apiContainer.appendChild(createPerApi(data));
+  this.apiContainer.appendChild(createPerApi(data, isNewApi));
 
   this.apiEle = this.apiContainer.getElementsByClassName('per-api')[0];
   
@@ -101,7 +106,6 @@ ApiDom.prototype.bindEventsToMRCAPI = function() {
   var that = this;
   var newlyCreatedApiNode = this.apiEle;
 
-  var $apiEdit = newlyCreatedApiNode.getElementsByClassName('api-edit')[0];
   var $apiSave = newlyCreatedApiNode.getElementsByClassName('api-save')[0];
   var $apiUri = newlyCreatedApiNode.getElementsByClassName('api-uri')[0];
   var $apiTest = newlyCreatedApiNode.getElementsByClassName('api-test')[0];
@@ -113,10 +117,6 @@ ApiDom.prototype.bindEventsToMRCAPI = function() {
   var $dataPreview = newlyCreatedApiNode.getElementsByClassName('data-preview')[0];
 
   this.$dataView = newlyCreatedApiNode.getElementsByClassName('data-view')[0];
-
-  $apiEdit.addEventListener('click', function(ev) {
-    $apiUri.disabled = false;
-  });
 
   $apiSave.addEventListener('click', function(ev) {
     $apiUri.disabled = true;
@@ -167,7 +167,7 @@ ApiDom.prototype.operateDataRootChild = function() {
   delMark.textContent = '-';
   delMark.addEventListener('click', function(ev) {
       /* this API is deleted. */
-      popup(ev);
+
       // that.apiContainer.removeChild(ev.currentTarget.closest('.per-api'));
     });
   this.$apiTree.insertBefore(delMark, this.$apiTree.firstChild);

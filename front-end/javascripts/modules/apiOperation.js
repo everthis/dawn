@@ -1,5 +1,6 @@
 import {$http} from '../common/ajax';
 import {html} from '../common/template';
+import {popup} from '../common/popup';
 import {insertAfter} from '../common/utilities';
 import {ApiDom} from '../api-tree/tree-dom';
 
@@ -51,8 +52,8 @@ function bindevents() {
     });
   });
 }
-function addApiTree(data = {}, containerNode) {
-  let newApi = new ApiDom(data, containerNode);
+function addApiTree(data = {}, containerNode, isNewApi) {
+  let newApi = new ApiDom(data, containerNode, isNewApi);
   apisArr.push(newApi);
 }
 function newApiBtn() {
@@ -60,11 +61,11 @@ function newApiBtn() {
   let header = document.getElementsByTagName('header')[0];
   newApiDiv.classList.add('new-api');
   newApiDiv.innerHTML = `<input class="add-api-btn" type="button" value="new API">`;
-  newApiDiv.addEventListener('click', function() {
+  newApiDiv.children[0].addEventListener('click', function() {
     let apiUl = document.getElementsByClassName('api-ul')[0];
     let baseApiLi = strToDom(newApiLiTpl());
     apiUl.insertBefore(baseApiLi, apiUl.firstChild);
-    addApiTree({}, baseApiLi);
+    addApiTree({}, baseApiLi, true);
     toggleFoldLi(baseApiLi.children[0]);
     baseApiLi.children[0].addEventListener('click', function(ev) {
       bindEventToApiLiDescription.call(this, ev);
@@ -106,6 +107,14 @@ function renderAllApis(data) {
   apiListEle.innerHTML = tmpl(data);
   insertAfter(apiListEle, newApiBtn());
 }
+
+function del (argument) {
+   var action = ev.target.closest('.api-tree-wrapper').previousSibling.getElementsByClassName('api-save')[0].dataset.action;
+   var params = {'action': action};
+   var callback = function() {
+     
+   };
+}
 function getAllApis() {
   $http(rootAPI)
   .get(payload)
@@ -116,10 +125,30 @@ function getAllApis() {
 function bindEvent(ev) {
   if (ev.target.classList.contains('api-save')) {
     let params = {
-      'section': ev.target.parentNode.getElementsByClassName('api-section')[0].value
+      'section': ev.target.parentNode.getElementsByClassName('api-section')[0].value,
+      'uri': ev.target.parentNode.getElementsByClassName('api-uri')[0].value,
+      'method': ev.target.parentNode.getElementsByClassName('api-method')[0].value
     };
+    if (ev.target.dataset.method.toUpperCase() === "PATCH") {
+      $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
+      .patch(params, 'api')
+      .then(callback.success)
+      .catch(callback.error);
+    } else if (ev.target.dataset.method.toUpperCase() === 'POST') {
+      $http(rootAPI)
+      .post(params, 'api')
+      .then(callback.success)
+      .catch(callback.error);
+    }
+  };
+
+  if (ev.target.classList.contains('del-dataroot-child')) {
+    popup(ev, {}, deleteApi.bind(this, ev)); 
+  };
+  function deleteApi(ev) {
+    let params = {};
     $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
-    .patch(params, 'api')
+    .delete(params)
     .then(callback.success)
     .catch(callback.error);
   }

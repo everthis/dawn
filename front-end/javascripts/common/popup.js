@@ -1,10 +1,10 @@
 import {disableScroll, enableScroll} from './toggleScroll';
-export function popup(ev, callback) {
+export function popup(ev, params, callback) {
   let popupEle = document.createElement('div');
   popupEle.classList.add('popup-layer');
   popupEle.innerHTML = generatePopupTpl();
   positionPopupEle(popupEle, ev);
-  bindPopupEvents(popupEle);
+  bindPopupEvents(popupEle, ev, params, callback);
   document.body.appendChild(popupEle);
   disableScroll();
 }
@@ -24,8 +24,14 @@ function generatePopupTpl(data) {
   return tpl;
 }
 
-function bindPopupEvents(ele) {
+function bindPopupEvents(ele, ev, params, callback) {
   ele.getElementsByClassName('popup-shadow')[0].addEventListener('click', closePopup);
+  ele.getElementsByClassName('popup-confirm-btn')[0].addEventListener('click', confirm.bind(this, ev, ele, params, callback));
+}
+
+function confirm(ev, ele, params, callback) {
+  callback();
+  document.body.removeChild(ele);
 }
 
 function positionPopupEle(ele, coordinates) {

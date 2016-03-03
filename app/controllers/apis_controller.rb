@@ -10,9 +10,12 @@ class ApisController < ApplicationController
 
   def create
     @api = Api.new(user_params)
-    if @api.save
-      @api.send_activation_email
-    else
+    respond_to do |format|
+      if @api.save
+        format.json { render :json => @api }
+      else
+        format.json { render json: @api.errors, status: :unprocessable_entity }
+      end
     end
   end
 

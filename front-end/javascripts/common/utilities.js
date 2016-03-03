@@ -26,10 +26,10 @@ export function addPrefixToObj(obj, prefix) {
 }
 export function wrapObj(obj, wrapper) {
   if (!wrapper) return obj;
-  let newObj = {};
-  for (let key in obj) {
+  var newObj = {};
+  newObj[wrapper] = {};
+  for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
-      newObj[wrapper] = {};
       newObj[wrapper][key] = obj[key];
     }
   }
