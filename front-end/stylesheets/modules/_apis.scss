@@ -1,9 +1,12 @@
 .api-ul-wrapper {
 	input {
-		border: 1px solid #999;
+		border-bottom: 1px solid #999;
 	}
 	select {
-		border: 1px solid #999;
+		border: 0;
+
+		box-shadow: 0 1px 0 #999;
+		background-color: #fff;
 
 	}
 	.api-ul {

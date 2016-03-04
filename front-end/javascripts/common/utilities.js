@@ -36,6 +36,12 @@ export function wrapObj(obj, wrapper) {
   return newObj;
 }
 
+export function strToDom(str) {
+  let tmpEle = document.createElement('div');
+  tmpEle.innerHTML = str;
+  let returnDom = tmpEle.children[0];
+  return returnDom;
+}
 /**
  * [insertAfter description: According to MDN if the element is last (and so nextSibling is null) the newNode will be appended as expected]
  * @param  {[type]} newNode       [description]

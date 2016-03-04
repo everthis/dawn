@@ -60,7 +60,7 @@ function saveOrCreate(data, isNewApi) {
 function createPerApi(data, isNewApi) {
   var perApiEle = document.createElement('div');
   perApiEle.setAttribute('class', 'per-api');
-  perApiEle.dataset.id = data.id;
+  perApiEle.dataset.id = isNewApi ? '' : data.id;
   perApiEle.innerHTML = perApiTpl(data, isNewApi);
   perApiEle.getElementsByClassName('api-uri')[0].value = isNewApi ? '' : data.uri;
   return perApiEle;
@@ -119,7 +119,6 @@ ApiDom.prototype.bindEventsToMRCAPI = function() {
   this.$dataView = newlyCreatedApiNode.getElementsByClassName('data-view')[0];
 
   $apiSave.addEventListener('click', function(ev) {
-    $apiUri.disabled = true;
   });
 
   $apiTest.addEventListener('click', ev => {
