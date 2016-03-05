@@ -1,7 +1,7 @@
 import {$http} from '../common/ajax';
 import {html} from '../common/template';
 import {popup} from '../common/popup';
-import {insertAfter, strToDom} from '../common/utilities';
+import {insertAfter, strToDom, debounce} from '../common/utilities';
 import {flash} from '../common/flash';
 import {ApiDom} from '../api-tree/tree-dom';
 
@@ -24,7 +24,10 @@ var callback = {
     parseAndFlash(data);
   },
   deleteSuccess: function(data) {
-    parseAndFlash(data);
+    function destoryApiLi() {
+      this.target.closest('.api-ul').removeChild(this.target.closest('.api-li'));
+    }
+    parseAndFlash(data, destoryApiLi.bind(this));
   },
   success: function(data) {
     console.log(data);
@@ -38,9 +41,9 @@ export function initXhr() {
   document.addEventListener('click', bindEvent);
 }
 
-function parseAndFlash(data) {
+function parseAndFlash(data, callback) {
   let jsonData = JSON.parse(data);
-  flash(jsonData);
+  flash(jsonData, callback);
   return jsonData;
 }
 
@@ -69,21 +72,24 @@ function addApiTree(data = {}, containerNode, isNewApi) {
   let newApi = new ApiDom(data, containerNode, isNewApi);
   apisArr.push(newApi);
 }
+
+let debouncedNewApiBtn = debounce(processNewApiClick, 500, true);
+function processNewApiClick() {
+  let apiUl = document.getElementsByClassName('api-ul')[0];
+  let baseApiLi = strToDom(newApiLiTpl());
+  apiUl.insertBefore(baseApiLi, apiUl.firstChild);
+  addApiTree({}, baseApiLi, true);
+  toggleFoldLi(baseApiLi.children[0]);
+  baseApiLi.children[0].addEventListener('click', function(ev) {
+      bindEventToApiLiDescription.call(this, ev);
+    });
+}
 function newApiBtn() {
   let newApiDiv = document.createElement('div');
   let header = document.getElementsByTagName('header')[0];
   newApiDiv.classList.add('new-api');
   newApiDiv.innerHTML = `<input class="add-api-btn" type="button" value="new API">`;
-  newApiDiv.children[0].addEventListener('click', function() {
-    let apiUl = document.getElementsByClassName('api-ul')[0];
-    let baseApiLi = strToDom(newApiLiTpl());
-    apiUl.insertBefore(baseApiLi, apiUl.firstChild);
-    addApiTree({}, baseApiLi, true);
-    toggleFoldLi(baseApiLi.children[0]);
-    baseApiLi.children[0].addEventListener('click', function(ev) {
-      bindEventToApiLiDescription.call(this, ev);
-    });
-  });
+  newApiDiv.children[0].addEventListener('click', debouncedNewApiBtn);
   insertAfter(newApiDiv, header);
   return newApiDiv;
 }
@@ -155,7 +161,7 @@ function bindEvent(ev) {
     let params = {};
     $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
     .delete(params)
-    .then(callback.deleteSuccess)
+    .then(callback.deleteSuccess.bind(ev))
     .catch(callback.error);
   }
 }

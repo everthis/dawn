@@ -1,3 +1,6 @@
+/**
+ * width of single svg path: 30px
+ */
 'use strict';
 import {Tree} from './tree';
 import {popup} from '../common/popup';
@@ -15,8 +18,10 @@ function perApiTpl(data, isNewApi = false) {
               <option value="PATCH">PATCH</option>
               <option value="DELETE">DELETE</option>
           </select>
-          <label>section</label>
-          <input class="api-section" />
+          <label>section:</label>
+          <input class="api-section" type="text" />
+          <label for="">description:</label>
+          <input class="api-description" type="text" />
           <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
           <span class="api-test">test</span>
       </div>
@@ -50,6 +55,8 @@ var initRectObj = {
   width: 0,
   height: 0
 };
+var perSVGPathWidth = 30;
+var rootNodeWidth = perSVGPathWidth + 15;
 
 function patchOrPost(isNewApi) {
   return isNewApi ? 'POST' : 'PATCH';
@@ -284,7 +291,7 @@ function generateLeafSpan(parentId, nodeIndex, nodeLevel, rectObj) {
   newLeafSpan.setAttribute('data-parent', parentId);
   newLeafSpan.setAttribute('data-index', nodeIndex);
   newLeafSpan.setAttribute('data-level', nodeLevel);
-  newLeafSpan.style['transform'] = 'translate3d(' + Math.round(rectObj.right) + 'px, ' + Math.round(rectObj.bottom) + 'px, 0)';
+  newLeafSpan.style['transform'] = 'translate3d(' + Math.round(rectObj.width * nodeLevel + perSVGPathWidth * nodeLevel) + 'px, ' + Math.round(rectObj.bottom) + 'px, 0)';
   newLeafSpan.innerHTML = leafContentTpl;
   return newLeafSpan;
 }
