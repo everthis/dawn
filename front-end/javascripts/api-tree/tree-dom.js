@@ -85,7 +85,7 @@ export function ApiDom(data, containerNode, isNewApi) {
   this.leafIndex = 1;
 
   this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
-  this.$apiTree.appendChild(createLeaf('_data_root', 1, 0, initRectObj));
+  this.$apiTree.appendChild(createLeaf(0, 1, 0, initRectObj));
 
   this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
 
@@ -157,7 +157,7 @@ ApiDom.prototype.operateDataRootChild = function() {
   addMark.textContent = '+';
   addMark.addEventListener('click', function(ev) {
       that.leafIndex += 1;
-      var parentIdx = '_data_root';
+      var parentIdx = 0;
       var nodeLevel = 0;
       that.apiTree.add(that.leafIndex, parentIdx, that.apiTree.traverseBF);
 
@@ -181,8 +181,8 @@ ApiDom.prototype.operateDataRootChild = function() {
 };
 
 ApiDom.prototype.initApiTree = function() {
-  this.apiTree = new Tree('_data_root');
-  this.apiTree.add(1, '_data_root', this.apiTree.traverseBF);
+  this.apiTree = new Tree(0);
+  this.apiTree.add(1, 0, this.apiTree.traverseBF);
 
   this.operateDataRootChild();
 
@@ -192,12 +192,14 @@ ApiDom.prototype.initApiTree = function() {
 ApiDom.prototype.delNode = function(ctx) {
   var currentLeaf = ctx.currentTarget.closest('.leaf');
   var currentIdx = +ctx.currentTarget.parentNode.dataset.index;
-  var parentIdx = isNaN(+ctx.currentTarget.parentNode.dataset.parent) ? '_data_root' : +ctx.currentTarget.parentNode.dataset.parent;
+  var parentIdx = (+ctx.currentTarget.parentNode.dataset.parent === 0) ? 0 : +ctx.currentTarget.parentNode.dataset.parent;
 
   var nodesArr = this.apiTree.traverseDescendants(currentIdx);
   var idxArr = nodesArrToIdxArr(nodesArr);
   this.apiTree.remove(currentIdx, parentIdx, this.apiTree.traverseBF);
   this.removeNodesFromDom(idxArr);
+
+  console.log(this.apiTree);
 
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
@@ -280,6 +282,7 @@ ApiDom.prototype.addChild = function(ctx) {
   this.$apiTree.appendChild(createLeaf(parentIdex, this.leafIndex, nodeLevel, clonedRectObj));
   this.bindEventsToMRCE();
   var obj = this.apiTree.applyStyle();
+  console.log(this.apiTree);
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdex);
 
@@ -329,7 +332,7 @@ ApiDom.prototype.addSibling = function(ctx) {
   this.leafIndex += 1;
   var parentIdx = +ctx.currentTarget.parentNode.dataset.parent;
   var nodeLevel = +ctx.currentTarget.parentNode.dataset.level;
-  parentIdx = isNaN(parentIdx) ? '_data_root' : parentIdx;
+  parentIdx = (+parentIdx === 0) ? 0 : parentIdx;
   this.apiTree.add(this.leafIndex, parentIdx, this.apiTree.traverseBF);
   var rectObj = this.nodeLeftOffset(ctx.currentTarget.parentNode);
   var clonedRectObj = cloneRectObj(rectObj);
