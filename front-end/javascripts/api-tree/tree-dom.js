@@ -44,7 +44,7 @@ var leafContentTpl = '<i class="remove-child">-</i>' +
                      '<i class="gap-mark">---</i>' +
                      '<input type="text" class="leaf-value" placeholder="value" />' +
                      '<i class="gap-mark">---</i>' +
-                     '<input type="text" class="leaf-value" placeholder="quantity" />' +
+                     '<input type="text" class="leaf-quantity" placeholder="quantity" />' +
                      '<i class="add-child">+</i>';
 
 var initRectObj = {
@@ -219,7 +219,7 @@ function nodesArrToIdxArr(nodesArr) {
   var nodesArrLen = nodesArr.length;
   var idxArr = [];
   for (var i = 0; i < nodesArrLen; i++) {
-    idxArr.push(nodesArr[i].data);
+    idxArr.push(nodesArr[i].nodeId);
   };
   return idxArr;
 }
