@@ -53,7 +53,7 @@ class ApisController < ApplicationController
   private
 
     def user_params
-      params.require(:api).permit(:method, :name, :description, :uri, :section, :data)
+      params.require(:api).permit([:method, :name, :description, :uri, :section, {nodes: [:key, :nodeId, :parentId, :quantity, :value]} ])
     end
 
     def ensure_json_request  

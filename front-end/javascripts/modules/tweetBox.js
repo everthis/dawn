@@ -9,6 +9,7 @@ function setFocus(el) {
 export function tweetBox() {
   var doc = document;
   var tb = doc.getElementsByClassName('tweet-box')[0];
+  if (!tb) return null;
   var tbd = tb.getElementsByTagName('div')[0];
   var tbdString = '<div><br></div>';
 

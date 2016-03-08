@@ -14,9 +14,9 @@ gem 'net-ssh'
 gem "passenger"
 gem 'sdoc', group: :doc
 gem "guard"
+gem 'pg'
 
 group :development, :test do
-  gem 'sqlite3'
   gem "rack-livereload"
   gem 'guard-livereload'
   gem 'byebug'
@@ -32,7 +32,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
   gem 'puma'
 end

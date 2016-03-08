@@ -25,3 +25,5 @@
 # Ignore node_modules
 /front-end/node_modules
 /node_modules
+/app/assets/javascripts/application.js
+/app/assets/stylesheets/application.css

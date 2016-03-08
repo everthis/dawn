@@ -32,6 +32,6 @@ function collectTree(treeEle) {
     leafData.quantity = leaves[i].getElementsByClassName('leaf-quantity')[0].value;
     treeDataArr.push(leafData);
   };
-  treeDataObj.data = JSON.stringify(treeDataArr);
+  treeDataObj.nodes = treeDataArr;
   return treeDataObj;
 }
