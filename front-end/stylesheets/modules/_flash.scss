@@ -1,0 +1,32 @@
+.flash-layer {
+	position: fixed;
+	top: 3rem;
+	left: 0;
+	right: 0;
+	text-align: center;
+	padding: .3rem 1rem;
+	&.error {
+		background-color: red;
+	}
+	&.success {
+		background-color: green;
+		.message {
+			color: white;
+		}
+	}
+}
+
+.blink {
+    animation-name: blink;
+    animation-iteration-count: 3;
+    animation-timing-function: ease-in-out;
+    animation-duration: .4s;
+}
+@keyframes blink {
+    from {
+        opacity: 0.3;
+    }
+    to {
+        opacity: 1;
+    }
+}

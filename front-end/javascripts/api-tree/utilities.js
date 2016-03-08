@@ -62,28 +62,6 @@ function serialize(obj, prefix) {
   return str.join('&');
 }
 
-export function xhr(method, url, callback, paramsObj = {}, isAsync = true) {
-  var xmlhttp;
-
-  xmlhttp = new XMLHttpRequest();
-
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-      if (xmlhttp.status == 200) {
-        callback(xmlhttp.responseText);
-      } else if (xmlhttp.status == 400) {
-        throw new Error('There was an error 400');
-      } else {
-        throw new Error('something else other than 200 was returned');
-      }
-    }
-  };
-
-  var combUrl = url + serialize(paramsObj);
-
-  xmlhttp.open(method, combUrl, isAsync);
-  xmlhttp.send(null);
-}
 
 /**
  * [stringify with 4 spaces at each level]

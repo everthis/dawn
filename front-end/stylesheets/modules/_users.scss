@@ -36,6 +36,9 @@
 .row {
 	font-size: 0;
 	position: relative;
+	label {
+		font-size: 12px;
+	}
 }
 .form-label {
 	display: inline-block;

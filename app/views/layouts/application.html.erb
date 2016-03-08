@@ -7,6 +7,27 @@
 	<%= render 'layouts/shim' %>
 </head>
 <body class='<%= controller.controller_name %>'>
+	<svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	    <defs>
+	        <symbol id="icon-down" viewBox="0 0 1024 1024">
+	            <title>down</title>
+	            <path class="path1" d="M512.018 789.239l-512.018-527.179 28.118-27.3 483.9 498.238 483.915-498.238 28.067 27.3z"></path>
+	        </symbol>
+	        <symbol id="icon-next" viewBox="0 0 1024 1024">
+	            <title>next</title>
+	            <path class="path1" d="M262.076 1024l-27.294-28.129 498.224-483.855-498.224-483.933 27.294-28.083 527.141 512.016z"></path>
+	        </symbol>
+	        <symbol id="icon-up" viewBox="0 0 1024 1024">
+	            <title>up-arrow</title>
+	            <path class="path1" d="M28.126 789.252l-28.126-27.324 512.018-527.18 511.982 527.18-28.075 27.324-483.907-498.246z"></path>
+	            <path class="path2" d="M512.018 234.748l-512.018 527.18 28.126 27.324 483.892-498.246 483.907 498.246 28.075-27.324z"></path>
+	        </symbol>
+	        <symbol id="icon-left" viewBox="0 0 1024 1024">
+	            <title>left-arrow</title>
+	            <path class="path1" d="M761.939 1024l-527.183-512.016 527.183-511.984 27.312 28.105-498.191 483.879 498.191 483.89z"></path>
+	        </symbol>
+	    </defs>
+	</svg>
 	<%= render 'layouts/header' %>
 	<% flash.each do |message_type, message| %>
 	  <div class="alert alert-<%= message_type %>"><%= message %></div>

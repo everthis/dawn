@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221102217) do
+ActiveRecord::Schema.define(version: 20160307131845) do
 
   create_table "apis", force: :cascade do |t|
     t.string   "uri"
     t.string   "method"
     t.string   "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "section"
+    t.string   "name"
+    t.string   "description"
   end
 
   create_table "microposts", force: :cascade do |t|

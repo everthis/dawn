@@ -1,15 +1,11 @@
-.apis {
-
-}
 .add-api {
     border-bottom: 1px solid #ddd;
     padding: 5px 10px;
     margin: 0 0 1em 0;
 }
 .per-api {
-    padding: 0 0 0 0;
-    margin: 0 0 2em 0;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem 0 2rem 0;
+    margin: 0 1rem 0 1rem;
     box-shadow: 0 5px 4px -5px purple;
 }
 .api-edit {
@@ -31,15 +27,24 @@
 }
 .api-tree-wrapper {
     position: relative;
+    margin: 1rem 0 0 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.api-data {
+    padding: .5rem 0 0 0;
 }
 .api-tree-frame {
-    padding: 0 0 0 30px;
+    padding: 0 0 0 1.2rem;
 }
 .api-tree {
     position: absolute;
     top:0;
     left:0;
-    padding: .3em 0 0 62px;
+    // padding: .3em 0 0 62px;
+    // width: 0;
+    padding: 0 0 0 44.44px;
+    height: 0;
 }
 .api-svg {
     &:not(:root) {
@@ -61,8 +66,8 @@ i {
 }
 .add-dataroot-child {
     position: absolute;
-    top: .5em;
-    left: .8em;
+    top: 2px;
+    left: 0;
     @extend %mark;
     background-color: green;
 }
@@ -70,7 +75,7 @@ i {
     @extend %mark;
     position: absolute;
     top: 36px;
-    left: .8em;
+    left: 0;
     background-color: red;
 }
 

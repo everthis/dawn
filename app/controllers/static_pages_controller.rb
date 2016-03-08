@@ -17,4 +17,7 @@ class StaticPagesController < ApplicationController
 
   def log
   end
+  
+  def dev
+  end
 end

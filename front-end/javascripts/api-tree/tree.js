@@ -16,14 +16,14 @@ export function Tree(data) {
   this._root = node;
 }
 
-function Node(data) {
-  this.data = data;
+function Node(nodeId) {
+  this.nodeId = nodeId; // leaf index, starts from 0(root node)
   this.parent = null;
   this.children = [];
   // added later
-  this.childrenlevel = 1;
-  this.column = 0;
-  this.totaloffsetylevel = 0;
+  this.childrenlevel = 1; // rows of descendants of current node
+  this.column = 0; // which column the current node sits in, starts from 0( root node sits in)
+  this.totaloffsetylevel = 0; // total vertical offset to the current tree 
 }
 
 Tree.prototype.traverseDF = function(callback) {
@@ -74,7 +74,7 @@ Tree.prototype.calcTotalOffsetYLevel = function() {
   var levelgap = 0;
   var callback = function(node) {
     if (node.parent) {
-      node.totaloffsetylevel = node.parent.totaloffsetylevel + calcOffY(node.parent.children, node.data);
+      node.totaloffsetylevel = node.parent.totaloffsetylevel + calcOffY(node.parent.children, node.nodeId);
     } else if (node.parent === null) {
 
     };
@@ -109,7 +109,7 @@ Tree.prototype.add = function(data, toData, traversal) {
   var child = new Node(data),
       parent = null,
         callback = function(node) {
-          if (node.data === toData) {
+          if (node.nodeId === toData) {
             parent = node;
           }
         };
@@ -134,7 +134,7 @@ Tree.prototype.remove = function(data, fromData, traversal) {
       index;
 
   var callback = function(node) {
-    if (node.data === fromData) {
+    if (node.nodeId === fromData) {
       parent = node;
     }
   };
@@ -163,7 +163,7 @@ function findIndex(arr, data) {
   var index;
 
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i].data === data) {
+    if (arr[i].nodeId === data) {
       index = i;
     }
   }
@@ -177,7 +177,7 @@ Tree.prototype.traverseDirectChild = function(nodedata) {
   var queue = new Queue(),
   parent = null,
     callback = function(node) {
-      if (node.data === nodedata) {
+      if (node.nodeId === nodedata) {
         parent = node;
       }
     };
@@ -196,7 +196,7 @@ Tree.prototype.traverseDirectChild = function(nodedata) {
 Tree.prototype.applyStyle = function() {
   var styleObj = {};
   var callback = function(node) {
-    styleObj[node.data] = node.totaloffsetylevel;
+    styleObj[node.nodeId] = node.totaloffsetylevel;
   };
   this.traverseBF(callback);
 
@@ -212,7 +212,7 @@ Tree.prototype.traverseDescendants = function(nodeData) {
   var queue = new Queue(),
       parent = null,
         callback = function(node) {
-          if (node.data === nodeData) {
+          if (node.nodeId === nodeData) {
             parent = node;
           }
         };
@@ -238,14 +238,14 @@ Tree.prototype.traverseDescendants = function(nodeData) {
 
 Tree.prototype.maxLevels = function() {
   var that = this;
-  var dataRootNodes = this.traverseDirectChild('_data_root');
+  var dataRootNodes = this.traverseDirectChild(0);
   var rowLevelObj = {};
   var headIdxArr = [];
   for (var drn in dataRootNodes._storage) {
     if (dataRootNodes._storage.hasOwnProperty(drn)) {
       rowLevelObj[drn] = {};
-      rowLevelObj[drn]['head-idx'] = dataRootNodes._storage[drn].data;
-      headIdxArr.push(dataRootNodes._storage[drn].data);
+      rowLevelObj[drn]['head-idx'] = dataRootNodes._storage[drn].nodeId;
+      headIdxArr.push(dataRootNodes._storage[drn].nodeId);
     };
   }
 
@@ -253,7 +253,7 @@ Tree.prototype.maxLevels = function() {
     var childrenIdxArr = [];
     for (var perNode in queue._storage) {
       if ((typeof parseInt(perNode) === 'number') && queue._storage[perNode].hasOwnProperty('data')) {
-        childrenIdxArr.push(queue._storage[perNode].data);
+        childrenIdxArr.push(queue._storage[perNode].nodeId);
       };
     }
     return childrenIdxArr;

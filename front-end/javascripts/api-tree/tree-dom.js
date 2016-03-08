@@ -1,38 +1,50 @@
+/**
+ * width of single svg path: 30px
+ */
 'use strict';
 import {Tree} from './tree';
+import {popup} from '../common/popup';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
-var perApiTpl = '<div class="api-info">' +
-                    '<label class="api-label">API:</label>' +
-                    '<input class="api-uri" placeholder="" value="http://127.0.0.1:4567/foo" disabled="true" /> ' +
-                    '<label class="api-label">method:</label>' +
-                    '<select class="api-method">' +
-                        '<option value="GET" selected>GET</option>' +
-                        '<option value="POST">POST</option>' +
-                        '<option value="PATCH">PATCH</option>' +
-                        '<option value="DELETE">DELETE</option>' +
-                    '</select>' +
-                    '<span class="api-edit">edit</span>' +
-                    '<span class="api-save">save</span>' +
-                    '<span class="api-test">test</span>' +
-                '</div>' +
-                '<div class="api-tree-wrapper"><div class="api-tree-frame"><svg class="api-svg" width="100%" height="100%"></svg></div><div class="api-tree"></div></div>' +
-                '<div class="api-data">' +
-                    '<div class="data-views-control">' +
-                        '<span class="data-raw">raw</span>' +
-                        '<span class="data-beautify">beautify</span>' +
-                        '<span class="data-highlight">syntaxHighlight</span>' +
-                        '<span class="data-preview">preview</span>' +
-                    '</div>' +
-                    '<div class="data-view json">' +
-                    '</div>' +
-                '</div>';
+
+function perApiTpl(data, isNewApi = false) {
+  let tpl =
+      `<div class="api-info">
+          <label class="api-label">API:</label>
+          <input class="api-uri" placeholder="" value="" /> 
+          <label class="api-label">method:</label>
+          <select class="api-method">
+              <option value="GET" selected>GET</option>
+              <option value="POST">POST</option>
+              <option value="PATCH">PATCH</option>
+              <option value="DELETE">DELETE</option>
+          </select>
+          <label>section:</label>
+          <input class="api-section" type="text" />
+          <label for="">description:</label>
+          <input class="api-description" type="text" />
+          <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
+          <span class="api-test">test</span>
+      </div>
+      <div class="api-tree-wrapper"><div class="api-tree-frame"><svg class="api-svg" width="100%" height="100%"></svg></div><div class="api-tree"></div></div>
+      <div class="api-data">
+          <div class="data-views-control">
+              <span class="data-raw">raw</span>
+              <span class="data-beautify">beautify</span>
+              <span class="data-highlight">syntaxHighlight</span>
+              <span class="data-preview">preview</span>
+          </div>
+          <div class="data-view json">
+          </div>
+      </div>`;
+  return tpl;
+}
 
 var leafContentTpl = '<i class="remove-child">-</i>' +
                      '<input type="text" class="leaf-key" placeholder="key" />' +
                      '<i class="gap-mark">---</i>' +
                      '<input type="text" class="leaf-value" placeholder="value" />' +
                      '<i class="gap-mark">---</i>' +
-                     '<input type="text" class="leaf-value" placeholder="quantity" />' +
+                     '<input type="text" class="leaf-quantity" placeholder="quantity" />' +
                      '<i class="add-child">+</i>';
 
 var initRectObj = {
@@ -43,29 +55,39 @@ var initRectObj = {
   width: 0,
   height: 0
 };
+var perSVGPathWidth = 30;
+var rootNodeWidth = perSVGPathWidth + 15;
 
-function createPerApi() {
+function patchOrPost(isNewApi) {
+  return isNewApi ? 'POST' : 'PATCH';
+}
+function saveOrCreate(data, isNewApi) {
+  return isNewApi ? '' : `/${data.id}`;
+}
+function createPerApi(data, isNewApi) {
   var perApiEle = document.createElement('div');
   perApiEle.setAttribute('class', 'per-api');
-  perApiEle.innerHTML = perApiTpl;
+  perApiEle.dataset.id = isNewApi ? '' : data.id;
+  perApiEle.innerHTML = perApiTpl(data, isNewApi);
+  perApiEle.getElementsByClassName('api-uri')[0].value = isNewApi ? '' : data.uri;
   return perApiEle;
 }
 
-export function ApiDom() {
-  this.$apis = document.getElementsByClassName('apis')[0];
-  var preApisLen = this.$apis.getElementsByClassName('per-api').length;
+export function ApiDom(data, containerNode, isNewApi) {
+  this.apiContainer = containerNode;
 
-  this.$apis.appendChild(createPerApi());
+  this.apiContainer.appendChild(createPerApi(data, isNewApi));
 
+  this.apiEle = this.apiContainer.getElementsByClassName('per-api')[0];
+  
   this.bindEventsToMRCAPI();
 
   this.leafIndex = 1;
 
-  var recentApi = this.$apis.getElementsByClassName('per-api')[preApisLen];
-  this.$apiTree = recentApi.getElementsByClassName('api-tree')[0];
-  this.$apiTree.appendChild(createLeaf('_data_root', 1, 0, initRectObj));
+  this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
+  this.$apiTree.appendChild(createLeaf(0, 1, 0, initRectObj));
 
-  this.$apiTreeFrame = recentApi.getElementsByClassName('api-tree-frame')[0];
+  this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
 
   this.initApiTree();
 
@@ -89,9 +111,8 @@ ApiDom.prototype.jsonView = function(data) {
 };
 ApiDom.prototype.bindEventsToMRCAPI = function() {
   var that = this;
-  var newlyCreatedApiNode = this.$apis.lastChild;
+  var newlyCreatedApiNode = this.apiEle;
 
-  var $apiEdit = newlyCreatedApiNode.getElementsByClassName('api-edit')[0];
   var $apiSave = newlyCreatedApiNode.getElementsByClassName('api-save')[0];
   var $apiUri = newlyCreatedApiNode.getElementsByClassName('api-uri')[0];
   var $apiTest = newlyCreatedApiNode.getElementsByClassName('api-test')[0];
@@ -104,12 +125,7 @@ ApiDom.prototype.bindEventsToMRCAPI = function() {
 
   this.$dataView = newlyCreatedApiNode.getElementsByClassName('data-view')[0];
 
-  $apiEdit.addEventListener('click', function(ev) {
-    $apiUri.disabled = false;
-  });
-
   $apiSave.addEventListener('click', function(ev) {
-    $apiUri.disabled = true;
   });
 
   $apiTest.addEventListener('click', ev => {
@@ -141,7 +157,7 @@ ApiDom.prototype.operateDataRootChild = function() {
   addMark.textContent = '+';
   addMark.addEventListener('click', function(ev) {
       that.leafIndex += 1;
-      var parentIdx = '_data_root';
+      var parentIdx = 0;
       var nodeLevel = 0;
       that.apiTree.add(that.leafIndex, parentIdx, that.apiTree.traverseBF);
 
@@ -157,15 +173,16 @@ ApiDom.prototype.operateDataRootChild = function() {
   delMark.textContent = '-';
   delMark.addEventListener('click', function(ev) {
       /* this API is deleted. */
-      that.$apis.removeChild(ev.currentTarget.closest('.per-api'));
+
+      // that.apiContainer.removeChild(ev.currentTarget.closest('.per-api'));
     });
   this.$apiTree.insertBefore(delMark, this.$apiTree.firstChild);
 
 };
 
 ApiDom.prototype.initApiTree = function() {
-  this.apiTree = new Tree('_data_root');
-  this.apiTree.add(1, '_data_root', this.apiTree.traverseBF);
+  this.apiTree = new Tree(0);
+  this.apiTree.add(1, 0, this.apiTree.traverseBF);
 
   this.operateDataRootChild();
 
@@ -175,12 +192,14 @@ ApiDom.prototype.initApiTree = function() {
 ApiDom.prototype.delNode = function(ctx) {
   var currentLeaf = ctx.currentTarget.closest('.leaf');
   var currentIdx = +ctx.currentTarget.parentNode.dataset.index;
-  var parentIdx = isNaN(+ctx.currentTarget.parentNode.dataset.parent) ? '_data_root' : +ctx.currentTarget.parentNode.dataset.parent;
+  var parentIdx = (+ctx.currentTarget.parentNode.dataset.parent === 0) ? 0 : +ctx.currentTarget.parentNode.dataset.parent;
 
   var nodesArr = this.apiTree.traverseDescendants(currentIdx);
   var idxArr = nodesArrToIdxArr(nodesArr);
   this.apiTree.remove(currentIdx, parentIdx, this.apiTree.traverseBF);
   this.removeNodesFromDom(idxArr);
+
+  console.log(this.apiTree);
 
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
@@ -200,7 +219,7 @@ function nodesArrToIdxArr(nodesArr) {
   var nodesArrLen = nodesArr.length;
   var idxArr = [];
   for (var i = 0; i < nodesArrLen; i++) {
-    idxArr.push(nodesArr[i].data);
+    idxArr.push(nodesArr[i].nodeId);
   };
   return idxArr;
 }
@@ -263,6 +282,7 @@ ApiDom.prototype.addChild = function(ctx) {
   this.$apiTree.appendChild(createLeaf(parentIdex, this.leafIndex, nodeLevel, clonedRectObj));
   this.bindEventsToMRCE();
   var obj = this.apiTree.applyStyle();
+  console.log(this.apiTree);
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdex);
 
@@ -274,7 +294,7 @@ function generateLeafSpan(parentId, nodeIndex, nodeLevel, rectObj) {
   newLeafSpan.setAttribute('data-parent', parentId);
   newLeafSpan.setAttribute('data-index', nodeIndex);
   newLeafSpan.setAttribute('data-level', nodeLevel);
-  newLeafSpan.style['transform'] = 'translate3d(' + Math.round(rectObj.right) + 'px, ' + Math.round(rectObj.bottom) + 'px, 0)';
+  newLeafSpan.style['transform'] = 'translate3d(' + Math.round(rectObj.width * nodeLevel + perSVGPathWidth * nodeLevel) + 'px, ' + Math.round(rectObj.bottom) + 'px, 0)';
   newLeafSpan.innerHTML = leafContentTpl;
   return newLeafSpan;
 }
@@ -312,7 +332,7 @@ ApiDom.prototype.addSibling = function(ctx) {
   this.leafIndex += 1;
   var parentIdx = +ctx.currentTarget.parentNode.dataset.parent;
   var nodeLevel = +ctx.currentTarget.parentNode.dataset.level;
-  parentIdx = isNaN(parentIdx) ? '_data_root' : parentIdx;
+  parentIdx = (+parentIdx === 0) ? 0 : parentIdx;
   this.apiTree.add(this.leafIndex, parentIdx, this.apiTree.traverseBF);
   var rectObj = this.nodeLeftOffset(ctx.currentTarget.parentNode);
   var clonedRectObj = cloneRectObj(rectObj);
