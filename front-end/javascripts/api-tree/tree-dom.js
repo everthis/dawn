@@ -282,7 +282,6 @@ ApiDom.prototype.addChild = function(ctx) {
   this.$apiTree.appendChild(createLeaf(parentIdex, this.leafIndex, nodeLevel, clonedRectObj));
   this.bindEventsToMRCE();
   var obj = this.apiTree.applyStyle();
-  console.log(this.apiTree);
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdex);
 
@@ -416,16 +415,13 @@ ApiDom.prototype.createSingleSVG = function(idx, hori, parentVert, dvert) {
 
 /* calculate dimensions */
 ApiDom.prototype.calcDimensions = function() {
-  this.dimensionArr = this.apiTree.maxLevels();
   var horiMax, verticalMax, horiArr = [], vertArr = [];
-  for (var i = 0, x = this.dimensionArr.length; i < x; i++) {
-    horiArr.push(this.dimensionArr[i].length);
-  };
+
+  horiArr = this.apiTree.depth();
   horiMax = Math.max.apply(null, horiArr);
   verticalMax = this.apiTree._root.childrenlevel;
   this.$apiTreeFrame.style.width = horiMax * 520 + 'px';
   this.$apiTreeFrame.style.height = verticalMax * 52 + 'px';
-  this.dimensionArr = [horiMax, verticalMax];
   return [horiMax, verticalMax];
 
 };

@@ -236,66 +236,19 @@ Tree.prototype.traverseDescendants = function(nodeData) {
   return descendantsArr;
 };
 
-Tree.prototype.maxLevels = function() {
-  var that = this;
-  var dataRootNodes = this.traverseDirectChild(0);
-  var rowLevelObj = {};
-  var headIdxArr = [];
-  for (var drn in dataRootNodes._storage) {
-    if (dataRootNodes._storage.hasOwnProperty(drn)) {
-      rowLevelObj[drn] = {};
-      rowLevelObj[drn]['head-idx'] = dataRootNodes._storage[drn].nodeId;
-      headIdxArr.push(dataRootNodes._storage[drn].nodeId);
-    };
-  }
-
-  function extractIdxFromQueue(queue) {
-    var childrenIdxArr = [];
-    for (var perNode in queue._storage) {
-      if ((typeof parseInt(perNode) === 'number') && queue._storage[perNode].hasOwnProperty('data')) {
-        childrenIdxArr.push(queue._storage[perNode].nodeId);
-      };
+/* tree depth */
+Tree.prototype.depth = function() {
+  var depthArr = [];
+  var callback = function(node) {
+    let depth = 0;
+    if (node.children.length === 0) {
+      while (node.parent !== null) {
+        depth += 1;
+        node = node.parent;
+      }
+      depthArr.push(depth);
     }
-    return childrenIdxArr;
-  }
-
-  var levelNextColArr = [];
-
-  function getRowLevel(idx) {
-    var directChildrenQueue = that.traverseDirectChild(idx);
-    var directChildrenArr = extractIdxFromQueue(directChildrenQueue);
-    return directChildrenArr;
-  }
-
-  var ultimateArr = [];
-  var perHead = [];
-
-  function nextLevelChildren(arr) {
-    var nextLevelChildrenArr = [];
-    for (var i = 0; i < arr.length; i++) {
-      var perNum = getRowLevel(arr[i]);
-      nextLevelChildrenArr = nextLevelChildrenArr.concat(perNum);
-    };
-    if (nextLevelChildrenArr.length) {
-      perHead.push(nextLevelChildrenArr.length);
-      nextLevelChildren(nextLevelChildrenArr);
-    };
-  }
-
-  (function recurse(arr) {
-
-    for (var i = 0; i < arr.length; i++) {
-      perHead = [];
-      // level 1
-      levelNextColArr = getRowLevel(arr[i]);
-      perHead.push(1);
-      if (levelNextColArr.length) {
-        perHead.push(levelNextColArr.length);
-        nextLevelChildren(levelNextColArr);
-      };
-      ultimateArr.push(perHead);
-    };
-  })(headIdxArr);
-
-  return ultimateArr;
+  };
+  this.traverseDF(callback);
+  return depthArr;
 };
