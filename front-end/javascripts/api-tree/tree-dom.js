@@ -55,8 +55,12 @@ var initRectObj = {
   width: 0,
   height: 0
 };
+
+/*
+single leaf width: 460px;
+ */
 var perSVGPathWidth = 30;
-var rootNodeWidth = perSVGPathWidth + 15;
+var rootNodeWidth = perSVGPathWidth + 14;
 
 function patchOrPost(isNewApi) {
   return isNewApi ? 'POST' : 'PATCH';
@@ -395,7 +399,7 @@ ApiDom.prototype.createSingleSVG = function(idx, hori, parentVert, dvert) {
   dvert = dvert;
   parentVert = parentVert;
 
-  mx = hori * 501;
+  mx = hori * 490; /* single leaf width plus single svg path width */
   my = parentVert * 52 + 8;
   qx = mx + 10;
   qy = my;
