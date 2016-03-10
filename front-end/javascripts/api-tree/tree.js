@@ -123,6 +123,7 @@ Tree.prototype.add = function(data, toData, traversal) {
     throw new Error('Cannot add node to a non-existent parent.');
   }
 
+  console.log(this);
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
 };
@@ -153,6 +154,7 @@ Tree.prototype.remove = function(data, fromData, traversal) {
     throw new Error('Parent does not exist.');
   }
 
+  console.log(this);
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
 

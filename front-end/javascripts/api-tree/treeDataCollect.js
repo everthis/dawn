@@ -1,9 +1,9 @@
 import {mergeObj} from '../common/utilities';
-export function collectApiData(opEle) {
+export function collectApiData(tree, opEle) {
   let perApiEle = opEle.closest('.per-api');
   let infoEle = perApiEle.getElementsByClassName('api-info')[0];
-  let treeEle = perApiEle.getElementsByClassName('api-tree')[0];
-  return mergeObj(collectInfo(infoEle), collectTree(treeEle));
+  // let treeEle = perApiEle.getElementsByClassName('api-tree')[0];
+  return mergeObj(collectInfo(infoEle), collectDataFromTree(tree));
 }
 
 function collectInfo(infoEle) {
@@ -35,3 +35,20 @@ function collectTree(treeEle) {
   treeDataObj.nodes = treeDataArr;
   return treeDataObj;
 }
+
+function collectDataFromTree(apiTree) {
+  let tree = apiTree;
+  let nodesArr = [];
+  let treeDataObj = {};
+  let callback = function(node) {
+    let nodeData = {};
+    nodeData.nodeId = node.nodeId;
+    nodeData.column = node.column;
+    nodeData.totaloffsetylevel =  node.totaloffsetylevel;
+    nodesArr.push(nodeData);
+  };
+  tree.traverseDF(callback);
+  treeDataObj.nodes = nodesArr;
+  return treeDataObj;
+}
+

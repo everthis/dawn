@@ -3,7 +3,11 @@
  */
 'use strict';
 import {Tree} from './tree';
+import {$http} from '../common/ajax';
 import {popup} from '../common/popup';
+import {rootAPI} from '../global/constant';
+import {parseAndFlash} from '../common/flash';
+import {collectApiData} from './treeDataCollect';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 
 function perApiTpl(data, isNewApi = false) {
@@ -100,6 +104,45 @@ export function ApiDom(data, containerNode, isNewApi) {
   this.bindEventsToMRCE();
 
   this.apiReturnData = '';
+  this.apiEle.addEventListener('click', bindEvent.bind(this));
+}
+
+var callback = {
+  patchSuccess: function(data) {
+    parseAndFlash(data);
+  },
+  postSuccess: function(data) {
+    parseAndFlash(data);
+  },
+  deleteSuccess: function(data) {
+    function destoryApiLi() {
+      this.target.closest('.api-ul').removeChild(this.target.closest('.api-li'));
+    }
+    parseAndFlash(data, destoryApiLi.bind(this));
+  },
+  success: function(data) {
+    console.log(data);
+  },
+  error: function(data) {
+    parseAndFlash(data);
+  }
+};
+
+function bindEvent(ev) {
+  if (ev.target.classList.contains('api-save')) {
+    let params = collectApiData(this.apiTree, this.$apiTree);
+    if (ev.target.dataset.method.toUpperCase() === 'PATCH') {
+      $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
+      .patch(params, 'api')
+      .then(callback.patchSuccess)
+      .catch(callback.error);
+    } else if (ev.target.dataset.method.toUpperCase() === 'POST') {
+      $http(rootAPI)
+      .post(params, 'api')
+      .then(callback.postSuccess)
+      .catch(callback.error);
+    }
+  };
 }
 
 ApiDom.prototype.storeApiReturnData = function(data) {
@@ -202,8 +245,6 @@ ApiDom.prototype.delNode = function(ctx) {
   var idxArr = nodesArrToIdxArr(nodesArr);
   this.apiTree.remove(currentIdx, parentIdx, this.apiTree.traverseBF);
   this.removeNodesFromDom(idxArr);
-
-  console.log(this.apiTree);
 
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
@@ -376,7 +417,7 @@ ApiDom.prototype.drawSVG = function() {
   var svgPartials = [];
   var callback = function(node) {
     if (node.parent !== null) {
-      svgPartials.push(that.createSingleSVG(node.data, node.column, node.parent.totaloffsetylevel, (node.totaloffsetylevel - node.parent.totaloffsetylevel)));
+      svgPartials.push(that.createSingleSVG(node.nodeId, node.column, node.parent.totaloffsetylevel, (node.totaloffsetylevel - node.parent.totaloffsetylevel)));
     };
   };
   this.apiTree.traverseDF(callback);

@@ -22,3 +22,8 @@ function destory(ele, callback) {
   callback();
 }
 
+export function parseAndFlash(data, callback) {
+  let jsonData = JSON.parse(data);
+  flash(jsonData, callback);
+  return jsonData;
+}
