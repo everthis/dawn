@@ -40,14 +40,22 @@ function collectDataFromTree(apiTree) {
   let tree = apiTree;
   let nodesArr = [];
   let treeDataObj = {};
+  let dimensionsArr = [];
   let callback = function(node) {
+    if (node === null) return;
     let nodeData = {};
     nodeData.nodeId = node.nodeId;
     nodeData.column = node.column;
+    nodeData.parentId = node.parent === null ? null : node.parent.nodeId;
+    nodeData.childrenlevel = node.childrenlevel;
     nodeData.totaloffsetylevel =  node.totaloffsetylevel;
     nodesArr.push(nodeData);
   };
   tree.traverseDF(callback);
+  dimensionsArr = tree.dimensions();
+  treeDataObj.dimensions = {};
+  treeDataObj.dimensions.hUnit = dimensionsArr[0];
+  treeDataObj.dimensions.vUnit = dimensionsArr[1];
   treeDataObj.nodes = nodesArr;
   return treeDataObj;
 }

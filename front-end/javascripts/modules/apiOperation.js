@@ -4,7 +4,7 @@ import {html} from '../common/template';
 import {popup} from '../common/popup';
 import {insertAfter, strToDom, debounce} from '../common/utilities';
 import {flash, parseAndFlash} from '../common/flash';
-import {ApiDom} from '../api-tree/tree-dom';
+import {ApiDom} from '../api-tree/treeDom';
 
 
 let payload = {};
@@ -12,7 +12,7 @@ let apisArr = [];
 
 var callback = {
   getApiSuccess: function(data) {
-    addApiTree(JSON.parse(data), this);
+    addApiTree(JSON.parse(data), this, false);
   },
   getAllApisSuccess: function(data) {
     renderAllApis(data);
@@ -60,7 +60,7 @@ function bindevents() {
   let apiLis = document.getElementsByClassName('api-li-description');
   [].slice.call(apiLis).forEach(function(element, index) {
     element.addEventListener('click', function(ev) {
-      bindEventToApiLiDescription.call(this, ev);
+      bindEventToApiLiDescription.call(this);
     });
   });
 }

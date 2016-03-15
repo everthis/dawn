@@ -254,3 +254,11 @@ Tree.prototype.depth = function() {
   this.traverseDF(callback);
   return depthArr;
 };
+
+Tree.prototype.dimensions = function() {
+  let horiMax, verticalMax, horiArr = [];
+  horiArr = this.depth();
+  horiMax = Math.max.apply(null, horiArr);
+  verticalMax = this._root.childrenlevel;
+  return [horiMax, verticalMax];
+};
