@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160315134915) do
     t.string   "name"
     t.string   "description"
     t.json     "nodes",       default: [], null: false
-    t.json     "dimensions",  default: [], null: false
+    t.json     "dimensions",  default: {}, null: false
   end
 
   create_table "microposts", force: :cascade do |t|
