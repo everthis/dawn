@@ -5,7 +5,7 @@ import {popup} from '../common/popup';
 import {insertAfter, strToDom, debounce} from '../common/utilities';
 import {flash, parseAndFlash} from '../common/flash';
 import {ApiDom} from '../api-tree/treeDom';
-
+import {jsonToTree} from '../api-tree/jsonTreeConverter';
 
 let payload = {};
 let apisArr = [];
@@ -13,6 +13,7 @@ let apisArr = [];
 var callback = {
   getApiSuccess: function(data) {
     addApiTree(JSON.parse(data), this, false);
+    console.log(jsonToTree(JSON.parse(data).nodes));
   },
   getAllApisSuccess: function(data) {
     renderAllApis(data);
