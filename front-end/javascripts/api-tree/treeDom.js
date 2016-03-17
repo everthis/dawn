@@ -9,6 +9,7 @@ import {rootAPI} from '../global/constant';
 import {parseAndFlash} from '../common/flash';
 import {collectApiData} from './treeDataCollect';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
+import {jsonToTree} from './jsonTreeConverter';
 
 function perApiTpl(data, isNewApi = false) {
   let tpl =
@@ -130,17 +131,17 @@ export function ApiDom(data, containerNode, isNewApi = false) {
   this.leafIndex = 1;
 
   this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
+  this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
   if (isNewApi) {
     this.$apiTree.appendChild(createLeaf(0, 1, 0, initRectObj));
-    this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
     this.initApiTree();
     this.calcDimensions();
-    this.bindEventsToMRCE();
   } else {
     this.renderExistTree(data);
   }
 
   this.apiReturnData = '';
+
   this.apiEle.addEventListener('click', bindEvent.bind(this));
 }
 
@@ -158,6 +159,7 @@ ApiDom.prototype.renderExistTree = function(data) {
   docFrag.appendChild(delMark);
 
   if (data.nodes && data.nodes.length) {
+    this.apiTree = jsonToTree(data.nodes);
     let nodesArr = data.nodes;
     let nodeData = {};
     for (let i = 0, len = nodesArr.length; i < len; i++) {
@@ -166,7 +168,10 @@ ApiDom.prototype.renderExistTree = function(data) {
     }
   }
   this.$apiTree.appendChild(docFrag);
+  this.calcDimensions();
+  this.drawSVG();
 };
+
 
 function generateLeaf(nodeData) {
   var newLeafSpan = document.createElement('span');
@@ -180,6 +185,7 @@ function generateLeaf(nodeData) {
 }
 
 function bindEvent(ev) {
+  let _this = this;
   if (ev.target.classList.contains('api-save')) {
     let params = collectApiData(this.apiTree, this.$apiTree);
     if (ev.target.dataset.method.toUpperCase() === 'PATCH') {
@@ -197,9 +203,15 @@ function bindEvent(ev) {
   };
 
   if (ev.target.classList.contains('add-child')) {
-    console.log('save');
+    _this.addChild(ev);
     return null;
   };
+
+  if (ev.target.classList.contains('remove-child')) {
+    _this.delNode(ev);
+    return null;
+  };
+
 }
 
 ApiDom.prototype.storeApiReturnData = function(data) {
@@ -262,13 +274,11 @@ ApiDom.prototype.operateDataRootChild = function() {
   addMark.addEventListener('click', function(ev) {
       that.leafIndex += 1;
       var parentIdx = 0;
-      var nodeLevel = 0;
       that.apiTree.add(that.leafIndex, parentIdx, that.apiTree.traverseBF);
 
-      that.$apiTree.appendChild(createLeaf(parentIdx, that.leafIndex, nodeLevel, initRectObj));
+      that.$apiTree.appendChild(createLeaf(parentIdx, that.leafIndex, initRectObj));
       var obj = that.apiTree.applyStyle();
       that.styleNodes(obj);
-      that.bindEventsToMRCE();
     });
   this.$apiTree.insertBefore(addMark, this.$apiTree.firstChild);
 
@@ -294,9 +304,9 @@ ApiDom.prototype.initApiTree = function() {
 };
 
 ApiDom.prototype.delNode = function(ctx) {
-  var currentLeaf = ctx.currentTarget.closest('.leaf');
-  var currentIdx = +ctx.currentTarget.parentNode.dataset.index;
-  var parentIdx = (+ctx.currentTarget.parentNode.dataset.parent === 0) ? 0 : +ctx.currentTarget.parentNode.dataset.parent;
+  var currentLeaf = ctx.target.closest('.leaf');
+  var currentIdx = +ctx.target.parentNode.dataset.nodeId;
+  var parentIdx = (+ctx.target.parentNode.dataset.parent === 0) ? 0 : +ctx.target.parentNode.dataset.parent;
 
   var nodesArr = this.apiTree.traverseDescendants(currentIdx);
   var idxArr = nodesArrToIdxArr(nodesArr);
@@ -312,7 +322,7 @@ ApiDom.prototype.removeNodesFromDom = function(arr) {
   var allLeaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
   var allLeavesLen = allLeaves.length;
   for (var i = 0; i < allLeavesLen; i++) {
-    if (arr.indexOf(+allLeaves[i].dataset.index) !== -1) {
+    if (arr.indexOf(+allLeaves[i].dataset.nodeId) !== -1) {
       this.$apiTree.removeChild(allLeaves[i]);
     }
   };
@@ -326,27 +336,12 @@ function nodesArrToIdxArr(nodesArr) {
   return idxArr;
 }
 
-ApiDom.prototype.bindEventsToMRCE = function() {
-  var leaves = this.$apiTree.getElementsByClassName('leaf');
-  var leavesLen = leaves.length;
-  var newlyCreatedLeaf = leaves[leavesLen - 1];
-  var $addChild = newlyCreatedLeaf.getElementsByClassName('add-child')[0];
-  $addChild.addEventListener('click', ctx => {
-    this.addChild(ctx);
-  });
-
-  var $removeChild = newlyCreatedLeaf.getElementsByClassName('remove-child')[0];
-  $removeChild.addEventListener('click', ctx => {
-    this.delNode(ctx);
-  });
-
-};
 ApiDom.prototype.setParentNodeVal = function(idx) {
   var leaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
   var queue = this.apiTree.traverseDirectChild(idx);
   var queueLen = queue._newestIndex - queue._oldestIndex;
   for (var i = 0, x = leaves.length; i < x; i++) {
-    if (+leaves[i].dataset.index === idx) {
+    if (+leaves[i].dataset.nodeId === idx) {
       if (queueLen > 0) {
         leaves[i].getElementsByClassName('leaf-value')[0].value = '--->';
       } else {
@@ -358,13 +353,12 @@ ApiDom.prototype.setParentNodeVal = function(idx) {
 };
 ApiDom.prototype.addChild = function(ctx) {
   this.leafIndex += 1;
-  var parentIdex = +ctx.currentTarget.parentNode.dataset.index;
-  var nodeLevel = +ctx.currentTarget.parentNode.dataset.level + 1;
+  var parentIdex = +ctx.target.parentNode.dataset.nodeId;
 
   // apiTree operation
   this.apiTree.add(this.leafIndex, parentIdex, this.apiTree.traverseBF);
 
-  var clonedRectObj = cloneRectObj(this.nodeLeftOffset(ctx.currentTarget.parentNode));
+  var clonedRectObj = cloneRectObj(this.nodeLeftOffset(ctx.target.parentNode));
   var childrenNodes = this.apiTree.traverseDirectChild(parentIdex);
 
   var childrenIdxArr = [];
@@ -381,68 +375,43 @@ ApiDom.prototype.addChild = function(ctx) {
   clonedRectObj.bottom = childrenIdxArrLen === 1 ?
                            clonedRectObj.bottom + clonedRectObj.height * (childrenIdxArrLen - 2) :
                          clonedRectObj.bottom + clonedRectObj.height * (childrenIdxArrLen - 2) + (childrenIdxArrLen - 1) * 20;
-  this.$apiTree.appendChild(createLeaf(parentIdex, this.leafIndex, nodeLevel, clonedRectObj));
-  this.bindEventsToMRCE();
+  this.$apiTree.appendChild(createLeaf(parentIdex, this.leafIndex, clonedRectObj));
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdex);
 
 };
 
-function generateLeafSpan(parentId, nodeIndex, nodeLevel, rectObj) {
+function generateLeafSpan(parentId, nodeIndex, rectObj) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
   newLeafSpan.setAttribute('data-parent', parentId);
-  newLeafSpan.setAttribute('data-index', nodeIndex);
-  newLeafSpan.setAttribute('data-level', nodeLevel);
-  newLeafSpan.style['transform'] = 'translate3d(' + Math.round(rectObj.width * nodeLevel + perSVGPathWidth * nodeLevel) + 'px, ' + Math.round(rectObj.bottom) + 'px, 0)';
+  newLeafSpan.setAttribute('data-node-id', nodeIndex);
+  newLeafSpan.style['transform'] = 'translate3d(0px, ' + Math.round(rectObj.bottom) + 'px, 0)';
   newLeafSpan.innerHTML = leafTpl;
   return newLeafSpan;
 }
-function createLeaf(parentIdx, nodeIdx, nodeLevel, rectObj) {
+function createLeaf(parentIdx, nodeIdx, rectObj) {
   var newLeaf = document.createDocumentFragment();
-  newLeaf.appendChild(generateLeafSpan(parentIdx, nodeIdx, nodeLevel, rectObj));
+  newLeaf.appendChild(generateLeafSpan(parentIdx, nodeIdx, rectObj));
   return newLeaf;
 }
 ApiDom.prototype.styleNodes = function(styleObj) {
   var leaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
-  var leafIdx, offsetY, originalX = '';
 
-  var stylesArr = [], xValue, yValue;
-
-  for (var i = 0; i < leaves.length; i++) {
-    originalX = getTranslateX(leaves[i]);
-    leafIdx = +(leaves[i].dataset.index);
-
-    for (var styleObjIdx in styleObj) {
-      if (+styleObjIdx === leafIdx) {
-        offsetY = styleObj[styleObjIdx] * 52;
-      };
-    }
-    stylesArr.push([originalX, offsetY]);
-  };
-
-  for (var j = 0, stylesArrLen = stylesArr.length; j < stylesArrLen; j++) {
-    leaves[j].style['transform'] = 'translate3d(' + stylesArr[j][0] + 'px, ' + stylesArr[j][1] + 'px, 0)';
+  let leavesHash = {};
+  for (let i = 0, leavesLen = leaves.length; i < leavesLen; i++) {
+    leavesHash[leaves[i].dataset.nodeId] = leaves[i];
   }
-
+  var callback = function(node) {
+    if (node.nodeId <= 0) return;
+    leavesHash[node.nodeId].style['transform'] = 'translate3d(' +
+                                      Math.round((perLeafWidth + perSVGPathWidth) * (node.column - 1)) + 'px, ' +
+                                      Math.round(node.totaloffsetylevel * (perLeafHeight + leavesVerticalGap)) + 'px, 0)';
+  };
+  this.apiTree.traverseBF(callback);
   this.dimensionArr = this.calcDimensions();
   this.drawSVG();
-};
-ApiDom.prototype.addSibling = function(ctx) {
-  this.leafIndex += 1;
-  var parentIdx = +ctx.currentTarget.parentNode.dataset.parent;
-  var nodeLevel = +ctx.currentTarget.parentNode.dataset.level;
-  parentIdx = (+parentIdx === 0) ? 0 : parentIdx;
-  this.apiTree.add(this.leafIndex, parentIdx, this.apiTree.traverseBF);
-  var rectObj = this.nodeLeftOffset(ctx.currentTarget.parentNode);
-  var clonedRectObj = cloneRectObj(rectObj);
-  clonedRectObj.right = clonedRectObj.right - clonedRectObj.width;
-  clonedRectObj.bottom += 30;
-  this.$apiTree.appendChild(createLeaf(parentIdx, this.leafIndex, nodeLevel, clonedRectObj));
-  var obj = this.apiTree.applyStyle();
-  this.styleNodes(obj);
-
 };
 
 /* utils */

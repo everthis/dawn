@@ -17,9 +17,7 @@ export function jsonToTree(nodesArr) {
       }
     }
   }
-
   return tree;
-
 }
 
 function removeEleFromArr(arr, ele) {
