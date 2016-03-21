@@ -21,6 +21,7 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'byebug'
   gem 'better_errors'
+  gem 'bullet'
   gem 'web-console'
   gem 'spring'
   gem 'jasmine'
