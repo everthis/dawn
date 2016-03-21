@@ -20,6 +20,7 @@ group :development, :test do
   gem "rack-livereload"
   gem 'guard-livereload'
   gem 'byebug'
+  gem 'better_errors'
   gem 'web-console'
   gem 'spring'
   gem 'jasmine'
