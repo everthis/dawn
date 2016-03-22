@@ -4,7 +4,7 @@ class ApisController < ApplicationController
   def index
     @apis = Api.paginate(page: params[:page]).reverse
     respond_to do |format|
-      format.json { render :json => @apis }
+      format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
     end
   end
 
