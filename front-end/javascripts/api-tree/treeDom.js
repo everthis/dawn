@@ -162,10 +162,11 @@ ApiDom.prototype.renderExistTree = function(data) {
     this.apiTree = jsonToTree(data.nodes);
     let nodesArr = data.nodes;
     let nodeData = {};
-    for (let i = 0, len = nodesArr.length; i < len; i++) {
+    for (var i = 0, len = nodesArr.length; i < len; i++) {
       nodeData = nodesArr[i];
       docFrag.appendChild(generateLeaf(nodeData));
     }
+    this.leafIndex += (len - 2);
   }
   this.$apiTree.appendChild(docFrag);
   this.calcDimensions();
@@ -176,6 +177,7 @@ ApiDom.prototype.renderExistTree = function(data) {
 function generateLeaf(nodeData) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
+  newLeafSpan.dataset.parentId = nodeData.parentId;
   newLeafSpan.dataset.nodeId = nodeData.nodeId;
   newLeafSpan.innerHTML = leafTpl();
   newLeafSpan.style['transform'] = 'translate3d(' +
@@ -385,8 +387,8 @@ ApiDom.prototype.addChild = function(ctx) {
 function generateLeafSpan(parentId, nodeIndex, rectObj) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
-  newLeafSpan.setAttribute('data-parent', parentId);
-  newLeafSpan.setAttribute('data-node-id', nodeIndex);
+  newLeafSpan.dataset.parentId = parentId;
+  newLeafSpan.dataset.nodeId = nodeIndex;
   newLeafSpan.style['transform'] = 'translate3d(0px, ' + Math.round(rectObj.bottom) + 'px, 0)';
   newLeafSpan.innerHTML = leafTpl;
   return newLeafSpan;
