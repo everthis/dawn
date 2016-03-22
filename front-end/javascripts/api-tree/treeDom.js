@@ -308,7 +308,7 @@ ApiDom.prototype.initApiTree = function() {
 ApiDom.prototype.delNode = function(ctx) {
   var currentLeaf = ctx.target.closest('.leaf');
   var currentIdx = +ctx.target.parentNode.dataset.nodeId;
-  var parentIdx = (+ctx.target.parentNode.dataset.parent === 0) ? 0 : +ctx.target.parentNode.dataset.parent;
+  var parentIdx = (+ctx.target.parentNode.dataset.parentId === 0) ? 0 : +ctx.target.parentNode.dataset.parentId;
 
   var nodesArr = this.apiTree.traverseDescendants(currentIdx);
   var idxArr = nodesArrToIdxArr(nodesArr);

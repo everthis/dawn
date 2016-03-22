@@ -30,7 +30,6 @@ var callback = {
     parseAndFlash(data, destoryApiLi.bind(this));
   },
   success: function(data) {
-    console.log(data);
   },
   error: function(data) {
     parseAndFlash(data);
@@ -65,7 +64,6 @@ function bindevents() {
 }
 function addApiTree(data = {}, containerNode, isNewApi) {
   let newApi = new ApiDom(data, containerNode, isNewApi);
-  console.log(newApi);
   apisArr.push(newApi);
 }
 
