@@ -6,7 +6,7 @@ export function jsonToTree(nodesArr) {
     hashTable[nodesArr[i]['parentId']] ? hashTable[nodesArr[i]['parentId']].push(nodesArr[i]) : hashTable[nodesArr[i]['parentId']] = [nodesArr[i]];
   }
   // node 的子节点的ID总是大于node的ID
-  let modKeysArr = removeEleFromArr(Object.keys(hashTable), 'null').sort();
+  let modKeysArr = removeEleFromArr(Object.keys(hashTable), 'null').map(Number).sort(sortNumber);
   let rootNodeId = hashTable['null'][0]['nodeId'];
   tree = new Tree(rootNodeId);
 
@@ -26,4 +26,9 @@ function removeEleFromArr(arr, ele) {
     arr.splice(index, 1);
   }
   return arr;
+}
+
+/* By default the sort method sorts elements alphabetically. */
+function sortNumber(a,b) {
+    return a - b;
 }

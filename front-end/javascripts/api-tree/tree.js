@@ -108,11 +108,11 @@ Tree.prototype.contains = function(callback, traversal) {
 Tree.prototype.add = function(data, toData, traversal) {
   var child = new Node(data),
       parent = null,
-        callback = function(node) {
-          if (node.nodeId === toData) {
-            parent = node;
-          }
-        };
+      callback = function(node) {
+        if (node.nodeId === toData) {
+          parent = node;
+        }
+      };
 
   this.contains(callback, traversal);
 
@@ -123,7 +123,6 @@ Tree.prototype.add = function(data, toData, traversal) {
     throw new Error('Cannot add node to a non-existent parent.');
   }
 
-  console.log(this);
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
 };
