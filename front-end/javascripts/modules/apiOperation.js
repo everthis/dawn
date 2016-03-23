@@ -1,18 +1,17 @@
 import {$http} from '../common/ajax';
+import {rootAPI} from '../global/constant';
 import {html} from '../common/template';
 import {popup} from '../common/popup';
 import {insertAfter, strToDom, debounce} from '../common/utilities';
-import {flash} from '../common/flash';
-import {ApiDom} from '../api-tree/tree-dom';
-import {collectApiData} from '../api-tree/treeDataCollect';
+import {flash, parseAndFlash} from '../common/flash';
+import {ApiDom} from '../api-tree/treeDom';
 
-let rootAPI = window.location.origin + '/apis';
 let payload = {};
 let apisArr = [];
 
 var callback = {
   getApiSuccess: function(data) {
-    addApiTree(JSON.parse(data), this);
+    addApiTree(JSON.parse(data), this, false);
   },
   getAllApisSuccess: function(data) {
     renderAllApis(data);
@@ -31,7 +30,6 @@ var callback = {
     parseAndFlash(data, destoryApiLi.bind(this));
   },
   success: function(data) {
-    console.log(data);
   },
   error: function(data) {
     parseAndFlash(data);
@@ -42,11 +40,6 @@ export function initXhr() {
   document.addEventListener('click', bindEvent);
 }
 
-function parseAndFlash(data, callback) {
-  let jsonData = JSON.parse(data);
-  flash(jsonData, callback);
-  return jsonData;
-}
 
 function toggleFoldLi(context) {
   context.classList.toggle('unfold');
@@ -65,7 +58,7 @@ function bindevents() {
   let apiLis = document.getElementsByClassName('api-li-description');
   [].slice.call(apiLis).forEach(function(element, index) {
     element.addEventListener('click', function(ev) {
-      bindEventToApiLiDescription.call(this, ev);
+      bindEventToApiLiDescription.call(this);
     });
   });
 }
@@ -131,25 +124,7 @@ function getAllApis() {
 }
 
 function bindEvent(ev) {
-  if (ev.target.classList.contains('api-save')) {
-    // let params = {
-    //   'section': ev.target.parentNode.getElementsByClassName('api-section')[0].value,
-    //   'uri': ev.target.parentNode.getElementsByClassName('api-uri')[0].value,
-    //   'method': ev.target.parentNode.getElementsByClassName('api-method')[0].value
-    // };
-    let params = collectApiData(ev.target);
-    if (ev.target.dataset.method.toUpperCase() === 'PATCH') {
-      $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
-      .patch(params, 'api')
-      .then(callback.patchSuccess)
-      .catch(callback.error);
-    } else if (ev.target.dataset.method.toUpperCase() === 'POST') {
-      $http(rootAPI)
-      .post(params, 'api')
-      .then(callback.postSuccess)
-      .catch(callback.error);
-    }
-  };
+
 
   if (ev.target.classList.contains('del-dataroot-child')) {
     popup(ev, {}, deleteApi.bind(this, ev));

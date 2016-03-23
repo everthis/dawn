@@ -1,3 +1,6 @@
+.api-li-collapse {
+    cursor: pointer;
+}
 .add-api {
     border-bottom: 1px solid #ddd;
     padding: 5px 10px;
@@ -28,22 +31,20 @@
 .api-tree-wrapper {
     position: relative;
     margin: 1rem 0 0 0;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
 }
 .api-data {
     padding: .5rem 0 0 0;
 }
 .api-tree-frame {
-    padding: 0 0 0 1.2rem;
+    padding: 0 0 0 14px;
 }
 .api-tree {
     position: absolute;
     top:0;
     left:0;
-    // padding: .3em 0 0 62px;
-    // width: 0;
-    padding: 0 0 0 44.44px;
+    padding: 0 0 0 44px;
     height: 0;
 }
 .api-svg {
@@ -82,7 +83,7 @@ i {
 .leaf {
     display: inline-block;
     height: 22px;
-    width: 469px;
+    width: 460px;
     padding: 0 .5em;
     position: absolute;
     margin: 0 0 1.3em 0;
@@ -92,7 +93,7 @@ i {
     @include inline-block-fix(i);
     .remove-child {
         background-color: #F00;
-        margin: 2px .2em 0 0;
+        margin: 2px 2px 0 0;
         @extend %mark;
     }
     input, i {
@@ -105,9 +106,15 @@ i {
     i {
         width: 20px;
     }
+    .leaf-value {
+        width: 198px
+    }
+    .leaf-quantity {
+        width: 60px;
+    }
     .add-child {
         background-color: blue;
-        margin: 2px 0 0 .2em;
+        margin: 2px 0 0 2px;
         @extend %mark;
     }
     .gap-mark {

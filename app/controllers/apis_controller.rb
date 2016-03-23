@@ -4,7 +4,7 @@ class ApisController < ApplicationController
   def index
     @apis = Api.paginate(page: params[:page]).reverse
     respond_to do |format|
-      format.json { render :json => @apis }
+      format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
     end
   end
 
@@ -53,7 +53,7 @@ class ApisController < ApplicationController
   private
 
     def user_params
-      params.require(:api).permit(:method, :name, :description, :uri, :section, :data)
+      params.require(:api).permit([:method, :name, :description, :uri, :section, {nodes: [:nodeId, :key, :column, :childrenlevel, :totaloffsetylevel, :parentId, :quantity, :value]}, {dimensions: [:hUnit, :vUnit]} ])
     end
 
     def ensure_json_request  
