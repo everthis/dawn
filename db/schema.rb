@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315134915) do
+ActiveRecord::Schema.define(version: 20160323141839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,10 @@ ActiveRecord::Schema.define(version: 20160315134915) do
     t.string   "description"
     t.json     "nodes",       default: [], null: false
     t.json     "dimensions",  default: {}, null: false
+    t.integer  "user_id"
   end
+
+  add_index "apis", ["user_id"], name: "index_apis_on_user_id", using: :btree
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
@@ -68,4 +71,5 @@ ActiveRecord::Schema.define(version: 20160315134915) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "apis", "users"
 end

@@ -2,7 +2,7 @@ class ApisController < ApplicationController
   # before_action :ensure_json_request  
 
   def index
-    @apis = Api.paginate(page: params[:page]).reverse
+    @apis = Api.paginate(page: params[:page]).order("created_at DESC")
     respond_to do |format|
       format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
     end
