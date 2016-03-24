@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+  before_action :logged_in_user, only: [:dev]
   def home
     if logged_in?
       @micropost  = current_user.microposts.build
@@ -19,5 +20,6 @@ class StaticPagesController < ApplicationController
   end
   
   def dev
+
   end
 end
