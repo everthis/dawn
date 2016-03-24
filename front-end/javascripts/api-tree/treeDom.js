@@ -119,7 +119,6 @@ function createPerApi(data, isNewApi) {
 }
 
 export function ApiDom(data, containerNode, isNewApi = false) {
-  console.log(data);
   this.apiContainer = containerNode;
 
   this.apiContainer.appendChild(createPerApi(data, isNewApi));

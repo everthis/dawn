@@ -33,6 +33,7 @@ var callback = {
   },
   error: function(data) {
     parseAndFlash(data);
+    newApiBtn();
   }
 };
 export function initXhr() {
@@ -70,6 +71,10 @@ function addApiTree(data = {}, containerNode, isNewApi) {
 let debouncedNewApiBtn = debounce(processNewApiClick, 500, true);
 function processNewApiClick() {
   let apiUl = document.getElementsByClassName('api-ul')[0];
+  if (!apiUl) {
+    createApiUl();
+    apiUl = document.getElementsByClassName('api-ul')[0];
+  }
   let baseApiLi = strToDom(newApiLiTpl());
   apiUl.insertBefore(baseApiLi, apiUl.firstChild);
   addApiTree({}, baseApiLi, true);
@@ -77,6 +82,16 @@ function processNewApiClick() {
   baseApiLi.children[0].addEventListener('click', function(ev) {
       bindEventToApiLiDescription.call(this, ev);
     });
+}
+
+function createApiUl() {
+  let apiListEle = document.createElement('div');
+  let apiUlEle = document.createElement('ul');
+  let newApiDiv = document.getElementsByClassName('new-api')[0];
+  apiListEle.classList.add('api-ul-wrapper');
+  apiUlEle.classList.add('api-ul');
+  apiListEle.appendChild(apiUlEle);
+  insertAfter(apiListEle, newApiDiv);
 }
 function newApiBtn() {
   let newApiDiv = document.createElement('div');
@@ -109,7 +124,6 @@ function renderAllApis(data) {
       `)}
       </ul>
   `;
-  let header = document.getElementsByTagName('header')[0];
   let apiListEle = document.createElement('div');
   apiListEle.classList.add('api-ul-wrapper');
   apiListEle.innerHTML = tmpl(data);

@@ -70,7 +70,7 @@ export function $http(url) {
             reject(this.responseText);
           }
         };
-        client.onerror = function() {
+        client.onerror = function(err) {
           reject(this.responseText);
         };
       });
