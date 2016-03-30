@@ -1,17 +1,18 @@
 class ApisController < ApplicationController
   # before_action :ensure_json_request  
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy
 
   def index
     if logged_in?
-      @result = current_user.apis
+      @result = current_user.apis.paginate(page: params[:page]).order("created_at DESC")
       respond_to do |format|
         if @result.empty?
           format.json { render :json => {:message => "Nothing found." }, status: :unprocessable_entity }
         else
           @apis  = @result
-          format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
+          format.json { render :json => @apis, :only=> [:name, :section, :uri, :method, :id, :description] }
+          # format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
         end
       end
 
