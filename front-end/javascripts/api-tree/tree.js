@@ -16,14 +16,15 @@ export function Tree(data) {
   this._root = node;
 }
 
-function Node(nodeId) {
-  this.nodeId = nodeId; // leaf index, starts from 0(root node)
+function Node(data) {
+  this.nodeId = data.nodeId; // leaf index, starts from 0(root node)
   this.parent = null;
   this.children = [];
   // added later
   this.childrenlevel = 1; // rows of descendants of current node
   this.column = 0; // which column the current node sits in, starts from 0( root node sits in)
   this.totaloffsetylevel = 0; // total vertical offset to the current tree 
+  this.data = data.data || {};
 }
 
 Tree.prototype.traverseDF = function(callback) {

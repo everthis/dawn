@@ -10,6 +10,7 @@ import {parseAndFlash} from '../common/flash';
 import {collectApiData} from './treeDataCollect';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {jsonToTree} from './jsonTreeConverter';
+import {twoWayDataBinding} from '../common/twoWayDataBinding';
 
 function perApiTpl(data, isNewApi = false) {
   let tpl =
@@ -52,11 +53,11 @@ function perApiTpl(data, isNewApi = false) {
 function leafTpl() {
   let leafContentTpl = `
     <i class="remove-child">-</i>
-    <input type="text" class="leaf-key" placeholder="key" />
+    <input type="text" class="leaf-key" placeholder="key" model="dataType" />
     <i class="gap-mark">---</i>
-    <input type="text" class="leaf-value" placeholder="value" />
+    <input type="text" class="leaf-value" placeholder="value" model="dataValue" />
     <i class="gap-mark">---</i>
-    <input type="text" class="leaf-quantity" placeholder="quantity" />
+    <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
     <i class="add-child">+</i>
   `;
   return leafContentTpl;
@@ -157,19 +158,36 @@ ApiDom.prototype.renderExistTree = function(data) {
   docFrag.appendChild(addMark);
   docFrag.appendChild(delMark);
 
+  let perTWDBArr = [];
   if (data.nodes && data.nodes.length) {
-    this.apiTree = jsonToTree(data.nodes);
     let nodesArr = data.nodes;
     let nodeData = {};
+    let leaf;
+    let leafData = {};
+    let perTWDB;
     for (var i = 0, len = nodesArr.length; i < len; i++) {
-      nodeData = nodesArr[i];
-      docFrag.appendChild(generateLeaf(nodeData));
+      leaf = undefined;
+      leaf = generateLeaf(data.nodes[i]);
+      if (data.nodes[i].data === undefined || data.nodes[i].data === "") {
+        data.nodes[i].data = {
+          dataType: "",
+          dataValue: "",
+          dataQuantity: ""
+        };
+      };
+
+      perTWDB = twoWayDataBinding(data.nodes[i].data, leaf);
+      data.nodes[i].data = perTWDB;
+      perTWDBArr.push(perTWDB);
+      docFrag.appendChild(leaf);
     }
     this.leafIndex += (len - 2);
   }
+  this.apiTree = jsonToTree(data.nodes);
   this.$apiTree.appendChild(docFrag);
   this.calcDimensions();
   this.drawSVG();
+  console.log(perTWDBArr);
 };
 
 
