@@ -1,5 +1,6 @@
 import {mergeObj} from '../common/utilities';
 export function collectApiData(tree, opEle) {
+  console.log(tree);
   let perApiEle = opEle.closest('.per-api');
   let infoEle = perApiEle.getElementsByClassName('api-info')[0];
   // let treeEle = perApiEle.getElementsByClassName('api-tree')[0];
@@ -49,6 +50,7 @@ function collectDataFromTree(apiTree) {
     nodeData.parentId = node.parent === null ? null : node.parent.nodeId;
     nodeData.childrenlevel = node.childrenlevel;
     nodeData.totaloffsetylevel =  node.totaloffsetylevel;
+    nodeData.data =  node.data;
     nodesArr.push(nodeData);
   };
   tree.traverseDF(callback);

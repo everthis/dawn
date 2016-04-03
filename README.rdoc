@@ -23,13 +23,30 @@ Things you may want to cover:
 
 * ...
 
-To develop the APP
+create role and database
+```bash
+sudo -u postgres createuser -d -P dawn_pg
+sudo -u postgres createdb -O dawn_pg dawn_development
+```
 
+install imagemagick
+```bash
+sudo apt-get update
+sudo apt-get install imagemagick --fix-missing
+```
+
+launch web server, rails livereload, front-end build system
+```bash
 bundle exec passenger start
-
 guard -P livereload
-
 gulp serve
+```
+start in production mode
+```bash
+bundle exec puma -p 3000 -e production
+```
+
+
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.

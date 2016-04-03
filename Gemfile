@@ -15,6 +15,7 @@ gem "passenger"
 gem 'sdoc', group: :doc
 gem "guard"
 gem 'pg'
+gem 'puma'
 
 group :development, :test do
   gem "rack-livereload"
@@ -25,6 +26,11 @@ group :development, :test do
   gem 'web-console'
   gem 'spring'
   gem 'jasmine'
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 
 group :test do
@@ -35,5 +41,4 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem 'puma'
 end

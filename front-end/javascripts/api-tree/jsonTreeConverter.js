@@ -7,13 +7,13 @@ export function jsonToTree(nodesArr) {
   }
   // node 的子节点的ID总是大于node的ID
   let modKeysArr = removeEleFromArr(Object.keys(hashTable), 'null').map(Number).sort(sortNumber);
-  let rootNodeId = hashTable['null'][0]['nodeId'];
-  tree = new Tree(rootNodeId);
+  let rootNodeData = hashTable['null'][0];
+  tree = new Tree(rootNodeData);
 
   for (let j = 0, keysLen = modKeysArr.length; j < keysLen; j++) {
     if (hashTable.hasOwnProperty(modKeysArr[j])) {
       for (let k = 0, keyArrLen = hashTable[modKeysArr[j]].length; k < keyArrLen; k++) {
-        tree.add(hashTable[modKeysArr[j]][k]['nodeId'], +modKeysArr[j], tree.traverseBF);
+        tree.add(hashTable[modKeysArr[j]][k], +modKeysArr[j], tree.traverseBF);
       }
     }
   }

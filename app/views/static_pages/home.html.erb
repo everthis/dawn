@@ -16,10 +16,21 @@
   <section class="micropost-form">
     <%= render 'shared/micropost_form' %>
   </section>
-<div class="feeds">
-  <%= render 'shared/feed' %>
-</div>
+  
+  <div class="feeds">
+    <%= render 'shared/feed' %>
+  </div>
 <% else %>
+  <section class="welcome">
+    <%= render 'rails_logo' %>
 
+    <h1>Yay! You’re on Rails!</h1>
+    <%= render 'welcome_img' %>
+    
+    <p class="version">
+      <strong>Rails version:</strong> <%= Rails.version %><br />
+      <strong>Ruby version:</strong> <%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)
+    </p>
+  </section>
 <% end %>
 

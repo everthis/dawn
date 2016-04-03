@@ -1,17 +1,18 @@
 class ApisController < ApplicationController
   # before_action :ensure_json_request  
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy
 
   def index
     if logged_in?
-      @result = current_user.apis
+      @result = current_user.apis.paginate(page: params[:page]).order("created_at DESC")
       respond_to do |format|
         if @result.empty?
           format.json { render :json => {:message => "Nothing found." }, status: :unprocessable_entity }
         else
           @apis  = @result
-          format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
+          format.json { render :json => @apis, :only=> [:name, :section, :uri, :method, :id, :description] }
+          # format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
         end
       end
 
@@ -64,7 +65,7 @@ class ApisController < ApplicationController
   private
 
     def api_params
-      params.require(:api).permit([:method, :name, :description, :uri, :section, {nodes: [:nodeId, :key, :column, :childrenlevel, :totaloffsetylevel, :parentId, :quantity, :value]}, {dimensions: [:hUnit, :vUnit]} ])
+      params.require(:api).permit([:method, :name, :description, :uri, :section, {nodes: [:nodeId, :key, :column, :childrenlevel, :totaloffsetylevel, :parentId, :quantity, :value, {data: [:dataType, :dataValue, :dataQuantity]}]}, {dimensions: [:hUnit, :vUnit]} ])
     end
 
     def ensure_json_request  
