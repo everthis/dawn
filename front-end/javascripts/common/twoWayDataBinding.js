@@ -30,7 +30,6 @@ export function twoWayDataBinding(data, domContext) {
     selectorToArray('[model=' + key + ']', domContext).forEach(function(el) {
       /* Our handler simply sets our models `key` to the element's value. */
       function handler() {
-        console.log(el.value);
         model[key] = el.value;
       }
       /* Bind a `keyup` handler so we get live feedback on each key press. */

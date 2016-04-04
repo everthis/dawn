@@ -65,20 +65,6 @@ i {
     width: 23em;
     border-right: 1px solid #ddd;
 }
-.add-dataroot-child {
-    position: absolute;
-    top: 2px;
-    left: 0;
-    @extend %mark;
-    background-color: green;
-}
-.del-dataroot-child {
-    @extend %mark;
-    position: absolute;
-    top: 36px;
-    left: 0;
-    background-color: red;
-}
 
 .leaf {
     display: inline-block;
@@ -91,6 +77,28 @@ i {
     text-align: center;
     @include inline-block-fix(input);
     @include inline-block-fix(i);
+    &.root-leaf {
+        width: 14px;
+        transform: translate3d(-44px,0,0) !important;
+        overflow: hidden;
+        height: 48px;
+        .leaf-key,
+        .leaf-value,
+        .gap-mark,
+        .leaf-quantity {
+            display: none;
+        }
+        .remove-child {
+            position: absolute;
+            top: 30px;
+            left: 0;
+        }
+        .add-child {
+            position: absolute;
+            left:0;
+            margin: 2px 0;
+        }
+    }
     .remove-child {
         background-color: #F00;
         margin: 2px 2px 0 0;

@@ -11,6 +11,7 @@ import {collectApiData} from './treeDataCollect';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {jsonToTree} from './jsonTreeConverter';
 import {twoWayDataBinding} from '../common/twoWayDataBinding';
+import {callbacks} from '../common/callbacks';
 
 function perApiTpl(data, isNewApi = false) {
   let tpl =
@@ -73,13 +74,19 @@ let initRectObj = {
   height: 0
 };
 
+let leafDataPlaceHolder = {
+  dataType: '',
+  dataValue: '',
+  dataQuantity: ''
+};
+
 /*
 single leaf width: 460px;
  */
 const perLeafWidth = 460;
 const perLeafHeight = 22;
 const leavesVerticalGap = 30;
-var perSVGPathWidth = 30;
+const perSVGPathWidth = 30;
 var rootNodeWidth = perSVGPathWidth + 14;
 var callback = {
   patchSuccess: function(data) {
@@ -133,7 +140,6 @@ export function ApiDom(data, containerNode, isNewApi = false) {
   this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
   this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
   if (isNewApi) {
-    this.$apiTree.appendChild(createLeaf(0, 1, 0, initRectObj));
     this.initApiTree();
     this.calcDimensions();
   } else {
@@ -147,16 +153,6 @@ export function ApiDom(data, containerNode, isNewApi = false) {
 
 ApiDom.prototype.renderExistTree = function(data) {
   let docFrag = document.createDocumentFragment();
-  let addMark = document.createElement('span');
-  addMark.className = 'add-dataroot-child';
-  addMark.textContent = '+';
-
-  let delMark = document.createElement('span');
-  delMark.className = 'del-dataroot-child';
-  delMark.textContent = '-';
-
-  docFrag.appendChild(addMark);
-  docFrag.appendChild(delMark);
 
   let perTWDBArr = [];
   if (data.nodes && data.nodes.length) {
@@ -169,12 +165,9 @@ ApiDom.prototype.renderExistTree = function(data) {
       leaf = undefined;
       leaf = generateLeaf(data.nodes[i]);
       if (data.nodes[i].data === undefined || data.nodes[i].data === "") {
-        data.nodes[i].data = {
-          dataType: "",
-          dataValue: "",
-          dataQuantity: ""
-        };
+        data.nodes[i].data = leafDataPlaceHolder;
       };
+      if (data.nodes[i].parentId === null || data.nodes[i].parentId === 'null') leaf.classList.add('root-leaf');
 
       perTWDB = twoWayDataBinding(data.nodes[i].data, leaf);
       data.nodes[i].data = perTWDB;
@@ -187,7 +180,6 @@ ApiDom.prototype.renderExistTree = function(data) {
   this.$apiTree.appendChild(docFrag);
   this.calcDimensions();
   this.drawSVG();
-  console.log(perTWDBArr);
 };
 
 
@@ -227,10 +219,26 @@ function bindEvent(ev) {
   };
 
   if (ev.target.classList.contains('remove-child')) {
-    _this.delNode(ev);
+    if (ev.target.parentElement.classList.contains('root-leaf')) {
+      popup(ev, {}, deleteApi.bind(_this, ev));
+    } else {
+      _this.delNode(ev);
+    }
+    return null;
+  };
+}
+
+function deleteApi(ev) {
+  if (!ev.target.closest('.per-api').dataset.id) {
+    ev.target.closest('.api-ul').removeChild(ev.target.closest('.api-li'));
     return null;
   };
 
+  let params = {};
+  $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
+  .delete(params)
+  .then(callbacks.deleteSuccess.bind(ev))
+  .catch(callbacks.error);
 }
 
 ApiDom.prototype.storeApiReturnData = function(data) {
@@ -285,39 +293,33 @@ ApiDom.prototype.bindEventsToMRCAPI = function() {
 
 };
 
-ApiDom.prototype.operateDataRootChild = function() {
-  var that = this;
-  var addMark = document.createElement('span');
-  addMark.className = 'add-dataroot-child';
-  addMark.textContent = '+';
-  addMark.addEventListener('click', function(ev) {
-      that.leafIndex += 1;
-      var parentIdx = 0;
-      that.apiTree.add(that.leafIndex, parentIdx, that.apiTree.traverseBF);
-
-      that.$apiTree.appendChild(createLeaf(parentIdx, that.leafIndex, initRectObj));
-      var obj = that.apiTree.applyStyle();
-      that.styleNodes(obj);
-    });
-  this.$apiTree.insertBefore(addMark, this.$apiTree.firstChild);
-
-  var delMark = document.createElement('span');
-  delMark.className = 'del-dataroot-child';
-  delMark.textContent = '-';
-  delMark.addEventListener('click', function(ev) {
-      /* this API is deleted. */
-
-      // that.apiContainer.removeChild(ev.currentTarget.closest('.per-api'));
-    });
-  this.$apiTree.insertBefore(delMark, this.$apiTree.firstChild);
-
-};
-
 ApiDom.prototype.initApiTree = function() {
-  this.apiTree = new Tree(0);
-  this.apiTree.add(1, 0, this.apiTree.traverseBF);
+  let initData = {
+    nodeId: 0,
+    data: leafDataPlaceHolder
+  };
+  let firstChildData = {
+    nodeId: 1,
+    data: leafDataPlaceHolder
+  };
+  this.apiTree = new Tree(initData);
+  this.apiTree.add(firstChildData, 0, this.apiTree.traverseBF);
 
-  this.operateDataRootChild();
+  let treeDocFrag = document.createDocumentFragment();
+
+  let callback = function(node) {
+    let leafEle;
+    let leafBindData;
+    node.parentId = node.parent ? node.parent.nodeId : null;
+    leafEle = generateLeaf(node);
+    leafBindData = twoWayDataBinding(leafDataPlaceHolder, leafEle);
+    node.data = leafBindData;
+    if (node.parentId === null || node.parentId === 'null') leafEle.classList.add('root-leaf');
+    treeDocFrag.appendChild(leafEle);
+  };
+
+  this.apiTree.traverseBF(callback);
+  this.$apiTree.appendChild(treeDocFrag);
 
   return this.apiTree;
 };
@@ -371,51 +373,40 @@ ApiDom.prototype.setParentNodeVal = function(idx) {
   };
 };
 ApiDom.prototype.addChild = function(ctx) {
-  this.leafIndex += 1;
+  this.leafIndex = this.apiTree.maxId() + 1;
   var parentIdex = +ctx.target.parentNode.dataset.nodeId;
 
   // apiTree operation
-  this.apiTree.add(this.leafIndex, parentIdex, this.apiTree.traverseBF);
 
-  var clonedRectObj = cloneRectObj(this.nodeLeftOffset(ctx.target.parentNode));
-  var childrenNodes = this.apiTree.traverseDirectChild(parentIdex);
 
-  var childrenIdxArr = [];
-  for (var perNode in childrenNodes._storage) {
-    if ((typeof parseInt(perNode) === 'number') && childrenNodes._storage[perNode].hasOwnProperty('data')) {
-      childrenIdxArr.push(childrenNodes._storage[perNode].data);
-    };
-  }
-
-  var childrenIdxArrLen = childrenIdxArr.length;
-
-  clonedRectObj.right -= 30;
-
-  clonedRectObj.bottom = childrenIdxArrLen === 1 ?
-                           clonedRectObj.bottom + clonedRectObj.height * (childrenIdxArrLen - 2) :
-                         clonedRectObj.bottom + clonedRectObj.height * (childrenIdxArrLen - 2) + (childrenIdxArrLen - 1) * 20;
-  this.$apiTree.appendChild(createLeaf(parentIdex, this.leafIndex, clonedRectObj));
+  let leafChild = createLeaf(parentIdex, this.leafIndex);
+  let childModel = twoWayDataBinding(leafDataPlaceHolder, leafChild);
+  let leafData = {
+    nodeId: this.leafIndex,
+    data: childModel
+  };
+  this.apiTree.add(leafData, parentIdex, this.apiTree.traverseBF);
+  this.$apiTree.appendChild(leafChild);
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdex);
 
 };
 
-function generateLeafSpan(parentId, nodeIndex, rectObj) {
+function generateLeafSpan(parentId, nodeIndex) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
   newLeafSpan.dataset.parentId = parentId;
   newLeafSpan.dataset.nodeId = nodeIndex;
-  newLeafSpan.style['transform'] = 'translate3d(0px, ' + Math.round(rectObj.bottom) + 'px, 0)';
-  newLeafSpan.innerHTML = leafTpl;
+  newLeafSpan.innerHTML = leafTpl();
   return newLeafSpan;
 }
-function createLeaf(parentIdx, nodeIdx, rectObj) {
+function createLeaf(parentIdx, nodeIdx) {
   var newLeaf = document.createDocumentFragment();
-  newLeaf.appendChild(generateLeafSpan(parentIdx, nodeIdx, rectObj));
+  newLeaf.appendChild(generateLeafSpan(parentIdx, nodeIdx));
   return newLeaf;
 }
-ApiDom.prototype.styleNodes = function(styleObj) {
+ApiDom.prototype.styleNodes = function() {
   var leaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
 
   let leavesHash = {};

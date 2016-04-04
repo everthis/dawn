@@ -29,6 +29,10 @@ function removeEleFromArr(arr, ele) {
 }
 
 /* By default the sort method sorts elements alphabetically. */
-function sortNumber(a,b) {
-    return a - b;
+function sortNumber(a, b) {
+  return a - b;
+}
+
+export function treeToJson(tree) {
+
 }
