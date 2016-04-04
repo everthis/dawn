@@ -126,6 +126,7 @@ Tree.prototype.add = function(data, toData, traversal) {
 
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
+  console.log(this);
 };
 
 Tree.prototype.remove = function(data, fromData, traversal) {
@@ -154,7 +155,6 @@ Tree.prototype.remove = function(data, fromData, traversal) {
     throw new Error('Parent does not exist.');
   }
 
-  console.log(this);
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
 
@@ -236,6 +236,16 @@ Tree.prototype.traverseDescendants = function(nodeData) {
   }
 
   return descendantsArr;
+};
+
+/* get Max nodeId from tree */
+Tree.prototype.maxId = function() {
+  let maxNodeId = 0;
+  let callback = function(node) {
+    if (node.nodeId > maxNodeId) maxNodeId = node.nodeId;
+  };
+  this.traverseBF(callback);
+  return maxNodeId;
 };
 
 /* tree depth */

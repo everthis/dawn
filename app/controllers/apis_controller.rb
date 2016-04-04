@@ -65,7 +65,31 @@ class ApisController < ApplicationController
   private
 
     def api_params
-      params.require(:api).permit([:method, :name, :description, :uri, :section, {nodes: [:nodeId, :key, :column, :childrenlevel, :totaloffsetylevel, :parentId, :quantity, :value, {data: [:dataType, :dataValue, :dataQuantity]}]}, {dimensions: [:hUnit, :vUnit]} ])
+      params.require(:api).permit([:method, 
+                                   :name, 
+                                   :description, 
+                                   :uri, 
+                                   :section, 
+                                   {nodes: [:nodeId, 
+                                            :key, 
+                                            :column, 
+                                            :childrenlevel, 
+                                            :totaloffsetylevel, 
+                                            :parentId, 
+                                            :quantity, 
+                                            :value, 
+                                            {data: [:dataType, 
+                                                    :dataValue, 
+                                                    :dataQuantity
+                                                   ]
+                                            }
+                                           ]
+                                   }, 
+                                   {dimensions: [:hUnit, 
+                                                :vUnit
+                                               ]
+                                   } 
+                                  ])
     end
 
     def ensure_json_request  
