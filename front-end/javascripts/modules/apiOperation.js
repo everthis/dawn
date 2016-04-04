@@ -139,21 +139,5 @@ function getAllApis() {
 
 function bindEvent(ev) {
 
-
-  if (ev.target.classList.contains('del-dataroot-child')) {
-    popup(ev, {}, deleteApi.bind(this, ev));
-  };
-  function deleteApi(ev) {
-    if (!ev.target.closest('.per-api').dataset.id) {
-      ev.target.closest('.api-ul').removeChild(ev.target.closest('.api-li'));
-      return null;
-    };
-
-    let params = {};
-    $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
-    .delete(params)
-    .then(callback.deleteSuccess.bind(ev))
-    .catch(callback.error);
-  }
 }
 

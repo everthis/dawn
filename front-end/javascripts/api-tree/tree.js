@@ -126,7 +126,6 @@ Tree.prototype.add = function(data, toData, traversal) {
 
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
-  console.log(this);
 };
 
 Tree.prototype.remove = function(data, fromData, traversal) {

@@ -11,6 +11,7 @@ import {collectApiData} from './treeDataCollect';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {jsonToTree} from './jsonTreeConverter';
 import {twoWayDataBinding} from '../common/twoWayDataBinding';
+import {callbacks} from '../common/callbacks';
 
 function perApiTpl(data, isNewApi = false) {
   let tpl =
@@ -152,16 +153,6 @@ export function ApiDom(data, containerNode, isNewApi = false) {
 
 ApiDom.prototype.renderExistTree = function(data) {
   let docFrag = document.createDocumentFragment();
-  let addMark = document.createElement('span');
-  addMark.className = 'add-dataroot-child';
-  addMark.textContent = '+';
-
-  let delMark = document.createElement('span');
-  delMark.className = 'del-dataroot-child';
-  delMark.textContent = '-';
-
-  docFrag.appendChild(addMark);
-  docFrag.appendChild(delMark);
 
   let perTWDBArr = [];
   if (data.nodes && data.nodes.length) {
@@ -228,10 +219,26 @@ function bindEvent(ev) {
   };
 
   if (ev.target.classList.contains('remove-child')) {
-    _this.delNode(ev);
+    if (ev.target.parentElement.classList.contains('root-leaf')) {
+      popup(ev, {}, deleteApi.bind(_this, ev));
+    } else {
+      _this.delNode(ev);
+    }
+    return null;
+  };
+}
+
+function deleteApi(ev) {
+  if (!ev.target.closest('.per-api').dataset.id) {
+    ev.target.closest('.api-ul').removeChild(ev.target.closest('.api-li'));
     return null;
   };
 
+  let params = {};
+  $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
+  .delete(params)
+  .then(callbacks.deleteSuccess.bind(ev))
+  .catch(callbacks.error);
 }
 
 ApiDom.prototype.storeApiReturnData = function(data) {
@@ -286,37 +293,6 @@ ApiDom.prototype.bindEventsToMRCAPI = function() {
 
 };
 
-ApiDom.prototype.operateDataRootChild = function() {
-  var that = this;
-  var addMark = document.createElement('span');
-  addMark.className = 'add-dataroot-child';
-  addMark.textContent = '+';
-  addMark.addEventListener('click', function(ev) {
-
-    let leafIndex = that.apiTree.maxId() + 1;
-    var parentIdx = 0;
-    let leafData = {
-        nodeId: leafIndex,
-        data: leafDataPlaceHolder
-      };
-    that.apiTree.add(leafData, parentIdx, that.apiTree.traverseBF);
-
-    that.$apiTree.appendChild(createLeaf(parentIdx, leafIndex, initRectObj));
-    var obj = that.apiTree.applyStyle();
-    that.styleNodes(obj);
-  });
-  this.$apiTree.insertBefore(addMark, this.$apiTree.firstChild);
-
-  var delMark = document.createElement('span');
-  delMark.className = 'del-dataroot-child';
-  delMark.textContent = '-';
-  delMark.addEventListener('click', function(ev) {
-
-    });
-  this.$apiTree.insertBefore(delMark, this.$apiTree.firstChild);
-
-};
-
 ApiDom.prototype.initApiTree = function() {
   let initData = {
     nodeId: 0,
@@ -338,13 +314,12 @@ ApiDom.prototype.initApiTree = function() {
     leafEle = generateLeaf(node);
     leafBindData = twoWayDataBinding(leafDataPlaceHolder, leafEle);
     node.data = leafBindData;
+    if (node.parentId === null || node.parentId === 'null') leafEle.classList.add('root-leaf');
     treeDocFrag.appendChild(leafEle);
   };
 
   this.apiTree.traverseBF(callback);
   this.$apiTree.appendChild(treeDocFrag);
-
-  this.operateDataRootChild();
 
   return this.apiTree;
 };
