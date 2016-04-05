@@ -2,11 +2,10 @@
 <h1 class="center">Forgot password</h1>
 
 <div class="form-container">
-    <%= form_for(:password_reset, url: password_resets_path) do |f| %>
-      <div class="row">
-	      <%= f.label :email, class: "form-label" %>
-	      <%= f.email_field :email, class: 'form-control' %>
-      </div>
+    <%= form_for(:password_reset, url: password_resets_path, html: {class: "reset-pwd-form"}) do |f| %>
+      <%= field_set_tag 'Email', class: '' do %>
+	      <%= f.email_field :email, class: '' %>
+      <% end %>
 	  
 	  <div class="row">
 	      <%= f.submit "Submit", class: "btn btn-submit" %>
