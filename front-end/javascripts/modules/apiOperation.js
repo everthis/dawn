@@ -86,17 +86,22 @@ function processNewApiClick() {
 function createApiUl() {
   let apiListEle = document.createElement('div');
   let apiUlEle = document.createElement('ul');
-  let newApiDiv = document.getElementsByClassName('new-api')[0];
+  let newApiDiv = document.getElementsByClassName('api-add-query')[0];
   apiListEle.classList.add('api-ul-wrapper');
   apiUlEle.classList.add('api-ul');
   apiListEle.appendChild(apiUlEle);
   insertAfter(apiListEle, newApiDiv);
 }
 function newApiBtn() {
-  let newApiDiv = document.createElement('div');
+  let newApiDiv;
   let header = document.getElementsByTagName('header')[0];
-  newApiDiv.classList.add('new-api');
-  newApiDiv.innerHTML = `<input class="add-api-btn" type="button" value="new API">`;
+  let newApiStr = `
+    <div class="api-add-query">
+      <input class="add-api-btn" type="button" value="new API">
+      <input class="api-query" type="search" placeholder="search">
+    </div>
+  `;
+  newApiDiv = strToDom(newApiStr);
   newApiDiv.children[0].addEventListener('click', debouncedNewApiBtn);
   insertAfter(newApiDiv, header);
   return newApiDiv;
