@@ -62,6 +62,13 @@ class ApisController < ApplicationController
     end
   end
 
+  def query
+    @api = Api.where("uri like ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.json { render :json => @api.map(&:attributes) }
+    end
+  end
+
   private
 
     def api_params

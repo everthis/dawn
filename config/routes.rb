@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'demo' => 'demo#home'
 
   resources :apis
+  get 'apidata' => 'apis#query'
   # resources :apis, :defaults => { :format => 'json' } do
     # member do
     #   post :update_api

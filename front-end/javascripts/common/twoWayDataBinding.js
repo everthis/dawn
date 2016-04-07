@@ -33,9 +33,9 @@ export function twoWayDataBinding(data, domContext) {
         model[key] = el.value;
       }
       /* Bind a `keyup` handler so we get live feedback on each key press. */
-      el.addEventListener('keyup', handler);
+      // el.addEventListener('keyup', handler);
       /* Bind a `change` handler which is fired when the element is blurred. */
-      el.addEventListener('change', handler);
+      el.addEventListener('input', handler);
     });
   });
   /* Return our new model object. */
