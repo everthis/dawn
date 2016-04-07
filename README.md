@@ -50,8 +50,15 @@ start in production mode
 ```bash
 bundle exec puma -p 3000 -e production
 ```
+possible problems
 
-
+```bash
+cc1plus: error: unrecognized command line option "-std=c++0x"
+```
+fix:
+```bash
+echo 'export CXX=/usr/bin/gcc-3.3' >> ~/.bashrc
+```
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
