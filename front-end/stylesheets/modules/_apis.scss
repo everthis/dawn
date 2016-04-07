@@ -27,7 +27,8 @@
 		width: 20rem;
 		padding: 0 0 0 1rem;
 	}
-	.api-li-description {
+	.api-li-summary {
+		height: 27px;
 		padding: .5rem 1rem;
 		background-color: #FFFAF0;
 		& + .per-api {
@@ -37,5 +38,12 @@
 		&.unfold + .per-api {
 			display: block;
 		}
+	}
+}
+.new-api {
+	padding: 0 .5rem;
+	.add-api-btn {
+		background-color: blue;
+		color: white;
 	}
 }

@@ -38,7 +38,6 @@ var callback = {
 };
 export function initXhr() {
   getAllApis();
-  document.addEventListener('click', bindEvent);
 }
 
 
@@ -56,7 +55,7 @@ function bindEventToApiLiDescription(ev) {
   .catch(callback.error);
 }
 function bindevents() {
-  let apiLis = document.getElementsByClassName('api-li-description');
+  let apiLis = document.getElementsByClassName('api-li-summary');
   [].slice.call(apiLis).forEach(function(element, index) {
     element.addEventListener('click', function(ev) {
       bindEventToApiLiDescription.call(this);
@@ -106,10 +105,11 @@ function newApiBtn() {
 function newApiLiTpl(data = {}) {
   var tpl = `
     <li class="api-li" data-api-id="${data.id || null}">
-      <div class="api-li-description">
+      <div class="api-li-summary">
         <span class="api-li-collapse"><svg class="icon icon-down"><use xlink:href="#icon-down"></use></svg></span>
-        <span class="api-li-uri">${data.uri || '(No uri)'}</span>
-        <span class="api-li-name">${data.name ? data.name : '(No name)'}</span>
+        <span class="api-li-uri" bind="uri">${data.uri || '(No uri)'}</span>
+        <span class="api-li-name" bind="name">${data.name ? data.name : '(No name)'}</span>
+        <span class="api-li-des" bind="description">${data.description ? data.description : '(No description)'}</span>
       </div>
     </li>
   `;
@@ -137,7 +137,4 @@ function getAllApis() {
   .catch(callback.error);
 }
 
-function bindEvent(ev) {
-
-}
 

@@ -17,18 +17,18 @@ function perApiTpl(data, isNewApi = false) {
   let tpl =
       `<div class="api-info">
           <label class="api-label">API:</label>
-          <input class="api-uri" placeholder="" value="" /> 
+          <input class="api-uri" placeholder="" value="" model="uri" /> 
           <label class="api-label">method:</label>
-          <select class="api-method">
-              <option value="GET" selected>GET</option>
+          <select class="api-method" model="method">
+              <option value="GET">GET</option>
               <option value="POST">POST</option>
               <option value="PATCH">PATCH</option>
               <option value="DELETE">DELETE</option>
           </select>
           <label>section:</label>
-          <input class="api-section" type="text" />
+          <input class="api-section" type="text" model="section" />
           <label for="">description:</label>
-          <input class="api-description" type="text" />
+          <input class="api-description" type="text" model="description" />
           <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
           <span class="api-test">test</span>
       </div>
@@ -128,8 +128,12 @@ function createPerApi(data, isNewApi) {
 
 export function ApiDom(data, containerNode, isNewApi = false) {
   this.apiContainer = containerNode;
+  let perApiEle = createPerApi(data, isNewApi);
+  this.apiContainer.appendChild(perApiEle);
 
-  this.apiContainer.appendChild(createPerApi(data, isNewApi));
+  let apiBindData = twoWayDataBinding(data, this.apiContainer);
+  
+  data = apiBindData;
 
   this.apiEle = this.apiContainer.getElementsByClassName('per-api')[0];
 
