@@ -22,6 +22,7 @@
 # Ignore uploaded test images.
 /public/uploads
 
+/.sass-cache
 # Ignore node_modules
 /front-end/node_modules
 /node_modules
