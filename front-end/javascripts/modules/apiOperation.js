@@ -31,8 +31,17 @@ var callback = {
     parseAndFlash(data, destoryApiLi.bind(this));
   },
   apiQuerySuccess: function(data) {
-    let searchList = document.createDocumentFragment();
-    // searchList
+    let searchList = document.getElementsByClassName('api-search-result')[0];
+    let dataObj = JSON.parse(data);
+    let contentStr = '';
+    for (let i = 0, Len = dataObj.length; i < Len; i++) {
+      contentStr += `<div class='per-search-result'>
+        <span>${dataObj[i].uri}</span>
+        <span>${dataObj[i].method}</span>
+        <span>${dataObj[i].description}</span>
+      </div>`;
+    }
+    searchList.innerHTML = contentStr;
   },
   success: function(data) {
     console.log(data);
@@ -44,20 +53,43 @@ var callback = {
 };
 export function initXhr() {
   getAllApis();
-  
 }
 
-let debouncedApiQueryInput = debounce(apiQuery, 300, true);
+let debouncedApiQueryInput = debounce(apiQuery, 240, false);
 function listenApiQuery() {
   let apiQueryInput = document.getElementsByClassName('api-query')[0];
-  apiQueryInput.addEventListener('input', debouncedApiQueryInput);
+  let inWrapper = false;
+  apiQueryInput.addEventListener('keyup', debouncedApiQueryInput);
+  apiQueryInput.parentElement.addEventListener('mouseleave', function(ev) {
+    if (!checkIfFocus.apply(apiQueryInput, ev)) {
+      clearSearchResult();
+    };
+    inWrapper = false;
+  });
+  apiQueryInput.parentElement.addEventListener('mouseenter', function(ev) {
+    inWrapper = true;
+  });
+  apiQueryInput.addEventListener('blur', function(ev) {
+    if (!inWrapper) clearSearchResult();
+  });
+  apiQueryInput.addEventListener('focus', apiQuery);
+}
+function checkIfFocus(ev) {
+  return this === document.activeElement;
 }
 function apiQuery(ev) {
+  if (ev.target.value.length <= 0) {
+    clearSearchResult();
+    return;
+  }
   payload = {q: ev.target.value};
   $http(window.location.origin + '/apidata')
   .get(payload)
-  .then(callback.success)
+  .then(callback.apiQuerySuccess.bind(ev))
   .catch(callback.error);
+}
+function clearSearchResult() {
+  document.getElementsByClassName('api-search-result')[0].innerHTML = '';
 }
 function toggleFoldLi(context) {
   context.classList.toggle('unfold');
@@ -116,7 +148,10 @@ function newApiBtn() {
   let newApiStr = `
     <div class="api-add-query">
       <input class="add-api-btn" type="button" value="new API">
-      <input class="api-query" type="search" placeholder="search">
+      <div class="api-search-wrapper">
+        <input class="api-query" type="search" placeholder="search">
+        <div class="api-search-result"></div>
+      </div>
     </div>
   `;
   newApiDiv = strToDom(newApiStr);

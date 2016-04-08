@@ -58,6 +58,7 @@ export function $http(url) {
         } else if (method === 'GET') {
           let uri = serialize(extendGeneralParams(addPrefixToObj(args, prefix)));
           client.open(method, url + '?' + uri);
+          client.setRequestHeader('Content-type', 'application/json');
           client.send();
         };
 
