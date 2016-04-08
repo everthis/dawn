@@ -1,5 +1,5 @@
 {
-  "name": "batman_vs_superman",
+  "name": "dawn",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,6 @@
     "autoprefixer": "^6.3.4",
     "babelify": "^7.2.0",
     "browser-sync": "^2.11.2",
-    "browserify": "^6.3.2",
     "hashmark": "^2.0.0",
     "jade": "^1.7.0",
     "jshint": "^2.5.10",
@@ -29,13 +28,16 @@
     "prebuild": "npm run clean -s",
     "build": "npm run build:devscripts -s && npm run build:styles -s && npm run build:cp -s",
     "dev:bs": "browser-sync start --browser='google chrome canary' --server 'assets' --files='app/assets/stylesheets/*.css, assets/*.html, app/assets/javascripts/*.js' --index='index.html'",
+    "dev:bs-slient": "browser-sync start --server 'assets' --files='app/assets/stylesheets/*.css, assets/*.html, app/assets/javascripts/*.js' --index='index.html'",
     "dev:moncss": "nodemon --watch front-end/stylesheets --ext scss --exec 'npm run dev:css' ",
     "dev:monjs": "nodemon --watch front-end/javascripts --ext js --exec 'npm run dev:js' ",
     "dev:css": "sass --trace --scss --load-path front-end/stylesheets < front-end/stylesheets/application.scss | postcss --use autoprefixer --autoprefixer.browsers '> 1%' -m > app/assets/stylesheets/application.css",
     "dev:js": "browserify -d front-end/javascripts/application.js -t babelify -o app/assets/javascripts/application.js",
     "dev:build": "npm run dev:css & npm run dev:js",
     "dev:bsmon": "npm run dev:bs & npm run dev:moncss & npm run dev:monjs",
-    "dev:s": "npm run dev:build && npm run dev:bsmon"
+    "dev:bsmon-slient": "npm run dev:bs-slient & npm run dev:moncss & npm run dev:monjs",
+    "dev:s": "npm run dev:build && npm run dev:bsmon",
+    "dev:ss": "npm run dev:build && npm run dev:bsmon-slient"
   },
   "author": "wwwaap <wwwaap@gmail.com> (https://www.everthis.com/)",
   "license": "MIT",

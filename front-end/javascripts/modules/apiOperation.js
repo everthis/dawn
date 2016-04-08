@@ -16,6 +16,7 @@ var callback = {
   getAllApisSuccess: function(data) {
     renderAllApis(data);
     bindevents();
+    listenApiQuery();
   },
   patchSuccess: function(data) {
     parseAndFlash(data);
@@ -29,7 +30,12 @@ var callback = {
     }
     parseAndFlash(data, destoryApiLi.bind(this));
   },
+  apiQuerySuccess: function(data) {
+    let searchList = document.createDocumentFragment();
+    // searchList
+  },
   success: function(data) {
+    console.log(data);
   },
   error: function(data) {
     parseAndFlash(data);
@@ -38,9 +44,21 @@ var callback = {
 };
 export function initXhr() {
   getAllApis();
+  
 }
 
-
+let debouncedApiQueryInput = debounce(apiQuery, 300, true);
+function listenApiQuery() {
+  let apiQueryInput = document.getElementsByClassName('api-query')[0];
+  apiQueryInput.addEventListener('input', debouncedApiQueryInput);
+}
+function apiQuery(ev) {
+  payload = {q: ev.target.value};
+  $http(window.location.origin + '/apidata')
+  .get(payload)
+  .then(callback.success)
+  .catch(callback.error);
+}
 function toggleFoldLi(context) {
   context.classList.toggle('unfold');
 }

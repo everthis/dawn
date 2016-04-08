@@ -37,6 +37,10 @@ sudo apt-get update
 sudo apt-get install imagemagick --fix-missing
 ```
 
+install browserify 
+```bash
+npm install -g browserify
+```
 launch web server, rails livereload, front-end build system
 
 ```bash
