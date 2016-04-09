@@ -55,7 +55,7 @@ export function initXhr() {
   getAllApis();
 }
 
-let debouncedApiQueryInput = debounce(apiQuery, 240, false);
+let debouncedApiQueryInput = debounce(apiQuery, 270, false);
 function listenApiQuery() {
   let apiQueryInput = document.getElementsByClassName('api-query')[0];
   let inWrapper = false;

@@ -29,7 +29,6 @@ $http(mdnAPI)
   .then(callback.success)
   .then(undefined, callback.error);
  */
-
 // A-> $http function is implemented in order to follow the standard Adapter pattern
 import {serialize} from './serialize';
 import {isEmpty, mergeObj, addPrefixToObj, wrapObj} from './utilities';
@@ -80,7 +79,6 @@ export function $http(url) {
       return promise;
     }
   };
-
   // Adapter pattern
   return {
     'get': function(args, prefix) {

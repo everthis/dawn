@@ -114,6 +114,13 @@ i {
     i {
         width: 20px;
     }
+    .leaf-value,
+    .leaf-key,
+    .leaf-quantity {
+        &:focus {
+           border-bottom: $focus-border-style;
+        }
+    }
     .leaf-value {
         width: 198px
     }

@@ -23,6 +23,7 @@
 /public/uploads
 
 /.sass-cache
+/.tmp
 # Ignore node_modules
 /front-end/node_modules
 /node_modules
