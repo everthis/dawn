@@ -29,6 +29,10 @@ create role and database
 sudo -u postgres createuser -d -P dawn_pg
 sudo -u postgres createdb -O dawn_pg dawn_development
 ```
+login to postgres on debian 
+```bash
+sudo -u postgres psql
+```
 
 install imagemagick
 

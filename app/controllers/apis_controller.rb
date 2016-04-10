@@ -71,6 +71,13 @@ class ApisController < ApplicationController
     end
   end
 
+  def generate_data
+    @api = current_user.apis.find(params[:id])
+    respond_to do |format|
+      format.json { render :json => {:message => "Nothing found.", :data => @api }, status: 200 }
+    end
+  end
+
   private
 
     def api_params

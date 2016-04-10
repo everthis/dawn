@@ -25,7 +25,7 @@
 .api-save {
     @extend .api-edit;
 }
-.api-test {
+.api-respond-preview-btn {
     @extend .api-edit;
 }
 .api-tree-wrapper {
@@ -34,8 +34,13 @@
     overflow-x: auto;
     overflow-y: hidden;
 }
-.api-data {
+.api-respond-preview {
     padding: .5rem 0 0 0;
+    &.raw {
+        pre {
+            white-space: normal;
+        }
+    }
 }
 .api-tree-frame {
     padding: 0 0 0 14px;
@@ -145,15 +150,46 @@ i {
     }
 }
 
-.data-raw {
-    @extend .api-edit;
+.preview-control-wrapper {
+    border-bottom: 1px solid #d9d9d9;
+    background-color: #fafafa;
+    line-height: 1.54;
+    .preview-control {
+        font-size: 0;
+        margin-bottom: -1px;
+    }
 }
-.data-beautify {
-    @extend .api-edit;
+.per-preview-type {
+    display: inline-block;
+    padding: 3px 15px;
+    vertical-align: bottom;
+    border-style: solid;
+    border-width: 2px 1px 0 1px;
+    border-color: transparent;
+    border-left-color: #dedede;
+    list-style: none;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 1.85;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 0;
+    font-size: 1rem;
+    &.active {
+        border-color: #2c99ff #e4e4e4 #fff #dedede;
+        background-color: #fff;
+        color: #000;
+        + .per-preview-type {
+            border-left-color: transparent;
+        }
+    }
 }
-.data-highlight {
-    @extend .api-edit;
+.preview-raw {
 }
-.data-preview {
-    @extend .api-edit;
+.preview-beautify {
+}
+.preview-highlight {
+}
+.preview-preview {
 }

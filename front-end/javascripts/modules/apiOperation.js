@@ -83,7 +83,7 @@ function apiQuery(ev) {
     return;
   }
   payload = {q: ev.target.value};
-  $http(window.location.origin + '/apidata')
+  $http(window.location.origin + '/instantsearch')
   .get(payload)
   .then(callback.apiQuerySuccess.bind(ev))
   .catch(callback.error);
