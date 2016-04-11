@@ -6,7 +6,7 @@ import {Tree} from './tree';
 import {$http} from '../common/ajax';
 import {popup} from '../common/popup';
 import {rootAPI} from '../global/constant';
-import {parseAndFlash} from '../common/flash';
+import {flash, parseAndFlash} from '../common/flash';
 import {collectApiData} from './treeDataCollect';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {jsonToTree} from './jsonTreeConverter';
@@ -91,10 +91,16 @@ const perSVGPathWidth = 30;
 var rootNodeWidth = perSVGPathWidth + 14;
 var callback = {
   patchSuccess: function(data) {
+    this.apiRawData = data;
+    this.apiDataObj = JSON.parse(data).data;
     parseAndFlash(data);
+    console.log(this);
   },
   postSuccess: function(data) {
+    this.apiRawData = data;
+    this.apiDataObj = JSON.parse(data).data;
     parseAndFlash(data);
+    console.log(this);
   },
   deleteSuccess: function(data) {
     function destoryApiLi() {
@@ -107,7 +113,7 @@ var callback = {
   },
   error: function(data) {
     console.log(data);
-    // parseAndFlash(data);
+    parseAndFlash(data);
   },
   apiRespondSuccess: function(data) {
     let jsonObj = JSON.parse(data);
@@ -135,12 +141,12 @@ function createPerApi(data, isNewApi) {
 }
 
 export function ApiDom(data, containerNode, isNewApi = false) {
+  this.apiDataObj = data;
   this.apiContainer = containerNode;
   let perApiEle = createPerApi(data, isNewApi);
   this.apiContainer.appendChild(perApiEle);
 
   let apiBindData = twoWayDataBinding(data, this.apiContainer);
-  
   data = apiBindData;
 
   this.apiEle = this.apiContainer.getElementsByClassName('per-api')[0];
@@ -158,8 +164,7 @@ export function ApiDom(data, containerNode, isNewApi = false) {
 
   this.apiReturnData = '';
 
-  this.operateContext = {'_this': this};
-  this.apiEle.addEventListener('click', bindEvent.bind(this.operateContext));
+  this.apiEle.addEventListener('click', bindEvent.bind(this));
 }
 
 ApiDom.prototype.renderExistTree = function(data) {
@@ -207,20 +212,20 @@ function generateLeaf(nodeData) {
 }
 
 function bindEvent(ev) {
-  /* _this is ApiDom, while this is its wrapper(object). */
-  let _this = this._this;
+  /* _$this is ApiDom, while this is its wrapper(object). */
+  let _this = this;
   console.log(_this);
   let evTargetClassList = ev.target.classList;
   let eventContext = {_ev: ev, domContainer: ev.target.closest('.api-li')};
   this.eventContext = eventContext;
   if (evTargetClassList.contains('api-save')) {
     let params = collectApiData(_this.apiTree, _this.$apiTree);
-    if (ev.target.dataset.method.toUpperCase() === 'PATCH') {
-      $http(rootAPI + '/' + ev.target.closest('.api-li').dataset.apiId)
+    if (this.apiDataObj.id) {
+      $http(rootAPI + '/' + this.apiDataObj.id)
       .patch(params, 'api')
       .then(callback.patchSuccess.bind(this))
       .catch(callback.error);
-    } else if (ev.target.dataset.method.toUpperCase() === 'POST') {
+    } else if (!this.apiDataObj.id) {
       $http(rootAPI)
       .post(params, 'api')
       .then(callback.postSuccess.bind(this))
@@ -244,9 +249,12 @@ function bindEvent(ev) {
   };
 
   if (evTargetClassList.contains('api-respond-preview-btn')) {
-    let params = {id: ev.target.closest('.per-api').dataset.id};
+    if (!this.apiDataObj.id) {
+      flash({error: 'Save first.'});
+      return null;
+    };
+    let params = {id: this.apiDataObj.id};
     let context = {};
-    this.previewBtnClick = ev;
     $http(window.location.origin + '/apirespond')
     .get(params)
     .then(callback.apiRespondSuccess.bind(this))
@@ -315,13 +323,13 @@ function jsonView(data) {
 }
 
 function deleteApi(ev) {
-  if (!ev.target.closest('.per-api').dataset.id) {
+  if (!this.apiDataObj.id) {
     ev.target.closest('.api-ul').removeChild(ev.target.closest('.api-li'));
     return null;
   };
 
   let params = {};
-  $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
+  $http(rootAPI + '/' + this.apiDataObj.id)
   .delete(params)
   .then(callbacks.deleteSuccess.bind(ev))
   .catch(callbacks.error);
@@ -539,7 +547,7 @@ ApiDom.prototype.calcDimensions = function() {
   horiMax = Math.max.apply(null, horiArr);
   verticalMax = this.apiTree._root.childrenlevel;
   this.$apiTreeFrame.style.width = horiMax * 520 + 'px';
-  this.$apiTreeFrame.style.height = verticalMax * 52 - 22 + 'px';
+  this.$apiTreeFrame.style.height = verticalMax * 52 - (verticalMax > 1 ? 30 : 0) + 'px';
   return [horiMax, verticalMax];
 
 };
