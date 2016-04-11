@@ -20,7 +20,7 @@ gem 'puma'
 group :development, :test do
   gem "ruby_gntp"
   gem "rack-livereload"
-  gem 'guard-livereload',   require: false
+  gem 'guard-livereload'
   gem 'byebug'
   gem 'better_errors'
   gem 'bullet'

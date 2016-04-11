@@ -113,8 +113,7 @@ var callback = {
     let jsonObj = JSON.parse(data);
     this.previewData = data;
     this.previewDataObj = jsonObj;
-    let str = hightlightJSON(jsonObj);
-    jsonView.call(this.previewBtnClick.target, str);
+    switchPreview(this.previewDataObj, hightlightJSON, this.previewBtnClick, 'highlight');
   }
 };
 
@@ -210,7 +209,7 @@ function generateLeaf(nodeData) {
 }
 
 function bindEvent(ev) {
-  /* _this is ApiDom, while this is its wrapper. */
+  /* _this is ApiDom, while this is its wrapper(object). */
   let _this = this._this;
   let evTargetClassList = ev.target.classList;
   if (evTargetClassList.contains('api-save')) {
@@ -255,29 +254,30 @@ function bindEvent(ev) {
   };
 
   if (evTargetClassList.contains('preview-raw')) {
-    jsonView.call(this.previewBtnClick.target, this.previewData);
-    switchPreviewStatus(ev, 'raw');
-    return null;
+    return switchPreview(this.previewDataObj, JSON.stringify, ev, 'raw');
   };
 
   if (evTargetClassList.contains('preview-beautify')) {
-    let beautifyStr = beautifyJSON(this.previewDataObj);
-    jsonView.call(this.previewBtnClick.target, beautifyStr);
-    switchPreviewStatus(ev, 'beautify');
-    return null;
+    return switchPreview(this.previewDataObj, beautifyJSON, ev, 'beautify');
   };
 
   if (evTargetClassList.contains('preview-highlight')) {
-    let highlightStr = hightlightJSON(this.previewDataObj);
-    jsonView.call(this.previewBtnClick.target, highlightStr);
-    switchPreviewStatus(ev, 'highlight');
-    return null;
+    return switchPreview(this.previewDataObj, hightlightJSON, ev, 'highlight');
   };
+
 }
 
-function switchPreviewStatus(ev, applyType) {
+function switchPreview(dataObj, fn, ev, previewType) {
+  let previewStr = fn.call(null, dataObj);
+  let previewContext = {_ev: ev, domContainer: ev.target.closest('.api-li')};
+  jsonView.call(previewContext.domContainer, previewStr);
+  switchPreviewStatus(previewContext, previewType);
+  return null;
+}
+
+function switchPreviewStatus(previewContext, applyType) {
   let previewTypes = ['raw', 'beautify', 'highlight'];
-  let apiRespondPreviewEle = ev.target.closest('.api-respond-preview');
+  let apiRespondPreviewEle = previewContext.domContainer.getElementsByClassName('api-respond-preview')[0];
   let apiRespondPreviewEleClassArr = apiRespondPreviewEle.className.trim().split(' ');
   apiRespondPreviewEleClassArr.forEach(function(element, index, array) {
     let idx = previewTypes.indexOf(element);
@@ -285,11 +285,11 @@ function switchPreviewStatus(ev, applyType) {
       array.splice(array.indexOf(element), 1);
     }
   });
-  let previewTypeElesArr = [].slice.call(ev.target.parentElement.getElementsByClassName('per-preview-type'));
+  let previewTypeElesArr = [].slice.call(previewContext.domContainer.getElementsByClassName('per-preview-type'));
   previewTypeElesArr.forEach(function(element, index) {
     element.classList.remove('active');
   });
-  ev.target.classList.add('active');
+  previewContext.domContainer.getElementsByClassName('preview-' + applyType)[0].classList.add('active');
   apiRespondPreviewEle.className = apiRespondPreviewEleClassArr.join(' ');
   apiRespondPreviewEle.classList.add(applyType);
 }
@@ -309,7 +309,7 @@ function apiTest() {
 function jsonView(data) {
   var $pre = document.createElement('pre');
   $pre.innerHTML = data;
-  let $dataViewEle = this.closest('.per-api').getElementsByClassName('data-view')[0];
+  let $dataViewEle = this.getElementsByClassName('data-view')[0];
   $dataViewEle.innerHTML = '';
   $dataViewEle.appendChild($pre);
 }
