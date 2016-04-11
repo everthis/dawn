@@ -65,7 +65,8 @@ class ApisController < ApplicationController
   def query
     respond_to do |format|
       unless params[:q].blank?
-        @api = current_user.apis.where("uri like ?", "%#{params[:q]}%")
+        @api = current_user.apis.where('uri like :search OR method like :search OR section like :search OR description like :search', search: "%#{params[:q]}%")
+        # @api = current_user.apis.where("uri like ?", "%#{params[:q]}%")
         format.json { render :json => @api, :only=> [:uri, :description, :method] }
       end
     end
