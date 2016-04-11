@@ -68,5 +68,10 @@ fix:
 echo 'export CXX=/usr/bin/gcc-3.3' >> ~/.bashrc
 ```
 
+imagemagick installation failure on iDev, 
+```bash
+--without-tiff --without-dps
+```
+
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
