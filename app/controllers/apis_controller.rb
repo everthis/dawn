@@ -78,10 +78,12 @@ class ApisController < ApplicationController
       # format.json { render :json => {:message => "Nothing found.", :data => @api }, status: 200 }
       # JSON.parse(s,:symbolize_names => true)
       # HashWithIndifferentAccess
+      arr = Array.new(@api_json['nodes'][0]['data']['dataQuantity'].to_i){ |i| {"#{@api_json['nodes'][0]['data']['dataType']}" => @api_json['nodes'][0]['data']['dataValue']} }
       format.json {
-        render :json => {
-                :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
-              }
+        render :json => arr
+        # render :json => {
+        #         :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
+        #       }
       }
     end
   end

@@ -58,6 +58,7 @@ function leafTpl() {
     <input type="text" class="leaf-key" placeholder="key" model="dataType" />
     <i class="gap-mark">---</i>
     <input type="text" class="leaf-value" placeholder="value" model="dataValue" />
+    <input type="text" class="leaf-value-type" placeholder="value" model="dataValueType" />
     <i class="gap-mark">---</i>
     <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
     <i class="add-child">+</i>

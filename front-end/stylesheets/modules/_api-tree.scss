@@ -128,7 +128,11 @@ i {
         }
     }
     .leaf-value {
-        width: 198px
+        width: 148px;
+    }
+    .leaf-value-type {
+        width: 50px;
+        border-left: 1px solid #999;
     }
     .leaf-quantity {
         width: 60px;
