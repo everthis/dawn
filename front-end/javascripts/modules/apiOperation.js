@@ -36,12 +36,14 @@ var callback = {
     let contentStr = '';
     for (let i = 0, Len = dataObj.length; i < Len; i++) {
       contentStr += `<div class='per-search-result'>
-        <span>${dataObj[i].uri}</span>
-        <span>${dataObj[i].method}</span>
-        <span>${dataObj[i].description}</span>
+        <span class="per-result-column per-result-uri">${dataObj[i].uri}</span>
+        <span class="per-result-column per-result-section">${dataObj[i].section}</span>
+        <span class="per-result-column per-result-method">${dataObj[i].method}</span>
+        <span class="per-result-column per-result-description">${dataObj[i].description}</span>
       </div>`;
     }
     searchList.innerHTML = contentStr;
+    dataObj.length > 0 ? searchList.classList.remove('hide') : searchList.classList.add('hide');    
   },
   success: function(data) {
     console.log(data);
@@ -55,7 +57,7 @@ export function initXhr() {
   getAllApis();
 }
 
-let debouncedApiQueryInput = debounce(apiQuery, 270, false);
+let debouncedApiQueryInput = debounce(apiQuery, 100, false);
 function listenApiQuery() {
   let apiQueryInput = document.getElementsByClassName('api-query')[0];
   let inWrapper = false;
@@ -89,7 +91,9 @@ function apiQuery(ev) {
   .catch(callback.error);
 }
 function clearSearchResult() {
-  document.getElementsByClassName('api-search-result')[0].innerHTML = '';
+  let apiSearchResultEle = document.getElementsByClassName('api-search-result')[0];
+  apiSearchResultEle.innerHTML = '';
+  apiSearchResultEle.classList.add('hide');
 }
 function toggleFoldLi(context) {
   context.classList.toggle('unfold');
@@ -150,7 +154,7 @@ function newApiBtn() {
       <input class="add-api-btn" type="button" value="new API">
       <div class="api-search-wrapper">
         <input class="api-query" type="search" placeholder="search">
-        <div class="api-search-result"></div>
+        <div class="api-search-result hide"></div>
       </div>
     </div>
   `;

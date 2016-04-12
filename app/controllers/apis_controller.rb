@@ -66,16 +66,23 @@ class ApisController < ApplicationController
     respond_to do |format|
       unless params[:q].blank?
         @api = current_user.apis.where('uri like :search OR method like :search OR section like :search OR description like :search', search: "%#{params[:q]}%")
-        # @api = current_user.apis.where("uri like ?", "%#{params[:q]}%")
-        format.json { render :json => @api, :only=> [:uri, :description, :method] }
+        format.json { render :json => @api, :only=> [:uri, :section, :description, :method] }
       end
     end
   end
 
   def generate_data
-    @api = current_user.apis.find(params[:id])
+    @api = current_user.apis.where(uri: params[:uri])
+    @api_json = @api.as_json[0]
     respond_to do |format|
-      format.json { render :json => {:message => "Nothing found.", :data => @api }, status: 200 }
+      # format.json { render :json => {:message => "Nothing found.", :data => @api }, status: 200 }
+      # JSON.parse(s,:symbolize_names => true)
+      # HashWithIndifferentAccess
+      format.json {
+        render :json => {
+                :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
+              }
+      }
     end
   end
 
