@@ -66,7 +66,6 @@ function leafTpl() {
         <option value="Hash">Hash</option>
         <option value="Regex">Regex</option>
         <option value="Fixed">Fixed</option>
-        <option value="Undefined">Undefined</option>
         <option value="Null">Null</option>
     </select>
     <i class="gap-mark">---</i>
@@ -88,7 +87,7 @@ let initRectObj = {
 
 let leafDataPlaceHolder = {
   dataName: '',
-  dataType: '',
+  dataType: 'String',
   dataValue: '',
   dataQuantity: ''
 };
@@ -226,7 +225,6 @@ function generateLeaf(nodeData) {
 function bindEvent(ev) {
   /* _$this is ApiDom, while this is its wrapper(object). */
   let _this = this;
-  console.log(_this);
   let evTargetClassList = ev.target.classList;
   let eventContext = {_ev: ev, domContainer: ev.target.closest('.api-li')};
   this.eventContext = eventContext;

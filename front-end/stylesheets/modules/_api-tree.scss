@@ -91,6 +91,7 @@ i {
         .leaf-key,
         .leaf-value,
         .gap-mark,
+        .leaf-value-type,
         .leaf-quantity {
             display: none;
         }
@@ -128,7 +129,7 @@ i {
         }
     }
     .leaf-key {
-        width: 100px;
+        width: 120px;
     }
     .leaf-value {
         width: 148px;
@@ -140,7 +141,7 @@ i {
         font-size: 1rem;
     }
     .leaf-quantity {
-        width: 60px;
+        width: 40px;
     }
     .add-child {
         background-color: blue;

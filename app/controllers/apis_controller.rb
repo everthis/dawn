@@ -81,8 +81,23 @@ class ApisController < ApplicationController
       nodes_arr = @api_json['nodes']
       arr = Array.new
       nodes_arr.each_with_index { |node, idx|
-
-        tmp = Array.new(nodes_arr[idx]['data']['dataQuantity'].to_i){ |i| {"#{nodes_arr[idx]['data']['dataName']}" => nodes_arr[idx]['data']['dataValue']} }
+        next if node['nodeId'] == 0
+        node_val = case node['data']['dataType']
+                   when "String"
+                     node['data']['dataValue'].to_s
+                   when "Number"
+                     node['data']['dataValue'].to_i
+                   when "Boolean"
+                     node['data']['dataValue'].to_bool
+                   when "Null"
+                     nil
+                   else
+                     "You gave me #{node['data']['dataValue']} -- I have no idea what to do with that."
+                   end
+        node_val_quantity = node['data']['dataQuantity'].to_i
+        tmp = Array.new(node_val_quantity){ |i| 
+          {"#{node['data']['dataName']}": node_val} 
+        }
         arr << tmp
       }
       # arr = Array.new(@api_json['nodes'][0]['data']['dataQuantity'].to_i){ |i| {"#{@api_json['nodes'][0]['data']['dataType']}" => @api_json['nodes'][0]['data']['dataValue']} }
