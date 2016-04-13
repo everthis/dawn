@@ -55,10 +55,20 @@ function perApiTpl(data, isNewApi = false) {
 function leafTpl() {
   let leafContentTpl = `
     <i class="remove-child">-</i>
-    <input type="text" class="leaf-key" placeholder="key" model="dataType" />
+    <input type="text" class="leaf-key" placeholder="key" model="dataName" />
     <i class="gap-mark">---</i>
     <input type="text" class="leaf-value" placeholder="value" model="dataValue" />
-    <input type="text" class="leaf-value-type" placeholder="value" model="dataValueType" />
+    <select class="leaf-value-type" model="dataType">
+        <option value="String">String</option>
+        <option value="Number">Number</option>
+        <option value="Boolean">Boolean</option>
+        <option value="Array">Array</option>
+        <option value="Hash">Hash</option>
+        <option value="Regex">Regex</option>
+        <option value="Fixed">Fixed</option>
+        <option value="Undefined">Undefined</option>
+        <option value="Null">Null</option>
+    </select>
     <i class="gap-mark">---</i>
     <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
     <i class="add-child">+</i>
@@ -77,6 +87,7 @@ let initRectObj = {
 };
 
 let leafDataPlaceHolder = {
+  dataName: '',
   dataType: '',
   dataValue: '',
   dataQuantity: ''

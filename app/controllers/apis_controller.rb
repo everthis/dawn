@@ -75,10 +75,17 @@ class ApisController < ApplicationController
     @api = current_user.apis.where(uri: params[:uri])
     @api_json = @api.as_json[0]
     respond_to do |format|
-      # format.json { render :json => {:message => "Nothing found.", :data => @api }, status: 200 }
+      # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
       # JSON.parse(s,:symbolize_names => true)
       # HashWithIndifferentAccess
-      arr = Array.new(@api_json['nodes'][0]['data']['dataQuantity'].to_i){ |i| {"#{@api_json['nodes'][0]['data']['dataType']}" => @api_json['nodes'][0]['data']['dataValue']} }
+      nodes_arr = @api_json['nodes']
+      arr = Array.new
+      nodes_arr.each_with_index { |node, idx|
+
+        tmp = Array.new(nodes_arr[idx]['data']['dataQuantity'].to_i){ |i| {"#{nodes_arr[idx]['data']['dataName']}" => nodes_arr[idx]['data']['dataValue']} }
+        arr << tmp
+      }
+      # arr = Array.new(@api_json['nodes'][0]['data']['dataQuantity'].to_i){ |i| {"#{@api_json['nodes'][0]['data']['dataType']}" => @api_json['nodes'][0]['data']['dataValue']} }
       format.json {
         render :json => arr
         # render :json => {
@@ -105,6 +112,7 @@ class ApisController < ApplicationController
                                             :quantity, 
                                             :value, 
                                             {data: [:dataType, 
+                                                    :dataName, 
                                                     :dataValue, 
                                                     :dataQuantity
                                                    ]
