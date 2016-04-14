@@ -16,6 +16,7 @@ gem 'sdoc', group: :doc
 gem "guard"
 gem 'pg'
 gem 'puma'
+gem 'regexp-examples'
 
 group :development, :test do
   gem "ruby_gntp"

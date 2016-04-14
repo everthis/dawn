@@ -341,6 +341,7 @@ GEM
       trollop
     rdoc (4.2.2)
       json (~> 1.4)
+    regexp-examples (1.2.0)
     ruby-progressbar (1.7.5)
     ruby_gntp (0.3.4)
     sdoc (0.4.1)
@@ -407,6 +408,7 @@ DEPENDENCIES
   rack-livereload
   rails
   rails_12factor
+  regexp-examples
   ruby_gntp
   sdoc
   spring

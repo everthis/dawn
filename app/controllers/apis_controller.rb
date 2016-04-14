@@ -82,21 +82,9 @@ class ApisController < ApplicationController
       arr = Array.new
       nodes_arr.each_with_index { |node, idx|
         next if node['nodeId'] == 0
-        node_val = case node['data']['dataType']
-                   when "String"
-                     node['data']['dataValue'].to_s
-                   when "Number"
-                     node['data']['dataValue'].to_i
-                   when "Boolean"
-                     node['data']['dataValue'].to_bool
-                   when "Null"
-                     nil
-                   else
-                     "You gave me #{node['data']['dataValue']} -- I have no idea what to do with that."
-                   end
         node_val_quantity = node['data']['dataQuantity'].to_i
         tmp = Array.new(node_val_quantity){ |i| 
-          {"#{node['data']['dataName']}": node_val} 
+          {"#{node['data']['dataName']}": node_val(node['data'])} 
         }
         arr << tmp
       }
@@ -111,6 +99,25 @@ class ApisController < ApplicationController
   end
 
   private
+
+    def node_val(node_data)
+      case node_data['dataType']
+      when "String"
+        node_data['dataValue'].to_s
+      when "Number"
+        node_data['dataValue'].to_i
+      when "Boolean"
+        node_data['dataValue'].to_bool
+      when "Null"
+        nil
+      when "Regex"
+        str = node_data['dataValue']
+        reg = Regexp.new str
+        reg.examples(max_repeater_variance: 2, max_group_results: 6, max_results_limit: 10000).sample
+      else
+        "You gave me #{node_data['dataValue']} -- I have no idea what to do with that."
+      end
+    end
 
     def api_params
       params.require(:api).permit([:method, 
