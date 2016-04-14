@@ -64,13 +64,13 @@ function leafTpl() {
         <option value="Boolean">Boolean</option>
         <option value="Array">Array</option>
         <option value="Hash">Hash</option>
-        <option value="Regex">Regex</option>
-        <option value="Fixed">Fixed</option>
+        <option value="Regex">Regex(string)</option>
+        <option value="Fixed">Fixed(string)</option>
         <option value="Null">Null</option>
     </select>
     <i class="gap-mark">---</i>
-    <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
     <i class="add-child">+</i>
+    <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
   `;
   return leafContentTpl;
 }
@@ -89,7 +89,7 @@ let leafDataPlaceHolder = {
   dataName: '',
   dataType: 'String',
   dataValue: '',
-  dataQuantity: ''
+  dataQuantity: '0'
 };
 
 /*

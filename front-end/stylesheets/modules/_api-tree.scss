@@ -83,6 +83,16 @@ i {
     text-align: center;
     @include inline-block-fix(input);
     @include inline-block-fix(i);
+    &::after {
+        content: '*';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        color: #000;
+        font-size: 1rem;
+    }
     &.root-leaf {
         width: 14px;
         transform: translate3d(-44px,0,0) !important;
@@ -144,14 +154,17 @@ i {
         width: 40px;
     }
     .add-child {
+        position: relative;
         background-color: blue;
         margin: 2px 0 0 2px;
         @extend %mark;
     }
     .gap-mark {
     }
-    .leaf-key {
-        padding: 0 1em;
+    .leaf-key,
+    .leaf-value,
+    .leaf-quantity {
+        padding: 0 .5rem;
     }
     .add-sibling {
         position: absolute;
