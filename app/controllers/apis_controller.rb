@@ -89,16 +89,28 @@ class ApisController < ApplicationController
         arr << tmp
       }
       # arr = Array.new(@api_json['nodes'][0]['data']['dataQuantity'].to_i){ |i| {"#{@api_json['nodes'][0]['data']['dataType']}" => @api_json['nodes'][0]['data']['dataValue']} }
+      require 'pp'
+      nodes_tree = to_tree(nodes_arr)
+      p nodes_tree
       format.json {
-        render :json => arr
-        # render :json => {
-        #         :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
-        #       }
+        # render :json => to_tree(nodes_arr)
+        # render :json => arr
+        render :json => {
+                :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
+              }
       }
     end
   end
 
   private
+    def to_tree(arr)
+      nested_hash = Hash[arr.map{|e| [e[:nodeId], e.merge(children: [])]}]
+      nested_hash.each do |id, item|
+        parent = nested_hash[item[:parentId]]
+        parent[:children] << item if parent
+      end
+      nested_hash.select { |id, item| item[:parentId].nil? }.values
+    end
 
     def node_val(node_data)
       case node_data['dataType']

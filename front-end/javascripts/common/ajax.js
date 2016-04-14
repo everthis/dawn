@@ -104,6 +104,7 @@ function extendGeneralParams(obj) {
   let csrfToken = RPs.csrfToken();
   let generalObj = {};
   generalObj.utf8 = '✓';
+  generalObj.format = 'json';
   generalObj[csrfParam] = csrfToken;
   return mergeObj(obj, generalObj);
 }

@@ -98,6 +98,9 @@ i {
         transform: translate3d(-44px,0,0) !important;
         overflow: hidden;
         height: 48px;
+        &::after {
+            display: none;
+        }
         .leaf-key,
         .leaf-value,
         .gap-mark,
