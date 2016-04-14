@@ -40,7 +40,6 @@ GEM
     ansi (1.5.0)
     arel (6.0.3)
     bcrypt (3.1.11)
-    bcrypt (3.1.11-x86-mingw32)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -49,7 +48,7 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
-    byebug (8.2.2)
+    byebug (8.2.3)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -86,13 +85,11 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.2.0.1)
-    eventmachine (1.2.0.1-x86-mingw32)
     excon (0.49.0)
     execjs (2.6.0)
     faker (1.6.3)
       i18n (~> 0.5)
     ffi (1.9.10)
-    ffi (1.9.10-x86-mingw32)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.38.0)
@@ -287,8 +284,6 @@ GEM
     net-ssh (3.1.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    nokogiri (1.6.7.2-x86-mingw32)
-      mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.8)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -296,7 +291,6 @@ GEM
       rack
       rake (>= 0.8.1)
     pg (0.18.4)
-    pg (0.18.4-x86-mingw32)
     phantomjs (2.1.1.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -347,7 +341,9 @@ GEM
       trollop
     rdoc (4.2.2)
       json (~> 1.4)
+    regexp-examples (1.2.0)
     ruby-progressbar (1.7.5)
+    ruby_gntp (0.3.4)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -383,7 +379,6 @@ GEM
 
 PLATFORMS
   ruby
-  x86-mingw32
 
 DEPENDENCIES
   bcrypt
@@ -413,6 +408,8 @@ DEPENDENCIES
   rack-livereload
   rails
   rails_12factor
+  regexp-examples
+  ruby_gntp
   sdoc
   spring
   turbolinks

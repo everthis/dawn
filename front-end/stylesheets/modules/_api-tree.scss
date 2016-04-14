@@ -25,7 +25,7 @@
 .api-save {
     @extend .api-edit;
 }
-.api-test {
+.api-respond-preview-btn {
     @extend .api-edit;
 }
 .api-tree-wrapper {
@@ -34,8 +34,14 @@
     overflow-x: auto;
     overflow-y: hidden;
 }
-.api-data {
+.api-respond-preview {
     padding: .5rem 0 0 0;
+    &.raw {
+        pre {
+            white-space: normal;
+            word-break: break-all;
+        }
+    }
 }
 .api-tree-frame {
     padding: 0 0 0 14px;
@@ -77,14 +83,28 @@ i {
     text-align: center;
     @include inline-block-fix(input);
     @include inline-block-fix(i);
+    &::after {
+        content: '*';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        color: #000;
+        font-size: 1rem;
+    }
     &.root-leaf {
         width: 14px;
         transform: translate3d(-44px,0,0) !important;
         overflow: hidden;
         height: 48px;
+        &::after {
+            display: none;
+        }
         .leaf-key,
         .leaf-value,
         .gap-mark,
+        .leaf-value-type,
         .leaf-quantity {
             display: none;
         }
@@ -114,21 +134,40 @@ i {
     i {
         width: 20px;
     }
+    .leaf-value,
+    .leaf-key,
+    .leaf-quantity {
+        &:focus {
+           border-bottom: $focus-border-style;
+        }
+    }
+    .leaf-key {
+        width: 120px;
+    }
     .leaf-value {
-        width: 198px
+        width: 148px;
+    }
+    .leaf-value-type {
+        width: 80px;
+        height: 20px;
+        border-left: 1px solid #999;
+        font-size: 1rem;
     }
     .leaf-quantity {
-        width: 60px;
+        width: 40px;
     }
     .add-child {
+        position: relative;
         background-color: blue;
         margin: 2px 0 0 2px;
         @extend %mark;
     }
     .gap-mark {
     }
-    .leaf-key {
-        padding: 0 1em;
+    .leaf-key,
+    .leaf-value,
+    .leaf-quantity {
+        padding: 0 .5rem;
     }
     .add-sibling {
         position: absolute;
@@ -138,15 +177,46 @@ i {
     }
 }
 
-.data-raw {
-    @extend .api-edit;
+.preview-control-wrapper {
+    border-bottom: 1px solid #d9d9d9;
+    background-color: #fafafa;
+    line-height: 1.54;
+    .preview-control {
+        font-size: 0;
+        margin-bottom: -1px;
+    }
 }
-.data-beautify {
-    @extend .api-edit;
+.per-preview-type {
+    display: inline-block;
+    padding: 3px 15px;
+    vertical-align: bottom;
+    border-style: solid;
+    border-width: 2px 1px 0 1px;
+    border-color: transparent;
+    border-left-color: #dedede;
+    list-style: none;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 1.85;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 0;
+    font-size: 1rem;
+    &.active {
+        border-color: #2c99ff #e4e4e4 #fff #dedede;
+        background-color: #fff;
+        color: #000;
+        + .per-preview-type {
+            border-left-color: transparent;
+        }
+    }
 }
-.data-highlight {
-    @extend .api-edit;
+.preview-raw {
 }
-.data-preview {
-    @extend .api-edit;
+.preview-beautify {
+}
+.preview-highlight {
+}
+.preview-preview {
 }

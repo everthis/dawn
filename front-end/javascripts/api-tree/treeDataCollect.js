@@ -1,6 +1,5 @@
 import {mergeObj} from '../common/utilities';
 export function collectApiData(tree, opEle) {
-  console.log(tree);
   let perApiEle = opEle.closest('.per-api');
   let infoEle = perApiEle.getElementsByClassName('api-info')[0];
   // let treeEle = perApiEle.getElementsByClassName('api-tree')[0];

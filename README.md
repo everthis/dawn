@@ -29,6 +29,10 @@ create role and database
 sudo -u postgres createuser -d -P dawn_pg
 sudo -u postgres createdb -O dawn_pg dawn_development
 ```
+login to postgres on debian 
+```bash
+sudo -u postgres psql
+```
 
 install imagemagick
 
@@ -37,6 +41,10 @@ sudo apt-get update
 sudo apt-get install imagemagick --fix-missing
 ```
 
+install browserify 
+```bash
+npm install -g browserify
+```
 launch web server, rails livereload, front-end build system
 
 ```bash
@@ -58,6 +66,11 @@ cc1plus: error: unrecognized command line option "-std=c++0x"
 fix:
 ```bash
 echo 'export CXX=/usr/bin/gcc-3.3' >> ~/.bashrc
+```
+
+imagemagick installation failure on iDev, 
+```bash
+--without-tiff --without-dps
 ```
 
 Please feel free to use a different markup language if you do not plan to run

@@ -35,7 +35,7 @@ function confirm(ev, ele, params, callback) {
 }
 
 function positionPopupEle(ele, coordinates) {
-  ele.getElementsByClassName('popup-content')[0].style.transform = 'translate3d(' + coordinates.pageX + 'px, ' + coordinates.pageY + 'px, 0)';
+  ele.getElementsByClassName('popup-content')[0].style.transform = 'translate3d(' + coordinates.clientX + 'px, ' + coordinates.clientY + 'px, 0)';
 }
 
 function closePopup(ev) {

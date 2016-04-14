@@ -62,7 +62,74 @@ class ApisController < ApplicationController
     end
   end
 
+  def query
+    respond_to do |format|
+      unless params[:q].blank?
+        @api = current_user.apis.where('uri like :search OR method like :search OR section like :search OR description like :search', search: "%#{params[:q]}%")
+        format.json { render :json => @api, :only=> [:uri, :section, :description, :method] }
+      end
+    end
+  end
+
+  def generate_data
+    @api = current_user.apis.where(uri: params[:uri])
+    @api_json = @api.as_json[0]
+    respond_to do |format|
+      # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
+      # JSON.parse(s,:symbolize_names => true)
+      # HashWithIndifferentAccess
+      nodes_arr = @api_json['nodes']
+      arr = Array.new
+      nodes_arr.each_with_index { |node, idx|
+        next if node['nodeId'] == 0
+        node_val_quantity = node['data']['dataQuantity'].to_i
+        tmp = Array.new(node_val_quantity){ |i| 
+          {"#{node['data']['dataName']}": node_val(node['data'])} 
+        }
+        arr << tmp
+      }
+      # arr = Array.new(@api_json['nodes'][0]['data']['dataQuantity'].to_i){ |i| {"#{@api_json['nodes'][0]['data']['dataType']}" => @api_json['nodes'][0]['data']['dataValue']} }
+      require 'pp'
+      nodes_tree = to_tree(nodes_arr)
+      p nodes_tree
+      format.json {
+        # render :json => to_tree(nodes_arr)
+        # render :json => arr
+        render :json => {
+                :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
+              }
+      }
+    end
+  end
+
   private
+    def to_tree(arr)
+      nested_hash = Hash[arr.map{|e| [e[:nodeId], e.merge(children: [])]}]
+      nested_hash.each do |id, item|
+        parent = nested_hash[item[:parentId]]
+        parent[:children] << item if parent
+      end
+      nested_hash.select { |id, item| item[:parentId].nil? }.values
+    end
+
+    def node_val(node_data)
+      case node_data['dataType']
+      when "String"
+        node_data['dataValue'].to_s
+      when "Number"
+        node_data['dataValue'].to_i
+      when "Boolean"
+        node_data['dataValue'].to_bool
+      when "Null"
+        nil
+      when "Regex"
+        str = node_data['dataValue']
+        reg = Regexp.new str
+        reg.examples(max_repeater_variance: 2, max_group_results: 6, max_results_limit: 10000).sample
+      else
+        "You gave me #{node_data['dataValue']} -- I have no idea what to do with that."
+      end
+    end
 
     def api_params
       params.require(:api).permit([:method, 
@@ -79,6 +146,7 @@ class ApisController < ApplicationController
                                             :quantity, 
                                             :value, 
                                             {data: [:dataType, 
+                                                    :dataName, 
                                                     :dataValue, 
                                                     :dataQuantity
                                                    ]

@@ -29,7 +29,6 @@ $http(mdnAPI)
   .then(callback.success)
   .then(undefined, callback.error);
  */
-
 // A-> $http function is implemented in order to follow the standard Adapter pattern
 import {serialize} from './serialize';
 import {isEmpty, mergeObj, addPrefixToObj, wrapObj} from './utilities';
@@ -58,6 +57,7 @@ export function $http(url) {
         } else if (method === 'GET') {
           let uri = serialize(extendGeneralParams(addPrefixToObj(args, prefix)));
           client.open(method, url + '?' + uri);
+          client.setRequestHeader('Content-type', 'application/json');
           client.send();
         };
 
@@ -79,7 +79,6 @@ export function $http(url) {
       return promise;
     }
   };
-
   // Adapter pattern
   return {
     'get': function(args, prefix) {
@@ -105,6 +104,7 @@ function extendGeneralParams(obj) {
   let csrfToken = RPs.csrfToken();
   let generalObj = {};
   generalObj.utf8 = '✓';
+  generalObj.format = 'json';
   generalObj[csrfParam] = csrfToken;
   return mergeObj(obj, generalObj);
 }
