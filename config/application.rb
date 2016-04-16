@@ -33,5 +33,7 @@ module Dawn
     config.active_record.raise_in_transactional_callbacks = true
     # Include the authenticity token in remote forms.
     config.action_view.embed_authenticity_token_in_remote_forms = true
+
+    config.autoload_paths << "#{Rails.root}/lib"
   end
 end
