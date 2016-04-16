@@ -3,6 +3,7 @@ class ApisController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy
 
+  include Tree
   def index
     if logged_in?
       @result = current_user.apis.paginate(page: params[:page]).order("created_at DESC")
@@ -88,21 +89,64 @@ class ApisController < ApplicationController
         }
         arr << tmp
       }
-      # arr = Array.new(@api_json['nodes'][0]['data']['dataQuantity'].to_i){ |i| {"#{@api_json['nodes'][0]['data']['dataType']}" => @api_json['nodes'][0]['data']['dataValue']} }
+
       require 'pp'
       nodes_tree = to_tree(nodes_arr)
-      p nodes_tree
+      pp nodes_tree
+      root_node = Tree::TreeNode.new("ROOT", "Root Content")
+      tree_data_root_node = Tree::TreeNode.new(0, "tree root")
+      root_node.add(tree_data_root_node)
+
+      column_hash = to_column_hash(nodes_arr)
+      max_parent_id = max_key_id(column_hash)
+      min_parent_id = min_key_id(column_hash)
+      sorted_id_arr = sort_key_id(column_hash)
+
+      sorted_id_arr.each { |el|
+        per_column_arr = column_hash[el]
+
+        tree_data_root_node.breadth_each { |node|
+          if node.name == el then
+            per_column_arr.each { |ele|
+              node.add(Tree::TreeNode.new(ele, "tree root"))
+            }
+          end
+        }
+      }
+
+      root_node.print_tree
+      puts tree_data_root_node.to_json
       format.json {
         # render :json => to_tree(nodes_arr)
-        # render :json => arr
-        render :json => {
-                :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
-              }
+        render :json => tree_data_root_node
+        # render :json => {
+        #         :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
+        #       }
       }
     end
   end
 
   private
+
+    def max_key_id(column_hash)
+      column_hash.keys.max
+    end
+    def min_key_id(column_hash)
+      column_hash.keys.min
+    end
+    def sort_key_id(column_hash)
+      column_hash.keys.sort
+    end
+
+    def to_column_hash(arr)
+      parent_hash = Hash.new
+      arr.each { |ele| 
+        parent_hash.has_key?(ele['parentId']) ? (parent_hash[ele['parentId']] << ele['nodeId']) : parent_hash[ele['parentId']] = [ele['nodeId']] unless ele['parentId'].nil?
+      }
+      p parent_hash
+      parent_hash
+    end
+
     def to_tree(arr)
       nested_hash = Hash[arr.map{|e| [e[:nodeId], e.merge(children: [])]}]
       nested_hash.each do |id, item|

@@ -17,8 +17,10 @@ gem "guard"
 gem 'pg'
 gem 'puma'
 gem 'regexp-examples'
+gem 'structured_warnings'
 
 group :development, :test do
+  gem "binding_of_caller"
   gem "ruby_gntp"
   gem "rack-livereload"
   gem 'guard-livereload'
