@@ -102,23 +102,25 @@ class ApisController < ApplicationController
       min_parent_id = min_key_id(column_hash)
       sorted_id_arr = sort_key_id(column_hash)
 
+      nodes_hash = nodes_arr_to_hash(nodes_arr)
+
       sorted_id_arr.each { |el|
         per_column_arr = column_hash[el]
 
         tree_data_root_node.breadth_each { |node|
           if node.name == el then
             per_column_arr.each { |ele|
-              node.add(Tree::TreeNode.new(ele, "tree root"))
+              node.add(Tree::TreeNode.new(ele, nodes_hash[ele]))
             }
           end
         }
       }
 
-      root_node.print_tree
-      puts tree_data_root_node.to_json
+      tree_data_root_node.print_tree
+      tree_data_root_hash = construct_json(tree_data_root_node)    
       format.json {
         # render :json => to_tree(nodes_arr)
-        render :json => tree_data_root_node
+        render :json => tree_data_root_hash.content['node_hash']
         # render :json => {
         #         :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
         #       }
@@ -136,6 +138,32 @@ class ApisController < ApplicationController
     end
     def sort_key_id(column_hash)
       column_hash.keys.sort
+    end
+    def nodes_arr_to_hash(nodes_arr)
+      nodes_hash = Hash.new
+      nodes_arr.each { |el| 
+        next if el['nodeId'] == 0
+        nodes_hash[el['nodeId']] = el['data']
+      }
+      nodes_hash
+    end
+    def construct_json(subtree)
+      return_hash = Hash.new
+      subtree.postordered_each { |node| 
+        puts node.name
+        # next if node.content == "tree root"
+        if node.is_leaf? then
+          node.content.is_a?(Hash) ? node.content['node_hash'] = node.content['dataValue'] :  node.content = {"node_hash" => Hash.new }
+        else
+          node.content.is_a?(Hash) ? node.content['node_hash'] = Hash.new :  node.content = {"node_hash" => Hash.new }
+        end
+        if node.has_children? then
+          node.children { |el| 
+            el.parent.content['node_hash']["#{el.content['dataName']}"] = el.content['node_hash']
+          }
+        end
+      }
+      subtree
     end
 
     def to_column_hash(arr)
