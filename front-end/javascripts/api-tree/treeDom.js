@@ -89,7 +89,7 @@ let leafDataPlaceHolder = {
   dataName: '',
   dataType: 'String',
   dataValue: '',
-  dataQuantity: '0'
+  dataQuantity: '1'
 };
 
 /*

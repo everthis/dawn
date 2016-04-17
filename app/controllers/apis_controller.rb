@@ -153,7 +153,7 @@ class ApisController < ApplicationController
         puts node.name
         # next if node.content == "tree root"
         if node.is_leaf? then
-          node.content.is_a?(Hash) ? node.content['node_hash'] = node.content['dataValue'] :  node.content = {"node_hash" => Hash.new }
+          node.content.is_a?(Hash) ? node.content['node_hash'] = node_val(node.content) :  node.content = {"node_hash" => Hash.new }
         else
           node.content.is_a?(Hash) ? node.content['node_hash'] = Hash.new :  node.content = {"node_hash" => Hash.new }
         end
@@ -191,7 +191,7 @@ class ApisController < ApplicationController
       when "Number"
         node_data['dataValue'].to_i
       when "Boolean"
-        node_data['dataValue'].to_bool
+        to_boolean(node_data['dataValue'])
       when "Null"
         nil
       when "Regex"
@@ -201,6 +201,10 @@ class ApisController < ApplicationController
       else
         "You gave me #{node_data['dataValue']} -- I have no idea what to do with that."
       end
+    end
+
+    def to_boolean(str)
+      str.downcase == 'true'
     end
 
     def api_params
