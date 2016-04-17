@@ -63,7 +63,8 @@ module Tree::Utils::JSONConverter
 
     json_hash = {
       # "name"         => name,
-      "content"      => content
+      # "node_hash"         => content['node_hash'],
+      "name"      => content['node_hash']
       # JSON.create_id => self.class.name
     }
 
