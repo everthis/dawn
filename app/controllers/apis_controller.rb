@@ -161,6 +161,11 @@ class ApisController < ApplicationController
           node.children { |el| 
             el.parent.content['node_hash']["#{el.content['dataName']}"] = el.content['node_hash']
           }
+          if node.content['dataQuantity'].to_i == 1 && node.content['dataType'] == 'Array'
+            node.content['node_hash'] = [node.content['node_hash']]
+          elsif node.content['dataQuantity'].to_i > 1            
+            node.content['node_hash'] = Array.new(node.content['dataQuantity'].to_i, node.content['node_hash'])
+          end
         end
       }
       subtree
