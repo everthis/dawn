@@ -73,26 +73,15 @@ class ApisController < ApplicationController
   end
 
   def generate_data
-    @api = current_user.apis.where(uri: params[:uri])
+    # @api = current_user.apis.where(uri: params[:uri])
+    @api = Api.where(uri: params[:uri])
     @api_json = @api.as_json[0]
     respond_to do |format|
       # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
       # JSON.parse(s,:symbolize_names => true)
       # HashWithIndifferentAccess
       nodes_arr = @api_json['nodes']
-      arr = Array.new
-      nodes_arr.each_with_index { |node, idx|
-        next if node['nodeId'] == 0
-        node_val_quantity = node['data']['dataQuantity'].to_i
-        tmp = Array.new(node_val_quantity){ |i| 
-          {"#{node['data']['dataName']}": node_val(node['data'])} 
-        }
-        arr << tmp
-      }
 
-      require 'pp'
-      nodes_tree = to_tree(nodes_arr)
-      pp nodes_tree
       root_node = Tree::TreeNode.new("ROOT", "Root Content")
       tree_data_root_node = Tree::TreeNode.new(0, "tree root")
       root_node.add(tree_data_root_node)
@@ -119,11 +108,7 @@ class ApisController < ApplicationController
       tree_data_root_node.print_tree
       tree_data_root_hash = construct_json(tree_data_root_node)    
       format.json {
-        # render :json => to_tree(nodes_arr)
         render :json => tree_data_root_hash.content['node_hash']
-        # render :json => {
-        #         :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
-        #       }
       }
     end
   end
