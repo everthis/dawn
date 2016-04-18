@@ -73,26 +73,15 @@ class ApisController < ApplicationController
   end
 
   def generate_data
-    @api = current_user.apis.where(uri: params[:uri])
+    # @api = current_user.apis.where(uri: params[:uri])
+    @api = Api.where(uri: params[:uri])
     @api_json = @api.as_json[0]
     respond_to do |format|
       # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
       # JSON.parse(s,:symbolize_names => true)
       # HashWithIndifferentAccess
       nodes_arr = @api_json['nodes']
-      arr = Array.new
-      nodes_arr.each_with_index { |node, idx|
-        next if node['nodeId'] == 0
-        node_val_quantity = node['data']['dataQuantity'].to_i
-        tmp = Array.new(node_val_quantity){ |i| 
-          {"#{node['data']['dataName']}": node_val(node['data'])} 
-        }
-        arr << tmp
-      }
 
-      require 'pp'
-      nodes_tree = to_tree(nodes_arr)
-      pp nodes_tree
       root_node = Tree::TreeNode.new("ROOT", "Root Content")
       tree_data_root_node = Tree::TreeNode.new(0, "tree root")
       root_node.add(tree_data_root_node)
@@ -119,11 +108,7 @@ class ApisController < ApplicationController
       tree_data_root_node.print_tree
       tree_data_root_hash = construct_json(tree_data_root_node)    
       format.json {
-        # render :json => to_tree(nodes_arr)
         render :json => tree_data_root_hash.content['node_hash']
-        # render :json => {
-        #         :"#{@api_json['nodes'][0]['data']['dataType']}" => "#{@api_json['nodes'][0]['data']['dataValue']}"
-        #       }
       }
     end
   end
@@ -153,7 +138,7 @@ class ApisController < ApplicationController
         puts node.name
         # next if node.content == "tree root"
         if node.is_leaf? then
-          node.content.is_a?(Hash) ? node.content['node_hash'] = node.content['dataValue'] :  node.content = {"node_hash" => Hash.new }
+          node.content.is_a?(Hash) ? node.content['node_hash'] = node_val(node.content) :  node.content = {"node_hash" => Hash.new }
         else
           node.content.is_a?(Hash) ? node.content['node_hash'] = Hash.new :  node.content = {"node_hash" => Hash.new }
         end
@@ -161,6 +146,11 @@ class ApisController < ApplicationController
           node.children { |el| 
             el.parent.content['node_hash']["#{el.content['dataName']}"] = el.content['node_hash']
           }
+          if node.content['dataQuantity'].to_i == 1 && node.content['dataType'] == 'Array'
+            node.content['node_hash'] = [node.content['node_hash']]
+          elsif node.content['dataQuantity'].to_i > 1            
+            node.content['node_hash'] = Array.new(node.content['dataQuantity'].to_i, node.content['node_hash'])
+          end
         end
       }
       subtree
@@ -191,7 +181,7 @@ class ApisController < ApplicationController
       when "Number"
         node_data['dataValue'].to_i
       when "Boolean"
-        node_data['dataValue'].to_bool
+        to_boolean(node_data['dataValue'])
       when "Null"
         nil
       when "Regex"
@@ -201,6 +191,10 @@ class ApisController < ApplicationController
       else
         "You gave me #{node_data['dataValue']} -- I have no idea what to do with that."
       end
+    end
+
+    def to_boolean(str)
+      str.downcase == 'true'
     end
 
     def api_params
