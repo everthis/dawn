@@ -132,6 +132,15 @@ class ApisController < ApplicationController
       }
       nodes_hash
     end
+
+    def is_number? string
+      true if Float(string) rescue false
+    end
+
+    def to_f_or_i_or_s(v)
+      ((float = Float(v)) && (float % 1.0 == 0) ? float.to_i : float) rescue v
+    end
+    
     def construct_json(subtree)
       return_hash = Hash.new
       subtree.postordered_each { |node| 
