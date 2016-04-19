@@ -223,7 +223,8 @@ class ApisController < ApplicationController
                                             {data: [:dataType, 
                                                     :dataName, 
                                                     :dataValue, 
-                                                    :dataQuantity
+                                                    :dataQuantity,
+                                                    :hasChild 
                                                    ]
                                             }
                                            ]

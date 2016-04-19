@@ -49,7 +49,8 @@ function collectDataFromTree(apiTree) {
     nodeData.parentId = node.parent === null ? null : node.parent.nodeId;
     nodeData.childrenlevel = node.childrenlevel;
     nodeData.totaloffsetylevel =  node.totaloffsetylevel;
-    nodeData.data =  node.data;
+    nodeData.data = node.data;
+    nodeData.data.hasChild = node.children.length > 0 ? true : false;
     nodesArr.push(nodeData);
   };
   tree.traverseDF(callback);

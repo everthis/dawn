@@ -71,6 +71,7 @@ function leafTpl() {
     <i class="gap-mark">---</i>
     <i class="add-child">+</i>
     <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
+    <span class="leaf-hide-quantity" bind="hasChild" bind-display></span>
   `;
   return leafContentTpl;
 }
@@ -89,7 +90,8 @@ let leafDataPlaceHolder = {
   dataName: '',
   dataType: 'String',
   dataValue: '',
-  dataQuantity: '1'
+  dataQuantity: '1',
+  hasChild: false
 };
 
 /*

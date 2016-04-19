@@ -19,6 +19,13 @@ export function twoWayDataBinding(data, domContext) {
         selectorToArray('[bind=' + key + ']', domContext).concat(selectorToArray('[model=' + key + ']', domContext)).forEach(function(el) {
           /* If element has `bind` attribute, set it's `textContent`. */
           if (el.getAttribute('bind')) el.textContent = value;
+          if (el.hasAttribute('bind-display')) {
+            if (value === true || value === "true") {
+              el.style.display = 'none'; 
+            }else if(value === false || value === "false") {
+              el.style.display = 'inline-block';
+            }
+          }
           /* If element has `model` attribute, set it's `value`. */
           if (el.getAttribute('model')) el.value = value;
         });
