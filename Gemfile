@@ -16,6 +16,7 @@ gem "guard"
 gem 'pg'
 gem 'regexp-examples'
 gem 'structured_warnings'
+gem 'rails-reverse-proxy'
 
 group :development, :test do
   gem "passenger"

@@ -18,12 +18,12 @@ export function twoWayDataBinding(data, domContext) {
         /* Select all nodes with `bind` and `model` attributes. */
         selectorToArray('[bind=' + key + ']', domContext).concat(selectorToArray('[model=' + key + ']', domContext)).forEach(function(el) {
           /* If element has `bind` attribute, set it's `textContent`. */
-          if (el.getAttribute('bind')) el.textContent = value;
-          if (el.hasAttribute('bind-display')) {
+          if (el.getAttribute('bind') && !el.hasAttribute('bind-toggle-class') ) el.textContent = value;
+          if (el.hasAttribute('bind-toggle-class')) {
             if (value === true || value === "true") {
-              el.style.display = 'none'; 
+              el.classList.add('leaf-has-child'); 
             }else if(value === false || value === "false") {
-              el.style.display = 'inline-block';
+              el.classList.remove('leaf-has-child');
             }
           }
           /* If element has `model` attribute, set it's `value`. */
@@ -49,6 +49,11 @@ export function twoWayDataBinding(data, domContext) {
   return model;
 }
 
+/* include domContext itsself */
 function selectorToArray(selector, domContext) {
-  return Array.prototype.slice.call(domContext.querySelectorAll(selector));
+  let arr = Array.prototype.slice.call(domContext.querySelectorAll(selector));
+  if (domContext.matches(selector)) {
+    arr.push(domContext);
+  }
+  return arr;
 }

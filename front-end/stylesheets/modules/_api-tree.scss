@@ -22,6 +22,22 @@
         background-color: #ddd;
     }
 }
+.api-modes-row {
+    padding-top: .7rem;
+}
+.api-mode-label {
+    display: inline-block;
+    width: 5rem;
+    &.api-mode-debug {
+        width: 30rem;
+    }
+    .mode-debugging-addr {
+        width: 25rem;
+    }
+}
+.api-mode {
+    margin-right: .5rem;
+}
 .api-save {
     @extend .api-edit;
 }
@@ -117,6 +133,11 @@ i {
             position: absolute;
             left:0;
             margin: 2px 0;
+        }
+    }
+    &.leaf-has-child {
+        .leaf-hide-quantity {
+            display: none;
         }
     }
     .remove-child {

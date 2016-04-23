@@ -1,21 +1,40 @@
 import {mergeObj} from '../common/utilities';
 export function collectApiData(tree, opEle) {
   let perApiEle = opEle.closest('.per-api');
-  let infoEle = perApiEle.getElementsByClassName('api-info')[0];
   // let treeEle = perApiEle.getElementsByClassName('api-tree')[0];
-  return mergeObj(collectInfo(infoEle), collectDataFromTree(tree));
+  return mergeObj(collectInfo(perApiEle), collectDataFromTree(tree));
 }
 
-function collectInfo(infoEle) {
+function collectInfo(perApiEle) {
+  let infoEle = perApiEle.getElementsByClassName('api-info')[0];
+  let ModesRowEle = perApiEle.getElementsByClassName('api-modes-row')[0];
   let infoData = {};
   infoData = {
     'section': infoEle.getElementsByClassName('api-section')[0].value,
     'uri': infoEle.getElementsByClassName('api-uri')[0].value,
     'method': infoEle.getElementsByClassName('api-method')[0].value,
-    'description': infoEle.getElementsByClassName('api-description')[0].value
+    'description': infoEle.getElementsByClassName('api-description')[0].value,
+    'mode': getModeVal(ModesRowEle),
+    'debug_addr': getDebugAddr(ModesRowEle)
   };
 
   return infoData;
+}
+
+function getModeVal(ModesRowEle) {
+  var radios = ModesRowEle.getElementsByClassName('api-mode');
+  var modeVal;
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (radios[i].checked) {
+      modeVal = radios[i].value;
+      break;
+    }
+  }
+  return modeVal;
+}
+
+function getDebugAddr(ModesRowEle) {
+  return ModesRowEle.getElementsByClassName('mode-debugging-addr')[0].value;
 }
 
 function collectTree(treeEle) {

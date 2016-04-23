@@ -32,6 +32,11 @@ function perApiTpl(data, isNewApi = false) {
           <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
           <span class="api-respond-preview-btn">preview</span>
       </div>
+      <div class="api-modes-row">
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="0">开发</label>
+        <label class="api-mode-label api-mode-debug"><input class="api-mode" type="radio" name="mode" value="1">联调<input class="mode-debugging-addr" type="text" /></label>
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="2">线上</label>
+      </div>
       <div class="api-tree-wrapper">
         <div class="api-tree-frame">
           <svg class="api-svg" width="100%" height="100%"></svg>
@@ -71,7 +76,7 @@ function leafTpl() {
     <i class="gap-mark">---</i>
     <i class="add-child">+</i>
     <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
-    <span class="leaf-hide-quantity" bind="hasChild" bind-display></span>
+    <span class="leaf-hide-quantity"></span>
   `;
   return leafContentTpl;
 }
@@ -107,13 +112,11 @@ var callback = {
     this.apiRawData = data;
     this.apiDataObj = JSON.parse(data).data;
     parseAndFlash(data);
-    console.log(this);
   },
   postSuccess: function(data) {
     this.apiRawData = data;
     this.apiDataObj = JSON.parse(data).data;
     parseAndFlash(data);
-    console.log(this);
   },
   deleteSuccess: function(data) {
     function destoryApiLi() {
@@ -122,10 +125,8 @@ var callback = {
     parseAndFlash(data, destoryApiLi.bind(this));
   },
   success: function(data) {
-    console.log(data);
   },
   error: function(data) {
-    console.log(data);
     parseAndFlash(data);
   },
   apiRespondSuccess: function(data) {
@@ -178,6 +179,8 @@ export function ApiDom(data, containerNode, isNewApi = false) {
   this.apiReturnData = '';
 
   this.apiEle.addEventListener('click', bindEvent.bind(this));
+  this.setModeVal(data.mode);
+  this.setDebugAddr(data['debug_addr']);
 }
 
 ApiDom.prototype.renderExistTree = function(data) {
@@ -197,7 +200,7 @@ ApiDom.prototype.renderExistTree = function(data) {
         data.nodes[i].data = leafDataPlaceHolder;
       };
       if (data.nodes[i].parentId === null || data.nodes[i].parentId === 'null') leaf.classList.add('root-leaf');
-
+      console.log(leaf);
       perTWDB = twoWayDataBinding(data.nodes[i].data, leaf);
       data.nodes[i].data = perTWDB;
       perTWDBArr.push(perTWDB);
@@ -215,6 +218,8 @@ ApiDom.prototype.renderExistTree = function(data) {
 function generateLeaf(nodeData) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
+  newLeafSpan.setAttribute('bind', 'hasChild');
+  newLeafSpan.setAttribute('bind-toggle-class', '');
   newLeafSpan.dataset.parentId = nodeData.parentId;
   newLeafSpan.dataset.nodeId = nodeData.nodeId;
   newLeafSpan.innerHTML = leafTpl();
@@ -223,7 +228,20 @@ function generateLeaf(nodeData) {
                                     Math.round(nodeData.totaloffsetylevel * (perLeafHeight + leavesVerticalGap)) + 'px, 0)';
   return newLeafSpan;
 }
-
+ApiDom.prototype.setDebugAddr = function(val) {
+  this.apiContainer.getElementsByClassName('mode-debugging-addr')[0].value = val;
+};
+ApiDom.prototype.setModeVal = function(val) {
+  var radios = this.apiContainer.getElementsByClassName('api-mode');
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (val === radios[i].value) {
+      radios[i].setAttribute('checked', true);
+      break;
+    } else {
+      radios[i].setAttribute('checked', false);
+    }
+  }
+};
 function bindEvent(ev) {
   /* _$this is ApiDom, while this is its wrapper(object). */
   let _this = this;
@@ -453,15 +471,15 @@ ApiDom.prototype.addChild = function(ctx) {
 function generateLeafSpan(parentId, nodeIndex) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
+  newLeafSpan.setAttribute('bind', 'hasChild');
+  newLeafSpan.setAttribute('bind-toggle-class', '');
   newLeafSpan.dataset.parentId = parentId;
   newLeafSpan.dataset.nodeId = nodeIndex;
   newLeafSpan.innerHTML = leafTpl();
   return newLeafSpan;
 }
 function createLeaf(parentIdx, nodeIdx) {
-  var newLeaf = document.createDocumentFragment();
-  newLeaf.appendChild(generateLeafSpan(parentIdx, nodeIdx));
-  return newLeaf;
+  return generateLeafSpan(parentIdx, nodeIdx);
 }
 ApiDom.prototype.styleNodes = function() {
   var leaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
