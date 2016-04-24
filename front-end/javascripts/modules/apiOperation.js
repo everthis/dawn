@@ -5,6 +5,7 @@ import {popup} from '../common/popup';
 import {insertAfter, strToDom, debounce} from '../common/utilities';
 import {flash, parseAndFlash} from '../common/flash';
 import {ApiDom} from '../api-tree/treeDom';
+import {twoWayDataBinding} from '../common/twoWayDataBinding';
 
 let payload = {};
 let apisArr = [];
