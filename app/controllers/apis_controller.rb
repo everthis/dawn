@@ -3,6 +3,7 @@ class ApisController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy
 
+  after_filter :cors_set_access_control_headers, only: [:generate_data]
   include Tree
   include ReverseProxy::Controller
 
@@ -84,23 +85,28 @@ class ApisController < ApplicationController
       # HashWithIndifferentAccess
       case @api.mode
       when "0"
-        format.json {
-          render :json => process_dev_return_data(@api_json)
-        }
+          render_obj = process_dev_return_data(@api_json)
       when "1"
-        reverse_proxy @api.debugAddr, path: @api.uri do |config|
-          config.on_response do |code, response|
-            puts response.to_s
+          reverse_proxy @api.debugAddr, path: @api.uri do |config|
+            config.on_complete do |code, response|
+              render_obj = response.body
+            end
           end
-        end
       when "2"
 
       end
+
+      format.json {
+        render :json => render_obj
+      }
 
     end
   end
 
   private
+    def cors_set_access_control_headers
+      headers['Access-Control-Allow-Origin'] = '*'
+    end
 
     def max_key_id(column_hash)
       column_hash.keys.max
