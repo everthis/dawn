@@ -212,7 +212,7 @@ class ApisController < ApplicationController
                                    :description, 
                                    :uri, 
                                    :mode, 
-                                   :debug_addr, 
+                                   :debugAddr, 
                                    :section, 
                                    {nodes: [:nodeId, 
                                             :key, 

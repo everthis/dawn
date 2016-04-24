@@ -153,8 +153,28 @@ function createPerApi(data, isNewApi) {
   perApiEle.getElementsByClassName('api-uri')[0].value = isNewApi ? '' : data.uri;
   return perApiEle;
 }
+function createNewApiInitData() {
+  let initData = {
+    nodeId: 0,
+    parentId: null,
+    data: leafDataPlaceHolder
+  };
+  let firstChildData = {
+    nodeId: 1,
+    parentId: 0,
+    data: leafDataPlaceHolder
+  };
+  return {
+    mode: '0',
+    debugAddr: '',
+    nodes: [initData, firstChildData]
+  };
+}
 
 export function ApiDom(data, containerNode, isNewApi = false) {
+  if (isNewApi) {
+    data = createNewApiInitData();
+  }
   this.apiDataObj = data;
   this.apiContainer = containerNode;
   let perApiEle = createPerApi(data, isNewApi);
@@ -169,18 +189,18 @@ export function ApiDom(data, containerNode, isNewApi = false) {
 
   this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
   this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
-  if (isNewApi) {
-    this.initApiTree();
-    this.calcDimensions();
-  } else {
+  // if (isNewApi) {
+  //   this.initApiTree();
+  //   this.calcDimensions();
+  // } else {
     this.renderExistTree(data);
-  }
+  // }
 
   this.apiReturnData = '';
 
   this.apiEle.addEventListener('click', bindEvent.bind(this));
   this.setModeVal(data.mode);
-  this.setDebugAddr(data['debug_addr']);
+  this.setDebugAddr(data.debugAddr);
 }
 
 ApiDom.prototype.renderExistTree = function(data) {
@@ -200,7 +220,6 @@ ApiDom.prototype.renderExistTree = function(data) {
         data.nodes[i].data = leafDataPlaceHolder;
       };
       if (data.nodes[i].parentId === null || data.nodes[i].parentId === 'null') leaf.classList.add('root-leaf');
-      console.log(leaf);
       perTWDB = twoWayDataBinding(data.nodes[i].data, leaf);
       data.nodes[i].data = perTWDB;
       perTWDBArr.push(perTWDB);
@@ -441,7 +460,7 @@ ApiDom.prototype.setParentNodeVal = function(idx) {
   for (var i = 0, x = leaves.length; i < x; i++) {
     if (+leaves[i].dataset.nodeId === idx) {
       if (queueLen > 0) {
-        leaves[i].getElementsByClassName('leaf-value')[0].value = '--->';
+        leaves[i].getElementsByClassName('leaf-value')[0].value = '';
       } else {
         leaves[i].getElementsByClassName('leaf-value')[0].value = '';
       };
@@ -577,7 +596,7 @@ ApiDom.prototype.calcDimensions = function() {
   horiMax = Math.max.apply(null, horiArr);
   verticalMax = this.apiTree._root.childrenlevel;
   this.$apiTreeFrame.style.width = horiMax * 520 + 'px';
-  this.$apiTreeFrame.style.height = verticalMax * 52 - (verticalMax > 1 ? 30 : 0) + 'px';
+  this.$apiTreeFrame.style.height = verticalMax * 52 - (verticalMax > 1 ? 10 : 0) + 'px';
   return [horiMax, verticalMax];
 
 };

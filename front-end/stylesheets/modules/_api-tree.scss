@@ -12,7 +12,8 @@
     box-shadow: 0 5px 4px -5px purple;
 }
 .api-edit {
-    border: 1px solid #ddd;
+    display: inline-block;
+    border: 1px solid #999;
     padding: 0 10px;
     margin: 0 1em 0 0;
     cursor: pointer;
@@ -33,6 +34,7 @@
     }
     .mode-debugging-addr {
         width: 25rem;
+        padding: 0 .5rem;
     }
 }
 .api-mode {
@@ -87,7 +89,9 @@ i {
     width: 23em;
     border-right: 1px solid #ddd;
 }
-
+.api-info {
+    line-height: 1.5;
+}
 .leaf {
     display: inline-block;
     height: 22px;
@@ -138,6 +142,13 @@ i {
     &.leaf-has-child {
         .leaf-hide-quantity {
             display: none;
+        }
+        .leaf-value {
+            background-color: #616161;
+            color: #616161;
+            &::-webkit-input-placeholder {
+               color: #616161;
+            }
         }
     }
     .remove-child {

@@ -15,7 +15,7 @@ function collectInfo(perApiEle) {
     'method': infoEle.getElementsByClassName('api-method')[0].value,
     'description': infoEle.getElementsByClassName('api-description')[0].value,
     'mode': getModeVal(ModesRowEle),
-    'debug_addr': getDebugAddr(ModesRowEle)
+    'debugAddr': getDebugAddr(ModesRowEle)
   };
 
   return infoData;
