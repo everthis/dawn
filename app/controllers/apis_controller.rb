@@ -4,6 +4,8 @@ class ApisController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   include Tree
+  include ReverseProxy::Controller
+
   def index
     if logged_in?
       @result = current_user.apis.paginate(page: params[:page]).order("created_at DESC")
@@ -74,42 +76,27 @@ class ApisController < ApplicationController
 
   def generate_data
     # @api = current_user.apis.where(uri: params[:uri])
-    @api = Api.where(uri: params[:uri])
-    @api_json = @api.as_json[0]
+    @api = Api.where(uri: params[:uri]).first
+    @api_json = @api.as_json
     respond_to do |format|
       # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
       # JSON.parse(s,:symbolize_names => true)
       # HashWithIndifferentAccess
-      nodes_arr = @api_json['nodes']
-
-      root_node = Tree::TreeNode.new("ROOT", "Root Content")
-      tree_data_root_node = Tree::TreeNode.new(0, "tree root")
-      root_node.add(tree_data_root_node)
-
-      column_hash = to_column_hash(nodes_arr)
-      max_parent_id = max_key_id(column_hash)
-      min_parent_id = min_key_id(column_hash)
-      sorted_id_arr = sort_key_id(column_hash)
-
-      nodes_hash = nodes_arr_to_hash(nodes_arr)
-
-      sorted_id_arr.each { |el|
-        per_column_arr = column_hash[el]
-
-        tree_data_root_node.breadth_each { |node|
-          if node.name == el then
-            per_column_arr.each { |ele|
-              node.add(Tree::TreeNode.new(ele, nodes_hash[ele]))
-            }
-          end
+      case @api.mode
+      when "0"
+        format.json {
+          render :json => process_dev_return_data(@api_json)
         }
-      }
+      when "1"
+        reverse_proxy @api.debugAddr, path: @api.uri do |config|
+          config.on_response do |code, response|
+            puts response.to_s
+          end
+        end
+      when "2"
 
-      tree_data_root_node.print_tree
-      tree_data_root_hash = construct_json(tree_data_root_node)    
-      format.json {
-        render :json => tree_data_root_hash.content['node_hash']
-      }
+      end
+
     end
   end
 
@@ -139,6 +126,37 @@ class ApisController < ApplicationController
 
     def to_f_or_i_or_s(v)
       ((float = Float(v)) && (float % 1.0 == 0) ? float.to_i : float) rescue v
+    end
+
+    def process_dev_return_data(api_json)
+      nodes_arr = api_json['nodes']
+
+      root_node = Tree::TreeNode.new("ROOT", "Root Content")
+      tree_data_root_node = Tree::TreeNode.new(0, "tree root")
+      root_node.add(tree_data_root_node)
+
+      column_hash = to_column_hash(nodes_arr)
+      max_parent_id = max_key_id(column_hash)
+      min_parent_id = min_key_id(column_hash)
+      sorted_id_arr = sort_key_id(column_hash)
+
+      nodes_hash = nodes_arr_to_hash(nodes_arr)
+
+      sorted_id_arr.each { |el|
+        per_column_arr = column_hash[el]
+
+        tree_data_root_node.breadth_each { |node|
+          if node.name == el then
+            per_column_arr.each { |ele|
+              node.add(Tree::TreeNode.new(ele, nodes_hash[ele]))
+            }
+          end
+        }
+      }
+
+      tree_data_root_node.print_tree
+      tree_data_root_hash = construct_json(tree_data_root_node)
+      tree_data_root_hash.content['node_hash']
     end
     
     def construct_json(subtree)

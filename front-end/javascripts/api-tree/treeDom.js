@@ -460,9 +460,9 @@ ApiDom.prototype.setParentNodeVal = function(idx) {
   for (var i = 0, x = leaves.length; i < x; i++) {
     if (+leaves[i].dataset.nodeId === idx) {
       if (queueLen > 0) {
-        leaves[i].getElementsByClassName('leaf-value')[0].value = '';
+        // leaves[i].getElementsByClassName('leaf-value')[0].value = '';
       } else {
-        leaves[i].getElementsByClassName('leaf-value')[0].value = '';
+        // leaves[i].getElementsByClassName('leaf-value')[0].value = '';
       };
       break;
     };

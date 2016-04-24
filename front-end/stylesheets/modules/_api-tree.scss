@@ -19,6 +19,7 @@
     cursor: pointer;
 }
 .api-uri {
+    width: 15rem;
     &:disabled {
         background-color: #ddd;
     }

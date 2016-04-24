@@ -326,11 +326,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-reverse-proxy (0.5.0)
-      addressable
-      rack
-      rack-proxy
-      rails
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -392,6 +387,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   bcrypt
   better_errors
   binding_of_caller
@@ -418,8 +414,8 @@ DEPENDENCIES
   pg
   puma
   rack-livereload
+  rack-proxy
   rails
-  rails-reverse-proxy
   rails_12factor
   regexp-examples
   ruby_gntp
