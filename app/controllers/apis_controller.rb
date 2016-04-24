@@ -79,6 +79,11 @@ class ApisController < ApplicationController
     # @api = current_user.apis.where(uri: params[:uri])
     @api = Api.where(uri: params[:uri]).first
     @api_json = @api.as_json
+
+    # puts request.query_string
+    req_method = request.method
+    req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
+
     respond_to do |format|
       # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
       # JSON.parse(s,:symbolize_names => true)
@@ -87,7 +92,7 @@ class ApisController < ApplicationController
       when "0"
           render_obj = process_dev_return_data(@api_json)
       when "1"
-          reverse_proxy @api.debugAddr, path: @api.uri do |config|
+          reverse_proxy @api.debugAddr, path: @api.uri, params: req_params, method: req_method do |config|
             config.on_complete do |code, response|
               render_obj = response.body
             end

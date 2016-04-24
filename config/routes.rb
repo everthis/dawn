@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :apis
   get 'instantsearch' => 'apis#query'
   get 'apirespond' => 'apis#generate_data'
+  post 'apirespond' => 'apis#generate_data'
   # resources :apis, :defaults => { :format => 'json' } do
     # member do
     #   post :update_api
