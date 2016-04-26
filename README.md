@@ -36,6 +36,10 @@ install imagemagick
 sudo apt-get update
 sudo apt-get install imagemagick --fix-missing
 ```
+disable tiff and dps on iDev machines
+```bash
+--without-diff --without-dps
+```
 
 launch web server, rails livereload, front-end build system
 
@@ -57,7 +61,7 @@ cc1plus: error: unrecognized command line option "-std=c++0x"
 ```
 fix:
 ```bash
-echo 'export CXX=/usr/bin/gcc-3.3' >> ~/.bashrc
+echo 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc
 ```
 
 Please feel free to use a different markup language if you do not plan to run
