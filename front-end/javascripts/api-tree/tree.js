@@ -126,6 +126,8 @@ Tree.prototype.add = function(data, toData, traversal) {
 
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
+  this.checkDataHasChild();
+  return child
 };
 
 Tree.prototype.remove = function(data, fromData, traversal) {
@@ -156,7 +158,7 @@ Tree.prototype.remove = function(data, fromData, traversal) {
 
   this.calcChildrenLevel();
   this.calcTotalOffsetYLevel();
-
+  this.checkDataHasChild();
   return childToRemove;
 };
 
@@ -235,6 +237,13 @@ Tree.prototype.traverseDescendants = function(nodeData) {
   }
 
   return descendantsArr;
+};
+
+Tree.prototype.checkDataHasChild = function() {
+  let callback = function(node) {
+    node.data.hasChild = node.children.length > 0 ? true : false;
+  };
+  this.traverseBF(callback);
 };
 
 /* get Max nodeId from tree */

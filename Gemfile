@@ -11,13 +11,18 @@ gem 'uglifier'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'net-ssh'
-gem "passenger"
 gem 'sdoc', group: :doc
 gem "guard"
 gem 'pg'
-gem 'puma'
+gem 'regexp-examples'
+gem 'structured_warnings'
+gem 'addressable'
+gem 'rack-proxy'
 
 group :development, :test do
+  gem "passenger"
+  gem "binding_of_caller"
+  gem "ruby_gntp"
   gem "rack-livereload"
   gem 'guard-livereload'
   gem 'byebug'
@@ -40,5 +45,6 @@ group :test do
 end
 
 group :production do
+  gem 'puma'
   gem 'rails_12factor'
 end

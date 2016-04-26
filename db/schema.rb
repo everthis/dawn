@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323141839) do
+ActiveRecord::Schema.define(version: 20160424042536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160323141839) do
     t.json     "nodes",       default: [], null: false
     t.json     "dimensions",  default: {}, null: false
     t.integer  "user_id"
+    t.string   "mode"
+    t.string   "debugAddr"
   end
 
   add_index "apis", ["user_id"], name: "index_apis_on_user_id", using: :btree

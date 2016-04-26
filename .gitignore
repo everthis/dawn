@@ -23,8 +23,9 @@
 /public/uploads
 
 /.sass-cache
+/.tmp
 # Ignore node_modules
 /front-end/node_modules
 /node_modules
-/app/assets/javascripts/application.js
-/app/assets/stylesheets/application.css
+/app/assets/javascripts
+/app/assets/stylesheets

@@ -6,7 +6,7 @@ import {Tree} from './tree';
 import {$http} from '../common/ajax';
 import {popup} from '../common/popup';
 import {rootAPI} from '../global/constant';
-import {parseAndFlash} from '../common/flash';
+import {flash, parseAndFlash} from '../common/flash';
 import {collectApiData} from './treeDataCollect';
 import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {jsonToTree} from './jsonTreeConverter';
@@ -30,7 +30,12 @@ function perApiTpl(data, isNewApi = false) {
           <label for="">description:</label>
           <input class="api-description" type="text" model="description" />
           <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
-          <span class="api-test">test</span>
+          <span class="api-respond-preview-btn">preview</span>
+      </div>
+      <div class="api-modes-row">
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="0">开发</label>
+        <label class="api-mode-label api-mode-debug"><input class="api-mode" type="radio" name="mode" value="1">联调<input class="mode-debugging-addr" type="text" /></label>
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="2">线上</label>
       </div>
       <div class="api-tree-wrapper">
         <div class="api-tree-frame">
@@ -38,12 +43,13 @@ function perApiTpl(data, isNewApi = false) {
         </div>
         <div class="api-tree"></div>
       </div>
-      <div class="api-data">
-          <div class="data-views-control">
-              <span class="data-raw">raw</span>
-              <span class="data-beautify">beautify</span>
-              <span class="data-highlight">syntaxHighlight</span>
-              <span class="data-preview">preview</span>
+      <div class="api-respond-preview">
+          <div class="preview-control-wrapper">
+            <div class="preview-control">
+                <span class="per-preview-type preview-raw">raw</span>
+                <span class="per-preview-type preview-beautify">beautify</span>
+                <span class="per-preview-type preview-highlight">syntaxHighlight</span>
+            </div>
           </div>
           <div class="data-view json">
           </div>
@@ -54,12 +60,23 @@ function perApiTpl(data, isNewApi = false) {
 function leafTpl() {
   let leafContentTpl = `
     <i class="remove-child">-</i>
-    <input type="text" class="leaf-key" placeholder="key" model="dataType" />
+    <input type="text" class="leaf-key" placeholder="key" model="dataName" />
     <i class="gap-mark">---</i>
     <input type="text" class="leaf-value" placeholder="value" model="dataValue" />
+    <select class="leaf-value-type" model="dataType">
+        <option value="String">String</option>
+        <option value="Number">Number</option>
+        <option value="Boolean">Boolean</option>
+        <option value="Array">Array</option>
+        <option value="Hash">Hash</option>
+        <option value="Regex">Regex(string)</option>
+        <option value="Fixed">Fixed(string)</option>
+        <option value="Null">Null</option>
+    </select>
     <i class="gap-mark">---</i>
-    <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
     <i class="add-child">+</i>
+    <input type="text" class="leaf-quantity" placeholder="quantity" model="dataQuantity" />
+    <span class="leaf-hide-quantity"></span>
   `;
   return leafContentTpl;
 }
@@ -75,9 +92,11 @@ let initRectObj = {
 };
 
 let leafDataPlaceHolder = {
-  dataType: '',
+  dataName: '',
+  dataType: 'String',
   dataValue: '',
-  dataQuantity: ''
+  dataQuantity: '1',
+  hasChild: false
 };
 
 /*
@@ -90,9 +109,13 @@ const perSVGPathWidth = 30;
 var rootNodeWidth = perSVGPathWidth + 14;
 var callback = {
   patchSuccess: function(data) {
+    this.apiRawData = data;
+    this.apiDataObj = JSON.parse(data).data;
     parseAndFlash(data);
   },
   postSuccess: function(data) {
+    this.apiRawData = data;
+    this.apiDataObj = JSON.parse(data).data;
     parseAndFlash(data);
   },
   deleteSuccess: function(data) {
@@ -102,10 +125,15 @@ var callback = {
     parseAndFlash(data, destoryApiLi.bind(this));
   },
   success: function(data) {
-    console.log(data);
   },
   error: function(data) {
     parseAndFlash(data);
+  },
+  apiRespondSuccess: function(data) {
+    let jsonObj = JSON.parse(data);
+    this.previewData = data;
+    this.previewDataObj = jsonObj;
+    switchPreview(this.previewDataObj, hightlightJSON, this.eventContext, 'highlight');
   }
 };
 
@@ -125,34 +153,54 @@ function createPerApi(data, isNewApi) {
   perApiEle.getElementsByClassName('api-uri')[0].value = isNewApi ? '' : data.uri;
   return perApiEle;
 }
+function createNewApiInitData() {
+  let initData = {
+    nodeId: 0,
+    parentId: null,
+    data: leafDataPlaceHolder
+  };
+  let firstChildData = {
+    nodeId: 1,
+    parentId: 0,
+    data: leafDataPlaceHolder
+  };
+  return {
+    mode: '0',
+    debugAddr: '',
+    nodes: [initData, firstChildData]
+  };
+}
 
 export function ApiDom(data, containerNode, isNewApi = false) {
+  if (isNewApi) {
+    data = createNewApiInitData();
+  }
+  this.apiDataObj = data;
   this.apiContainer = containerNode;
   let perApiEle = createPerApi(data, isNewApi);
   this.apiContainer.appendChild(perApiEle);
 
   let apiBindData = twoWayDataBinding(data, this.apiContainer);
-  
   data = apiBindData;
 
   this.apiEle = this.apiContainer.getElementsByClassName('per-api')[0];
-
-  this.bindEventsToMRCAPI();
 
   this.leafIndex = 1;
 
   this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
   this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
-  if (isNewApi) {
-    this.initApiTree();
-    this.calcDimensions();
-  } else {
+  // if (isNewApi) {
+  //   this.initApiTree();
+  //   this.calcDimensions();
+  // } else {
     this.renderExistTree(data);
-  }
+  // }
 
   this.apiReturnData = '';
 
   this.apiEle.addEventListener('click', bindEvent.bind(this));
+  this.setModeVal(data.mode);
+  this.setDebugAddr(data.debugAddr);
 }
 
 ApiDom.prototype.renderExistTree = function(data) {
@@ -172,7 +220,6 @@ ApiDom.prototype.renderExistTree = function(data) {
         data.nodes[i].data = leafDataPlaceHolder;
       };
       if (data.nodes[i].parentId === null || data.nodes[i].parentId === 'null') leaf.classList.add('root-leaf');
-
       perTWDB = twoWayDataBinding(data.nodes[i].data, leaf);
       data.nodes[i].data = perTWDB;
       perTWDBArr.push(perTWDB);
@@ -190,6 +237,8 @@ ApiDom.prototype.renderExistTree = function(data) {
 function generateLeaf(nodeData) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
+  newLeafSpan.setAttribute('bind', 'hasChild');
+  newLeafSpan.setAttribute('bind-toggle-class', '');
   newLeafSpan.dataset.parentId = nodeData.parentId;
   newLeafSpan.dataset.nodeId = nodeData.nodeId;
   newLeafSpan.innerHTML = leafTpl();
@@ -198,31 +247,48 @@ function generateLeaf(nodeData) {
                                     Math.round(nodeData.totaloffsetylevel * (perLeafHeight + leavesVerticalGap)) + 'px, 0)';
   return newLeafSpan;
 }
-
+ApiDom.prototype.setDebugAddr = function(val) {
+  this.apiContainer.getElementsByClassName('mode-debugging-addr')[0].value = val;
+};
+ApiDom.prototype.setModeVal = function(val) {
+  var radios = this.apiContainer.getElementsByClassName('api-mode');
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (val === radios[i].value) {
+      radios[i].setAttribute('checked', true);
+      break;
+    } else {
+      radios[i].setAttribute('checked', false);
+    }
+  }
+};
 function bindEvent(ev) {
+  /* _$this is ApiDom, while this is its wrapper(object). */
   let _this = this;
-  if (ev.target.classList.contains('api-save')) {
-    let params = collectApiData(this.apiTree, this.$apiTree);
-    if (ev.target.dataset.method.toUpperCase() === 'PATCH') {
-      $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
+  let evTargetClassList = ev.target.classList;
+  let eventContext = {_ev: ev, domContainer: ev.target.closest('.api-li')};
+  this.eventContext = eventContext;
+  if (evTargetClassList.contains('api-save')) {
+    let params = collectApiData(_this.apiTree, _this.$apiTree);
+    if (this.apiDataObj.id) {
+      $http(rootAPI + '/' + this.apiDataObj.id)
       .patch(params, 'api')
-      .then(callback.patchSuccess)
+      .then(callback.patchSuccess.bind(this))
       .catch(callback.error);
-    } else if (ev.target.dataset.method.toUpperCase() === 'POST') {
+    } else if (!this.apiDataObj.id) {
       $http(rootAPI)
       .post(params, 'api')
-      .then(callback.postSuccess)
+      .then(callback.postSuccess.bind(this))
       .catch(callback.error);
     }
     return null;
   };
 
-  if (ev.target.classList.contains('add-child')) {
+  if (evTargetClassList.contains('add-child')) {
     _this.addChild(ev);
     return null;
   };
 
-  if (ev.target.classList.contains('remove-child')) {
+  if (evTargetClassList.contains('remove-child')) {
     if (ev.target.parentElement.classList.contains('root-leaf')) {
       popup(ev, {}, deleteApi.bind(_this, ev));
     } else {
@@ -230,16 +296,89 @@ function bindEvent(ev) {
     }
     return null;
   };
+
+  if (evTargetClassList.contains('api-respond-preview-btn')) {
+    if (!this.apiDataObj.id) {
+      flash({error: 'Save first.'});
+      return null;
+    };
+    let params = {uri: this.apiDataObj.uri};
+    let context = {};
+    $http(window.location.origin + '/apirespond')
+    .get(params)
+    .then(callback.apiRespondSuccess.bind(this))
+    .catch(callback.error);
+    return null;
+  };
+
+  if (evTargetClassList.contains('preview-raw')) {
+    return switchPreview(this.previewDataObj, JSON.stringify, this.eventContext, 'raw');
+  };
+
+  if (evTargetClassList.contains('preview-beautify')) {
+    return switchPreview(this.previewDataObj, beautifyJSON, this.eventContext, 'beautify');
+  };
+
+  if (evTargetClassList.contains('preview-highlight')) {
+    return switchPreview(this.previewDataObj, hightlightJSON, this.eventContext, 'highlight');
+  };
+
+}
+
+function switchPreview(dataObj, fn, previewContext, previewType) {
+  let previewStr = fn.call(null, dataObj);
+  jsonView.call(previewContext.domContainer, previewStr);
+  switchPreviewStatus(previewContext, previewType);
+  return null;
+}
+
+function switchPreviewStatus(previewContext, applyType) {
+  let previewTypes = ['raw', 'beautify', 'highlight'];
+  let apiRespondPreviewEle = previewContext.domContainer.getElementsByClassName('api-respond-preview')[0];
+  let apiRespondPreviewEleClassArr = apiRespondPreviewEle.className.trim().split(' ');
+  apiRespondPreviewEleClassArr.forEach(function(element, index, array) {
+    let idx = previewTypes.indexOf(element);
+    if (idx > -1) {
+      array.splice(array.indexOf(element), 1);
+    }
+  });
+  let previewTypeElesArr = [].slice.call(previewContext.domContainer.getElementsByClassName('per-preview-type'));
+  previewTypeElesArr.forEach(function(element, index) {
+    element.classList.remove('active');
+  });
+  previewContext.domContainer.getElementsByClassName('preview-' + applyType)[0].classList.add('active');
+  apiRespondPreviewEle.className = apiRespondPreviewEleClassArr.join(' ');
+  apiRespondPreviewEle.classList.add(applyType);
+}
+
+function apiSave() {
+
+}
+function addLeafChild() {
+
+}
+function removeLeafChild() {
+
+}
+function apiTest() {
+
+}
+function jsonView(data) {
+  var $pre = document.createElement('pre');
+  $pre.innerHTML = data;
+  let $dataViewEle = this.getElementsByClassName('data-view')[0];
+  $dataViewEle.innerHTML = '';
+  $dataViewEle.appendChild($pre);
 }
 
 function deleteApi(ev) {
-  if (!ev.target.closest('.per-api').dataset.id) {
+  if (!this.apiDataObj.id) {
     ev.target.closest('.api-ul').removeChild(ev.target.closest('.api-li'));
     return null;
   };
 
   let params = {};
-  $http(rootAPI + '/' + ev.target.closest('.per-api').dataset.id)
+  $http(rootAPI + '/' + this.apiDataObj.id)
   .delete(params)
   .then(callbacks.deleteSuccess.bind(ev))
   .catch(callbacks.error);
@@ -248,53 +387,6 @@ function deleteApi(ev) {
 ApiDom.prototype.storeApiReturnData = function(data) {
   this.apiReturnData = data;
   this.$dataBeautify.click();
-};
-ApiDom.prototype.jsonView = function(data) {
-  var $pre = document.createElement('pre');
-  $pre.innerHTML = data;
-  this.$dataView.innerHTML = '';
-  this.$dataView.appendChild($pre);
-
-};
-ApiDom.prototype.bindEventsToMRCAPI = function() {
-  var that = this;
-  var newlyCreatedApiNode = this.apiEle;
-
-  var $apiSave = newlyCreatedApiNode.getElementsByClassName('api-save')[0];
-  var $apiUri = newlyCreatedApiNode.getElementsByClassName('api-uri')[0];
-  var $apiTest = newlyCreatedApiNode.getElementsByClassName('api-test')[0];
-  var $apiMethod = newlyCreatedApiNode.getElementsByClassName('api-method')[0];
-
-  var $dataRaw = newlyCreatedApiNode.getElementsByClassName('data-raw')[0];
-  this.$dataBeautify = newlyCreatedApiNode.getElementsByClassName('data-beautify')[0];
-  var $dataHighlight = newlyCreatedApiNode.getElementsByClassName('data-highlight')[0];
-  var $dataPreview = newlyCreatedApiNode.getElementsByClassName('data-preview')[0];
-
-  this.$dataView = newlyCreatedApiNode.getElementsByClassName('data-view')[0];
-
-  $apiSave.addEventListener('click', function(ev) {
-  });
-
-  $apiTest.addEventListener('click', ev => {
-    xhr($apiMethod.value, $apiUri.value, this.storeApiReturnData.bind(that));
-  });
-
-  $dataRaw.addEventListener('click', ev => {
-    this.jsonView(this.apiReturnData);
-  });
-
-  this.$dataBeautify.addEventListener('click', ev => {
-    this.jsonView(beautifyJSON(JSON.parse(this.apiReturnData)));
-  });
-
-  $dataHighlight.addEventListener('click', ev => {
-    this.jsonView(hightlightJSON(JSON.parse(this.apiReturnData)));
-  });
-
-  $dataPreview.addEventListener('click', ev => {
-    this.jsonView('This feature has not been accomplished yet.');
-  });
-
 };
 
 ApiDom.prototype.initApiTree = function() {
@@ -368,20 +460,18 @@ ApiDom.prototype.setParentNodeVal = function(idx) {
   for (var i = 0, x = leaves.length; i < x; i++) {
     if (+leaves[i].dataset.nodeId === idx) {
       if (queueLen > 0) {
-        leaves[i].getElementsByClassName('leaf-value')[0].value = '--->';
+        // leaves[i].getElementsByClassName('leaf-value')[0].value = '';
       } else {
-        leaves[i].getElementsByClassName('leaf-value')[0].value = '';
+        // leaves[i].getElementsByClassName('leaf-value')[0].value = '';
       };
       break;
     };
   };
 };
+
 ApiDom.prototype.addChild = function(ctx) {
   this.leafIndex = this.apiTree.maxId() + 1;
   var parentIdex = +ctx.target.parentNode.dataset.nodeId;
-
-  // apiTree operation
-
 
   let leafChild = createLeaf(parentIdex, this.leafIndex);
   let childModel = twoWayDataBinding(leafDataPlaceHolder, leafChild);
@@ -400,15 +490,15 @@ ApiDom.prototype.addChild = function(ctx) {
 function generateLeafSpan(parentId, nodeIndex) {
   var newLeafSpan = document.createElement('span');
   newLeafSpan.setAttribute('class', 'leaf');
+  newLeafSpan.setAttribute('bind', 'hasChild');
+  newLeafSpan.setAttribute('bind-toggle-class', '');
   newLeafSpan.dataset.parentId = parentId;
   newLeafSpan.dataset.nodeId = nodeIndex;
   newLeafSpan.innerHTML = leafTpl();
   return newLeafSpan;
 }
 function createLeaf(parentIdx, nodeIdx) {
-  var newLeaf = document.createDocumentFragment();
-  newLeaf.appendChild(generateLeafSpan(parentIdx, nodeIdx));
-  return newLeaf;
+  return generateLeafSpan(parentIdx, nodeIdx);
 }
 ApiDom.prototype.styleNodes = function() {
   var leaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
@@ -506,7 +596,7 @@ ApiDom.prototype.calcDimensions = function() {
   horiMax = Math.max.apply(null, horiArr);
   verticalMax = this.apiTree._root.childrenlevel;
   this.$apiTreeFrame.style.width = horiMax * 520 + 'px';
-  this.$apiTreeFrame.style.height = verticalMax * 52 + 'px';
+  this.$apiTreeFrame.style.height = verticalMax * 52 - (verticalMax > 1 ? 10 : 0) + 'px';
   return [horiMax, verticalMax];
 
 };

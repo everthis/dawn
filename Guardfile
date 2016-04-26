@@ -98,7 +98,7 @@ def resource_tests(resource)
   integration_tests(resource) << controller_test(resource)
 end
 
-guard 'livereload' do
+guard 'livereload', port: '8010' do
   extensions = {
     css: :css,
     scss: :css,
