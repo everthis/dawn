@@ -40,6 +40,10 @@ install imagemagick
 sudo apt-get update
 sudo apt-get install imagemagick --fix-missing
 ```
+disable tiff and dps on iDev machines
+```bash
+--without-diff --without-dps
+```
 
 install browserify 
 ```bash
@@ -65,7 +69,7 @@ cc1plus: error: unrecognized command line option "-std=c++0x"
 ```
 fix:
 ```bash
-echo 'export CXX=/usr/bin/gcc-3.3' >> ~/.bashrc
+echo 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc
 ```
 
 imagemagick installation failure on iDev, 
