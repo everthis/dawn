@@ -302,7 +302,7 @@ function bindEvent(ev) {
       flash({error: 'Save first.'});
       return null;
     };
-    let params = {uri: this.apiDataObj.uri};
+    let params = {dawn_uri: this.apiDataObj.uri};
     let context = {};
     $http(window.location.origin + '/apirespond')
     .get(params)

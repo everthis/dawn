@@ -77,7 +77,7 @@ class ApisController < ApplicationController
 
   def generate_data
     # @api = current_user.apis.where(uri: params[:uri])
-    @api = Api.where(uri: params[:uri]).first
+    @api = Api.where(uri: params[:dawn_uri]).first
     @api_json = @api.as_json
 
     # puts request.query_string

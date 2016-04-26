@@ -17,9 +17,12 @@ body {
 .center {
 	text-align: center;
 }
-input:not([type=checkbox]) {
+/*
+input:not([type=checkbox]),
+input:not([type=radio]) {
 	appearance: none;
 }
+*/
 input,
 select {
 	border: none;
