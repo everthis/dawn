@@ -12,6 +12,7 @@ import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {jsonToTree} from './jsonTreeConverter';
 import {twoWayDataBinding} from '../common/twoWayDataBinding';
 import {callbacks} from '../common/callbacks';
+import {scrollBarH} from '../common/scroll';
 
 function perApiTpl(data, isNewApi = false) {
   let tpl =
@@ -201,6 +202,10 @@ export function ApiDom(data, containerNode, isNewApi = false) {
   this.apiEle.addEventListener('click', bindEvent.bind(this));
   this.setModeVal(data.mode);
   this.setDebugAddr(data.debugAddr);
+  scrollBarH({
+    wrapper: this.apiContainer.getElementsByClassName('api-tree-wrapper')[0],
+    content: this.apiContainer.getElementsByClassName('api-tree-frame')[0]
+  });
 }
 
 ApiDom.prototype.renderExistTree = function(data) {
