@@ -25,6 +25,7 @@ function generatePopupTpl(data) {
 }
 
 function bindPopupEvents(ele, ev, params, callback) {
+  ele.getElementsByClassName('popup-cancel-btn')[0].addEventListener('click', closePopup);
   ele.getElementsByClassName('popup-shadow')[0].addEventListener('click', closePopup);
   ele.getElementsByClassName('popup-confirm-btn')[0].addEventListener('click', confirm.bind(this, ev, ele, params, callback));
 }
@@ -39,8 +40,9 @@ function positionPopupEle(ele, coordinates) {
 }
 
 function closePopup(ev) {
-  if (ev.target === ev.currentTarget) {
-    document.body.removeChild(this.parentNode);
+  let popLayer = ev.target.closest('.popup-layer');
+  if (popLayer) {
+    document.body.removeChild(popLayer);
     enableScroll();
   }
 }

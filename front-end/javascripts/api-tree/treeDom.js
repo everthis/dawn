@@ -12,8 +12,11 @@ import {getTranslateX, xhr, beautifyJSON, hightlightJSON} from './utilities';
 import {jsonToTree} from './jsonTreeConverter';
 import {twoWayDataBinding} from '../common/twoWayDataBinding';
 import {callbacks} from '../common/callbacks';
+import {scrollBarH} from '../common/scroll';
+import {generateUUID} from '../common/utilities';
 
 function perApiTpl(data, isNewApi = false) {
+  let apiUUID = generateUUID();
   let tpl =
       `<div class="api-info">
           <label class="api-label">API:</label>
@@ -33,15 +36,19 @@ function perApiTpl(data, isNewApi = false) {
           <span class="api-respond-preview-btn">preview</span>
       </div>
       <div class="api-modes-row">
-        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="0">开发</label>
-        <label class="api-mode-label api-mode-debug"><input class="api-mode" type="radio" name="mode" value="1">联调<input class="mode-debugging-addr" type="text" /></label>
-        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="2">线上</label>
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="${apiUUID}-mode" value="0">开发</label>
+        <label class="api-mode-label api-mode-debug"><input class="api-mode" type="radio" name="${apiUUID}-mode" value="1">联调<input class="mode-debugging-addr" type="text" /></label>
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="${apiUUID}-mode" value="2">线上</label>
       </div>
       <div class="api-tree-wrapper">
-        <div class="api-tree-frame">
-          <svg class="api-svg" width="100%" height="100%"></svg>
+        <div class="api-tree-content-wrapper">
+          <div class="api-tree-content">
+            <div class="api-tree-frame">
+              <svg class="api-svg" width="100%" height="100%"></svg>
+            </div>
+            <div class="api-tree"></div>
+          </div>
         </div>
-        <div class="api-tree"></div>
       </div>
       <div class="api-respond-preview">
           <div class="preview-control-wrapper">
@@ -189,11 +196,12 @@ export function ApiDom(data, containerNode, isNewApi = false) {
 
   this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
   this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
+  this.$apiTreeContent = this.apiEle.getElementsByClassName('api-tree-content')[0];
   // if (isNewApi) {
   //   this.initApiTree();
   //   this.calcDimensions();
   // } else {
-    this.renderExistTree(data);
+  this.renderExistTree(data);
   // }
 
   this.apiReturnData = '';
@@ -201,6 +209,11 @@ export function ApiDom(data, containerNode, isNewApi = false) {
   this.apiEle.addEventListener('click', bindEvent.bind(this));
   this.setModeVal(data.mode);
   this.setDebugAddr(data.debugAddr);
+  this.scrollBar = scrollBarH({
+    wrapper: this.apiContainer.getElementsByClassName('api-tree-wrapper')[0],
+    content: this.apiContainer.getElementsByClassName('api-tree-content-wrapper')[0],
+    overflowEle: this.apiContainer.getElementsByClassName('api-tree-content')[0]
+  });
 }
 
 ApiDom.prototype.renderExistTree = function(data) {
@@ -302,7 +315,7 @@ function bindEvent(ev) {
       flash({error: 'Save first.'});
       return null;
     };
-    let params = {uri: this.apiDataObj.uri};
+    let params = {dawn_uri: this.apiDataObj.uri};
     let context = {};
     $http(window.location.origin + '/apirespond')
     .get(params)
@@ -433,7 +446,7 @@ ApiDom.prototype.delNode = function(ctx) {
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdx);
-
+  this.scrollBar.render();
 };
 ApiDom.prototype.removeNodesFromDom = function(arr) {
   var allLeaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
@@ -484,7 +497,7 @@ ApiDom.prototype.addChild = function(ctx) {
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdex);
-
+  this.scrollBar.render();
 };
 
 function generateLeafSpan(parentId, nodeIndex) {
@@ -596,7 +609,9 @@ ApiDom.prototype.calcDimensions = function() {
   horiMax = Math.max.apply(null, horiArr);
   verticalMax = this.apiTree._root.childrenlevel;
   this.$apiTreeFrame.style.width = horiMax * 520 + 'px';
+  this.$apiTreeContent.style.width = horiMax * 520 + 'px';
   this.$apiTreeFrame.style.height = verticalMax * 52 - (verticalMax > 1 ? 10 : 0) + 'px';
+  this.$apiTreeContent.style.height = verticalMax * 52 - (verticalMax > 1 ? 10 : 0) + 'px';
   return [horiMax, verticalMax];
 
 };

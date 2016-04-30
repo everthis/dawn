@@ -50,8 +50,11 @@
 .api-tree-wrapper {
     position: relative;
     margin: 1rem 0 0 0;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
+}
+.api-tree-content {
+    position: relative;
 }
 .api-respond-preview {
     padding: .5rem 0 0 0;

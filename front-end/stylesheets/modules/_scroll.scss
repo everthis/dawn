@@ -1,0 +1,84 @@
+.opui-scroll-ctrl-content {
+    overflow: hidden;
+}
+
+.opui-scroll-ctrl-scroll {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 8px;
+    border-top: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    cursor: default;
+    user-select: none;
+    .opui-scroll-slider {
+        overflow: hidden;
+        height: 8px;
+        width: 14px;
+        position: absolute;
+        left: 0;
+        z-index: 10;
+        display: none;
+        background: #fff;
+        margin-top: -1px;
+        margin-left: -1px;
+        border: 1px solid #e1e1e1;
+        border-bottom: 1px solid #d4d4d4;
+        cursor: default;
+    }
+    .opui-scroll-axis {
+        height: 8px;
+        left: 0;
+        z-index: 0;
+        position: absolute;
+        background: #f2f2f2;
+    }
+    .opui-scroll-up,
+    .opui-scroll-down {
+        overflow: hidden;
+        width: 7px;
+        height: 14px;
+        position: absolute;
+        left: 0;
+        background: #fff;
+        z-index: 10;
+        cursor: default;
+    }
+    .opui-scroll-up {
+        top: 0;
+    }
+    .opui-scroll-down {
+        bottom: 0;
+    }
+}
+
+.opui-scroll-ctrl-scroll-hover {
+    border-top: 1px solid #ababab;
+    border-left: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+    .opui-scroll-axis {
+        background: #bfbfbf;
+    }
+    .opui-scroll-slider {
+        border: 1px solid #bebebe;
+        border-bottom: 1px solid #aeaeae;
+    }
+}
+
+.opui-scroll-ctrl-scroll-touch {
+    width: 7px;
+    border-top: 1px solid #ababab;
+    border-left: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+    border-right: 1px solid #a1a1a1;
+    .opui-scroll-axis {
+        width: 7px;
+        background: #bfbfbf;
+    }
+    .opui-scroll-slider {
+        border: 1px solid #bebebe;
+        border-bottom: 1px solid #aeaeae;
+    }
+}
+

@@ -38,14 +38,19 @@ module ReverseProxy
       options.reverse_merge!(
         headers: {},
         path: nil,
+        params: nil,
+        method: nil,
         username: nil,
         password: nil
       )
 
       source_request = Rack::Request.new(env)
 
+      # puts source_request.request_method
       # We can pass in a custom path
-      uri = URI.parse("#{url}#{options[:path] || env['ORIGINAL_FULLPATH']}")
+      uri = URI.parse("#{url}#{options[:path] || env['ORIGINAL_FULLPATH']}") if options[:params].nil?
+      # uri = URI.parse("#{url}#{options[:path] || env['ORIGINAL_FULLPATH']}?".concat(options[:params].collect { |k,v| "#{k}=#{CGI::escape(v.to_s)}" }.join('&'))) unless options[:params].nil?
+      uri = URI.parse("#{url}#{options[:path] || env['ORIGINAL_FULLPATH']}?".concat(URI.encode_www_form(options[:params]))) unless options[:params].nil?
 
       # Initialize request
       target_request = Net::HTTP.const_get(source_request.request_method.capitalize).new(uri.request_uri)

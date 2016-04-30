@@ -3,6 +3,7 @@ class ApisController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy
 
+  after_filter :cors_set_access_control_headers, only: [:generate_data]
   include Tree
   include ReverseProxy::Controller
 
@@ -76,31 +77,42 @@ class ApisController < ApplicationController
 
   def generate_data
     # @api = current_user.apis.where(uri: params[:uri])
-    @api = Api.where(uri: params[:uri]).first
+    @api = Api.where(uri: params[:dawn_uri]).first
     @api_json = @api.as_json
+
+    # puts request.query_string
+    req_method = request.method
+    req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
+    except_req_params = req_params.except(:format, :dawn_uri)
+
     respond_to do |format|
       # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
       # JSON.parse(s,:symbolize_names => true)
       # HashWithIndifferentAccess
       case @api.mode
       when "0"
-        format.json {
-          render :json => process_dev_return_data(@api_json)
-        }
+          render_obj = process_dev_return_data(@api_json)
       when "1"
-        reverse_proxy @api.debugAddr, path: @api.uri do |config|
-          config.on_response do |code, response|
-            puts response.to_s
+          reverse_proxy @api.debugAddr, path: @api.uri, params: except_req_params, method: req_method do |config|
+            config.on_complete do |code, response|
+              render_obj = response.body
+            end
           end
-        end
       when "2"
 
       end
+
+      format.json {
+        render :json => render_obj
+      }
 
     end
   end
 
   private
+    def cors_set_access_control_headers
+      headers['Access-Control-Allow-Origin'] = '*'
+    end
 
     def max_key_id(column_hash)
       column_hash.keys.max

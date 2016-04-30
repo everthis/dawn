@@ -88,17 +88,23 @@
 	}
 	.per-result-column {
 		padding: 0 .5rem;
+		flex-basis: 0;
+		@extend %ellipsis;
 	}
 	.per-result-uri {
-		flex: 2;
+		flex-grow: 4;
+		flex-shrink: 1;
 	}
 	.per-result-section {
-		flex: 1;
+		flex-grow: 1;
+		flex-shrink: 1;
 	}
 	.per-result-method {
-		flex: 1;
+		flex-grow: 1;
+		flex-shrink: 1;
 	}
 	.per-result-description {
-		flex: 5;
+		flex-grow: 5;
+		flex-shrink: 1;
 	}
 }

@@ -27,7 +27,10 @@ export function twoWayDataBinding(data, domContext) {
             }
           }
           /* If element has `model` attribute, set it's `value`. */
-          if (el.getAttribute('model')) el.value = value;
+
+          if (el.getAttribute('model') && el !== document.activeElement) {
+            el.value = value;
+          }
         });
       }
     });
