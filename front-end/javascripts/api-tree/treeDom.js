@@ -39,10 +39,14 @@ function perApiTpl(data, isNewApi = false) {
         <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="2">线上</label>
       </div>
       <div class="api-tree-wrapper">
-        <div class="api-tree-frame">
-          <svg class="api-svg" width="100%" height="100%"></svg>
+        <div class="api-tree-content-wrapper">
+          <div class="api-tree-content">
+            <div class="api-tree-frame">
+              <svg class="api-svg" width="100%" height="100%"></svg>
+            </div>
+            <div class="api-tree"></div>
+          </div>
         </div>
-        <div class="api-tree"></div>
       </div>
       <div class="api-respond-preview">
           <div class="preview-control-wrapper">
@@ -190,6 +194,7 @@ export function ApiDom(data, containerNode, isNewApi = false) {
 
   this.$apiTree = this.apiEle.getElementsByClassName('api-tree')[0];
   this.$apiTreeFrame = this.apiEle.getElementsByClassName('api-tree-frame')[0];
+  this.$apiTreeContent = this.apiEle.getElementsByClassName('api-tree-content')[0];
   // if (isNewApi) {
   //   this.initApiTree();
   //   this.calcDimensions();
@@ -202,9 +207,10 @@ export function ApiDom(data, containerNode, isNewApi = false) {
   this.apiEle.addEventListener('click', bindEvent.bind(this));
   this.setModeVal(data.mode);
   this.setDebugAddr(data.debugAddr);
-  scrollBarH({
+  this.scrollBar = scrollBarH({
     wrapper: this.apiContainer.getElementsByClassName('api-tree-wrapper')[0],
-    content: this.apiContainer.getElementsByClassName('api-tree-frame')[0]
+    content: this.apiContainer.getElementsByClassName('api-tree-content-wrapper')[0],
+    overflowEle: this.apiContainer.getElementsByClassName('api-tree-content')[0]
   });
 }
 
@@ -438,7 +444,7 @@ ApiDom.prototype.delNode = function(ctx) {
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdx);
-
+  this.scrollBar.render();
 };
 ApiDom.prototype.removeNodesFromDom = function(arr) {
   var allLeaves = Array.prototype.slice.call(this.$apiTree.getElementsByClassName('leaf'));
@@ -489,7 +495,7 @@ ApiDom.prototype.addChild = function(ctx) {
   var obj = this.apiTree.applyStyle();
   this.styleNodes(obj);
   this.setParentNodeVal(parentIdex);
-
+  this.scrollBar.render();
 };
 
 function generateLeafSpan(parentId, nodeIndex) {
@@ -601,7 +607,9 @@ ApiDom.prototype.calcDimensions = function() {
   horiMax = Math.max.apply(null, horiArr);
   verticalMax = this.apiTree._root.childrenlevel;
   this.$apiTreeFrame.style.width = horiMax * 520 + 'px';
+  this.$apiTreeContent.style.width = horiMax * 520 + 'px';
   this.$apiTreeFrame.style.height = verticalMax * 52 - (verticalMax > 1 ? 10 : 0) + 'px';
+  this.$apiTreeContent.style.height = verticalMax * 52 - (verticalMax > 1 ? 10 : 0) + 'px';
   return [horiMax, verticalMax];
 
 };
