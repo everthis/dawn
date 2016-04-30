@@ -13,8 +13,10 @@ import {jsonToTree} from './jsonTreeConverter';
 import {twoWayDataBinding} from '../common/twoWayDataBinding';
 import {callbacks} from '../common/callbacks';
 import {scrollBarH} from '../common/scroll';
+import {generateUUID} from '../common/utilities';
 
 function perApiTpl(data, isNewApi = false) {
+  let apiUUID = generateUUID();
   let tpl =
       `<div class="api-info">
           <label class="api-label">API:</label>
@@ -34,9 +36,9 @@ function perApiTpl(data, isNewApi = false) {
           <span class="api-respond-preview-btn">preview</span>
       </div>
       <div class="api-modes-row">
-        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="0">开发</label>
-        <label class="api-mode-label api-mode-debug"><input class="api-mode" type="radio" name="mode" value="1">联调<input class="mode-debugging-addr" type="text" /></label>
-        <label class="api-mode-label"><input class="api-mode" type="radio" name="mode" value="2">线上</label>
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="${apiUUID}-mode" value="0">开发</label>
+        <label class="api-mode-label api-mode-debug"><input class="api-mode" type="radio" name="${apiUUID}-mode" value="1">联调<input class="mode-debugging-addr" type="text" /></label>
+        <label class="api-mode-label"><input class="api-mode" type="radio" name="${apiUUID}-mode" value="2">线上</label>
       </div>
       <div class="api-tree-wrapper">
         <div class="api-tree-content-wrapper">
@@ -199,7 +201,7 @@ export function ApiDom(data, containerNode, isNewApi = false) {
   //   this.initApiTree();
   //   this.calcDimensions();
   // } else {
-    this.renderExistTree(data);
+  this.renderExistTree(data);
   // }
 
   this.apiReturnData = '';
