@@ -37,7 +37,6 @@ group :development do
 end
 
 group :test do
-  gem 'sqlite3'
   gem 'jasmine'
   gem 'minitest-reporters'
   gem 'mini_backtrace'

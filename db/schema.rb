@@ -13,8 +13,26 @@
 
 ActiveRecord::Schema.define(version: 20160423120530) do
 
-# Could not dump table "apis" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "apis", force: :cascade do |t|
+    t.string   "uri"
+    t.string   "method"
+    t.string   "data"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "section"
+    t.string   "name"
+    t.string   "description"
+    t.json     "nodes",       default: [], null: false
+    t.json     "dimensions",  default: {}, null: false
+    t.integer  "user_id"
+    t.string   "mode"
+    t.string   "debugAddr"
+  end
+
+  add_index "apis", ["user_id"], name: "index_apis_on_user_id", using: :btree
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
@@ -24,7 +42,7 @@ ActiveRecord::Schema.define(version: 20160423120530) do
     t.string   "picture"
   end
 
-  add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
+  add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at", using: :btree
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
@@ -33,9 +51,9 @@ ActiveRecord::Schema.define(version: 20160423120530) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
-  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
-  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
+  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -53,6 +71,7 @@ ActiveRecord::Schema.define(version: 20160423120530) do
     t.string   "avatars"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "apis", "users"
 end
