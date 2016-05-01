@@ -12,7 +12,7 @@ class ApisController < ApplicationController
       @result = current_user.apis.paginate(page: params[:page]).order("created_at DESC")
       respond_to do |format|
         if @result.empty?
-          format.json { render :json => {:message => "Nothing found." }, status: :unprocessable_entity }
+          format.json { render :json => {:message => "Nothing found." }, status: 200 }
         else
           @apis  = @result
           format.json { render :json => @apis, :only=> [:name, :section, :uri, :method, :id, :description] }

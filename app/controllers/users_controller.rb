@@ -30,12 +30,17 @@ class UsersController < ApplicationController
 	def create
 	  # @user = User.new(params[:user]) # don't use this for the sake of security
 	  @user = User.new(user_params)
-	  if @user.save
-	    @user.send_activation_email
-	    flash[:info] = "Please check your email to activate your account."
-	    redirect_to root_url
-	  else
-	    render 'new'
+	  if EmailWhitelist.exists?(email: user_params[:email])
+		  if @user.save
+		    @user.send_activation_email
+		    flash[:info] = "Please check your email to activate your account."
+		    redirect_to root_url
+		  else
+		    render 'new'
+		  end
+	  else	
+	  	flash.now[:danger] = 'Email address not in whitelist.'
+	  	render 'new'
 	  end
 	end
 

@@ -15,6 +15,7 @@ var callback = {
     addApiTree(JSON.parse(data), this, false);
   },
   getAllApisSuccess: function(data) {
+    if (!data.data) {newApiBtn();return;}
     renderAllApis(data);
     bindevents();
     listenApiQuery();
@@ -50,8 +51,11 @@ var callback = {
     console.log(data);
   },
   error: function(data) {
+    if (!data.data) {
+      newApiBtn();
+      return;
+    }
     parseAndFlash(data);
-    newApiBtn();
   }
 };
 export function initXhr() {

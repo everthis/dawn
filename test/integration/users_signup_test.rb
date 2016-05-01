@@ -6,6 +6,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   # end
     def setup
       ActionMailer::Base.deliveries.clear
+      @whitelist_email = email_whitelists(:one)[:email]
     end
     test "invalid signup information" do
       get signup_path
@@ -22,7 +23,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 	  get signup_path
 	  assert_difference 'User.count', 1 do
 	    post users_path, user: { name:  "Example User",
-	                             email: "user@example.com",
+	                             email: @whitelist_email,
 	                             password:              "password",
 	                             password_confirmation: "password" }
 	  end

@@ -12,6 +12,64 @@
         null,
         null
       ],
+      "/Users/hejie/projects/ror/dawn/test/controllers/email_whitelists_controller_test.rb": [
+        1,
+        null,
+        1,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null
+      ],
       "/Users/hejie/projects/ror/dawn/test/controllers/logs_controller_test.rb": [
         1,
         null,
@@ -240,6 +298,10 @@
         null
       ],
       "/Users/hejie/projects/ror/dawn/app/helpers/demo_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/hejie/projects/ror/dawn/app/helpers/email_whitelists_helper.rb": [
         1,
         null
       ],
@@ -687,6 +749,7 @@
         null,
         1,
         0,
+        0,
         null,
         1,
         0,
@@ -759,6 +822,15 @@
         null
       ],
       "/Users/hejie/projects/ror/dawn/test/models/api_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/hejie/projects/ror/dawn/test/models/email_whitelist_test.rb": [
         1,
         null,
         1,
@@ -943,6 +1015,6 @@
         null
       ]
     },
-    "timestamp": 1462102617
+    "timestamp": 1462120885
   }
 }
