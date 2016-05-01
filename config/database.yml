@@ -22,7 +22,7 @@ test:
   # <<: *default
   adapter: postgresql
   encoding: unicode
-  database: dawn_test
+  database: travis_ci_test
 
 production:
   adapter: postgresql
