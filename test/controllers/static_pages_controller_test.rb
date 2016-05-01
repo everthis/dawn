@@ -24,9 +24,4 @@ class StaticPagesControllerTest < ActionController::TestCase
     assert_select "title", "About | #{@base_title}"
   end
 
-  test "should get log" do
-    get :log
-    assert_response :success
-    assert_select "title", "Log | #{@base_title}"
-  end
 end

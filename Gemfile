@@ -22,7 +22,6 @@ gem 'rack-proxy'
 group :development do
   gem "passenger"
   gem "binding_of_caller"
-  gem "ruby_gntp"
   gem "rack-livereload"
   gem 'guard-livereload'
   gem 'byebug'
@@ -38,6 +37,7 @@ group :development do
 end
 
 group :test do
+  gem 'sqlite3'
   gem 'jasmine'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
