@@ -1,4 +1,4 @@
-import {strToDom} from './utilities';
+import {strToDom, debounce} from './utilities';
 
 function generateScrollStr() {
   let scrollStr = `
@@ -153,6 +153,7 @@ function a(x) {
       }
     });
   }
+
   g.addEventListener('mousedown', function(af) {
     t = document.onselectstart;
     document.onselectstart = function() {
@@ -298,6 +299,11 @@ function a(x) {
   }
   if (I > 1) {
     o(I);
+  }
+  let debouncedWindowResize = debounce(reRender, 200, false);
+  window.addEventListener('resize', debouncedWindowResize);
+  function reRender() {
+    q.render();
   }
   this.dispose = function() {
     if (t) {

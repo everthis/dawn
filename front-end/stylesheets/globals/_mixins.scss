@@ -17,6 +17,7 @@
 }
 
 @mixin sameHeightLineheight($height) {
+    display: inline-block;
     height: $height;
     line-height: $height;
 }

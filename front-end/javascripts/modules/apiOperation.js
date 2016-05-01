@@ -152,7 +152,7 @@ function newApiBtn() {
   let header = document.getElementsByTagName('header')[0];
   let newApiStr = `
     <div class="api-add-query">
-      <input class="add-api-btn" type="button" value="new API">
+      <span class="add-api-btn">new API</span>
       <div class="api-search-wrapper">
         <input class="api-query" type="search" placeholder="search">
         <div class="api-search-result hide"></div>

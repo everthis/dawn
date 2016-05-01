@@ -48,8 +48,11 @@
 	line-height: 18px;
 	padding: 0 .5rem;
 	.add-api-btn {
+		padding: 0 1rem;
+		cursor: pointer;
 		background-color: blue;
 		color: white;
+		@include sameHeightLineheight(22px);
 	}
 	.api-query {
 		border: 1px solid #999;
