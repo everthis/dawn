@@ -19,7 +19,7 @@ gem 'structured_warnings'
 gem 'addressable'
 gem 'rack-proxy'
 
-group :development, :test do
+group :development do
   gem "passenger"
   gem "binding_of_caller"
   gem "ruby_gntp"
@@ -30,7 +30,6 @@ group :development, :test do
   gem 'bullet'
   gem 'web-console'
   gem 'spring'
-  gem 'jasmine'
   gem 'capistrano',         require: false
   gem 'capistrano-rvm',     require: false
   gem 'capistrano-rails',   require: false
@@ -39,6 +38,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'jasmine'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'guard-minitest'
