@@ -1,5 +1,6 @@
 class EmailWhitelistsController < ApplicationController
   before_action :set_email_whitelist, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user
   before_action :admin_user,     only: [:new, :create, :edit, :update, :destroy]
 
   # GET /email_whitelists

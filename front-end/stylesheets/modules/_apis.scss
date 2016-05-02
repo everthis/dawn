@@ -1,6 +1,9 @@
 .api-ul-wrapper {
 	input {
 		border-bottom: 1px solid #999;
+		&:focus {
+			border-bottom: 1px solid $focus-border-color;
+		}
 	}
 	select {
 		border: 0;

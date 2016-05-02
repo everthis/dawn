@@ -37,6 +37,13 @@ div {
   padding: .5rem 1.5rem;
   text-align: center;
 }
+.alert-notice {
+  background-color: $notice-bg-color;
+}
+.alert-alert {
+  background-color: $alert-bg-color;
+  color: $alert-text-color;
+}
 .field_with_errors {
   background-color: red;
   display: block;
