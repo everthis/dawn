@@ -37,9 +37,9 @@ npm install -g browserify
 launch web server, rails livereload, front-end build system
 
 ```bash
-bundle exec passenger start
+bundle exec passenger start # OR 'rails s'
 guard -P livereload
-gulp serve
+npm run dev:s # OR 'npm run dev:ss'
 ```
 
 start in production mode
