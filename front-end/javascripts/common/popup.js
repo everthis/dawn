@@ -40,6 +40,7 @@ function positionPopupEle(ele, coordinates) {
 }
 
 function closePopup(ev) {
+  if (ev.target !== ev.currentTarget) return;
   let popLayer = ev.target.closest('.popup-layer');
   if (popLayer) {
     document.body.removeChild(popLayer);
