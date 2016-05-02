@@ -8,6 +8,7 @@ class EmailWhitelistsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    log_in_as(@non_admin)
     get :index
     assert_response :success
     assert_not_nil assigns(:email_whitelists)
@@ -29,6 +30,7 @@ class EmailWhitelistsControllerTest < ActionController::TestCase
   end
 
   test "should show email_whitelist" do
+    log_in_as(@non_admin)
     get :show, id: @email_whitelist
     assert_response :success
   end
