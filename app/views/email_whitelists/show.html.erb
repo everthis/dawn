@@ -1,9 +1,9 @@
-<p id="notice"><%= notice %></p>
+<div class="email-whitelist">
+	<p>
+	  <strong>Email:</strong>
+	  <%= @email_whitelist.email %>
+	</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @email_whitelist.email %>
-</p>
-
-<%= link_to 'Edit', edit_email_whitelist_path(@email_whitelist) %> |
-<%= link_to 'Back', email_whitelists_path %>
+	<%= link_to 'Edit', edit_email_whitelist_path(@email_whitelist) %> |
+	<%= link_to 'Back', email_whitelists_path %>
+</div>

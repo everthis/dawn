@@ -1,27 +1,25 @@
-<p id="notice"><%= notice %></p>
-
+<div class="email-whitelist">
 <h1>Listing Email Whitelists</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @email_whitelists.each do |email_whitelist| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= email_whitelist.email %></td>
-        <td><%= link_to 'Show', email_whitelist %></td>
-        <td><%= link_to 'Edit', edit_email_whitelist_path(email_whitelist) %></td>
-        <td><%= link_to 'Destroy', email_whitelist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th class="email-col">Email</th>
+        <th colspan="3">Operations</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @email_whitelists.each do |email_whitelist| %>
+        <tr class="per-whitelist-email-row">
+          <td class="email-col"><%= email_whitelist.email %></td>
+          <td class="per-operation"><%= link_to 'Show', email_whitelist %></td>
+          <td class="per-operation"><%= link_to 'Edit', edit_email_whitelist_path(email_whitelist) %></td>
+          <td class="per-operation"><%= link_to 'Destroy', email_whitelist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <%= link_to 'New Email whitelist', new_email_whitelist_path, class: "new-whitelist-email-link" %>
+</div>
 
-<%= link_to 'New Email whitelist', new_email_whitelist_path %>

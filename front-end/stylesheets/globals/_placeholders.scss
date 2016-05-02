@@ -18,6 +18,19 @@
     background-color: #000;
     color: #fff;
 }
+%container {
+  width: $container-width;
+  margin: 0 auto;
+}
+%c-input {
+  line-height: $input-line-height;
+  height: $input-height;
+  border: 1px solid #999;
+  padding: 1px .5rem;
+  &:focus {
+    border: 1px solid $focus-border-color;
+  }
+}
 %ellipsis {
     /**
      * 1. Hide any overflow

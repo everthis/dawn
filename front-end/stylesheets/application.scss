@@ -25,6 +25,7 @@ Use classes to define visual presentation patterns1*/
 @import "globals/placeholders";
 @import "globals/math";
 @import "globals/common";
+@import "globals/c";
 
 /* import all modules */
 @import "modules/users";
@@ -47,6 +48,7 @@ Use classes to define visual presentation patterns1*/
 @import "modules/popup";
 @import "modules/flash";
 @import "modules/scroll";
+@import "modules/email-whitelist";
 
 /* import all pages */
 @import "pages/index";
