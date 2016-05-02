@@ -317,7 +317,7 @@ function bindEvent(ev) {
     };
     let params = {dawn_uri: this.apiDataObj.uri};
     let context = {};
-    $http(window.location.origin + '/apirespond')
+    $http(window.location.origin + '/apiresponse')
     .get(params)
     .then(callback.apiRespondSuccess.bind(this))
     .catch(callback.error);

@@ -15,7 +15,12 @@ var callback = {
     addApiTree(JSON.parse(data), this, false);
   },
   getAllApisSuccess: function(data) {
-    if (!data.data) {newApiBtn();return;}
+    let dataBak = data;
+    let JSONBak = JSON.parse(dataBak);
+    if (JSONBak.length === 0) {
+      newApiBtn();
+      return;
+    }
     renderAllApis(data);
     bindevents();
     listenApiQuery();
