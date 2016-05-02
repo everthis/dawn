@@ -21,6 +21,7 @@
 
 # Ignore uploaded test images.
 /public/uploads
+/public/assets
 
 /.sass-cache
 /.tmp

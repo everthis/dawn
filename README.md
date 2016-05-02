@@ -44,8 +44,15 @@ npm run dev:s # OR 'npm run dev:ss'
 
 start in production mode
 
+generate secret
 ```bash
-bundle exec puma -p 3000 -e production
+ bundle exec rake secret
+ export SECRET_KEY_BASE=result-of-previous-step
+```
+
+```bash
+bundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile
+bundle exec puma -p 3000 -e production # OR 'rails s -e production'
 ```
 possible problems
 
