@@ -19,6 +19,7 @@ gem 'regexp-examples'
 gem 'structured_warnings'
 gem 'addressable'
 gem 'rack-proxy'
+gem 'puma'
 
 group :development do
   gem "passenger"
@@ -46,6 +47,5 @@ group :test do
 end
 
 group :production do
-  gem 'puma'
   gem 'rails_12factor'
 end

@@ -180,7 +180,6 @@ function newApiLiTpl(data = {}) {
       <div class="api-li-summary">
         <span class="api-li-collapse"><svg class="icon icon-down"><use xlink:href="#icon-down"></use></svg></span>
         <span class="api-li-uri" bind="uri">${data.uri || '(No uri)'}</span>
-        <span class="api-li-name" bind="name">${data.name ? data.name : '(No name)'}</span>
         <span class="api-li-des" bind="description">${data.description ? data.description : '(No description)'}</span>
       </div>
     </li>

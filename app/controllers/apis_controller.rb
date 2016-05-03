@@ -78,34 +78,31 @@ class ApisController < ApplicationController
   def generate_data
     # @api = current_user.apis.where(uri: params[:uri])
     @api = Api.where(uri: params[:dawn_uri]).first
-    @api_json = @api.as_json
-
-    # puts request.query_string
-    req_method = request.method
-    req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
-    except_req_params = req_params.except(:format, :dawn_uri)
-
     respond_to do |format|
-      # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
-      # JSON.parse(s,:symbolize_names => true)
-      # HashWithIndifferentAccess
-      case @api.mode
-      when "0"
-          render_obj = process_dev_return_data(@api_json)
-      when "1"
-          reverse_proxy @api.debugAddr, path: @api.uri, params: except_req_params, method: req_method do |config|
-            config.on_complete do |code, response|
-              render_obj = response.body
-            end
-          end
-      when "2"
+      if @api.nil?
+        render_obj = { message: "This API has not been registered on dawn."}
+      else
+        @api_json = @api.as_json
+        # puts request.query_string
+        req_method = request.method
+        req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
+        except_req_params = req_params.except(:format, :dawn_uri)
 
+        # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
+        # JSON.parse(s,:symbolize_names => true)
+        # HashWithIndifferentAccess
+        case @api.mode
+        when "0"
+            render_obj = process_dev_return_data(@api_json)
+        when "1"
+          render_obj = conditional_proxy(@api.debugAddr, @api.uri, except_req_params, req_method)
+        when "2"
+          render_obj = conditional_proxy("http://yi.baidu.com", @api.uri, except_req_params, req_method)
+        end
       end
-
       format.json {
         render :json => render_obj
       }
-
     end
   end
 
@@ -122,6 +119,15 @@ class ApisController < ApplicationController
     end
     def sort_key_id(column_hash)
       column_hash.keys.sort
+    end
+    def conditional_proxy(url, uri, except_req_params, req_method)
+      return_sth = nil
+      reverse_proxy url, path: uri, params: except_req_params, method: req_method do |config|
+        config.on_complete do |code, response|
+          return_sth = response.body
+        end
+      end
+      return_sth
     end
     def nodes_arr_to_hash(nodes_arr)
       nodes_hash = Hash.new
