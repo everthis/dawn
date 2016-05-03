@@ -166,7 +166,6 @@ class ApisController < ApplicationController
         }
       }
 
-      tree_data_root_node.print_tree
       tree_data_root_hash = construct_json(tree_data_root_node)
       tree_data_root_hash.content['node_hash']
     end
@@ -174,7 +173,6 @@ class ApisController < ApplicationController
     def construct_json(subtree)
       return_hash = Hash.new
       subtree.postordered_each { |node| 
-        puts node.name
         # next if node.content == "tree root"
         if node.is_leaf? then
           node.content.is_a?(Hash) ? node.content['node_hash'] = node_val(node.content) :  node.content = {"node_hash" => Hash.new }
