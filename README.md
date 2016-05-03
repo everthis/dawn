@@ -45,9 +45,15 @@ npm run dev:s # OR 'npm run dev:ss'
 start in production mode
 
 generate secret
+
 ```bash
  bundle exec rake secret
  export SECRET_KEY_BASE=result-of-previous-step
+```
+database migration
+
+```bash
+bundle exec rake db:migrate RAILS_ENV=production
 ```
 
 ```bash
