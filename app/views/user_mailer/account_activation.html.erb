@@ -7,7 +7,5 @@
 <p>Hi <%= @user.name %>,</p>
 
 <p>
-Welcome to dawn! Click on the link below to activate your account:
+Welcome to dawn! Click on the link below to activate your account: <%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
 </p>
-
-<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
