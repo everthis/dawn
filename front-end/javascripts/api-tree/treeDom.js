@@ -34,6 +34,10 @@ function perApiTpl(data, isNewApi = false) {
           <input class="api-description" type="text" model="description" />
           <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
           <span class="api-respond-preview-btn">preview</span>
+          <span class="api-wiki">
+            <label>Wiki: </label>
+            <input class="api-wiki-input" type="text" model="wikiLink" />
+          </span>
       </div>
       <div class="api-modes-row">
         <label class="api-mode-label"><input class="api-mode" type="radio" name="${apiUUID}-mode" value="0">开发</label>

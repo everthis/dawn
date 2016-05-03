@@ -94,7 +94,16 @@ i {
     border-right: 1px solid #ddd;
 }
 .api-info {
+    position: relative;
     line-height: 1.5;
+}
+.api-wiki {
+    position: absolute;
+    top: 2.18rem;
+    right: .5rem;
+    .api-wiki-input {
+        width: 30rem;
+    }
 }
 .leaf {
     display: inline-block;

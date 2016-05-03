@@ -15,7 +15,7 @@ class ApisController < ApplicationController
           format.json { render :json => [], status: 200 }
         else
           @apis  = @result
-          format.json { render :json => @apis, :only=> [:name, :section, :uri, :method, :id, :description] }
+          format.json { render :json => @apis, :only=> [:name, :section, :uri, :method, :id, :description, :wikiLink] }
           # format.json { render :json => @apis, :except=> [:nodes, :dimensions] }
         end
       end
@@ -268,7 +268,8 @@ class ApisController < ApplicationController
                                    {dimensions: [:hUnit, 
                                                 :vUnit
                                                ]
-                                   } 
+                                   },
+                                   :wikiLink 
                                   ])
     end
 
