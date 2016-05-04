@@ -105,11 +105,13 @@ function clearSearchResult() {
   apiSearchResultEle.innerHTML = '';
   apiSearchResultEle.classList.add('hide');
 }
-function toggleFoldLi(context) {
-  context.classList.toggle('unfold');
+function toggleFoldLi(context, ev) {
+  if (!ev.target.classList.contains('api-li-wiki')) {
+    context.classList.toggle('unfold');
+  }
 }
 function bindEventToApiLiDescription(ev) {
-  toggleFoldLi(this);
+  toggleFoldLi(this, ev);
   if (this.nextElementSibling) {
     return;
   };
@@ -122,7 +124,7 @@ function bindevents() {
   let apiLis = document.getElementsByClassName('api-li-summary');
   [].slice.call(apiLis).forEach(function(element, index) {
     element.addEventListener('click', function(ev) {
-      bindEventToApiLiDescription.call(this);
+      bindEventToApiLiDescription.call(this, ev);
     });
   });
 }
@@ -181,7 +183,7 @@ function newApiLiTpl(data = {}) {
         <span class="api-li-collapse"><svg class="icon icon-down"><use xlink:href="#icon-down"></use></svg></span>
         <span class="api-li-uri" bind="uri">${data.uri || '(No uri)'}</span>
         <span class="api-li-des" bind="description">${data.description ? data.description : '(No description)'}</span>
-        <span class="api-li-wiki" bind="wikiLink">${data.wikiLink ? data.wikiLink : '(No wikiLink)'}</span>
+        <a href="${data.wikiLink}" class="api-li-wiki" bind-attr-href="wikiLink" bind="wikiLink" target="_blank">${data.wikiLink ? data.wikiLink : '(No wikiLink)'}</a>
       </div>
     </li>
   `;

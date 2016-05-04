@@ -26,6 +26,9 @@ export function twoWayDataBinding(data, domContext) {
               el.classList.remove('leaf-has-child');
             }
           }
+          if (el.hasAttribute('bind-attr-href')) {
+            el.setAttribute('href', value);
+          }
           /* If element has `model` attribute, set it's `value`. */
 
           if (el.getAttribute('model') && el !== document.activeElement) {
