@@ -101,6 +101,21 @@ i {
     position: absolute;
     top: 2.18rem;
     right: .5rem;
+    &.toggle-true {
+        .api-wiki-label {
+            background-color: blue;
+            color: #fff;
+            padding: 0 1rem;
+        }
+        .api-wiki-input {
+            width: 0;
+        }
+    }
+    .api-wiki-label {
+        display: inline-block;
+        height: 100%;
+        cursor: pointer;
+    }
     .api-wiki-input {
         width: 30rem;
     }
@@ -152,7 +167,7 @@ i {
             margin: 2px 0;
         }
     }
-    &.leaf-has-child {
+    &.toggle-true {
         .leaf-hide-quantity {
             display: none;
         }

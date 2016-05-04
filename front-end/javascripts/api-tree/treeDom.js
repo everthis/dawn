@@ -34,8 +34,8 @@ function perApiTpl(data, isNewApi = false) {
           <input class="api-description" type="text" model="description" />
           <span class="api-save" data-method="${patchOrPost(isNewApi)}" data-action="/apis${saveOrCreate(data, isNewApi)}" >${isNewApi ? 'create' : 'save'}</span>
           <span class="api-respond-preview-btn">preview</span>
-          <span class="api-wiki">
-            <label>Wiki: </label>
+          <span class="api-wiki" bind-toggle-class bind="wikiLink">
+            <label class="api-wiki-label">Wiki: </label>
             <input class="api-wiki-input" type="text" model="wikiLink" />
           </span>
       </div>
@@ -328,6 +328,9 @@ function bindEvent(ev) {
     return null;
   };
 
+  if (evTargetClassList.contains('api-wiki-label')) {
+    ev.target.closest('.api-wiki').classList.toggle('toggle-true');
+  }
   if (evTargetClassList.contains('preview-raw')) {
     return switchPreview(this.previewDataObj, JSON.stringify, this.eventContext, 'raw');
   };

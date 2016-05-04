@@ -18,12 +18,14 @@ export function twoWayDataBinding(data, domContext) {
         /* Select all nodes with `bind` and `model` attributes. */
         selectorToArray('[bind=' + key + ']', domContext).concat(selectorToArray('[model=' + key + ']', domContext)).forEach(function(el) {
           /* If element has `bind` attribute, set it's `textContent`. */
-          if (el.getAttribute('bind') && !el.hasAttribute('bind-toggle-class') ) el.textContent = value;
+          if (el.getAttribute('bind') && !el.hasAttribute('bind-toggle-class')) el.textContent = value;
           if (el.hasAttribute('bind-toggle-class')) {
             if (value === true || value === "true") {
-              el.classList.add('leaf-has-child'); 
+              el.classList.add('toggle-true'); 
             }else if(value === false || value === "false") {
-              el.classList.remove('leaf-has-child');
+              el.classList.remove('toggle-true');
+            }else if(value.length > 0) {
+              el.classList.add('toggle-true'); 
             }
           }
           if (el.hasAttribute('bind-attr-href')) {

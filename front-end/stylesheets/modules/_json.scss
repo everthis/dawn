@@ -1,18 +1,23 @@
 .json {
-	pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; white-space:pre;}
-	.string { 
-	  color: green;
+    pre {
+     border: 1px solid #ccc;
+     padding: 5px;
+     margin: 5px 0px;
+     white-space: pre;    
 	}
-	.number {
-	  color: #f90000;
-	}
-	.boolean {
-		color: blue;
-	}
-	.null {
-		color: magenta;
-	}
-	.key {
-		color: #2b00ff;
-	}
+    .string {
+        color: green;
+    }
+    .number {
+        color: #f90000;
+    }
+    .boolean {
+        color: blue;
+    }
+    .null {
+        color: magenta;
+    }
+    .key {
+        color: #2b00ff;
+    }
 }

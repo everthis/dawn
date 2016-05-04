@@ -106,6 +106,10 @@ function clearSearchResult() {
   apiSearchResultEle.classList.add('hide');
 }
 function toggleFoldLi(context, ev) {
+  if (!ev) {
+    context.classList.toggle('unfold');
+    return;
+  }
   if (!ev.target.classList.contains('api-li-wiki')) {
     context.classList.toggle('unfold');
   }
