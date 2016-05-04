@@ -76,7 +76,8 @@ function leafTpl() {
     <input type="text" class="leaf-value" placeholder="value" model="dataValue" />
     <select class="leaf-value-type" model="dataType">
         <option value="String">String</option>
-        <option value="Number">Number</option>
+        <option value="Integer">Integer</option>
+        <option value="Float">Float</option>
         <option value="Boolean">Boolean</option>
         <option value="Array">Array</option>
         <option value="Hash">Hash</option>

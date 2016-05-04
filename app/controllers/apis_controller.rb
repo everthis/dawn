@@ -221,8 +221,10 @@ class ApisController < ApplicationController
       case node_data['dataType']
       when "String"
         node_data['dataValue'].to_s
-      when "Number"
+      when "Integer"
         node_data['dataValue'].to_i
+      when "Float"
+        node_data['dataValue'].to_f
       when "Boolean"
         to_boolean(node_data['dataValue'])
       when "Null"

@@ -24,7 +24,7 @@ export function twoWayDataBinding(data, domContext) {
               el.classList.add('toggle-true'); 
             }else if(value === false || value === "false") {
               el.classList.remove('toggle-true');
-            }else if(value.length > 0) {
+            }else if(value && ('' + value).length > 0 && !hasActiveEle(elAndDescendants(el))) {
               el.classList.add('toggle-true'); 
             }
           }
@@ -64,4 +64,27 @@ function selectorToArray(selector, domContext) {
     arr.push(domContext);
   }
   return arr;
+}
+
+function elAndDescendants(el) {
+  let resultArr = [];
+  (function loop(ele) {
+    let childrenEles = ele.children;
+    if (ele.childElementCount) {
+      for (var i = childrenEles.length - 1; i >= 0; i--) {
+        loop(childrenEles[i])
+      }
+    }
+    resultArr.push(ele);
+  })(el);
+  return resultArr;
+}
+function hasActiveEle(arr) {
+  let bol = false;
+  if (arr.length === 0) return;
+  for (var i = arr.length - 1; i >= 0; i--) {
+    if (bol === true) break;
+    bol = arr[i] === document.activeElement ? true : false;
+  }
+  return bol;
 }

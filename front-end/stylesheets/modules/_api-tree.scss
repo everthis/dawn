@@ -114,7 +114,9 @@ i {
     .api-wiki-label {
         display: inline-block;
         height: 100%;
+        padding: .1rem .5rem;
         cursor: pointer;
+        background-color: #FFFAF0;
     }
     .api-wiki-input {
         width: 30rem;
