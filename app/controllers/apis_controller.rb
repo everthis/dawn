@@ -77,6 +77,7 @@ class ApisController < ApplicationController
 
   def generate_data
     # @api = current_user.apis.where(uri: params[:uri])
+    params[:dawn_uri] = params[:dawn_uri][5..-1] if params[:dawn_uri].start_with?('/mock/pc')
     @api = Api.where(uri: params[:dawn_uri]).first
     respond_to do |format|
       if @api.nil?
