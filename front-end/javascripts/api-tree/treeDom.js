@@ -129,6 +129,8 @@ var callback = {
     this.apiRawData = data;
     this.apiDataObj = JSON.parse(data).data;
     parseAndFlash(data);
+    this.apiContainer.getElementsByClassName('api-save')[0].textContent = 'save';
+    this.apiContainer.getElementsByClassName('api-save')[0].dataset.method = 'PATCH';
   },
   deleteSuccess: function(data) {
     function destoryApiLi() {

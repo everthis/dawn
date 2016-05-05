@@ -9,7 +9,7 @@ class ApisController < ApplicationController
 
   def index
     if logged_in?
-      @result = current_user.apis.paginate(page: params[:page]).order("created_at DESC")
+      @result = Api.paginate(page: params[:page]).order("created_at DESC")
       respond_to do |format|
         if @result.empty?
           format.json { render :json => [], status: 200 }
@@ -69,7 +69,7 @@ class ApisController < ApplicationController
   def query
     respond_to do |format|
       unless params[:q].blank?
-        @api = current_user.apis.where('uri like :search OR method like :search OR section like :search OR description like :search', search: "%#{params[:q]}%")
+        @api = Api.where('uri like :search OR method like :search OR section like :search OR description like :search', search: "%#{params[:q]}%")
         format.json { render :json => @api, :only=> [:uri, :section, :description, :method] }
       end
     end
