@@ -358,6 +358,7 @@ GEM
       trollop
     rdoc (4.2.2)
       json (~> 1.4)
+    redcarpet (3.3.4)
     regexp-examples (1.2.0)
     ruby-progressbar (1.7.5)
     sass (3.4.22)
@@ -419,6 +420,7 @@ DEPENDENCIES
   capistrano-rvm
   capistrano3-puma
   carrierwave
+  coderay
   coveralls
   faker
   fog
@@ -438,6 +440,7 @@ DEPENDENCIES
   rack-proxy
   rails
   rails_12factor
+  redcarpet
   regexp-examples
   sass
   sdoc
@@ -449,4 +452,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.10.6
+   1.12.1

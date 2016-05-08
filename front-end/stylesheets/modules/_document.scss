@@ -1,0 +1,7 @@
+.document-container {
+	@extend %card-box;
+	width: 80rem;
+}
+.doc-content {
+	@extend %ellipsis;
+}

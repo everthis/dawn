@@ -1,0 +1,28 @@
+<div class="document-container">
+  <h1>Listing Docs</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th colspan="3">Operations</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @docs.each do |doc| %>
+        <tr>
+          <td><%= doc.title %></td>
+          <td class="doc-content"><%= truncate(doc.content, length: 170) %></td>
+          <td><%= link_to 'Show', doc %></td>
+          <td><%= link_to 'Edit', edit_doc_path(doc) %></td>
+          <td><%= link_to 'Destroy', doc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="center">
+    <%= link_to 'New Doc', new_doc_path %>
+  </div>
+</div>

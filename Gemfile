@@ -20,6 +20,8 @@ gem 'structured_warnings'
 gem 'addressable'
 gem 'rack-proxy'
 gem 'puma'
+gem 'redcarpet'
+gem 'coderay'
 
 group :development do
   gem "passenger"

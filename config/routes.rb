@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :docs
   resources :email_whitelists
   root                'static_pages#home'
   get    'help'    => 'static_pages#help'

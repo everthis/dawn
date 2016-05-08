@@ -8,4 +8,49 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+
+  def markdown(text)
+    options = [:hard_wrap, :filter_html, :autolink, :no_intraemphasis, :fenced_code, :gh_blockcode]
+    syntax_highlighter(Redcarpet.new(text, *options).to_html).html_safe
+  end
+
+  def syntax_highlighter(html)
+    doc = Nokogiri::HTML(html)
+    doc.search("//pre[@lang]").each do |pre|
+      pre.replace Albino.colorize(pre.text.rstrip, pre[:lang])
+    end
+    doc.to_s
+  end
+
+  class CodeRayify < Redcarpet::Render::HTML
+    def block_code(code, language)
+      CodeRay.scan(code, language).div
+    end
+  end
+
+  def markdown2(text)
+    options = {
+      filter_html: true, 
+      hard_wrap: true
+    }
+
+    coderayified = CodeRayify.new(options)
+
+    extensions = {
+      fenced_code_blocks: true,
+      no_intra_emphasis: true,
+      autolink: true,
+      strikethrough: true,
+      lax_html_blocks: true,
+      superscript: true
+    }
+
+    # renderer = Redcarpet::Render::HTML.new(options)
+    # store the markdown parser in a class variable, it could be used later without having to initialize the renderer and parser again.
+    # Using the @class_var ||= Some.new() idiom is a great way to prevent having to init heavy classes later in the request.
+    # text_mod = File.read(File.expand_path("../views/static_pages/docs.md", File.dirname(__FILE__)))
+    @markdown ||= Redcarpet::Markdown.new(coderayified, extensions)
+
+    @markdown.render(text).html_safe
+  end
 end
