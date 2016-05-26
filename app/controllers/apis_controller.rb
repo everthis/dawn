@@ -113,7 +113,7 @@ class ApisController < ApplicationController
         # HashWithIndifferentAccess
         case @api.mode
         when "0"
-            render_obj = process_dev_return_data(@api_json)
+          render_obj = process_dev_return_data(@api_json)
         when "1"
           render_obj = conditional_proxy(@api.debugAddr, @api.uri, except_req_params, req_method)
         when "2"
