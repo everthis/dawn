@@ -1,5 +1,5 @@
 $chinese-font: 'Courier New', Courier, monospace;
-$english-font: Arial,'Helvetica Neue',Helvetica,sans-serif;
+$english-font: 12px/1.54 Arial,'Helvetica Neue',Helvetica,sans-serif;
 $success-color: #fff;
 $success-bg-color: #7FFFD4;
 
@@ -30,3 +30,10 @@ $signin-form-bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAAGCAIAA
 $container-width: 50rem;
 $input-line-height: 1.5;
 $input-height: 2rem;
+
+
+$c-border: 1px solid #999;
+$gap-top: .8rem;
+
+/* grid system */
+$grid-columns: 48;

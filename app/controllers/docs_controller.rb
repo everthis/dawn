@@ -1,5 +1,5 @@
 class DocsController < ApplicationController
-  before_action :set_doc, only: [:show, :edit, :update, :destroy]
+  before_action :set_doc, only: [:show, :update, :destroy]
 
   # GET /docs
   # GET /docs.json
@@ -19,6 +19,8 @@ class DocsController < ApplicationController
 
   # GET /docs/1/edit
   def edit
+    @doc = Doc.find(params[:id])
+    @doc.content = @doc.content.gsub(/(?:\n\r?|\r\n?)/, "\\n")
   end
 
   # POST /docs

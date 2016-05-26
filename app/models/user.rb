@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
 
   # Sends activation email.
   def send_activation_email
-    UserMailer.account_activation(self).deliver_later
+    UserMailer.account_activation(self).deliver_now
   end
 
   # Sets the password reset attributes.
@@ -106,6 +106,19 @@ class User < ActiveRecord::Base
     following.include?(other_user)
   end
 
+  def User.generate_new_token
+    SecureRandom.uuid.gsub(/\-/,'')
+  end
+
+  def set_auth_token
+    return if auth_token.present?
+    self.auth_token = User.generate_new_token
+    update_attribute(:auth_token, auth_token)
+  end
+
+
+
+
   private
 
     # Converts email to all lower-case.
@@ -125,4 +138,7 @@ class User < ActiveRecord::Base
         errors.add(:avatars, "should be less than 2MB")
       end
     end
+
+
+
 end

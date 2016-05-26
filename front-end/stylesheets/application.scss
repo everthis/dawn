@@ -28,6 +28,7 @@ Use classes to define visual presentation patterns1*/
 @import "globals/c";
 
 /* import all modules */
+@import "modules/grid";
 @import "modules/users";
 @import "modules/user-info-card";
 @import "modules/tweet-box";
@@ -46,6 +47,7 @@ Use classes to define visual presentation patterns1*/
 @import "modules/icon";
 @import "modules/collapse";
 @import "modules/popup";
+@import "modules/slide";
 @import "modules/flash";
 @import "modules/scroll";
 @import "modules/email-whitelist";

@@ -1,4 +1,4 @@
-<%= form_for(@doc) do |f| %>
+<%= form_for(@doc, html: { name: "doc_form" }) do |f| %>
   <% if @doc.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@doc.errors.count, "error") %> prohibited this doc from being saved:</h2>
@@ -18,10 +18,11 @@
 
   <fieldset>
     <legend>Content:</legend>
-    <%= f.text_area :content, class: "doc-input-textarea", placeholder: "Remember, be nice!" %>
+    <%= f.hidden_field :content, class: 'doc-input-textarea' %>
+    <div class="doc-input-textarea-placeholder"></div>
   </fieldset>
 
   <div class="actions center">
-    <%= f.submit %>
+    <%= f.submit "Update", class: "save-document" %>
   </div>
 <% end %>

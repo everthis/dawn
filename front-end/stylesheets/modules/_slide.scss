@@ -1,4 +1,4 @@
-.popup-shadow {
+.slide-shadow {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -7,24 +7,25 @@
 	background-color: rgba(0, 0, 0, .45);
 	z-index: 9;
 }
-.popup-content {
+.slide-content {
 	background-color: #fff;
-	width: 20rem;
-	border-radius: .4rem;
+	width: 90%;
+	height: 100%;
+	margin-left: 10%;
 	will-change: transform;
 	transform: translate3d(0, 0, 0);
 }
-.popup-text {
+.slide-text {
 	padding: 1rem;
 	border-bottom: 1px solid #ddd;
 }
-.popup-btns {
+.slide-btns {
 	font-size: 0;
-	.popup-btn:only-child {
+	.slide-btn:only-child {
 		display: block;
 	}
 }
-.popup-btn {
+.slide-btn {
 	display: inline-block;
 	width: 50%;
 	font-size: 1rem;
