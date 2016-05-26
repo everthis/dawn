@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   get    'about'   => 'static_pages#about'
   get    'contact' => 'static_pages#contact'
   get    'dev'     => 'static_pages#dev'
+  get    'log'     => 'static_pages#log'
+  get    'passport'     => 'static_pages#passport'
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
-  get 'log' => 'logs#index'
+  # get 'log' => 'logs#index'
   # for the sake of debugging
   get 'demo' => 'demo#home'
 

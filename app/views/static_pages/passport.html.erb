@@ -1,0 +1,83 @@
+<% provide(:title, "Passport") %>
+
+<script src="http://passport.baidu.com/passApi/js/wrapper.js"></script>
+<div style="width: 248px;border: 1px solid #efefef;box-shadow: 1px 1px 1px #efefef;">
+<div id="login1"></div>
+</div>
+<script>
+
+passport.use('login', {
+    tangram:true
+}, function(magic){
+var login1 = new magic.passport.login({
+        product : "pp",
+        loginType: 1,
+        defaultCss:true,//是否加载CSS
+        loginMerge:true,//是否合并
+        hasRegUrl:true,//是否有注册链接
+        autosuggest:true,//是否自动提示
+        hasPlaceholder:true,//是否有placeholder
+        sms:true,//短信登录
+        u: window.location.protocol + '//passport.baidu.com/passApi/html/success.html',
+        isPhone: false,
+        safeFlag: 0,
+        staticPage: window.location.protocol + '//passport.baidu.com/passApi/html/jump.html'
+    });
+    login1.render('login1');
+});
+
+
+</script> 
+
+
+<script>
+    (function(baidu, undefined) {
+        /**
+         * @description initTab tab切换
+         * @function
+         * @param loginInstance api对象实例
+         * @param tabDom 表单DOM                 
+         */
+        function initTab(loginInstance, tabDom) {
+             var tabItems = baidu.dom.children(tabDom);
+             baidu.array.each(tabItems, function(item, index) {
+                 if(item && item.tagName && (item.tagName.toUpperCase() == 'LI')) {
+                     baidu.on(item, 'click', function(event) {
+                         event = event || window.event;
+                         baidu.event.preventDefault(event);
+                         var selItems = baidu.q('tab-selected', tabDom);
+                         baidu.array.each(selItems, function(sitem) { baidu.removeClass(sitem, 'tab-selected'); });
+                         baidu.addClass(this, 'tab-selected');
+                         loginInstance.switchTo(['normal','phone'][index]);
+                     });
+                 }
+             });
+        }
+        /**
+         * jsapi 初始化核心代码
+         */    
+        passport.use('login', {
+             tangram:true//如果页面不是使用的tangram2.0， 则此处配置成true,否则配置成false
+        }, function(apiMagic) {
+             //实例化登录api
+             var loginInstance = new apiMagic.passport.login({
+                 product: 'pp',//产品线标志，必须得填真实的产品线标志，拷贝时需要修改
+                 staticPage: 'https://passport.baidu.com/v3Jump.html',//jump地址，注意大小写，拷贝时需要修改
+                 u: 'http://passport.baidu.com/',//登录成功跳转地址，拷贝时需要修改
+                 charset: '',//字符编码
+                 memberPass: true,//记住登录状态
+                 safeFlag: 0//默认的，如果是百付宝请填1，其它产品线不用修改
+             });
+             loginInstance.on('loginSuccess', function(args) {
+                 //do something here. 如果想阻止api默认行为，args.returnValue=false;
+                 top.location.reload();
+             });
+             //渲染表单
+             var container = 'pp_pass_login_form';
+             baidu.g(container).innerHTML = '';
+             loginInstance.render(container);
+             initTab(loginInstance, baidu.q('login-tab', baidu.dom.getParent(container))[0]);
+        });
+    })(window.baidu);
+    
+</script>
