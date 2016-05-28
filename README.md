@@ -75,5 +75,22 @@ imagemagick installation failure on iDev,
 --without-tiff --without-dps
 ```
 
+
+### SSH agent forwarding
+
+`~/.bash_profile`
+```bash
+alias vultr='ssh vultr'
+```
+
+`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`
+```bash
+Host vultr
+  HostName everthis.com
+  User everthis
+  ForwardAgent yes
+```
+Highly recommend using `ssh-copy-id` for moving public keys around.
+
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.

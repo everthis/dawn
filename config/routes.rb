@@ -1,17 +1,19 @@
 Rails.application.routes.draw do
 
+  resources :docs
   resources :email_whitelists
   root                'static_pages#home'
   get    'help'    => 'static_pages#help'
   get    'about'   => 'static_pages#about'
   get    'contact' => 'static_pages#contact'
   get    'dev'     => 'static_pages#dev'
-  get    'log'     => 'static_pages#log'
+  get    'log'     => 'logs#index'
   get    'passport'     => 'static_pages#passport'
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+  get    'clilogin' => 'users#cli_login'
 
   # get 'log' => 'logs#index'
   # for the sake of debugging
@@ -19,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :apis
   get 'instantsearch' => 'apis#query'
+  get 'tokenresponse' => 'apis#token_generate_data'
   get 'apiresponse' => 'apis#generate_data'
   post 'apiresponse' => 'apis#generate_data'
   # resources :apis, :defaults => { :format => 'json' } do
@@ -31,7 +34,7 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :settings, :get_token
     end
   end
   resources :account_activations, only: [:edit]

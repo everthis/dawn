@@ -1,0 +1,28 @@
+<%= form_for(@doc, html: { name: "doc_form" }) do |f| %>
+  <% if @doc.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@doc.errors.count, "error") %> prohibited this doc from being saved:</h2>
+
+      <ul>
+      <% @doc.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Title:</legend>
+    <%= f.text_field :title, class: 'form-control' %>
+  </fieldset>
+
+  <fieldset>
+    <legend>Content:</legend>
+    <%= f.hidden_field :content, class: 'doc-input-textarea' %>
+    <div class="doc-input-textarea-placeholder"></div>
+  </fieldset>
+
+  <div class="actions center">
+    <%= f.submit "Update", class: "save-document" %>
+  </div>
+<% end %>

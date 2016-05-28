@@ -1,3 +1,42 @@
 .c-notice {
 	text-align: center;
 }
+.c-border {
+	border: $c-border;
+}
+.c-gap-top {
+	margin-top: $gap-top;
+}
+.c-container {
+    font-size: 13px;
+    line-height: 1.54;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.c-float-right {
+	float: right;
+}
+.c-float-left {
+	float: left;
+}
+.c-summary-row {
+	border-left: 5px solid #2124dc;
+	border-top: 1px solid #fff;
+	border-right: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	padding-left: 1rem;
+	background-color: #eee;
+	padding: .5rem 1rem;
+	border-radius: 4px;
+	&:hover {
+		background-color: #fff;
+		border-right: 1px solid #2124dc;
+		border-bottom: 1px solid #2124dc;
+	}
+}
+.c-input {
+	border-bottom: 1px solid #999;
+}
+.c-card-box {
+	@extend %card-box;
+}

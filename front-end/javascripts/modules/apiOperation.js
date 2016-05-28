@@ -2,6 +2,7 @@ import {$http} from '../common/ajax';
 import {rootAPI} from '../global/constant';
 import {html} from '../common/template';
 import {popup} from '../common/popup';
+import {slide} from '../common/slide';
 import {insertAfter, strToDom, debounce} from '../common/utilities';
 import {flash, parseAndFlash} from '../common/flash';
 import {ApiDom} from '../api-tree/treeDom';
@@ -138,6 +139,29 @@ function addApiTree(data = {}, containerNode, isNewApi) {
 }
 
 let debouncedNewApiBtn = debounce(processNewApiClick, 500, true);
+let debouncedEnvBtn = debounce(processOpenEnvSettings, 500, true);
+function processOpenEnvSettings(ev, el) {
+  let params = {
+    content: slideContent()
+  };
+  slide(ev, params);
+}
+function slideContent() {
+  let tplStr = `
+    <ul>
+      <li>
+        <label>host:</label>
+        <input class="c-input" type="text" />
+        <label>account:</label>
+        <input class="c-input" type="text" />
+        <label>label:</label>
+        <input class="c-input" type="text" />
+        <input class="" type="button" value="check availability" />
+      </li>
+    </ul>
+  `;
+  return tplStr;
+}
 function processNewApiClick() {
   let apiUl = document.getElementsByClassName('api-ul')[0];
   if (!apiUl) {
@@ -172,10 +196,12 @@ function newApiBtn() {
         <input class="api-query" type="search" placeholder="search">
         <div class="api-search-result hide"></div>
       </div>
+      <a class="icon-text-link c-float-right dev-env-settings" href="javascript:;"><span class="icon-text-icon"><svg class="icon icon-settings icon-fit"><use xlink:href="#icon-settings"></use></svg></span><span class="icon-text-text">环境同步数据配置</span></a>
     </div>
   `;
   newApiDiv = strToDom(newApiStr);
-  newApiDiv.children[0].addEventListener('click', debouncedNewApiBtn);
+  newApiDiv.getElementsByClassName('add-api-btn')[0].addEventListener('click', debouncedNewApiBtn);
+  newApiDiv.getElementsByClassName('dev-env-settings')[0].addEventListener('click', debouncedEnvBtn);
   insertAfter(newApiDiv, header);
   return newApiDiv;
 }

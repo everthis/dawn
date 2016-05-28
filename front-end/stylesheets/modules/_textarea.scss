@@ -1,0 +1,28 @@
+.doc-input-textarea {
+	// background: url(images/benice.png) center center no-repeat; /* This ruins default border */
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  max-height: 500px;
+  padding: 10px;
+  resize: vertical;
+  overflow: hidden;
+  color: #333;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  &:focus {
+  	border-color: #51a7e8;
+  	outline: none;
+  	box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),0 0 5px rgba(81,167,232,0.5)
+  }
+}

@@ -1,0 +1,10 @@
+<h1 class="center"><%= @doc.title %></h1>
+<div class="markdown-body">
+  <%= markdown2(@doc.content) %>
+</div>
+
+<div class="center">
+	<%= link_to 'Edit', edit_doc_path(@doc) %> |
+	<%= link_to 'Back', docs_path %>
+</div>
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503144955) do
+ActiveRecord::Schema.define(version: 20160518141307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20160503144955) do
   end
 
   add_index "apis", ["user_id"], name: "index_apis_on_user_id", using: :btree
+
+  create_table "docs", force: :cascade do |t|
+    t.string   "title"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "email_whitelists", force: :cascade do |t|
     t.string   "email"
@@ -76,8 +83,10 @@ ActiveRecord::Schema.define(version: 20160503144955) do
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.string   "avatars"
+    t.string   "auth_token"
   end
 
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "apis", "users"

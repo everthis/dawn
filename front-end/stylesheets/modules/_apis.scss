@@ -52,6 +52,9 @@
 .api-description {
 	width: 15rem;
 }
+.dev-env-settings {
+
+}
 .api-add-query {
 	height: 22px;
 	line-height: 18px;
@@ -77,18 +80,18 @@
 		position: relative;
 	}
 	.api-search-result {
-	    width: 590px;
+	  width: 590px;
 		background-color: #fff;
 		position: absolute;
 		top: 100%;
 		left: 0;
-	    border: 1px solid #ccc;
-	    border-top-color: #d9d9d9;
-	    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-	    cursor: default;
-	    z-index: 9999;
-	    max-height: 20rem;
-        overflow-y: auto;
+    border: 1px solid #ccc;
+    border-top-color: #d9d9d9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    cursor: default;
+    z-index: 9999;
+    max-height: 20rem;
+    overflow-y: auto;
 	}
 	.per-search-result {
 		display: flex;

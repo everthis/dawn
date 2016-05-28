@@ -1,0 +1,27 @@
+<div class="document-container">
+  <h1>Listing Docs</h1>
+
+  <div class="list-header">
+    <div class="list-row c-grid-row">
+      <span class="list-col c-grid-span5">Title</span>
+      <span class="list-col c-grid-span25">Content</span>
+      <span class="list-col c-grid-span6">Operations</span>
+    </div>    
+  </div>
+  <div class="list-body">
+    <% @docs.each do |doc| %>
+      <div class="list-row c-grid-row c-gap-top c-summary-row">
+        <span class="c-grid-span5 doc-list-title"><%= truncate(doc.title, length: 50) %></span>
+        <span class="c-grid-span25 doc-list-content"><%= truncate(doc.content, length: 120) %></span>
+        <span class="c-grid-span2 doc-list-operation"><%= link_to 'Show', doc %></span>
+        <span class="c-grid-span2 doc-list-operation"><%= link_to 'Edit', edit_doc_path(doc) %></span>
+        <span class="c-grid-span2 doc-list-operation"><%= link_to 'Destroy', doc, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="center">
+    <%= link_to 'New Doc', new_doc_path %>
+  </div>
+
+</div>

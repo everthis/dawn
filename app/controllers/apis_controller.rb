@@ -75,6 +75,25 @@ class ApisController < ApplicationController
     end
   end
 
+  def token_generate_data
+    # take care of custom headers, while rails upcases them and prepends with 'HTTP_'
+    @user = User.find_by(auth_token: request.headers['HTTP_DAWN_AUTH_TOKEN'])
+    respond_to do |format|
+      if @user.nil?
+        render_obj = { message: "Invalid token."}
+      else
+        render_obj = @user        
+      end
+
+      format.json {
+        render :json => render_obj
+      }
+    end
+  end
+
+  def session_generate_data
+  end
+
   def generate_data
     # @api = current_user.apis.where(uri: params[:uri])
     params[:dawn_uri] = params[:dawn_uri][5..-1] if params[:dawn_uri].start_with?('/mock/pc')
@@ -151,7 +170,7 @@ class ApisController < ApplicationController
       nodes_arr = api_json['nodes']
 
       root_node = Tree::TreeNode.new("ROOT", "Root Content")
-      tree_data_root_node = Tree::TreeNode.new(0, "tree root")
+      tree_data_root_node = Tree::TreeNode.new("node-0", "tree root")
       root_node.add(tree_data_root_node)
 
       column_hash = to_column_hash(nodes_arr)
@@ -165,9 +184,9 @@ class ApisController < ApplicationController
         per_column_arr = column_hash[el]
 
         tree_data_root_node.breadth_each { |node|
-          if node.name == el then
+          if node.name == "node-#{el}" then
             per_column_arr.each { |ele|
-              node.add(Tree::TreeNode.new(ele, nodes_hash[ele]))
+              node.add(Tree::TreeNode.new("node-#{ele}", nodes_hash[ele]))
             }
           end
         }
@@ -205,7 +224,6 @@ class ApisController < ApplicationController
       arr.each { |ele| 
         parent_hash.has_key?(ele['parentId']) ? (parent_hash[ele['parentId']] << ele['nodeId']) : parent_hash[ele['parentId']] = [ele['nodeId']] unless ele['parentId'].nil?
       }
-      p parent_hash
       parent_hash
     end
 
@@ -284,6 +302,11 @@ class ApisController < ApplicationController
     def correct_user
       @api = current_user.apis.find_by(id: params[:id])
       redirect_to root_url if @api.nil?
+    end
+
+    def token_correct_user
+      @user = User.find(params[:token])
+      redirect_to root_url if @user.nil?
     end
 
 end

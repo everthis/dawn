@@ -8,11 +8,11 @@ html {
 	}
 }
 body {
-	font-family: $english-font;
+	font: $english-font;
 	background-color: #fff;
 }
 .hide {
-	display: none;
+	display: none !important;
 }
 .center {
 	text-align: center;

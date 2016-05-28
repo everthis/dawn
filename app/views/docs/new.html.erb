@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.14.2/codemirror.min.css">
+<style>
+.CodeMirror {
+    height: 600px;
+}
+</style>
+<div class="document-container">
+	<h1>New Doc</h1>
+	<%= render 'form' %>
+	<%= link_to 'Back', docs_path %>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.14.2/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.14.2/mode/markdown/markdown.min.js"></script>
+<script>
+var myTextArea = document.getElementsByClassName('doc-input-textarea-placeholder')[0];
+var myCodeMirror = CodeMirror(function(elt) {
+  myTextArea.parentNode.replaceChild(elt, myTextArea);
+}, {
+    value: "<%= @doc.content %>",
+    lineWrapping: true,
+    lineNumbers: true
+});
+document.getElementsByClassName('save-document')[0].addEventListener('click', function(ev) {
+    ev.preventDefault();
+    var val = myCodeMirror.getValue();
+    document.getElementsByClassName('doc-input-textarea')[0].value = val;
+    document.doc_form.submit();
+});
+</script>

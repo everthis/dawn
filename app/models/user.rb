@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   before_save   :downcase_email
   before_create :create_activation_digest
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
   				  format: { with: VALID_EMAIL_REGEX },
@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
 
   # Sends password reset email.
   def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
+    UserMailer.password_reset(self).deliver_later
   end
 
   # Returns true if a password reset has expired.
@@ -106,6 +106,19 @@ class User < ActiveRecord::Base
     following.include?(other_user)
   end
 
+  def User.generate_new_token
+    SecureRandom.uuid.gsub(/\-/,'')
+  end
+
+  def set_auth_token
+    return if auth_token.present?
+    self.auth_token = User.generate_new_token
+    update_attribute(:auth_token, auth_token)
+  end
+
+
+
+
   private
 
     # Converts email to all lower-case.
@@ -125,4 +138,7 @@ class User < ActiveRecord::Base
         errors.add(:avatars, "should be less than 2MB")
       end
     end
+
+
+
 end
