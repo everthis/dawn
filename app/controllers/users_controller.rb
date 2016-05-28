@@ -88,16 +88,16 @@ class UsersController < ApplicationController
 	end
 
 	def cli_login
-	  @user = User.find_by(email: params[:email])
+	  @user = User.find_by(name: params[:name])
 	  respond_to do |format|
 		  if @user && @user.authenticate(params[:password])
 		    if @user.activated?
-		      format.json { render :json => @user, only: [:auth_token] }
+		      format.json { render :json => @user, only: [:name, :auth_token, :email] }
 		    else
 		      format.json { render :json => {:message => "Hi, account has not been activated."} }
 		    end
 		  else
-		      format.json { render :json => {:message => "Sorry, email and password not match."} }
+		      format.json { render :json => {:message => "Sorry, username and password not match."} }
 		  end
 		end
 	end
