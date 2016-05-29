@@ -22,6 +22,7 @@ gem 'rack-proxy'
 gem 'puma'
 gem 'redcarpet'
 gem 'coderay'
+gem 'sidekiq'
 
 group :development do
   gem "passenger"

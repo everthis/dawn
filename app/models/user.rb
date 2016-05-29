@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :apis, dependent: :destroy
+  has_many :third_party_accounts, dependent: :destroy
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
@@ -75,7 +76,7 @@ class User < ActiveRecord::Base
 
   # Sends password reset email.
   def send_password_reset_email
-    UserMailer.password_reset(self).deliver_later
+    UserMailer.password_reset(self).deliver_now
   end
 
   # Returns true if a password reset has expired.

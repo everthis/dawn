@@ -235,6 +235,60 @@
         null,
         null
       ],
+      "/Users/hejie/projects/ror/dawn/test/controllers/third_party_accounts_controller_test.rb": [
+        1,
+        null,
+        1,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null
+      ],
       "/Users/hejie/projects/ror/dawn/test/controllers/users_controller_test.rb": [
         1,
         null,
@@ -487,6 +541,10 @@
         null
       ],
       "/Users/hejie/projects/ror/dawn/app/helpers/static_pages_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/hejie/projects/ror/dawn/app/helpers/third_party_accounts_helper.rb": [
         1,
         null
       ],
@@ -1010,6 +1068,15 @@
         null,
         null
       ],
+      "/Users/hejie/projects/ror/dawn/test/models/third_party_account_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
       "/Users/hejie/projects/ror/dawn/test/models/user_test.rb": [
         1,
         null,
@@ -1126,6 +1193,6 @@
         null
       ]
     },
-    "timestamp": 1464444688
+    "timestamp": 1464523574
   }
 }
