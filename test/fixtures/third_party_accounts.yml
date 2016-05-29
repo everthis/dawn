@@ -3,15 +3,15 @@
 one:
   account: MyString
   is_active: false
-  cookies: MyString
-  type: 
+  account_cookies: MyString
+  account_type: MyString
   env: MyString
   user_id: 
 
 two:
   account: MyString
   is_active: false
-  cookies: MyString
-  type: 
+  account_cookies: MyString
+  account_type: MyString
   env: MyString
   user_id: 

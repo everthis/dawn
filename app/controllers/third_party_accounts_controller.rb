@@ -69,6 +69,6 @@ class ThirdPartyAccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def third_party_account_params
-      params.require(:third_party_account).permit(:account, :is_active, :cookies, :type, :env, :user_id)
+      params.require(:third_party_account).permit(:account, :is_active, :account_cookies, :account_type, :env, :user_id)
     end
 end
