@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @third_party_account.account %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @third_party_account.is_active %>
+</p>
+
+<p>
+  <strong>Cookies:</strong>
+  <%= @third_party_account.cookies %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @third_party_account.type %>
+</p>
+
+<p>
+  <strong>Env:</strong>
+  <%= @third_party_account.env %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @third_party_account.user %>
+</p>
+
+<%= link_to 'Edit', edit_third_party_account_path(@third_party_account) %> |
+<%= link_to 'Back', third_party_accounts_path %>

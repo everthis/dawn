@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518141307) do
+ActiveRecord::Schema.define(version: 20160529025350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,20 @@ ActiveRecord::Schema.define(version: 20160518141307) do
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
+  create_table "third_party_accounts", force: :cascade do |t|
+    t.string   "account"
+    t.boolean  "is_active"
+    t.string   "cookies"
+    t.string   "type"
+    t.string   "env"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "third_party_accounts", ["user_id", "created_at"], name: "index_third_party_accounts_on_user_id_and_created_at", using: :btree
+  add_index "third_party_accounts", ["user_id"], name: "index_third_party_accounts_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -90,4 +104,5 @@ ActiveRecord::Schema.define(version: 20160518141307) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "apis", "users"
+  add_foreign_key "third_party_accounts", "users"
 end

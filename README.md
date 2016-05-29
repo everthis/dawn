@@ -7,6 +7,12 @@
 
 ![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png "dawn screenshot")
 
+## Prerequisites
+* PostgreSQL
+* Redis
+* Nginx
+
+## Installation
 
 create role and database
 
