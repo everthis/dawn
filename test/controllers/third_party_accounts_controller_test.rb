@@ -3,9 +3,11 @@ require 'test_helper'
 class ThirdPartyAccountsControllerTest < ActionController::TestCase
   setup do
     @third_party_account = third_party_accounts(:one)
+    @user = users(:michael)
   end
 
   test "should get index" do
+    log_in_as(@user)
     get :index
     assert_response :success
     assert_not_nil assigns(:third_party_accounts)
@@ -17,6 +19,7 @@ class ThirdPartyAccountsControllerTest < ActionController::TestCase
   end
 
   test "should create third_party_account" do
+    log_in_as(@user)
     assert_difference('ThirdPartyAccount.count') do
       post :create, third_party_account: { account: @third_party_account.account, account_cookies: @third_party_account.account_cookies, account_type: @third_party_account.account_type, env: @third_party_account.env, is_active: @third_party_account.is_active, user_id: @third_party_account.user_id }
     end

@@ -1,37 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Third Party Accounts</h1>
+<div class="c-normal-card-box">
+  <h1>Listing Third Party Accounts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Account</th>
-      <th>Is active</th>
-      <th>Account cookies</th>
-      <th>Account type</th>
-      <th>Env</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="c-simulate-table">
+    <div class="c-simulate-tr c-grid-row">
+      <span class="c-simulate-td c-grid-span3 c-text">Account</span>
+      <span class="c-simulate-td c-grid-span2 c-text">active?</span>
+      <span class="c-simulate-td c-grid-span18 c-text">Account cookies</span>
+      <span class="c-simulate-td c-grid-span2 c-text">Account type</span>
+      <span class="c-simulate-td c-grid-span2 c-text">Env</span>
+      <span class="c-simulate-td c-grid-span2 c-text">User</span>
+      <span class="c-simulate-td c-grid-span7 c-text">operations</span>
+    </div>
 
-  <tbody>
     <% @third_party_accounts.each do |third_party_account| %>
-      <tr>
-        <td><%= third_party_account.account %></td>
-        <td><%= third_party_account.is_active %></td>
-        <td><%= third_party_account.account_cookies %></td>
-        <td><%= third_party_account.account_type %></td>
-        <td><%= third_party_account.env %></td>
-        <td><%= third_party_account.user %></td>
-        <td><%= link_to 'Show', third_party_account %></td>
-        <td><%= link_to 'Edit', edit_third_party_account_path(third_party_account) %></td>
-        <td><%= link_to 'Destroy', third_party_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="c-simulate-tr c-grid-row">
+        <span class="c-simulate-td c-grid-span3 c-text"><%= third_party_account.account %></span>
+        <span class="c-simulate-td c-grid-span2 c-text"><%= third_party_account.is_active %></span>
+        <span class="c-simulate-td c-grid-span18 c-text"><%= third_party_account.account_cookies %></span>
+        <span class="c-simulate-td c-grid-span2 c-text"><%= third_party_account.account_type %></span>
+        <span class="c-simulate-td c-grid-span2 c-text"><%= third_party_account.env %></span>
+        <span class="c-simulate-td c-grid-span2 c-text"><%= third_party_account.user.name %></span>
+        <span class="c-simulate-td c-grid-span7">
+          <span class="c-grid-row">
+            <span class="c-grid-span3 c-text"><%= link_to 'Show', third_party_account %></span>
+            <span class="c-grid-span3 c-text"><%= link_to 'Edit', edit_third_party_account_path(third_party_account) %></span>
+            <span class="c-grid-span3 c-text"><%= link_to 'Destroy', third_party_account, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+          </span>
+        </span>
+      </div>
     <% end %>
-  </tbody>
-</table>
+    
+  </div>
 
-<br>
-
-<%= link_to 'New Third party account', new_third_party_account_path %>
+  <%= link_to 'New Third party account', new_third_party_account_path %>
+  
+</div>

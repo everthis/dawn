@@ -4,7 +4,7 @@ class ThirdPartyAccountsController < ApplicationController
   # GET /third_party_accounts
   # GET /third_party_accounts.json
   def index
-    @third_party_accounts = ThirdPartyAccount.all
+    @third_party_accounts = current_user.third_party_accounts
   end
 
   # GET /third_party_accounts/1
@@ -24,7 +24,7 @@ class ThirdPartyAccountsController < ApplicationController
   # POST /third_party_accounts
   # POST /third_party_accounts.json
   def create
-    @third_party_account = ThirdPartyAccount.new(third_party_account_params)
+    @third_party_account = current_user.third_party_accounts.build(third_party_account_params)
 
     respond_to do |format|
       if @third_party_account.save
@@ -70,5 +70,13 @@ class ThirdPartyAccountsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def third_party_account_params
       params.require(:third_party_account).permit(:account, :is_active, :account_cookies, :account_type, :env, :user_id)
+    end
+
+    def is_active_account?
+
+    end
+
+    def deactive_all_accounts
+      self.class.where('id != ? and is_active', self.id).update_all("is_active = 'false'")
     end
 end
