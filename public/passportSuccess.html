@@ -6,6 +6,43 @@
     <title>success</title>
 </head>
 <body>
-    <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo.</h1>    
+    <h1>login success.</h1>   
+    <script>
+        (function() {
+
+          var httpRequest;
+
+          function makeRequest(url) {
+            httpRequest = new XMLHttpRequest();
+
+            if (!httpRequest) {
+              console.log('Giving up :( Cannot create an XMLHTTP instance');
+              return false;
+            }
+            httpRequest.onreadystatechange = alertContents;
+            httpRequest.open('GET', url);
+            httpRequest.send();
+          }
+
+          function alertContents() {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+              if (httpRequest.status === 200) {
+                postMsgToParent(httpRequest.responseText);
+              } else {
+                console.log('There was a problem with the request.');
+              }
+            }
+          }
+
+          var reqUrl = window.location.origin + '/returnreqcookie?format=json';
+          makeRequest(reqUrl);
+          function postMsgToParent(msg) {
+            parent.postMessage(msg,"*");
+          }
+         
+        })();
+
+    </script>
+
 </body>
 </html>
