@@ -4,7 +4,7 @@ class ThirdPartyAccountsController < ApplicationController
   # GET /third_party_accounts
   # GET /third_party_accounts.json
   def index
-    @third_party_accounts = current_user.third_party_accounts
+    @third_party_accounts = current_user.third_party_accounts.order("created_at DESC")
   end
 
   # GET /third_party_accounts/1
@@ -25,6 +25,9 @@ class ThirdPartyAccountsController < ApplicationController
   # POST /third_party_accounts.json
   def create
     @third_party_account = current_user.third_party_accounts.build(third_party_account_params)
+    if @third_party_account.is_active
+      current_user.third_party_accounts.where('is_active = ?', true).update_all("is_active = 'false'")
+    end 
 
     respond_to do |format|
       if @third_party_account.save
@@ -40,6 +43,10 @@ class ThirdPartyAccountsController < ApplicationController
   # PATCH/PUT /third_party_accounts/1
   # PATCH/PUT /third_party_accounts/1.json
   def update
+    if third_party_account_params[:is_active]
+      current_user.third_party_accounts.where('is_active = ?', true).update_all("is_active = 'false'")
+    end 
+
     respond_to do |format|
       if @third_party_account.update(third_party_account_params)
         format.html { redirect_to @third_party_account, notice: 'Third party account was successfully updated.' }
@@ -73,6 +80,10 @@ class ThirdPartyAccountsController < ApplicationController
     end
 
     def is_active_account?
+
+    end
+    
+    def deactive_active_account
 
     end
 
