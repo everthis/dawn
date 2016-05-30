@@ -14,6 +14,10 @@ function processDataLink(e) {
     e.preventDefault();
     handleMethod(e.target);
   }
+  if (e.target.dataset.method === 'PATCH') {
+    e.preventDefault();
+    handleMethod(e.target);
+  }
   // if (e.target.dataset.method === 'patch') {
   //   e.preventDefault();
   //   handleMethod(e.target, {
