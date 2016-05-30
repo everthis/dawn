@@ -208,3 +208,9 @@
 	from /Users/hejie/projects/ror/dawn/bin/spring:13:in `<top (required)>'
 	from bin/rails:3:in `load'
 	from bin/rails:3:in `<main>'
+=== puma startup: 2016-05-30 10:11:20 +0800 ===
+=== puma startup: 2016-05-30 10:12:35 +0800 ===
+=== puma startup: 2016-05-30 10:21:30 +0800 ===
+=== puma startup: 2016-05-30 10:38:02 +0800 ===
+=== puma startup: 2016-05-30 11:17:54 +0800 ===
+=== puma startup: 2016-05-30 11:18:33 +0800 ===

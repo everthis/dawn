@@ -4,23 +4,24 @@ Rails.application.routes.draw do
   resources :docs
   resources :email_whitelists
   root                'static_pages#home'
-  get    'help'    => 'static_pages#help'
-  get    'about'   => 'static_pages#about'
-  get    'contact' => 'static_pages#contact'
-  get    'dev'     => 'static_pages#dev'
-  get    'log'     => 'logs#index'
+  get    'help'         => 'static_pages#help'
+  get    'about'        => 'static_pages#about'
+  get    'contact'      => 'static_pages#contact'
+  get    'dev'          => 'static_pages#dev'
+  get    'log'          => 'logs#index'
   get    'passport'     => 'static_pages#passport'
-  get    'signup'  => 'users#new'
-  get    'login'   => 'sessions#new'
-  post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
-  get    'clilogin' => 'users#cli_login'
+  get    'signup'       => 'users#new'
+  get    'login'        => 'sessions#new'
+  post   'login'        => 'sessions#create'
+  delete 'logout'       => 'sessions#destroy'
+  get    'clilogin'     => 'users#cli_login'
 
   # get 'log' => 'logs#index'
   # for the sake of debugging
   get 'demo' => 'demo#home'
 
   resources :apis
+  get 'returnreqcookie' => 'utility#return_req_cookie'
   get 'instantsearch' => 'apis#query'
   get 'tokenresponse' => 'apis#token_generate_data'
   get 'apiresponse' => 'apis#generate_data'
