@@ -98,6 +98,8 @@ class ApisController < ApplicationController
     # @api = current_user.apis.where(uri: params[:uri])
     params[:dawn_uri] = params[:dawn_uri][5..-1] if params[:dawn_uri].start_with?('/mock/pc')
     @api = Api.where(uri: params[:dawn_uri]).first
+    user_active_config = current_user.third_party_accounts.where('is_active = ?', true)
+    active_cookie = user_active_config[0]['account_cookies']
     respond_to do |format|
       if @api.nil?
         render_obj = { message: "This API has not been registered on dawn."}
@@ -108,6 +110,9 @@ class ApisController < ApplicationController
         req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
         except_req_params = req_params.except(:format, :dawn_uri)
 
+        req_headers = {"Cookie" => active_cookie || "", "User-Agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", "HOST" => "yi.baidu.com"
+        }
+
         # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
         # JSON.parse(s,:symbolize_names => true)
         # HashWithIndifferentAccess
@@ -115,9 +120,9 @@ class ApisController < ApplicationController
         when "0"
           render_obj = process_dev_return_data(@api_json)
         when "1"
-          render_obj = conditional_proxy(@api.debugAddr, @api.uri, except_req_params, req_method)
+          render_obj = conditional_proxy(@api.debugAddr, @api.uri, except_req_params, req_method, req_headers)
         when "2"
-          render_obj = conditional_proxy("http://yi.baidu.com", @api.uri, except_req_params, req_method)
+          render_obj = conditional_proxy("http://yi.baidu.com", @api.uri, except_req_params, req_method, req_headers)
         end
       end
       format.json {
@@ -140,9 +145,9 @@ class ApisController < ApplicationController
     def sort_key_id(column_hash)
       column_hash.keys.sort
     end
-    def conditional_proxy(url, uri, except_req_params, req_method)
+    def conditional_proxy(url, uri, except_req_params, req_method, req_headers)
       return_sth = nil
-      reverse_proxy url, path: uri, params: except_req_params, method: req_method do |config|
+      reverse_proxy url, path: uri, params: except_req_params, method: req_method, headers: req_headers do |config|
         config.on_complete do |code, response|
           return_sth = response.body
         end

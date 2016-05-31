@@ -43,6 +43,9 @@
 .c-center {
 	text-align: center;
 }
+.c-hide {
+	display: none;
+}
 .c-card-box {
 	@extend %card-box;
 }
