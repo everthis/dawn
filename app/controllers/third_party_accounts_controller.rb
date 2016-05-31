@@ -43,13 +43,18 @@ class ThirdPartyAccountsController < ApplicationController
   # PATCH/PUT /third_party_accounts/1
   # PATCH/PUT /third_party_accounts/1.json
   def update
+    req_action = params['third_party_account'][:req_action]
     if third_party_account_params[:is_active]
       current_user.third_party_accounts.where('is_active = ?', true).update_all("is_active = 'false'")
     end 
 
     respond_to do |format|
       if @third_party_account.update(third_party_account_params)
-        format.html { redirect_to @third_party_account, notice: 'Third party account was successfully updated.' }
+        if req_action == 'index'
+          format.html { redirect_to third_party_accounts_url, notice: 'Third party account was successfully updated.' }
+        else
+          format.html { redirect_to @third_party_account, notice: 'Third party account was successfully updated.' }
+        end
         format.json { render :show, status: :ok, location: @third_party_account }
       else
         format.html { render :edit }

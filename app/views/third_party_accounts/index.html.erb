@@ -17,7 +17,7 @@
         <span class="c-simulate-td c-grid-span3 c-text"><%= third_party_account.is_active %>
           <% unless third_party_account.is_active %>
             <div>
-              <%= link_to "Set as active", third_party_account_path(id: third_party_account.id), method: "PATCH" %>
+              <%= render 'update_active', third_party_account: third_party_account %>
             </div>
           <% end %>
         </span>
