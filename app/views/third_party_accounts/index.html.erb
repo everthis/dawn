@@ -14,7 +14,10 @@
     <% @third_party_accounts.each do |third_party_account| %>
       <div class="c-simulate-tr c-grid-row">
         <span class="c-simulate-td c-grid-span6 c-text"><%= third_party_account.account %></span>
-        <span class="c-simulate-td c-grid-span3 c-text"><%= third_party_account.is_active %>
+        <span class="c-simulate-td c-grid-span3 c-text">
+          <div class="<% if third_party_account.is_active %>current_active<% end %>" >
+            <%= third_party_account.is_active %>
+          </div>
           <% unless third_party_account.is_active %>
             <div>
               <%= render 'update_active', third_party_account: third_party_account %>
