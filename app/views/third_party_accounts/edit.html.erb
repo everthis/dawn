@@ -3,47 +3,10 @@
 	<h1>Editing Third Party Account</h1>
 
 	<%= render 'form' %>
-  <iframe src="/passport" frameborder="0" class="passport-iframe" style="width:300px; height:240px;"></iframe>
 
 	<%= link_to 'Show', @third_party_account %> |
 	<%= link_to 'Back', third_party_accounts_path %>
 
 </div>
 
-<script>
-    (function() {
-        var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-        var eventer = window[eventMethod];
-        var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
-        // Listen to message from child window
-        eventer(messageEvent,function(e) {
-            console.log(e);
-            var key = e.message ? "message" : "data";
-            var data = e[key];
-            addCookieToInput(data);
-            removePassportIframe();
-        },false);
-
-        function addCookieToInput(data) {
-          var $account_cookies_input = document.getElementsByClassName('account_cookies_input')[0];
-          if (typeof data === "string") {
-            data = JSON.parse(data);
-          }
-          for (var i = data.length - 1; i >= 0; i--) {
-            if (data[i][0] === "BDUSS") {
-              $account_cookies_input.value = '' + data[i][0] + '=' + data[i][1];
-              break;
-            }
-          }
-
-        }
-
-        function removePassportIframe() {
-          var $iframe = document.getElementsByClassName('passport-iframe')[0];
-          $iframe.parentElement.removeChild($iframe);
-        }
-
-
-    })();
-</script>

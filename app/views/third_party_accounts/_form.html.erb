@@ -19,23 +19,89 @@
     <%= f.label :is_active %><br>
     <%= f.check_box :is_active %>
   </div>
-  <div class="field c-hide">
-    <%= f.label :account_cookies %><br>
-    <%= f.text_field :account_cookies, class: 'c-input account_cookies_input' %>
-  </div>
+
   <div class="field">
     <%= f.label :account_type %><br>
-    <%= f.text_field :account_type, class: 'c-input' %>
+    <%= f.radio_button(:account_type, "baidu", :checked => true) %>
+    <%= f.label(:account_type_online, "baidu") %>
   </div>
+
   <div class="field">
-    <%= f.label :env %><br>
-    <%= f.text_field :env, class: 'c-input' %>
+    <%= f.label :env %> <br>
+  
+    <%= f.radio_button(:env, "online") %>
+    <%= f.label(:env_online, "online") %>
+    <%= f.radio_button(:env, "rdtest", :checked => (@third_party_account.env.nil? || @third_party_account.env == 'rdtest') ) %>
+    <%= f.label(:env_rdtest, "rdtest") %>
+    <%= f.radio_button(:env, "qatest") %>
+    <%= f.label(:env_qatest, "qatest") %>
   </div>
+  
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id, class: 'c-input' %>
+    <%= f.label :account_cookies, "account auth" %><br>
+    <%= f.text_field :account_cookies, class: 'c-input c-hide account_cookies_input' %>
   </div>
+  <iframe src="/passport?env=<%= @third_party_account.env %>" frameborder="0" class="passport-iframe" style="width:300px; height:240px; background-color: #f0f8ff;"></iframe>
+
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  (function() {
+    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+    var $iframe = document.getElementsByClassName('passport-iframe')[0];
+
+    // Listen to message from child window
+    eventer(messageEvent,function(e) {
+      console.log(e);
+      var key = e.message ? "message" : "data";
+      var data = e[key];
+      addCookieToInput(data);
+      removePassportIframe();
+    },false);
+
+    function addCookieToInput(data) {
+      var $account_cookies_input = document.getElementsByClassName('account_cookies_input')[0];
+      if (typeof data === "string") {
+        data = JSON.parse(data);
+      }
+      for (var i = data.length - 1; i >= 0; i--) {
+        if (data[i][0] === "BDUSS") {
+          $account_cookies_input.value = '' + data[i][0] + '=' + data[i][1];
+          break;
+        }
+      }
+
+    }
+
+    function removePassportIframe() {
+      $iframe.parentElement.removeChild($iframe);
+    }
+
+    function processEvent() {
+      var inputs = document.getElementsByName('third_party_account[env]'),
+          x = inputs.length;
+      while (x--)
+          inputs[x].addEventListener('change',function() {
+            var ischecked = this.checked;
+            var name = this.name;
+            var value = this.value;
+            var parent = this.parent;
+            console.log(value);
+            console.log(name);
+            console.log(ischecked);
+            $iframe.setAttribute('src', '/passport?env=' + value);
+          },0);
+    }
+    processEvent();
+
+
+  })();
+</script>
