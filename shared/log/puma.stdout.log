@@ -11901,3 +11901,11 @@ Processing by ApisController#generate_data as JSON
   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
   [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 1]]
 Completed 200 OK in 305ms (Views: 0.2ms | ActiveRecord: 2.3ms)
+=== puma startup: 2016-06-01 19:52:59 +0800 ===
+[3496] * Starting control server on unix:///var/folders/ck/9n3m1s5n6kx2t1cjydr5jrxh0000gn/T/puma-status-1464781979286-3496
+[3496] - Worker 1 (pid: 3498) booted, phase: 0
+[3496] - Worker 0 (pid: 3497) booted, phase: 0
+[3496] - Gracefully shutting down workers...
+[3496] === puma shutdown: 2016-06-01 19:53:11 +0800 ===
+[3496] - Goodbye!
+Exiting
