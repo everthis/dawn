@@ -1,7 +1,12 @@
 <% provide(:title, "Passport") %>
 
-<div><%= @params_obj[:env] %></div>
-<script src="http://passport.baidu.com/passApi/js/wrapper.js"></script>
+<% if @params_obj[:env] != 'rdtest' && @params_obj[:env] != 'qatest' %>
+<% passEnv = ''%>
+<% else %>
+<% passEnv = '.' + @params_obj[:env]%>
+<% end %>
+
+<script src="http://passport<%=passEnv%>.baidu.com/passApi/js/wrapper.js"></script>
 
 <div style="width: 248px;border: 1px solid #efefef;box-shadow: 1px 1px 1px #efefef;">
 <div id="login1"></div>
