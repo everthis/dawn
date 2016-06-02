@@ -67,14 +67,39 @@
 
 .c-simulate-table {
 	border-top: 1px solid #999;
+	border: 1px solid #eee;
+	border-bottom: 2px solid #00cccc;
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.10),
+	   0px 10px 20px rgba(0,0,0,0.05),
+	   0px 20px 20px rgba(0,0,0,0.05),
+	   0px 30px 20px rgba(0,0,0,0.05);
 	.c-simulate-tr {
 		border-left: 1px solid #999;
+		 &:hover {
+		  background: #f4f4f4;
+
+		  .c-simulate-td {
+		    color: #555;
+		  }
+		}
 	}
-	.c-simulate-td {
+	.c-simulate-td,
+	.c-simulate-th {
+		color: #333;
 		padding: .5rem;
-		border-right: 1px solid #999;
-		border-bottom: 1px solid #999;
+		border-right: 1px solid #eee;
+		border-bottom: 1px solid #eee;
 	}
+	.c-simulate-th {
+		background: #0cc;
+		color: #fff;
+		text-transform: capitalize;
+		font-size: 12px;
+		&.last {
+		  border-right: none;
+		}
+	}
+
 	.current_active {
 		margin: -.5rem;
 		padding: .5rem;
@@ -85,4 +110,14 @@
 	overflow: hidden;
 	word-break: break-all;
 	line-height: 1.8rem;
+}
+.c-button {
+	color: #fff;
+  background: #0cc;
+  transition: none;
+  border: 4px double #0cc;
+  &:hover {
+  	background: rgba(0, 0, 0, 0);
+  	color: #0cc;
+  }
 }
