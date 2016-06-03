@@ -41,10 +41,7 @@
     <%= f.label :account_cookies, "account auth" %><br>
     <%= f.text_field :account_cookies, class: 'c-input c-hide account_cookies_input' %>
   </div>
-  <iframe src="/passport?env=<%= @third_party_account.env %>" frameborder="0" class="passport-iframe" style="width:300px; height:260px; background-color: #fff;"></iframe>
-
-
-
+  <iframe src="/passport?env=<%= @third_party_account.env %>" frameborder="0" class="passport-iframe" style="width:100%;background-color: #fff;" scrolling="no"></iframe>
 
   <div class="actions">
     <%= f.submit %>
@@ -60,11 +57,14 @@
 
     // Listen to message from child window
     eventer(messageEvent,function(e) {
-      console.log(e);
       var key = e.message ? "message" : "data";
       var data = e[key];
-      addCookieToInput(data);
-      removePassportIframe();
+      if (typeof data === "object" && data.type === "styles") {
+        $iframe.style.height = '' + data.height + 'px';
+      } else {
+        addCookieToInput(data);
+        removePassportIframe();
+      }
     },false);
 
     function addCookieToInput(data) {
@@ -94,9 +94,6 @@
             var name = this.name;
             var value = this.value;
             var parent = this.parent;
-            console.log(value);
-            console.log(name);
-            console.log(ischecked);
             $iframe.setAttribute('src', '/passport?env=' + value);
           },0);
     }

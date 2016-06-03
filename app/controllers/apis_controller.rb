@@ -78,17 +78,44 @@ class ApisController < ApplicationController
   def token_generate_data
     # take care of custom headers, while rails upcases them and prepends with 'HTTP_'
     @user = User.find_by(auth_token: request.headers['HTTP_DAWN_AUTH_TOKEN'])
+
+    params[:dawn_uri] = params[:dawn_uri][5..-1] if params[:dawn_uri].start_with?('/mock/pc')
+    @api = Api.where(uri: params[:dawn_uri]).first
+
     respond_to do |format|
       if @user.nil?
         render_obj = { message: "Invalid token."}
       else
-        render_obj = @user        
+        user_active_config = @user.third_party_accounts.where('is_active = ?', true)
+        active_cookie = user_active_config[0]['account_cookies']
+        if @api.nil?
+          render_obj = { message: "This API has not been registered on dawn."}
+        else
+          @api_json = @api.as_json
+          req_method = request.method
+          req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
+          except_req_params = req_params.except(:format, :dawn_uri)
+
+          req_headers = {"Cookie" => active_cookie || "", "User-Agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", "HOST" => "yi.baidu.com"
+          }
+
+          case @api.mode
+          when "0"
+            render_obj = process_dev_return_data(@api_json)
+          when "1"
+            render_obj = conditional_proxy(@api.debugAddr, @api.uri, except_req_params, req_method, req_headers)
+          when "2"
+            render_obj = conditional_proxy("http://yi.baidu.com", @api.uri, except_req_params, req_method, req_headers)
+          end
+        end
+
       end
 
       format.json {
         render :json => render_obj
       }
     end
+
   end
 
   def session_generate_data

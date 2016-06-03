@@ -37,6 +37,7 @@
           var reqUrl = window.location.origin + '/returnreqcookie?format=json';
           makeRequest(reqUrl);
           function postMsgToParent(msg) {
+            console.log(msg);
             parent.postMessage(msg,"*");
           }
          
