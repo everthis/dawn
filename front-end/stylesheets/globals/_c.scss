@@ -7,6 +7,27 @@
 .c-gap-top {
 	margin-top: $gap-top;
 }
+.c-gap-bottom {
+	margin-bottom: $gap-bottom;
+}
+.c-gap-left {
+	margin-left: $gap-left;
+}
+.c-gap-right {
+	margin-right: $gap-right;
+}
+.c-pad-left {
+	padding-left: $pad-left
+}
+.c-pad-right {
+	padding-right: $pad-right
+}
+.c-text-indent {
+	text-indent: .5rem;
+}
+.c-pad-left-wide {
+	padding-left: $pad-left-wide;
+}
 .c-container {
     font-size: 13px;
     line-height: 1.54;
@@ -23,18 +44,12 @@
 	display: block;
 }
 .c-summary-row {
-	border-left: 5px solid #2124dc;
-	border-top: 1px solid #fff;
-	border-right: 1px solid #fff;
-	border-bottom: 1px solid #fff;
-	padding-left: 1rem;
+
 	background-color: #eee;
-	padding: .5rem 1rem;
-	border-radius: 4px;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
 	&:hover {
-		background-color: #fff;
-		border-right: 1px solid #2124dc;
-		border-bottom: 1px solid #2124dc;
+		box-shadow: 1px 1px #2124dc;
 	}
 }
 .c-input {
@@ -49,14 +64,13 @@
 .c-card-box {
 	@extend %card-box;
 }
+.c-left-wide-border {
+	border-left: 5px solid #2124dc;
+}
 .c-normal-card-box {
 	@extend %card-box;
 	width: 80rem;
 }
-.c-gap-top {
-	margin-top: .8rem;
-}
-
 .c-table {
 	table-layout: fixed;
 	word-break: break-word;
@@ -77,7 +91,6 @@
 	   0px 20px 20px rgba(0,0,0,0.05),
 	   0px 30px 20px rgba(0,0,0,0.05);
 	.c-simulate-tr {
-		border-left: 1px solid #999;
 		 &:hover {
 		  background: #f4f4f4;
 
@@ -92,6 +105,9 @@
 		padding: .5rem;
 		border-right: 1px solid #eee;
 		border-bottom: 1px solid #eee;
+		&.c-simulate-last-row-item {
+			border-right: none;
+		}
 	}
 	.c-simulate-th {
 		background: #0cc;
@@ -102,6 +118,9 @@
 		  border-right: none;
 		}
 	}
+	.c-simulate-bdr {
+		border-right: 1px solid #333;
+	}
 
 	.current_active {
 		margin: -.5rem -.5rem 0 -.5rem;
@@ -109,18 +128,40 @@
 		background-color: #7fff00;
 	}	
 }
+
+.c-left-wide-bdr-row {
+	border-left: 5px solid #2124dc;
+	.c-left-wide-bdr-item {
+		margin-left: -5px;
+	}
+}
+	
 .c-text {
 	overflow: hidden;
 	word-break: break-all;
 	line-height: 1.8rem;
 }
+
+.c-btn {
+	border: 2px solid #0e83cd;
+	color: #0e83cd;
+	background: none;
+	cursor: pointer;
+	padding: .6rem 1rem;
+	display: inline-block;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	transition: all 0.3s;
+	&:hover {
+		color: #fff;
+		background: #0e83cd;
+	}
+	&.c-small-btn {
+		padding: .1rem .15rem;
+	}
+}
 .c-button {
-	color: #fff;
-  background: #0cc;
-  transition: none;
-  border: 4px double #0cc;
-  &:hover {
-  	background: rgba(0, 0, 0, 0);
-  	color: #0cc;
-  }
+	@extend .c-btn;
 }

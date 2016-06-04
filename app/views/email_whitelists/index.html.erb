@@ -1,26 +1,28 @@
 <% provide(:title, 'Email whitelist') %>
 <div class="email-whitelist">
 <h1>Listing Email Whitelists(<%= @email_whitelists.count %>)</h1>
-  <table>
-    <thead>
-      <tr>
-        <th class="email-col">Email</th>
-        <th colspan="3">Operations</th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @email_whitelists.each do |email_whitelist| %>
-        <tr class="per-whitelist-email-row">
-          <td class="email-col"><%= email_whitelist.email %></td>
-          <td class="per-operation"><%= link_to 'Show', email_whitelist %></td>
-          <td class="per-operation"><%= link_to 'Edit', edit_email_whitelist_path(email_whitelist) %></td>
-          <td class="per-operation"><%= link_to 'Destroy', email_whitelist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
-  <%= link_to 'New Email whitelist', new_email_whitelist_path, class: "new-whitelist-email-link" %>
+<div class="c-simulate-table">
+  <div class="c-simulate-tr c-grid-row">
+    <span class="c-simulate-th c-grid-span32 c-text">Email</span>
+    <span class="c-simulate-th c-grid-span16 c-text">Operations</span>
+  </div>
+    <% @email_whitelists.each do |email_whitelist| %>
+      <div class="c-simulate-tr c-grid-row">
+        <span class="c-simulate-td c-grid-span32 c-text"><%= email_whitelist.email %></span>
+        <span class="c-simulate-td c-grid-span16">
+          <span class="c-grid-row">
+            <span class="c-grid-span6 c-text"><%= link_to 'Show', email_whitelist %></span>
+            <span class="c-grid-span6 c-text"><%= link_to 'Edit', edit_email_whitelist_path(email_whitelist) %></span>
+            <span class="c-grid-span6 c-text"><%= link_to 'Destroy', email_whitelist, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+          </span>
+        </span>
+      </div>
+    <% end %>
+</div>
+
+  <div class="c-gap-top">
+    <%= link_to 'New Email whitelist', new_email_whitelist_path, class: "new-whitelist-email-link" %>
+  </div>
 </div>
 
