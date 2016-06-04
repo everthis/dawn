@@ -1,7 +1,7 @@
 class ApisController < ApplicationController
   # before_action :ensure_json_request  
   before_action :logged_in_user, only: [:create, :destroy, :update ]
-  # before_action :correct_user,   only: :destroy
+  before_action :correct_user,   only: :destroy
 
   after_filter :cors_set_access_control_headers, only: [:generate_data]
   include Tree
@@ -346,7 +346,7 @@ class ApisController < ApplicationController
 
     def correct_user
       @api = current_user.apis.find_by(id: params[:id])
-      redirect_to root_url if @api.nil?
+      render :json => { error: "You are not the creator of this API."}, :status => :unprocessable_entity  if @api.nil?
     end
 
     def token_correct_user
