@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :apis
   get 'returnreqcookie' => 'utility#return_req_cookie'
   get 'instantsearch' => 'apis#query'
-  get 'tokenresponse' => 'apis#token_generate_data'
+  get 'api_response' => 'apis#token_generate_data'
   get 'apiresponse' => 'apis#generate_data'
   post 'apiresponse' => 'apis#generate_data'
   # resources :apis, :defaults => { :format => 'json' } do

@@ -18,7 +18,11 @@
           <div class="<% if third_party_account.is_active %>current_active<% end %>" >
             <%= third_party_account.is_active %>
           </div>
-          <% unless third_party_account.is_active %>
+          <% if third_party_account.is_active %>
+            <div>
+              <%= render 'deactivate', third_party_account: third_party_account %>
+            </div>
+          <% else %>
             <div>
               <%= render 'update_active', third_party_account: third_party_account %>
             </div>

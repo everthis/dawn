@@ -77,17 +77,25 @@ class ApisController < ApplicationController
 
   def token_generate_data
     # take care of custom headers, while rails upcases them and prepends with 'HTTP_'
-    @user = User.find_by(auth_token: request.headers['HTTP_DAWN_AUTH_TOKEN'])
+    @dawn_auth_token = request.headers['HTTP_DAWN_AUTH_TOKEN']
+    @user = User.find_by(auth_token: @dawn_auth_token)
 
     params[:dawn_uri] = params[:dawn_uri][5..-1] if params[:dawn_uri].start_with?('/mock/pc')
     @api = Api.where(uri: params[:dawn_uri]).first
 
     respond_to do |format|
-      if @user.nil?
+      if @dawn_auth_token.nil?
+        render_obj = { message: "Please use dawn-auth to generate token."}
+      elsif @user.nil?
         render_obj = { message: "Invalid token."}
       else
         user_active_config = @user.third_party_accounts.where('is_active = ?', true)
-        active_cookie = user_active_config[0]['account_cookies']
+        if user_active_config.length == 0
+          active_cookie = ''
+        else
+          active_cookie = user_active_config[0]['account_cookies']
+        end
+
         if @api.nil?
           render_obj = { message: "This API has not been registered on dawn."}
         else
@@ -126,7 +134,12 @@ class ApisController < ApplicationController
     params[:dawn_uri] = params[:dawn_uri][5..-1] if params[:dawn_uri].start_with?('/mock/pc')
     @api = Api.where(uri: params[:dawn_uri]).first
     user_active_config = current_user.third_party_accounts.where('is_active = ?', true)
-    active_cookie = user_active_config[0]['account_cookies']
+    puts user_active_config
+    if user_active_config.length == 0
+      active_cookie = ''
+    else
+      active_cookie = user_active_config[0]['account_cookies']
+    end
     respond_to do |format|
       if @api.nil?
         render_obj = { message: "This API has not been registered on dawn."}
