@@ -20,6 +20,7 @@ var myTextArea = document.getElementsByClassName('doc-input-textarea-placeholder
 var myCodeMirror = CodeMirror(function(elt) {
   myTextArea.parentNode.replaceChild(elt, myTextArea);
 }, {
+    mode: 'markdown',
     value: "<%= @doc.content %>",
     lineWrapping: true,
     lineNumbers: true
