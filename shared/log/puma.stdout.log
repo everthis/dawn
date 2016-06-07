@@ -2412,3 +2412,1330 @@ Processing by StaticPagesController#home as HTML
   Rendered layouts/_header.html.erb (0.4ms)
   Rendered layouts/_footer.html.erb (0.0ms)
 Completed 200 OK in 9ms (Views: 7.9ms | ActiveRecord: 0.0ms)
+[10309] - Gracefully shutting down workers...
+[10309] === puma shutdown: 2016-06-06 17:15:32 +0800 ===
+[10309] - Goodbye!
+=== puma startup: 2016-06-06 17:15:42 +0800 ===
+[3672] * Starting control server on unix:///tmp/puma-status-1465204542561-3672
+[3672] - Worker 0 (pid: 3691) booted, phase: 0
+[3672] - Worker 1 (pid: 3695) booted, phase: 0
+Started GET "/" for 127.0.0.1 at 2016-06-06 17:15:57 +0800
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/_rails_logo.html.erb (1.1ms)
+  Rendered static_pages/_welcome_img.html.erb (3.4ms)
+  Rendered static_pages/home.html.erb within layouts/application (7.9ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  Rendered layouts/_header.html.erb (2.8ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 42ms (Views: 25.1ms | ActiveRecord: 0.0ms)
+Started GET "/login" for 127.0.0.1 at 2016-06-06 17:15:59 +0800
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (6.2ms)
+  Rendered layouts/_shim.html.erb (1.0ms)
+  Rendered layouts/_header.html.erb (8.1ms)
+  Rendered layouts/_footer.html.erb (1.3ms)
+Completed 200 OK in 40ms (Views: 28.4ms | ActiveRecord: 0.0ms)
+Started POST "/login" for 127.0.0.1 at 2016-06-06 17:16:02 +0800
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"eqZIuQPNTWTYf9ddThgU2Rcza/fRZWZvfcFcO4NRyPB5/8QUoj8JjXpREx6a4CnGh9AvKxAfQ5EpIRfvxpBvug==", "session"=>{"email"=>"hejie03@baidu.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "hejie03@baidu.com"]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/users/12
+Completed 302 Found in 154ms (ActiveRecord: 4.5ms)
+Started GET "/users/12" for 127.0.0.1 at 2016-06-06 17:16:02 +0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"12"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "microposts" WHERE "microposts"."user_id" = $1[0m  [["user_id", 12]]
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."followed_id" WHERE "relationships"."follower_id" = $1  [["follower_id", 12]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."follower_id" WHERE "relationships"."followed_id" = $1[0m  [["followed_id", 12]]
+  Rendered shared/_stats.html.erb (24.7ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  Rendered users/_follow_form.html.erb (0.6ms)
+  [1m[36mMicropost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "microposts" WHERE "microposts"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mMicropost Load (0.2ms)[0m  SELECT  "microposts".* FROM "microposts" WHERE "microposts"."user_id" = $1  ORDER BY "microposts"."created_at" DESC LIMIT 30 OFFSET 0  [["user_id", 12]]
+  Rendered microposts/_micropost.html.erb (519.9ms)
+  Rendered users/show.html.erb within layouts/application (565.6ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 597ms (Views: 569.6ms | ActiveRecord: 4.2ms)
+Started GET "/docs" for 127.0.0.1 at 2016-06-06 17:16:05 +0800
+Processing by DocsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.4ms)[0m  SELECT "docs".* FROM "docs"
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IN (12)[0m
+  Rendered docs/index.html.erb within layouts/application (16.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 25ms (Views: 20.8ms | ActiveRecord: 2.1ms)
+Started GET "/docs/2" for 127.0.0.1 at 2016-06-06 17:16:07 +0800
+Processing by DocsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/show.html.erb within layouts/application (29.1ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 36ms (Views: 32.4ms | ActiveRecord: 0.5ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-06 17:16:16 +0800
+Processing by DocsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/_form.html.erb (2.7ms)
+  Rendered docs/edit.html.erb within layouts/application (4.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 10ms (Views: 7.2ms | ActiveRecord: 0.5ms)
+Started PATCH "/docs/2" for 127.0.0.1 at 2016-06-06 17:16:28 +0800
+Processing by DocsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HgdDPWzmtm5akKHtRJ6i1odWzn/+ZB9ECyGYTn0jni8dXs+QzRTyh/i+Za6QZp/JF7WKoz8eOrpfwdOaOOI5ZQ==", "doc"=>{"title"=>"dawn", "content"=>"# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"}, "id"=>"2"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.4ms)[0m  SELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  UPDATE "docs" SET "content" = $1, "updated_at" = $2 WHERE "docs"."id" = $3  [["content", "# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"], ["updated_at", "2016-06-06 09:16:29.012487"], ["id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/docs/2
+Completed 302 Found in 62ms (ActiveRecord: 7.6ms)
+Started GET "/docs/2" for 127.0.0.1 at 2016-06-06 17:16:29 +0800
+Processing by DocsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/show.html.erb within layouts/application (14.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 19ms (Views: 16.9ms | ActiveRecord: 0.7ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-06 17:16:38 +0800
+Processing by DocsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/_form.html.erb (1.6ms)
+  Rendered docs/edit.html.erb within layouts/application (2.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 7ms (Views: 4.4ms | ActiveRecord: 0.4ms)
+Started PATCH "/docs/2" for 127.0.0.1 at 2016-06-06 17:17:06 +0800
+Processing by DocsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"qN4/oToerCLw3nJj9Q3nYXeCx+cKEJaTaC6rQu6tHoirh7MMm+zoy1LwtiAh9dp+52GDO8tqs208zuCWq2y5wg==", "doc"=>{"title"=>"dawn", "content"=>"# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"}, "id"=>"2"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "docs" SET "content" = $1, "updated_at" = $2 WHERE "docs"."id" = $3[0m  [["content", "# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"], ["updated_at", "2016-06-06 09:17:06.434746"], ["id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/docs/2
+Completed 302 Found in 8ms (ActiveRecord: 1.3ms)
+Started GET "/docs/2" for 127.0.0.1 at 2016-06-06 17:17:06 +0800
+Processing by DocsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.2ms)[0m  SELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered docs/show.html.erb within layouts/application (52.0ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.4ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 63ms (Views: 59.9ms | ActiveRecord: 0.5ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-06 17:17:15 +0800
+Processing by DocsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/_form.html.erb (1.5ms)
+  Rendered docs/edit.html.erb within layouts/application (1.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 7ms (Views: 4.2ms | ActiveRecord: 0.4ms)
+Started PATCH "/docs/2" for 127.0.0.1 at 2016-06-06 17:17:26 +0800
+Processing by DocsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"k5DK09FScyvPoxrkivYPsmmRQY3xpkqvUTi1P+g/XIqQyUZ+cKA3wm2N3qdeDjKt+XIFUTDcb1EF2P7rrf77wA==", "doc"=>{"title"=>"dawn", "content"=>"# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"}, "id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "docs" SET "content" = $1, "updated_at" = $2 WHERE "docs"."id" = $3[0m  [["content", "# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"], ["updated_at", "2016-06-06 09:17:26.911616"], ["id", 2]]
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/docs/2
+Completed 302 Found in 7ms (ActiveRecord: 1.1ms)
+Started GET "/docs/2" for 127.0.0.1 at 2016-06-06 17:17:26 +0800
+Processing by DocsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.2ms)[0m  SELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered docs/show.html.erb within layouts/application (31.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 37ms (Views: 34.5ms | ActiveRecord: 0.5ms)
+Started GET "/docs" for 127.0.0.1 at 2016-06-06 17:17:34 +0800
+Processing by DocsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.2ms)[0m  SELECT "docs".* FROM "docs"
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IN (12)[0m
+  Rendered docs/index.html.erb within layouts/application (3.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 8ms (Views: 5.5ms | ActiveRecord: 0.7ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-06 17:17:38 +0800
+Processing by DocsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.2ms)[0m  SELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered docs/_form.html.erb (536.0ms)
+  Rendered docs/edit.html.erb within layouts/application (539.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 546ms (Views: 542.8ms | ActiveRecord: 0.5ms)
+Started PATCH "/docs/2" for 127.0.0.1 at 2016-06-06 17:18:00 +0800
+Processing by DocsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"c1BlUJpVKPCdT1SRv1KqOjaVwaUcZFGNVu7yLNDc6n5wCen9O6dsGT9hkNJrqpclpnaFed0edHMCDrn4lR1NNA==", "doc"=>{"title"=>"dawn", "content"=>"# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\nconfig\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"}, "id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.2ms)[0m  SELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "docs" SET "content" = $1, "updated_at" = $2 WHERE "docs"."id" = $3  [["content", "# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\nconfig\r\n\r\n`~/.bash_profile`\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"], ["updated_at", "2016-06-06 09:18:00.157896"], ["id", 2]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/docs/2
+Completed 302 Found in 6ms (ActiveRecord: 1.1ms)
+Started GET "/docs/2" for 127.0.0.1 at 2016-06-06 17:18:00 +0800
+Processing by DocsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.1ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/show.html.erb within layouts/application (29.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 34ms (Views: 31.5ms | ActiveRecord: 0.3ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-06 17:18:08 +0800
+Processing by DocsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.1ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/_form.html.erb (1.6ms)
+  Rendered docs/edit.html.erb within layouts/application (2.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 7ms (Views: 4.6ms | ActiveRecord: 0.3ms)
+Started PATCH "/docs/2" for 127.0.0.1 at 2016-06-06 17:18:27 +0800
+Processing by DocsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TGIqmYzCB5VUPuoh0JR6oGZx8c2kIrp23gYbudWUjI9PO6Y0LTBDfPYQLmIEbEe/9pK1EWVYn4iK5lBtkFUrxQ==", "doc"=>{"title"=>"dawn", "content"=>"# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n`~/.bash_profile`\r\n\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"}, "id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.1ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "docs" SET "content" = $1, "updated_at" = $2 WHERE "docs"."id" = $3[0m  [["content", "# dawn\r\n\r\n![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png \"dawn screenshot\")\r\n\r\n## Prerequisites\r\n* PostgreSQL\r\n* Redis\r\n* Nginx\r\n\r\n## Installation\r\n\r\ncreate role and database\r\n\r\n```bash\r\nsudo -u postgres createuser -d -P dawn_pg\r\nsudo -u postgres createdb -O dawn_pg dawn_development\r\n```\r\nlogin to postgres on debian \r\n\r\n```bash\r\nsudo -u postgres psql\r\n```\r\n\r\ninstall imagemagick\r\n\r\n```bash\r\nsudo apt-get update\r\nsudo apt-get install imagemagick --fix-missing\r\n```\r\ndisable tiff and dps on iDev machines\r\n\r\n```bash\r\n--without-diff --without-dps\r\n```\r\n\r\ninstall browserify \r\n\r\n```bash\r\nnpm install -g browserify\r\n```\r\nlaunch web server, rails livereload, front-end build system\r\n\r\n```bash\r\nbundle exec passenger start # OR 'rails s'\r\nguard -P livereload\r\nnpm run dev:s # OR 'npm run dev:ss'\r\n```\r\n\r\nstart in production mode\r\n\r\ngenerate secret\r\n\r\n```bash\r\n bundle exec rake secret\r\n export SECRET_KEY_BASE=result-of-previous-step\r\n```\r\ndatabase migration\r\n\r\n```bash\r\nbundle exec rake db:migrate RAILS_ENV=production\r\n```\r\n\r\n```bash\r\nbundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile\r\nbundle exec puma -p 3000 -e production # OR 'rails s -e production'\r\n```\r\npossible problems\r\n\r\n```bash\r\ncc1plus: error: unrecognized command line option \"-std=c++0x\"\r\n```\r\nfix:\r\n\r\n```bash\r\necho 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc\r\n```\r\n\r\nimagemagick installation failure on iDev, \r\n\r\n```bash\r\n--without-tiff --without-dps\r\n```\r\n\r\n\r\n### SSH agent forwarding\r\n\r\n`~/.bash_profile`\r\n\r\n```bash\r\nalias vultr='ssh vultr'\r\n```\r\n\r\n`~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`\r\n\r\n```bash\r\nHost vultr\r\n  HostName everthis.com\r\n  User everthis\r\n  ForwardAgent yes\r\n```\r\n\r\nHighly recommend using `ssh-copy-id` for moving public keys around.\r\n\r\nPlease feel free to use a different markup language if you do not plan to run\r\n<tt>rake doc:app</tt>.\r\n"], ["updated_at", "2016-06-06 09:18:27.697160"], ["id", 2]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/docs/2
+Completed 302 Found in 6ms (ActiveRecord: 1.0ms)
+Started GET "/docs/2" for 127.0.0.1 at 2016-06-06 17:18:27 +0800
+Processing by DocsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.1ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/show.html.erb within layouts/application (29.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 34ms (Views: 32.4ms | ActiveRecord: 0.3ms)
+Started GET "/dev" for 127.0.0.1 at 2016-06-06 17:18:37 +0800
+Processing by StaticPagesController#dev as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  Rendered static_pages/dev.html.erb within layouts/application (0.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 0.2ms)
+Started GET "/apis?utf8=%E2%9C%93&format=json&authenticity_token=MA46JPrsrrtCb%2BVb92Okcpi2pB2aZK6M6InbL2GHBCgzV7aJWx7qUuBBIRgjm5ltCFXgwVsei3K8aZD7JEajYg%3D%3D" for 127.0.0.1 at 2016-06-06 17:18:38 +0800
+Processing by ApisController#index as JSON
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"MA46JPrsrrtCb+Vb92Okcpi2pB2aZK6M6InbL2GHBCgzV7aJWx7qUuBBIRgjm5ltCFXgwVsei3K8aZD7JEajYg==", "api"=>{}}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "apis"[0m
+  [1m[35mApi Load (0.4ms)[0m  SELECT  "apis".* FROM "apis"  ORDER BY created_at DESC LIMIT 30 OFFSET 0
+Completed 200 OK in 22ms (Views: 18.2ms | ActiveRecord: 2.2ms)
+Started GET "/third_party_accounts" for 127.0.0.1 at 2016-06-06 17:18:39 +0800
+Processing by ThirdPartyAccountsController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mThirdPartyAccount Load (0.4ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1  ORDER BY created_at DESC[0m  [["user_id", 12]]
+  Rendered third_party_accounts/_deactivate.html.erb (3.9ms)
+  Rendered third_party_accounts/_update_active.html.erb (2.7ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.6ms)
+  Rendered third_party_accounts/index.html.erb within layouts/application (26.8ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 50ms (Views: 32.2ms | ActiveRecord: 2.0ms)
+Started GET "/email_whitelists" for 127.0.0.1 at 2016-06-06 17:18:41 +0800
+Processing by EmailWhitelistsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "email_whitelists"
+  [1m[36mEmailWhitelist Load (0.2ms)[0m  [1mSELECT "email_whitelists".* FROM "email_whitelists"[0m
+  Rendered email_whitelists/index.html.erb within layouts/application (12.0ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 21ms (Views: 16.6ms | ActiveRecord: 1.9ms)
+Started GET "/third_party_accounts" for 127.0.0.1 at 2016-06-06 17:18:42 +0800
+Processing by ThirdPartyAccountsController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1  ORDER BY created_at DESC[0m  [["user_id", 12]]
+  Rendered third_party_accounts/_deactivate.html.erb (2.1ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.6ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.6ms)
+  Rendered third_party_accounts/index.html.erb within layouts/application (8.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 13ms (Views: 10.3ms | ActiveRecord: 0.5ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-07 06:43:37 +0800
+Processing by DocsController#edit as */*
+  Parameters: {"id"=>"2"}
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/login
+Filter chain halted as :logged_in_user rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-07 07:31:55 +0800
+Processing by DocsController#edit as */*
+  Parameters: {"id"=>"2"}
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/login
+Filter chain halted as :logged_in_user rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-07 08:34:08 +0800
+Processing by DocsController#edit as */*
+  Parameters: {"id"=>"2"}
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/login
+Filter chain halted as :logged_in_user rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/search/department&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267705250393&is_pv=1&sourceid=home&timestamps=1465267705592&term=wise" for 127.0.0.1 at 2016-06-07 10:48:25 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/search/department", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267705250393", "is_pv"=>"1", "sourceid"=>"home", "timestamps"=>"1465267705592", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.3ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/search/department"]]
+  [1m[35mThirdPartyAccount Load (0.3ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 68ms (Views: 0.2ms | ActiveRecord: 2.1ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/hospital/list&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267705250393&timestamps=1465267705732&term=wise" for 127.0.0.1 at 2016-06-07 10:48:25 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/hospital/list", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267705250393", "timestamps"=>"1465267705732", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.4ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/hospital/list"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 90ms (Views: 0.2ms | ActiveRecord: 2.2ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/search/department&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267705250393&provinceId=1&cityId=1&regionId=all&is_pv=1&sourceid=home&timestamps=1465267712388&term=wise" for 127.0.0.1 at 2016-06-07 10:48:32 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/search/department", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267705250393", "provinceId"=>"1", "cityId"=>"1", "regionId"=>"all", "is_pv"=>"1", "sourceid"=>"home", "timestamps"=>"1465267712388", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/search/department"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 71ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/hospital/list&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267705250393&provId=1&cityId=1&areaId=all&timestamps=1465267712552&term=wise" for 127.0.0.1 at 2016-06-07 10:48:32 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/hospital/list", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267705250393", "provId"=>"1", "cityId"=>"1", "areaId"=>"all", "timestamps"=>"1465267712552", "term"=>"wise"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/hospital/list"]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 127ms (Views: 0.2ms | ActiveRecord: 0.9ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/library&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267705250393&is_pv=1&sourceid=diseaselist-d&timestamps=1465267727500&term=wise" for 127.0.0.1 at 2016-06-07 10:48:47 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/library", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267705250393", "is_pv"=>"1", "sourceid"=>"diseaselist-d", "timestamps"=>"1465267727500", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/library"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 77ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/cms/loader&module=disease&sid=123&pid=3333&fr=111&pvid=1465267730047895&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&diseaseId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&provId=1&cityId=1&areaId=all&regionId=all&hospitalPage=1&hospitalPageSize=3&articlePage=1&articlePageSize=3&consultPage=1&consultPageSize=2&is_pv=1&sourceid=disease_summary&timestamps=1465267730063&term=wise" for 127.0.0.1 at 2016-06-07 10:48:50 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/cms/loader", "module"=>"disease", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267730047895", "key"=>"支气管炎", "diseaseId"=>"undefined", "diseaseName"=>"支气管炎", "provId"=>"1", "cityId"=>"1", "areaId"=>"all", "regionId"=>"all", "hospitalPage"=>"1", "hospitalPageSize"=>"3", "articlePage"=>"1", "articlePageSize"=>"3", "consultPage"=>"1", "consultPageSize"=>"2", "is_pv"=>"1", "sourceid"=>"disease_summary", "timestamps"=>"1465267730063", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.3ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/cms/loader"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 393ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267730047895&provId=1&cityId=1&regionId=all&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465267754245&term=wise" for 127.0.0.1 at 2016-06-07 10:49:14 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267730047895", "provId"=>"1", "cityId"=>"1", "regionId"=>"all", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465267754245", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267730047895&provId=1&cityId=1&regionId=all&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465267754246&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 10:49:14 +0800
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=1465267730047895&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465267754250&term=wise" for 127.0.0.1 at 2016-06-07 10:49:14 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267730047895", "provId"=>"1", "cityId"=>"1", "regionId"=>"all", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465267754246", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.4ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.3ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465267730047895", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465267754250", "term"=>"wise"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.4ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 99ms (Views: 0.1ms | ActiveRecord: 2.7ms)
+Completed 200 OK in 171ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 139ms (Views: 0.2ms | ActiveRecord: 2.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465277433814&term=wise" for 127.0.0.1 at 2016-06-07 13:30:34 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465277433814", "term"=>"wise"}
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465277433816&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:30:34 +0800
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.3ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465277433816", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465277433818&term=wise" for 127.0.0.1 at 2016-06-07 13:30:34 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465277433818", "term"=>"wise"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.4ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.3ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 108ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 109ms (Views: 0.1ms | ActiveRecord: 2.7ms)
+Completed 200 OK in 168ms (Views: 0.2ms | ActiveRecord: 0.9ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=5&provId=&cityId=&regionId=&cate=%E9%A5%AE%E9%A3%9F&listType=yinshi&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&type=zhiliao&pageSize=3&timestamps=1465278009802&term=wise" for 127.0.0.1 at 2016-06-07 13:40:09 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"5", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"饮食", "listType"=>"yinshi", "diseaseName"=>"支气管炎", "type"=>"zhiliao", "pageSize"=>"3", "timestamps"=>"1465278009802", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=5&cate=%E9%A5%AE%E9%A3%9F&pageSize=2&type=%E9%A5%AE%E9%A3%9F&is_pv=1&sourceid=disease_diet&timestamps=1465278009805&term=wise" for 127.0.0.1 at 2016-06-07 13:40:09 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"5", "cate"=>"饮食", "pageSize"=>"2", "type"=>"饮食", "is_pv"=>"1", "sourceid"=>"disease_diet", "timestamps"=>"1465278009805", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 85ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 100ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278012007&term=wise" for 127.0.0.1 at 2016-06-07 13:40:12 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278012007", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278012008&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:40:12 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278012008", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.3ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465278012009&term=wise" for 127.0.0.1 at 2016-06-07 13:40:12 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465278012009", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 83ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 96ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 194ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=&cityId=&regionId=&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465278086652&term=wise" for 127.0.0.1 at 2016-06-07 13:41:26 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"", "cityId"=>"", "regionId"=>"", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465278086652", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=&cityId=&regionId=&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465278086654&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:41:26 +0800
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465278086658&term=wise" for 127.0.0.1 at 2016-06-07 13:41:26 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465278086658", "term"=>"wise"}
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"", "cityId"=>"", "regionId"=>"", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465278086654", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 77ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 87ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 178ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=5&provId=&cityId=&regionId=&cate=%E9%A5%AE%E9%A3%9F&listType=yinshi&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&type=zhiliao&pageSize=3&timestamps=1465278100325&term=wise" for 127.0.0.1 at 2016-06-07 13:41:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"5", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"饮食", "listType"=>"yinshi", "diseaseName"=>"支气管炎", "type"=>"zhiliao", "pageSize"=>"3", "timestamps"=>"1465278100325", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.3ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=5&cate=%E9%A5%AE%E9%A3%9F&pageSize=2&type=%E9%A5%AE%E9%A3%9F&is_pv=1&sourceid=disease_diet&timestamps=1465278100326&term=wise" for 127.0.0.1 at 2016-06-07 13:41:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"5", "cate"=>"饮食", "pageSize"=>"2", "type"=>"饮食", "is_pv"=>"1", "sourceid"=>"disease_diet", "timestamps"=>"1465278100326", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 75ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 105ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278107806&term=wise" for 127.0.0.1 at 2016-06-07 13:41:47 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278107806", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278107806&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:41:47 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278107806", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465278107807&term=wise" for 127.0.0.1 at 2016-06-07 13:41:47 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465278107807", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 78ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 91ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 147ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278327206&term=wise" for 127.0.0.1 at 2016-06-07 13:45:27 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278327206", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278327209&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:45:27 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278327209", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465278327210&term=wise" for 127.0.0.1 at 2016-06-07 13:45:27 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"3", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465278327210", "term"=>"wise"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.4ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 83ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 98ms (Views: 0.1ms | ActiveRecord: 2.6ms)
+Completed 200 OK in 193ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/cms/loader&module=disease&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&diseaseId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&provId=1&cityId=1&areaId=all&hospitalPage=1&hospitalPageSize=3&articlePage=1&articlePageSize=3&consultPage=1&consultPageSize=2&is_pv=1&sourceid=disease_summary&timestamps=1465278330273&term=wise" for 127.0.0.1 at 2016-06-07 13:45:30 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/cms/loader", "module"=>"disease", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "diseaseId"=>"undefined", "diseaseName"=>"支气管炎", "provId"=>"1", "cityId"=>"1", "areaId"=>"all", "hospitalPage"=>"1", "hospitalPageSize"=>"3", "articlePage"=>"1", "articlePageSize"=>"3", "consultPage"=>"1", "consultPageSize"=>"2", "is_pv"=>"1", "sourceid"=>"disease_summary", "timestamps"=>"1465278330273", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/cms/loader"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 276ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465278335828&term=wise" for 127.0.0.1 at 2016-06-07 13:45:35 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465278335828", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&timestamps=1465278335836&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:45:35 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "timestamps"=>"1465278335836", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465278335838&term=wise" for 127.0.0.1 at 2016-06-07 13:45:35 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465278335838", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 83ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 72ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 188ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278338252&term=wise" for 127.0.0.1 at 2016-06-07 13:45:38 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278338252", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278338255&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:45:38 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278338255", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465278338258&term=wise" for 127.0.0.1 at 2016-06-07 13:45:38 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "diseaseName"=>"支气管炎", "category"=>"3", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465278338258", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 69ms (Views: 0.1ms | ActiveRecord: 0.4ms)
+Completed 200 OK in 87ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 208ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&provId=&cityId=&regionId=&cate=%E7%97%85%E5%9B%A0&listType=bingyin&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278340442&term=wise" for 127.0.0.1 at 2016-06-07 13:45:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"2", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"病因", "listType"=>"bingyin", "diseaseName"=>"支气管炎", "timestamps"=>"1465278340442", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&provId=&cityId=&regionId=&cate=%E7%97%85%E5%9B%A0&listType=bingyin&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278340443&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:45:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"2", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"病因", "listType"=>"bingyin", "diseaseName"=>"支气管炎", "timestamps"=>"1465278340443", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&cate=%E7%97%85%E5%9B%A0&pageSize=2&type=%E7%97%85%E5%9B%A0&is_pv=1&sourceid=disease_cause&timestamps=1465278340443&term=wise" for 127.0.0.1 at 2016-06-07 13:45:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "diseaseName"=>"支气管炎", "category"=>"2", "cate"=>"病因", "pageSize"=>"2", "type"=>"病因", "is_pv"=>"1", "sourceid"=>"disease_cause", "timestamps"=>"1465278340443", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 86ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+Completed 200 OK in 97ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 234ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278342868&term=wise" for 127.0.0.1 at 2016-06-07 13:45:42 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278342868", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278342869&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:45:42 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278342869", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465278342870&term=wise" for 127.0.0.1 at 2016-06-07 13:45:42 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "diseaseName"=>"支气管炎", "category"=>"3", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465278342870", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 69ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 122ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 196ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278344448&term=wise" for 127.0.0.1 at 2016-06-07 13:45:44 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278344448", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278344449&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:45:44 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278344449", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465278344451&term=wise" for 127.0.0.1 at 2016-06-07 13:45:44 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465278344451", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 86ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 104ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 360ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278363218&term=wise" for 127.0.0.1 at 2016-06-07 13:46:03 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278363218", "term"=>"wise"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278363219&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:46:03 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278363219", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465278363219&term=wise" for 127.0.0.1 at 2016-06-07 13:46:03 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "diseaseName"=>"支气管炎", "category"=>"3", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465278363219", "term"=>"wise"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 79ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 78ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+Completed 200 OK in 200ms (Views: 0.2ms | ActiveRecord: 1.0ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&provId=&cityId=&regionId=&cate=%E7%97%85%E5%9B%A0&listType=bingyin&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278365123&term=wise" for 127.0.0.1 at 2016-06-07 13:46:05 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"2", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"病因", "listType"=>"bingyin", "diseaseName"=>"支气管炎", "timestamps"=>"1465278365123", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&provId=&cityId=&regionId=&cate=%E7%97%85%E5%9B%A0&listType=bingyin&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278365124&type=zhiliao&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:46:05 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "category"=>"2", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"病因", "listType"=>"bingyin", "diseaseName"=>"支气管炎", "timestamps"=>"1465278365124", "type"=>"zhiliao", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=146527833023161&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&cate=%E7%97%85%E5%9B%A0&pageSize=2&type=%E7%97%85%E5%9B%A0&is_pv=1&sourceid=disease_cause&timestamps=1465278365124&term=wise" for 127.0.0.1 at 2016-06-07 13:46:05 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "diseaseName"=>"支气管炎", "category"=>"2", "cate"=>"病因", "pageSize"=>"2", "type"=>"病因", "is_pv"=>"1", "sourceid"=>"disease_cause", "timestamps"=>"1465278365124", "term"=>"wise"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.1ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 84ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 80ms (Views: 0.1ms | ActiveRecord: 0.4ms)
+Completed 200 OK in 163ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/cms/loader&module=disease&sid=123&pid=3333&fr=111&pvid=146527833023161&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&diseaseId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&provId=1&cityId=1&areaId=all&hospitalPage=1&hospitalPageSize=3&articlePage=1&articlePageSize=3&consultPage=1&consultPageSize=2&is_pv=1&sourceid=disease_summary&timestamps=1465278366960&term=wise" for 127.0.0.1 at 2016-06-07 13:46:07 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/cms/loader", "module"=>"disease", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"146527833023161", "key"=>"支气管炎", "diseaseId"=>"undefined", "diseaseName"=>"支气管炎", "provId"=>"1", "cityId"=>"1", "areaId"=>"all", "hospitalPage"=>"1", "hospitalPageSize"=>"3", "articlePage"=>"1", "articlePageSize"=>"3", "consultPage"=>"1", "consultPageSize"=>"2", "is_pv"=>"1", "sourceid"=>"disease_summary", "timestamps"=>"1465278366960", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/cms/loader"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 268ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/cms/loader&module=disease&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&diseaseId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&provId=1&cityId=1&areaId=all&hospitalPage=1&hospitalPageSize=3&articlePage=1&articlePageSize=3&consultPage=1&consultPageSize=2&is_pv=1&sourceid=disease_summary&timestamps=1465278389652&term=wise" for 127.0.0.1 at 2016-06-07 13:46:29 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/cms/loader", "module"=>"disease", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "diseaseId"=>"undefined", "diseaseName"=>"支气管炎", "provId"=>"1", "cityId"=>"1", "areaId"=>"all", "hospitalPage"=>"1", "hospitalPageSize"=>"3", "articlePage"=>"1", "articlePageSize"=>"3", "consultPage"=>"1", "consultPageSize"=>"2", "is_pv"=>"1", "sourceid"=>"disease_summary", "timestamps"=>"1465278389652", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/cms/loader"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 272ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465278407186&term=wise" for 127.0.0.1 at 2016-06-07 13:46:47 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465278407186", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465278407188&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:46:47 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465278407188", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465278407190&term=wise" for 127.0.0.1 at 2016-06-07 13:46:47 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465278407190", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 68ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+Completed 200 OK in 83ms (Views: 0.1ms | ActiveRecord: 0.4ms)
+Completed 200 OK in 159ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278409316&term=wise" for 127.0.0.1 at 2016-06-07 13:46:49 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278409316", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&provId=&cityId=&regionId=&cate=%E6%B2%BB%E7%96%97&listType=zhiliao&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278409317&type=linchuangbiaoxian&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:46:49 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "category"=>"4", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"治疗", "listType"=>"zhiliao", "diseaseName"=>"支气管炎", "timestamps"=>"1465278409317", "type"=>"linchuangbiaoxian", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=4&cate=%E6%B2%BB%E7%96%97&pageSize=2&type=%E6%B2%BB%E7%96%97&is_pv=1&sourceid=disease_treat&timestamps=1465278409318&term=wise" for 127.0.0.1 at 2016-06-07 13:46:49 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "diseaseName"=>"支气管炎", "category"=>"4", "cate"=>"治疗", "pageSize"=>"2", "type"=>"治疗", "is_pv"=>"1", "sourceid"=>"disease_treat", "timestamps"=>"1465278409318", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 73ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 103ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 221ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278410747&term=wise" for 127.0.0.1 at 2016-06-07 13:46:50 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278410747", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.1ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&provId=&cityId=&regionId=&cate=%E7%97%87%E7%8A%B6&listType=linchuangbiaoxian&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278410749&type=linchuangbiaoxian&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:46:50 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "category"=>"3", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"症状", "listType"=>"linchuangbiaoxian", "diseaseName"=>"支气管炎", "timestamps"=>"1465278410749", "type"=>"linchuangbiaoxian", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=3&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465278410750&term=wise" for 127.0.0.1 at 2016-06-07 13:46:50 +0800
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "diseaseName"=>"支气管炎", "category"=>"3", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465278410750", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.1ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 85ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 105ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+Completed 200 OK in 184ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&provId=&cityId=&regionId=&cate=%E7%97%85%E5%9B%A0&listType=bingyin&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278412415&term=wise" for 127.0.0.1 at 2016-06-07 13:46:52 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "category"=>"2", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"病因", "listType"=>"bingyin", "diseaseName"=>"支气管炎", "timestamps"=>"1465278412415", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&provId=&cityId=&regionId=&cate=%E7%97%85%E5%9B%A0&listType=bingyin&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&timestamps=1465278412416&type=linchuangbiaoxian&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:46:52 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "category"=>"2", "provId"=>"", "cityId"=>"", "regionId"=>"", "cate"=>"病因", "listType"=>"bingyin", "diseaseName"=>"支气管炎", "timestamps"=>"1465278412416", "type"=>"linchuangbiaoxian", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=2&cate=%E7%97%85%E5%9B%A0&pageSize=2&type=%E7%97%85%E5%9B%A0&is_pv=1&sourceid=disease_cause&timestamps=1465278412417&term=wise" for 127.0.0.1 at 2016-06-07 13:46:52 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "diseaseName"=>"支气管炎", "category"=>"2", "cate"=>"病因", "pageSize"=>"2", "type"=>"病因", "is_pv"=>"1", "sourceid"=>"disease_cause", "timestamps"=>"1465278412417", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 76ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 81ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 190ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/cms/loader&module=disease&sid=123&pid=3333&fr=111&pvid=1465278389627107&key=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&diseaseId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&provId=1&cityId=1&areaId=all&hospitalPage=1&hospitalPageSize=3&articlePage=1&articlePageSize=3&consultPage=1&consultPageSize=2&is_pv=1&sourceid=disease_summary&timestamps=1465278418534&term=wise" for 127.0.0.1 at 2016-06-07 13:46:58 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/cms/loader", "module"=>"disease", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "key"=>"支气管炎", "diseaseId"=>"undefined", "diseaseName"=>"支气管炎", "provId"=>"1", "cityId"=>"1", "areaId"=>"all", "hospitalPage"=>"1", "hospitalPageSize"=>"3", "articlePage"=>"1", "articlePageSize"=>"3", "consultPage"=>"1", "consultPageSize"=>"2", "is_pv"=>"1", "sourceid"=>"disease_summary", "timestamps"=>"1465278418534", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.1ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/cms/loader"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 366ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465278422568&term=wise" for 127.0.0.1 at 2016-06-07 13:47:02 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465278422568", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465278422573&term=wise" for 127.0.0.1 at 2016-06-07 13:47:02 +0800
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&pvid=1465278389627107&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465278422572&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 13:47:02 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465278422573", "term"=>"wise"}
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "pvid"=>"1465278389627107", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465278422572", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.1ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 76ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+Completed 200 OK in 89ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 183ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465280043321&term=wise" for 127.0.0.1 at 2016-06-07 14:14:03 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465280043321", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465280043324&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 14:14:03 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465280043324", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.1ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465280043328&term=wise" for 127.0.0.1 at 2016-06-07 14:14:03 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465280043328", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 96ms (Views: 0.1ms | ActiveRecord: 0.4ms)
+Completed 200 OK in 85ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 163ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465281818481&term=wise" for 127.0.0.1 at 2016-06-07 14:43:38 +0800
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465281818483&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 14:43:38 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465281818481", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465281818486&term=wise" for 127.0.0.1 at 2016-06-07 14:43:38 +0800
+  [1m[36mApi Load (1.1ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+Processing by ApisController#token_generate_data as JSON
+  [1m[35mThirdPartyAccount Load (1.0ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465281818483", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465281818486", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.1ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 86ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 108ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+Completed 200 OK in 413ms (Views: 0.1ms | ActiveRecord: 2.3ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465283945633&term=wise" for 127.0.0.1 at 2016-06-07 15:19:05 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465283945633", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465283945637&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 15:19:05 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465283945637", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465283945638&term=wise" for 127.0.0.1 at 2016-06-07 15:19:05 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465283945638", "term"=>"wise"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 90ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+Completed 200 OK in 74ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+Completed 200 OK in 198ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+[3672] - Gracefully shutting down workers...
+[3672] === puma shutdown: 2016-06-07 15:22:33 +0800 ===
+[3672] - Goodbye!
+=== puma startup: 2016-06-07 15:22:49 +0800 ===
+[29455] * Starting control server on unix:///tmp/puma-status-1465284169517-29455
+[29455] - Worker 0 (pid: 29505) booted, phase: 0
+[29455] - Worker 1 (pid: 29509) booted, phase: 0
+[29455] - Gracefully shutting down workers...
+[29455] === puma shutdown: 2016-06-07 15:23:47 +0800 ===
+[29455] - Goodbye!
+=== puma startup: 2016-06-07 15:23:49 +0800 ===
+[32096] * Starting control server on unix:///tmp/puma-status-1465284229853-32096
+[32096] - Worker 1 (pid: 32138) booted, phase: 0
+[32096] - Worker 0 (pid: 32134) booted, phase: 0
+Started GET "/" for 127.0.0.1 at 2016-06-07 15:24:08 +0800
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/_rails_logo.html.erb (0.4ms)
+  Rendered static_pages/_welcome_img.html.erb (3.3ms)
+  Rendered static_pages/home.html.erb within layouts/application (8.8ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  Rendered layouts/_header.html.erb (2.6ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 42ms (Views: 24.0ms | ActiveRecord: 0.0ms)
+Started GET "/login" for 127.0.0.1 at 2016-06-07 15:24:09 +0800
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (5.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.3ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 14ms (Views: 12.6ms | ActiveRecord: 0.0ms)
+Started POST "/login" for 127.0.0.1 at 2016-06-07 15:24:11 +0800
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Wi9otgcfdMLfDY9oydruG3lJ9Ni5yfXh+rUmAMscUhRcXFkF5K9RUy/0crvLp9xqis3s6vRgJsY04ezZ7EBf+g==", "session"=>{"email"=>"hejie03@baidu.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "hejie03@baidu.com"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/users/12
+Completed 302 Found in 154ms (ActiveRecord: 5.0ms)
+Started GET "/users/12" for 127.0.0.1 at 2016-06-07 15:24:12 +0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"12"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "microposts" WHERE "microposts"."user_id" = $1[0m  [["user_id", 12]]
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."followed_id" WHERE "relationships"."follower_id" = $1  [["follower_id", 12]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."follower_id" WHERE "relationships"."followed_id" = $1[0m  [["followed_id", 12]]
+  Rendered shared/_stats.html.erb (24.2ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  Rendered users/_follow_form.html.erb (0.7ms)
+  [1m[36mMicropost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "microposts" WHERE "microposts"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mMicropost Load (0.3ms)[0m  SELECT  "microposts".* FROM "microposts" WHERE "microposts"."user_id" = $1  ORDER BY "microposts"."created_at" DESC LIMIT 30 OFFSET 0  [["user_id", 12]]
+  Rendered microposts/_micropost.html.erb (555.9ms)
+  Rendered users/show.html.erb within layouts/application (601.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 632ms (Views: 604.2ms | ActiveRecord: 4.7ms)
+Started GET "/third_party_accounts" for 127.0.0.1 at 2016-06-07 15:24:14 +0800
+Processing by ThirdPartyAccountsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mThirdPartyAccount Load (0.4ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1  ORDER BY created_at DESC  [["user_id", 12]]
+  Rendered third_party_accounts/_deactivate.html.erb (3.8ms)
+  Rendered third_party_accounts/_update_active.html.erb (2.7ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.8ms)
+  Rendered third_party_accounts/index.html.erb within layouts/application (23.2ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 35ms (Views: 29.0ms | ActiveRecord: 2.2ms)
+Started GET "/third_party_accounts/new" for 127.0.0.1 at 2016-06-07 15:24:23 +0800
+Processing by ThirdPartyAccountsController#new as HTML
+  Rendered third_party_accounts/_form.html.erb (6.5ms)
+  Rendered third_party_accounts/new.html.erb within layouts/application (7.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  Rendered layouts/_header.html.erb (1.9ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 13ms (Views: 11.8ms | ActiveRecord: 0.4ms)
+Started GET "/passport?env=" for 127.0.0.1 at 2016-06-07 15:24:23 +0800
+Processing by StaticPagesController#passport as HTML
+  Parameters: {"env"=>""}
+  Rendered static_pages/passport.html.erb within layouts/blank (0.9ms)
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.0ms)
+Started GET "/passport?env=online" for 127.0.0.1 at 2016-06-07 15:24:37 +0800
+Processing by StaticPagesController#passport as HTML
+  Parameters: {"env"=>"online"}
+  Rendered static_pages/passport.html.erb within layouts/blank (0.1ms)
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+Started GET "/passport?env=rdtest" for 127.0.0.1 at 2016-06-07 15:25:07 +0800
+Processing by StaticPagesController#passport as HTML
+  Parameters: {"env"=>"rdtest"}
+  Rendered static_pages/passport.html.erb within layouts/blank (0.1ms)
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+Started GET "/passport?env=qatest" for 127.0.0.1 at 2016-06-07 15:25:09 +0800
+Processing by StaticPagesController#passport as HTML
+  Parameters: {"env"=>"qatest"}
+  Rendered static_pages/passport.html.erb within layouts/blank (0.1ms)
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+Started GET "/returnreqcookie?format=json" for 127.0.0.1 at 2016-06-07 15:25:21 +0800
+Processing by UtilityController#return_req_cookie as JSON
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2016-06-07 15:28:42 +0800
+Processing by StaticPagesController#home as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "microposts" WHERE "microposts"."user_id" = $1[0m  [["user_id", 12]]
+  Rendered shared/_user_info.html.erb (2.0ms)
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."followed_id" WHERE "relationships"."follower_id" = $1  [["follower_id", 12]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."follower_id" WHERE "relationships"."followed_id" = $1[0m  [["followed_id", 12]]
+  Rendered shared/_stats.html.erb (3.7ms)
+  Rendered shared/_error_messages.html.erb (0.6ms)
+  Rendered shared/_img_upload.html.erb (0.7ms)
+  Rendered shared/_micropost_form.html.erb (4.4ms)
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "microposts" WHERE (user_id IN (SELECT followed_id FROM relationships
+                     WHERE  follower_id = 12)
+                     OR user_id = 12)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "microposts" WHERE (user_id IN (SELECT followed_id FROM relationships
+                     WHERE  follower_id = 12)
+                     OR user_id = 12)[0m
+  [1m[35mMicropost Load (0.3ms)[0m  SELECT  "microposts".* FROM "microposts" WHERE (user_id IN (SELECT followed_id FROM relationships
+                     WHERE  follower_id = 12)
+                     OR user_id = 12)  ORDER BY "microposts"."created_at" DESC LIMIT 30 OFFSET 0
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IN (12)[0m
+  Rendered microposts/_micropost.html.erb (2.3ms)
+  Rendered shared/_feed.html.erb (12.6ms)
+  Rendered static_pages/home.html.erb within layouts/application (25.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 32ms (Views: 25.9ms | ActiveRecord: 2.3ms)
+[32096] - Gracefully shutting down workers...
+[32096] === puma shutdown: 2016-06-07 15:32:21 +0800 ===
+[32096] - Goodbye!
+=== puma startup: 2016-06-07 15:32:23 +0800 ===
+[27089] * Starting control server on unix:///tmp/puma-status-1465284743518-27089
+[27089] - Worker 1 (pid: 27104) booted, phase: 0
+[27089] - Worker 0 (pid: 27100) booted, phase: 0
+Started GET "/" for 127.0.0.1 at 2016-06-07 15:32:56 +0800
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/_rails_logo.html.erb (0.5ms)
+  Rendered static_pages/_welcome_img.html.erb (4.0ms)
+  Rendered static_pages/home.html.erb within layouts/application (9.1ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  Rendered layouts/_header.html.erb (2.9ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 43ms (Views: 25.0ms | ActiveRecord: 0.0ms)
+Started GET "/login" for 127.0.0.1 at 2016-06-07 15:32:58 +0800
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (5.8ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  Rendered layouts/_header.html.erb (8.7ms)
+  Rendered layouts/_footer.html.erb (1.2ms)
+Completed 200 OK in 42ms (Views: 29.5ms | ActiveRecord: 0.0ms)
+Started POST "/login" for 127.0.0.1 at 2016-06-07 15:33:00 +0800
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"V/ciqOUH5BeqfJJ63UqWO2cFsO4XFMuipc2WLA1Reliscz8GhrAL/15w3IGAG4MQYnI0zgSgRRbmBWA6lU/HYg==", "session"=>{"email"=>"hejie03@baidu.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "hejie03@baidu.com"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://cp01-rdqa-dev098.cp01.baidu.com:8456/users/12
+Completed 302 Found in 156ms (ActiveRecord: 4.7ms)
+Started GET "/users/12" for 127.0.0.1 at 2016-06-07 15:33:01 +0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"12"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "microposts" WHERE "microposts"."user_id" = $1[0m  [["user_id", 12]]
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."followed_id" WHERE "relationships"."follower_id" = $1  [["follower_id", 12]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."follower_id" WHERE "relationships"."followed_id" = $1[0m  [["followed_id", 12]]
+  Rendered shared/_stats.html.erb (23.8ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  Rendered users/_follow_form.html.erb (0.6ms)
+  [1m[36mMicropost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "microposts" WHERE "microposts"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mMicropost Load (0.2ms)[0m  SELECT  "microposts".* FROM "microposts" WHERE "microposts"."user_id" = $1  ORDER BY "microposts"."created_at" DESC LIMIT 30 OFFSET 0  [["user_id", 12]]
+  Rendered microposts/_micropost.html.erb (526.8ms)
+  Rendered users/show.html.erb within layouts/application (571.8ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 604ms (Views: 575.3ms | ActiveRecord: 4.2ms)
+Started GET "/third_party_accounts" for 127.0.0.1 at 2016-06-07 15:33:03 +0800
+Processing by ThirdPartyAccountsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mThirdPartyAccount Load (0.4ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1  ORDER BY created_at DESC  [["user_id", 12]]
+  Rendered third_party_accounts/_deactivate.html.erb (3.9ms)
+  Rendered third_party_accounts/_update_active.html.erb (2.4ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.5ms)
+  Rendered third_party_accounts/index.html.erb within layouts/application (22.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 35ms (Views: 28.7ms | ActiveRecord: 2.0ms)
+Started GET "/docs" for 127.0.0.1 at 2016-06-07 15:33:10 +0800
+Processing by DocsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.4ms)[0m  SELECT "docs".* FROM "docs"
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IN (12)[0m
+  Rendered docs/index.html.erb within layouts/application (16.4ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 25ms (Views: 20.4ms | ActiveRecord: 2.2ms)
+Started GET "/docs/2" for 127.0.0.1 at 2016-06-07 15:33:13 +0800
+Processing by DocsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered docs/show.html.erb within layouts/application (43.9ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 50ms (Views: 46.9ms | ActiveRecord: 0.5ms)
+Started GET "/docs/2/edit" for 127.0.0.1 at 2016-06-07 15:33:25 +0800
+Processing by DocsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mDoc Load (0.3ms)[0m  SELECT  "docs".* FROM "docs" WHERE "docs"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered docs/_form.html.erb (540.5ms)
+  Rendered docs/edit.html.erb within layouts/application (544.8ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.2ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 611ms (Views: 552.4ms | ActiveRecord: 6.3ms)
+Started GET "/docs" for 127.0.0.1 at 2016-06-07 15:33:31 +0800
+Processing by DocsController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mDoc Load (0.2ms)[0m  [1mSELECT "docs".* FROM "docs"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IN (12)
+  Rendered docs/index.html.erb within layouts/application (3.0ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 7ms (Views: 5.2ms | ActiveRecord: 0.7ms)
+Started GET "/docs/new" for 127.0.0.1 at 2016-06-07 15:33:33 +0800
+Processing by DocsController#new as HTML
+  Rendered docs/_form.html.erb (2.6ms)
+  Rendered docs/new.html.erb within layouts/application (3.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  Rendered layouts/_header.html.erb (2.0ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 9ms (Views: 7.9ms | ActiveRecord: 0.2ms)
+Started GET "/email_whitelists" for 127.0.0.1 at 2016-06-07 15:33:35 +0800
+Processing by EmailWhitelistsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "email_whitelists"
+  [1m[36mEmailWhitelist Load (0.2ms)[0m  [1mSELECT "email_whitelists".* FROM "email_whitelists"[0m
+  Rendered email_whitelists/index.html.erb within layouts/application (12.6ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 22ms (Views: 17.4ms | ActiveRecord: 2.1ms)
+Started GET "/" for 127.0.0.1 at 2016-06-07 15:34:01 +0800
+Processing by StaticPagesController#home as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "microposts" WHERE "microposts"."user_id" = $1[0m  [["user_id", 12]]
+  Rendered shared/_user_info.html.erb (2.1ms)
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."followed_id" WHERE "relationships"."follower_id" = $1  [["follower_id", 12]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users" INNER JOIN "relationships" ON "users"."id" = "relationships"."follower_id" WHERE "relationships"."followed_id" = $1[0m  [["followed_id", 12]]
+  Rendered shared/_stats.html.erb (3.6ms)
+  Rendered shared/_error_messages.html.erb (0.6ms)
+  Rendered shared/_img_upload.html.erb (0.6ms)
+  Rendered shared/_micropost_form.html.erb (4.5ms)
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "microposts" WHERE (user_id IN (SELECT followed_id FROM relationships
+                     WHERE  follower_id = 12)
+                     OR user_id = 12)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "microposts" WHERE (user_id IN (SELECT followed_id FROM relationships
+                     WHERE  follower_id = 12)
+                     OR user_id = 12)[0m
+  [1m[35mMicropost Load (0.3ms)[0m  SELECT  "microposts".* FROM "microposts" WHERE (user_id IN (SELECT followed_id FROM relationships
+                     WHERE  follower_id = 12)
+                     OR user_id = 12)  ORDER BY "microposts"."created_at" DESC LIMIT 30 OFFSET 0
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IN (12)[0m
+  Rendered microposts/_micropost.html.erb (2.2ms)
+  Rendered shared/_feed.html.erb (6.8ms)
+  Rendered static_pages/home.html.erb within layouts/application (20.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 31ms (Views: 24.8ms | ActiveRecord: 2.0ms)
+Started GET "/dev" for 127.0.0.1 at 2016-06-07 15:34:02 +0800
+Processing by StaticPagesController#dev as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  Rendered static_pages/dev.html.erb within layouts/application (0.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 5ms (Views: 3.7ms | ActiveRecord: 0.3ms)
+Started GET "/apis?utf8=%E2%9C%93&format=json&authenticity_token=uVWH8O0QpoNoqKLATCLdmWIvhejPKLvLVh2oUWE%2B4N9C0ZpejqdJa5yk7DsRc8iyZ1gByNycNX8V1V5H%2BSBd5Q%3D%3D" for 127.0.0.1 at 2016-06-07 15:34:02 +0800
+Processing by ApisController#index as JSON
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uVWH8O0QpoNoqKLATCLdmWIvhejPKLvLVh2oUWE+4N9C0ZpejqdJa5yk7DsRc8iyZ1gByNycNX8V1V5H+SBd5Q==", "api"=>{}}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "apis"
+  [1m[36mApi Load (0.6ms)[0m  [1mSELECT  "apis".* FROM "apis"  ORDER BY created_at DESC LIMIT 30 OFFSET 0[0m
+Completed 200 OK in 24ms (Views: 19.2ms | ActiveRecord: 2.5ms)
+Started GET "/third_party_accounts" for 127.0.0.1 at 2016-06-07 15:34:04 +0800
+Processing by ThirdPartyAccountsController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mThirdPartyAccount Load (0.4ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1  ORDER BY created_at DESC[0m  [["user_id", 12]]
+  Rendered third_party_accounts/_deactivate.html.erb (3.6ms)
+  Rendered third_party_accounts/_update_active.html.erb (2.4ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.6ms)
+  Rendered third_party_accounts/index.html.erb within layouts/application (25.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 46ms (Views: 30.6ms | ActiveRecord: 1.9ms)
+Started GET "/email_whitelists" for 127.0.0.1 at 2016-06-07 15:34:06 +0800
+Processing by EmailWhitelistsController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "email_whitelists"[0m
+  [1m[35mEmailWhitelist Load (0.2ms)[0m  SELECT "email_whitelists".* FROM "email_whitelists"
+  Rendered email_whitelists/index.html.erb within layouts/application (14.8ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 23ms (Views: 19.1ms | ActiveRecord: 2.0ms)
+Started GET "/dev" for 127.0.0.1 at 2016-06-07 15:34:07 +0800
+Processing by StaticPagesController#dev as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  Rendered static_pages/dev.html.erb within layouts/application (0.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 5ms (Views: 2.8ms | ActiveRecord: 0.3ms)
+Started GET "/apis?utf8=%E2%9C%93&format=json&authenticity_token=GASrGk75%2B8%2Fwb62VPPyvd%2BmFjMrh3BuVumCp5lPsvTzjgLa0LU4UJwRj425hrbpc7PII6vJolSH5qF%2Fwy%2FIABg%3D%3D" for 127.0.0.1 at 2016-06-07 15:34:07 +0800
+Processing by ApisController#index as JSON
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GASrGk75+8/wb62VPPyvd+mFjMrh3BuVumCp5lPsvTzjgLa0LU4UJwRj425hrbpc7PII6vJolSH5qF/wy/IABg==", "api"=>{}}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "apis"
+  [1m[36mApi Load (0.4ms)[0m  [1mSELECT  "apis".* FROM "apis"  ORDER BY created_at DESC LIMIT 30 OFFSET 0[0m
+Completed 200 OK in 22ms (Views: 18.2ms | ActiveRecord: 2.2ms)
+Started GET "/apis/12?utf8=%E2%9C%93&format=json&authenticity_token=GASrGk75%2B8%2Fwb62VPPyvd%2BmFjMrh3BuVumCp5lPsvTzjgLa0LU4UJwRj425hrbpc7PII6vJolSH5qF%2Fwy%2FIABg%3D%3D" for 127.0.0.1 at 2016-06-07 15:34:09 +0800
+Processing by ApisController#show as JSON
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GASrGk75+8/wb62VPPyvd+mFjMrh3BuVumCp5lPsvTzjgLa0LU4UJwRj425hrbpc7PII6vJolSH5qF/wy/IABg==", "id"=>"12", "api"=>{}}
+  [1m[36mApi Load (0.3ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."id" = $1 LIMIT 1[0m  [["id", 12]]
+Completed 200 OK in 4ms (Views: 1.1ms | ActiveRecord: 0.3ms)
+Started GET "/apis/11?utf8=%E2%9C%93&format=json&authenticity_token=GASrGk75%2B8%2Fwb62VPPyvd%2BmFjMrh3BuVumCp5lPsvTzjgLa0LU4UJwRj425hrbpc7PII6vJolSH5qF%2Fwy%2FIABg%3D%3D" for 127.0.0.1 at 2016-06-07 15:34:13 +0800
+Processing by ApisController#show as JSON
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GASrGk75+8/wb62VPPyvd+mFjMrh3BuVumCp5lPsvTzjgLa0LU4UJwRj425hrbpc7PII6vJolSH5qF/wy/IABg==", "id"=>"11", "api"=>{}}
+  [1m[35mApi Load (0.3ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."id" = $1 LIMIT 1  [["id", 11]]
+Completed 200 OK in 4ms (Views: 1.2ms | ActiveRecord: 0.3ms)
+Started GET "/third_party_accounts" for 127.0.0.1 at 2016-06-07 15:40:30 +0800
+Processing by ThirdPartyAccountsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mThirdPartyAccount Load (0.3ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1  ORDER BY created_at DESC  [["user_id", 12]]
+  Rendered third_party_accounts/_deactivate.html.erb (2.3ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.7ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.6ms)
+  Rendered third_party_accounts/index.html.erb within layouts/application (8.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 13ms (Views: 11.0ms | ActiveRecord: 0.4ms)
+Started GET "/third_party_accounts/4/edit" for 127.0.0.1 at 2016-06-07 15:40:34 +0800
+Processing by ThirdPartyAccountsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT  "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."id" = $1 LIMIT 1  [["id", 4]]
+  Rendered third_party_accounts/_form.html.erb (6.3ms)
+  Rendered third_party_accounts/edit.html.erb within layouts/application (7.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 14ms (Views: 10.7ms | ActiveRecord: 0.4ms)
+Started GET "/passport?env=online" for 127.0.0.1 at 2016-06-07 15:40:35 +0800
+Processing by StaticPagesController#passport as HTML
+  Parameters: {"env"=>"online"}
+  Rendered static_pages/passport.html.erb within layouts/blank (0.9ms)
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.0ms)
+Started GET "/returnreqcookie?format=json" for 127.0.0.1 at 2016-06-07 15:40:45 +0800
+Processing by UtilityController#return_req_cookie as JSON
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+Started GET "/third_party_accounts" for 127.0.0.1 at 2016-06-07 15:40:59 +0800
+Processing by ThirdPartyAccountsController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 12]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1  ORDER BY created_at DESC[0m  [["user_id", 12]]
+  Rendered third_party_accounts/_deactivate.html.erb (2.4ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.5ms)
+  Rendered third_party_accounts/_update_active.html.erb (1.5ms)
+  Rendered third_party_accounts/index.html.erb within layouts/application (8.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 13ms (Views: 10.3ms | ActiveRecord: 0.5ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465285647444&term=wise" for 127.0.0.1 at 2016-06-07 15:47:27 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465285647444", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465285647447&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 15:47:27 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465285647447", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465285647449&term=wise" for 127.0.0.1 at 2016-06-07 15:47:27 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465285647449", "term"=>"wise"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.4ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.3ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 91ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 92ms (Views: 0.2ms | ActiveRecord: 2.7ms)
+Completed 200 OK in 163ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465288419117&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 16:33:39 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465288419117", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465288419113&term=wise" for 127.0.0.1 at 2016-06-07 16:33:39 +0800
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465288419113", "term"=>"wise"}
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.7ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465288419118&term=wise" for 127.0.0.1 at 2016-06-07 16:33:39 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465288419118", "term"=>"wise"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.4ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/wenda"]]
+  [1m[35mThirdPartyAccount Load (0.3ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 84ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 105ms (Views: 0.2ms | ActiveRecord: 2.6ms)
+Completed 200 OK in 154ms (Views: 0.1ms | ActiveRecord: 1.2ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465288589678&term=wise" for 127.0.0.1 at 2016-06-07 16:36:29 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465288589678", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/categorydetail"]]
+  [1m[36mThirdPartyAccount Load (0.3ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465288589685&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 16:36:29 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465288589685", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Completed 200 OK in 65ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465288589687&term=wise" for 127.0.0.1 at 2016-06-07 16:36:29 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465288589687", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 97ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 195ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465291300138&term=wise" for 127.0.0.1 at 2016-06-07 17:21:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465291300138", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465291300141&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 17:21:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465291300141", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/summarylist"]]
+  [1m[35mThirdPartyAccount Load (0.2ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465291300142&term=wise" for 127.0.0.1 at 2016-06-07 17:21:40 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465291300142", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 74ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 100ms (Views: 0.1ms | ActiveRecord: 0.8ms)
+Completed 200 OK in 161ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/categorydetail&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465292642616&term=wise" for 127.0.0.1 at 2016-06-07 17:44:02 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/categorydetail", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465292642616", "term"=>"wise"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[36mApi Load (0.2ms)[0m  [1mSELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1[0m  [["uri", "/wise/disease/categorydetail"]]
+  [1m[35mThirdPartyAccount Load (0.3ms)[0m  SELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/summarylist&module=doctor&sid=123&pid=3333&fr=111&provId=undefined&cityId=undefined&regionId=undefined&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&timestamps=1465292642618&type=yufang&pageSize=3&term=wise" for 127.0.0.1 at 2016-06-07 17:44:02 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/summarylist", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "provId"=>"undefined", "cityId"=>"undefined", "regionId"=>"undefined", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "timestamps"=>"1465292642618", "type"=>"yufang", "pageSize"=>"3", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/summarylist"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Started GET "/api_response?format=json&dawn_uri=/wise/disease/wenda&module=doctor&sid=123&pid=3333&fr=111&diseaseName=%E6%94%AF%E6%B0%94%E7%AE%A1%E7%82%8E&category=&cate=%E7%97%87%E7%8A%B6&pageSize=2&type=%E7%97%87%E7%8A%B6&is_pv=1&sourceid=disease_sym&timestamps=1465292642619&term=wise" for 127.0.0.1 at 2016-06-07 17:44:02 +0800
+Processing by ApisController#token_generate_data as JSON
+  Parameters: {"dawn_uri"=>"/wise/disease/wenda", "module"=>"doctor", "sid"=>"123", "pid"=>"3333", "fr"=>"111", "diseaseName"=>"支气管炎", "category"=>"", "cate"=>"症状", "pageSize"=>"2", "type"=>"症状", "is_pv"=>"1", "sourceid"=>"disease_sym", "timestamps"=>"1465292642619", "term"=>"wise"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "c7fecd5cfaa146d39acb17295aeb8e7f"]]
+  [1m[35mApi Load (0.2ms)[0m  SELECT  "apis".* FROM "apis" WHERE "apis"."uri" = $1  ORDER BY "apis"."id" ASC LIMIT 1  [["uri", "/wise/disease/wenda"]]
+  [1m[36mThirdPartyAccount Load (0.2ms)[0m  [1mSELECT "third_party_accounts".* FROM "third_party_accounts" WHERE "third_party_accounts"."user_id" = $1 AND (is_active = 't')[0m  [["user_id", 12]]
+Completed 200 OK in 83ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 103ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+Completed 200 OK in 200ms (Views: 0.2ms | ActiveRecord: 0.8ms)

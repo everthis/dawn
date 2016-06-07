@@ -63,7 +63,8 @@
         $iframe.style.height = '' + data.height + 'px';
       } else {
         addCookieToInput(data);
-        removePassportIframe();
+        // removePassportIframe();
+        $iframe.style.height = "auto";
       }
     },false);
 
