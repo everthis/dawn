@@ -59,7 +59,7 @@
 	text-align: center;
 }
 .c-hide {
-	display: none;
+	display: none !important;
 }
 .c-card-box {
 	@extend %card-box;

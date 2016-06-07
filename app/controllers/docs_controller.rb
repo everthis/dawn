@@ -78,7 +78,11 @@ class DocsController < ApplicationController
     end
 
     def correct_user
-      @api = current_user.docs.find_by(id: params[:id])
-      redirect_to(docs_url, alert: "Not authorized!") if @api.nil?
+      if current_user.admin?
+        true
+      else
+        @api = current_user.docs.find_by(id: params[:id])
+        redirect_to(docs_url, alert: "Not authorized!") if @api.nil?
+      end
     end
 end

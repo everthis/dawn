@@ -196,7 +196,7 @@ function newApiBtn() {
         <input class="api-query" type="search" placeholder="search">
         <div class="api-search-result hide"></div>
       </div>
-      <a class="icon-text-link c-float-right dev-env-settings" href="javascript:;"><span class="icon-text-icon"><svg class="icon icon-settings icon-fit"><use xlink:href="#icon-settings"></use></svg></span><span class="icon-text-text">环境同步数据配置</span></a>
+      <a class="c-hide icon-text-link c-float-right dev-env-settings" href="javascript:;"><span class="icon-text-icon"><svg class="icon icon-settings icon-fit"><use xlink:href="#icon-settings"></use></svg></span><span class="icon-text-text">环境同步数据配置</span></a>
     </div>
   `;
   newApiDiv = strToDom(newApiStr);
