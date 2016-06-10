@@ -25,6 +25,12 @@ login to postgres on debian
 sudo -u postgres psql
 ```
 
+alter database role password
+
+```bash
+sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
+```
+
 install imagemagick
 
 ```bash
