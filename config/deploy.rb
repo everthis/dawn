@@ -37,6 +37,7 @@ lock '3.5.0'
 # Change these
 server 'everthis.com', port: 22, roles: [:web, :app, :db], primary: true
 
+set :rvm_ruby_version, '2.2.2'
 set :repo_url,        'git@github.com:everthis/dawn.git'
 set :application,     'dawn'
 set :user,            'everthis'
@@ -45,7 +46,7 @@ set :puma_workers,    0
 set :rails_env,       "production"
 
 # Don't change these unless you know what you're doing
-set :pty,             true
+set :pty,             false
 set :use_sudo,        false
 set :stage,           :production
 # set :deploy_via,      :remote_cache
