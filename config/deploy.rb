@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.5.0'
 
 # set :application, 'my_app_name'
 # set :repo_url, 'git@example.com:me/my_repo.git'
@@ -35,23 +35,25 @@ lock '3.4.0'
 # set :keep_releases, 5
 
 # Change these
-server 'your_server_ip', port: your_port_num, roles: [:web, :app, :db], primary: true
+server 'everthis.com', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@example.com:username/appname.git'
-set :application,     'appname'
-set :user,            'deploy'
+set :repo_url,        'git@github.com:everthis/dawn.git'
+set :application,     'dawn'
+set :user,            'everthis'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
+set :rails_env,       "production"
 
 # Don't change these unless you know what you're doing
 set :pty,             true
 set :use_sudo,        false
 set :stage,           :production
-set :deploy_via,      :remote_cache
-set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
-set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
+# set :deploy_via,      :remote_cache
+set :deploy_via,      :copy
+set :deploy_to,       "/home/#{fetch(:user)}/deploy/#{fetch(:application)}"
+set :puma_bind,       "unix://#{shared_path}/sockets/#{fetch(:application)}-puma.sock"
+set :puma_state,      "#{shared_path}/pids/puma.state"
+set :puma_pid,        "#{shared_path}/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.error.log"
 set :puma_error_log,  "#{release_path}/log/puma.access.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
@@ -74,8 +76,8 @@ namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
     on roles(:app) do
-      execute "mkdir #{shared_path}/tmp/sockets -p"
-      execute "mkdir #{shared_path}/tmp/pids -p"
+      execute "mkdir #{shared_path}/sockets -p"
+      execute "mkdir #{shared_path}/pids -p"
     end
   end
 
