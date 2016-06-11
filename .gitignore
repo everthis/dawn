@@ -36,3 +36,4 @@
 # sensitive
 /config/secrets.yml
 /.env
+/.env.production
