@@ -23,6 +23,7 @@ gem 'puma'
 gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :development do
   gem "passenger"

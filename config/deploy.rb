@@ -46,14 +46,13 @@ set :puma_workers,    0
 set :rails_env,       "production"
 
 # capistrano-puma
-set :puma_conf,       "config/puma.rb"
+# set :puma_conf,       "./puma.rb"
 
 # Don't change these unless you know what you're doing
 set :pty,             true
 set :use_sudo,        false
 set :stage,           :production
-# set :deploy_via,      :remote_cache
-set :deploy_via,      :copy
+set :deploy_via,      :copy # :remote_cache
 set :deploy_to,       "/home/#{fetch(:user)}/deploy/#{fetch(:application)}"
 set :puma_bind,       "unix://#{shared_path}/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state,      "#{shared_path}/pids/puma.state"

@@ -14,6 +14,12 @@
 
 ## Installation
 
+since PostgreSQL is used,
+
+```bash
+apt-get install libpq-dev
+```
+
 create role and database
 
 ```bash
