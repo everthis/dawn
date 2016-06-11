@@ -118,23 +118,23 @@ namespace :deploy do
   desc "Upload .env.production"
   task :upload_env do
     on roles(:all) do
-      upload! ".env.#{ fetch :stage }", "#{ shared_path }/.env.#{ fetch :stage }"
+      upload! "config/secrets.yml", "#{ shared_path }/config/secrets.yml"
     end
   end
 
   task :check_env do
-    on roles(:all) do |host|
-      f = "#{ shared_path }/.env"
-      if test("[ -f #{f} ]")
-        info "#{f} already exists on #{host}!"
-      else
-        execute "echo 'RAILS_ENV=#{ fetch :stage }' > #{f}"
-        execute "echo 'PATH=/usr/local/rvm/wrappers/ruby-2.2.0:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' >> #{f}"
-      end
-    end
+    # on roles(:all) do |host|
+    #   f = "#{ shared_path }/config/secrets.yml"
+    #   if test("[ -f #{f} ]")
+    #     info "#{f} already exists on #{host}!"
+    #   else
+    #     execute "echo 'RAILS_ENV=#{ fetch :stage }' > #{f}"
+    #     execute "echo 'PATH=/usr/local/rvm/wrappers/ruby-2.2.0:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' >> #{f}"
+    #   end
+    # end
 
     on roles(:all) do |host|
-      f = "#{ shared_path }/.env.#{ fetch :stage }"
+      f = "#{ shared_path }/config/secrets.yml"
       if test("[ -f #{f} ]")
         info "#{f} already exists on #{host}!"
       else
@@ -143,7 +143,14 @@ namespace :deploy do
     end
   end
 
+  task :compile_fe do
+    on roles(:app) do
+      info "#FEEEEEEEEEEEE"
+    end
+  end
+
   before 'check:linked_files', :check_env
+  before 'assets:precompile', :compile_fe
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
