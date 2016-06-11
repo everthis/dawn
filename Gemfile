@@ -23,7 +23,6 @@ gem 'puma'
 gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
-gem 'dotenv-rails'
 
 group :development do
   gem "passenger"

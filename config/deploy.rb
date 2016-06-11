@@ -64,7 +64,7 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
-set :linked_files, fetch(:linked_files, []).push('.env.production')
+set :linked_files, fetch(:linked_files, []).push('config/secrets.yml')
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
@@ -143,6 +143,7 @@ namespace :deploy do
     end
   end
 
+  before 'check:linked_files', :check_env
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
