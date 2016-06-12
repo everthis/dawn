@@ -39,6 +39,8 @@ Rails.application.configure do
   # Automatically inject JavaScript needed for LiveReload
   config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload, live_reload_port: 8010)
 
+  config.web_console.whitelisted_ips = '172.20.0.0/16'
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   

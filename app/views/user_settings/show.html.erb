@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Settings:</strong>
+  <%= @user_setting.settings %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_setting.user %>
+</p>
+
+<%= link_to 'Edit', edit_user_setting_path(@user_setting) %> |
+<%= link_to 'Back', user_settings_path %>

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :user_settings, dependent: :destroy
   has_many :docs, dependent: :destroy
   has_many :apis, dependent: :destroy
   has_many :third_party_accounts, dependent: :destroy
