@@ -1,10 +1,13 @@
 class DocsController < ApplicationController
+  before_action :logged_in_user, only: [:index, :show, :create, :destroy, :update, :edit ]
   before_action :set_doc, only: [:show, :update, :destroy]
-
+  before_action :correct_user,   only: :destroy
   # GET /docs
   # GET /docs.json
   def index
-    @docs = Doc.all
+    if logged_in?
+      @docs = Doc.all.includes(:user)
+    end 
   end
 
   # GET /docs/1
@@ -26,7 +29,7 @@ class DocsController < ApplicationController
   # POST /docs
   # POST /docs.json
   def create
-    @doc = Doc.new(doc_params)
+    @doc = current_user.docs.build(doc_params)
 
     respond_to do |format|
       if @doc.save
@@ -72,5 +75,14 @@ class DocsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def doc_params
       params.require(:doc).permit(:title, :content)
+    end
+
+    def correct_user
+      if current_user.admin?
+        true
+      else
+        @api = current_user.docs.find_by(id: params[:id])
+        redirect_to(docs_url, alert: "Not authorized!") if @api.nil?
+      end
     end
 end

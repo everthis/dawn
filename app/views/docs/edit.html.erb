@@ -16,11 +16,21 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.14.2/codemirror.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.14.2/mode/markdown/markdown.min.js"></script>
 <script>
+
+function htmlDecode(input){
+  var e = document.createElement('div');
+  e.innerHTML = input;
+  return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+}
+var contentStr = "<%= @doc.content %>";
+contentStr = htmlDecode(contentStr);
+console.log(contentStr);
 var myTextArea = document.getElementsByClassName('doc-input-textarea-placeholder')[0];
 var myCodeMirror = CodeMirror(function(elt) {
   myTextArea.parentNode.replaceChild(elt, myTextArea);
 }, {
-    value: "<%= @doc.content %>",
+    mode: 'markdown',
+    value: contentStr,
     lineWrapping: true,
     lineNumbers: true
 });

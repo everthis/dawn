@@ -440,7 +440,7 @@ DEPENDENCIES
   minitest-reporters
   net-ssh
   passenger
-  pg
+  pg (~> 0.18)
   puma
   rack-livereload
   rack-proxy

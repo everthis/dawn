@@ -14,7 +14,7 @@ gem 'jbuilder'
 gem 'net-ssh'
 gem 'sdoc', group: :doc
 gem "guard"
-gem 'pg'
+gem 'pg', '~> 0.18'
 gem 'regexp-examples'
 gem 'structured_warnings'
 gem 'addressable'

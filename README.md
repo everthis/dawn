@@ -14,6 +14,12 @@
 
 ## Installation
 
+since PostgreSQL is used,
+
+```bash
+apt-get install libpq-dev
+```
+
 create role and database
 
 ```bash
@@ -23,6 +29,12 @@ sudo -u postgres createdb -O dawn_pg dawn_development
 login to postgres on debian 
 ```bash
 sudo -u postgres psql
+```
+
+alter database role password
+
+```bash
+sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
 ```
 
 install imagemagick

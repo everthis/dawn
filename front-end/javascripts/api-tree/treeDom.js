@@ -401,6 +401,7 @@ function deleteApi(ev) {
   };
 
   let params = {};
+  console.log(rootAPI);
   $http(rootAPI + '/' + this.apiDataObj.id)
   .delete(params)
   .then(callbacks.deleteSuccess.bind(ev))

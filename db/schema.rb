@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529063753) do
+ActiveRecord::Schema.define(version: 20160604095325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,10 @@ ActiveRecord::Schema.define(version: 20160529063753) do
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "docs", ["user_id"], name: "index_docs_on_user_id", using: :btree
 
   create_table "email_whitelists", force: :cascade do |t|
     t.string   "email"
@@ -103,5 +106,6 @@ ActiveRecord::Schema.define(version: 20160529063753) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "apis", "users"
+  add_foreign_key "docs", "users"
   add_foreign_key "third_party_accounts", "users"
 end

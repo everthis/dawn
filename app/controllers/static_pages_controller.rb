@@ -19,9 +19,7 @@ class StaticPagesController < ApplicationController
   end
 
   def passport
-    respond_to do |format|
-      format.html {render :layout => 'blank'}
-    end
+    @params_obj = params
   end
   
   def log
@@ -37,8 +35,8 @@ class StaticPagesController < ApplicationController
   private
     def resolve_layout
       case action_name
-      when "new", "create"
-        "some_layout"
+      when "passport", "haha"
+        "blank"
       when "index"
         "other_layout"
       else

@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.5.0'
 
 # set :application, 'my_app_name'
 # set :repo_url, 'git@example.com:me/my_repo.git'
@@ -35,23 +35,28 @@ lock '3.4.0'
 # set :keep_releases, 5
 
 # Change these
-server 'your_server_ip', port: your_port_num, roles: [:web, :app, :db], primary: true
+server 'everthis.com', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@example.com:username/appname.git'
-set :application,     'appname'
-set :user,            'deploy'
+set :rvm_ruby_version, '2.2.2'
+set :repo_url,        'git@github.com:everthis/dawn.git'
+set :application,     'dawn'
+set :user,            'everthis'
 set :puma_threads,    [4, 16]
-set :puma_workers,    0
+set :puma_workers,    1
+set :rails_env,       "production"
+
+# capistrano-puma
+# set :puma_conf,       "./puma.rb"
 
 # Don't change these unless you know what you're doing
 set :pty,             true
 set :use_sudo,        false
 set :stage,           :production
-set :deploy_via,      :remote_cache
-set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
-set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
+set :deploy_via,      :copy # :remote_cache
+set :deploy_to,       "/home/#{fetch(:user)}/deploy/#{fetch(:application)}"
+set :puma_bind,       "unix://#{shared_path}/sockets/#{fetch(:application)}-puma.sock"
+set :puma_state,      "#{shared_path}/pids/puma.state"
+set :puma_pid,        "#{shared_path}/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.error.log"
 set :puma_error_log,  "#{release_path}/log/puma.access.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
@@ -59,6 +64,7 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
+set :linked_files, fetch(:linked_files, []).push('config/secrets.yml')
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
@@ -74,8 +80,8 @@ namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
     on roles(:app) do
-      execute "mkdir #{shared_path}/tmp/sockets -p"
-      execute "mkdir #{shared_path}/tmp/pids -p"
+      execute "mkdir #{shared_path}/sockets -p"
+      execute "mkdir #{shared_path}/pids -p"
     end
   end
 
@@ -109,6 +115,42 @@ namespace :deploy do
     end
   end
 
+  desc "Upload .env.production"
+  task :upload_env do
+    on roles(:all) do
+      upload! "config/secrets.yml", "#{ shared_path }/config/secrets.yml"
+    end
+  end
+
+  task :check_env do
+    # on roles(:all) do |host|
+    #   f = "#{ shared_path }/config/secrets.yml"
+    #   if test("[ -f #{f} ]")
+    #     info "#{f} already exists on #{host}!"
+    #   else
+    #     execute "echo 'RAILS_ENV=#{ fetch :stage }' > #{f}"
+    #     execute "echo 'PATH=/usr/local/rvm/wrappers/ruby-2.2.0:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' >> #{f}"
+    #   end
+    # end
+
+    on roles(:all) do |host|
+      f = "#{ shared_path }/config/secrets.yml"
+      if test("[ -f #{f} ]")
+        info "#{f} already exists on #{host}!"
+      else
+        invoke "deploy:upload_env"
+      end
+    end
+  end
+
+  task :compile_fe do
+    on roles(:app) do
+      info "#FEEEEEEEEEEEE"
+    end
+  end
+
+  before 'check:linked_files', :check_env
+  before 'assets:precompile', :compile_fe
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup

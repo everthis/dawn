@@ -32,3 +32,8 @@
 /app/assets/stylesheets
 
 /shared/*
+
+# sensitive
+/config/secrets.yml
+/.env
+/.env.production
