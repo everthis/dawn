@@ -2,8 +2,8 @@
 
 one:
   settings: 
-  user_id: 
+  user_id: 2
 
 two:
   settings: 
-  user_id: 
+  user_id: 1
