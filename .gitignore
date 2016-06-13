@@ -31,7 +31,9 @@
 /app/assets/javascripts
 /app/assets/stylesheets
 
-/shared/*
+/shared/pids/*
+/shared/log/*
+/shared/sockets/*
 
 # sensitive
 # /config/secrets.yml
