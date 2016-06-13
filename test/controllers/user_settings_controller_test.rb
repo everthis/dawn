@@ -3,9 +3,11 @@ require 'test_helper'
 class UserSettingsControllerTest < ActionController::TestCase
   setup do
     @user_setting = user_settings(:one)
+    @user = users(:michael)
   end
 
   test "should get index" do
+    log_in_as(@user)
     get :index
     assert_response :success
     assert_not_nil assigns(:user_settings)
@@ -17,6 +19,7 @@ class UserSettingsControllerTest < ActionController::TestCase
   end
 
   test "should create user_setting" do
+    log_in_as(@user)
     assert_difference('UserSetting.count') do
       post :create, user_setting: { settings: @user_setting.settings, user_id: @user_setting.user_id }
     end
