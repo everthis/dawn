@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :user_settings
   resources :third_party_accounts
   resources :docs
   resources :email_whitelists
