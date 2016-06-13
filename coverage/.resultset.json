@@ -1,7 +1,7 @@
 {
   "MiniTest": {
     "coverage": {
-      "/Users/hejie/projects/ror/dawn/test/controllers/demo_controller_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/demo_controller_test.rb": [
         1,
         null,
         1,
@@ -12,238 +12,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/docs_controller_test.rb": [
-        1,
-        null,
-        1,
-        1,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/email_whitelists_controller_test.rb": [
-        1,
-        null,
-        1,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/logs_controller_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/microposts_controller_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/relationships_controller_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        1,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/sessions_controller_test.rb": [
-        1,
-        null,
-        1,
-        1,
-        0,
-        0,
-        null,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/static_pages_controller_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/third_party_accounts_controller_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/docs_controller_test.rb": [
         1,
         null,
         1,
@@ -302,23 +71,19 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/user_settings_controller_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/email_whitelists_controller_test.rb": [
         1,
         null,
         1,
         1,
         0,
         0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
         0,
         null,
         null,
         1,
+        0,
+        0,
         0,
         0,
         null,
@@ -329,25 +94,35 @@
         0,
         null,
         null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
         0,
         null,
         null,
         1,
         0,
         0,
-        null,
-        null,
-        1,
-        0,
         0,
         null,
         null,
         1,
         0,
         0,
+        0,
         null,
         null,
         1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
         0,
         0,
         null,
@@ -356,7 +131,178 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/users_controller_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/logs_controller_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/microposts_controller_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/relationships_controller_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/sessions_controller_test.rb": [
+        1,
+        null,
+        1,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/static_pages_controller_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/third_party_accounts_controller_test.rb": [
+        1,
+        null,
+        1,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/users_controller_test.rb": [
         1,
         null,
         1,
@@ -429,7 +375,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/controllers/utility_controller_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/controllers/utility_controller_test.rb": [
         1,
         null,
         1,
@@ -438,7 +384,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/helpers/sessions_helper_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/helpers/sessions_helper_test.rb": [
         1,
         null,
         1,
@@ -459,15 +405,15 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/account_activations_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/account_activations_helper.rb": [
         1,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/apis_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/apis_helper.rb": [
         1,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/application_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/application_helper.rb": [
         1,
         null,
         1,
@@ -521,114 +467,110 @@
         null,
         0,
         null,
-        0,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/demo_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/docs_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/email_whitelists_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/logs_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/microposts_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/password_resets_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/relationships_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/sessions_helper.rb": [
-        1,
-        1,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
         0,
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/static_pages_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/demo_helper.rb": [
         1,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/third_party_accounts_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/docs_helper.rb": [
         1,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/user_settings_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/email_whitelists_helper.rb": [
         1,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/users_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/logs_helper.rb": [
+        1,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/microposts_helper.rb": [
+        1,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/password_resets_helper.rb": [
+        1,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/relationships_helper.rb": [
+        1,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/sessions_helper.rb": [
+        1,
+        1,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/static_pages_helper.rb": [
+        1,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/third_party_accounts_helper.rb": [
+        1,
+        null
+      ],
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/users_helper.rb": [
         1,
         null,
         1,
@@ -651,11 +593,11 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/app/helpers/utility_helper.rb": [
+      "/home/users/hejie03/projects/dawn-ror/app/helpers/utility_helper.rb": [
         1,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/following_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/following_test.rb": [
         1,
         null,
         1,
@@ -720,7 +662,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/microposts_interface_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/microposts_interface_test.rb": [
         1,
         null,
         1,
@@ -758,7 +700,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/password_resets_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/password_resets_test.rb": [
         1,
         null,
         1,
@@ -821,7 +763,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/users_edit_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/users_edit_test.rb": [
         1,
         null,
         1,
@@ -876,7 +818,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/users_index_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/users_index_test.rb": [
         1,
         null,
         1,
@@ -910,7 +852,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/users_login_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/users_login_test.rb": [
         1,
         null,
         1,
@@ -960,7 +902,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/users_profile_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/users_profile_test.rb": [
         1,
         null,
         1,
@@ -984,7 +926,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/integration/users_signup_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/integration/users_signup_test.rb": [
         1,
         null,
         1,
@@ -1035,7 +977,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/mailers/user_mailer_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/mailers/user_mailer_test.rb": [
         1,
         null,
         1,
@@ -1065,7 +1007,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/models/api_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/models/api_test.rb": [
         1,
         null,
         1,
@@ -1074,7 +1016,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/models/doc_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/models/doc_test.rb": [
         1,
         null,
         1,
@@ -1083,7 +1025,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/models/email_whitelist_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/models/email_whitelist_test.rb": [
         1,
         null,
         1,
@@ -1092,7 +1034,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/models/micropost_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/models/micropost_test.rb": [
         1,
         null,
         1,
@@ -1128,7 +1070,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/models/relationship_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/models/relationship_test.rb": [
         1,
         null,
         1,
@@ -1152,7 +1094,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/models/third_party_account_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/models/third_party_account_test.rb": [
         1,
         null,
         1,
@@ -1161,16 +1103,7 @@
         null,
         null
       ],
-      "/Users/hejie/projects/ror/dawn/test/models/user_setting_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/hejie/projects/ror/dawn/test/models/user_test.rb": [
+      "/home/users/hejie03/projects/dawn-ror/test/models/user_test.rb": [
         1,
         null,
         1,
@@ -1286,6 +1219,6 @@
         null
       ]
     },
-    "timestamp": 1465645152
+    "timestamp": 1465805722
   }
 }
