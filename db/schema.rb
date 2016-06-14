@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604095325) do
+ActiveRecord::Schema.define(version: 20160614091403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 20160604095325) do
 
   add_index "third_party_accounts", ["user_id"], name: "index_third_party_accounts_on_user_id", using: :btree
 
+  create_table "user_settings", force: :cascade do |t|
+    t.jsonb    "user_config"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "user_settings", ["user_id"], name: "index_user_settings_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -108,4 +117,5 @@ ActiveRecord::Schema.define(version: 20160604095325) do
   add_foreign_key "apis", "users"
   add_foreign_key "docs", "users"
   add_foreign_key "third_party_accounts", "users"
+  add_foreign_key "user_settings", "users"
 end
