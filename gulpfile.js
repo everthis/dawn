@@ -1,29 +1,73 @@
-/**
- *  Welcome to your gulpfile!
- *  The gulp tasks are splitted in several files in the gulp directory
- *  because putting all here was really too long
- */
+var gulp        = require('gulp');
+var gutil       = require('gulp-util');
+var source      = require('vinyl-source-stream');
+var babelify    = require('babelify');
+var watchify    = require('watchify');
+var exorcist    = require('exorcist');
+var browserify  = require('browserify');
+var browserSync = require('browser-sync').create();
+var sass = require('gulp-ruby-sass');
+var sourcemaps = require('gulp-sourcemaps');
 
-'use strict';
+// Input file.
+watchify.args.debug = true;
+var bundler = watchify(browserify('./front-end/javascripts/application.js', watchify.args));
 
-var gulp = require('gulp');
-var wrench = require('wrench');
+var srcFiles = {
+  scss: 'front-end/stylesheets/application.scss',
+  css:  'app/stylesheets',
+  html: 'front-end/*.html'
+};
 
-/**
- *  This will load all js or coffee files in the gulp directory
- *  in order to load all gulp tasks
- */
-wrench.readdirSyncRecursive('./front-end/gulp').filter(function(file) {
-  return (/\.(js|coffee)$/i).test(file);
-}).map(function(file) {
-  require('./front-end/gulp/' + file);
+// Babel transform
+bundler.transform(babelify.configure({
+  sourceMapRelative: 'front-end/javascripts'
+}));
+
+// On updates recompile
+bundler.on('update', bundle);
+
+function bundle() {
+
+  gutil.log('Compiling JS...');
+
+  return bundler.bundle()
+        .on('error', function(err) {
+          gutil.log(err.message);
+          browserSync.notify('Browserify Error!');
+          this.emit('end');
+        })
+        .pipe(exorcist('front-end/build/javascripts/dist/application.js.map'))
+        .pipe(source('application.js'))
+        .pipe(gulp.dest('front-end/build/javascripts/dist'))
+        .pipe(browserSync.stream({once: true}));
+}
+
+// Compile sass into CSS
+gulp.task('sass', function() {
+  sass(srcFiles.scss, {sourcemap: true})
+          .on('error', sass.logError)
+          // for inline sourcemaps
+          .pipe(sourcemaps.write())
+            .pipe(gulp.dest(srcFiles.css))
+          .pipe(browserSync.stream());
 });
 
+/**
+ * Gulp task alias
+ */
+gulp.task('bundle', function() {
+  return bundle();
+});
 
 /**
- *  Default task clean temporaries directories and launch the
- *  main optimization build task
+ * First bundle, then serve from the ./app directory
  */
-gulp.task('default', ['clean'], function () {
-  gulp.start('build');
+gulp.task('default', ['bundle', 'sass'], function() {
+  browserSync.init({
+    server: './app',
+    port: 8789
+  });
+  gulp.watch(srcFiles.scss, ['sass']);
+  gulp.watch(srcFiles.html).on('change', browserSync.reload);
 });

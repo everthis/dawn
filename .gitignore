@@ -28,8 +28,8 @@
 # Ignore node_modules
 /front-end/node_modules
 /node_modules
-/app/assets/javascripts
-/app/assets/stylesheets
+/app/assets/javascripts/*
+/app/assets/stylesheets/*
 
 /shared/pids/*
 /shared/log/*
