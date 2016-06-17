@@ -76,9 +76,6 @@ set :linked_files, fetch(:linked_files, []).push('.env.production')
 # set :linked_files, %w{config/database.yml}
 # set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-set :default_env, { 
-  "SECRET_KEY_BASE": "5fe882a1c5be4da17b7163d8ba3d59d00ae7d8efe75e975dba1acb97e5f17bb5ff14bc7759a907e5aa6388580df6fd4e3cfc4565a718b5067856c95c1302e345"
-}
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
