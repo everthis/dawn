@@ -64,7 +64,8 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
-set :linked_files, fetch(:linked_files, []).push('.env.production')
+# set :linked_files, fetch(:linked_files, []).push('.env.production')
+
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master

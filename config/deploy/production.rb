@@ -59,3 +59,5 @@
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+set :linked_files, fetch(:linked_files, []).push('.env.production')
