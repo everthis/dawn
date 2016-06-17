@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/bkeepers/dotenv.git
+  revision: 98e87eca929c482c323eb7a8c5da2bf116a0a2c2
+  specs:
+    dotenv (2.1.1)
+    dotenv-rails (2.1.1)
+      dotenv (= 2.1.1)
+      railties (>= 4.0, < 5.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -428,6 +437,7 @@ DEPENDENCIES
   carrierwave
   coderay
   coveralls
+  dotenv-rails!
   faker
   fog
   guard

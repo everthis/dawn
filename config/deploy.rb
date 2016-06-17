@@ -64,7 +64,7 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
-set :linked_files, fetch(:linked_files, []).push('config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('.env.production')
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
@@ -76,6 +76,9 @@ set :linked_files, fetch(:linked_files, []).push('config/secrets.yml')
 # set :linked_files, %w{config/database.yml}
 # set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
+set :default_env, { 
+  "SECRET_KEY_BASE": "5fe882a1c5be4da17b7163d8ba3d59d00ae7d8efe75e975dba1acb97e5f17bb5ff14bc7759a907e5aa6388580df6fd4e3cfc4565a718b5067856c95c1302e345"
+}
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
@@ -118,7 +121,7 @@ namespace :deploy do
   desc "Upload .env.production"
   task :upload_env do
     on roles(:all) do
-      upload! "config/secrets.yml", "#{ shared_path }/config/secrets.yml"
+      upload! ".env.production", "#{ shared_path }/.env.production"
     end
   end
 
@@ -134,9 +137,10 @@ namespace :deploy do
     # end
 
     on roles(:all) do |host|
-      f = "#{ shared_path }/config/secrets.yml"
+      f = "#{ shared_path }/.env.production"
       if test("[ -f #{f} ]")
         info "#{f} already exists on #{host}!"
+        invoke "deploy:upload_env"
       else
         invoke "deploy:upload_env"
       end

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', :github => "bkeepers/dotenv", :require => 'dotenv/rails-now'
 gem 'rails'
 gem 'bcrypt'
 gem 'faker'
