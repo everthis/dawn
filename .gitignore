@@ -36,6 +36,5 @@
 /shared/sockets/*
 
 # sensitive
-/config/secrets.yml
 /.env
 /.env.production

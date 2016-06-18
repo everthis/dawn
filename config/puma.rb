@@ -1,8 +1,8 @@
 # Change to match your CPU core count
-workers 2
+workers 1
 
 # Min and Max threads per worker
-threads 1, 6
+threads 4, 16
 
 app_dir = File.expand_path("../..", __FILE__)
 shared_dir = "#{app_dir}/shared"
@@ -21,6 +21,7 @@ stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.std
 pidfile "#{shared_dir}/pids/puma.pid"
 state_path "#{shared_dir}/pids/puma.state"
 activate_control_app
+# preload_app!
 
 on_worker_boot do
   require "active_record"
