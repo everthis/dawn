@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'dotenv-rails', :github => "bkeepers/dotenv", :require => 'dotenv/rails-now'
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'rails'
 gem 'bcrypt'
 gem 'faker'
@@ -35,11 +35,12 @@ group :development do
   gem 'bullet'
   gem 'web-console'
   gem 'spring'
-  gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma',   require: false
+  gem 'capistrano',               require: false
+  gem 'capistrano-rvm',           require: false
+  gem 'capistrano-rails',         require: false
+  gem 'capistrano-bundler',       require: false
+  gem 'capistrano3-puma',         require: false
+  gem 'capistrano-rails-console', require: false
 end
 
 group :test do
