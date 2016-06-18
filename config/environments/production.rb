@@ -92,12 +92,14 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: "hwsmtp.exmail.qq.com", # overseas config
+    address: "smtp.gmail.com", # overseas config
     # address: "smtp.exmail.qq.com",
     port: 587, # overseas config
     # port: 25,
-    domain: "qq.com",
-    authentication: "plain", 
+    domain: "gmail.com",
+    # domain: "qq.com",
+    authentication: "login", 
+    # authentication: "plain", 
     user_name: ENV["RAILS_EMAIL_FROM"], 
     password: ENV["RAILS_EMAIL_PWD"], 
     enable_starttls_auto: true
