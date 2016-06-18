@@ -42,6 +42,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     ansi (1.5.0)
     arel (6.0.3)
+    awesome_print (1.7.0)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -276,6 +277,10 @@ GEM
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
@@ -318,6 +323,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     puma (3.4.0)
     rack (1.6.4)
     rack-livereload (0.3.16)
@@ -421,6 +428,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable
+  awesome_print
   bcrypt
   better_errors
   binding_of_caller
@@ -443,12 +451,14 @@ DEPENDENCIES
   guard-minitest
   jasmine
   jbuilder
+  letter_opener
   mini_backtrace
   mini_magick
   minitest-reporters
   net-ssh
   passenger
   pg (~> 0.18)
+  pry-rails
   puma
   rack-livereload
   rack-proxy

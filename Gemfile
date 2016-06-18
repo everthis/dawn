@@ -26,6 +26,9 @@ gem 'coderay'
 gem 'sidekiq'
 
 group :development do
+  gem 'pry-rails'
+  gem "letter_opener"
+  gem "awesome_print"
   gem "passenger"
   gem "binding_of_caller"
   gem "rack-livereload"
@@ -44,7 +47,7 @@ group :development do
 end
 
 group :test do
-  gem 'coveralls', require: false
+  gem 'coveralls',                require: false
   gem 'jasmine'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
