@@ -36,5 +36,4 @@
 /shared/sockets/*
 
 # sensitive
-/.env
 /.env.production

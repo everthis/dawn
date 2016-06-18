@@ -93,6 +93,10 @@ imagemagick installation failure on iDev,
 --without-tiff --without-dps
 ```
 
+### Chrome HTTP2 
+
+Chrome is dropping NPN support and only allows ALPN after 15.5.2016. ALPN is extension, which requires openssl 1.0.2 installed.
+Go to `chrome://net-internals/#http2` to see details.
 
 ### SSH agent forwarding
 
