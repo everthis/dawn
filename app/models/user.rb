@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   mount_uploader :avatars, AvatarUploader
   validate  :avatars_size
 
+  after_commit :send_password_reset_email, on: [:create, :update]
+
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -77,7 +79,9 @@ class User < ActiveRecord::Base
 
   # Sends password reset email.
   def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
+    PasswordResetEmailJob.perform_later(self.id)
+    # UserMailer.password_reset(self).deliver_later
+    # UserMailer.password_reset(self).deliver_now
   end
 
   # Returns true if a password reset has expired.

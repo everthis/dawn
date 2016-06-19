@@ -92,12 +92,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com", # overseas config
-    # address: "smtp.exmail.qq.com",
-    port: 587, # overseas config
-    # port: 25,
-    domain: "gmail.com",
-    # domain: "qq.com",
+    # address: "smtp.gmail.com", # overseas config
+    address: "smtp.exmail.qq.com",
+    # port: 587, # overseas config
+    port: 25,
+    # domain: "gmail.com",
+    domain: "qq.com",
     authentication: "login", 
     # authentication: "plain", 
     user_name: ENV["RAILS_EMAIL_FROM"], 
