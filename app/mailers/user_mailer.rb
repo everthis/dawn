@@ -14,18 +14,15 @@ class UserMailer < ApplicationMailer
   #
 
 
-  def account_activation(user)
-    @user = user
-    mail to: user.email, subject: "Account activation"
+  def account_activation(user_id)
+    @user = User.find(user_id)
+    @user.create_activation_digest
+    mail to: @user.email, subject: "Account activation"
   end
 
   def password_reset(user_id)
     @user = User.find(user_id)
-    logger.info(user_id)
-    logger.info("############################")
-    logger.info(@user.reset_token)
-    logger.info(@user.email)
-    @user.reset_token = "qweqwasdqweq"
+    @user.create_reset_digest
     @epr_url = edit_password_reset_url(@user, id: @user.reset_token, email: @user.email)
     mail to: @user.email, subject: "Password reset"
   end

@@ -45,9 +45,27 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   # config.action_mailer.delivery_method = :test
-  config.action_mailer.delivery_method = :letter_opener
-  host = 'localhost:3000'
+  # config.action_mailer.delivery_method = :letter_opener
+  # host = 'localhost:3000'
+  # config.action_mailer.default_url_options = { host: host }
+
+  host = ENV["RAILS_HOST"]
   config.action_mailer.default_url_options = { host: host }
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    # address: "smtp.gmail.com", # overseas config
+    address: "smtp.exmail.qq.com",
+    # port: 587, # overseas config
+    port: 25,
+    # domain: "gmail.com",
+    domain: "qq.com",
+    authentication: "login", 
+    # authentication: "plain", 
+    user_name: ENV["RAILS_EMAIL_FROM"], 
+    password: ENV["RAILS_EMAIL_PWD"], 
+    enable_starttls_auto: true
+  }
 
   config.after_initialize do
     Bullet.enable = true

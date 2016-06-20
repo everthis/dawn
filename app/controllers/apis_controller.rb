@@ -134,7 +134,6 @@ class ApisController < ApplicationController
     params[:dawn_uri] = params[:dawn_uri][5..-1] if params[:dawn_uri].start_with?('/mock/pc')
     @api = Api.where(uri: params[:dawn_uri]).first
     user_active_config = current_user.third_party_accounts.where('is_active = ?', true)
-    puts user_active_config
     if user_active_config.length == 0
       active_cookie = ''
     else

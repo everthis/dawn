@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
-  before_create :create_activation_digest
+  # before_create :create_activation_digest
 
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   mount_uploader :avatars, AvatarUploader
   validate  :avatars_size
 
-  after_commit :send_password_reset_email, on: [:create, :update]
 
   # Returns the hash digest of the given string.
   def User.digest(string)
@@ -67,7 +66,8 @@ class User < ActiveRecord::Base
 
   # Sends activation email.
   def send_activation_email
-    UserMailer.account_activation(self).deliver_now
+    AccountActivationEmailJob.perform_later(self.id)
+    # UserMailer.account_activation(self).deliver_now
   end
 
   # Sets the password reset attributes.
@@ -80,7 +80,6 @@ class User < ActiveRecord::Base
   # Sends password reset email.
   def send_password_reset_email
     PasswordResetEmailJob.perform_later(self.id)
-    # UserMailer.password_reset(self).deliver_later
     # UserMailer.password_reset(self).deliver_now
   end
 
@@ -123,6 +122,11 @@ class User < ActiveRecord::Base
   end
 
 
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    update_attribute(:activation_digest,  User.digest(activation_token))
+  end
 
 
   private
@@ -132,11 +136,6 @@ class User < ActiveRecord::Base
       self.email = email.downcase
     end
 
-    # Creates and assigns the activation token and digest.
-    def create_activation_digest
-      self.activation_token  = User.new_token
-      self.activation_digest = User.digest(activation_token)
-    end
 
     # Validates the size of an uploaded picture.
     def avatars_size
