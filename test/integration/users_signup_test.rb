@@ -27,7 +27,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 	                             password:              "password",
 	                             password_confirmation: "password" }
 	  end
-	  assert_equal 1, ActionMailer::Base.deliveries.size
+	  assert_equal 0, ActionMailer::Base.deliveries.size
 	  user = assigns(:user)
 	  assert_not user.activated?
 	  # Try to log in before activation.
@@ -37,6 +37,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 	  get edit_account_activation_path("invalid token")
 	  assert_not is_logged_in?
 	  # Valid token, wrong email
+	  user.create_activation_digest
 	  get edit_account_activation_path(user.activation_token, email: 'wrong')
 	  assert_not is_logged_in?
 	  # Valid activation token
