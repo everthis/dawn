@@ -35,7 +35,7 @@ lock '3.5.0'
 # set :keep_releases, 5
 
 # Change these
-server 'everthis.com', port: 22, roles: [:web, :app, :db], primary: true
+server 'everthis.com', port: 8022, roles: [:web, :app, :db], primary: true
 
 set :rvm_ruby_version, '2.2.2'
 set :repo_url,        'git@github.com:everthis/dawn.git'
@@ -65,6 +65,9 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 # set :linked_files, fetch(:linked_files, []).push('.env.production')
+
+set :linked_files, fetch(:linked_files, []).push('.env.production')
+set :linked_dirs, fetch(:linked_dirs, []).push('public/uploads')
 
 ## Defaults:
 # set :scm,           :git
