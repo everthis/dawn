@@ -60,4 +60,3 @@
 #     # password: 'please use keys'
 #   }
 
-set :linked_files, fetch(:linked_files, []).push('.env.production')
