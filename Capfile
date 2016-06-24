@@ -9,6 +9,7 @@ require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/puma'
 require 'capistrano/rails/console'
+require 'capistrano/sidekiq'
 
 # Include tasks from other gems included in your Gemfile
 #

@@ -38,7 +38,7 @@ lock '3.5.0'
 server 'everthis.com', port: 8022, roles: [:web, :app, :db], primary: true
 
 set :rvm_ruby_version, '2.2.2'
-set :repo_url,        'git@github.com:everthis/dawn.git'
+set :repo_url,        'https://github.com/everthis/dawn.git'
 set :application,     'dawn'
 set :user,            'everthis'
 set :puma_threads,    [4, 16]
@@ -49,7 +49,7 @@ set :rails_env,       "production"
 # set :puma_conf,       "./puma.rb"
 
 # Don't change these unless you know what you're doing
-set :pty,             true
+set :pty,             false
 set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :copy # :remote_cache
@@ -67,7 +67,32 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :linked_files, fetch(:linked_files, []).push('.env.production')
 
 set :linked_files, fetch(:linked_files, []).push('.env.production')
-set :linked_dirs, fetch(:linked_dirs, []).push('public/uploads')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'public/uploads')
+
+### sidekiq settings
+set :sidekiq_default_hooks, true
+set :sidekiq_pid, File.join(shared_path, 'pids', 'sidekiq.pid')
+set :sidekiq_env, fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
+set :sidekiq_log, File.join(shared_path, 'log', 'sidekiq.log')
+set :sidekiq_options, nil
+set :sidekiq_require, nil
+set :sidekiq_tag, nil
+set :sidekiq_config, nil # if you have a config/sidekiq.yml, do not forget to set this. 
+set :sidekiq_queue, ['default', 'mailers']
+set :sidekiq_timeout, 10
+set :sidekiq_role, :app
+set :sidekiq_processes, 1
+set :sidekiq_options_per_process, nil
+set :sidekiq_concurrency, nil
+# set :sidekiq_monit_templates_path, 'config/deploy/templates'
+# set :sidekiq_monit_conf_dir, '/etc/monit/conf.d'
+# set :sidekiq_monit_use_sudo, true
+# set :monit_bin, '/usr/bin/monit'
+# set :sidekiq_monit_default_hooks, true
+set :sidekiq_service_name, "sidekiq_#{fetch(:application)}_#{fetch(:sidekiq_env)}"
+set :sidekiq_cmd, "#{fetch(:bundle_cmd, "bundle")} exec sidekiq" # Only for capistrano2.5
+set :sidekiqctl_cmd, "#{fetch(:bundle_cmd, "bundle")} exec sidekiqctl" # Only for capistrano2.5
+set :sidekiq_user, nil #user to run sidekiq as
 
 ## Defaults:
 # set :scm,           :git
@@ -86,6 +111,7 @@ namespace :puma do
     on roles(:app) do
       execute "mkdir #{shared_path}/sockets -p"
       execute "mkdir #{shared_path}/pids -p"
+      execute "mkdir #{shared_path}/log -p"
     end
   end
 
