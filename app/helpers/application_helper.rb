@@ -24,7 +24,8 @@ module ApplicationHelper
 
   class CodeRayify < Redcarpet::Render::HTML
     def block_code(code, language)
-      CodeRay.scan(code, language = :plain).div
+      language = "plain" if language.nil?
+      CodeRay.scan(code, language).div
     end
   end
 
