@@ -116,3 +116,7 @@ Highly recommend using `ssh-copy-id` for moving public keys around.
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+### gotchas
+
+`gem install nokogiri -- --use-system-libraries` if bundle update rails errors.

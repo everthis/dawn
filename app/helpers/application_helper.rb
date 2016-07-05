@@ -32,7 +32,8 @@ module ApplicationHelper
   def markdown2(text)
     options = {
       filter_html: true, 
-      hard_wrap: true
+      hard_wrap: true,
+      no_links: false
     }
 
     coderayified = CodeRayify.new(options)
@@ -43,7 +44,8 @@ module ApplicationHelper
       autolink: true,
       strikethrough: true,
       lax_html_blocks: true,
-      superscript: true
+      superscript: true,
+      lax_spacing: true
     }
 
     # renderer = Redcarpet::Render::HTML.new(options)

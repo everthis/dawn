@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
-gem 'rails'
+gem 'rails', '~>5.0.0'
 gem 'bcrypt'
 gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog'
+gem 'fog', '1.38.0'
 gem 'will_paginate'
 gem 'uglifier'
 gem 'sass'
@@ -28,10 +28,10 @@ gem 'sidekiq'
 group :development do
   gem 'pry-rails'
   gem "letter_opener"
-  gem "awesome_print"
+  gem "awesome_print", '1.6.1'
   gem "passenger"
   gem "binding_of_caller"
-  gem "rack-livereload"
+  gem "rack-livereload", '0.3.15'
   gem 'guard-livereload'
   gem 'byebug'
   gem 'better_errors'
