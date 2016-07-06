@@ -23,7 +23,7 @@ class EmailWhitelistsControllerTest < ActionController::TestCase
   test "should create email_whitelist" do
     log_in_as(@admin)
     assert_difference('EmailWhitelist.count') do
-      post :create, email_whitelist: { email: @email_whitelist.email }
+      post :create, params: { email_whitelist: { email: @email_whitelist.email } }
     end
 
     assert_redirected_to email_whitelist_path(assigns(:email_whitelist))
@@ -31,26 +31,26 @@ class EmailWhitelistsControllerTest < ActionController::TestCase
 
   test "should show email_whitelist" do
     log_in_as(@non_admin)
-    get :show, id: @email_whitelist
+    get :show, params: { id: @email_whitelist }
     assert_response :success
   end
 
   test "should get edit" do
     log_in_as(@admin)
-    get :edit, id: @email_whitelist
+    get :edit, params: { id: @email_whitelist }
     assert_response :success
   end
 
   test "should update email_whitelist" do
     log_in_as(@admin)
-    patch :update, id: @email_whitelist, email_whitelist: { email: @email_whitelist.email }
+    patch :update, params: { id: @email_whitelist, email_whitelist: { email: @email_whitelist.email } }
     assert_redirected_to email_whitelist_path(assigns(:email_whitelist))
   end
 
   test "should destroy email_whitelist" do
     log_in_as(@admin)
     assert_difference('EmailWhitelist.count', -1) do
-      delete :destroy, id: @email_whitelist
+      delete :destroy, params: { id: @email_whitelist }
     end
 
     assert_redirected_to email_whitelists_path

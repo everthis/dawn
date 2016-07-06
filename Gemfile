@@ -48,6 +48,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'coveralls',                require: false
   gem 'jasmine'
   gem 'minitest-reporters'

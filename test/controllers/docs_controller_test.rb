@@ -22,7 +22,9 @@ class DocsControllerTest < ActionController::TestCase
   test "should create doc" do
     log_in_as(@user)
     assert_difference('Doc.count') do
-      post :create, doc: { content: @doc.content, title: @doc.title }
+      post :create, params: {
+          doc: { content: @doc.content, title: @doc.title }
+      }
     end
 
     assert_redirected_to doc_path(assigns(:doc))
@@ -30,26 +32,26 @@ class DocsControllerTest < ActionController::TestCase
 
   test "should show doc" do
     log_in_as(@user)
-    get :show, id: @doc
+    get :show, params: { id: @doc }
     assert_response :success
   end
 
   test "should get edit" do
     log_in_as(@user)
-    get :edit, id: @doc
+    get :edit, params: { id: @doc }
     assert_response :success
   end
 
   test "should update doc" do
     log_in_as(@user)
-    patch :update, id: @doc, doc: { content: @doc.content, title: @doc.title }
+    patch :update, params: { id: @doc, doc: { content: @doc.content, title: @doc.title } }
     assert_redirected_to doc_path(assigns(:doc))
   end
 
   test "should destroy doc" do
     log_in_as(@user)
     assert_difference('Doc.count', -1) do
-      delete :destroy, id: @doc
+      delete :destroy, params: { id: @doc }
     end
 
     assert_redirected_to docs_path

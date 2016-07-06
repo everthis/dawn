@@ -3,7 +3,7 @@ class ApisController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy
 
-  after_filter :cors_set_access_control_headers, only: [:generate_data]
+  after_action :cors_set_access_control_headers, only: [:generate_data]
   include Tree
   include ReverseProxy::Controller
 
