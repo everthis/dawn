@@ -24,7 +24,7 @@ create role and database
 
 ```bash
 sudo -u postgres createuser -d -P dawn_pg
-sudo -u postgres createdb -O dawn_pg dawn_development
+sudo -u postgres createdb -O dawn_pg -E UTF8 dawn_development
 ```
 login to postgres on debian 
 ```bash
@@ -58,6 +58,7 @@ launch web server, rails livereload, front-end build system
 bundle exec passenger start # OR 'rails s'
 guard -P livereload
 npm run dev:s # OR 'npm run dev:ss'
+bundle exec sidekiq -q default -q mailers # launch sidekiq
 ```
 
 start in production mode
@@ -112,6 +113,8 @@ Host vultr
   User everthis
   ForwardAgent yes
 ```
+Please make sure that `ssh-agent` is running on your dev machine. Especially for Windows users.
+
 Highly recommend using `ssh-copy-id` for moving public keys around.
 
 Please feel free to use a different markup language if you do not plan to run
@@ -120,3 +123,5 @@ Please feel free to use a different markup language if you do not plan to run
 ### gotchas
 
 `gem install nokogiri -- --use-system-libraries` if bundle update rails errors.
+
+`Peer authentication failed for user "xxxxx"` , this error occurs when you installed postresql on your server, but host is missing in database.yml. Just set host: localhost to database.yml,  otherwise if it's not localhost definitely tell that app where to find its database.

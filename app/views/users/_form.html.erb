@@ -36,4 +36,8 @@
   <div class="row">
     <%= f.submit yield(:button_text), class: "btn btn-submit" %>
   </div>
+  
+  <% unless logged_in? %>
+  <%= link_to "resend activation email", new_account_activation_path %>
+  <% end %>
 <% end %>

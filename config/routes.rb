@@ -3,18 +3,18 @@ Rails.application.routes.draw do
   resources :third_party_accounts
   resources :docs
   resources :email_whitelists
-  root                'static_pages#home'
-  get    'help'         => 'static_pages#help'
-  get    'about'        => 'static_pages#about'
-  get    'contact'      => 'static_pages#contact'
-  get    'dev'          => 'static_pages#dev'
-  get    'log'          => 'logs#index'
-  get    'passport'     => 'static_pages#passport'
-  get    'signup'       => 'users#new'
-  get    'login'        => 'sessions#new'
-  post   'login'        => 'sessions#create'
-  delete 'logout'       => 'sessions#destroy'
-  get    'clilogin'     => 'users#cli_login'
+  root                                      'static_pages#home'
+  get    'help'                          => 'static_pages#help'
+  get    'about'                         => 'static_pages#about'
+  get    'contact'                       => 'static_pages#contact'
+  get    'dev'                           => 'static_pages#dev'
+  get    'log'                           => 'logs#index'
+  get    'passport'                      => 'static_pages#passport'
+  get    'signup'                        => 'users#new'
+  get    'login'                         => 'sessions#new'
+  post   'login'                         => 'sessions#create'
+  delete 'logout'                        => 'sessions#destroy'
+  get    'clilogin'                      => 'users#cli_login'
 
   # get 'log' => 'logs#index'
   # for the sake of debugging
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       get :following, :followers, :settings, :get_token
     end
   end
-  resources :account_activations, only: [:edit]
+  resources :account_activations, only: [:new, :create, :edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
