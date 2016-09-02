@@ -94,6 +94,23 @@ imagemagick installation failure on iDev,
 --without-tiff --without-dps
 ```
 
+deploy to server
+```
+cap production deploy
+```
+
+### nginx websocket support
+
+```
+# enables WS support
+location /cable {
+	proxy_pass http://backend;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection "upgrade";
+}
+```
+
 ### Chrome HTTP2 
 
 Chrome is dropping NPN support and only allows ALPN after 15.5.2016. ALPN is extension, which requires openssl 1.0.2 installed.
