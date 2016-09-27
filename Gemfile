@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
-gem 'rails', '~>5.0.0'
+gem 'rails'
 gem 'bcrypt'
 gem 'faker'
 gem 'carrierwave'
@@ -24,6 +24,7 @@ gem 'puma'
 gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
+gem 'nav_lynx'
 
 group :development do
   gem 'pry-rails'
