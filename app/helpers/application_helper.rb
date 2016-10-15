@@ -61,4 +61,8 @@ module ApplicationHelper
     "current" if current_page?(path)
   end
 
+  def secure_path_for(params, *excluded_params)
+    url_for(params.except(*excluded_params).merge(only_path: true))
+  end
+
 end
