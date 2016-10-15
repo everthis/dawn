@@ -41,7 +41,7 @@ set :rvm_ruby_version, '2.2.2'
 set :repo_url,        'https://github.com/everthis/dawn.git'
 set :application,     'dawn'
 set :user,            'everthis'
-set :puma_threads,    [4, 16]
+set :puma_threads,    [4, 6]
 set :puma_workers,    1
 set :rails_env,       "production"
 

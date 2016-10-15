@@ -56,4 +56,9 @@ module ApplicationHelper
 
     @markdown.render(text).html_safe
   end
+
+  def c_current_path(path)
+    "current" if current_page?(path)
+  end
+
 end

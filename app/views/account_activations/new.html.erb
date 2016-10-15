@@ -1,8 +1,8 @@
 <% provide(:title, 'Resend activation email') %>
 <% provide(:button_text, 'Resend activation email') %>
 <h1 class="center">Resend activation email</h1>
-<div class="form-container">
-    <%= form_for(:account_activations, url: account_activations_path, html: {class: "resend-account-activation-form"}) do |f| %>
+<div class="form-container users">
+    <%= form_for(:account_activations, url: account_activations_path, html: {class: "resend-account-activation-form signup-form"}) do |f| %>
       <%= field_set_tag 'Email', class: '' do %>
 	      <%= f.email_field :email, class: '' %>
       <% end %>

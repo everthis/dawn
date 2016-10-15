@@ -310,6 +310,8 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.11.3)
+    nav_lynx (1.1.1)
+      rails (>= 3.1.0)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -470,6 +472,7 @@ DEPENDENCIES
   mini_backtrace
   mini_magick
   minitest-reporters
+  nav_lynx
   net-ssh
   passenger
   pg (~> 0.18)
@@ -477,7 +480,7 @@ DEPENDENCIES
   puma
   rack-livereload (= 0.3.15)
   rack-proxy
-  rails (~> 5.0.0)
+  rails
   rails-controller-testing
   rails_12factor
   redcarpet

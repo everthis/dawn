@@ -3,4 +3,10 @@
 <h1 class="center">Sign up</h1>
 <div class="form-container">
     <%= render 'form' %>
+
+    <% unless logged_in? %>
+    <div class="c-center c-gap-top">
+        Haven't received activation email? <%= link_to "resend activation email", new_account_activation_path %>
+    </div>
+    <% end %>
 </div>

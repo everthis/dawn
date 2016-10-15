@@ -94,11 +94,6 @@ imagemagick installation failure on iDev,
 --without-tiff --without-dps
 ```
 
-deploy to server
-```
-cap production deploy
-```
-
 ### nginx websocket support
 
 ```
@@ -109,6 +104,15 @@ location /cable {
 	proxy_set_header Upgrade $http_upgrade;
 	proxy_set_header Connection "upgrade";
 }
+
+run sidekiq in production
+```bash
+bundle exec sidekiq -e production -q default -q mailers
+```
+
+deploy to production
+```
+cap production deploy
 ```
 
 ### Chrome HTTP2 

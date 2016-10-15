@@ -1589,6 +1589,9 @@ i {
   .nav .first-layer {
     display: inline-block;
     vertical-align: top; }
+    .nav .first-layer .current {
+      color: blue;
+      box-shadow: 0 1px 0 0 blue; }
 
 .per-row {
   display: -webkit-box;
