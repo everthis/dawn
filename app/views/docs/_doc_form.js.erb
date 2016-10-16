@@ -9,7 +9,6 @@ var myCodeMirror = CodeMirror(function(elt) {
 document.getElementsByClassName('save-document')[0].addEventListener('click', function(ev) {
     ev.preventDefault();
     var val = myCodeMirror.getValue();
-    console.log(val);
     document.getElementsByClassName('doc-input-textarea')[0].value = val;
     document.doc_form.submit();
 });

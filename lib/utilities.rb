@@ -12,5 +12,10 @@ class Utilities
 	new_uri = URI::Generic.build(components.merge(new_components))
 	URI.decode(new_uri.to_s)
   end
+  
+  # http://stackoverflow.com/questions/2149639/what-is-the-most-elegant-way-in-ruby-to-remove-a-parameter-from-a-url
+  def self.remove_param_from_url_str(url, param_to_remove)
+  	url.sub(/\?#{param_to_remove}=[^&]*/, '?').gsub(/\&#{param_to_remove}=[^&]*/, '').sub(/\?$/,'')
+  end
 
 end
