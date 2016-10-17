@@ -1,6 +1,6 @@
 {
   "body": {
-    "page-container": "<%= j render 'home_seg' %>"
+    "page-container": <%= (render partial: 'home_seg.html').to_json.html_safe %>
   },
   "attr": {
     "page-container": {
@@ -8,5 +8,5 @@
     }
   },
   "url": "<%= Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>",
-  "title": "<%= full_title("Documentation") %>"
+  "title": "<%= full_title("Home") %>"
 }
