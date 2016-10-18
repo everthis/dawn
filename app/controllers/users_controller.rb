@@ -75,12 +75,13 @@ class UsersController < ApplicationController
 	end
 
 	def get_token
-		@user = User.find(params[:id])
-		@user.set_auth_token if @user.auth_token.nil?
-		respond_to do |format|
-			format.html { render :get_token }
-			format.json { render :json => @user, :only=> [:auth_token] }
-		end
+		# @user = User.find(params[:id])
+		current_user.set_auth_token if current_user.auth_token.nil?
+		# respond_to do |format|
+		# 	format.html { render :get_token }
+		# 	# format.json { render :get_token }
+		# 	format.json { render :json => @user, :only=> [:auth_token] }
+		# end
 	end
 
 	def del_token

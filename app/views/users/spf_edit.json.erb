@@ -1,12 +1,12 @@
 {
   "body": {
-    "page-container": <%= (render partial: 'home_seg.html').to_json.html_safe %>
+    "page-container": <%= (render partial: 'edit.html').to_json.html_safe %>
   },
   "attr": {
     "page-container": {
-      "class": "home-container"
+      "class": "edit-user"
     }
   },
   "url": "<%= Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>",
-  "title": "<%= full_title("Home") %>"
+  "title": "<%= full_title("Edit user") %>"
 }
