@@ -1,11 +1,5 @@
 <% provide(:title, 'All users') %>
-<!-- <h1 class="center">All users</h1> -->
 <p id="notice"><%= notice %></p>
 
-<section class="users-list">
-	<%= will_paginate %>
-	  <%= render @users %>
-	<%= will_paginate %>
-</section>
+<%= render 'users' %>
 
-<!-- <%= link_to 'New User', new_user_path %> -->

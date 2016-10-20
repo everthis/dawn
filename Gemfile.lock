@@ -484,6 +484,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_12factor
   redcarpet
+  redis
   regexp-examples
   sass
   sdoc

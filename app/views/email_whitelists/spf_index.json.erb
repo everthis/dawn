@@ -1,0 +1,12 @@
+{
+  "body": {
+    "page-container": "<%= j render 'email_whitelists' %>"
+  },
+  "attr": {
+    "page-container": {
+      "class": "email-whitelist"
+    }
+  },
+  "url": "<%= Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title("Email Whitelist") %>"
+}

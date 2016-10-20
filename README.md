@@ -98,6 +98,17 @@ run redis-server
 ```bash
 redis-server ~/redis-stable/redis.conf
 ```
+### nginx websocket support
+
+```
+# enables WS support
+location /cable {
+	proxy_pass http://backend;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection "upgrade";
+}
+
 run sidekiq in production
 ```bash
 bundle exec sidekiq -e production -q default -q mailers

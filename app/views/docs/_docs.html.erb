@@ -1,0 +1,36 @@
+<%= will_paginate @docs, :renderer => PaginationListLinkRenderer %>
+<%= page_entries_info %>
+
+<div class="list-header">
+  <div class="c-simulate-table">
+    <div class="c-simulate-tr c-grid-row">
+      <span class="c-simulate-th c-grid-span25 c-text-indent c-text">Title</span>
+      <span class="c-simulate-th c-grid-span5 c-text">Author</span>
+      <span class="c-simulate-th c-grid-span8 c-text">Last modified</span>
+      <span class="c-simulate-th c-grid-span6 c-text c-simulate-last-row-item">Operations</span>
+    </div>
+
+    <div class="list-body c-gap-bottom">
+      <% @docs.each do |doc| %>
+        <div class="c-grid-row c-gap-top c-summary-row c-left-wide-bdr-row">
+          <span class="c-grid-span25 doc-list-title c-pad-left c-text-indent c-pad-right c-simulate-bdr c-left-wide-bdr-item"><%= truncate(doc.title, length: 66) %></span>
+          <span class="c-grid-span5 doc-list-content c-pad-left c-pad-right c-simulate-bdr"><% unless doc.user.nil? %><%= doc.user.name %><% end %></span>
+          <span class="c-grid-span8 doc-list-content c-pad-left c-pad-right c-simulate-bdr"><%= doc.updated_at %></span>
+          <span class="c-grid-span6 c-pad-left c-pad-right">
+            <span class="c-grid-row">
+              <span class="c-grid-span16 doc-list-operation"><%= link_to 'Show', doc %></span>
+              <span class="c-grid-span16 doc-list-operation"><%= link_to 'Edit', edit_doc_path(doc) %></span>
+              <span class="c-grid-span16 doc-list-operation"><%= link_to 'Destroy', doc, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+            </span>            
+          </span>
+        </div>
+      <% end %>
+    </div>      
+  </div>
+</div>
+
+<%= will_paginate @docs, :renderer => PaginationListLinkRenderer %>
+
+<div class="center c-gap-top">
+  <%= link_to 'New Doc', new_doc_path %>
+</div>

@@ -1,0 +1,33 @@
+<% if logged_in? %>
+  <section class="user-info-card">
+    <div class="self-info">
+      <span class="avatar">
+        <%= link_to avatar_for(current_user), current_user, class: "avatar" %>
+      </span>
+      <span class="info">
+        <%= render 'shared/user_info' %>
+        <%= render 'shared/stats' %>
+      </span>
+    </div>
+  </section>
+
+  <section class="micropost-form">
+    <%= render 'shared/micropost_form' %>
+  </section>
+  
+  <div class="feeds">
+    <%= render 'shared/feed' %>
+  </div>
+<% else %>
+  <section class="welcome">
+    <%= render 'rails_logo' %>
+
+    <h1>Yay! You're on Rails!</h1>
+    <%= render 'welcome_img' %>
+    
+    <p class="version">
+      <strong>Rails version:</strong> <%= Rails.version %><br />
+      <strong>Ruby version:</strong> <%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)
+    </p>
+  </section>
+<% end %>

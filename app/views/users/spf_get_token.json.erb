@@ -1,0 +1,12 @@
+{
+  "body": {
+    "page-container": <%= (render partial: 'get_token.html').to_json.html_safe %>
+  },
+  "attr": {
+    "page-container": {
+      "class": "get-token"
+    }
+  },
+  "url": "<%= Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title("Get token") %>"
+}

@@ -1,0 +1,12 @@
+{
+  "body": {
+    "page-container": "<%= j render 'third_party_accounts' %>"
+  },
+  "attr": {
+    "page-container": {
+      "class": "third_party_accounts"
+    }
+  },
+  "url": "<%= Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title("Third party accounts") %>"
+}

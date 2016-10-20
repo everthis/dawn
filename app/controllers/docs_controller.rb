@@ -6,7 +6,7 @@ class DocsController < ApplicationController
   # GET /docs.json
   def index
     if logged_in?
-      @docs = Doc.all.includes(:user)
+      @docs = Doc.includes(:user).paginate(page: params[:page])
     end 
   end
 
