@@ -94,10 +94,15 @@ imagemagick installation failure on iDev,
 --without-tiff --without-dps
 ```
 
+run redis-server 
+```bash
+redis-server ~/redis-stable/redis.conf
+```
 run sidekiq in production
 ```bash
 bundle exec sidekiq -e production -q default -q mailers
 ```
+
 
 deploy to production
 ```
