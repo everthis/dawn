@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post 'user_preference/set_locale'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :third_party_accounts
   resources :docs

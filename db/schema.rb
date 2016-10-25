@@ -67,14 +67,6 @@ ActiveRecord::Schema.define(version: 20161023120559) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
   end
 
-  create_table "settings", force: :cascade do |t|
-    t.string   "locale"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_settings_on_user_id", using: :btree
-  end
-
   create_table "third_party_accounts", force: :cascade do |t|
     t.string   "account"
     t.boolean  "is_active"
@@ -85,6 +77,14 @@ ActiveRecord::Schema.define(version: 20161023120559) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["user_id"], name: "index_third_party_accounts_on_user_id", using: :btree
+  end
+
+  create_table "user_preferences", force: :cascade do |t|
+    t.string   "locale"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -108,6 +108,6 @@ ActiveRecord::Schema.define(version: 20161023120559) do
 
   add_foreign_key "apis", "users"
   add_foreign_key "docs", "users"
-  add_foreign_key "settings", "users"
   add_foreign_key "third_party_accounts", "users"
+  add_foreign_key "user_preferences", "users"
 end

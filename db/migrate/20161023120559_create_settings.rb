@@ -6,5 +6,7 @@ class CreateSettings < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    rename_table :settings, :user_preferences
   end
 end

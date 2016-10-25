@@ -52,7 +52,7 @@
 #               updated_at: Time.zone.now)
 # end
 
-1000.times do |n|
+10.times do |n|
   name  = "example-a-#{n+1}"
   email = "example-a-#{n+1}@everthis.com"
   password = "password"
