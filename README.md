@@ -151,3 +151,7 @@ Please feel free to use a different markup language if you do not plan to run
 `gem install nokogiri -- --use-system-libraries` if bundle update rails errors.
 
 `Peer authentication failed for user "xxxxx"` , this error occurs when you installed postresql on your server, but host is missing in database.yml. Just set host: localhost to database.yml,  otherwise if it's not localhost definitely tell that app where to find its database.
+
+
+### Caveats
+`bundle exec guard -P livereload -p` if you are on iDev machines. This `-p` force `Force usage of the Listen polling listener` 

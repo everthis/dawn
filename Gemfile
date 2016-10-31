@@ -6,7 +6,7 @@ gem 'bcrypt'
 gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog', '1.38.0'
+gem 'fog'
 gem 'will_paginate'
 gem 'uglifier'
 gem 'sass'
@@ -14,8 +14,7 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'net-ssh'
 gem 'sdoc', group: :doc
-gem "guard"
-gem 'pg', '~> 0.18'
+gem 'pg'
 gem 'regexp-examples'
 gem 'structured_warnings'
 gem 'addressable'
@@ -30,11 +29,12 @@ gem 'nav_lynx'
 group :development do
   gem 'pry-rails'
   gem "letter_opener"
-  gem "awesome_print", '1.6.1'
-  gem "passenger"
+  gem "awesome_print"
   gem "binding_of_caller"
-  gem "rack-livereload", '0.3.15'
-  gem 'guard-livereload'
+  gem "guard",             :require => false
+  gem "guard-livereload",  :require => false
+  gem "rack-livereload"
+
   gem 'byebug'
   gem 'better_errors'
   gem 'bullet'

@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(version: 20161023120559) do
     t.index ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
   end
 
+  create_table "user_settings", force: :cascade do |t|
+    t.jsonb    "user_config"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_user_settings_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -110,4 +118,5 @@ ActiveRecord::Schema.define(version: 20161023120559) do
   add_foreign_key "docs", "users"
   add_foreign_key "third_party_accounts", "users"
   add_foreign_key "user_preferences", "users"
+  add_foreign_key "user_settings", "users"
 end
