@@ -40,14 +40,26 @@
 # following.each { |followed| user.follow(followed) }
 # followers.each { |follower| follower.follow(user) }
 
-EmailWhitelist.create(email: "wwwaap@gmail.com")
+# EmailWhitelist.create(email: "wwwaap@gmail.com")
 
-1000.times do |n|
-  title  = Faker::Name.title
-  content = Faker::Lorem.paragraph(2)
-  Doc.create!(title:  title,
-              content: content,
-              user_id: 1,
-              created_at: Time.zone.now,
-              updated_at: Time.zone.now)
+# 1000.times do |n|
+#   title  = Faker::Name.title
+#   content = Faker::Lorem.paragraph(2)
+#   Doc.create!(title:  title,
+#               content: content,
+#               user_id: 1,
+#               created_at: Time.zone.now,
+#               updated_at: Time.zone.now)
+# end
+
+10.times do |n|
+  name  = "example-a-#{n+1}"
+  email = "example-a-#{n+1}@everthis.com"
+  password = "password"
+  User.create!(name:  name,
+              email: email,
+              password: password,
+              password_confirmation: password,
+              activated: true,
+              activated_at: Time.zone.now)
 end

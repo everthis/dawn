@@ -1,0 +1,9 @@
+<h1>UserPreference#set_locale</h1>
+<p>Find me in app/views/user_preference/set_locale.html.erb</p>
+	<%= form_tag user_preference_set_locale_path, class: 'locale' do %>
+	  <%= select_tag 'locale', 
+	    options_for_select(LANGUAGES, I18n.locale.to_s),
+	    onchange: 'this.form.submit()' %>
+	  <%= submit_tag 'submit', class: "c-hide" %>
+	<% end %>
+

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post 'user_preference/set_locale'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :third_party_accounts
   resources :docs
@@ -44,4 +46,13 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
+
+
+  scope '(:locale)' do
+    resources :orders
+    resources :line_items
+    resources :carts
+    root 'static_pages#home', as: 'store_index', via: :all
+  end
+  
 end
