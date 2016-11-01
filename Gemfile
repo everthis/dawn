@@ -31,10 +31,10 @@ group :development do
   gem "letter_opener"
   gem "awesome_print"
   gem "binding_of_caller"
-  gem "guard",             :require => false
-  gem "guard-livereload",  :require => false
+  gem "guard"
+  gem "ruby_gntp"
+  gem "guard-livereload"
   gem "rack-livereload"
-
   gem 'byebug'
   gem 'better_errors'
   gem 'bullet'

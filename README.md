@@ -155,3 +155,6 @@ Please feel free to use a different markup language if you do not plan to run
 
 ### Caveats
 `bundle exec guard -P livereload -p` if you are on iDev machines. This `-p` force `Force usage of the Listen polling listener` 
+
+### TODO
+decode/encode URL , short link route to page directly.

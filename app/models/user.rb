@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   mount_uploader :avatars, AvatarUploader
   validate  :avatars_size
 
+  after_create :init_user_preference
+
 
   # Returns the hash digest of the given string.
   def User.digest(string)
@@ -129,12 +131,15 @@ class User < ActiveRecord::Base
     update_attribute(:activation_digest,  User.digest(activation_token))
   end
 
-
   private
 
     # Converts email to all lower-case.
     def downcase_email
       self.email = email.downcase
+    end
+
+    def init_user_preference
+      self.create_user_preference
     end
 
 

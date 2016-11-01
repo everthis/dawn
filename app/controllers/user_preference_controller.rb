@@ -1,15 +1,15 @@
 class UserPreferenceController < ApplicationController
 
 	def index
-	  @prefs = UserPreference.all.includes(:user)
+	  @pref = UserPreference.all.includes(:user)
 	end
 
 	def show
-	  @prefs = current_user.user_preference
+	  @pref = current_user.user_preference
 	end
 
 	def new
-	  @micropost = UserPreference.new
+	  @user_pref = current_user.user_preference || UserPreference.new
 	end
 
 	def edit
@@ -18,8 +18,8 @@ class UserPreferenceController < ApplicationController
 
 	
 	def create
-	  @prefs = current_user.user_preference.build(preference_params)
-	  if @prefs.save
+	  @pref = current_user.user_preference.build(preference_params)
+	  if @pref.save
 	    flash[:success] = "Micropost created!"
 	    redirect_to root_url
 	  else
@@ -35,20 +35,20 @@ class UserPreferenceController < ApplicationController
 	end
 
 	def destroy
-	  @prefs.destroy
+	  @pref.destroy
 	  flash[:success] = "Micropost deleted"
 	  redirect_to request.referrer || root_url
 	end
 
 	def set_locale
-		@prefs = current_user.user_preference
-		flash[:danger] = 'preference nil' if @prefs.nil?
+		@pref = current_user.user_preference
+		flash[:danger] = 'preference nil' if @pref.nil?
 	end
 
   private
 
     def preference_params
-      params.permit(:locale)
+      params.require(:user_preference).permit(:locale)
     end
 
 
