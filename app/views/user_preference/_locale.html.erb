@@ -1,6 +1,7 @@
-<%= form_for(@user_prefs, url:{:controller=>'user_preference', :action=>'set_locale'}, 
+<%= form_for(@user_pref, url:{:controller=>'user_preference', :action=>'set_locale'}, 
 	                      method: 'post',
 						  html: {class: "signup-form"}) do |f| %>
+ Hi, <%= @user_pref.to_json.html_safe %>
   <% if f.object.errors.any? %>
     <div class="">
       <%= render 'shared/error_messages', object: f.object %>
@@ -8,10 +9,10 @@
   <% end %>
   
   <% if logged_in? %>
-	<%= f.select 'locale', 
-	options_for_select(LANGUAGES, I18n.locale.to_s),
-	{},
-	{:onChange => 'javascript: this.form.submit();'} %>
+	<%= f.select :locale, 
+  	options_for_select(LANGUAGES, @user_pref.locale),
+  	{},
+  	{:class => "select-change-trigger"} %>
   <% end %>
 
   <div class="row c-hide">
@@ -20,5 +21,20 @@
   
 <% end %>
 
-
-
+<script>
+  var wgc = window.gc || {};
+  var sct = document.getElementsByClassName('select-change-trigger')[0];
+  sct.addEventListener('change', cb, false);
+  function cb(ev) {
+    console.log(ev);
+    var f = ev.target.form;
+    var fa = f.action;
+    console.log(fa);
+    var fd = new FormData(ev.target.form);
+    console.log(fd);
+    spf.load(fa, {
+      method: "POST",
+      postData: fd
+    })
+  }
+</script>

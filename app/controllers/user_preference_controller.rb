@@ -41,8 +41,7 @@ class UserPreferenceController < ApplicationController
 	end
 
 	def set_locale
-		@pref = current_user.user_preference
-		flash[:danger] = 'preference nil' if @pref.nil?
+		current_user.user_preference.update(preference_params)
 	end
 
   private
