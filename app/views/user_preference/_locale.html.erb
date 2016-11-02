@@ -1,26 +1,24 @@
-<h1>UserPreference#set_locale</h1>
-<p>Find me in app/views/user_preference/set_locale.html.erb</p>
+<%= form_for(@user_prefs, url:{:controller=>'user_preference', :action=>'set_locale'}, 
+	                      method: 'post',
+						  html: {class: "signup-form"}) do |f| %>
+  <% if f.object.errors.any? %>
+    <div class="">
+      <%= render 'shared/error_messages', object: f.object %>
+    </div>
+  <% end %>
+  
+  <% if logged_in? %>
+	<%= f.select 'locale', 
+	options_for_select(LANGUAGES, I18n.locale.to_s),
+	{},
+	{:onChange => 'javascript: this.form.submit();'} %>
+  <% end %>
 
-	<%= form_for(@user_prefs, url:{:controller=>'user_preference', :action=>'set_locale'}, 
-						html: {class: "signup-form"}) do |f| %>
-	  <% if f.object.errors.any? %>
-	    <div class="">
-	      <%= render 'shared/error_messages', object: f.object %>
-	    </div>
-	  <% end %>
-	  
-	  <% if logged_in? %>
-	  <%= f.select 'locale', 
-	    options_for_select(LANGUAGES, I18n.locale.to_s),
-	    onchange: 'this.form.submit()' %>
-	  <% end %>
-	  
+  <div class="row c-hide">
+    <%= f.submit yield(:button_text), class: "btn btn-submit" %>
+  </div>
+  
+<% end %>
 
 
-
-	  <div class="row c-hide">
-	    <%= f.submit yield(:button_text), class: "btn btn-submit" %>
-	  </div>
-	  
-	<% end %>
 

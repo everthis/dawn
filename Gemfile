@@ -25,6 +25,7 @@ gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
 gem 'nav_lynx'
+gem 'redis-namespace'
 
 group :development do
   gem 'pry-rails'

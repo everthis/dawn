@@ -73,6 +73,7 @@ class UsersController < ApplicationController
 	end
 
 	def settings
+	  @user_prefs = current_user.user_preference
 	end
 
 	def get_token
