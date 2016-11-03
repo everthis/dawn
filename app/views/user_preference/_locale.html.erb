@@ -1,7 +1,9 @@
+<h3>
+  Hi, <%= @user_pref.to_json.html_safe %>
+</h3>
 <%= form_for(@user_pref, url:{:controller=>'user_preference', :action=>'set_locale'}, 
-	                      method: 'post',
-						  html: {class: "signup-form"}) do |f| %>
- Hi, <%= @user_pref.to_json.html_safe %>
+                        method: 'post',
+              html: {class: "signup-form"}) do |f| %>
   <% if f.object.errors.any? %>
     <div class="">
       <%= render 'shared/error_messages', object: f.object %>
@@ -29,12 +31,26 @@
     console.log(ev);
     var f = ev.target.form;
     var fa = f.action;
-    console.log(fa);
+    console.log(f);
     var fd = new FormData(ev.target.form);
     console.log(fd);
     spf.load(fa, {
       method: "POST",
       postData: fd
     })
+
+    // var xhr = new XMLHttpRequest();
+    // xhr.onreadystatechange = function () {
+    //         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    //           cbb(xhr.responseText)
+    //         }
+    //     };
+    // xhr.open("POST", fa + '?spf=load');
+    // xhr.send(fd);
+
+  }
+
+  function cbb(data) {
+    console.log(data);
   }
 </script>
