@@ -224,8 +224,14 @@ psql: could not connect to server: No such file or directory
     connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
 ```
 method one: edit `postgresql.conf` and modify `unix_socket_directory`
+
 method two: export `PGHOST`
+
 method three: rebuild postgresql with `--host=HOST` set what you want.
+
+method four: execute like this `PGHOST=localhost; psql`, which sets the variable and executes psq both at once.
+
+method five: execute command with `-h` parameter, for example `psql -h /tmp/`
 
 
 ### TODO
