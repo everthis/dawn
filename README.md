@@ -20,12 +20,7 @@ since PostgreSQL is used,
 apt-get install libpq-dev
 ```
 
-create role and database
 
-```bash
-sudo -u postgres createuser -d -P dawn_pg
-sudo -u postgres createdb -O dawn_pg -E UTF8 dawn_development
-```
 login to postgres on debian 
 ```bash
 sudo -u postgres psql
@@ -120,6 +115,62 @@ deploy to production
 cap production deploy
 ```
 
+### PostgreSQL setup
+```
+./configure
+make && sudo make install
+```
+
+configure systemd
+```
+sudo vim /etc/systemd/system/postgresql.service
+```
+
+```
+[Unit]
+Description=postgresql Database
+After=network.target
+
+[Service]
+User=postgres
+Type=forking
+ExecStart=/usr/local/pgsql/bin/pg_ctl start -D /usr/local/pgsql/data -o "-c config_file=/usr/local/pgsql/data/postgresql.conf"
+ExecReload=/bin/kill -s HUP $MAINPID
+
+
+[Install]
+WantedBy=multi-user.target
+```
+
+initdb
+```
+su postgres
+/usr/local/pgsql/bin/initdb -E UTF8 -D /usr/local/pgsql/data
+exit
+```
+
+start postgresql.service
+```
+sudo systemctl daemon-reload
+sudo systemctl start postgresql.service
+```
+
+make postgresql.service start with system boot
+```
+sudo systemctl enable postgresql.service
+```
+
+create role and database
+```bash
+sudo -u postgres createuser -d -P dawn_pg
+sudo -u postgres createdb -O dawn_pg -E UTF8 dawn_development
+```
+
+migrate development database
+```
+bin/rails db:migrate RAILS_ENV=development
+```
+
 ### Chrome HTTP2 
 
 Chrome is dropping NPN support and only allows ALPN after 15.5.2016. ALPN is extension, which requires openssl 1.0.2 installed.
@@ -155,6 +206,23 @@ Please feel free to use a different markup language if you do not plan to run
 
 ### Caveats
 `bundle exec guard -P livereload -p` if you are on iDev machines. This `-p` force `Force usage of the Listen polling listener` 
+
+execute postgresql command but get the following error while postgresql is running
+```
+psql: could not connect to server: No such file or directory
+    Is the server running locally and accepting
+    connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5432"?
+```
+OR
+```
+psql: could not connect to server: No such file or directory
+    Is the server running locally and accepting
+    connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
+```
+method one: edit `postgresql.conf` and modify `unix_socket_directory`
+method two: export `PGHOST`
+method three: rebuild postgresql with `--host=HOST` set what you want.
+
 
 ### TODO
 decode/encode URL , short link route to page directly.

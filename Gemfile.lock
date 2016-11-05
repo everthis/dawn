@@ -379,7 +379,6 @@ GEM
     redis (3.3.0)
     regexp-examples (1.2.1)
     ruby-progressbar (1.8.1)
-    ruby_gntp (0.3.4)
     sass (3.4.22)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
@@ -478,7 +477,6 @@ DEPENDENCIES
   redcarpet
   redis
   regexp-examples
-  ruby_gntp
   sass
   sdoc
   sidekiq

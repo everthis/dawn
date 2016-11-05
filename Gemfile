@@ -32,7 +32,6 @@ group :development do
   gem "awesome_print"
   gem "binding_of_caller"
   gem "guard"
-  gem "ruby_gntp"
   gem "guard-livereload"
   gem "rack-livereload"
   gem 'byebug'
