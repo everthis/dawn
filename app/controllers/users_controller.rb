@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
 	def edit
 	  @user = User.find(params[:id])
-	  @user_prefs = current_user.user_preference
+	  @user_pref = current_user.user_preference
 	end
 
 	def destroy
@@ -73,6 +73,7 @@ class UsersController < ApplicationController
 	end
 
 	def settings
+	  @user_pref = current_user.user_preference
 	end
 
 	def get_token

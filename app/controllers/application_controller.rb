@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_render(*args)
-    if params[:spf] == 'navigate'
+    if ['navigate', 'load'].include? params[:spf] 
       params.delete :spf
       render "#{controller_name}/spf_#{action_name}.json"
     else

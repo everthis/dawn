@@ -104,6 +104,10 @@ location /cable {
 	proxy_set_header Connection "upgrade";
 }
 
+run sidekiq in development
+```bash
+bundle exec sidekiq -e development -C config/sidekiq.yml
+```
 run sidekiq in production
 ```bash
 bundle exec sidekiq -e production -q default -q mailers

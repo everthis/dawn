@@ -1,5 +1,5 @@
 class UserPreferenceController < ApplicationController
-
+	before_action :logged_in_user,   only: [:edit, :update, :set_locale]
 	def index
 	  @pref = UserPreference.all.includes(:user)
 	end
@@ -41,8 +41,12 @@ class UserPreferenceController < ApplicationController
 	end
 
 	def set_locale
-		@pref = current_user.user_preference
-		flash[:danger] = 'preference nil' if @pref.nil?
+		@user_pref = current_user.user_preference
+		@user_pref.update(preference_params)
+	end
+	
+	def postback
+	    puts request.body.read    
 	end
 
   private

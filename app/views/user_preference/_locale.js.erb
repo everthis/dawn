@@ -1,28 +1,3 @@
-<h3>
-  Hi, <%= @user_pref.to_json.html_safe %>
-</h3>
-<%= form_for(@user_pref, url:{:controller=>'user_preference', :action=>'set_locale'}, 
-                        method: 'post',
-              html: {class: "signup-form"}) do |f| %>
-  <% if f.object.errors.any? %>
-    <div class="">
-      <%= render 'shared/error_messages', object: f.object %>
-    </div>
-  <% end %>
-  
-  <% if logged_in? %>
-	<%= f.select :locale, 
-  	options_for_select(LANGUAGES, @user_pref.locale),
-  	{},
-  	{:class => "select-change-trigger"} %>
-  <% end %>
-
-  <div class="row c-hide">
-    <%= f.submit yield(:button_text), class: "btn btn-submit" %>
-  </div>
-  
-<% end %>
-
 <script>
   var wgc = window.gc || {};
   var sct = document.getElementsByClassName('select-change-trigger')[0];
