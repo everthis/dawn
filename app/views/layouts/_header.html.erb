@@ -1,12 +1,12 @@
 <header>
     <nav class="nav">
       <ul class="static-links">
-        <li class="first-layer"><%= link_to "Homepage", root_path, id: "logo", class: 'spf-link' %></li>
+        <li class="first-layer"><%= link_to t('.home'), root_path, id: "logo", class: 'spf-link' %></li>
         <% if logged_in? %>
-        <li class="first-layer"><%= link_to "Dev", dev_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to "Third party accounts", third_party_accounts_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to "Email-whitelist", email_whitelists_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to "Document", docs_path, class: 'spf-link' %></li>
+        <li class="first-layer"><%= link_to t('.dev'), dev_path, class: 'spf-link' %></li>
+        <li class="first-layer"><%= link_to t('.third-paty-accounts'), third_party_accounts_path, class: 'spf-link' %></li>
+        <li class="first-layer"><%= link_to t('.email-whitelist'), email_whitelists_path, class: 'spf-link' %></li>
+        <li class="first-layer"><%= link_to t('.documents'), docs_path, class: 'spf-link' %></li>
         <% end %>
       </ul>
       <ul class="user-links">

@@ -1,6 +1,7 @@
 {
   "body": {
-    "page-container": <%= (render partial: 'locale.html').to_json.html_safe %>
+    "page-container": <%= (render partial: 'locale.html').to_json.html_safe %>,
+    "header-container": <%= (render partial: 'layouts/header').to_json.html_safe %>
   },
   "attr": {
     "page-container": {

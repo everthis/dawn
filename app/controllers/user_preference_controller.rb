@@ -1,5 +1,6 @@
 class UserPreferenceController < ApplicationController
 	before_action :logged_in_user,   only: [:edit, :update, :set_locale]
+	before_action :set_user_locale, only: [:set_locale]
 	def index
 	  @pref = UserPreference.all.includes(:user)
 	end
@@ -55,5 +56,8 @@ class UserPreferenceController < ApplicationController
       params.require(:user_preference).permit(:locale)
     end
 
+    def set_user_locale
+		I18n.locale = params[:user_preference][:locale]
+    end
 
 end
