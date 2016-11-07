@@ -52,6 +52,9 @@ en:
       third-paty-accounts:  "Third party accounts"
       email-whitelist:      "Email-whitelist"
       documents:            "documents"
+      users:                "Users"
+      profile:              "Profile"
+      logout:               "Log out"
       settings:             "Settings"
 
 

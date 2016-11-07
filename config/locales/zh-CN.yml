@@ -31,7 +31,10 @@ zh-CN:
       third-paty-accounts:  "第三方账户"
       email-whitelist:      "邮件白名单"
       documents:            "文档"
+      users:                "用户列表"
+      profile:              "档案"
       settings:             "设置"
+      logout:               "注销"
 
 
   carts:

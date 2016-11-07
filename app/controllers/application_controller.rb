@@ -31,10 +31,13 @@ class ApplicationController < ActionController::Base
     end
 
     def set_i18n_locale_from_params
-      default_locale = params[:locale] || (current_user && current_user.user_preference.locale) || 'en'
-      if default_locale
-        if I18n.available_locales.map(&:to_s).include?(default_locale)
-          I18n.locale = default_locale
+      app_default_locale = params[:locale] || 
+                       (current_user && current_user.user_preference.locale) || 
+                       I18n.default_locale
+      app_default_locale = app_default_locale.to_s if app_default_locale.instance_of? Symbol
+      if app_default_locale
+        if I18n.available_locales.map(&:to_s).include?(app_default_locale)
+          I18n.locale = app_default_locale
         else
           flash.now[:notice] = 
             "#{params[:locale]} translation not available"
