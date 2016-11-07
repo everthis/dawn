@@ -1,12 +1,12 @@
 class UserPreferenceController < ApplicationController
 	before_action :logged_in_user,   only: [:edit, :update, :set_locale]
-	before_action :set_user_locale, only: [:set_locale]
+	before_action :set_user_locale, only: [:update]
 	def index
-	  @pref = UserPreference.all.includes(:user)
+	  @user_pref = current_user.user_preference || UserPreference.new
 	end
 
 	def show
-	  @pref = current_user.user_preference
+	  @user_pref = current_user.user_preference || UserPreference.new
 	end
 
 	def new
@@ -30,9 +30,8 @@ class UserPreferenceController < ApplicationController
 	end 
 
 	def update
-	  respond_to do |format|
-
-	  end
+		@user_pref = current_user.user_preference
+		@user_pref.update(preference_params)
 	end
 
 	def destroy

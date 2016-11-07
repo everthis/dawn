@@ -35,7 +35,11 @@ zh-CN:
       profile:              "档案"
       settings:             "设置"
       logout:               "注销"
-
+  
+  users:
+    settings:
+      language:    "语言"
+      profile:     "档案"
 
   carts:
     cart:

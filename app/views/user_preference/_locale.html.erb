@@ -1,7 +1,4 @@
-<h3>
-  Hi, <%= @user_pref.to_json.html_safe %>
-</h3>
-<%= form_for(@user_pref, url:{:controller=>'user_preference', :action=>'set_locale'}, 
+<%= form_for(@user_pref, url:{:controller=>'user_preference', :action=>'update'}, 
                         method: 'post',
               html: {class: "signup-form"}) do |f| %>
   <% if f.object.errors.any? %>
@@ -14,7 +11,7 @@
 	<%= f.select :locale, 
   	options_for_select(LANGUAGES, @user_pref.locale),
   	{},
-  	{:class => "select-change-trigger"} %>
+  	{:class => "select-change-trigger c-bg-gray"} %>
   <% end %>
 
   <div class="row c-hide">
