@@ -233,6 +233,11 @@ method four: execute like this `PGHOST=localhost; psql`, which sets the variable
 
 method five: execute command with `-h` parameter, for example `psql -h /tmp/`
 
+Since `Rails needs superuser privileges to disable referential integrity.`, you need to create a superuser role for `rails test`
+```
+sudo -u postgres createuser -d -s -P dawn_pg_test
+```
+then modify `.env.test` file with username and password.
 
 ### TODO
 decode/encode URL , short link route to page directly.
