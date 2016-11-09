@@ -240,4 +240,5 @@ sudo -u postgres createuser -d -s -P dawn_pg_test
 then modify `.env.test` file with username and password.
 
 ### TODO
-decode/encode URL , short link route to page directly.
+[optional] decode/encode URL , short link route to page directly.
+[MUST] sync/async same content render, terminate duplicate code.
