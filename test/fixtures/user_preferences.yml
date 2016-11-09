@@ -2,8 +2,8 @@
 
 one:
   locale: 'en'
-  user: one
+  user: michael
 
 two:
   locale: 'en'
-  user: two
+  user: archer
