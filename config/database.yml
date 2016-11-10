@@ -13,7 +13,7 @@ development:
   adapter: postgresql
   encoding: unicode
   host: localhost
-  database: dawn_development
+  database: dawn_<%= Rails.env %>
   pool: 5
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
@@ -26,11 +26,11 @@ test:
   host: localhost
   adapter: postgresql
   encoding: unicode
-  database: dawn_testing
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  database: dawn_<%= Rails.env %>
+  username: <%= ENV['TRAVIS'] ? 'postgres' : ENV["DB_USERNAME"] %>
+  password: <%= ENV['TRAVIS'] ? '' : ENV["DB_PASSWORD"] %>
 
 production:
   adapter: postgresql
-  database: dawn_production
+  database: dawn_<%= Rails.env %>
   statement_limit: 200
