@@ -38,3 +38,7 @@
 # sensitive
 /.env.production
 /.env
+
+# coverage
+coverage/.resultset.json
+coverage/.resultset.json.lock
