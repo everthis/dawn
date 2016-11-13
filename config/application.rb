@@ -11,7 +11,9 @@ module Dawn
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    
+    config.webpack = {
+      asset_manifest: {}
+    }
 
     config.active_job.queue_adapter = :sidekiq
     
@@ -32,6 +34,14 @@ module Dawn
     config.autoload_paths << "#{Rails.root}/lib"
 
     config.nav_lynx.selected_class = 'current'
+
+    config.action_controller.asset_host = Proc.new { |source, request|
+      if request && request.ssl?
+        "#{request.protocol}#{request.host_with_port}"
+      else
+        "#{request.protocol}#{request.host_with_port}"
+      end
+    }
     
   end
 end

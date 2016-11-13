@@ -28,6 +28,7 @@ gem 'nav_lynx'
 gem 'redis-namespace'
 
 group :development do
+  gem 'foreman'
   gem 'pry-rails'
   gem "letter_opener"
   gem "awesome_print"
