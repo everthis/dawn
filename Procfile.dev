@@ -1,2 +1,2 @@
-web: bundle exec rails server -b 0.0.0.0 -p 3000
-webpack: npm run build:dev
+web: bundle exec rails server -b 0.0.0.0 -p 8678
+webpack: npm run dev

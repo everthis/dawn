@@ -3,19 +3,29 @@ var _ = require('lodash')
 var webpack = require('webpack')
 var assetsPath = path.join(__dirname, '..', 'public', 'assets')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var envVars = process.env
+
+var entryJs = function (another) {
+    return [path.join(__dirname, '/javascripts/application.js')];
+};
+
+console.log("entryJs");
+console.log(entryJs());
+
+
 
 var config = {
   context: path.join(__dirname, '..'),
+  customEntryJs: [path.join(__dirname, '/javascripts/application.js')],
   entry: {
     /* 定義進入點與其檔案名稱 */
-    application: [
-      path.join(__dirname, '/javascripts/application.js')
-    ]
+    // application: envVars.HRM ? entryJs.call(this).unshift('webpack/hot/dev-server') : this.customEntryJs
+    application: envVars.HRM ? ['webpack/hot/dev-server', path.join(__dirname, '/javascripts/application.js')] : [path.join(__dirname, '/javascripts/application.js')]
   },
   output: {
     path: assetsPath,
     filename: '[name]-bundle.js',
-    publicPath: '/assets/'
+    publicPath: envVars.HRM ? 'http://0.0.0.0:8789/assets/' : '/assets/'
   },
   resolve: {
     extensions: ['', '.js', '.coffee', '.json']

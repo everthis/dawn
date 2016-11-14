@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "webpack --config=client/development.config.js --display-reasons --display-chunks --progress --color --watch",
-    "build": "webpack --config=client/production.config.js -p"
+    "build": "webpack --config=client/production.config.js -p",
+    "dev": "webpack-dev-server --host=0.0.0.0 --port=8789 --config=client/development.config.js --inline --hot --no-info"
   },
   "author": "wwwaap <wwwaap@gmail.com> (https://www.everthis.com/)",
   "license": "MIT",
