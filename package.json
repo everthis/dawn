@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "webpack --config=client/development.config.js --display-reasons --display-chunks --progress --color --watch",
     "build": "webpack --config=client/production.config.js -p",
-    "dev": "webpack-dev-server --host=0.0.0.0 --port=8789 --config=client/development.config.js --inline --hot --no-info"
+    "dev": "webpack-dev-server --host=0.0.0.0 --port=8679 --config=client/webpack.config.js --no-info"
   },
   "author": "wwwaap <wwwaap@gmail.com> (https://www.everthis.com/)",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "jquery": "^2.2.4",
     "lodash": "^3.0.1",
     "normalize.css": "^4.0.0",
-    "spf-dev": "^2.4.2"
+    "spf-dev": "^2.4.8"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.4",

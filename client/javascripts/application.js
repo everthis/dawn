@@ -3,13 +3,8 @@ import {dataLinks} from './modules/dataLinks';
 import {home} from './modules/homepage';
 import {initXhr} from './modules/apiOperation';
 import {spf} from 'spf-dev';
-// let spf = require('spf-dev');
 spf.init();
 dataLinks();
-// apiTree();
-// var p = new dawnSVG();
-// p.init(document.getElementById('painter-target'));
-// p.start();
 
 (() => {
   let routes = {

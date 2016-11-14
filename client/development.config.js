@@ -8,24 +8,20 @@ var envVars = process.env
 var entryJs = function (another) {
     return [path.join(__dirname, '/javascripts/application.js')];
 };
-
-console.log("entryJs");
-console.log(entryJs());
-
-
+console.log("envVars.HRM");
+console.log(envVars.HRM ? 1 : 2);
 
 var config = {
   context: path.join(__dirname, '..'),
-  customEntryJs: [path.join(__dirname, '/javascripts/application.js')],
   entry: {
     /* 定義進入點與其檔案名稱 */
     // application: envVars.HRM ? entryJs.call(this).unshift('webpack/hot/dev-server') : this.customEntryJs
-    application: envVars.HRM ? ['webpack/hot/dev-server', path.join(__dirname, '/javascripts/application.js')] : [path.join(__dirname, '/javascripts/application.js')]
+    application: envVars.HRM ? ['webpack/hot/only-dev-server', path.join(__dirname, '/javascripts/application.js')] : [path.join(__dirname, '/javascripts/application.js')]
   },
   output: {
     path: assetsPath,
     filename: '[name]-bundle.js',
-    publicPath: envVars.HRM ? 'http://0.0.0.0:8789/assets/' : '/assets/'
+    publicPath: envVars.HRM ? 'http://0.0.0.0:8676/assets/' : '/assets/'
   },
   resolve: {
     extensions: ['', '.js', '.coffee', '.json']
@@ -33,7 +29,16 @@ var config = {
   debug: true,
   displayErrorDetails: true,
   outputPathinfo: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
+  },
+  devServer: {
+    contentBase: assetsPath,
+    inline: true,
+    hot: true
+  },
   module: {
     loaders: [
       {
@@ -72,6 +77,7 @@ var config = {
     ]
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
