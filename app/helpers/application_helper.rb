@@ -11,7 +11,7 @@ module ApplicationHelper
 
   def client_javascript_include_tag(name)
     filename = "#{name}-bundle.js"
-    asset_url = Rails.application.config.asset_host
+    asset_url = "http://10.0.0.9:8676"
     puts "***********************************"
     puts asset_url
     src = "#{asset_url}/assets/#{filename}"
@@ -26,9 +26,23 @@ module ApplicationHelper
     "<script src=\"#{src}\"></script>".html_safe
   end
 
+  def c_javascript_include_tag(*sources)
+    options = sources.extract_options!.stringify_keys
+    path_options = options.extract!("protocol", "extname", "host", "skip_pipeline").symbolize_keys
+    asset_url = "http://10"
+    sources.uniq.map { |source|
+      filename = "#{source}-bundle.js"
+      tag_options = {
+        "src" => path_to_javascript(filename, path_options)
+      }.merge!(options)
+      content_tag("script".freeze, "", tag_options)
+    }.join("\n").html_safe
+  end
+
   def client_stylesheet_link_tag(name)
     filename = "#{name}-bundle.css"
-    asset_url = Rails.application.config.asset_host
+    # asset_url = Rails.application.config.asset_host
+    asset_url = "http://10.0.0.9:8676"
     src = "#{asset_url}/assets/#{filename}"
 
     if Rails.env.development?

@@ -43,7 +43,16 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.css$/, loader: 'style!css'}
+            {test: /\.css$/, loader: 'style!css'},
+            {
+              test: /\.js$/,
+              loader: 'babel',
+              exclude: /node_modules/
+            },
+            {
+              test: /\.scss$/,
+              loader: ExtractTextPlugin.extract('style', 'css!sass')
+            }
         ]
     },
     devServer: {
