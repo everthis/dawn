@@ -1,66 +1,35 @@
-var WebpackDevServer = require("webpack-dev-server");
-var webpack = require("webpack");
+var path = require('path');
+var webpack = require('webpack');
 
-var devConfig = require("./development.config.js");
-console.log(devConfig);
-devConfig.entry.application.unshift('webpack-dev-server/client?http://0.0.0.0:8676/');
-var compiler = webpack(devConfig);
-var server = new WebpackDevServer(compiler, {
-  // webpack-dev-server options
+var config = module.exports = {
+  // the base path which will be used to resolve entry points
+  context: __dirname,
+  // the main entry point for our application's frontend JS
+  entry: './javascripts/entry.js',
+};
 
-  // contentBase: assetsPath,
-  // Can also be an array, or: contentBase: "http://localhost/",
+config.output = {
+  // this is our app/assets/javascripts directory, which is part of the Sprockets pipeline
+  path: path.join(__dirname, '..', 'app', 'assets', 'javascripts'),
+  // the filename of the compiled bundle, e.g. app/assets/javascripts/bundle.js
+  filename: 'bundle.js',
+  // if the webpack code-splitting feature is enabled, this is the path it'll use to download bundles
+  publicPath: '/assets'
+};
 
-  hot: true,
-  // Enable special support for Hot Module Replacement
-  // Page is no longer updated, but a "webpackHotUpdate" message is sent to the content
-  // Use "webpack/hot/dev-server" as additional module in your entry point
-  // Note: this does _not_ add the `HotModuleReplacementPlugin` like the CLI option does. 
+config.resolve = {
+  // tell webpack which extensions to auto search when it resolves modules. With this,
+  // you'll be able to do `require('./utils')` instead of `require('./utils.js')`
+  extensions: ['', '.js'],
+  // by default, webpack will search in `web_modules` and `node_modules`. Because we're using
+  // Bower, we want it to look in there too
+  modulesDirectories: [ 'node_modules', 'bower_components' ],
+};
 
-  // historyApiFallback: false,
-  // Set this as true if you want to access dev server from arbitrary url.
-  // This is handy if you are using a html5 router.
-
-  // compress: true,
-  // Set this if you want to enable gzip compression for assets
-
-  // proxy: {
-  //   "**": "http://localhost:9090"
-  // },
-  // Set this if you want webpack-dev-server to delegate a single path to an arbitrary server.
-  // Use "**" to proxy all paths to the specified server.
-  // This is useful if you want to get rid of 'http://localhost:8676/' in script[src],
-  // and has many other use cases (see https://github.com/webpack/webpack-dev-server/pull/127 ).
-
-  // setup: function(app) {
-  //   // Here you can access the Express app object and add your own custom middleware to it.
-  //   // For example, to define custom handlers for some paths:
-  //   // app.get('/some/path', function(req, res) {
-  //   //   res.json({ custom: 'response' });
-  //   // });
-  // },
-
-  // pass [static options](http://expressjs.com/en/4x/api.html#express.static) to inner express server
-  // staticOptions: {
-  // },
-
-  // clientLogLevel: "info",
-  // Control the console log messages shown in the browser when using inline mode. Can be `error`, `warning`, `info` or `none`.
-
-  // webpack-dev-middleware options
-  // quiet: false,
-  // noInfo: false,
-  // lazy: true,
-  // filename: "bundle.js",
-  // watchOptions: {
-  //   aggregateTimeout: 300,
-  //   poll: 1000
-  // },
-  host: '0.0.0.0',
-  port: '8676',
-  // It's a required option.
-  publicPath: "http://0.0.0.0:8676/assets/",
-  // headers: { "X-Custom-Header": "yes" },
-  // stats: { colors: true }
-});
-server.listen(8676, '0.0.0.0', function() {});
+config.plugins = [
+  // we need this plugin to teach webpack how to find module entry points for bower files,
+  // as these may not have a package.json file
+  new webpack.ResolverPlugin([
+    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
+  ])
+];

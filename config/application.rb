@@ -42,6 +42,12 @@ module Dawn
         "#{request.protocol}#{request.host_with_port}"
       end
     }
+
+    config.webpack = {
+      :use_manifest => false,
+      :asset_manifest => {},
+      :common_manifest => {},
+    }
     
   end
 end
