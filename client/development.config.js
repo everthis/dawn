@@ -35,7 +35,7 @@ var config = {
     poll: true
   },
   devServer: {
-    contentBase: assetsPath,
+    contentBase: '/assets/',
     inline: true,
     hot: true
   },

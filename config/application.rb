@@ -35,14 +35,6 @@ module Dawn
 
     config.nav_lynx.selected_class = 'current'
 
-    config.action_controller.asset_host = Proc.new { |source, request|
-      if request && request.ssl?
-        "#{request.protocol}#{request.host_with_port}"
-      else
-        "#{request.protocol}#{request.host_with_port}"
-      end
-    }
-
     config.webpack = {
       :use_manifest => false,
       :asset_manifest => {},

@@ -12,6 +12,8 @@ module ApplicationHelper
   def client_javascript_include_tag(name)
     filename = "#{name}-bundle.js"
     asset_url = Rails.application.config.asset_host
+    puts "***********************************"
+    puts asset_url
     src = "#{asset_url}/assets/#{filename}"
 
     if Rails.env.development?
