@@ -15,9 +15,10 @@ Use classes to define visual presentation patterns1*/
 // injector
 // endinjector
 
-
-
-@import "lib/normalize";
+/**
+ * For resolving "like a module" you can prefix ~
+ */
+@import "~normalize.css";
 /* import all globals */
 @import "globals/variables";
 @import "globals/functions";
