@@ -68,10 +68,10 @@ module.exports = {
         // Config for minimal console.log mess.
         assets: false,
         colors: true,
-        version: false,
+        version: true,
         hash: false,
-        timings: false,
-        chunks: false,
+        timings: true,
+        chunks: true,
         chunkModules: false
       }
     },
