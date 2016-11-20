@@ -3,8 +3,8 @@
 <head>
 	<title><%= full_title(yield(:title)) %> </title>
 	<%= favicon_link_tag 'favicon.ico' %>
-	<%= client_stylesheet_link_tag 'application' %>
 	<%= csrf_meta_tags %>
+	<%= client_stylesheet_link_tag 'application' %>
 	<%= render 'layouts/shim' %>
 </head>
 <body class='<%= controller.controller_name %>'>
@@ -52,7 +52,6 @@
 	</div>
 	<%= debug(params) if Rails.env.development? %>
 	<%= client_javascript_include_tag 'application' %>
-	<%= c_javascript_include_tag 'application' %>
 	
 </body>
 </html>

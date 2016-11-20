@@ -50,11 +50,14 @@ Rails.application.routes.draw do
   get  '/user_preference/set_locale',  to: 'user_preference#index'
   post '/user_preference/update', to: 'user_preference#update'
 
-  scope '(:locale)' do
-    resources :orders
-    resources :line_items
-    resources :carts
-    root 'static_pages#home', as: 'store_index', via: :all
-  end
+  # scope '(:locale)' do
+  #   resources :orders
+  #   resources :line_items
+  #   resources :carts
+  #   root 'static_pages#home', as: 'store_index', via: :all
+  # end
+
+
+  get 'test' => 'test#test'
   
 end

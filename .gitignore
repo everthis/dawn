@@ -41,5 +41,4 @@ npm-debug.log
 /.env
 
 # coverage
-coverage/.resultset.json
-coverage/.resultset.json.lock
+/coverage
