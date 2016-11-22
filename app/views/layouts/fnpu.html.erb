@@ -1,12 +1,14 @@
 <html>
 <head>
   <title><%= @page_title or "Page Title" %></title>
-  <style><%= yield :stylesheets %></style>
+  <%= yield :stylesheets %>
 </head>
 <body>
   <div id="top_menu">Top menu items here</div>
   <div id="menu">Menu items here</div>
   <div id="content"><%= content_for?(:content) ? yield(:content) : yield %></div>
-  <div id="main-content"><%= content_for?(:main_content) ? yield(:main_content) : yield %></div>
+  <div id="main-content"><%=yield(:main_content) %></div>
+	<%= debug(params) if Rails.env.development? %>
+  <%= yield :javascripts %>
 </body>
 </html>
