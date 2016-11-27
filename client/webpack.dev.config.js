@@ -20,12 +20,12 @@ devConfig = merge.smartStrategy({
     'entry': 'prepend',
     'module.loaders': 'prepend'
 })({}, baseConfig, {
-    output: {
-        publicPath: devServerHref
-    },
-    devServer: {
-        host: '0.0.0.0',
-        port: 8679,
-    }
+    // output: {
+    //     publicPath: devServerHref
+    // },
+    // devServer: {
+    //     host: '0.0.0.0',
+    //     port: 8679,
+    // }
 });
 module.exports = devConfig;
