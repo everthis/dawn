@@ -11,14 +11,13 @@ module ApplicationHelper
 
   def client_javascript_include_tag(name)
     filename = "#{name}-bundle.js"
-    asset_url = "http://10.0.0.9:8676"
-    src = "#{asset_url}/assets/#{filename}"
+    src = "/assets/#{filename}"
 
     if Rails.env.development?
     elsif Rails.configuration.webpack[:manifest]
       asset_name = Rails.configuration.webpack[:manifest]["#{name}.js"]
       if asset_name
-        src = "#{asset_url}/assets/#{asset_name}"
+        src = "/assets/#{asset_name}"
       end
     end
     "<script src=\"#{src}\"></script>".html_safe
@@ -41,14 +40,13 @@ module ApplicationHelper
   def client_stylesheet_link_tag(name)
     filename = "#{name}-bundle.css"
     # asset_url = Rails.application.config.asset_host
-    asset_url = "http://10.0.0.9:8676"
-    src = "#{asset_url}/assets/#{filename}"
+    src = "/assets/#{filename}"
 
     if Rails.env.development?
     elsif Rails.configuration.webpack[:manifest]
       asset_name = Rails.configuration.webpack[:manifest]["#{name}.css"]
       if asset_name
-        src = "#{asset_url}/assets/#{asset_name}"
+        src = "/assets/#{asset_name}"
       end
     end
     "<link rel=\"stylesheet\" href=\"#{src}\">".html_safe
