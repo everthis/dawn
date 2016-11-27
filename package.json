@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "webpack --config=client/development.config.js --display-reasons --display-chunks --progress --color --watch",
     "build": "webpack --config=client/production.config.js -p",
-    "dev": "webpack-dev-server --config client/webpack.base.config.js --progress --hot --inline"
+    "dev": "webpack-dev-server --config client/webpack.dev.config.js --progress --hot --inline"
   },
   "author": "wwwaap <wwwaap@gmail.com> (https://www.everthis.com/)",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.13.2",
     "webpack-manifest-plugin": "^1.1.0",
-    "webpack-merge": "^0.16.0"
+    "webpack-merge": "^0.19.0"
   },
   "babel": {
     "presets": [

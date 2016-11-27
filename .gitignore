@@ -42,3 +42,6 @@ npm-debug.log
 
 # coverage
 /coverage
+
+# shared
+/shared

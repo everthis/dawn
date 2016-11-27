@@ -9,7 +9,7 @@ threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
 #
-port        ENV.fetch("PORT") { 3000 }
+# port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -64,11 +64,11 @@ shared_dir = "#{app_dir}/shared"
 bind "unix://#{shared_dir}/sockets/puma.sock"
 
 # Logging
-# stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
 
 # Set master PID and state locations
-# pidfile "#{shared_dir}/pids/puma.pid"
-# state_path "#{shared_dir}/pids/puma.state"
+pidfile "#{shared_dir}/pids/puma.pid"
+state_path "#{shared_dir}/pids/puma.state"
 # activate_control_app
 # preload_app!
 

@@ -12,23 +12,12 @@ let autoprefixer = require('autoprefixer');
 let envVars = process.env;
 let assetsDistPath = path.join(__dirname, '..', 'app', 'assets');
 
-let serverConfig = {
-  protocol: 'http://',
-  host: '10.0.0.9',
-  port: 8676
-};
-let devServerOrigin = '' + 
-                    serverConfig.protocol + 
-                    serverConfig.host + 
-                    ':' + 
-                    serverConfig.port;
-let devServerHref = '' + devServerOrigin + '/assets/';
 
-module.exports = {
+
+let defaults = {
     context: __dirname,
     entry: {
         application: [
-          'webpack-dev-server/client?' + devServerOrigin,
           path.join(__dirname, '/javascripts/application.js')
         ]
     },
@@ -36,7 +25,6 @@ module.exports = {
         path: assetsDistPath,
         filename: '[name]-bundle.js',
         chunkFilename: '[id].chunk.js',
-        publicPath: devServerHref
     },
     module: {
         loaders: [{
@@ -53,12 +41,6 @@ module.exports = {
     },
     postcss: [ autoprefixer({ browsers: ['last 3 versions', '> 1%'] }) ],
     devServer: {
-      host: '0.0.0.0',
-      port: 8676,
-      headers: {
-        "Access-Control-Allow-Origin": "http://10.0.0.9:8678",
-        "Access-Control-Allow-Credentials": "true"
-      },
       // It suppress error shown in console, so it has to be set to false.
       quiet: false,
       // It suppress everything except error, so it has to be set to false as well
@@ -84,4 +66,10 @@ module.exports = {
         allChunks: true
       })
     ]
+};
+
+module.exports.defaults = defaults;
+
+module.exports.extend = function merge(config) {
+  return _.extend({}, defaults, config);
 };

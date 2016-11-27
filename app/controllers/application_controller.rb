@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
   end
 
   def default_render(*args)
-    puts "ddddddddddddddddddddddddddd"
-    puts @default_response.inspect
     if ['navigate', 'load'].include? params[:spf] 
       params.delete :spf
       render "#{controller_name}/spf_#{action_name}.json"
@@ -22,7 +20,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render(*args, &block)
-    puts "rrrrrrrrrrrrrrrrrrrrrr"
     super
   end
 

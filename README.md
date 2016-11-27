@@ -93,6 +93,79 @@ run redis-server
 ```bash
 redis-server ~/redis-stable/redis.conf
 ```
+
+### start rails with UNIX sockets in development
+```
+bundle exec puma -C config/puma.rb
+```
+
+### nginx config
+```
+# www to non-www redirect -- duplicate content is BAD:
+# https://github.com/h5bp/html5-boilerplate/blob/5370479476dceae7cc3ea105946536d6bc0ee468/.htaccess#L362
+# Choose between www and non-www, listen on the *wrong* one and redirect to
+# the right one -- http://wiki.nginx.org/Pitfalls#Server_Name
+upstream app {
+    # Path to Unicorn SOCK file, as defined previously
+    server unix:/home/everthis/projects/dawn/shared/sockets/puma.sock fail_timeout=0;
+}
+upstream static_dev {
+  server 127.0.0.1:8679;
+}
+
+server {
+  # don't forget to tell on which port this server listens
+  listen [::]:80;
+  listen 80;
+
+  # listen on the www host
+  server_name www.example.com;
+
+  # and redirect to the non-www host (declared below)
+  return 301 $scheme://example.com$request_uri;
+}
+
+server {
+  # listen [::]:80 accept_filter=httpready; # for FreeBSD
+  # listen 80 accept_filter=httpready; # for FreeBSD
+  # listen [::]:80 deferred; # for Linux
+  # listen 80 deferred; # for Linux
+  listen [::]:8678;
+  listen 8678;
+
+  # The host name to respond to
+  server_name example.com;
+
+  # Path for static files
+  root /home/everthis/projects/dawn/public;
+
+  try_files $uri/index.html $uri @app;
+
+  # Specify a charset
+  charset utf-8;
+
+  # Custom 404 page
+  error_page 404 /404.html;
+
+  # Include the basic h5bp config set
+  include h5bp/basic.conf;
+
+  location / {
+    proxy_pass http://app;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+  }
+
+  location /assets {
+    proxy_pass http://static_dev;
+
+  }
+
+}
+
+```
+
 ### nginx websocket support
 
 ```
