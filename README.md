@@ -106,11 +106,11 @@ bundle exec puma -C config/puma.rb
 # Choose between www and non-www, listen on the *wrong* one and redirect to
 # the right one -- http://wiki.nginx.org/Pitfalls#Server_Name
 upstream app {
-    # Path to Unicorn SOCK file, as defined previously
-    server unix:/home/everthis/projects/dawn/shared/sockets/puma.sock fail_timeout=0;
+  # Path to Unicorn SOCK file, as defined previously
+  server unix:/home/everthis/projects/dawn/shared/sockets/puma.sock fail_timeout=0;
 }
 upstream static_dev {
-  server 127.0.0.1:8679;
+  server unix:/home/everthis/projects/dawn/shared/sockets/webpack.sock fail_timeout=0;
 }
 
 server {
@@ -137,7 +137,7 @@ server {
   server_name example.com;
 
   # Path for static files
-  root /home/everthis/projects/dawn/public;
+  # root /home/everthis/projects/dawn/public;
 
   try_files $uri/index.html $uri @app;
 
@@ -157,12 +157,40 @@ server {
     proxy_redirect off;
   }
 
-  location /assets {
-    proxy_pass http://static_dev;
 
+  location ^~ /assets/ {
+    try_files $uri $uri/ @static_dev;
+  }
+
+  location ^~ /sockjs-node/ {
+    proxy_pass http://static_dev;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+
+  location ^~ /webpack/ {
+    proxy_pass http://static_dev;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+
+
+  # location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+  location ^~ /uploads/ {
+      root /home/everthis/projects/dawn;
+  }
+
+  location @static_dev {
+    proxy_pass http://static_dev;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
   }
 
 }
+
 
 ```
 
