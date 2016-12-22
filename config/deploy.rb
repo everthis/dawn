@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.5.0'
+lock '3.6.1'
 
 # set :application, 'my_app_name'
 # set :repo_url, 'git@example.com:me/my_repo.git'
@@ -41,7 +41,7 @@ set :rvm_ruby_version, '2.2.2'
 set :repo_url,        'https://github.com/everthis/dawn.git'
 set :application,     'dawn'
 set :user,            'everthis'
-set :puma_threads,    [4, 16]
+set :puma_threads,    [4, 6]
 set :puma_workers,    1
 set :rails_env,       "production"
 
