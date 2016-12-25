@@ -1,4 +1,5 @@
 class FisCiPluginsController < ApplicationController
+  before_action :logged_in_user, only: [:index, :create, :new, :show, :edit, :update, :destroy]
   before_action :set_fis_ci_plugin, only: [:show, :edit, :update, :destroy]
 
   # GET /fis_ci_plugins
