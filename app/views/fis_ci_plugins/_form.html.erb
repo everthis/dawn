@@ -1,0 +1,22 @@
+<%= form_for(fis_ci_plugin, html: {class: "c-hide fis-ci-plgins-form"}) do |f| %>
+  <% if fis_ci_plugin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fis_ci_plugin.errors.count, "error") %> prohibited this fis_ci_plugin from being saved:</h2>
+
+      <ul>
+      <% fis_ci_plugin.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_field :content, class: 'plugin-input' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: "fis-ci-plgins-form-submit-btn" %>
+  </div>
+<% end %>

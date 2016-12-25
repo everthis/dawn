@@ -1,0 +1,69 @@
+<script>
+  <%= render 'vue.js'%>
+</script>
+
+
+<div class="fis-ci-container">
+  <div class="c-gap-bottom">
+    <%= will_paginate %>
+  </div>
+  <div id="app">
+
+      <div class="plugins c-grid-span38">
+        <div class="plugins-wrap c-gap-bottom">
+
+          <div class="plugins-hread c-grid-row">
+            <div class="c-grid-span16">packageName</div>
+            <div class="c-grid-span16">version</div>
+            <div class="c-grid-span16">CI-packageName</div>
+          </div>
+
+          <div class="per-row-plugin c-grid-row c-gap-top" v-for="item in pluginsInput">
+            <span class="c-grid-span16 package-name">{{ item.package }}</span>
+            <span class="c-grid-span16 package-version">{{ item.version }}</span>
+            <span class="c-grid-span16 package-ci-package-name">{{ item.ciPackageName }}</span>
+          </div>
+
+        </div>
+      </div>
+
+      <%= will_paginate %>
+
+      <div class="c-gap-top">
+        <%= link_to 'New Fis Ci Plugin', new_fis_ci_plugin_path %>
+      </div>
+
+  </div>
+
+
+</div>
+
+<script>
+  (function() {
+    window.gc = window.gc || {};
+    gc = <%= raw @fis_ci_plugins.to_json %>;
+    var arr = [];
+    var tmp;
+    for (var i = gc.length - 1; i >= 0; i--) {
+      tmp = JSON.parse(gc[i]['content']);
+      if (tmp.length > 0) arr = arr.concat(tmp.reverse())
+    }
+    gc = arr;
+    console.log(gc);
+  })();
+</script>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    pluginsInput: gc
+  },
+  computed: {
+
+  },
+  methods: {
+
+  }
+});
+</script>

@@ -376,6 +376,7 @@ textarea {
 /* used for math */
 /* user */
 /* grid system */
+/* colors */
 /* first and last item of list*/
 /* Last index of value x */
 /* Inserting value at index n */
@@ -397,7 +398,7 @@ textarea {
   display: inline-block;
   cursor: pointer; }
 
-.c-card-box, .c-normal-card-box, .user-info-card, .micropost-form, .document-container {
+.c-card-box, .c-normal-card-box, .user-info-card, .micropost-form, .document-container, .fis-ci-container {
   padding: 1rem;
   width: 50rem;
   margin: 0 auto;
@@ -2528,6 +2529,24 @@ div.field, div.actions {
   .document-container input.form-control {
     display: block;
     width: 100%; }
+
+.fis-ci-container {
+  width: 80rem; }
+  .fis-ci-container input.form-control {
+    display: block;
+    width: 100%; }
+  .fis-ci-container .plugins-input-area {
+    width: 100%;
+    resize: vertical;
+    max-height: 500px;
+    max-width: 100%; }
+  .fis-ci-container .plugins-wrap {
+    padding-left: 1rem; }
+  .fis-ci-container .plugins-hread {
+    background-color: #0cc;
+    color: #fff; }
+  .fis-ci-container .ci-package-name-input {
+    border: 1px solid #4d90fe; }
 
 /* import all pages */
 .user-info-card + .micropost-form {

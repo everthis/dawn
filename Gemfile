@@ -24,6 +24,7 @@ gem 'puma'
 gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
+gem 'redis-namespace'
 
 group :development do
   gem 'pry-rails'

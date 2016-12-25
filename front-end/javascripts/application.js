@@ -3,6 +3,7 @@ import {home} from './modules/homepage';
 
 import {initXhr} from './modules/apiOperation';
 dataLinks();
+import {fcp} from './modules/fisCiPlugins';
 // apiTree();
 // var p = new dawnSVG();
 // p.init(document.getElementById('painter-target'));
@@ -11,7 +12,8 @@ dataLinks();
 (() => {
   let routes = {
     '/': home,
-    '/dev': [initXhr]
+    '/dev': [initXhr],
+    '/fis_ci_plugins/new': fcp
   };
   let pathName = window.location.pathname;
   if (routes.hasOwnProperty(pathName)) {

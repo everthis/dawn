@@ -1,0 +1,24 @@
+.fis-ci-container {
+	@extend %card-box;
+	width: 80rem;
+	input.form-control {
+		display: block;
+		width: 100%;
+	}
+	.plugins-input-area {
+		width: 100%;
+		resize: vertical;
+		max-height: 500px;
+		max-width: 100%;
+	}
+	.plugins-wrap {
+		padding-left: 1rem;
+	}
+	.plugins-hread {
+		background-color: $head-bg-color;
+		color: $white;
+	}
+	.ci-package-name-input {
+		border: 1px solid $focus-border-color;
+	}
+}

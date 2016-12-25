@@ -13,9 +13,9 @@ class UsersController < ApplicationController
 	  @user = User.find(params[:id])
 	  @microposts = @user.microposts.paginate(page: params[:page])
 	end
-	
+
 	def new
-	  @user = User.new	
+	  @user = User.new
 	end
 
 	def edit
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 		  else
 		    render 'new'
 		  end
-	  else	
+	  else
 	  	flash.now[:danger] = 'Email address not in whitelist.'
 	  	render 'new'
 	  end

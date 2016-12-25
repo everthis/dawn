@@ -385,6 +385,8 @@ GEM
       json (~> 1.4)
     redcarpet (3.3.4)
     redis (3.3.0)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
     regexp-examples (1.2.0)
     ruby-progressbar (1.7.5)
     sass (3.4.22)
@@ -481,6 +483,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_12factor
   redcarpet
+  redis-namespace
   regexp-examples
   sass
   sdoc
@@ -493,4 +496,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

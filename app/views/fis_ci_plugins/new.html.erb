@@ -1,0 +1,85 @@
+<script>
+	<%= render 'vue.js'%>
+</script>
+<div class="fis-ci-container">
+  <h1>Install New Fis CI Plugins</h1>
+
+  <%= render 'form', fis_ci_plugin: @fis_ci_plugin %>
+
+  <div id="app">
+  	<div class="c-grid-row">
+
+  	  <div class="pluginsInput c-grid-span10">
+        <div class="hint">format: packageName@version</div>
+  	  	<textarea class="plugins-input-area" name="textarea" rows="16" placeholder="添加plugins" v-model="pluginsInput"></textarea>
+  	  </div>
+
+  	  <div class="plugins c-grid-span38">
+  	  	<div class="plugins-wrap">
+          <div class="plugins-hread c-grid-row">
+            <div class="c-grid-span16">packageName</div>
+            <div class="c-grid-span16">version</div>
+            <div class="c-grid-span16">CI-packageName</div>
+          </div>
+  		  	<div class="per-row-plugin c-grid-row c-gap-top" v-for="item in processedPluginsInput">
+            <span class="c-grid-span16 package-name">{{ item.package }}</span>
+            <span class="c-grid-span16 package-version">{{ item.version }}</span>
+            <span class="c-grid-span16 package-ci-package-name">{{ item.ciPackageName }}</span>
+          </div>
+  	  	</div>
+  	  </div>
+
+  	</div>
+
+    <div class="submit-row c-center c-gap-top c-gap-bottom">
+      <div class="c-btn" @click="submit">Install on BuildCloud compile machines</div>
+    </div>
+
+  </div>
+
+  <pre>
+    <%= render 'config.yml' %>
+  </pre>
+  <%= link_to 'Back', fis_ci_plugins_path %>
+</div>
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    pluginsInput: undefined
+  },
+  computed: {
+      processedPluginsInput: function() {
+        var arr = [];
+        var splitArr = [];
+        if (!this.pluginsInput) return arr;
+        var lines = this.pluginsInput.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+          if (lines[i].trim().length > 0) {
+          	val = lines[i].trim().replace(/^\"|^\'|\'$|\"$/g, '');
+            splitArr = val.split('@');
+          	arr.push({
+              input: val,
+							package: splitArr[0],
+							version: splitArr[1] || '',
+							ciPackageName: splitArr[1] ? ( '' + splitArr[0] + '_' + splitArr[1].split('.').join('_') ) : '',
+							ciPackageNamePrefix: 'fis-msprd-'
+						})
+          }
+        }
+        return arr;
+      }
+    },
+    methods: {
+      submit: function() {
+        var that = this;
+        var submitEle = document.getElementsByClassName('fis-ci-plgins-form-submit-btn')[0];
+        var pluginInputEle = document.getElementsByClassName('plugin-input')[0];
+        if (that.processedPluginsInput.length === 0) {alert('0'); return;}
+        pluginInputEle.value = JSON.stringify(that.processedPluginsInput);
+        submitEle.click();
+      }
+    }
+});
+
+</script>

@@ -4,7 +4,8 @@
         <li class="first-layer"><%= link_to "Homepage", root_path, id: "logo" %></li>
         <% if logged_in? %>
         <li class="first-layer"><%= link_to "Dev", dev_path %></li>
-        <li class="first-layer"><%= link_to "Third party accounts", third_party_accounts_path %></li>
+        <li class="first-layer"><%= link_to "Fis-CI-plugins", fis_ci_plugins_path %></li>
+        <li class="first-layer"><%= link_to "Third-party-accounts", third_party_accounts_path %></li>
         <li class="first-layer"><%= link_to "Email-whitelist", email_whitelists_path %></li>
         <li class="first-layer"><%= link_to "Document", docs_path %></li>
         <% end %>
