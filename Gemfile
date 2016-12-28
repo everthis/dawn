@@ -28,6 +28,7 @@ gem 'redis-namespace'
 
 group :development do
   gem 'pry-rails'
+  gem 'foreman'
   gem "letter_opener"
   gem "awesome_print", '1.6.1'
   gem "passenger"

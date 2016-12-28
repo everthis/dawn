@@ -56,7 +56,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   
-
+  config.action_cable.url = '/cable'
+  config.action_cable.allowed_request_origins = ['http://rubyonrails.com', %r{http://ruby.*}, 'http://10.0.0.9']
 
 
   # Adds additional error checking when serving assets at runtime.
