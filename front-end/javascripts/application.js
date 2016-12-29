@@ -1,3 +1,4 @@
+import {ActionCable} from './common/ActionCable';
 import {dataLinks} from './modules/dataLinks';
 import {home} from './modules/homepage';
 

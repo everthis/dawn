@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# bash <(curl -s http://mywebsite.com/myscript.txt)
 DIRECTORY="node_modules"
 packagePath="/home/fis/npm/lib/node_modules/fis-msprd-"
 cipluginsConfig=".ciplugins"

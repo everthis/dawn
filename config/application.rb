@@ -30,5 +30,8 @@ module Dawn
     config.action_view.embed_authenticity_token_in_remote_forms = true
 
     config.autoload_paths << "#{Rails.root}/lib"
+
+    config.action_cable.mount_path = '/websocket'
+
   end
 end
