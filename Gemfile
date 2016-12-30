@@ -33,8 +33,8 @@ group :development do
   gem "awesome_print", '1.6.1'
   gem "passenger"
   gem "binding_of_caller"
-  gem "rack-livereload", '0.3.15'
-  gem 'guard-livereload'
+  # gem "rack-livereload", '0.3.15'
+  # gem 'guard-livereload'
   gem 'byebug'
   gem 'better_errors'
   gem 'bullet'

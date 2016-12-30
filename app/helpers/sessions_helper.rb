@@ -6,8 +6,16 @@ module SessionsHelper
 	# Remembers a user in a persistent session.
 	def remember(user)
 	  user.remember
-	  cookies.permanent.signed[:user_id] = user.id
+	  # cookies.permanent.signed[:user_id] = user.id
 	  cookies.permanent[:remember_token] = user.remember_token
+	end
+
+	def sign_user_id_to_cookie(user)
+	  cookies.permanent.signed[:user_id] = user.id
+	end
+
+	def del_user_id_from_cookie(user)
+		cookies.delete(:user_id)
 	end
 
 	# Returns the user corresponding to the remember token cookie.
@@ -37,13 +45,14 @@ module SessionsHelper
 	# Forgets a persistent session.
 	def forget(user)
 	  user.forget
-	  cookies.delete(:user_id)
+	  # cookies.delete(:user_id)
 	  cookies.delete(:remember_token)
 	end
 
 	# Logs out the current user.
 	def log_out
-	  forget(current_user)	
+	  forget(current_user)
+	  del_user_id_from_cookie current_user	
 	  session.delete(:user_id)
 	  @current_user = nil
 	end

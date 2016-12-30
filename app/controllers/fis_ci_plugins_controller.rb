@@ -25,6 +25,7 @@ class FisCiPluginsController < ApplicationController
   # POST /fis_ci_plugins
   # POST /fis_ci_plugins.json
   def create
+    puts ActiveSupport::JSON.decode(fis_ci_plugin_params['content'])
     @fis_ci_plugin = current_user.fis_ci_plugins.build(fis_ci_plugin_params)
 
     respond_to do |format|

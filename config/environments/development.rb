@@ -66,7 +66,7 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   # Automatically inject JavaScript needed for LiveReload
-  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload, live_reload_port: 8010)
+  # config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload, live_reload_port: 8010)
 
   config.web_console.whitelisted_ips = '172.20.0.0/16'
 
