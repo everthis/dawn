@@ -14,7 +14,8 @@ import {fcp} from './modules/fisCiPlugins';
   let routes = {
     '/': home,
     '/dev': [initXhr],
-    '/fis_ci_plugins/new': fcp
+    '/fis_ci_plugins/new': fcp,
+    '/fis_ci_plugins': fcp
   };
   let pathName = window.location.pathname;
   if (routes.hasOwnProperty(pathName)) {
