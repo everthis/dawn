@@ -21,4 +21,13 @@
 	.ci-package-name-input {
 		border: 1px solid $focus-border-color;
 	}
+	.per-row-plugin {
+		border-bottom: 1px solid $border-color;
+		padding-bottom: $pad-bottom;
+		&:hover {
+			border-bottom: 1px solid $focus-border-color;
+		}
+	}
+	.plugin-wrap {
+	}
 }

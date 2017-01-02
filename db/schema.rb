@@ -50,9 +50,15 @@ ActiveRecord::Schema.define(version: 20161222122004) do
 
   create_table "fis_ci_plugins", force: :cascade do |t|
     t.integer  "user_id"
-    t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.json     "log"
+    t.string   "status"
+    t.string   "input"
+    t.string   "packageName"
+    t.string   "packageVersion"
+    t.string   "ciPackageName"
+    t.string   "ciPackageNamePrefix"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.index ["user_id"], name: "index_fis_ci_plugins_on_user_id", using: :btree
   end
 

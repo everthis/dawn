@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   # for the sake of debugging
   get 'demo' => 'demo#home'
 
-  mount ActionCable.server => '/cable'
-
   resources :apis
   get 'returnreqcookie' => 'utility#return_req_cookie'
   get 'instantsearch' => 'apis#query'

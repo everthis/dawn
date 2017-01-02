@@ -12,17 +12,30 @@
       <div class="plugins c-grid-span38">
         <div class="plugins-wrap c-gap-bottom">
 
-          <div class="plugins-hread c-grid-row">
-            <div class="c-grid-span16">packageName</div>
-            <div class="c-grid-span16">version</div>
-            <div class="c-grid-span16">CI-packageName</div>
+          <div class="plugins-hread c-grid-row c-pad-left">
+            <div class="c-grid-span15">packageName</div>
+            <div class="c-grid-span10">version</div>
+            <div class="c-grid-span15">CI-packageName</div>
+            <div class="c-grid-span5">status</div>
+            <div class="c-grid-span5 c-center">log</div>
           </div>
 
-          <div class="per-row-plugin c-grid-row c-gap-top" v-for="item in pluginsInput">
-            <span class="c-grid-span16 package-name">{{ item.package }}</span>
-            <span class="c-grid-span16 package-version">{{ item.version }}</span>
-            <span class="c-grid-span16 package-ci-package-name">{{ item.ciPackageName }}</span>
+          <div class="plugin-wrap" v-for="item in pluginsInput">
+            
+            <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
+              <span class="c-grid-span15 package-name">{{ item.packageName }}</span>
+              <span class="c-grid-span10 package-version">{{ item.packageVersion }}</span>
+              <span class="c-grid-span15 package-ci-package-name">{{ item.ciPackageName }}</span>
+              <span class="c-grid-span5 package-status">{{ item.status }}</span>
+              <span class="c-grid-span5 package-log c-center"><svg class="icon icon-more" @click="toggleLog(item)"><use xlink:href="#icon-more"></use></svg></span>
+            </div>
+            
+            <div class="package-log" v-if="item.showLogs">
+              <pre v-html='item.log'></pre>
+            </div>
+
           </div>
+
 
         </div>
       </div>
@@ -30,6 +43,7 @@
       <%= will_paginate %>
 
       <div class="c-gap-top">
+
         <%= link_to 'New Fis Ci Plugin', new_fis_ci_plugin_path %>
       </div>
 
@@ -42,27 +56,30 @@
   (function() {
     window.gc = window.gc || {};
     gc = <%= raw @fis_ci_plugins.to_json %>;
-    var arr = [];
-    var tmp;
-    for (var i = gc.length - 1; i >= 0; i--) {
-      tmp = JSON.parse(gc[i]['content']);
-      if (tmp.length > 0) arr = arr.concat(tmp.reverse())
-    }
-    gc = arr;
   })();
 </script>
 
 <script>
+function addShowLogMark() {
+  if (gc.length === 0) return;
+  gc.forEach( function(element, index) {
+    element.showLogs = false;
+  });
+}
+addShowLogMark();
 var app = new Vue({
   el: '#app',
   data: {
-    pluginsInput: gc
+    pluginsInput: gc,
+    showLogs: false
   },
   computed: {
 
   },
   methods: {
-
+    toggleLog: function(item) {
+      item.showLogs = !item.showLogs;
+    }
   }
 });
 

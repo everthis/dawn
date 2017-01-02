@@ -56,7 +56,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   
-  config.action_cable.url = '/cable'
+  # config.action_cable.url = '/cable'
+  config.action_cable.mount_path = '/cable'
   # config.action_cable.allowed_request_origins = ['http://rubyonrails.com', %r{http://ruby.*}, 'http://10.0.0.9']
   config.action_cable.disable_request_forgery_protection = true
 

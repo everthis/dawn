@@ -25,6 +25,7 @@ gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
 gem 'redis-namespace'
+gem 'activerecord-import'
 
 group :development do
   gem 'pry-rails'

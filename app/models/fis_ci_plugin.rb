@@ -1,5 +1,6 @@
 class FisCiPlugin < ApplicationRecord
   belongs_to :user
+  after_commit :download_rename_publish_npm_package
 
   def download_rename_publish_npm_package
   	ProcessFisCiPluginsJob.perform_later(self.id)

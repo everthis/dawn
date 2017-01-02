@@ -2547,6 +2547,11 @@ div.field, div.actions {
     color: #fff; }
   .fis-ci-container .ci-package-name-input {
     border: 1px solid #4d90fe; }
+  .fis-ci-container .per-row-plugin {
+    border-bottom: 1px solid #B9B9B9;
+    padding-bottom: 0.5rem; }
+    .fis-ci-container .per-row-plugin:hover {
+      border-bottom: 1px solid #4d90fe; }
 
 /* import all pages */
 .user-info-card + .micropost-form {
