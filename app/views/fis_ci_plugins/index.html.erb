@@ -31,7 +31,10 @@
             </div>
             
             <div class="package-log" v-if="item.showLogs">
-              <pre v-html='item.log'></pre>
+              <div v-for="(val, key) in item.log">
+                <p class="package-log-head">{{ key }}</p>
+                <pre class="package-log-pre" v-html='val'></pre>
+              </div>
             </div>
 
           </div>

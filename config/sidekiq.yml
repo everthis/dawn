@@ -14,6 +14,8 @@
 :queues:
   - ["default", 1]
   - ["mailers", 1]
+  - ["check_npm_package_existence", 1]
+  - ["download_npm_package", 1]
   - ["download_rename_publish_npm_package", 1]
   - [<%= `hostname`.strip %>, 1]
 
