@@ -5,6 +5,7 @@ import {home} from './modules/homepage';
 import {initXhr} from './modules/apiOperation';
 dataLinks();
 import {fcp} from './modules/fisCiPlugins';
+import {newCiPlugins as ncp} from './modules/newCiPlugins';
 // apiTree();
 // var p = new dawnSVG();
 // p.init(document.getElementById('painter-target'));
@@ -14,7 +15,7 @@ import {fcp} from './modules/fisCiPlugins';
   let routes = {
     '/': home,
     '/dev': [initXhr],
-    '/fis_ci_plugins/new': fcp,
+    '/fis_ci_plugins/new': ncp,
     '/fis_ci_plugins': fcp
   };
   let pathName = window.location.pathname;

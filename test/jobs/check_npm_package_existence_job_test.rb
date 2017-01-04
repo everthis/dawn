@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CheckNpmPackageJobTest < ActiveJob::TestCase
+class CheckNpmPackageExistenceJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -377,6 +377,7 @@ textarea {
 /* user */
 /* grid system */
 /* colors */
+/* border */
 /* first and last item of list*/
 /* Last index of value x */
 /* Inserting value at index n */
@@ -2542,16 +2543,31 @@ div.field, div.actions {
     max-width: 100%; }
   .fis-ci-container .plugins-wrap {
     padding-left: 1rem; }
+  .fis-ci-container .plugin-wrap {
+    border-bottom: 1px solid #0cc;
+    border-right: 1px solid #0cc;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    padding-bottom: 0.5rem; }
   .fis-ci-container .plugins-hread {
     background-color: #0cc;
     color: #fff; }
   .fis-ci-container .ci-package-name-input {
     border: 1px solid #4d90fe; }
   .fis-ci-container .per-row-plugin {
-    border-bottom: 1px solid #B9B9B9;
     padding-bottom: 0.5rem; }
-    .fis-ci-container .per-row-plugin:hover {
-      border-bottom: 1px solid #4d90fe; }
+  .fis-ci-container .per-phase-log {
+    overflow: hidden; }
+    .fis-ci-container .per-phase-log:first-child {
+      border-top: 1px solid #0cc; }
+  .fis-ci-container .package-log-head {
+    width: 5rem;
+    padding-left: .5rem;
+    margin: 0;
+    border-bottom: 1px solid #0cc; }
+  .fis-ci-container .package-log-pre {
+    margin: 0;
+    border-left: 1px solid #0cc; }
 
 /* import all pages */
 .user-info-card + .micropost-form {

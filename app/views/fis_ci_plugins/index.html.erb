@@ -1,8 +1,3 @@
-<script>
-  <%= render 'vue.js'%>
-</script>
-
-
 <div class="fis-ci-container">
   <div class="c-gap-bottom">
     <%= will_paginate %>
@@ -31,7 +26,10 @@
             </div>
             
             <div class="package-log" v-if="item.showLogs">
-              <pre v-html='item.log'></pre>
+              <div class="per-phase-log" v-for="(val, key) in item.log">
+                <p class="package-log-head">{{ key }}</p>
+                <pre class="package-log-pre" v-html='val.detail'></pre>
+              </div>
             </div>
 
           </div>
@@ -60,28 +58,11 @@
 </script>
 
 <script>
-function addShowLogMark() {
+(function addShowLogMark() {
   if (gc.length === 0) return;
   gc.forEach( function(element, index) {
     element.showLogs = false;
   });
-}
-addShowLogMark();
-var app = new Vue({
-  el: '#app',
-  data: {
-    pluginsInput: gc,
-    showLogs: false
-  },
-  computed: {
-
-  },
-  methods: {
-    toggleLog: function(item) {
-      item.showLogs = !item.showLogs;
-    }
-  }
-});
-
+})();
 
 </script>
