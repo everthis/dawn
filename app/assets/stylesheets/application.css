@@ -2546,6 +2546,7 @@ div.field, div.actions {
   .fis-ci-container .plugin-wrap {
     border-bottom: 1px solid #0cc;
     border-right: 1px solid #0cc;
+    border-left: 1px solid #0cc;
     margin-bottom: 1rem;
     border-radius: 0.5rem;
     padding-bottom: 0.5rem; }
@@ -2566,8 +2567,9 @@ div.field, div.actions {
     margin: 0;
     border-bottom: 1px solid #0cc; }
   .fis-ci-container .package-log-pre {
-    margin: 0;
-    border-left: 1px solid #0cc; }
+    margin: 0; }
+  .fis-ci-container .per-phase-log:first-child {
+    padding-top: 0.5rem; }
 
 /* import all pages */
 .user-info-card + .micropost-form {

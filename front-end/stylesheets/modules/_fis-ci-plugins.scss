@@ -17,9 +17,10 @@
 	.plugin-wrap {
 		border-bottom: 1px solid $cyan;
 		border-right: 1px solid $cyan;
-	    margin-bottom: 1rem;
-	    border-radius: $bdrs;
-	    padding-bottom: $pad-bottom;
+		border-left: 1px solid $cyan;
+    margin-bottom: 1rem;
+    border-radius: $bdrs;
+    padding-bottom: $pad-bottom;
 	}
 	.plugins-hread {
 		background-color: $head-bg-color;
@@ -39,6 +40,8 @@
 	}
 	.plugin-wrap {
 	}
+	.package-log {
+	}
 	.package-log-head {
 		width: 5rem;
 		padding-left: .5rem;
@@ -47,6 +50,10 @@
 	}
 	.package-log-pre {
 		margin: 0;
-		border-left: 1px solid $cyan;
+	}
+	.per-phase-log {
+		&:first-child {
+			padding-top: $pad-top;
+		}
 	}
 }
