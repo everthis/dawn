@@ -31,6 +31,7 @@ class ModifyNpmPackageJob < ApplicationJob
 			cp #{default_tarball_download_dir}/#{full_name} ./
 			tar -zxf #{full_name}
 			cd package
+			cp package.json package.json.bak
 			jq '(if .bin | type == "string"  then (.bin = {(.name): .bin}) elif .bin | type == "object"  then . else . end)' package.json > tmp.json && mv tmp.json package.json
 			jq --arg v #{ci_package_fullname} '.name = $v' package.json > tmp.json && mv tmp.json package.json
 			jq 'if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}_" + .)) else . end' package.json > tmp.json && mv tmp.json package.json
@@ -41,7 +42,7 @@ class ModifyNpmPackageJob < ApplicationJob
 		stdout, stderr, status = Open3.capture3("sh", :stdin_data=>shell_commands, :binmode=>true)
 
 		plugin.log["phase3"] = {} if plugin.log["phase3"].nil?
-		if status.success?
+		if stderr.length == 0 && status.success?
 			plugin.log['phase3']['detail'] = "#{stdout}"
 			plugin.log['phase3']['status'] = 1
 		else
