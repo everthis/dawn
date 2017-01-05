@@ -3,6 +3,14 @@ require 'open3'
 class PublishModifiedNpmPackageJob < ApplicationJob
   queue_as :publish_modified_npm_package
 
+  after_perform do |job|
+    id = job.arguments.first
+    plugin = FisCiPlugin.find(id)
+    if plugin.log['phase5']['status'] == 1
+      CheckNpmExistenceInMirrorRegistryJob.perform_later(id)
+    end
+  end
+
   def perform(*args)
     id = args[0]
 	plugin = FisCiPlugin.find(id)
