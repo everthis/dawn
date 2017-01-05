@@ -1,13 +1,15 @@
 require 'uri'
 require 'open3'
+require "net/http"
 class PublishModifiedNpmPackageJob < ApplicationJob
   queue_as :publish_modified_npm_package
 
   after_perform do |job|
     id = job.arguments.first
     plugin = FisCiPlugin.find(id)
+  	puts check_server("https://www.everthis.com")
     if plugin.log['phase5']['status'] == 1
-      CheckNpmExistenceInMirrorRegistryJob.perform_later(id)
+      # CheckNpmExistenceInMirrorRegistryJob.perform_later(id)
     end
   end
 
@@ -47,4 +49,31 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 	plugin.save!
 
   end
+
+  def check_server(url_str)
+  	uri = URI(url_str)
+    begin
+      http = Net::HTTP.start(uri.host, uri.port, {open_timeout: 5, read_timeout: 5})
+      begin
+        response = http.head("/")
+        if response.code == "200"
+          # everything fine
+          0
+        else
+          # unexpected status code
+          1
+        end
+      rescue Timeout::Error
+        # timeout reading from server
+        2
+      end
+    rescue Timeout::Error
+      # timeout connecting to server
+      3
+    rescue SocketError
+      # unknown server
+      4
+    end
+  end
+
 end

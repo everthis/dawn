@@ -2,7 +2,6 @@ import {$http} from '../common/ajax';
 import Vue from 'vue';
 
 function test() {
-    console.log(Vue);
     let app = new Vue({
       el: '#app',
       data: {

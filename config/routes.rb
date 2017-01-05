@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :npm_registries
   resources :fis_ci_plugins
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :third_party_accounts

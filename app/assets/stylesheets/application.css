@@ -613,6 +613,9 @@ textarea[type="hidden"] {
 .c-input {
   border-bottom: 1px solid #999; }
 
+.c-block-input {
+  display: block; }
+
 .c-center {
   text-align: center; }
 
@@ -2571,6 +2574,9 @@ div.field, div.actions {
     white-space: pre-wrap; }
   .fis-ci-container .per-phase-log:first-child {
     padding-top: 0.5rem; }
+
+.npm-registry-section .c-block-input {
+  width: 40rem; }
 
 /* import all pages */
 .user-info-card + .micropost-form {
