@@ -5,7 +5,10 @@ class ModifyNpmPackageJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-
+    plugin = FisCiPlugin.find(id)
+    if plugin.log['phase3']['status'] == 1
+      ReportNpmPackageBinJob.perform_later(id)
+    end
   end
 
   def perform(*args)
@@ -34,8 +37,9 @@ class ModifyNpmPackageJob < ApplicationJob
 			cp package.json package.json.bak
 			jq '(if .bin | type == "string"  then (.bin = {(.name): .bin}) elif .bin | type == "object"  then . else . end)' package.json > tmp.json && mv tmp.json package.json
 			jq --arg v #{ci_package_fullname} '.name = $v' package.json > tmp.json && mv tmp.json package.json
-			jq 'if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}_" + .)) else . end' package.json > tmp.json && mv tmp.json package.json
+			jq 'if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}-" + .)) else . end' package.json > tmp.json && mv tmp.json package.json
 			diff_msg=`diff -y --suppress-common-lines package.json.bak package.json`
+			rm ./package.json.bak
 			echo "$diff_msg"
 		HEREDOC
 

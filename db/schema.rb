@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161222122004) do
   create_table "fis_ci_plugins", force: :cascade do |t|
     t.integer  "user_id"
     t.json     "log"
+    t.string   "bin",                              array: true
     t.string   "status"
     t.string   "input"
     t.string   "packageName"

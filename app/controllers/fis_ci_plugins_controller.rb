@@ -87,6 +87,10 @@ class FisCiPluginsController < ApplicationController
     end
   end
 
+  def update_npm_package_bin
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fis_ci_plugin
@@ -96,11 +100,11 @@ class FisCiPluginsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def fis_ci_plugin_params
       # params.require(:fis_ci_plugin).permit(:content)
-      params.require(:fis_ci_plugin).permit(:log, :status, :input, :packageName, :packageVersion, :ciPackageName, :ciPackageNamePrefix)
+      params.require(:fis_ci_plugin).permit(:log, :bin, :status, :input, :packageName, :packageVersion, :ciPackageName, :ciPackageNamePrefix)
     end
 
     def fis_ci_plugin_params(param)
       # params.require(:fis_ci_plugin).permit(:content)
-      param.permit(:log, :status, :input, :packageName, :packageVersion, :ciPackageName, :ciPackageNamePrefix)
+      param.permit(:log, :bin, :status, :input, :packageName, :packageVersion, :ciPackageName, :ciPackageNamePrefix)
     end
 end

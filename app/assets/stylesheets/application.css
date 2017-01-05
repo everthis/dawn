@@ -2567,7 +2567,8 @@ div.field, div.actions {
     margin: 0;
     border-bottom: 1px solid #0cc; }
   .fis-ci-container .package-log-pre {
-    margin: 0; }
+    margin: 0;
+    white-space: pre-wrap; }
   .fis-ci-container .per-phase-log:first-child {
     padding-top: 0.5rem; }
 

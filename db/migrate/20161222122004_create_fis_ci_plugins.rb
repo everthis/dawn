@@ -3,6 +3,7 @@ class CreateFisCiPlugins < ActiveRecord::Migration[5.0]
     create_table :fis_ci_plugins do |t|
       t.references :user, foreign_key: true
       t.json :log
+      t.string :bin, array: true
       t.string :status
       t.string :input
       t.string :packageName

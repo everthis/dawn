@@ -9,4 +9,8 @@ class FisCiPlugin < ApplicationRecord
   def check_npm_package_existence
   	CheckNpmPackageExistenceJob.perform_later(self.id)
   end
+
+  def update_npm_package_bin(bin_array)
+  	update_attribute(:bin, bin_array)
+  end
 end
