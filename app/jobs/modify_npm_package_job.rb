@@ -6,7 +6,7 @@ class ModifyNpmPackageJob < ApplicationJob
   after_perform do |job|
     id = job.arguments.first
     plugin = FisCiPlugin.find(id)
-    if plugin.log['phase3']['status'] == 1
+    if plugin.ci_plugin_log.log['modify_npm_package']['status'] == 1
       ReportNpmPackageBinJob.perform_later(id)
     end
   end
@@ -16,7 +16,7 @@ class ModifyNpmPackageJob < ApplicationJob
     id = args[0]
 		plugin = FisCiPlugin.find(id)
 
-		download_url = plugin['log']['phase1']['detail']
+		download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
 
 		default_tarball_download_dir = ENV["DOWNLOAD_PATH"]
 
@@ -35,9 +35,7 @@ class ModifyNpmPackageJob < ApplicationJob
 			tar -zxf #{full_name}
 			cd package
 			cp package.json package.json.bak
-			jq '(if .bin | type == "string"  then (.bin = {(.name): .bin}) elif .bin | type == "object"  then . else . end)' package.json > tmp.json && mv tmp.json package.json
-			jq --arg v #{ci_package_fullname} '.name = $v' package.json > tmp.json && mv tmp.json package.json
-			jq 'if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}-" + .)) else . end' package.json > tmp.json && mv tmp.json package.json
+			jq --arg v #{ci_package_fullname} '(if .bin | type == "string"  then (.bin = {(.name): .bin}) elif .bin | type == "object"  then . else . end) | (.name = $v) | (if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}-" + .)) else . end) | (del (.scripts.prepublish) | del (.scripts.publish) | del(.scripts.postpublish))' package.json > tmp.json && mv tmp.json package.json
 			diff_msg=`diff -y --suppress-common-lines package.json.bak package.json`
 			rm ./package.json.bak
 			echo "$diff_msg"
@@ -45,15 +43,15 @@ class ModifyNpmPackageJob < ApplicationJob
 
 		stdout, stderr, status = Open3.capture3("sh", :stdin_data=>shell_commands, :binmode=>true)
 
-		plugin.log["phase3"] = {} if plugin.log["phase3"].nil?
+		plugin.ci_plugin_log.log["modify_npm_package"] = {} if plugin.ci_plugin_log.log["modify_npm_package"].nil?
 		if stderr.length == 0 && status.success?
-			plugin.log['phase3']['detail'] = "#{stdout}"
-			plugin.log['phase3']['status'] = 1
+			plugin.ci_plugin_log.log['modify_npm_package']['detail'] = "#{stdout}"
+			plugin.ci_plugin_log.log['modify_npm_package']['status'] = 1
 		else
-			plugin.log['phase3']['detail'] = "#{stderr}"
-			plugin.log['phase3']['status'] = 0
+			plugin.ci_plugin_log.log['modify_npm_package']['detail'] = "#{stderr}"
+			plugin.ci_plugin_log.log['modify_npm_package']['status'] = 0
 		end
-		plugin.save!
+		plugin.ci_plugin_log.save!
 
   end
 end

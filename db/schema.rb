@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105132830) do
+ActiveRecord::Schema.define(version: 20170106050754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,9 +33,17 @@ ActiveRecord::Schema.define(version: 20170105132830) do
     t.index ["user_id"], name: "index_apis_on_user_id", using: :btree
   end
 
+  create_table "ci_plugin_logs", force: :cascade do |t|
+    t.integer  "fis_ci_plugin_id"
+    t.json     "log"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["fis_ci_plugin_id"], name: "index_ci_plugin_logs_on_fis_ci_plugin_id", using: :btree
+  end
+
   create_table "docs", force: :cascade do |t|
     t.string   "title"
-    t.text     "content"
+    t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
@@ -50,7 +58,6 @@ ActiveRecord::Schema.define(version: 20170105132830) do
 
   create_table "fis_ci_plugins", force: :cascade do |t|
     t.integer  "user_id"
-    t.json     "log"
     t.string   "bin",                              array: true
     t.string   "status"
     t.string   "input"
@@ -102,14 +109,6 @@ ActiveRecord::Schema.define(version: 20170105132830) do
     t.index ["user_id"], name: "index_third_party_accounts_on_user_id", using: :btree
   end
 
-  create_table "user_preferences", force: :cascade do |t|
-    t.string   "locale"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -130,8 +129,8 @@ ActiveRecord::Schema.define(version: 20170105132830) do
   end
 
   add_foreign_key "apis", "users"
+  add_foreign_key "ci_plugin_logs", "fis_ci_plugins"
   add_foreign_key "docs", "users"
   add_foreign_key "fis_ci_plugins", "users"
   add_foreign_key "third_party_accounts", "users"
-  add_foreign_key "user_preferences", "users"
 end

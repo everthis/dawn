@@ -60,8 +60,10 @@
 <script>
 (function addShowLogMark() {
   if (gc.length === 0) return;
-  gc.forEach( function(element, index) {
+  gc.forEach(function(element, index) {
     element.showLogs = false;
+    element.log = {};
+    element.gc = null;
   });
 })();
 

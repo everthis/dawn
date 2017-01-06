@@ -1,5 +1,7 @@
 class FisCiPlugin < ApplicationRecord
   belongs_to :user
+  has_one :ci_plugin_log, dependent: :destroy
+  after_create :create_ci_plugin_log
   after_commit :check_npm_package_existence, on: [ :create ]
 
   def download_rename_publish_npm_package
@@ -13,4 +15,6 @@ class FisCiPlugin < ApplicationRecord
   def update_npm_package_bin(bin_array)
   	update_attribute(:bin, bin_array)
   end
+
+
 end

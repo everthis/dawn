@@ -5,8 +5,10 @@ class CheckNpmExistenceInMirrorRegistryJob < ApplicationJob
   after_perform do |job|
     id = job.arguments.first
     plugin = FisCiPlugin.find(id)
-    if plugin.log['phase6']['status'] == 0
+    if plugin.ci_plugin_log.log['check_existence_of_published_package_in_mirror_registry']['status'] == 0
       self.class.set(wait: 5.seconds).perform_later(id)
+    else
+      puts "exists in mirror."
     end
   end
 
@@ -14,16 +16,16 @@ class CheckNpmExistenceInMirrorRegistryJob < ApplicationJob
 	id = args[0]
 	plugin = FisCiPlugin.find(id)
 	registry_url = "http://registry.npm.baidu.com/"
-	plugin.log = {} if plugin.log.nil?
+	plugin.ci_plugin_log.log = {} if plugin.ci_plugin_log.log.nil?
 	stdout, stderr, status = Open3.capture3("npm v #{plugin.input} dist.tarball --registry=#{registry_url}")
-	plugin.log["phase6"] = {} if plugin.log["phase6"].nil?
-	if stdout.length > 0 && plugin.log["phase6"]['status'] != 1
-	  plugin.log["phase6"]['detail'] = "#{stdout}"
-	  plugin.log["phase6"]['status'] = 1
+	plugin.ci_plugin_log.log["check_existence_of_published_package_in_mirror_registry"] = {} if plugin.ci_plugin_log.log["check_existence_of_published_package_in_mirror_registry"].nil?
+	if stdout.length > 0 && plugin.ci_plugin_log.log["check_existence_of_published_package_in_mirror_registry"]['status'] != 1
+	  plugin.ci_plugin_log.log["check_existence_of_published_package_in_mirror_registry"]['detail'] = "#{stdout}"
+	  plugin.ci_plugin_log.log["check_existence_of_published_package_in_mirror_registry"]['status'] = 1
 	else
-	  plugin.log["phase6"]['detail'] = "#{stderr}"
-	  plugin.log["phase6"]['status'] = 0
+	  plugin.ci_plugin_log.log["check_existence_of_published_package_in_mirror_registry"]['detail'] = "#{stderr}"
+	  plugin.ci_plugin_log.log["check_existence_of_published_package_in_mirror_registry"]['status'] = 0
 	end
-	plugin.save!
+	plugin.ci_plugin_log.save!
   end
 end

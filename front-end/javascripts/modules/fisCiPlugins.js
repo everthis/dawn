@@ -1,7 +1,12 @@
 import {$http} from '../common/ajax';
 import Vue from 'vue';
 
-function test() {
+
+export function fcp() {
+    let App = {};
+    
+    App.cable = ActionCable.createConsumer();
+
     let app = new Vue({
       el: '#app',
       data: {
@@ -14,32 +19,48 @@ function test() {
       methods: {
         toggleLog: function(item) {
           console.log(item.id);
+          if (!item.showLogs) {
+            item.gc = App.cable.subscriptions.create({
+                'channel': "CiPluginLogsChannel",
+                'plugin_id': item.id
+              }, {
+                connected: function() {
+                  console.log('connected');
+                  
+                },
+                received: function(data) {
+                  console.log(data);
+                  item.log = data;
+                }
+              });
+            console.log(item.gc);
+          } else {
+            item.gc.unsubscribe();
+          }
           item.showLogs = !item.showLogs;
         },
         subscribe: function(id) {}
       }
     });
-}
-export function fcp() {
-    test();
-    let App = {};
 
-    
-    App.cable = ActionCable.createConsumer();
+    // App.ci_plugin_logs = App.cable.subscriptions.create("CiPluginLogsChannel", {
+    //   connected: function() {
+    //     // Called when the subscription is ready for use on the server
+    //     let that = this;
+    //     that.perform('follow', {
+    //       'plugin_id': 
+    //     })
+    //   },
 
-    App.ci_plugin_logs = App.cable.subscriptions.create("CiPluginLogsChannel", {
-      connected: function() {
-        // Called when the subscription is ready for use on the server
-      },
+    //   disconnected: function() {
+    //     // Called when the subscription has been terminated by the server
+    //   },
 
-      disconnected: function() {
-        // Called when the subscription has been terminated by the server
-      },
-
-      received: function(data) {
-        // Called when there's incoming data on the websocket for this channel
-      }
-    });
+    //   received: function(data) {
+    //     // Called when there's incoming data on the websocket for this channel
+    //     console.log(data);
+    //   }
+    // });
 
     // App.comments = App.cable.subscriptions.create("CommentsChannel", {
     //   collection: function() {

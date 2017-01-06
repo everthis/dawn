@@ -8,7 +8,7 @@ class PublishModifiedNpmPackageJob < ApplicationJob
     id = job.arguments.first
     plugin = FisCiPlugin.find(id)
   	puts check_server("https://www.everthis.com")
-    if plugin.log['phase5']['status'] == 1
+    if plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] == 1
       # CheckNpmExistenceInMirrorRegistryJob.perform_later(id)
     end
   end
@@ -17,7 +17,7 @@ class PublishModifiedNpmPackageJob < ApplicationJob
     id = args[0]
 	plugin = FisCiPlugin.find(id)
 
-	download_url = plugin['log']['phase1']['detail']
+	download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
 
 
 	default_tarball_download_dir = ENV["DOWNLOAD_PATH"]
@@ -38,15 +38,15 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 
 	stdout, stderr, status = Open3.capture3("sh", :stdin_data=>shell_commands, :binmode=>true)
 
-	plugin.log["phase5"] = {} if plugin.log["phase5"].nil?
+	plugin.ci_plugin_log.log["publish_modified_npm_packsge"] = {} if plugin.ci_plugin_log.log["publish_modified_npm_packsge"].nil?
 	if stderr.length == 0
-		plugin.log['phase5']['detail'] = "#{stdout}"
-		plugin.log['phase5']['status'] = 1
+		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['detail'] = "#{stdout}"
+		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] = 1
 	else
-		plugin.log['phase5']['detail'] = "#{stderr}"
-		plugin.log['phase5']['status'] = 0
+		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['detail'] = "#{stderr}"
+		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] = 0
 	end
-	plugin.save!
+	plugin.ci_plugin_log.save!
 
   end
 

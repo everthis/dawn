@@ -6,7 +6,7 @@ class ReportNpmPackageBinJob < ApplicationJob
   after_perform do |job|
     id = job.arguments.first
     plugin = FisCiPlugin.find(id)
-    if plugin.log['phase4']['status'] == 1
+    if plugin.ci_plugin_log.log['report_npm_package_bin']['status'] == 1
       PublishModifiedNpmPackageJob.perform_later(id)
     end
   end
@@ -15,7 +15,7 @@ class ReportNpmPackageBinJob < ApplicationJob
     # Do something later
     id = args[0]
 	plugin = FisCiPlugin.find(id)
-	download_url = plugin['log']['phase1']['detail']
+	download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
 
 
 	default_tarball_download_dir = ENV["DOWNLOAD_PATH"]
@@ -33,18 +33,18 @@ class ReportNpmPackageBinJob < ApplicationJob
 	HEREDOC
 	stdout, stderr, status = Open3.capture3("sh", :stdin_data=>shell_commands, :binmode=>true)
 
-	plugin.log["phase4"] = {} if plugin.log["phase4"].nil?
+	plugin.ci_plugin_log.log["report_npm_package_bin"] = {} if plugin.ci_plugin_log.log["report_npm_package_bin"].nil?
 	bin_array = []
 	if status.success?
 		bin_array = JSON.parse(stdout)
 	    plugin.update_npm_package_bin(bin_array)
-		plugin.log['phase4']['detail'] = "#{stdout}"
-		plugin.log['phase4']['status'] = 1
+		plugin.ci_plugin_log.log['report_npm_package_bin']['detail'] = "#{stdout}"
+		plugin.ci_plugin_log.log['report_npm_package_bin']['status'] = 1
 	else
-		plugin.log['phase4']['detail'] = "#{stderr}"
-		plugin.log['phase4']['status'] = 0
+		plugin.ci_plugin_log.log['report_npm_package_bin']['detail'] = "#{stderr}"
+		plugin.ci_plugin_log.log['report_npm_package_bin']['status'] = 0
 	end
-	plugin.save!
+	plugin.ci_plugin_log.save!
 
   end
 end

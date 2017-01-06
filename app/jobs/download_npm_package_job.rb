@@ -5,7 +5,7 @@ class DownloadNpmPackageJob < ApplicationJob
   after_perform do |job|
     id = job.arguments.first
     plugin = FisCiPlugin.find(id)
-    if plugin.log['phase2']['status'] == 1
+    if plugin.ci_plugin_log.log['download_npm_package']['status'] == 1
       ModifyNpmPackageJob.perform_later(id)
     end
   end
@@ -15,7 +15,7 @@ class DownloadNpmPackageJob < ApplicationJob
     id = args[0]
    	plugin = FisCiPlugin.find(id)
 
-   	download_url = plugin['log']['phase1']['detail']
+   	download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
 
    	default_tarball_download_dir = ENV["DOWNLOAD_PATH"]
 
@@ -24,18 +24,19 @@ class DownloadNpmPackageJob < ApplicationJob
    	  cd #{default_tarball_download_dir}
    	  curl --fail --show-error -L -O #{download_url.strip}
    	HEREDOC
-
+    
+    plugin.ci_plugin_log.log = {} if plugin.ci_plugin_log.log.nil?
    	stdout, stderr, status = Open3.capture3("sh", :stdin_data=>shell_commands, :binmode=>true)
 
-   	plugin.log["phase2"] = {} if plugin.log["phase2"].nil?
+   	plugin.ci_plugin_log.log["download_npm_package"] = {} if plugin.ci_plugin_log.log["download_npm_package"].nil?
    	if status.success?
-   		plugin.log['phase2']['detail'] = "#{stderr}"
-   		plugin.log['phase2']['status'] = 1
+   		plugin.ci_plugin_log.log['download_npm_package']['detail'] = "#{stderr}"
+   		plugin.ci_plugin_log.log['download_npm_package']['status'] = 1
    	else
-   		plugin.log['phase2']['detail'] = "#{stderr}"
-   		plugin.log['phase2']['status'] = 0
+   		plugin.ci_plugin_log.log['download_npm_package']['detail'] = "#{stderr}"
+   		plugin.ci_plugin_log.log['download_npm_package']['status'] = 0
    	end
-   	plugin.save!
+   	plugin.ci_plugin_log.save!
 
   end
 end
