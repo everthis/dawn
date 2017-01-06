@@ -10,6 +10,8 @@ class PublishModifiedNpmPackageJob < ApplicationJob
   	puts check_server("https://www.everthis.com")
     if plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] == 1
       # CheckNpmExistenceInMirrorRegistryJob.perform_later(id)
+    else
+    	puts "failed"
     end
   end
 

@@ -12,6 +12,10 @@ class CiPluginLogsChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
+  def send_current_log
+    ActionCable.server.broadcast("ci_plugin_#{params[:plugin_id].to_i}", FisCiPlugin.find(params[:plugin_id]).ci_plugin_log.log)
+  end
+
   def follow(data)
     stop_all_streams
     stream_from "ci_plugin_:#{data['plugin_id'].to_i}"

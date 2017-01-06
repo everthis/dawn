@@ -1,4 +1,4 @@
-class CiPluginLogController < ApplicationController
+class CiPluginLogsController < ApplicationController
 	before_action :logged_in_user
 
 	def query_current_log

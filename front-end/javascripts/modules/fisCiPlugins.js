@@ -30,11 +30,14 @@ export function fcp() {
               }, {
                 connected: function() {
                   console.log('connected');
-                  let payload = {plugin_id: item.id};
-                  $http(window.location.origin + '/get_ci_plugin_current_log')
-                  .get(payload)
-                  .then(callback.success)
-                  .catch(callback.error);
+                  this.perform('send_current_log', {
+                    plugin_id: item.id
+                  })
+                  // let payload = {plugin_id: item.id};
+                  // $http(window.location.origin + '/get_ci_plugin_current_log')
+                  // .get(payload)
+                  // .then(callback.success)
+                  // .catch(callback.error);
                 },
                 received: function(data) {
                   console.log(data);
