@@ -7,6 +7,10 @@ export function fcp() {
     
     App.cable = ActionCable.createConsumer();
 
+    let callback = {
+        success: function() {},
+        error: function() {}
+    };
     let app = new Vue({
       el: '#app',
       data: {
@@ -26,7 +30,11 @@ export function fcp() {
               }, {
                 connected: function() {
                   console.log('connected');
-                  
+                  let payload = {plugin_id: item.id};
+                  $http(window.location.origin + '/get_ci_plugin_current_log')
+                  .get(payload)
+                  .then(callback.success)
+                  .catch(callback.error);
                 },
                 received: function(data) {
                   console.log(data);

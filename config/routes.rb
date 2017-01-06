@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     # end
   # end
 
+  get 'get_ci_plugin_current_log' => 'CiPluginLogController#query_current_log'
+
   resources :users do
     member do
       get :following, :followers, :settings, :get_token
