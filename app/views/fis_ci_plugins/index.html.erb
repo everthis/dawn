@@ -15,24 +15,7 @@
             <div class="c-grid-span5 c-center">log</div>
           </div>
 
-          <div class="plugin-wrap" v-for="item in pluginsInput">
-            
-            <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
-              <span class="c-grid-span15 package-name">{{ item.packageName }}</span>
-              <span class="c-grid-span10 package-version">{{ item.packageVersion }}</span>
-              <span class="c-grid-span15 package-ci-package-name">{{ item.ciPackageName }}</span>
-              <span class="c-grid-span5 package-status">{{ item.status }}</span>
-              <span class="c-grid-span5 package-log c-center"><svg class="icon icon-more" @click="toggleLog(item)"><use xlink:href="#icon-more"></use></svg></span>
-            </div>
-            
-            <div class="package-log" v-if="item.showLogs">
-              <div class="per-phase-log" v-for="(val, key) in item.log">
-                <p class="package-log-head">{{ key }}</p>
-                <pre class="package-log-pre" v-html='val.detail'></pre>
-              </div>
-            </div>
-
-          </div>
+          <plugin-item v-for="(item,index) in pluginsInput" v-bind:plugin="item"></plugin-item>
 
 
         </div>

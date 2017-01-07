@@ -4,33 +4,7 @@
   <%= render 'form', fis_ci_plugins: @fis_ci_plugins %>
 
   <div id="app">
-  	<div class="c-grid-row">
-
-  	  <div class="pluginsInput c-grid-span10">
-        <div class="hint">format: packageName@version</div>
-  	  	<textarea class="plugins-input-area" name="textarea" rows="16" placeholder="添加plugins" v-model="pluginsInput"></textarea>
-  	  </div>
-
-  	  <div class="plugins c-grid-span38">
-  	  	<div class="plugins-wrap">
-          <div class="plugins-hread c-grid-row">
-            <div class="c-grid-span16">packageName</div>
-            <div class="c-grid-span16">version</div>
-            <div class="c-grid-span16">CI-packageName</div>
-          </div>
-  		  	<div class="per-row-plugin c-grid-row c-gap-top" v-for="item in processedPluginsInput">
-            <span class="c-grid-span16 package-name">{{ item.packageName }}</span>
-            <span class="c-grid-span16 package-version">{{ item.packageVersion }}</span>
-            <span class="c-grid-span16 package-ci-package-name">{{ item.ciPackageName }}</span>
-          </div>
-  	  	</div>
-  	  </div>
-
-  	</div>
-
-    <div class="submit-row c-center c-gap-top c-gap-bottom">
-      <div class="c-btn" @click="submit">Install on BuildCloud compile machines</div>
-    </div>
+    <new-plugins></new-plugins>
 
   </div>
 

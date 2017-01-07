@@ -20,7 +20,9 @@
   - ["modify_npm_package", 1]
   - ["report_npm_package_bin", 1]
   - ["publish_modified_npm_package", 1]
+  - ["uuap_login", 1]
   - ["check_npm_existence_in_mirror_registry", 1]
+  - ["get_laravel_session", 1]
   - ["download_rename_publish_npm_package", 1]
   - [<%= `hostname`.strip %>, 1]
 

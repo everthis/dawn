@@ -7,44 +7,44 @@ export function fcp() {
     
     App.cable = ActionCable.createConsumer();
 
-    let callback = {
-        success: function() {},
-        error: function() {}
-    };
-    let app = new Vue({
-      el: '#app',
-      data: {
-        pluginsInput: gc,
-        showLogs: false
-      },
-      computed: {
 
-      },
+    Vue.component('plugin-item', {
+      props: ['plugin'],
+      template: `
+        <div class="plugin-wrap">
+          
+          <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
+            <span class="c-grid-span15 package-name">{{ plugin.packageName }}</span>
+            <span class="c-grid-span10 package-version">{{ plugin.packageVersion }}</span>
+            <span class="c-grid-span15 package-ci-package-name">{{ plugin.ciPackageName }}</span>
+            <span class="c-grid-span5 package-status">{{ plugin.status }}</span>
+            <span class="c-grid-span5 package-log c-center"><svg class="icon icon-more" @click="toggleLog(plugin)"><use xlink:href="#icon-more"></use></svg></span>
+          </div>
+          
+          <div class="package-log" v-if="plugin.showLogs">
+            <div class="per-phase-log" v-for="(val, key) in plugin.log">
+              <p class="package-log-head">{{ key }}</p>
+              <pre class="package-log-pre" v-html='val.detail'></pre>
+            </div>
+          </div>
+
+        </div>`,
       methods: {
         toggleLog: function(item) {
-          console.log(item.id);
           if (!item.showLogs) {
             item.gc = App.cable.subscriptions.create({
                 'channel': "CiPluginLogsChannel",
                 'plugin_id': item.id
               }, {
                 connected: function() {
-                  console.log('connected');
                   this.perform('send_current_log', {
                     plugin_id: item.id
                   })
-                  // let payload = {plugin_id: item.id};
-                  // $http(window.location.origin + '/get_ci_plugin_current_log')
-                  // .get(payload)
-                  // .then(callback.success)
-                  // .catch(callback.error);
                 },
                 received: function(data) {
-                  console.log(data);
                   item.log = data;
                 }
               });
-            console.log(item.gc);
           } else {
             item.gc.unsubscribe();
           }
@@ -52,6 +52,22 @@ export function fcp() {
         },
         subscribe: function(id) {}
       }
+
+    });
+
+
+
+    let app = new Vue({
+      el: '#app',
+      data: {
+        pluginsInput: gc,
+        showLogs: false
+      },
+
+      computed: {
+
+      },
+
     });
 
     // App.ci_plugin_logs = App.cable.subscriptions.create("CiPluginLogsChannel", {

@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20170106050754) do
 
   create_table "docs", force: :cascade do |t|
     t.string   "title"
-    t.text     "content"
+    t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
@@ -109,14 +109,6 @@ ActiveRecord::Schema.define(version: 20170106050754) do
     t.index ["user_id"], name: "index_third_party_accounts_on_user_id", using: :btree
   end
 
-  create_table "user_preferences", force: :cascade do |t|
-    t.string   "locale"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -141,5 +133,4 @@ ActiveRecord::Schema.define(version: 20170106050754) do
   add_foreign_key "docs", "users"
   add_foreign_key "fis_ci_plugins", "users"
   add_foreign_key "third_party_accounts", "users"
-  add_foreign_key "user_preferences", "users"
 end
