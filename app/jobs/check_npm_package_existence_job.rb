@@ -5,7 +5,7 @@ class CheckNpmPackageExistenceJob < ApplicationJob
   after_perform do |job|
     # UserMailer.notify_video_processed(job.arguments.first)
     id = job.arguments.first
-    plugin = FisCiPlugin.find(id)
+    plugin = CiPlugin.find(id)
     if plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['status'] == 1
       DownloadNpmPackageJob.perform_later(id)
     end
@@ -14,7 +14,7 @@ class CheckNpmPackageExistenceJob < ApplicationJob
   
   def perform(*args)
   	id = args[0]
-  	plugin = FisCiPlugin.find(id)
+  	plugin = CiPlugin.find(id)
     plugin.ci_plugin_log.log = {} if plugin.ci_plugin_log.log.nil?
     stdout, stderr, status = Open3.capture3("npm v #{plugin.input} dist.tarball")
     plugin.ci_plugin_log.log["check_npm_package_existence_in_registry"] = {} if plugin.ci_plugin_log.log["check_npm_package_existence_in_registry"].nil?

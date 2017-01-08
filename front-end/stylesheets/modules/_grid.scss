@@ -4,6 +4,7 @@
 [class*='c-grid-span'] {
 	flex-shrink: 1;
 	flex-basis: 0;
+	min-width: 0;
 	min-height: 1px; /* make sure that the column displays properly, even if it has no content. */
 } 
 @for $i from 1 through $grid-columns {

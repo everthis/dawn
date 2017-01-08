@@ -4,7 +4,7 @@ class CheckNpmExistenceInMirrorRegistryJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-    plugin = FisCiPlugin.find(id)
+    plugin = CiPlugin.find(id)
     if plugin.ci_plugin_log.log['check_existence_of_published_package_in_mirror_registry']['status'] == 0
       self.class.set(wait: 5.seconds).perform_later(id)
     else
@@ -14,7 +14,7 @@ class CheckNpmExistenceInMirrorRegistryJob < ApplicationJob
 
   def perform(*args)
 	id = args[0]
-	plugin = FisCiPlugin.find(id)
+	plugin = CiPlugin.find(id)
 	registry_url = "http://registry.npm.baidu.com/"
 	plugin.ci_plugin_log.log = {} if plugin.ci_plugin_log.log.nil?
 	stdout, stderr, status = Open3.capture3("npm v #{plugin.input} dist.tarball --registry=#{registry_url}")

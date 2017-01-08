@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FisCiPluginTest < ActiveSupport::TestCase
+class CiPluginTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

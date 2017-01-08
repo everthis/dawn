@@ -58,4 +58,25 @@
 			padding-top: $pad-top;
 		}
 	}
+	.plus-patch,
+	.minus-patch {
+		display: inline-block;
+		border: $border;
+		@include sameHeightLineheight(16px);
+		width: 16px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.patch-version {
+		display: inline-block;
+		width: 2rem;
+		text-align: center;
+	}
+	.loading-placeholder {
+		border-top: 1px solid $cyan;
+	}
+	[class*='c-grid-span'] {
+    word-break: break-all;
+    padding: 0 5px;
+	}
 }

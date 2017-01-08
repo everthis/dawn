@@ -6,7 +6,7 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-    plugin = FisCiPlugin.find(id)
+    plugin = CiPlugin.find(id)
   	puts check_server("https://www.everthis.com")
     if plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] == 1
       # CheckNpmExistenceInMirrorRegistryJob.perform_later(id)
@@ -18,7 +18,7 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 
   def perform(*args)
     id = args[0]
-	plugin = FisCiPlugin.find(id)
+	plugin = CiPlugin.find(id)
 
 	download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
 

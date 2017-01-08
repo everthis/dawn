@@ -2,20 +2,25 @@
   <div class="c-gap-bottom">
     <%= will_paginate %>
   </div>
-  <div id="app">
+  <div>
 
       <div class="plugins c-grid-span38">
         <div class="plugins-wrap c-gap-bottom">
 
           <div class="plugins-hread c-grid-row c-pad-left">
-            <div class="c-grid-span15">packageName</div>
-            <div class="c-grid-span10">version</div>
-            <div class="c-grid-span15">CI-packageName</div>
+            <div class="c-grid-span10">packageName</div>
+            <div class="c-grid-span6">packageVersion</div>
+            <div class="c-grid-span10">ciPackageName</div>
+            <div class="c-grid-span6">ciPackageVersion</div>
+            <div class="c-grid-span8">ciPackageVersionPatch</div>
             <div class="c-grid-span5">status</div>
-            <div class="c-grid-span5 c-center">log</div>
+            <div class="c-grid-span3 c-center">log</div>
           </div>
-
-          <plugin-item v-for="(item,index) in pluginsInput" v-bind:plugin="item"></plugin-item>
+          
+          <div id="app">
+            
+            <plugin-item></plugin-item>
+          </div>
 
 
         </div>
@@ -25,7 +30,7 @@
 
       <div class="c-gap-top">
 
-        <%= link_to 'New Fis Ci Plugin', new_fis_ci_plugin_path %>
+        <%= link_to 'New Ci Plugins', new_ci_plugin_path %>
       </div>
 
   </div>
@@ -36,7 +41,7 @@
 <script>
   (function() {
     window.gc = window.gc || {};
-    gc = <%= raw @fis_ci_plugins.to_json %>;
+    gc = <%= raw @ci_plugins.to_json %>;
   })();
 </script>
 

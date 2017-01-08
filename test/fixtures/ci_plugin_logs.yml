@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  fis_ci_plugin: one
+  ci_plugin: one
   log: 
 
 two:
-  fis_ci_plugin: two
+  ci_plugin: two
   log: 

@@ -13,7 +13,7 @@ class CiPluginLogsChannel < ApplicationCable::Channel
   end
 
   def send_current_log
-    ActionCable.server.broadcast("ci_plugin_#{params[:plugin_id].to_i}", FisCiPlugin.find(params[:plugin_id]).ci_plugin_log.log)
+    ActionCable.server.broadcast("ci_plugin_#{params[:plugin_id].to_i}", CiPlugin.find(params[:plugin_id]).ci_plugin_log.log)
   end
 
   def follow(data)

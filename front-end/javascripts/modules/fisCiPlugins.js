@@ -9,25 +9,36 @@ export function fcp() {
 
 
     Vue.component('plugin-item', {
-      props: ['plugin'],
+      props: ['plugins'],
+      data: function() {
+        return {
+          pluginsInput: gc,
+          showLogs: false
+        };
+      },
       template: `
-        <div class="plugin-wrap">
-          
-          <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
-            <span class="c-grid-span15 package-name">{{ plugin.packageName }}</span>
-            <span class="c-grid-span10 package-version">{{ plugin.packageVersion }}</span>
-            <span class="c-grid-span15 package-ci-package-name">{{ plugin.ciPackageName }}</span>
-            <span class="c-grid-span5 package-status">{{ plugin.status }}</span>
-            <span class="c-grid-span5 package-log c-center"><svg class="icon icon-more" @click="toggleLog(plugin)"><use xlink:href="#icon-more"></use></svg></span>
-          </div>
-          
-          <div class="package-log" v-if="plugin.showLogs">
-            <div class="per-phase-log" v-for="(val, key) in plugin.log">
-              <p class="package-log-head">{{ key }}</p>
-              <pre class="package-log-pre" v-html='val.detail'></pre>
+        <div class="plugins-wrap">
+          <div class="plugin-wrap" v-for="(perplugin,index) in pluginsInput">
+            
+            <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
+              <span class="c-grid-span10 package-name">{{ perplugin.packageName }}</span>
+              <span class="c-grid-span6 package-version">{{ perplugin.packageVersion }}</span>
+              <span class="c-grid-span10 package-ci-package-name">{{ perplugin.ciPackageName }}</span>
+              <div class="c-grid-span6">{{ perplugin.ciPackageVersion }}</div>
+              <div class="c-grid-span8">{{ perplugin.ciPackageVersionPatch }}</div>
+              <span class="c-grid-span5 package-status">{{ perplugin.status }}</span>
+              <span class="c-grid-span3 package-log c-center"><svg class="icon icon-more" @click="toggleLog(perplugin)"><use xlink:href="#icon-more"></use></svg></span>
             </div>
-          </div>
+            
+            <div class="package-log" v-if="perplugin.showLogs">
+              <div class="loading-placeholder c-center c-pad-top" v-if="!perplugin.log">processing</div>
+              <div class="per-phase-log" v-for="(val, key) in perplugin.log">
+                <p class="package-log-head">{{ key }}</p>
+                <pre class="package-log-pre" v-html='val.detail'></pre>
+              </div>
+            </div>
 
+          </div>
         </div>`,
       methods: {
         toggleLog: function(item) {
@@ -39,12 +50,14 @@ export function fcp() {
                 connected: function() {
                   this.perform('send_current_log', {
                     plugin_id: item.id
-                  })
+                  });
+
                 },
                 received: function(data) {
                   item.log = data;
                 }
               });
+
           } else {
             item.gc.unsubscribe();
           }
@@ -59,16 +72,35 @@ export function fcp() {
 
     let app = new Vue({
       el: '#app',
-      data: {
-        pluginsInput: gc,
-        showLogs: false
-      },
 
       computed: {
-
       },
 
     });
+
+    /* use ActionCable to update status of pending plugin */
+
+    if (gc.length > 0) {
+      for(let i = 0, length1 = gc.length; i < length1; i++){
+        if (gc[i]['status'] !== 'failed' || gc[i]['status'] !== 'success') {
+          gc[i]['gcp'] = App.cable.subscriptions.create({
+            'channel': "CiPluginStatusChannel",
+            'plugin_id': gc[i]['id']
+          }, {
+            connected: function() {
+              this.perform('send_current_status', {
+                plugin_id: gc[i]['id']
+              });
+
+            },
+            received: function(data) {
+              gc[i]['status'] = data.plugin_status;
+            }
+          });
+        }
+      }
+    }
+
 
     // App.ci_plugin_logs = App.cable.subscriptions.create("CiPluginLogsChannel", {
     //   connected: function() {

@@ -579,6 +579,9 @@ textarea[type="hidden"] {
 .c-pad-right {
   padding-right: 0.5rem; }
 
+.c-pad-top {
+  padding-top: 0.5rem; }
+
 .c-text-indent {
   text-indent: .5rem; }
 
@@ -706,6 +709,7 @@ textarea[type="hidden"] {
 [class*='c-grid-span'] {
   flex-shrink: 1;
   flex-basis: 0;
+  min-width: 0;
   min-height: 1px;
   /* make sure that the column displays properly, even if it has no content. */ }
 
@@ -2575,6 +2579,24 @@ div.field, div.actions {
     white-space: pre-wrap; }
   .fis-ci-container .per-phase-log:first-child {
     padding-top: 0.5rem; }
+  .fis-ci-container .plus-patch,
+  .fis-ci-container .minus-patch {
+    display: inline-block;
+    border: 1px solid #B9B9B9;
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+    text-align: center;
+    cursor: pointer; }
+  .fis-ci-container .patch-version {
+    display: inline-block;
+    width: 2rem;
+    text-align: center; }
+  .fis-ci-container .loading-placeholder {
+    border-top: 1px solid #0cc; }
+  .fis-ci-container [class*='c-grid-span'] {
+    word-break: break-all;
+    padding: 0 5px; }
 
 .npm-registry-section .c-block-input {
   width: 40rem; }

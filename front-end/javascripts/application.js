@@ -15,8 +15,8 @@ import {newCiPlugins as ncp} from './modules/newCiPlugins';
   let routes = {
     '/': home,
     '/dev': [initXhr],
-    '/fis_ci_plugins/new': ncp,
-    '/fis_ci_plugins': fcp
+    '/ci_plugins/new': ncp,
+    '/ci_plugins': fcp
   };
   let pathName = window.location.pathname;
   if (routes.hasOwnProperty(pathName)) {

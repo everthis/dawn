@@ -4,7 +4,7 @@ class DownloadNpmPackageJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-    plugin = FisCiPlugin.find(id)
+    plugin = CiPlugin.find(id)
     if plugin.ci_plugin_log.log['download_npm_package']['status'] == 1
       ModifyNpmPackageJob.perform_later(id)
     end
@@ -13,7 +13,7 @@ class DownloadNpmPackageJob < ApplicationJob
   def perform(*args)
     # Do something later
     id = args[0]
-   	plugin = FisCiPlugin.find(id)
+   	plugin = CiPlugin.find(id)
 
    	download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
 

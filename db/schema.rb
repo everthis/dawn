@@ -34,11 +34,28 @@ ActiveRecord::Schema.define(version: 20170106050754) do
   end
 
   create_table "ci_plugin_logs", force: :cascade do |t|
-    t.integer  "fis_ci_plugin_id"
+    t.integer  "ci_plugin_id"
     t.json     "log"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.index ["fis_ci_plugin_id"], name: "index_ci_plugin_logs_on_fis_ci_plugin_id", using: :btree
+    t.integer  "job_record_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["ci_plugin_id"], name: "index_ci_plugin_logs_on_ci_plugin_id", using: :btree
+  end
+
+  create_table "ci_plugins", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "bin",                                            array: true
+    t.string   "status"
+    t.string   "input"
+    t.string   "packageName"
+    t.string   "packageVersion"
+    t.string   "ciPackageName"
+    t.string   "ciPackageVersion"
+    t.string   "ciPackageNamePrefix"
+    t.integer  "ciPackageVersionPatch", default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["user_id"], name: "index_ci_plugins_on_user_id", using: :btree
   end
 
   create_table "docs", force: :cascade do |t|
@@ -54,20 +71,6 @@ ActiveRecord::Schema.define(version: 20170106050754) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "fis_ci_plugins", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "bin",                              array: true
-    t.string   "status"
-    t.string   "input"
-    t.string   "packageName"
-    t.string   "packageVersion"
-    t.string   "ciPackageName"
-    t.string   "ciPackageNamePrefix"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.index ["user_id"], name: "index_fis_ci_plugins_on_user_id", using: :btree
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -129,8 +132,8 @@ ActiveRecord::Schema.define(version: 20170106050754) do
   end
 
   add_foreign_key "apis", "users"
-  add_foreign_key "ci_plugin_logs", "fis_ci_plugins"
+  add_foreign_key "ci_plugin_logs", "ci_plugins"
+  add_foreign_key "ci_plugins", "users"
   add_foreign_key "docs", "users"
-  add_foreign_key "fis_ci_plugins", "users"
   add_foreign_key "third_party_accounts", "users"
 end

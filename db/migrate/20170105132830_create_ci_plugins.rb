@@ -1,6 +1,6 @@
-class CreateFisCiPlugins < ActiveRecord::Migration[5.0]
+class CreateCiPlugins < ActiveRecord::Migration[5.0]
   def change
-    create_table :fis_ci_plugins do |t|
+    create_table :ci_plugins do |t|
       t.references :user, foreign_key: true
       t.string :bin, array: true
       t.string :status
@@ -8,7 +8,9 @@ class CreateFisCiPlugins < ActiveRecord::Migration[5.0]
       t.string :packageName
       t.string :packageVersion
       t.string :ciPackageName
+      t.string :ciPackageVersion
       t.string :ciPackageNamePrefix
+      t.integer :ciPackageVersionPatch, default: 0
 
       t.timestamps
     end

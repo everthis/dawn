@@ -3,7 +3,7 @@ class GetLaravelSessionJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-    plugin = FisCiPlugin.find(id)
+    plugin = CiPlugin.find(id)
     if plugin.ci_plugin_log.log['get_laravel_session_of_solar_system']['status'] == 1
       # GetLaravelSessionJob.perform_later(id)
     end
@@ -11,7 +11,7 @@ class GetLaravelSessionJob < ApplicationJob
 
   def perform(*args)
   		id = args[0]
-  		plugin = FisCiPlugin.find(id)
+  		plugin = CiPlugin.find(id)
   	  plugin.ci_plugin_log.log = {} if plugin.ci_plugin_log.log.nil?
 
 	    script_path = "~/idev-projects/uuap-auto-login"
