@@ -51,15 +51,19 @@ export function fcp() {
                   this.perform('send_current_log', {
                     plugin_id: item.id
                   });
-
                 },
                 received: function(data) {
                   item.log = data;
+                  if (item.status === 'failed' || item.status === 'success') {
+                    item.gc.unsubscribe();
+                  }
                 }
               });
 
           } else {
-            item.gc.unsubscribe();
+            if (item.status === 'failed' || item.status === 'success') {} else {
+              item.gc.unsubscribe();
+            }
           }
           item.showLogs = !item.showLogs;
         },
@@ -82,7 +86,7 @@ export function fcp() {
 
     if (gc.length > 0) {
       for(let i = 0, length1 = gc.length; i < length1; i++){
-        if (gc[i]['status'] !== 'failed' || gc[i]['status'] !== 'success') {
+        if (gc[i]['status'] !== 'failed' && gc[i]['status'] !== 'success') {
           gc[i]['gcp'] = App.cable.subscriptions.create({
             'channel': "CiPluginStatusChannel",
             'plugin_id': gc[i]['id']
@@ -95,6 +99,9 @@ export function fcp() {
             },
             received: function(data) {
               gc[i]['status'] = data.plugin_status;
+              if (data.plugin_status === 'failed' || data.plugin_status === 'success') {
+                gc[i]['gcp'].unsubscribe();
+              }
             }
           });
         }

@@ -12,7 +12,7 @@ class CiPluginLog < ApplicationRecord
   		if val['status'] == 0
   			def_status = 'failed'
 	  		CiPlugin.find(self.ci_plugin_id).update_attribute(:status, def_status)
-	  	elsif key == "check_job_status"
+	  	elsif key == "check_installation_status_on_solar_system"
   			def_status = 'success'
 	  		CiPlugin.find(self.ci_plugin_id).update_attribute(:status, def_status)  
 	  	else

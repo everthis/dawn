@@ -3,7 +3,6 @@ class CheckNpmPackageExistenceJob < ApplicationJob
   queue_as :check_npm_package_existence
 
   after_perform do |job|
-    # UserMailer.notify_video_processed(job.arguments.first)
     id = job.arguments.first
     plugin = CiPlugin.find(id)
     if plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['status'] == 1
@@ -16,7 +15,9 @@ class CheckNpmPackageExistenceJob < ApplicationJob
   	id = args[0]
   	plugin = CiPlugin.find(id)
     plugin.ci_plugin_log.log = {} if plugin.ci_plugin_log.log.nil?
-    stdout, stderr, status = Open3.capture3("npm v #{plugin.input} dist.tarball")
+    registry_url = "http://cp01-fis-build-02.epc.baidu.com:8995"
+
+    stdout, stderr, status = Open3.capture3("npm v #{plugin.input} dist.tarball --registry=#{registry_url}")
     plugin.ci_plugin_log.log["check_npm_package_existence_in_registry"] = {} if plugin.ci_plugin_log.log["check_npm_package_existence_in_registry"].nil?
     if stdout.length > 0
       plugin.ci_plugin_log.log["check_npm_package_existence_in_registry"]['detail'] = "#{stdout}"
