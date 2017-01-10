@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   resources :third_party_accounts
   resources :docs
   resources :email_whitelists
-  root                'static_pages#home'
+  root                     'static_pages#home'
   get    'help'         => 'static_pages#help'
   get    'about'        => 'static_pages#about'
-  get    'test'        => 'static_pages#test'
+  get    'test'         => 'static_pages#test'
   get    'contact'      => 'static_pages#contact'
   get    'dev'          => 'static_pages#dev'
   get    'log'          => 'logs#index'
@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   post   'login'        => 'sessions#create'
   delete 'logout'       => 'sessions#destroy'
   get    'clilogin'     => 'users#cli_login'
+
+  get   'packages_bin' => 'ci_plugins#packages_bin'
+  get 'plugins_instantsearch'  => 'ci_plugins#query'
 
   # get 'log' => 'logs#index'
   # for the sake of debugging

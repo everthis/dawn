@@ -34,7 +34,7 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 
 	shell_commands = <<~HEREDOC
 		#!/usr/bin/env bash
-        cd #{default_tarball_download_dir}/#{file_name}/package
+    cd #{default_tarball_download_dir}/#{file_name}/package
 		out_msg=`npm publish --registry=#{registry_url}`
 		echo "$out_msg"
 	HEREDOC

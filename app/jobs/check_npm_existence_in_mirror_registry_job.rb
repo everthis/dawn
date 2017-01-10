@@ -10,7 +10,7 @@ class CheckNpmExistenceInMirrorRegistryJob < ApplicationJob
       self.class.set(wait: 5.seconds).perform_later(id)
     else
       puts "exists in mirror."
-      SaveConfigurationOnSolarSystemJob.perform_later(id)
+      GetLaravelSessionJob.perform_later(id)
     end
   end
 

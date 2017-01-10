@@ -42,15 +42,15 @@ class CiPluginsController < ApplicationController
 
       begin
         # CiPlugin.import @ci_plugins
-        @ci_plugins.map {|ci_plugin| ci_plugin.save } 
+        @ci_plugins.map {|ci_plugin| ci_plugin.save }
         format.html { redirect_to ci_plugins_path, notice: ' ci plugin was successfully created.' }
       rescue => ex
         logger.error ex.message
         format.html { render :new }
       end
-      
+
     end
-    
+
     # respond_to do |format|
     #   if @ci_plugins.save
     #     @ci_plugins.download_rename_publish_npm_package
@@ -88,8 +88,38 @@ class CiPluginsController < ApplicationController
   end
 
   def update_npm_package_bin
+  end
+
+  def packages_bin
+    params_keys = request.query_parameters.keys
+    ci_package_name_arr = []
+    params_keys.each_with_index { |val, index| ci_package_name_arr << val.split(':')[1] }
+    query_records = CiPlugin.where(ciPackageName: ci_package_name_arr, status: "success")
+    result_arr = []
+    result_str = ""
+    query_records.each do |per|
+      if per.bin.size > 0
+        per.bin.map! { |item|
+          item + ":" + item.sub("#{per.ciPackageNamePrefix}#{per.ciPackageName}-", "")
+        }
+      end
+      result_arr += per.bin
+    end
+    result_arr.uniq.each { |str|
+      result_str += (str + "\n")
+    }
+    render plain: result_str
+  end
+
+  def query
+
+    unless params[:q].blank?
+      @plugins = CiPlugin.where('input like :search OR status like :search OR "packageVersion" like :search OR "ciPackageName" like :search OR "ciPackageVersion" like :search', search: "%#{params[:q]}%")
+      render :json => @plugins, :only=> [:input, :status, :packageVersion, :ciPackageName, :ciPackageVersion]
+    end
 
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

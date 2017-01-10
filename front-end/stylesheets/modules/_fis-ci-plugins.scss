@@ -22,7 +22,8 @@
     border-radius: $bdrs;
     padding-bottom: $pad-bottom;
 	}
-	.plugins-hread {
+	.plugins-hread,
+  .result-head {
 		background-color: $head-bg-color;
 		color: $white;
 	}
@@ -79,4 +80,65 @@
     word-break: break-all;
     padding: 0 5px;
 	}
+    .search-wrap {
+      display: inline-block;
+      position: relative;
+    }
+    .api-search-result {
+      width: 780px;
+      background-color: #fff;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      border: 1px solid #ccc;
+      border-top-color: #d9d9d9;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      cursor: default;
+      z-index: 9999;
+      max-height: 30rem;
+      overflow-y: auto;
+    }
+    .result-head {
+      display: flex;
+      white-space: nowrap;
+      height: 22px;
+      line-height: 22px;
+    }
+    .per-search-result {
+      display: flex;
+        white-space: nowrap;
+        height: 22px;
+        line-height: 22px;
+        &:hover {
+          background-color: #eee;
+        }
+    }
+    .search-input {
+      width: 200px;
+    }
+    .per-result-column {
+      padding: 0 .5rem;
+      flex-basis: 0;
+      @extend %ellipsis;
+    }
+    .per-result-input {
+      flex-grow: 5;
+      flex-shrink: 1;
+    }
+    .per-result-packageVersion {
+      flex-grow: 3;
+      flex-shrink: 1;
+    }
+    .per-result-ciPackageName {
+      flex-grow: 6;
+      flex-shrink: 1;
+    }
+    .per-result-ciPackageVersion {
+      flex-grow: 3;
+      flex-shrink: 1;
+    }
+    .per-result-status {
+      flex-grow: 2;
+      flex-shrink: 1;
+    }
 }

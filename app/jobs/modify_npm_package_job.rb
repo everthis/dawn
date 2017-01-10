@@ -21,7 +21,7 @@ class ModifyNpmPackageJob < ApplicationJob
 		default_tarball_download_dir = ENV["DOWNLOAD_PATH"]
 
 		ci_package_fullname = "#{plugin['ciPackageNamePrefix']}#{plugin['ciPackageName']}"
-
+    ci_package_version = "#{plugin['ciPackageVersion']}"
 		uri = URI.parse(download_url.strip)
 
 		full_name = File.basename(uri.path)
@@ -35,7 +35,7 @@ class ModifyNpmPackageJob < ApplicationJob
 			tar -zxf #{full_name}
 			cd package
 			cp package.json package.json.bak
-			jq --arg v #{ci_package_fullname} '(if .bin | type == "string"  then (.bin = {(.name): .bin}) elif .bin | type == "object"  then . else . end) | (.name = $v) | (if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}-" + .)) else . end) | (del (.scripts.prepublish) | del (.scripts.publish) | del(.scripts.postpublish))' package.json > tmp.json && mv tmp.json package.json
+			jq --arg v #{ci_package_fullname} --arg civersion #{ci_package_version} '(if .bin | type == "string"  then (.bin = {(.name): .bin}) elif .bin | type == "object"  then . else . end) | (.version = $civersion) | (.name = $v) | (if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}-" + .)) else . end) | (del (.scripts.prepublish) | del (.scripts.publish) | del(.scripts.postpublish))' package.json > tmp.json && mv tmp.json package.json
 			diff_msg=`diff -y --suppress-common-lines package.json.bak package.json`
 			rm ./package.json.bak
 			echo "$diff_msg"

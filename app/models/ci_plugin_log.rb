@@ -12,12 +12,12 @@ class CiPluginLog < ApplicationRecord
   		if val['status'] == 0
   			def_status = 'failed'
 	  		CiPlugin.find(self.ci_plugin_id).update_attribute(:status, def_status)
-	  	elsif key == "check_installation_status_on_solar_system"
+	  	elsif key == "check_installation_status_on_solar_system" && val['status'] == 1
   			def_status = 'success'
-	  		CiPlugin.find(self.ci_plugin_id).update_attribute(:status, def_status)  
+	  		CiPlugin.find(self.ci_plugin_id).update_attribute(:status, def_status)
 	  	else
   			def_status = 'pending'
-	  		CiPlugin.find(self.ci_plugin_id).update_attribute(:status, def_status)  
+	  		CiPlugin.find(self.ci_plugin_id).update_attribute(:status, def_status)
   		end
 
   		ActionCable.server.broadcast("ci_plugin_status_#{self.ci_plugin_id}", plugin_status: def_status)

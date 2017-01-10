@@ -1,6 +1,6 @@
 require 'open3'
 class UuapLoginJob < ApplicationJob
-  queue_as :uuap_login
+  queue_as :login_save_conf_install
 
   after_perform do |job|
     id = job.arguments.first
@@ -11,7 +11,7 @@ class UuapLoginJob < ApplicationJob
   end
 
   def perform(*args)
-		
+
 		id = args[0]
 		plugin = CiPlugin.find(id)
 	  plugin.ci_plugin_log.log = {} if plugin.ci_plugin_log.log.nil?

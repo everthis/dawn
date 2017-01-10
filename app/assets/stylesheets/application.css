@@ -421,7 +421,7 @@ textarea {
   .email-whitelist .new-whitelist-email-input:focus {
     border: 1px solid #4d90fe; }
 
-.ellipsis, .api-add-query .per-result-column, .doc-content {
+.ellipsis, .api-add-query .per-result-column, .doc-content, .fis-ci-container .per-result-column {
   /**
    * 1. Hide any overflow
    * 2. Prevent any line-break
@@ -2557,7 +2557,8 @@ div.field, div.actions {
     margin-bottom: 1rem;
     border-radius: 0.5rem;
     padding-bottom: 0.5rem; }
-  .fis-ci-container .plugins-hread {
+  .fis-ci-container .plugins-hread,
+  .fis-ci-container .result-head {
     background-color: #0cc;
     color: #fff; }
   .fis-ci-container .ci-package-name-input {
@@ -2597,6 +2598,61 @@ div.field, div.actions {
   .fis-ci-container [class*='c-grid-span'] {
     word-break: break-all;
     padding: 0 5px; }
+  .fis-ci-container .search-wrap {
+    display: inline-block;
+    position: relative; }
+  .fis-ci-container .api-search-result {
+    width: 780px;
+    background-color: #fff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    border-top-color: #d9d9d9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    z-index: 9999;
+    max-height: 30rem;
+    overflow-y: auto; }
+  .fis-ci-container .result-head {
+    display: -webkit-box;
+    display: flex;
+    white-space: nowrap;
+    height: 22px;
+    line-height: 22px; }
+  .fis-ci-container .per-search-result {
+    display: -webkit-box;
+    display: flex;
+    white-space: nowrap;
+    height: 22px;
+    line-height: 22px; }
+    .fis-ci-container .per-search-result:hover {
+      background-color: #eee; }
+  .fis-ci-container .search-input {
+    width: 200px; }
+  .fis-ci-container .per-result-column {
+    padding: 0 .5rem;
+    flex-basis: 0; }
+  .fis-ci-container .per-result-input {
+    -webkit-box-flex: 5;
+            flex-grow: 5;
+    flex-shrink: 1; }
+  .fis-ci-container .per-result-packageVersion {
+    -webkit-box-flex: 3;
+            flex-grow: 3;
+    flex-shrink: 1; }
+  .fis-ci-container .per-result-ciPackageName {
+    -webkit-box-flex: 6;
+            flex-grow: 6;
+    flex-shrink: 1; }
+  .fis-ci-container .per-result-ciPackageVersion {
+    -webkit-box-flex: 3;
+            flex-grow: 3;
+    flex-shrink: 1; }
+  .fis-ci-container .per-result-status {
+    -webkit-box-flex: 2;
+            flex-grow: 2;
+    flex-shrink: 1; }
 
 .npm-registry-section .c-block-input {
   width: 40rem; }

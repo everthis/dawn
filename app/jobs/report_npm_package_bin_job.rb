@@ -27,7 +27,7 @@ class ReportNpmPackageBinJob < ApplicationJob
 
 	shell_commands = <<~HEREDOC
 		#!/usr/bin/env bash
-        cd #{default_tarball_download_dir}/#{file_name}/package
+    cd #{default_tarball_download_dir}/#{file_name}/package
 		report_msg=`jq 'if .bin | type == "object" then .bin | keys else [] end' package.json`
 		echo "$report_msg"
 	HEREDOC
@@ -37,7 +37,7 @@ class ReportNpmPackageBinJob < ApplicationJob
 	bin_array = []
 	if status.success?
 		bin_array = JSON.parse(stdout)
-	    plugin.update_npm_package_bin(bin_array)
+    plugin.update_npm_package_bin(bin_array)
 		plugin.ci_plugin_log.log['report_npm_package_bin']['detail'] = "#{stdout}"
 		plugin.ci_plugin_log.log['report_npm_package_bin']['status'] = 1
 	else

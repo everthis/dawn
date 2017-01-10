@@ -10,7 +10,9 @@ class CiPlugin < ApplicationRecord
   end
 
   def check_npm_package_existence
-  	CheckNpmPackageExistenceJob.perform_later(self.id)
+    CheckNpmPackageExistenceJob.perform_later(self.id)
+    # GetLaravelSessionJob.perform_later(self.id)
+  	# SaveConfigurationOnSolarSystemJob.perform_later(self.id)
   end
 
   def update_npm_package_bin(bin_array)

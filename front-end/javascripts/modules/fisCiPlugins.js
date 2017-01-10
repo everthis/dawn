@@ -1,10 +1,79 @@
 import {$http} from '../common/ajax';
 import Vue from 'vue';
+import {insertAfter, strToDom, debounce} from '../common/utilities';
 
+let payload = {};
+let callback = {
+  apiQuerySuccess: function(data) {
+    let searchList = document.getElementsByClassName('api-search-result')[0];
+    let dataObj = JSON.parse(data);
+    let contentStr = '';
+    let headStr = `
+    <div class="result-head">
+      <span class="per-result-column per-result-input">input</span>
+      <span class="per-result-column per-result-packageVersion">packageVersion</span>
+      <span class="per-result-column per-result-ciPackageName">ciPackageName</span>
+      <span class="per-result-column per-result-ciPackageVersion">ciPackageVersion</span>
+      <span class="per-result-column per-result-status">status</span>
+    </div>
+    `;
+    contentStr += headStr;
+    for (let i = 0, Len = dataObj.length; i < Len; i++) {
+      contentStr += `<div class='per-search-result'>
+        <span class="per-result-column per-result-input">${dataObj[i].input}</span>
+        <span class="per-result-column per-result-packageVersion">${dataObj[i].packageVersion}</span>
+        <span class="per-result-column per-result-ciPackageName">${dataObj[i].ciPackageName}</span>
+        <span class="per-result-column per-result-ciPackageVersion">${dataObj[i].ciPackageVersion}</span>
+        <span class="per-result-column per-result-status">${dataObj[i].status}</span>
+      </div>`;
+    }
+    searchList.innerHTML = contentStr;
+    dataObj.length > 0 ? searchList.classList.remove('hide') : searchList.classList.add('hide');
+  }
+};
+
+let debouncedApiQueryInput = debounce(apiQuery, 100, false);
+function listenApiQuery() {
+  let apiQueryInput = document.getElementsByClassName('search-input')[0];
+  let inWrapper = false;
+  apiQueryInput.addEventListener('keyup', debouncedApiQueryInput);
+  apiQueryInput.parentElement.addEventListener('mouseleave', function(ev) {
+    if (!checkIfFocus.apply(apiQueryInput, ev)) {
+      clearSearchResult();
+    };
+    inWrapper = false;
+  });
+  apiQueryInput.parentElement.addEventListener('mouseenter', function(ev) {
+    inWrapper = true;
+  });
+  apiQueryInput.addEventListener('blur', function(ev) {
+    if (!inWrapper) clearSearchResult();
+  });
+  apiQueryInput.addEventListener('focus', apiQuery);
+}
+function checkIfFocus(ev) {
+  return this === document.activeElement;
+}
+function apiQuery(ev) {
+  if (ev.target.value.length <= 0) {
+    clearSearchResult();
+    return;
+  }
+  payload = {q: ev.target.value};
+  $http(window.location.origin + '/plugins_instantsearch')
+  .get(payload)
+  .then(callback.apiQuerySuccess.bind(ev))
+  .catch(callback.error);
+}
+function clearSearchResult() {
+  let apiSearchResultEle = document.getElementsByClassName('api-search-result')[0];
+  apiSearchResultEle.innerHTML = '';
+  apiSearchResultEle.classList.add('hide');
+}
 
 export function fcp() {
     let App = {};
-    
+
     App.cable = ActionCable.createConsumer();
 
 
@@ -19,7 +88,7 @@ export function fcp() {
       template: `
         <div class="plugins-wrap">
           <div class="plugin-wrap" v-for="(perplugin,index) in pluginsInput">
-            
+
             <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
               <span class="c-grid-span10 package-name">{{ perplugin.packageName }}</span>
               <span class="c-grid-span6 package-version">{{ perplugin.packageVersion }}</span>
@@ -29,7 +98,7 @@ export function fcp() {
               <span class="c-grid-span5 package-status">{{ perplugin.status }}</span>
               <span class="c-grid-span3 package-log c-center"><svg class="icon icon-more" @click="toggleLog(perplugin)"><use xlink:href="#icon-more"></use></svg></span>
             </div>
-            
+
             <div class="package-log" v-if="perplugin.showLogs">
               <div class="loading-placeholder c-center c-pad-top" v-if="!perplugin.log">processing</div>
               <div class="per-phase-log" v-for="(val, key) in perplugin.log">
@@ -108,13 +177,15 @@ export function fcp() {
       }
     }
 
+    listenApiQuery();
+
 
     // App.ci_plugin_logs = App.cable.subscriptions.create("CiPluginLogsChannel", {
     //   connected: function() {
     //     // Called when the subscription is ready for use on the server
     //     let that = this;
     //     that.perform('follow', {
-    //       'plugin_id': 
+    //       'plugin_id':
     //     })
     //   },
 
