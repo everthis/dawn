@@ -43,6 +43,10 @@ Rails.application.configure do
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
   # config.action_cable.allowed_request_origins = ['http://rubyonrails.com', %r{http://ruby.*}]
+  config.action_cable.mount_path = '/cable'
+  # config.action_cable.disable_request_forgery_protection = true
+  # config.action_cable.url = "ws://cp01-rdqa-dev098.cp01.baidu.com:8456/cable"
+  config.action_cable.allowed_request_origins = [ 'http://cp01-rdqa-dev098.cp01.baidu.com:8456' ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -100,9 +104,9 @@ Rails.application.configure do
     address: "smtp.exmail.qq.com",
     port: 25,
     domain: "qq.com",
-    authentication: "login", 
-    user_name: ENV["RAILS_EMAIL_FROM"], 
-    password: ENV["RAILS_EMAIL_PWD"], 
+    authentication: "login",
+    user_name: ENV["RAILS_EMAIL_FROM"],
+    password: ENV["RAILS_EMAIL_PWD"],
     enable_starttls_auto: true
   }
 
