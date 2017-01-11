@@ -7,7 +7,7 @@ class PublishModifiedNpmPackageJob < ApplicationJob
   after_perform do |job|
     id = job.arguments.first
     plugin = CiPlugin.find(id)
-  	puts check_server("https://www.everthis.com")
+  	# puts check_server("https://www.everthis.com")
     if plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] == 1
       puts "publish success"
       CheckNpmExistenceInMirrorRegistryJob.perform_later(id)

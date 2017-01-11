@@ -32,7 +32,7 @@ class ModifyNpmPackageJob < ApplicationJob
 		  cd #{default_tarball_download_dir}
 		  mkdir -p #{file_name} && cd #{file_name}
 			cp #{default_tarball_download_dir}/#{full_name} ./
-			tar -zxf #{full_name}
+			tar --warning=no-unknown-keyword -zxf #{full_name}
 			cd package
 			cp package.json package.json.bak
 			jq --arg v #{ci_package_fullname} --arg civersion #{ci_package_version} '(if .bin | type == "string"  then (.bin = {(.name): .bin}) elif .bin | type == "object"  then . else . end) | (.version = $civersion) | (.name = $v) | (if .bin | type == "object"  then .bin = (.bin | with_entries(.key |= "#{ci_package_fullname}-" + .)) else . end) | (del (.scripts.prepublish) | del (.scripts.publish) | del(.scripts.postpublish))' package.json > tmp.json && mv tmp.json package.json
