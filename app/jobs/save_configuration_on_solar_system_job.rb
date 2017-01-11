@@ -45,7 +45,7 @@ class SaveConfigurationOnSolarSystemJob < ApplicationJob
 
     # conf_params = URI.escape(shell_commands, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     # post_data_prev = "#{other_params}conf=#{conf_params}"
-    post_data = "product_id=_fis_ci&project_id=_sys_plugin_install&conf=system%3A%0A%20%20%20%20steps%3A%0A%20%20%20%20%20%20%20%20-%20fis-plugin-install%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20plugins%3A%20'#{pluginName}%40#{pluginVersion}'%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20registry%3A%20'http%3A%2F%2Fcp01-fis-build-02.epc.baidu.com%3A8995'"
+    post_data = "product_id=_fis_ci&project_id=_sys_plugin_install&conf=system%3A%0A%20%20%20%20steps%3A%0A%20%20%20%20%20%20%20%20-%20fis-plugin-install%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20plugins%3A%20'#{pluginName}%40#{pluginVersion}'%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20cmd%3A%20'cnpm'"
 
     stdout, stderr, status = Open3.capture3("curl -sS -L -b #{script_path}/.laravel_session -d \"#{post_data}\" #{save_conf_url} | jq -r '.msg'")
 
