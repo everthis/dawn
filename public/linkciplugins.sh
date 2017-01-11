@@ -38,7 +38,7 @@ if [ -d "$DIRECTORY/$NPM_BIN_DIR" ]; then
   rm -rf $currentPwd/$DIRECTORY/$NPM_BIN_DIR
 fi
 
-output=$(tr '\n' '&' < $cipluginsFile | curl --get --data "@-" http://cp01-rdqa-dev098.cp01.baidu.com:8678/packages_bin)
+output=$(tr '\n' '&' < $cipluginsFile | curl --get --data "@-" http://cp01-rdqa-dev098.cp01.baidu.com:8456/packages_bin)
 
 filecontent=(`echo "$output"`)
 mkdir -p .bin
