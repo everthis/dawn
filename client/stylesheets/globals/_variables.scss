@@ -9,6 +9,7 @@ $danger-color: #fff;
 $info-bg-color: #E6E6FA;
 
 $border-color: #B9B9B9;
+$border: 1px solid $border-color;
 $focus-border-color: #4d90fe;
 $focus-border-style: 1px solid $focus-border-color;
 $notice-bg-color: #e6e6fa;
@@ -40,8 +41,19 @@ $gap-bottom: .8rem;
 $gap-left: .5rem;
 $gap-right: .5rem;
 $pad-left: .5rem;
+$pad-top: .5rem;
 $pad-right: .5rem;
+$pad-bottom: .5rem;
 $pad-left-wide: 1rem;
 
 /* grid system */
 $grid-columns: 48;
+
+
+/* colors */
+$head-bg-color: #0cc;
+$white: #fff;
+$cyan: #0cc;
+
+/* border */
+$bdrs: .5rem;

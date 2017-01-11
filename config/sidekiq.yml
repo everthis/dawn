@@ -14,6 +14,20 @@
 :queues:
   - ["default", 1]
   - ["mailers", 1]
+  - ["check_npm_package", 1]
+  - ["check_npm_package_existence", 1]
+  - ["download_npm_package", 1]
+  - ["modify_npm_package", 1]
+  - ["report_npm_package_bin", 1]
+  - ["publish_modified_npm_package", 1]
+  - ["uuap_login", 1]
+  - ["check_npm_existence_in_mirror_registry", 1]
+  - ["get_laravel_session", 1]
+  - ["save_configuration_on_solar_system", 1]
+  - ["check_installation_status_on_solar_system", 1]
+  - ["download_rename_publish_npm_package", 1]
+  - ["login_save_conf_install", 1]
+  - ["update_uuap_cookie", 1]
   - [<%= `hostname`.strip %>, 1]
 
 # you can override concurrency based on environment

@@ -1,22 +1,28 @@
 Rails.application.routes.draw do
-
+  resources :uuap_login_logs
+  resources :npm_registries
+  resources :ci_plugins
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :third_party_accounts
   resources :docs
   resources :email_whitelists
 
-  root                                      'static_pages#home'
-  get    'help'                          => 'static_pages#help'
-  get    'about'                         => 'static_pages#about'
-  get    'contact'                       => 'static_pages#contact'
-  get    'dev'                           => 'static_pages#dev'
-  get    'log'                           => 'logs#index'
-  get    'passport'                      => 'static_pages#passport'
-  get    'signup'                        => 'users#new'
-  get    'login'                         => 'sessions#new'
-  post   'login'                         => 'sessions#create'
-  delete 'logout'                        => 'sessions#destroy'
-  get    'clilogin'                      => 'users#cli_login'
+  root                     'static_pages#home'
+  get    'help'         => 'static_pages#help'
+  get    'about'        => 'static_pages#about'
+  get    'test'         => 'static_pages#test'
+  get    'contact'      => 'static_pages#contact'
+  get    'dev'          => 'static_pages#dev'
+  get    'log'          => 'logs#index'
+  get    'passport'     => 'static_pages#passport'
+  get    'signup'       => 'users#new'
+  get    'login'        => 'sessions#new'
+  post   'login'        => 'sessions#create'
+  delete 'logout'       => 'sessions#destroy'
+  get    'clilogin'     => 'users#cli_login'
+
+  get   'packages_bin' => 'ci_plugins#packages_bin'
+  get 'plugins_instantsearch'  => 'ci_plugins#query'
 
   # get 'log' => 'logs#index'
   # for the sake of debugging
@@ -35,6 +41,8 @@ Rails.application.routes.draw do
     #   patch :update_api
     # end
   # end
+
+  get 'get_ci_plugin_current_log' => 'ci_plugin_logs#query_current_log'
 
   resources :users do
     member do
@@ -59,5 +67,5 @@ Rails.application.routes.draw do
 
 
   get 'test' => 'test#test'
-  
+
 end

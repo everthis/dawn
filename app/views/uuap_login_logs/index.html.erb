@@ -1,0 +1,28 @@
+<div class="fis-ci-container">
+<p id="notice"><%= notice %></p>
+
+<h1>Uuap Login Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @uuap_login_logs.each do |uuap_login_log| %>
+      <tr>
+        <td><%= uuap_login_log.tail %></td>
+        <td><%= link_to 'Show', uuap_login_log %></td>
+        <td><%= link_to 'Edit', edit_uuap_login_log_path(uuap_login_log) %></td>
+        <td><%= link_to 'Destroy', uuap_login_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+</div>

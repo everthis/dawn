@@ -1,5 +1,5 @@
 AwesomePrint.defaults = {
-  :indent => -2,
+  :indent => -4,
   :color => {
     :hash  => :pale,
     :class => :white

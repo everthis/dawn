@@ -1,15 +1,24 @@
 import styles from '../stylesheets/application.scss';
+import {ActionCable} from './common/ActionCable';
 import {dataLinks} from './modules/dataLinks';
 import {home} from './modules/homepage';
 import {initXhr} from './modules/apiOperation';
 import {spf} from 'spf-dev';
 spf.init();
 dataLinks();
+import {fcp} from './modules/fisCiPlugins';
+import {newCiPlugins as ncp} from './modules/newCiPlugins';
+// apiTree();
+// var p = new dawnSVG();
+// p.init(document.getElementById('painter-target'));
+// p.start();
 
 (() => {
   let routes = {
     '/': home,
-    '/dev': [initXhr]
+    '/dev': [initXhr],
+    '/ci_plugins/new': ncp,
+    '/ci_plugins': fcp
   };
   let pathName = window.location.pathname;
   if (routes.hasOwnProperty(pathName)) {

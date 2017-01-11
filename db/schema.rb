@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 20161023120559) do
   end
 
   add_foreign_key "apis", "users"
+  add_foreign_key "ci_plugin_logs", "ci_plugins"
+  add_foreign_key "ci_plugins", "users"
   add_foreign_key "docs", "users"
   add_foreign_key "third_party_accounts", "users"
   add_foreign_key "user_preferences", "users"

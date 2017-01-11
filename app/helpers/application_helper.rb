@@ -70,7 +70,7 @@ module ApplicationHelper
 
     javascript_include_tag(src)
   end
-  
+
   def markdown(text)
     options = [:hard_wrap, :filter_html, :autolink, :no_intraemphasis, :fenced_code, :gh_blockcode]
     syntax_highlighter(Redcarpet.new(text, *options).to_html).html_safe
@@ -93,7 +93,7 @@ module ApplicationHelper
 
   def markdown2(text)
     options = {
-      filter_html: true, 
+      filter_html: true,
       hard_wrap: true,
       no_links: false
     }

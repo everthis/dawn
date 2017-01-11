@@ -26,16 +26,18 @@ gem 'coderay'
 gem 'sidekiq'
 gem 'nav_lynx'
 gem 'redis-namespace'
+gem 'whenever', :require => false
 
 group :development do
   gem 'foreman'
   gem 'pry-rails'
+  gem 'foreman'
   gem "letter_opener"
   gem "awesome_print"
   gem "binding_of_caller"
   gem "guard"
-  gem "guard-livereload"
-  gem "rack-livereload"
+  # gem "rack-livereload", '0.3.15'
+  # gem 'guard-livereload'
   gem 'byebug'
   gem 'better_errors'
   gem 'bullet'

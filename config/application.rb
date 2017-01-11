@@ -16,7 +16,7 @@ module Dawn
     }
 
     config.active_job.queue_adapter = :sidekiq
-    
+
     config.assets.enabled = true
     # Make public assets requireable in manifest files
     config.assets.paths << Rails.root.join(".tmp", "assets", "javascripts")
@@ -25,7 +25,7 @@ module Dawn
     # disable auto generate assets
     config.generators.stylesheets = false
     config.generators.javascripts = false
-    
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     # Include the authenticity token in remote forms.
@@ -40,6 +40,8 @@ module Dawn
       :asset_manifest => {},
       :common_manifest => {},
     }
-    
+
+    config.action_cable.mount_path = '/websocket'
+
   end
 end
