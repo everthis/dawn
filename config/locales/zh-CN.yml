@@ -35,6 +35,9 @@ zh-CN:
       profile:              "档案"
       settings:             "设置"
       logout:               "注销"
+      ci-npm-packages:      "CI-npm包"
+      npm-registries:       "Npm源"
+      uuap-login-logs:      "UUAP登录日志"
   
   users:
     settings:

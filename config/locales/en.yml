@@ -51,11 +51,14 @@ en:
       dev:                  "Dev"
       third-paty-accounts:  "Third party accounts"
       email-whitelist:      "Email-whitelist"
-      documents:            "documents"
+      documentation:        "Documentation"
       users:                "Users"
       profile:              "Profile"
       logout:               "Log out"
       settings:             "Settings"
+      ci-npm-packages:      "CI-npm-packages"
+      npm-registries:       "Npm-registries"
+      uuap-login-logs:      "UUAP-login-logs"
 
   users:
     settings:

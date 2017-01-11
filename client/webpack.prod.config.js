@@ -69,6 +69,11 @@ var config = {
     }),
     new ManifestPlugin({
       fileName: 'client_manifest.json'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
     })
   ]
 }

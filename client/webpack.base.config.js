@@ -54,7 +54,10 @@ let defaults = {
         }
     },
     resolve: {
-        modules: ['node_modules', 'bower_components', 'web_modules']
+        modules: ['node_modules', 'bower_components', 'web_modules'],
+        alias: {
+          'vue$': 'vue/dist/vue.common.js'
+        }
     },
     plugins: [
         new webpack.NoErrorsPlugin(),
