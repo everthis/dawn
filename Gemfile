@@ -29,7 +29,6 @@ gem 'redis-namespace'
 gem 'whenever', :require => false
 
 group :development do
-  gem 'foreman'
   gem 'pry-rails'
   gem 'foreman'
   gem "letter_opener"

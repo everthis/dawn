@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161023120559) do
+ActiveRecord::Schema.define(version: 20170110122943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,31 @@ ActiveRecord::Schema.define(version: 20161023120559) do
     t.string   "debugAddr"
     t.string   "wikiLink"
     t.index ["user_id"], name: "index_apis_on_user_id", using: :btree
+  end
+
+  create_table "ci_plugin_logs", force: :cascade do |t|
+    t.integer  "ci_plugin_id"
+    t.json     "log"
+    t.integer  "job_record_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["ci_plugin_id"], name: "index_ci_plugin_logs_on_ci_plugin_id", using: :btree
+  end
+
+  create_table "ci_plugins", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "bin",                                            array: true
+    t.string   "status"
+    t.string   "input"
+    t.string   "packageName"
+    t.string   "packageVersion"
+    t.string   "ciPackageName"
+    t.string   "ciPackageVersion"
+    t.string   "ciPackageNamePrefix"
+    t.integer  "ciPackageVersionPatch", default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["user_id"], name: "index_ci_plugins_on_user_id", using: :btree
   end
 
   create_table "docs", force: :cascade do |t|
@@ -55,6 +80,14 @@ ActiveRecord::Schema.define(version: 20161023120559) do
     t.datetime "updated_at", null: false
     t.string   "picture"
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at", using: :btree
+  end
+
+  create_table "npm_registries", force: :cascade do |t|
+    t.string   "label"
+    t.string   "registry_url"
+    t.boolean  "checked"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -104,6 +137,13 @@ ActiveRecord::Schema.define(version: 20161023120559) do
     t.string   "auth_token"
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+  end
+
+  create_table "uuap_login_logs", force: :cascade do |t|
+    t.string   "tail"
+    t.boolean  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "apis", "users"
