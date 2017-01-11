@@ -2,6 +2,8 @@ class CiPluginsController < ApplicationController
   before_action :logged_in_user, only: [:index, :create, :new, :show, :edit, :update, :destroy]
   before_action :set_ci_plugin, only: [:show, :edit, :update, :destroy]
 
+  before_action :admin_user,     only: [:destroy, :update]
+
   # GET /ci_plugins
   # GET /ci_plugins.json
   def index
@@ -137,4 +139,10 @@ class CiPluginsController < ApplicationController
       # params.require(:ci_plugin).permit(:content)
       param.permit(:log, :bin, :status, :input, :packageName, :packageVersion, :ciPackageName, :ciPackageNamePrefix, :ciPackageVersion, :ciPackageVersionPatch)
     end
+
+    # Confirms an admin user.
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
+
 end

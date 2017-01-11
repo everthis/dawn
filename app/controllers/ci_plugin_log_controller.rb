@@ -4,4 +4,6 @@ class CiPluginLogsController < ApplicationController
 	def query_current_log
 		CiPlugin.find(params[:plugin_id]).ci_plugin_log.log.to_json
 	end
+
+
 end
