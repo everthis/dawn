@@ -25,6 +25,7 @@ gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
 gem 'redis-namespace'
+gem 'whenever', :require => false
 
 group :development do
   gem 'pry-rails'

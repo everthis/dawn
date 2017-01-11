@@ -1,0 +1,17 @@
+<%= form_for(uuap_login_log) do |f| %>
+  <% if uuap_login_log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(uuap_login_log.errors.count, "error") %> prohibited this uuap_login_log from being saved:</h2>
+
+      <ul>
+      <% uuap_login_log.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
