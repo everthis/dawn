@@ -5,13 +5,11 @@ import {home} from './modules/homepage';
 import {initXhr} from './modules/apiOperation';
 import {spf} from 'spf-dev';
 spf.init();
+
+console.log(spf);
 dataLinks();
 import {fcp} from './modules/fisCiPlugins';
 import {newCiPlugins as ncp} from './modules/newCiPlugins';
-// apiTree();
-// var p = new dawnSVG();
-// p.init(document.getElementById('painter-target'));
-// p.start();
 
 (() => {
   let routes = {

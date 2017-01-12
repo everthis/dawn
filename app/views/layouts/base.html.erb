@@ -7,7 +7,7 @@
 	<%= client_stylesheet_link_tag 'application' %>
 	<%= render 'layouts/shim' %>
 </head>
-<body class='<%= controller.controller_name %>'>
+<body class='<%= controller.controller_name %>' data-spf-name="<%= yield(:name) %>">
 	<svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 	    <defs>
 	        <symbol id="icon-down" viewBox="0 0 1024 1024">
@@ -42,10 +42,13 @@
 		<div id="header-container">
 			<%= render 'layouts/header' %>
 		</div>
-		
-		<div id="page-container">
-			<%= yield %>
+
+		<div class="spf-animate">
+			<div id="page-container">
+				<%= yield %>
+			</div>
 		</div>
+
 	</div>
 	<div id="footer-container">
 		<%= render 'layouts/footer' %>
