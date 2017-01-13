@@ -42,6 +42,8 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  config.log_level = :debug
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
@@ -63,7 +65,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-  
+
   # config.action_cable.url = '/cable'
   config.action_cable.mount_path = '/cable'
   # config.action_cable.allowed_request_origins = ['http://rubyonrails.com', %r{http://ruby.*}, 'http://10.0.0.9']
@@ -81,7 +83,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+
   # config.action_mailer.delivery_method = :test
   # config.action_mailer.delivery_method = :letter_opener
   # host = 'localhost:3000'
@@ -95,9 +97,9 @@ Rails.application.configure do
     address: "smtp.exmail.qq.com",
     port: 25,
     domain: "qq.com",
-    authentication: "login", 
-    user_name: ENV["RAILS_EMAIL_FROM"], 
-    password: ENV["RAILS_EMAIL_PWD"], 
+    authentication: "login",
+    user_name: ENV["RAILS_EMAIL_FROM"],
+    password: ENV["RAILS_EMAIL_PWD"],
     enable_starttls_auto: true
   }
 

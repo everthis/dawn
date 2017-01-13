@@ -41,7 +41,7 @@ module Dawn
       :common_manifest => {},
     }
 
-    config.action_cable.mount_path = '/websocket'
+    # config.action_cable.mount_path = '/websocket'
 
   end
 end

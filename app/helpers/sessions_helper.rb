@@ -52,7 +52,7 @@ module SessionsHelper
 	# Logs out the current user.
 	def log_out
 	  forget(current_user)
-	  del_user_id_from_cookie current_user	
+	  del_user_id_from_cookie current_user
 	  session.delete(:user_id)
 	  @current_user = nil
 	end

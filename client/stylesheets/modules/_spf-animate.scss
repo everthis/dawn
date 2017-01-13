@@ -8,7 +8,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  -webkit-transition: -webkit-transform 400ms ease, opacity 200ms linear;
   transition: transform 400ms ease, opacity 200ms linear;
   will-change: transform, opacity;
 }
@@ -16,7 +15,6 @@
 .spf-animate-start .spf-animate-old,
 .spf-animate-end   .spf-animate-new {
   opacity: 1;
-  -webkit-transition-delay: 200ms;
   transition-delay: 200ms;
 }
 .spf-animate-start .spf-animate-new,
@@ -26,6 +24,5 @@
 /* By default, no movement, just fade */
 .spf-animate-start .spf-animate-old,
 .spf-animate-end   .spf-animate-new {
-  -webkit-transform: translate(0%, 0%);
   transform: translate(0%, 0%);
 }

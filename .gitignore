@@ -36,6 +36,10 @@ npm-debug.log
 /shared/log/*
 /shared/sockets/*
 
+/.dev-shared/pids/*
+/.dev-shared/log/*
+/.dev-shared/sockets/*
+
 # sensitive
 /.env.production
 /.env

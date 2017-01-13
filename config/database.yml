@@ -32,8 +32,8 @@ test:
   adapter: postgresql
   encoding: unicode
   database: dawn_<%= Rails.env %>
-  username: <%= ENV['TRAVIS'] ? 'postgres' : ENV["DB_USERNAME"] %>
-  password: <%= ENV['TRAVIS'] ? '' : ENV["DB_PASSWORD"] %>
+  # username: <%= ENV['TRAVIS'] ? 'postgres' : ENV["DB_USERNAME"] %>
+  # password: <%= ENV['TRAVIS'] ? '' : ENV["DB_PASSWORD"] %>
 
 # production:
 #   adapter: postgresql

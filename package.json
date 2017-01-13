@@ -7,7 +7,7 @@
     "build:dev": "webpack --config=client/development.config.js --display-reasons --display-chunks --progress --color --watch",
     "build:new": "webpack --config=client/production.config.js -p",
     "dev-bak": "webpack-dev-server --config client/webpack.dev.config.js --progress --inline --socket shared/sockets/webpack.sock",
-    "dev": "webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket shared/sockets/webpack.sock",
+    "dev": "webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket .dev-shared/sockets/webpack.sock",
     "clean": "rimraf app/assets/stylesheets/*",
     "prebuild": "npm run clean -s",
     "build": "npm run build:devscripts -s && npm run build:styles -s && npm run build:cp -s",

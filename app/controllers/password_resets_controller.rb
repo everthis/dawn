@@ -27,6 +27,7 @@ class PasswordResetsController < ApplicationController
       render 'edit'
     elsif @user.update_attributes(user_params)
       log_in @user
+      sign_user_id_to_cookie @user
       flash[:success] = "Password has been reset."
       redirect_to @user
     else

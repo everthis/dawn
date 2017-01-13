@@ -48,13 +48,13 @@ plugin :tmp_restart
 
 
 # Change to match your CPU core count
-# workers 1
+workers 1
 
 # Min and Max threads per worker
-# threads 4, 16
+threads 4, 16
 
 app_dir = File.expand_path("../..", __FILE__)
-shared_dir = "#{app_dir}/shared"
+shared_dir = "#{app_dir}/.dev-shared"
 
 # Default to production
 # rails_env = ENV['RAILS_ENV'] || "production"

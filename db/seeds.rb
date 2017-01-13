@@ -52,6 +52,14 @@
 #               updated_at: Time.zone.now)
 # end
 
+User.create!(name:  "everthis",
+             email: "admin@everthis.org",
+             password:              "foobar",
+             password_confirmation: "foobar",
+             admin:     true,
+             activated: true,
+             activated_at: Time.zone.now)
+
 10.times do |n|
   name  = "example-a-#{n+1}"
   email = "example-a-#{n+1}@everthis.com"
