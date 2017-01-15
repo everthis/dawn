@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
 
-  get  '/user_preference/index',  to: 'user_preference#index'
+  get  '/user_preference',  to: 'user_preference#index'
   get  '/user_preference/set_locale',  to: 'user_preference#index'
   post '/user_preference/update', to: 'user_preference#update'
 

@@ -1,6 +1,6 @@
 <div class="c-card-box">
 	<div class="tabs-row c-gap-bottom">
-		<%= link_to t('.language'), user_preference_index_path, class: 'spf-link' %>
+		<%= link_to t('.language'), user_preference_path, class: 'spf-link' %>
 		<%= link_to t('.profile'), edit_user_path(current_user), class: 'spf-link' %>
 		<%= link_to "token", get_token_user_path(current_user), class: 'spf-link' %>
 	</div>

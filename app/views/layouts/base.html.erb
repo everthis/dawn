@@ -6,6 +6,7 @@
 	<%= csrf_meta_tags %>
 	<%= client_stylesheet_link_tag 'application' %>
 	<%= render 'layouts/shim' %>
+	<%= client_javascript_include_tag 'globalA' %>
 </head>
 <body class='<%= controller.controller_name %>' data-spf-name="<%= yield(:name) %>">
 	<svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

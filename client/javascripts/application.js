@@ -3,10 +3,10 @@ import {ActionCable} from './common/ActionCable';
 import {dataLinks} from './modules/dataLinks';
 import {home} from './modules/homepage';
 import {initXhr} from './modules/apiOperation';
-import {spf} from 'spf-dev';
-spf.init();
 
-console.log(spf);
+if (window.A && window.A.spf) window.A.spf.init();
+
+
 dataLinks();
 import {fcp} from './modules/fisCiPlugins';
 import {newCiPlugins as ncp} from './modules/newCiPlugins';

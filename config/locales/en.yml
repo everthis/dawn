@@ -57,7 +57,7 @@ en:
       logout:               "Log out"
       settings:             "Settings"
       ci-npm-packages:      "CI-npm-packages"
-      npm-registries:       "Npm-registries"
+      npm-registries:       "npm-registries"
       uuap-login-logs:      "UUAP-login-logs"
 
   users:

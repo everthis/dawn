@@ -30,13 +30,13 @@ zh-CN:
       dev:                  "API 配置"
       third-paty-accounts:  "第三方账户"
       email-whitelist:      "邮件白名单"
-      documents:            "文档"
+      documentation:        "文档"
       users:                "用户列表"
       profile:              "档案"
       settings:             "设置"
       logout:               "注销"
       ci-npm-packages:      "CI-npm包"
-      npm-registries:       "Npm源"
+      npm-registries:       "npm源"
       uuap-login-logs:      "UUAP登录日志"
   
   users:

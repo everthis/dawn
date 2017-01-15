@@ -14,6 +14,9 @@ let assetsDistPath = path.join(__dirname, '..', 'app', 'assets');
 let defaults = {
     context: __dirname,
     entry: {
+        globalA: [
+            path.join(__dirname, '/javascripts/globalA.js')
+        ],
         application: [
             path.join(__dirname, '/javascripts/application.js')
         ]
