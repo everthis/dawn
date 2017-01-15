@@ -17,6 +17,9 @@ let defaults = {
         globalA: [
             path.join(__dirname, '/javascripts/globalA.js')
         ],
+        newCiPackages: [
+            path.join(__dirname, '/javascripts/modules/newCiPackages.js')
+        ],
         application: [
             path.join(__dirname, '/javascripts/application.js')
         ]

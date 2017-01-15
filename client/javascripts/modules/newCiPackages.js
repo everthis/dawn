@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-export function newCiPlugins() {
+export function newCiPackages() {
 
   Vue.component('new-plugins', {
     props: ['textareaInput'],
@@ -100,7 +100,7 @@ export function newCiPlugins() {
         that.processedPluginsInput.forEach(function(element, index) {
           for (var el in element) {
             if (element.hasOwnProperty(el)) {
-              tmpFormEle = that.createFormEle('ci_plugins[][' + el + ']', element[el]);
+              tmpFormEle = that.createFormEle('ci_packages[][' + el + ']', element[el]);
               submitForm.appendChild(tmpFormEle);
             }
           }

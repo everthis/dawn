@@ -5,8 +5,8 @@ class ReportNpmPackageBinJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-    plugin = CiPlugin.find(id)
-    if plugin.ci_plugin_log.log['report_npm_package_bin']['status'] == 1
+    plugin = CiPackage.find(id)
+    if plugin.ci_package_log.log['report_npm_package_bin']['status'] == 1
       PublishModifiedNpmPackageJob.perform_later(id)
     end
   end
@@ -14,8 +14,8 @@ class ReportNpmPackageBinJob < ApplicationJob
   def perform(*args)
     # Do something later
     id = args[0]
-	plugin = CiPlugin.find(id)
-	download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
+	plugin = CiPackage.find(id)
+	download_url = plugin.ci_package_log.log['check_npm_package_existence_in_registry']['detail']
 
 
 	default_tarball_download_dir = ENV["DOWNLOAD_PATH"]
@@ -33,18 +33,18 @@ class ReportNpmPackageBinJob < ApplicationJob
 	HEREDOC
 	stdout, stderr, status = Open3.capture3("sh", :stdin_data=>shell_commands, :binmode=>true)
 
-	plugin.ci_plugin_log.log["report_npm_package_bin"] = {} if plugin.ci_plugin_log.log["report_npm_package_bin"].nil?
+	plugin.ci_package_log.log["report_npm_package_bin"] = {} if plugin.ci_package_log.log["report_npm_package_bin"].nil?
 	bin_array = []
 	if status.success?
 		bin_array = JSON.parse(stdout)
     plugin.update_npm_package_bin(bin_array)
-		plugin.ci_plugin_log.log['report_npm_package_bin']['detail'] = "#{stdout}"
-		plugin.ci_plugin_log.log['report_npm_package_bin']['status'] = 1
+		plugin.ci_package_log.log['report_npm_package_bin']['detail'] = "#{stdout}"
+		plugin.ci_package_log.log['report_npm_package_bin']['status'] = 1
 	else
-		plugin.ci_plugin_log.log['report_npm_package_bin']['detail'] = "#{stderr}"
-		plugin.ci_plugin_log.log['report_npm_package_bin']['status'] = 0
+		plugin.ci_package_log.log['report_npm_package_bin']['detail'] = "#{stderr}"
+		plugin.ci_package_log.log['report_npm_package_bin']['status'] = 0
 	end
-	plugin.ci_plugin_log.save!
+	plugin.ci_package_log.save!
 
   end
 end

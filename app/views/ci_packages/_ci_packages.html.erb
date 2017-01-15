@@ -35,7 +35,7 @@
 
       <div class="c-gap-top">
 
-        <%= link_to 'New Ci Packages', new_ci_plugin_path, class: "spf-link" %>
+        <%= link_to 'New Ci Packages', new_ci_package_path, class: "spf-link" %>
       </div>
 
   </div>
@@ -46,7 +46,7 @@
 <script>
   (function() {
     window.gc = window.gc || {};
-    gc = <%= raw @ci_plugins.to_json %>;
+    gc = <%= raw @ci_packages.to_json %>;
   })();
 </script>
 

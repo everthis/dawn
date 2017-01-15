@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CiPluginTest < ActiveSupport::TestCase
+class CiPackageLogTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

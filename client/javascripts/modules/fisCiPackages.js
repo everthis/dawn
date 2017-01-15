@@ -113,7 +113,7 @@ export function fcp() {
         toggleLog: function(item) {
           if (!item.showLogs) {
             item.gc = App.cable.subscriptions.create({
-                'channel': "CiPluginLogsChannel",
+                'channel': "CiPackageLogsChannel",
                 'plugin_id': item.id
               }, {
                 connected: function() {
@@ -157,7 +157,7 @@ export function fcp() {
       for(let i = 0, length1 = gc.length; i < length1; i++){
         if (gc[i]['status'] !== 'failed' && gc[i]['status'] !== 'success') {
           gc[i]['gcp'] = App.cable.subscriptions.create({
-            'channel': "CiPluginStatusChannel",
+            'channel': "CiPackageStatusChannel",
             'plugin_id': gc[i]['id']
           }, {
             connected: function() {
@@ -180,7 +180,7 @@ export function fcp() {
     listenApiQuery();
 
 
-    // App.ci_plugin_logs = App.cable.subscriptions.create("CiPluginLogsChannel", {
+    // App.ci_package_logs = App.cable.subscriptions.create("CiPackageLogsChannel", {
     //   connected: function() {
     //     // Called when the subscription is ready for use on the server
     //     let that = this;

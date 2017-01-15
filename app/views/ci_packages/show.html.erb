@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="c-gap-top">
-			<%= link_to 'Back', ci_plugins_path %>
+			<%= link_to 'Back', ci_packages_path %>
 		</div>
 	</div>
 
@@ -33,7 +33,7 @@
 <script>
   (function() {
 	  window.gc = window.gc || {};
-	  gc = <%= raw @ci_plugin.content.to_json %>;
+	  gc = <%= raw @ci_package.content.to_json %>;
 	  gc =JSON.parse(gc);
   })();
 </script>

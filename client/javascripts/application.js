@@ -8,15 +8,15 @@ if (window.A && window.A.spf) window.A.spf.init();
 
 
 dataLinks();
-import {fcp} from './modules/fisCiPlugins';
-import {newCiPlugins as ncp} from './modules/newCiPlugins';
+import {fcp} from './modules/fisCiPackages';
+import {newCiPackages as ncp} from './modules/newCiPackages';
 
 (() => {
   let routes = {
     '/': home,
     '/dev': [initXhr],
-    '/ci_plugins/new': ncp,
-    '/ci_plugins': fcp
+    '/ci_packages/new': ncp,
+    '/ci_packages': fcp
   };
   let pathName = window.location.pathname;
   if (routes.hasOwnProperty(pathName)) {

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :uuap_login_logs
   resources :npm_registries
-  resources :ci_plugins
+  resources :ci_packages
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :third_party_accounts
   resources :docs
@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   delete 'logout'       => 'sessions#destroy'
   get    'clilogin'     => 'users#cli_login'
 
-  get   'packages_bin' => 'ci_plugins#packages_bin'
-  get 'plugins_instantsearch'  => 'ci_plugins#query'
+  get   'packages_bin' => 'ci_packages#packages_bin'
+  get 'plugins_instantsearch'  => 'ci_packages#query'
 
   # get 'log' => 'logs#index'
   # for the sake of debugging
@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     # end
   # end
 
-  get 'get_ci_plugin_current_log' => 'ci_plugin_logs#query_current_log'
+  get 'get_ci_package_current_log' => 'ci_package_logs#query_current_log'
 
   resources :users do
     member do

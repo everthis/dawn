@@ -1,0 +1,2 @@
+module CiPackageLogHelper
+end
