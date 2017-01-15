@@ -91,6 +91,7 @@ Rails.application.configure do
 
   host = ENV["RAILS_HOST"]
   config.action_mailer.default_url_options = { host: host }
+  # config.action_mailer.delivery_method = :test
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
@@ -104,10 +105,10 @@ Rails.application.configure do
   }
 
   config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
+    # Bullet.enable = true
+    # Bullet.alert = true
+    # Bullet.bullet_logger = true
+    # Bullet.console = true
     # Bullet.growl = true
     # Bullet.rails_logger = true
     # Bullet.honeybadger = true

@@ -1,11 +1,37 @@
-<h1>account_activation</h1>
+<div class="wrap" style="border: 1px solid #B2EBF2;
+													font-family: 'Verdana', 'Georgia', 'Calibri', 'Serif', 'Times New Roman';
+													border-radius: 4px;
+													-webkit-border-radius: 5px;
+													text-align: center;
+													width: 600px;
+													margin: 0 auto;
+													padding: 15px;
+													background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 60%, #fff), -webkit-linear-gradient(20deg, #e0f1ff 32%, #fffae3);
+													background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #fff), linear-gradient(70deg, #e0f1ff 32%, #fffae3);
+													">
+	<h2>Account activation</h2>
 
-<p>
-  <%= @greeting %>
-</p>
+	<p>
+	  <%= @greeting %>
+	</p>
 
-<p>Hi <%= @user.name %>,</p>
+	<p>Hi, <%= @user.name %>, welcome to dawn!</p>
 
-<p>
-Welcome to dawn! Click on the link to activate your account: <%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
-</p>
+	<p>
+	Click on the button below to activate your account: 
+	</p>	
+	<p>
+		<%= link_to "Activate account",
+								edit_account_activation_url(@user.activation_token, email: @user.email),
+								{:style=>'border: 2px solid #0e83cd;
+											    cursor: pointer;
+											    padding: .6rem 1rem;
+											    display: inline-block;
+											    letter-spacing: 1px;
+											    outline: none;
+											    color: #fff;
+											    text-decoration: none;
+											    background: #0e83cd;', :class => "css_class"} %>
+	</p>
+</div>
+
