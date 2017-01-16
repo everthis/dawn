@@ -59,6 +59,7 @@ en:
       ci-npm-packages:      "CI-npm-packages"
       npm-registries:       "npm-registries"
       uuap-login-logs:      "UUAP-login-logs"
+      test:                 "Test"
 
   users:
     settings:

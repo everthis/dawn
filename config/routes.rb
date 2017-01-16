@@ -66,6 +66,6 @@ Rails.application.routes.draw do
   # end
 
 
-  get 'test' => 'test#test'
+  # get 'test' => 'test#test'
 
 end
