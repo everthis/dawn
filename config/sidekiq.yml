@@ -17,6 +17,7 @@
   - ["check_npm_package", 1]
   - ["check_npm_package_existence", 1]
   - ["download_npm_package", 1]
+  - ["check_peer_dependencies", 1]
   - ["modify_npm_package", 1]
   - ["report_npm_package_bin", 1]
   - ["publish_modified_npm_package", 1]
