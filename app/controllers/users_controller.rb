@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < CBaseController
   before_action :logged_in_user, only: [:index, :edit, :update, :show, :destroy, :following, :followers, :settings]
   before_action :correct_user,   only: [:edit, :update, :get_token]
   before_action :admin_user,     only: :destroy

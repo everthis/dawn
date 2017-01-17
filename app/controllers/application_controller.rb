@@ -4,24 +4,27 @@ class ApplicationController < ActionController::Base
   before_action :set_i18n_locale_from_params
   
   protect_from_forgery with: :exception
+  
+
   include SessionsHelper
+
 
   def hello
     render text: "hello, world!"
   end
 
-  def default_render(*args)
-    if ['navigate', 'load'].include? params[:spf] 
-      params.delete :spf
-      # render "#{controller_name}/spf_#{action_name}.json"
-    else
-      super
-    end
-  end
+  # def default_render(*args)
+  #   if ['navigate', 'load'].include? params[:spf] 
+  #     params.delete :spf
+  #     # render "#{controller_name}/spf_#{action_name}.json"
+  #   else
+  #     super
+  #   end
+  # end
 
-  def render(*args, &block)
-    super
-  end
+  # def render(*args, &block)
+  #   super
+  # end
 
   private
 

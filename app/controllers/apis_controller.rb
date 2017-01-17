@@ -1,4 +1,4 @@
-class ApisController < ApplicationController
+class ApisController < CBaseController
   # before_action :ensure_json_request  
   before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy

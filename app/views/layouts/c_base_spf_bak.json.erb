@@ -1,0 +1,9 @@
+{
+  "body": {
+    "page-container": "<%= yield(:content) %>"
+  },
+  "attr": "<%= yield(:attributes) %>",
+  "url": "<%= Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title("Email Whitelist") %>",
+  "name": "<%= yield(:name) %>"
+}

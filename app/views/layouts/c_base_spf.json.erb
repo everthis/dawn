@@ -1,9 +1,11 @@
-{
-  "body": {
-    "page-container": "<%= yield(:content) %>"
-  },
-  "attr": "<%= yield(:attributes) %>",
-  "url": "<%= Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>",
-  "title": "<%= full_title("Email Whitelist") %>",
-  "name": "<%= yield(:name) %>"
-}
+<% json_obj = {} %>
+<% json_obj['body'] = {} %>
+<% content_target = content_for?(:content_target) ? yield(:content_target).squish : "page-container" %>
+<% content_for?(:content) ? json_obj['body'][content_target] = yield(:content) : "" %>
+<% content_for?(:head) ? json_obj['head'] = yield(:head).squish : "" %>
+<% content_for?(:foot) ? json_obj['foot'] = yield(:foot).squish : "" %>
+<% content_for?(:attr) ? json_obj['attr'] = JSON.parse("#{yield(:attr)}".html_safe) : "" %>
+<% content_for?(:title) ? json_obj['title'] = full_title(yield(:title).squish) : "" %>
+<% content_for?(:name) ? json_obj['name'] = yield(:name).squish : "" %>
+<% json_obj['url'] = Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>
+<%= "= #{json_obj.to_json}".html_safe %>

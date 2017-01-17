@@ -1,5 +1,4 @@
-class DemoController < ApplicationController
-	layout "c_base_spf"
+class DemoController < CBaseController
   def home
   end
 end

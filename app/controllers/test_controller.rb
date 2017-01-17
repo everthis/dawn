@@ -1,4 +1,4 @@
-class TestController < ApplicationController
+class TestController < CBaseController
 	def test
 	end
 end

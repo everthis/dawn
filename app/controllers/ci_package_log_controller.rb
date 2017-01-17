@@ -1,4 +1,4 @@
-class CiPackageLogsController < ApplicationController
+class CiPackageLogsController < CBaseController
 	before_action :logged_in_user
 
 	def query_current_log

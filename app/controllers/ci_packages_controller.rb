@@ -1,4 +1,4 @@
-class CiPackagesController < ApplicationController
+class CiPackagesController < CBaseController
   before_action :logged_in_user, only: [:index, :create, :new, :show, :edit, :update, :destroy]
   before_action :set_ci_package, only: [:show, :edit, :update, :destroy]
 

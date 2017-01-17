@@ -1,4 +1,4 @@
-class UserPreferenceController < ApplicationController
+class UserPreferenceController < CBaseController
 	before_action :logged_in_user,   only: [:edit, :update, :set_locale]
 	before_action :set_user_locale, only: [:update]
 	def index

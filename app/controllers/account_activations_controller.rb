@@ -1,4 +1,4 @@
-class AccountActivationsController < ApplicationController
+class AccountActivationsController < CBaseController
 
   def new
   end
