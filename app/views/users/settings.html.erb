@@ -1,2 +1,5 @@
 <% provide(:title, 'Settings') %>
-<%= render 'settings' %>
+
+<% content_for :content do %>
+  <%= render 'settings' %>
+<% end %>

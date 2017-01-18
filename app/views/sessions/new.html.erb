@@ -1,4 +1,6 @@
 <% provide(:title, "Log in") %>
+
+<% content_for :content do %>
 <h1 class="center">Log in</h1>
 
 <div class="form-container">
@@ -25,3 +27,4 @@
     <% end %>
     <p class="extra">New user? <%= link_to "Sign up now!", signup_path %></p>
 </div>
+<% end %>

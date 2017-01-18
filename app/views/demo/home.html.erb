@@ -1,3 +1,5 @@
+<% provide(:c_layout, 'c_base_spf.html') %>
+
 <% content_for :title do %>
 lorem_title
 <% end %>
@@ -10,7 +12,7 @@ lorem_name
   <style name="test">
     .test {
       font-size: 16px;
-    }   
+    }
   </style>
 <% end %>
 
@@ -38,4 +40,4 @@ page-container
   </script>
   <%= client_javascript_include_tag 'application' %>
 <% end %>
-<div class="">ok</div>
+<div>ok</div>

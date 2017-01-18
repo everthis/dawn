@@ -1,13 +1,12 @@
 import styles from '../stylesheets/application.scss';
 import {ActionCable} from './common/ActionCable';
-import {dataLinks} from './modules/dataLinks';
+
 import {home} from './modules/homepage';
 import {initXhr} from './modules/apiOperation';
 
 if (window.A && window.A.spf) window.A.spf.init();
 
 
-dataLinks();
 import {fcp} from './modules/fisCiPackages';
 import {newCiPackages as ncp} from './modules/newCiPackages';
 

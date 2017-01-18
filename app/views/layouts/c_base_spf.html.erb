@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title><%= yield :title %></title>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= csrf_meta_tags %>
+
+  <%= client_stylesheet_link_tag 'application' %>
+
+  <%= content_for?(:head) ? yield(:head) : nil %>
+</head>
+<body class='<%= controller.controller_name %>' data-spf-name="<%= yield(:name) %>">
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
+  <% end %>
+  <div id="body-container">
+
+    <div id="header-container">
+      <%= render 'layouts/header' %>
+    </div>
+
+    <div id="page-container">
+      <%= content_for?(:content) ? yield(:content) : nil %>
+    </div>
+
+    <div id="footer-container">
+      <%= render 'layouts/footer' %>
+    </div>
+  </div>
+
+  <%= debug(params) if Rails.env.development? %>
+  <%= client_javascript_include_tag 'globalA' %>
+
+  <%= content_for?(:foot) ? yield(:foot) : nil %>
+</body>
+</html>

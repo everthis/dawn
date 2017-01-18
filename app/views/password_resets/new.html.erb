@@ -1,4 +1,6 @@
 <% provide(:title, "Forgot password") %>
+
+<% content_for :content do %>
 <h1 class="center">Forgot password</h1>
 
 <div class="form-container">
@@ -6,9 +8,10 @@
       <%= field_set_tag 'Email', class: '' do %>
 	      <%= f.email_field :email, class: '' %>
       <% end %>
-	  
+
 	  <div class="row">
 	      <%= f.submit "Submit", class: "btn btn-submit" %>
 	  </div>
     <% end %>
 </div>
+<% end %>

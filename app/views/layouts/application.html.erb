@@ -1,1 +1,1 @@
-<%= render :template => "layouts/#{@layout || "base"}" %>
+<%= render :template => "layouts/#{content_for?(:c_layout) ? yield(:c_layout).squish : (params['spf'] ? "c_base_spf.json" : "c_base_spf.html")}" %>

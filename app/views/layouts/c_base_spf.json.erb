@@ -8,4 +8,4 @@
 <% content_for?(:title) ? json_obj['title'] = full_title(yield(:title).squish) : "" %>
 <% content_for?(:name) ? json_obj['name'] = yield(:name).squish : "" %>
 <% json_obj['url'] = Utilities.remove_param_from_url_str( request.fullpath, 'spf') %>
-<%= "= #{json_obj.to_json}".html_safe %>
+<%= "#{json_obj.to_json}".html_safe %>
