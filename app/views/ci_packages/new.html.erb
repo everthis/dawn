@@ -1,5 +1,30 @@
 <% provide(:title, 'New-CI-npm-packages') %>
 <% provide(:name, 'dawn') %>
+
+<% content_for :content do %>
 <div class="ci-packages-container">
-    <%= render 'new_ci_packages' %>
+<div class="fis-ci-container">
+      <h1>Install New CI Packages</h1>
+
+      <%= render 'form', ci_packages: @ci_packages %>
+
+      <div id="app">
+        <new-plugins></new-plugins>
+
+      </div>
+
+      <%= link_to 'Back', ci_packages_path, class: "spf-link" %>
+    </div>
 </div>
+<% end %>
+
+<% content_for :foot do %>
+  <%= client_javascript_include_tag 'newCiNpmPackages', "newCiNpmPackages" %>
+  <script name="new">
+  	(function() {
+  		if (window.A.ncnp) {
+  			window.A.ncnp.apply(null);
+  		}
+  	})();
+  </script>
+<% end %>

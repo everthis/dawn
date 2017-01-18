@@ -9,7 +9,7 @@ module ApplicationHelper
     end
   end
 
-  def client_javascript_include_tag(name)
+  def client_javascript_include_tag(name, name_attr = '')
     filename = "#{name}-bundle.js"
     src = "/assets/#{filename}"
 
@@ -20,16 +20,15 @@ module ApplicationHelper
         src = "/assets/#{asset_name}"
       end
     end
-    "<script src=\"#{src}\"></script>".html_safe
+    "<script src=\"#{src}\" name=\"#{name_attr}\"></script>".html_safe
   end
 
   def c_javascript_include_tag(*sources)
     options = sources.extract_options!.stringify_keys
-    path_options = options.extract!("protocol", "extname", "host", "skip_pipeline").symbolize_keys
+    path_options = options.extract!('protocol', 'extname', 'host').symbolize_keys
     sources.uniq.map { |source|
-      filename = "#{source}-bundle.js"
       tag_options = {
-        "src" => path_to_javascript(filename, path_options)
+        "src" => path_to_javascript(source, path_options)
       }.merge!(options)
       content_tag("script".freeze, "", tag_options)
     }.join("\n").html_safe
@@ -50,6 +49,20 @@ module ApplicationHelper
       end
     end
     "<link rel=\"stylesheet\" href=\"#{src}\">".html_safe
+  end
+
+  def c_stylesheet_link_tag(*sources)
+    options = sources.extract_options!.stringify_keys
+    path_options = options.extract!('protocol', 'host').symbolize_keys
+
+    sources.uniq.map { |source|
+      tag_options = {
+        "rel" => "stylesheet",
+        "media" => "screen",
+        "href" => path_to_stylesheet(source, path_options)
+      }.merge!(options)
+      tag(:link, tag_options)
+    }.join("\n").html_safe
   end
 
   def webpack_manifest_script
