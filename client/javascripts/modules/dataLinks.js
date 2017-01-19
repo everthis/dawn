@@ -3,13 +3,11 @@ import {handleMethod} from '../common/handleMethod';
 export function dataLinks() {
   document.addEventListener('click', processDataLink, false);
 }
-function processDataLink(e) {
-  var e = window.e || e;
+function processDataLink(ev) {
+  let e = window.e || ev;
 
-  if (e.target.tagName !== 'A')
-      return;
+  if (e.target.tagName !== 'A') return;
 
-  // Do something
   if (e.target.dataset.method === 'delete') {
     e.preventDefault();
     handleMethod(e.target);
@@ -18,15 +16,5 @@ function processDataLink(e) {
     e.preventDefault();
     handleMethod(e.target);
   }
-  // if (e.target.dataset.method === 'patch') {
-  //   e.preventDefault();
-  //   handleMethod(e.target, {
-  //     ns: 'api',
-  //     data: {
-  //       section: 'wise',
-  //       id: '2'
-  //     }
-  //   });
-  // }
-}
 
+}

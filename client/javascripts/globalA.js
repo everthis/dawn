@@ -1,17 +1,9 @@
-import {spf} from 'spf-dev';
-import {dataLinks} from './modules/dataLinks';
-(function() {
-  dataLinks();
+require(['spf-dev', './modules/dataLinks'], function(spf, dl) {
+  console.log(spf);
+  dl.dataLinks();
   let A = window.A || {};
   window.A = A;
   A.spf = spf;
-
-
-
-  // Copyright 2012 Google Inc. All rights reserved.
-  //
-  // Use of this source code is governed by The MIT License.
-  // See the LICENSE file for details.
 
   /**
    * @fileoverview JavaScript for the SPF demo app.
@@ -42,7 +34,7 @@ import {dataLinks} from './modules/dataLinks';
       window.addEventListener('spfprocess', app.onProcess);
       window.addEventListener('spfdone', app.onDone);
       window.addEventListener('spferror', app.onError);
-      window.addEventListener('spfready', app.spfReady);
+
 
       window.addEventListener('spfjsbeforeunload', app.onScriptBeforeUnload);
       window.addEventListener('spfjsunload', app.onScriptUnload);
@@ -79,10 +71,6 @@ import {dataLinks} from './modules/dataLinks';
       window.removeEventListener('spfcssbeforeunload', app.onStyleBeforeUnload);
       window.removeEventListener('spfcssunload', app.onStyleUnload);
     }
-  };
-
-  app.spfReady = function(evt) {
-    app.log('globalA--navigate ready ');
   };
 
   /**
@@ -194,7 +182,10 @@ import {dataLinks} from './modules/dataLinks';
    * @param {CustomEvent} evt The event.
    */
   app.onDone = function(evt) {
+    console.log(evt);
     app.log('globalA--navigate done ' + evt.detail.url);
+    app.destroy(A.gc.name);
+    A.gc.name = evt.detail.response.name;
   };
 
 
@@ -286,6 +277,4 @@ import {dataLinks} from './modules/dataLinks';
   A.app = app;
 
   A.app.init();
-
-
-})();
+});
