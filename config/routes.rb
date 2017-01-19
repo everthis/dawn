@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   # get 'log' => 'logs#index'
   # for the sake of debugging
   get 'demo' => 'demo#home'
+  get 'di' => 'demo#index'
 
   resources :apis
   get 'returnreqcookie' => 'utility#return_req_cookie'

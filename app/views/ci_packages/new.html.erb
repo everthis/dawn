@@ -1,5 +1,13 @@
 <% provide(:title, 'New-CI-npm-packages') %>
-<% provide(:name, 'dawn') %>
+<% provide(:name, 'newCiNpmPackages') %>
+
+<% content_for :head do %>
+<style name="newCiNpmPackages">
+  body {
+    background-color: orange;
+  }
+</style>
+<% end %>
 
 <% content_for :content do %>
 <div class="ci-packages-container">
@@ -20,7 +28,7 @@
 
 <% content_for :foot do %>
   <%= client_javascript_include_tag 'newCiNpmPackages', "newCiNpmPackages" %>
-  <script name="new">
+  <script name="newCiNpmPackages">
   	(function() {
   		if (window.A.ncnp) {
   			window.A.ncnp.apply(null);
