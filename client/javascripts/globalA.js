@@ -1,16 +1,9 @@
-require(['spf-dev', './modules/dataLinks'], function(spf, dl) {
-  console.log(spf);
-  dl.dataLinks();
+import {spf} from "spf-dev";
+import {dataLinks} from "./modules/dataLinks";
+  dataLinks();
   let A = window.A || {};
   window.A = A;
   A.spf = spf;
-
-  /**
-   * @fileoverview JavaScript for the SPF demo app.
-   *
-   * @author nicksay@google.com (Alex Nicksay)
-   */
-
 
   /**
    * The demo app namespace.
@@ -18,9 +11,8 @@ require(['spf-dev', './modules/dataLinks'], function(spf, dl) {
    */
   let app = window.A.app || {};
 
-
   /**
-   * Initialize the demo app.
+   * Initialize the app.
    */
   app.init = function() {
     app.start_ = +new Date();
@@ -64,7 +56,6 @@ require(['spf-dev', './modules/dataLinks'], function(spf, dl) {
       window.removeEventListener('spfprocess', app.onProcess);
       window.removeEventListener('spfdone', app.onDone);
       window.removeEventListener('spferror', app.onError);
-      window.removeEventListener('spfready', app.spfReady);
 
       window.removeEventListener('spfjsbeforeunload', app.onScriptBeforeUnload);
       window.removeEventListener('spfjsunload', app.onScriptUnload);
@@ -172,7 +163,6 @@ require(['spf-dev', './modules/dataLinks'], function(spf, dl) {
    * @param {CustomEvent} evt The event.
    */
   app.onProcess = function(evt) {
-    console.log(evt);
     app.log('globalA--navigate process ' + evt.detail.url);
   };
 
@@ -182,10 +172,9 @@ require(['spf-dev', './modules/dataLinks'], function(spf, dl) {
    * @param {CustomEvent} evt The event.
    */
   app.onDone = function(evt) {
-    console.log(evt);
     app.log('globalA--navigate done ' + evt.detail.url);
-    app.destroy(A.gc.name);
-    A.gc.name = evt.detail.response.name;
+    app.destroy(A.gc.currentName);
+    A.gc.currentName = evt.detail.response.name;
   };
 
 
@@ -277,4 +266,3 @@ require(['spf-dev', './modules/dataLinks'], function(spf, dl) {
   A.app = app;
 
   A.app.init();
-});

@@ -340,6 +340,26 @@ sudo -u postgres createuser -d -s -P dawn_pg_test
 ```
 then modify `.env.test` file with username and password.
 
+### change java version on idev machines
+
+```
+source ${JUMBO_ROOT}/opt/sun-java8/sun-java8.sh
+```
+OR
+
+```
+source ${JUMBO_ROOT}/opt/sun-java7/sun-java7.sh
+```
+
+### get CPU info on idev machines
+
+```
+cat /proc/cpuinfo
+# OR
+grep ^model\ name /proc/cpuinfo
+```
+
+
 ### TODO
 [optional] decode/encode URL , short link route to page directly.
 [MUST] sync/async same content render, terminate duplicate code.
