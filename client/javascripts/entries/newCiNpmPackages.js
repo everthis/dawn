@@ -1,3 +1,4 @@
+import styles from '../../stylesheets/newCiNpmPackages.scss';
 import {newCiPackages as ncnp} from '../modules/newCiPackages';
 (function() {
   let A = window.A || {};

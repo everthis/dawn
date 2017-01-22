@@ -1,4 +1,5 @@
 import styles from '../stylesheets/application.scss';
+
 import {ActionCable} from './common/ActionCable';
 
 import {home} from './modules/homepage';
