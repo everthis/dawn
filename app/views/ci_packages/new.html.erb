@@ -2,7 +2,7 @@
 <% provide(:name, 'newCiNpmPackages') %>
 
 <% content_for :head do %>
-<style name="newCiNpmPackages">
+<style rel="stylesheet" name="newCiNpmPackages">
   body {
     background-color: #d3d3d3;
   }
@@ -14,7 +14,7 @@
     margin-bottom: 1.5rem;
   }
 </style>
-<%= client_stylesheet_link_tag 'newCiNpmPackages' %>
+<%= client_stylesheet_link_tag 'newCiNpmPackages', "newCiNpmPackages" %>
 <% end %>
 
 <% content_for :content do %>

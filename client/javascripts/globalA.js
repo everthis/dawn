@@ -1,5 +1,6 @@
-import {spf} from "spf-dev";
+import {api as spf} from "spf-dev";
 import {dataLinks} from "./modules/dataLinks";
+console.log(spf);
   dataLinks();
   let A = window.A || {};
   window.A = A;
@@ -264,5 +265,6 @@ import {dataLinks} from "./modules/dataLinks";
 
 
   A.app = app;
+
 
   A.app.init();

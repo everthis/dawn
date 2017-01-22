@@ -36,7 +36,7 @@ module ApplicationHelper
 
 
 
-  def client_stylesheet_link_tag(name)
+  def client_stylesheet_link_tag(name, name_attr = '')
     filename = "#{name}-bundle.css"
     # asset_url = Rails.application.config.asset_host
     src = "/assets/#{filename}"
@@ -48,7 +48,7 @@ module ApplicationHelper
         src = "/assets/#{asset_name}"
       end
     end
-    "<link rel=\"stylesheet\" href=\"#{src}\">".html_safe
+    "<link rel=\"stylesheet\" name=\"#{name_attr}\" href=\"#{src}\">".html_safe
   end
 
   def c_stylesheet_link_tag(*sources)
