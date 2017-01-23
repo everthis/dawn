@@ -62,7 +62,10 @@ export function newCiPackages() {
             var val;
             var splitArr = [];
             this.processed += 1;
-            if (!this.pluginsInput) return arr;
+            if (!this.pluginsInput) {
+              this.processedPluginsInputData = arr;
+              return arr;
+            }
             var lines = this.pluginsInput.split('\n');
             for (var i = 0; i < lines.length; i++) {
               if (lines[i].trim().length > 0) {

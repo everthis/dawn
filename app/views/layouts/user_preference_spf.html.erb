@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title><%= yield :title %></title>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= csrf_meta_tags %>
+
+  <%= client_stylesheet_link_tag 'application' %>
+
+  <%= content_for?(:head) ? yield(:head) : nil %>
+</head>
+<body class='<%= controller.controller_name %>' data-spf-name="<%= yield(:name) %>">
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
+  <% end %>
+  <div id="app-timer" class="c-hide"></div>
+  <div id="body-container">
+
+    <div id="header-container">
+      <%= content_for?(:header_content) ? yield(:header_content) : nil %>
+    </div>
+
+    <div id="page-container">
+      <%= content_for?(:content) ? yield(:content) : nil %>
+    </div>
+
+    <div id="footer-container">
+      <%= content_for?(:footer_content) ? yield(:footer_content) : nil %>
+    </div>
+  </div>
+
+  <%= debug(params) if Rails.env.development? %>
+
+  <script>
+    (function() {
+      var A = window.A || {};
+      window.A = A;
+      A.gc = {};
+      A.gc.currentName = "<%= yield(:name) %>";
+      /**
+       * execute init function for every entry.
+       * Since every entry will be executed at least once, so add entry specified
+       * init function in each entry. And mount in A.exec object.
+       * @type {Object}
+       */
+      A.exec = {};
+      var appSpfReady = function(evt) {
+        console.log('globalA--navigate ready: '+ A.gc.currentName);
+      };
+      window.addEventListener('spfready', appSpfReady);
+    })();
+  </script>
+  <%= client_javascript_include_tag 'globalA', 'globalA' %>
+
+  <%= content_for?(:foot) ? yield(:foot) : nil %>
+</body>
+</html>

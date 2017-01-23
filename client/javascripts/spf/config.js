@@ -29,18 +29,18 @@ spfConfig.Value;
  * @type {!Object.<spfConfig.Value>}
  */
 spfConfig.defaults = {
-  'animation-class': 'spf-animate',
+  'animation-class': 'fnpu-animate',
   'animation-duration': 425,
   'cache-lifetime': 10 * 60 * 1000,  // 10 minute cache lifetime (ms).
   'cache-max': 50,  // 50 items.
   'cache-unified': false,
-  'link-class': 'spf-link',
-  'nolink-class': 'spf-nolink',
+  'link-class': 'fnpu-link',
+  'nolink-class': 'fnpu-nolink',
   'navigate-limit': 20,  // 20 navigations per session.
   'navigate-lifetime': 24 * 60 * 60 * 1000,  // 1 day session lifetime (ms).
   'reload-identifier': null,  // Always a param, no '?' needed.
   'request-timeout': 0,  // No request timeout.
-  'url-identifier': '?spf=__type__'
+  'url-identifier': '?fnpu=__type__'
 };
 
 

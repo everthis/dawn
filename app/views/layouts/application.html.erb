@@ -1,1 +1,1 @@
-<%= render :template => "layouts/#{content_for?(:c_layout) ? yield(:c_layout).squish : (params['spf'] ? "c_base_spf.json" : "c_base_spf.html")}" %>
+<%= render :template => "layouts/#{content_for?(:c_layout) ? (params['fnpu'] ? "#{yield(:c_layout).squish}.json" : "#{yield(:c_layout).squish}.html" ) : (params['fnpu'] ? "c_base_spf.json" : "c_base_spf.html")}" %>

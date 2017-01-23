@@ -61,7 +61,6 @@ spfMain.dispose = function() {
   spfConfig.clear();
 };
 
-
 /**
  * Discovers existing script and style elements in the document and registers
  * them as loaded, once during initial code execution and again when the

@@ -1,5 +1,10 @@
+<% provide(:c_layout, 'user_preference_spf') %>
 <% provide(:title, 'User-preference') %>
 <% provide(:name, 'userPreference') %>
+
+<% content_for :header_content do %>
+  <%= render 'layouts/header' %>
+<% end %>
 
 <% content_for :content do %>
 <div id="locale-container">

@@ -11,6 +11,7 @@ class UsersController < CBaseController
 
 	def show
 	  @user = User.find(params[:id])
+	  # @user = current_user
 	  @microposts = @user.microposts.paginate(page: params[:page])
 	end
 

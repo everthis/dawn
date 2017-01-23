@@ -1,23 +1,22 @@
 <header>
     <nav class="nav">
       <ul class="static-links">
-        <li class="first-layer"><%= link_to t('.home'), root_path, id: "logo", class: 'spf-link' %></li>
+        <li class="first-layer"><%= link_to t('.home'), root_path, id: "logo", class: 'fnpu-link' %></li>
         <% if logged_in? %>
-        <li class="first-layer"><%= link_to t('.dev'), dev_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to t('.third-paty-accounts'), third_party_accounts_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to t('.email-whitelist'), email_whitelists_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to t('.documentation'), docs_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to t('.ci-npm-packages'), ci_packages_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to t('.npm-registries'), npm_registries_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to t('.uuap-login-logs'), uuap_login_logs_path, class: 'spf-link' %></li>
-        <li class="first-layer"><%= link_to t('.test'), test_path, class: 'spf-link' %></li>
+        <li class="first-layer"><%= link_to t('.dev'), dev_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.third-paty-accounts'), third_party_accounts_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.email-whitelist'), email_whitelists_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.documentation'), docs_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.ci-npm-packages'), ci_packages_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.npm-registries'), npm_registries_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.uuap-login-logs'), uuap_login_logs_path, class: 'fnpu-link' %></li>
         <% end %>
       </ul>
       <ul class="user-links">
         <% if logged_in? %>
-          <li class="first-layer"><%= link_to t('.users'), users_path, class: 'spf-link' %></li>
-          <li class="first-layer"><%= link_to t('.profile'), current_user, class: 'spf-link' %></li>
-          <li class="first-layer"><%= link_to t('.settings'), settings_user_path(current_user), class: 'spf-link' %></li>
+          <li class="first-layer"><%= link_to t('.users'), users_path, class: 'fnpu-link' %></li>
+          <li class="first-layer"><%= link_to t('.profile'), current_user, class: 'fnpu-link' %></li>
+          <li class="first-layer"><%= link_to t('.settings'), user_preference_path, class: 'fnpu-link' %></li>
           <li class="first-layer"><%= link_to t('.logout'), logout_path, method: "delete" %></li>
         <% else %>
           <li class="first-layer"><%= link_to "Log in", login_path %></li> |

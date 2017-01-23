@@ -4,7 +4,7 @@ class PaginationListLinkRenderer < WillPaginate::ActionView::LinkRenderer
 
   def page_number(page)
     unless page == current_page
-      tag(:li, link(page, page, :class => 'spf-link', :rel => rel_value(page)))
+      tag(:li, link(page, page, :class => 'fnpu-link', :rel => rel_value(page)))
     else
       tag(:li, page, :class => "current")
     end
@@ -12,7 +12,7 @@ class PaginationListLinkRenderer < WillPaginate::ActionView::LinkRenderer
 
   def previous_or_next_page(page, text, classname)
     if page
-      tag(:li, link(text, page, :class => 'spf-link'), :class => classname)
+      tag(:li, link(text, page, :class => 'fnpu-link'), :class => classname)
     else
       tag(:li, text, :class => classname + ' disabled')
     end
