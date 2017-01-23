@@ -1,17 +1,12 @@
-// Copyright 2012 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
 /**
  * @fileoverview Basic DOM manipulation functions.
  *
- * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.dom');
+// goog.provide('spfDom');
 
-goog.require('spf');
+import {spfBase} from '../base';
+let spfDom = {};
 
 
 /**
@@ -24,7 +19,7 @@ goog.require('spf');
  * @param {(Document|Element)=} opt_root Optional document or element to query.
  * @return {Array.<Node>|NodeList} nodes Matching nodes.
  */
-spf.dom.query = function(selector, opt_root) {
+spfDom.query = function(selector, opt_root) {
   var root = opt_root || document;
   if (root.querySelectorAll) {
     return root.querySelectorAll(selector);
@@ -40,7 +35,7 @@ spf.dom.query = function(selector, opt_root) {
  * @param {Node} newNode Node to insert.
  * @param {Node} refNode Reference node to insert before.
  */
-spf.dom.insertSiblingBefore = function(newNode, refNode) {
+spfDom.insertSiblingBefore = function(newNode, refNode) {
   refNode.parentNode.insertBefore(newNode, refNode);
 };
 
@@ -52,7 +47,7 @@ spf.dom.insertSiblingBefore = function(newNode, refNode) {
  * @param {Node} newNode Node to insert.
  * @param {Node} refNode Reference node to insert after.
  */
-spf.dom.insertSiblingAfter = function(newNode, refNode) {
+spfDom.insertSiblingAfter = function(newNode, refNode) {
   refNode.parentNode.insertBefore(newNode, refNode.nextSibling);
 };
 
@@ -66,7 +61,7 @@ spf.dom.insertSiblingAfter = function(newNode, refNode) {
  *     tree, sans children; or undefined, if the element was not in the document
  *     to begin with.
  */
-spf.dom.unpackElement = function(element) {
+spfDom.unpackElement = function(element) {
   var child, parent = element.parentNode;
   if (parent && parent.nodeType != 11) {  // 11 = document fragment
     // Use IE DOM function (supported by Opera too) if available
@@ -91,7 +86,7 @@ spf.dom.unpackElement = function(element) {
  * @param {Element} element The element to pack.
  * @param {Element} container The new container of the existing children.
  */
-spf.dom.packElement = function(element, container) {
+spfDom.packElement = function(element, container) {
   if (container) {
     var child;
     // Move all children of the original node down one level.
@@ -117,7 +112,7 @@ spf.dom.packElement = function(element, container) {
  * @return {Node} DOM node that matched the matcher, or null if there was
  *     no match.
  */
-spf.dom.getAncestor = function(element, matcher, opt_parent) {
+spfDom.getAncestor = function(element, matcher, opt_parent) {
   while (element) {
     if (matcher(element)) {
       // Found a match, return it.
@@ -146,7 +141,7 @@ spf.dom.getAncestor = function(element, matcher, opt_parent) {
  * @param {Element} element The element to update.
  * @param {Object.<string, string>} attributes The map of name/value pairs.
  */
-spf.dom.setAttributes = function(element, attributes) {
+spfDom.setAttributes = function(element, attributes) {
   for (var name in attributes) {
     var value = attributes[name];
     if (name == 'class') {
@@ -175,7 +170,7 @@ spf.dom.setAttributes = function(element, attributes) {
  * @param {Function=} opt_callback Callback function to execute onload.
  * @return {!HTMLIFrameElement}
  */
-spf.dom.createIframe = function(opt_id, opt_document, opt_callback) {
+spfDom.createIframe = function(opt_id, opt_document, opt_callback) {
   var id = opt_id || '';
   var doc = opt_document || document;
   var iframeEl = doc.createElement('iframe');
@@ -183,8 +178,10 @@ spf.dom.createIframe = function(opt_id, opt_document, opt_callback) {
   iframeEl.src = 'javascript:""';
   iframeEl.style.display = 'none';
   if (opt_callback) {
-    iframeEl.onload = spf.bind(opt_callback, null, iframeEl);
+    iframeEl.onload = spfBase.bind(opt_callback, null, iframeEl);
   }
   doc.body.appendChild(iframeEl);
   return /** @type {!HTMLIFrameElement} */ (iframeEl);
 };
+
+export default spfDom;

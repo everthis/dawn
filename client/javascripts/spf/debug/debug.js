@@ -11,9 +11,12 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.debug');
+// goog.provide('spfDebug');
 
-goog.require('spf');
+import {spfBase, SPF_DEBUG} from '../base';
+
+let spfDebug = {};
+
 
 
 /**
@@ -21,9 +24,9 @@ goog.require('spf');
  *
  * @param {...*} var_args Items to log.
  */
-spf.debug.debug = function(var_args) {
-  if (spf.debug.isLevelEnabled(spf.debug.Level.DEBUG)) {
-    spf.debug.log(spf.debug.Level.DEBUG, 'spf', arguments);
+spfDebug.debug = function(var_args) {
+  if (spfDebug.isLevelEnabled(spfDebug.Level.DEBUG)) {
+    spfDebug.log(spfDebug.Level.DEBUG, 'spf', arguments);
   }
 };
 
@@ -33,9 +36,9 @@ spf.debug.debug = function(var_args) {
  *
  * @param {...*} var_args Items to log.
  */
-spf.debug.info = function(var_args) {
-  if (spf.debug.isLevelEnabled(spf.debug.Level.INFO)) {
-    spf.debug.log(spf.debug.Level.INFO, 'spf', arguments);
+spfDebug.info = function(var_args) {
+  if (spfDebug.isLevelEnabled(spfDebug.Level.INFO)) {
+    spfDebug.log(spfDebug.Level.INFO, 'spf', arguments);
   }
 };
 
@@ -45,9 +48,9 @@ spf.debug.info = function(var_args) {
  *
  * @param {...*} var_args Items to log.
  */
-spf.debug.warn = function(var_args) {
-  if (spf.debug.isLevelEnabled(spf.debug.Level.WARN)) {
-    spf.debug.log(spf.debug.Level.WARN, 'spf', arguments);
+spfDebug.warn = function(var_args) {
+  if (spfDebug.isLevelEnabled(spfDebug.Level.WARN)) {
+    spfDebug.log(spfDebug.Level.WARN, 'spf', arguments);
   }
 };
 
@@ -57,9 +60,9 @@ spf.debug.warn = function(var_args) {
  *
  * @param {...*} var_args Items to log.
  */
-spf.debug.error = function(var_args) {
-  if (spf.debug.isLevelEnabled(spf.debug.Level.ERROR)) {
-    spf.debug.log(spf.debug.Level.ERROR, 'spf', arguments);
+spfDebug.error = function(var_args) {
+  if (spfDebug.isLevelEnabled(spfDebug.Level.ERROR)) {
+    spfDebug.log(spfDebug.Level.ERROR, 'spf', arguments);
   }
 };
 
@@ -74,20 +77,20 @@ spf.debug.error = function(var_args) {
  * @param {string} prefix The string prefix to prepend to the logged items.
  * @param {{length: number}} args List of items to log.
  */
-spf.debug.log = function(method, prefix, args) {
+spfDebug.log = function(method, prefix, args) {
   if (!SPF_DEBUG || !window.console) {
     return;
   }
   args = Array.prototype.slice.call(args);
-  var current = spf.now();
-  var overall = spf.debug.formatDuration(spf.debug.start_, current);
-  if (spf.debug.split_) {
-    var split = spf.debug.formatDuration(spf.debug.split_, current);
+  var current = spfBase.now();
+  var overall = spfDebug.formatDuration(spfDebug.start_, current);
+  if (spfDebug.split_) {
+    var split = spfDebug.formatDuration(spfDebug.split_, current);
     args.unshift(overall + '/' + split + ':');
   } else {
     args.unshift(overall + ':');
   }
-  if (spf.debug.direct_) {
+  if (spfDebug.direct_) {
     args.unshift('[' + prefix + ']');
     // Note that passing null for execution context throws an Error in Chrome.
     window.console[method].apply(window.console, args);
@@ -102,20 +105,20 @@ spf.debug.log = function(method, prefix, args) {
  * Reset the timer used for logging duration.  Call to log split times
  * since last reset in addition to overall duration.
  */
-spf.debug.reset = function() {
-  spf.debug.split_ = spf.now();
+spfDebug.reset = function() {
+  spfDebug.split_ = spfBase.now();
 };
 
 
 /**
  * Formats two millisecond timestamps into a duration string.
- * See {@link spf.now} for timestamp generation.
+ * See {@link spfBase.now} for timestamp generation.
  *
  * @param {number} start The starting millisecond timestamp.
  * @param {number} end The ending millisecond timestamp.
  * @return {string} The formatted duration string.
  */
-spf.debug.formatDuration = function(start, end) {
+spfDebug.formatDuration = function(start, end) {
   var dur = (end - start) / 1000;
   if (dur.toFixed) {
     dur = dur.toFixed(3);
@@ -127,11 +130,11 @@ spf.debug.formatDuration = function(start, end) {
 /**
  * Checks whether a logging level is enabled for output.
  *
- * @param {spf.debug.Level} level The logging level.
+ * @param {spfDebug.Level} level The logging level.
  * @return {boolean} True if the logging level is enabled.
  */
-spf.debug.isLevelEnabled = function(level) {
-  return (spf.debug.levels_[level] >= spf.debug.levels_[spf.debug.OUTPUT]);
+spfDebug.isLevelEnabled = function(level) {
+  return (spfDebug.levels_[level] >= spfDebug.levels_[spfDebug.OUTPUT]);
 };
 
 
@@ -139,14 +142,14 @@ spf.debug.isLevelEnabled = function(level) {
  * The timestamp of when debugging was initialized, for overall duration.
  * @private {number}
  */
-spf.debug.start_ = spf.now();
+spfDebug.start_ = spfBase.now();
 
 
 /**
  * The timestamp of when debugging was reset, for split durations.
  * @private {number}
  */
-spf.debug.split_ = 0;
+spfDebug.split_ = 0;
 
 
 /**
@@ -156,7 +159,7 @@ spf.debug.split_ = 0;
  * debug method, so this property will be false in IE.
  * @private {boolean}
  */
-spf.debug.direct_ = !!(window.console && window.console.debug);
+spfDebug.direct_ = !!(window.console && window.console.debug);
 
 
 /**
@@ -164,7 +167,7 @@ spf.debug.direct_ = !!(window.console && window.console.debug);
  * @private {Object.<string, number>}
  * @const
  */
-spf.debug.levels_ = {
+spfDebug.levels_ = {
   'debug': 1,
   'info': 2,
   'warn': 3,
@@ -177,7 +180,7 @@ spf.debug.levels_ = {
  * functions: "debug", "info", "warn", "error".
  * @enum {string}
  */
-spf.debug.Level = {
+spfDebug.Level = {
   DEBUG: 'debug',
   INFO: 'info',
   WARN: 'warn',
@@ -189,6 +192,8 @@ spf.debug.Level = {
  * @define {string} OUTPUT is provided to control the level of output
  * from debugging code.  Valid values correspond to browser console logging
  * functions: "debug", "info", "warn", and "error", and can be set by the
- * compiler when "--define spf.debug.OUTPUT='warn'" or similar is specified.
+ * compiler when "--define spfDebug.OUTPUT='warn'" or similar is specified.
  */
-spf.debug.OUTPUT = 'debug';
+spfDebug.OUTPUT = 'debug';
+
+export default spfDebug;

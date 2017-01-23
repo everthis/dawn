@@ -9,9 +9,12 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.string');
+import {spfBase, SPF_BOOTLOADER} from '../base';
+let spfString = {};
 
-goog.require('spf');
+// goog.provide('spfString');
+
+// goog.require('spf');
 
 
 /**
@@ -21,7 +24,7 @@ goog.require('spf');
  * @param {string} substr The substring to test for.
  * @return {boolean} True if `str` contains `substr`.
  */
-spf.string.contains = function(str, substr) {
+spfString.contains = function(str, substr) {
   return str.indexOf(substr) != -1;
 };
 
@@ -34,7 +37,7 @@ spf.string.contains = function(str, substr) {
  * @param {number=} opt_offset Offset from index 0 at which to check.
  * @return {boolean} True if `str` begins with `prefix`.
  */
-spf.string.startsWith = function(str, prefix, opt_offset) {
+spfString.startsWith = function(str, prefix, opt_offset) {
   var idx = opt_offset || 0;
   return str.lastIndexOf(prefix, idx) == idx;
 };
@@ -47,7 +50,7 @@ spf.string.startsWith = function(str, prefix, opt_offset) {
  * @param {string} suffix A string to look for at the end of `str`.
  * @return {boolean} True if `str` ends with `suffix`.
  */
-spf.string.endsWith = function(str, suffix) {
+spfString.endsWith = function(str, suffix) {
   var l = str.length - suffix.length;
   return l >= 0 && str.indexOf(suffix, l) == l;
 };
@@ -59,7 +62,7 @@ spf.string.endsWith = function(str, suffix) {
  * @param {?} val Value to test.
  * @return {boolean} Whether the value is a string.
  */
-spf.string.isString = function(val) {
+spfString.isString = function(val) {
   // When built for the bootloader, optimize for size over complete accuracy.
   if (SPF_BOOTLOADER) {
     // The return value for typeof will be one of the following:
@@ -84,7 +87,7 @@ spf.string.isString = function(val) {
  * @param {string} str The string to trim.
  * @return {string} The trimmed string.
  */
-spf.string.trim = (function() {
+spfString.trim = (function() {
   if (String.prototype.trim) {
     return function(str) { return str.trim(); };
   } else {
@@ -103,7 +106,7 @@ spf.string.trim = (function() {
  * @param {string} sep The separator.
  * @return {!Array.<string>} The partitioned string result.
  */
-spf.string.partition = function(str, sep) {
+spfString.partition = function(str, sep) {
   var arr = str.split(sep);
   var nosep = arr.length == 1;
   return [arr[0], (nosep ? '' : sep), (nosep ? '' : arr.slice(1).join(sep))];
@@ -122,7 +125,7 @@ spf.string.partition = function(str, sep) {
  * @return {number} Hash value for `str`, between 0 (inclusive) and 2^32
  *  (exclusive). The empty string returns 0.
  */
-spf.string.hashcode = function(str) {
+spfString.hashcode = function(str) {
   str = str || '';
   var result = 0;
   for (var i = 0, l = str.length; i < l; ++i) {
@@ -142,6 +145,8 @@ spf.string.hashcode = function(str) {
  * @param {string} str The string in camelCase form.
  * @return {string} The string in selector-case form.
  */
-spf.string.toSelectorCase = function(str) {
+spfString.toSelectorCase = function(str) {
   return String(str).replace(/([A-Z])/g, '-$1').toLowerCase();
 };
+
+export default spfString;

@@ -9,9 +9,12 @@
  * @author rviscomi@google.com (Rick Viscomi)
  */
 
-goog.provide('spf.testing.dom');
+import spfDom from '../dom/dom';
 
-goog.require('spf.dom');
+let spfTestingDom = {};
+// goog.provide('spfTestingDom');
+
+// goog.require('spfDom');
 
 
 /**
@@ -19,7 +22,7 @@ goog.require('spf.dom');
  *
  * @const {string}
  */
-spf.testing.dom.TAG_NAME = 'spftest';
+spfTestingDom.TAG_NAME = 'spftest';
 
 
 /**
@@ -31,13 +34,13 @@ spf.testing.dom.TAG_NAME = 'spftest';
  *   on the element.
  * @return {Element} The newly-created test element.
  */
-spf.testing.dom.createElement = function(id, opt_initialHTML,
+spfTestingDom.createElement = function(id, opt_initialHTML,
     opt_initialAttributes) {
-  var element = document.createElement(spf.testing.dom.TAG_NAME);
+  var element = document.createElement(spfTestingDom.TAG_NAME);
   element.id = id;
   element.innerHTML = opt_initialHTML || '';
   if (opt_initialAttributes) {
-    spf.dom.setAttributes(element, opt_initialAttributes);
+    spfDom.setAttributes(element, opt_initialAttributes);
   }
   document.body.appendChild(element);
   return element;
@@ -48,11 +51,13 @@ spf.testing.dom.createElement = function(id, opt_initialHTML,
  * Removes all elements with the unique test tag name.
  * See {@link #createElement}.
  */
-spf.testing.dom.removeAllElements = function() {
-  var elements = document.getElementsByTagName(spf.testing.dom.TAG_NAME);
+spfTestingDom.removeAllElements = function() {
+  var elements = document.getElementsByTagName(spfTestingDom.TAG_NAME);
   // `elements` is a live node list. Removing one of these elements from the DOM
   // also removes it from the array.
   while (elements.length) {
     document.body.removeChild(elements[0]);
   }
 };
+
+export default spfTestingDom;

@@ -1,36 +1,32 @@
-// Copyright 2014 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
 /**
  * @fileoverview Array manipulation functions.
  *
- * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.array');
+// goog.provide('spfArray');
 
-goog.require('spf');
+import {spfBase, SPF_BOOTLOADER} from '../base';
+let spfArray = {};
+
 
 
 /**
  * @typedef {Array|NodeList|Arguments|{length: number}}
  */
-spf.array.ArrayLike;
+spfArray.ArrayLike;
 
 
 /**
  * Compatible Array#forEach implementation.
  *
- * @param {Array.<ITEM>|spf.array.ArrayLike} arr The array.
+ * @param {Array.<ITEM>|spfArray.ArrayLike} arr The array.
  * @param {?function(this:THIS, ITEM, number, ?) : ?} fn The function to
  *   execute for each item.  The function is executed with three arguments:
  *   the item value, the item index, and the array.
  * @param {THIS=} opt_obj The value to use as "this" in the function.
  * @template THIS, ITEM
  */
-spf.array.each = function(arr, fn, opt_obj) {
+spfArray.each = function(arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.forEach) {
     arr.forEach(fn, opt_obj);
@@ -47,7 +43,7 @@ spf.array.each = function(arr, fn, opt_obj) {
 /**
  * Compatible Array#every implementation.
  *
- * @param {Array.<ITEM>|spf.array.ArrayLike} arr The array.
+ * @param {Array.<ITEM>|spfArray.ArrayLike} arr The array.
  * @param {?function(this:THIS, ITEM, number, ?) : boolean} fn The function to
  *   execute for each item.  The function is executed with three arguments:
  *   the item value, the item index, and the array; it should return true
@@ -56,7 +52,7 @@ spf.array.each = function(arr, fn, opt_obj) {
  * @return {boolean} Whether the result of every execution was truthy.
  * @template THIS, ITEM
  */
-spf.array.every = function(arr, fn, opt_obj) {
+spfArray.every = function(arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.every) {
     return arr.every(fn, opt_obj);
@@ -73,7 +69,7 @@ spf.array.every = function(arr, fn, opt_obj) {
 /**
  * Compatible Array#some implementation.
  *
- * @param {Array.<ITEM>|spf.array.ArrayLike} arr The array.
+ * @param {Array.<ITEM>|spfArray.ArrayLike} arr The array.
  * @param {?function(this:THIS, ITEM, number, ?) : boolean} fn The function to
  *   execute for each item.  The function is executed with three arguments:
  *   the item value, the item index, and the array; it should return true
@@ -82,7 +78,7 @@ spf.array.every = function(arr, fn, opt_obj) {
  * @return {boolean} Whether the result of any execution was truthy.
  * @template THIS, ITEM
  */
-spf.array.some = function(arr, fn, opt_obj) {
+spfArray.some = function(arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.some) {
     return arr.some(fn, opt_obj);
@@ -99,7 +95,7 @@ spf.array.some = function(arr, fn, opt_obj) {
 /**
  * Compatible Array#filter implementation.
  *
- * @param {Array.<ITEM>|spf.array.ArrayLike} arr The array.
+ * @param {Array.<ITEM>|spfArray.ArrayLike} arr The array.
  * @param {?function(this:THIS, ITEM, number, ?) : RESULT} fn The function to
  *   execute for each item.  The function is executed with three arguments:
  *   the item value, the item index, and the array; it should return the
@@ -108,13 +104,13 @@ spf.array.some = function(arr, fn, opt_obj) {
  * @return {!Array.<RESULT>} A new array of filtered results.
  * @template THIS, ITEM, RESULT
  */
-spf.array.filter = function(arr, fn, opt_obj) {
+spfArray.filter = function(arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.filter) {
     return arr.filter(fn, opt_obj);
   }
   var res = [];
-  spf.array.each(arr, function(a, i, arr) {
+  spfArray.each(arr, function(a, i, arr) {
     if (fn.call(opt_obj, a, i, arr)) {
       res.push(a);
     }
@@ -126,13 +122,13 @@ spf.array.filter = function(arr, fn, opt_obj) {
 /**
  * Compatible Array#indexOf implementation.
  *
- * @param {Array.<ITEM>|spf.array.ArrayLike} arr The array.
+ * @param {Array.<ITEM>|spfArray.ArrayLike} arr The array.
  * @param {ITEM} val The value to find.
  * @param {number=} opt_fromIndex The starting index to search from.
  * @return {number} The index of the first matching element.
  * @template ITEM
  */
-spf.array.indexOf = function(arr, val, opt_fromIndex) {
+spfArray.indexOf = function(arr, val, opt_fromIndex) {
   if (!SPF_BOOTLOADER && arr.indexOf) {
     return arr.indexOf(val, opt_fromIndex);
   }
@@ -149,7 +145,7 @@ spf.array.indexOf = function(arr, val, opt_fromIndex) {
 /**
  * Compatible Array#map implementation.
  *
- * @param {Array.<ITEM>|spf.array.ArrayLike} arr The array.
+ * @param {Array.<ITEM>|spfArray.ArrayLike} arr The array.
  * @param {?function(this:THIS, ITEM, number, ?) : RESULT} fn The function to
  *   execute for each item.  The function is executed with three arguments:
  *   the item value, the item index, and the array; it should return the
@@ -158,14 +154,14 @@ spf.array.indexOf = function(arr, val, opt_fromIndex) {
  * @return {Array.<RESULT>} A new array of mapped results.
  * @template THIS, ITEM, RESULT
  */
-spf.array.map = function(arr, fn, opt_obj) {
+spfArray.map = function(arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.map) {
     return arr.map(fn, opt_obj);
   }
   var res = [];
   res.length = arr.length;
-  spf.array.each(arr, function(a, i, arr) {
+  spfArray.each(arr, function(a, i, arr) {
     res[i] = fn.call(opt_obj, a, i, arr);
   });
   return res;
@@ -178,8 +174,8 @@ spf.array.map = function(arr, fn, opt_obj) {
  * @param {?} val The value.
  * @return {Array} An array.
  */
-spf.array.toArray = function(val) {
-  return spf.array.isArray(val) ? val : [val];
+spfArray.toArray = function(val) {
+  return spfArray.isArray(val) ? val : [val];
 };
 
 
@@ -189,7 +185,7 @@ spf.array.toArray = function(val) {
  * @param {?} val Value to test.
  * @return {boolean} Whether the value is an array.
  */
-spf.array.isArray = function(val) {
+spfArray.isArray = function(val) {
   // When built for the bootloader, optimize for size over complete accuracy.
   if (SPF_BOOTLOADER) {
     // This test will fail if a fake object like "{push: 1}" is passed in, but
@@ -198,3 +194,5 @@ spf.array.isArray = function(val) {
   }
   return Object.prototype.toString.call(val) == '[object Array]';
 };
+
+export default spfArray;

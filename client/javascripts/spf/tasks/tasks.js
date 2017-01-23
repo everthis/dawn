@@ -9,13 +9,20 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.tasks');
+import {spfBase} from '../base';
+import spfConfig from '../config';
+import spfState from '../state';
+import spfString from '../string/string';
+import spfTracing from '../tracing/tracing';
+let spfTasks = {};
 
-goog.require('spf');
-goog.require('spf.config');
-goog.require('spf.state');
-goog.require('spf.string');
-goog.require('spf.tracing');
+// goog.provide('spfTasks');
+
+// goog.require('spf');
+// goog.require('spfConfig');
+// goog.require('spfState');
+// goog.require('spfString');
+// goog.require('spfTracing');
 
 
 /**
@@ -27,14 +34,14 @@ goog.require('spf.tracing');
  *     the function; defaults to 0.
  * @return {number} The number of tasks in the queue afterwards.
  */
-spf.tasks.add = function(key, fn, opt_delay) {
-  var queues = spf.tasks.queues_;
+spfTasks.add = function(key, fn, opt_delay) {
+  var queues = spfTasks.queues_;
   var queue = queues[key];
   if (key && fn) {
     if (!queue) {
-      queue = queues[key] = spf.tasks.createQueue_();
+      queue = queues[key] = spfTasks.createQueue_();
     }
-    var task = spf.tasks.createTask_(fn, opt_delay || 0);
+    var task = spfTasks.createTask_(fn, opt_delay || 0);
     return queue.items.push(task);
   }
   return (queue && queue.items.length) || 0;
@@ -48,13 +55,13 @@ spf.tasks.add = function(key, fn, opt_delay) {
  * @param {boolean=} opt_sync Whether to execute the queued tasks synchronously;
  *     defaults to false.
  */
-spf.tasks.run = function(key, opt_sync) {
-  var queue = spf.tasks.queues_[key];
+spfTasks.run = function(key, opt_sync) {
+  var queue = spfTasks.queues_[key];
   if (queue) {
     var active = !!queue.scheduledKey || !!queue.timeoutKey;
     var suspended = !(queue.semaphore > 0);
     if (!suspended && (opt_sync || !active)) {
-      spf.tasks.do_(key, opt_sync);
+      spfTasks.do_(key, opt_sync);
     }
   }
 };
@@ -72,8 +79,8 @@ spf.tasks.run = function(key, opt_sync) {
  *
  * @param {string} key The key to identify the task queue.
  */
-spf.tasks.suspend = function(key) {
-  var queue = spf.tasks.queues_[key];
+spfTasks.suspend = function(key) {
+  var queue = spfTasks.queues_[key];
   if (queue) {
     queue.semaphore--;
   }
@@ -94,11 +101,11 @@ spf.tasks.suspend = function(key) {
  * @param {boolean=} opt_sync Whether to execute the queued tasks synchronously;
  *     defaults to false.
  */
-spf.tasks.resume = function(key, opt_sync) {
-  var queue = spf.tasks.queues_[key];
+spfTasks.resume = function(key, opt_sync) {
+  var queue = spfTasks.queues_[key];
   if (queue) {
     queue.semaphore++;
-    spf.tasks.run(key, opt_sync);
+    spfTasks.run(key, opt_sync);
   }
 };
 
@@ -108,11 +115,11 @@ spf.tasks.resume = function(key, opt_sync) {
  *
  * @param {string} key The key to identify the task queue.
  */
-spf.tasks.cancel = function(key) {
-  var queue = spf.tasks.queues_[key];
+spfTasks.cancel = function(key) {
+  var queue = spfTasks.queues_[key];
   if (queue) {
-    spf.tasks.clearAsyncTasks_(queue);
-    delete spf.tasks.queues_[key];
+    spfTasks.clearAsyncTasks_(queue);
+    delete spfTasks.queues_[key];
   }
 };
 
@@ -125,11 +132,11 @@ spf.tasks.cancel = function(key) {
  * @param {string=} opt_skipKey The key of the task queue that should not
  *     be canceled.
  */
-spf.tasks.cancelAllExcept = function(opt_keyPrefix, opt_skipKey) {
+spfTasks.cancelAllExcept = function(opt_keyPrefix, opt_skipKey) {
   var keyPrefix = opt_keyPrefix || '';
-  for (var key in spf.tasks.queues_) {
-    if (opt_skipKey != key && spf.string.startsWith(key, keyPrefix)) {
-      spf.tasks.cancel(key);
+  for (var key in spfTasks.queues_) {
+    if (opt_skipKey != key && spfString.startsWith(key, keyPrefix)) {
+      spfTasks.cancel(key);
     }
   }
 };
@@ -142,11 +149,11 @@ spf.tasks.cancelAllExcept = function(opt_keyPrefix, opt_skipKey) {
  * @param {Object} obj The object to get a unique key for.
  * @return {string} The unique key.
  */
-spf.tasks.key = function(obj) {
-  var uid = parseInt(spf.state.get(spf.state.Key.TASKS_UID), 10) || 0;
+spfTasks.key = function(obj) {
+  var uid = parseInt(spfState.get(spfState.Key.TASKS_UID), 10) || 0;
   uid++;
   return obj['spf-key'] || (
-      obj['spf-key'] = '' + spf.state.set(spf.state.Key.TASKS_UID, uid));
+      obj['spf-key'] = '' + spfState.set(spfState.Key.TASKS_UID, uid));
 };
 
 
@@ -156,15 +163,15 @@ spf.tasks.key = function(obj) {
  *     defaults to false.
  * @private
  */
-spf.tasks.do_ = function(key, opt_sync) {
-  var queue = spf.tasks.queues_[key];
+spfTasks.do_ = function(key, opt_sync) {
+  var queue = spfTasks.queues_[key];
   if (queue) {
-    spf.tasks.clearAsyncTasks_(queue);
+    spfTasks.clearAsyncTasks_(queue);
     if (queue.semaphore > 0 && queue.items.length) {
       var task = queue.items[0];
       if (task) {
-        var next = spf.bind(spf.tasks.do_, null, key, opt_sync);
-        var step = spf.bind(function(nextFn, taskFn) {
+        var next = spfBase.bind(spfTasks.do_, null, key, opt_sync);
+        var step = spfBase.bind(function(nextFn, taskFn) {
           taskFn();
           nextFn();
         }, null, next);
@@ -172,7 +179,7 @@ spf.tasks.do_ = function(key, opt_sync) {
           queue.items.shift();
           step(task.fn);
         } else {
-          spf.tasks.scheduleTask_(queue, task, step);
+          spfTasks.scheduleTask_(queue, task, step);
         }
       }
     }
@@ -182,25 +189,25 @@ spf.tasks.do_ = function(key, opt_sync) {
 
 /**
  * Schedule a task for asynchronous execution.
- * @param {!spf.tasks.Queue} queue The current queue being executed.
- * @param {!spf.tasks.Task} task The task to be scheduled.
+ * @param {!spfTasks.Queue} queue The current queue being executed.
+ * @param {!spfTasks.Task} task The task to be scheduled.
  * @param {!Function} step The task execution function.
  * @private
  */
-spf.tasks.scheduleTask_ = function(queue, task, step) {
+spfTasks.scheduleTask_ = function(queue, task, step) {
   if (task.delay) {
     // For a delay an empty step is run, and the task's functionality is saved
     // for the next step.
-    var fn = spf.bind(step, null, spf.nullFunction);
+    var fn = spfBase.bind(step, null, spfBase.nullFunction);
     queue.timeoutKey = setTimeout(fn, task.delay);
     // Instead of removing the task from the queue, set it's delay to 0 so it
     // will be processed traditionally on the next step.
     task.delay = 0;
   } else {
     queue.items.shift();
-    var fn = spf.bind(step, null, task.fn);
-    var scheduler = /** @type {spf.TaskScheduler} */ (
-        spf.config.get('advanced-task-scheduler'));
+    var fn = spfBase.bind(step, null, task.fn);
+    var scheduler = /** @type {spfBase.TaskScheduler} */ (
+        spfConfig.get('advanced-task-scheduler'));
     var addTask = scheduler && scheduler['addTask'];
     if (addTask) {
       queue.scheduledKey = addTask(fn);
@@ -213,13 +220,13 @@ spf.tasks.scheduleTask_ = function(queue, task, step) {
 
 /**
  * Clear the current asynchronous tasks.
- * @param {!spf.tasks.Queue} queue The queue.
+ * @param {!spfTasks.Queue} queue The queue.
  * @private
  */
-spf.tasks.clearAsyncTasks_ = function(queue) {
+spfTasks.clearAsyncTasks_ = function(queue) {
   if (queue.scheduledKey) {
-    var scheduler = /** @type {spf.TaskScheduler} */ (
-        spf.config.get('advanced-task-scheduler'));
+    var scheduler = /** @type {spfBase.TaskScheduler} */ (
+        spfConfig.get('advanced-task-scheduler'));
     var cancelTask = scheduler && scheduler['cancelTask'];
     if (cancelTask) {
       cancelTask(queue.scheduledKey);
@@ -243,7 +250,7 @@ spf.tasks.clearAsyncTasks_ = function(queue) {
  *   delay: number
  * }}
  */
-spf.tasks.Task;
+spfTasks.Task;
 
 
 /**
@@ -255,20 +262,20 @@ spf.tasks.Task;
  *     resuming a running queue.
  *
  * @typedef {{
- *   items: !Array.<spf.tasks.Task>,
+ *   items: !Array.<spfTasks.Task>,
  *   scheduledKey: number,
  *   timeoutKey: number,
  *   semaphore: number
  * }}
  */
-spf.tasks.Queue;
+spfTasks.Queue;
 
 
 /**
- * @return {spf.tasks.Queue}
+ * @return {spfTasks.Queue}
  * @private
  */
-spf.tasks.createQueue_ = function() {
+spfTasks.createQueue_ = function() {
   return {items: [], scheduledKey: 0, timeoutKey: 0, semaphore: 1};
 };
 
@@ -277,42 +284,44 @@ spf.tasks.createQueue_ = function() {
  * @param {!Function} fn The function to execute.
  * @param {number} delay The time in milliseconds to wait before executing
  *     the function.
- * @return {spf.tasks.Task}
+ * @return {spfTasks.Task}
  * @private
  */
-spf.tasks.createTask_ = function(fn, delay) {
+spfTasks.createTask_ = function(fn, delay) {
   return {fn: fn, delay: delay};
 };
 
 
 /**
- * @type {!Object.<string, spf.tasks.Queue>}
+ * @type {!Object.<string, spfTasks.Queue>}
  * @private
  */
-spf.tasks.queues_ = {};
+spfTasks.queues_ = {};
 
 
-if (spf.tracing.ENABLED) {
+if (spfTracing.ENABLED) {
   (function() {
-    spf.tasks.add = spf.tracing.instrument(
-        spf.tasks.add, 'spf.tasks.add');
-    spf.tasks.run = spf.tracing.instrument(
-        spf.tasks.run, 'spf.tasks.run');
-    spf.tasks.suspend = spf.tracing.instrument(
-        spf.tasks.suspend, 'spf.tasks.suspend');
-    spf.tasks.resume = spf.tracing.instrument(
-        spf.tasks.resume, 'spf.tasks.resume');
-    spf.tasks.cancel = spf.tracing.instrument(
-        spf.tasks.cancel, 'spf.tasks.cancel');
-    spf.tasks.cancelAllExcept = spf.tracing.instrument(
-        spf.tasks.cancelAllExcept, 'spf.tasks.cancelAllExcept');
-    spf.tasks.key = spf.tracing.instrument(
-        spf.tasks.key, 'spf.tasks.key');
-    spf.tasks.do_ = spf.tracing.instrument(
-        spf.tasks.do_, 'spf.tasks.do_');
-    spf.tasks.createQueue_ = spf.tracing.instrument(
-        spf.tasks.createQueue_, 'spf.tasks.createQueue_');
-    spf.tasks.createTask_ = spf.tracing.instrument(
-        spf.tasks.createTask_, 'spf.tasks.createTask_');
+    spfTasks.add = spfTracing.instrument(
+        spfTasks.add, 'spfTasks.add');
+    spfTasks.run = spfTracing.instrument(
+        spfTasks.run, 'spfTasks.run');
+    spfTasks.suspend = spfTracing.instrument(
+        spfTasks.suspend, 'spfTasks.suspend');
+    spfTasks.resume = spfTracing.instrument(
+        spfTasks.resume, 'spfTasks.resume');
+    spfTasks.cancel = spfTracing.instrument(
+        spfTasks.cancel, 'spfTasks.cancel');
+    spfTasks.cancelAllExcept = spfTracing.instrument(
+        spfTasks.cancelAllExcept, 'spfTasks.cancelAllExcept');
+    spfTasks.key = spfTracing.instrument(
+        spfTasks.key, 'spfTasks.key');
+    spfTasks.do_ = spfTracing.instrument(
+        spfTasks.do_, 'spfTasks.do_');
+    spfTasks.createQueue_ = spfTracing.instrument(
+        spfTasks.createQueue_, 'spfTasks.createQueue_');
+    spfTasks.createTask_ = spfTracing.instrument(
+        spfTasks.createTask_, 'spfTasks.createTask_');
   })();
 }
+
+export default spfTasks;

@@ -9,19 +9,21 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.nav.request');
+import {spfBase} from '../base';
+import spfArray from '../array/array';
+import spfAsync from '../async/async';
+import spfCache from '../cache/cache';
+import spfConfig from '../config';
+import spfDebug from '../debug/debug';
+import spfNavResponse from '../nav/response';
+import spfNetXhr from '../net/xhr';
+import spfString from '../string/string';
+import spfTracing from '../tracing/tracing';
+import spfUrl from '../url/url';
 
-goog.require('spf');
-goog.require('spf.array');
-goog.require('spf.async');
-goog.require('spf.cache');
-goog.require('spf.config');
-goog.require('spf.debug');
-goog.require('spf.nav.response');
-goog.require('spf.net.xhr');
-goog.require('spf.string');
-goog.require('spf.tracing');
-goog.require('spf.url');
+let spfNavRequest = {};
+// goog.provide('spfNavRequest');
+
 
 
 /**
@@ -57,20 +59,20 @@ goog.require('spf.url');
  * @typedef {{
  *   method: (string|undefined),
  *   headers: (Object.<string>|undefined),
- *   onPart: (function(string, spf.SingleResponse)|undefined),
+ *   onPart: (function(string, spfBase.SingleResponse)|undefined),
  *   onError: (function(string,
  *                   (Error|boolean),
  *                   (XMLHttpRequest|null|undefined))|undefined),
  *   onSuccess: (function(string,
- *                   (spf.SingleResponse|spf.MultipartResponse))|undefined),
- *   postData: spf.net.xhr.PostData,
+ *                   (spfBase.SingleResponse|spfBase.MultipartResponse))|undefined),
+ *   postData: spfNetXhr.PostData,
  *   current: (string|null|undefined),
  *   referer: (string|null|undefined),
  *   type: (string|undefined),
  *   withCredentials: (boolean|undefined)
  * }}
  */
-spf.nav.request.Options;
+spfNavRequest.Options;
 
 
 /**
@@ -82,53 +84,53 @@ spf.nav.request.Options;
  * `onPart` callback as they are received.
  *
  * @param {string} url The requested URL, without the SPF identifier.
- * @param {spf.nav.request.Options=} opt_options Configuration options.
+ * @param {spfNavRequest.Options=} opt_options Configuration options.
  * @return {XMLHttpRequest} The XHR of the current request.
  */
-spf.nav.request.send = function(url, opt_options) {
-  spf.debug.debug('nav.request.send ', url, opt_options);
-  var options = opt_options || /** @type {spf.nav.request.Options} */ ({});
+spfNavRequest.send = function(url, opt_options) {
+  spfDebug.debug('nav.request.send ', url, opt_options);
+  var options = opt_options || /** @type {spfNavRequest.Options} */ ({});
   options.method = ((options.method || 'GET') + '').toUpperCase();
   options.type = options.type || 'request';
   // Add the SPF identifier, to be used for sending the request.
-  var requestUrl = spf.url.absolute(spf.url.identify(url, options.type));
-  spf.debug.debug('    request url ', requestUrl);
+  var requestUrl = spfUrl.absolute(spfUrl.identify(url, options.type));
+  spfDebug.debug('    request url ', requestUrl);
   // Record a the time before sending the request or loading from cache.
   // The startTime is consistent with W3C PerformanceResourceTiming for XHRs.
   var timing = {};
   // Keep actual absolute SPF request url info.
   timing['spfUrl'] = requestUrl;
-  timing['startTime'] = spf.now();
+  timing['startTime'] = spfBase.now();
   // Try to find a cached response for the request before sending a new XHR.
   // Record fetchStart time before loading from cache. If no cached response
   // is found, this value will be replaced with the one provided by the XHR.
   timing['fetchStart'] = timing['startTime'];
-  var cacheKey = spf.nav.request.getCacheKey_(url, options.current, null,
+  var cacheKey = spfNavRequest.getCacheKey_(url, options.current, null,
                                               options.type, false);
   // Use the absolute URL without identifier to allow cached responses
   // from prefetching to apply to navigation.
-  var cached = spf.nav.request.getCacheObject_(cacheKey, options.current);
+  var cached = spfNavRequest.getCacheObject_(cacheKey, options.current);
   timing['spfPrefetched'] = !!cached && cached.type == 'prefetch';
   timing['spfCached'] = !!cached;
   if (cached) {
-    var response = /** @type {spf.SingleResponse|spf.MultipartResponse} */ (
+    var response = /** @type {spfBase.SingleResponse|spfBase.MultipartResponse} */ (
         cached.response);
     // To ensure a similar execution pattern as an XHR, ensure the
     // cache response is returned asynchronously.
-    var handleCache = spf.bind(spf.nav.request.handleResponseFromCache_, null,
+    var handleCache = spfBase.bind(spfNavRequest.handleResponseFromCache_, null,
                                url, options, timing, cached.key, response);
     // When WebKit browsers are in a background tab, setTimeout calls are
     // deprioritized to execute with a 1s delay.  Avoid this by using
-    // postMessage to schedule execution; see spf.async.delay for details.
-    spf.async.defer(handleCache);
+    // postMessage to schedule execution; see spfAsync.delay for details.
+    spfAsync.defer(handleCache);
     // Return null because no XHR is made.
     return null;
   } else {
-    spf.debug.debug('    sending XHR');
+    spfDebug.debug('    sending XHR');
     var headers = {};
     // Set headers provided by global config first.
     var configHeaders = /** @type {Object.<string>} */ (
-      spf.config.get('request-headers'));
+      spfConfig.get('request-headers'));
     if (configHeaders) {
       for (var key in configHeaders) {
         var value = configHeaders[key];
@@ -176,21 +178,21 @@ spf.nav.request.send = function(url, opt_options) {
     // the `X-SPF-Request` header) are typically not propgated by browsers
     // during 30X HTTP redirection.
     var headerId = /** @type {?string} */ (
-        spf.config.get('advanced-header-identifier'));
+        spfConfig.get('advanced-header-identifier'));
     if (headerId) {
       headers['X-SPF-Request'] = headerId.replace('__type__', options.type);
       headers['Accept'] = 'application/json';
     }
-    var chunking = new spf.nav.request.Chunking_();
-    var handleHeaders = spf.bind(spf.nav.request.handleHeadersFromXHR_, null,
+    var chunking = new spfNavRequest.Chunking_();
+    var handleHeaders = spfBase.bind(spfNavRequest.handleHeadersFromXHR_, null,
                                  url, chunking);
-    var handleChunk = spf.bind(spf.nav.request.handleChunkFromXHR_, null,
+    var handleChunk = spfBase.bind(spfNavRequest.handleChunkFromXHR_, null,
                                url, options, timing, chunking);
-    var handleComplete = spf.bind(spf.nav.request.handleCompleteFromXHR_, null,
+    var handleComplete = spfBase.bind(spfNavRequest.handleCompleteFromXHR_, null,
                                   url, options, timing, chunking);
     var xhrOpts = {
       headers: headers,
-      timeoutMs: /** @type {number} */ (spf.config.get('request-timeout')),
+      timeoutMs: /** @type {number} */ (spfConfig.get('request-timeout')),
       onHeaders: handleHeaders,
       onChunk: handleChunk,
       onDone: handleComplete,
@@ -206,14 +208,14 @@ spf.nav.request.send = function(url, opt_options) {
     // the main thread (especially for very large responses), but as a
     // side-effect, it removes the ability to parse chunked multipart responses
     // on-the-fly.
-    if (spf.config.get('advanced-response-type-json')) {
+    if (spfConfig.get('advanced-response-type-json')) {
       xhrOpts.responseType = 'json';
     }
     var xhr;
     if (options.method == 'POST') {
-      xhr = spf.net.xhr.post(requestUrl, options.postData, xhrOpts);
+      xhr = spfNetXhr.post(requestUrl, options.postData, xhrOpts);
     } else {
-      xhr = spf.net.xhr.get(requestUrl, xhrOpts);
+      xhr = spfNetXhr.get(requestUrl, xhrOpts);
     }
     // Return the XHR being made.
     return xhr;
@@ -226,36 +228,36 @@ spf.nav.request.send = function(url, opt_options) {
  * See {@link #send}.
  *
  * @param {string} url The requested URL, without the SPF identifier.
- * @param {spf.nav.request.Options} options Configuration options
+ * @param {spfNavRequest.Options} options Configuration options
  * @param {Object} timing Timing data.
  * @param {string} cacheKey The cache key.
- * @param {spf.SingleResponse|spf.MultipartResponse} response The cached SPF
+ * @param {spfBase.SingleResponse|spfBase.MultipartResponse} response The cached SPF
  *     response object.
  * @private
  */
-spf.nav.request.handleResponseFromCache_ = function(url, options, timing,
+spfNavRequest.handleResponseFromCache_ = function(url, options, timing,
                                                     cacheKey, response) {
-  spf.debug.debug('nav.request.handleResponseFromCache_ ', url, response);
+  spfDebug.debug('nav.request.handleResponseFromCache_ ', url, response);
   var updateCache = false;
   // Record the timing information.
   // Record responseStart and responseEnd times after loading from cache.
-  timing['responseStart'] = timing['responseEnd'] = spf.now();
+  timing['responseStart'] = timing['responseEnd'] = spfBase.now();
   // Also record navigationStart for navigate requests, consistent with
   // W3C PerformanceTiming for page loads.
-  if (options.type && spf.string.startsWith(options.type, 'navigate')) {
+  if (options.type && spfString.startsWith(options.type, 'navigate')) {
     timing['navigationStart'] = timing['startTime'];
     // If this cached response was a navigate and a unified cache is not being
     // used, then it was from prefetch-based caching and is only eligible to
     // be used once.
-    if (!spf.config.get('cache-unified')) {
-      spf.cache.remove(cacheKey);
+    if (!spfConfig.get('cache-unified')) {
+      spfCache.remove(cacheKey);
       // Ensure the response will be stored in the history-based caching.
       updateCache = true;
     }
   }
   if (options.onPart && response['type'] == 'multipart') {
     var parts = response['parts'];
-    spf.array.each(parts, function(part) {
+    spfArray.each(parts, function(part) {
       if (!part['timing']) {
         part['timing'] = {};
       }
@@ -264,7 +266,7 @@ spf.nav.request.handleResponseFromCache_ = function(url, options, timing,
       options.onPart(url, part);
     });
   }
-  spf.nav.request.done_(url, options, timing, response, updateCache);
+  spfNavRequest.done_(url, options, timing, response, updateCache);
 };
 
 
@@ -273,15 +275,15 @@ spf.nav.request.handleResponseFromCache_ = function(url, options, timing,
  * See {@link #send}.
  *
  * @param {string} url The requested URL, without the SPF identifier.
- * @param {spf.nav.request.Chunking_} chunking Chunking data.
+ * @param {spfNavRequest.Chunking_} chunking Chunking data.
  * @param {XMLHttpRequest} xhr The XHR of the current request.
  * @private
  */
-spf.nav.request.handleHeadersFromXHR_ = function(url, chunking, xhr) {
-  spf.debug.debug('nav.request.handleHeadersFromXHR_ ', url, xhr);
+spfNavRequest.handleHeadersFromXHR_ = function(url, chunking, xhr) {
+  spfDebug.debug('nav.request.handleHeadersFromXHR_ ', url, xhr);
   var responseType = xhr.getResponseHeader('X-SPF-Response-Type') || '';
-  var multipart = spf.string.contains(responseType.toLowerCase(), 'multipart');
-  spf.debug.debug('    response is', (multipart ? '' : 'non-') + 'multipart');
+  var multipart = spfString.contains(responseType.toLowerCase(), 'multipart');
+  spfDebug.debug('    response is', (multipart ? '' : 'non-') + 'multipart');
   chunking.multipart = multipart;
 };
 
@@ -291,30 +293,30 @@ spf.nav.request.handleHeadersFromXHR_ = function(url, chunking, xhr) {
  * See {@link #send}.
  *
  * @param {string} url The requested URL, without the SPF identifier.
- * @param {spf.nav.request.Options} options Configuration options
+ * @param {spfNavRequest.Options} options Configuration options
  * @param {Object} timing Timing data.
- * @param {spf.nav.request.Chunking_} chunking Chunking data.
+ * @param {spfNavRequest.Chunking_} chunking Chunking data.
  * @param {XMLHttpRequest} xhr The XHR of the current request.
  * @param {string} chunk The current request chunk.
  * @param {boolean=} opt_lastDitch Whether to parse the chunk as the final
  *     one, potentially handling malformed but valid responses.
  * @private
  */
-spf.nav.request.handleChunkFromXHR_ = function(url, options, timing, chunking,
+spfNavRequest.handleChunkFromXHR_ = function(url, options, timing, chunking,
                                                xhr, chunk, opt_lastDitch) {
-  spf.debug.debug('nav.request.handleChunkFromXHR_ ',
+  spfDebug.debug('nav.request.handleChunkFromXHR_ ',
                   url, {'extra': chunking.extra, 'chunk': chunk});
   // Processing chunks as they arrive requires multipart responses.
   if (!chunking.multipart) {
-    spf.debug.debug('    skipping non-multipart response');
+    spfDebug.debug('    skipping non-multipart response');
     return;
   }
   var text = chunking.extra + chunk;
   var parsed;
   try {
-    parsed = spf.nav.response.parse(text, true, opt_lastDitch);
+    parsed = spfNavResponse.parse(text, true, opt_lastDitch);
   } catch (err) {
-    spf.debug.debug('    JSON parse failed', text);
+    spfDebug.debug('    JSON parse failed', text);
     xhr.abort();
     if (options.onError) {
       options.onError(url, err, xhr);
@@ -322,8 +324,8 @@ spf.nav.request.handleChunkFromXHR_ = function(url, options, timing, chunking,
     return;
   }
   if (options.onPart) {
-    spf.array.each(parsed.parts, function(part) {
-      spf.debug.debug('    parsed part', part);
+    spfArray.each(parsed.parts, function(part) {
+      spfDebug.debug('    parsed part', part);
       if (!part['timing']) {
         part['timing'] = {};
       }
@@ -342,18 +344,18 @@ spf.nav.request.handleChunkFromXHR_ = function(url, options, timing, chunking,
  * See {@link #send}.
  *
  * @param {string} url The requested URL, without the SPF identifier.
- * @param {spf.nav.request.Options} options Configuration options
+ * @param {spfNavRequest.Options} options Configuration options
  * @param {Object} timing Timing data.
- * @param {spf.nav.request.Chunking_} chunking Chunking data.
+ * @param {spfNavRequest.Chunking_} chunking Chunking data.
  * @param {XMLHttpRequest} xhr The XHR of the current request.
  * @private
  */
-spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
+spfNavRequest.handleCompleteFromXHR_ = function(url, options, timing,
                                                   chunking, xhr) {
   if (xhr.responseType == 'json') {
-    spf.debug.debug('nav.request.handleCompleteFromXHR_ ', url, xhr.response);
+    spfDebug.debug('nav.request.handleCompleteFromXHR_ ', url, xhr.response);
   } else {
-    spf.debug.debug('nav.request.handleCompleteFromXHR_ ', url,
+    spfDebug.debug('nav.request.handleCompleteFromXHR_ ', url,
                     {'extra': chunking.extra, 'complete': xhr.responseText});
   }
 
@@ -383,8 +385,8 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
       if (startTime >= timing['startTime']) {
         for (var metric in xhr['resourceTiming']) {
           var value = xhr['resourceTiming'][metric];
-          if (value !== undefined && (spf.string.endsWith(metric, 'Start') ||
-              spf.string.endsWith(metric, 'End') || metric == 'startTime')) {
+          if (value !== undefined && (spfString.endsWith(metric, 'Start') ||
+              spfString.endsWith(metric, 'End') || metric == 'startTime')) {
             timing[metric] = navigationStart + Math.round(value);
           }
         }
@@ -402,10 +404,10 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
     // If a multipart response was parsed on-the-fly via chunking, it should be
     // done.  However, check to see if there is any extra content, which could
     // occur if the server failed to end a reponse with a token.
-    chunking.extra = spf.string.trim(chunking.extra);
+    chunking.extra = spfString.trim(chunking.extra);
     if (chunking.extra) {
       // If extra content exists, parse it as a last-ditch effort.
-      spf.nav.request.handleChunkFromXHR_(url, options, timing, chunking,
+      spfNavRequest.handleChunkFromXHR_(url, options, timing, chunking,
                                           xhr, '', true);
     }
   }
@@ -415,13 +417,13 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
     // If using the JSON `responseType`, parsing is complete and no chunking
     // has been handled on-the-fly.
     if (!xhr.response) {
-      spf.debug.debug('    JSON parse failed');
+      spfDebug.debug('    JSON parse failed');
       if (options.onError) {
         options.onError(url, new Error('JSON response parsing failed'), xhr);
       }
       return;
     }
-    parts = spf.nav.response.extract(spf.array.toArray(xhr.response));
+    parts = spfNavResponse.extract(spfArray.toArray(xhr.response));
   } else {
     // Otherwise, parsing may need to be done.  Always attempt a full parse with
     // error handling. A multipart response parsed on-the-fly via chunking may
@@ -430,10 +432,10 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
     // chunk parsing will be done, but the overall response will stil be
     // invalid.)
     try {
-      var parsed = spf.nav.response.parse(xhr.responseText);
+      var parsed = spfNavResponse.parse(xhr.responseText);
       parts = parsed.parts;
     } catch (err) {
-      spf.debug.debug('    JSON parse failed');
+      spfDebug.debug('    JSON parse failed');
       if (options.onError) {
         options.onError(url, err, xhr);
       }
@@ -448,7 +450,7 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
     // the chunk processing left off.  This is mostly a safety measure and
     // the number of chunks processed here should be 0.
     for (var i = chunking.complete.length; i < parts.length; i++) {
-      spf.debug.debug('    parsed part', parts[i]);
+      spfDebug.debug('    parsed part', parts[i]);
       var part = parts[i];
       if (!part['timing']) {
         part['timing'] = {};
@@ -461,12 +463,12 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
   var response;
   if (parts.length > 1) {
     var cacheType;
-    spf.array.each(parts, function(part) {
+    spfArray.each(parts, function(part) {
       if (part['cacheType']) {
         cacheType = part['cacheType'];
       }
     });
-    response = /** @type {spf.MultipartResponse} */ ({
+    response = /** @type {spfBase.MultipartResponse} */ ({
       'parts': parts,
       'type': 'multipart'
     });
@@ -474,11 +476,11 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
       response['cacheType'] = cacheType;
     }
   } else if (parts.length == 1) {
-    response = /** @type {spf.SingleResponse} */(parts[0]);
+    response = /** @type {spfBase.SingleResponse} */(parts[0]);
   } else {
-    response = /** @type {spf.SingleResponse} */({});
+    response = /** @type {spfBase.SingleResponse} */({});
   }
-  spf.nav.request.done_(url, options, timing, response, true);
+  spfNavRequest.done_(url, options, timing, response, true);
 };
 
 
@@ -487,23 +489,23 @@ spf.nav.request.handleCompleteFromXHR_ = function(url, options, timing,
  * See {@link #send}.
  *
  * @param {string} url The requested URL, without the SPF identifier.
- * @param {spf.nav.request.Options} options Configuration options.
+ * @param {spfNavRequest.Options} options Configuration options.
  * @param {Object} timing Timing data.
- * @param {spf.SingleResponse|spf.MultipartResponse} response The received SPF
+ * @param {spfBase.SingleResponse|spfBase.MultipartResponse} response The received SPF
  *   response object.
  * @param {boolean} cache Whether to store the response in the cache.
  * @private
  */
-spf.nav.request.done_ = function(url, options, timing, response, cache) {
-  spf.debug.debug('nav.request.done_', url, options, timing, response, cache);
+spfNavRequest.done_ = function(url, options, timing, response, cache) {
+  spfDebug.debug('nav.request.done_', url, options, timing, response, cache);
   if (cache && options.method != 'POST') {
     // Cache the response for future requests.
-    var cacheKey = spf.nav.request.getCacheKey_(url, options.current,
+    var cacheKey = spfNavRequest.getCacheKey_(url, options.current,
                                                 response['cacheType'],
                                                 options.type, true);
     if (cacheKey) {
       response['cacheKey'] = cacheKey;
-      spf.nav.request.setCacheObject_(cacheKey, response, options.type || '');
+      spfNavRequest.setCacheObject_(cacheKey, response, options.type || '');
     }
   }
   // Set the timing for the response (avoid caching stale timing values).
@@ -526,12 +528,12 @@ spf.nav.request.done_ = function(url, options, timing, response, cache) {
  * @return {string} The cache key for the URL.
  * @private
  */
-spf.nav.request.getCacheKey_ = function(url, opt_current, opt_cacheType,
+spfNavRequest.getCacheKey_ = function(url, opt_current, opt_cacheType,
                                       opt_requestType, opt_set) {
   // Use the absolute URL without identifier to ensure consistent caching.
-  var absoluteUrl = spf.url.absolute(url);
+  var absoluteUrl = spfUrl.absolute(url);
   var cacheKey;
-  if (spf.config.get('cache-unified')) {
+  if (spfConfig.get('cache-unified')) {
     // If using a unified cache, the key is just the URL to allow cached
     // responses from prefetching to apply to navigation, etc.  This also
     // means that load requests are cached unless they are sent via POST.
@@ -556,7 +558,7 @@ spf.nav.request.getCacheKey_ = function(url, opt_current, opt_cacheType,
   if (opt_current && opt_cacheType == 'url') {
     cacheKey += ' previous ' + opt_current;
   } else if (opt_current && opt_cacheType == 'path') {
-    cacheKey += ' previous ' + spf.url.path(opt_current);
+    cacheKey += ' previous ' + spfUrl.path(opt_current);
   }
 
   return cacheKey || '';
@@ -572,19 +574,19 @@ spf.nav.request.getCacheKey_ = function(url, opt_current, opt_cacheType,
  * @return {Object.<string, *>} The response object if found in the cache.
  * @private
  */
-spf.nav.request.getCacheObject_ = function(cacheKey, opt_current) {
+spfNavRequest.getCacheObject_ = function(cacheKey, opt_current) {
   var keys = [];
   if (opt_current) {
     keys.push(cacheKey + ' previous ' + opt_current);
-    keys.push(cacheKey + ' previous ' + spf.url.path(opt_current));
+    keys.push(cacheKey + ' previous ' + spfUrl.path(opt_current));
   }
   keys.push(cacheKey);
 
   var cacheValue = null;
 
   // Find the first cached object and break loop early when found.
-  spf.array.some(keys, function(key) {
-    var obj = spf.cache.get(key);
+  spfArray.some(keys, function(key) {
+    var obj = spfCache.get(key);
     if (obj) {
       cacheValue = {
         key: key,
@@ -603,18 +605,18 @@ spf.nav.request.getCacheObject_ = function(cacheKey, opt_current) {
  * Set a response object into cache with the given key.
  *
  * @param {string} cacheKey The base cache key for the requested URL.
- * @param {spf.SingleResponse|spf.MultipartResponse} response The received SPF
+ * @param {spfBase.SingleResponse|spfBase.MultipartResponse} response The received SPF
  *     response object.
  * @param {string} type The type of request this cache entry was set with.
  * @private
  */
-spf.nav.request.setCacheObject_ = function(cacheKey, response, type) {
+spfNavRequest.setCacheObject_ = function(cacheKey, response, type) {
   var cacheValue = {
     'response': response,
     'type': type
   };
-  spf.cache.set(cacheKey, cacheValue,  /** @type {number} */ (
-      spf.config.get('cache-lifetime')));
+  spfCache.set(cacheKey, cacheValue,  /** @type {number} */ (
+      spfConfig.get('cache-lifetime')));
 };
 
 
@@ -625,7 +627,7 @@ spf.nav.request.setCacheObject_ = function(cacheKey, response, type) {
  * @struct
  * @private
  */
-spf.nav.request.Chunking_ = function() {
+spfNavRequest.Chunking_ = function() {
   /**
    * Whether the request is multipart.
    * @type {boolean}
@@ -646,24 +648,26 @@ spf.nav.request.Chunking_ = function() {
 };
 
 
-if (spf.tracing.ENABLED) {
+if (spfTracing.ENABLED) {
   (function() {
-    var request = spf.nav.request;
-    request.send = spf.tracing.instrument(
-        request.send, 'spf.nav.request.send');
-    request.handleResponseFromCache_ = spf.tracing.instrument(
+    var request = spfNavRequest;
+    request.send = spfTracing.instrument(
+        request.send, 'spfNavRequest.send');
+    request.handleResponseFromCache_ = spfTracing.instrument(
         request.handleResponseFromCache_,
-        'spf.nav.request.handleResponseFromCache_');
-    request.handleHeadersFromXHR_ = spf.tracing.instrument(
+        'spfNavRequest.handleResponseFromCache_');
+    request.handleHeadersFromXHR_ = spfTracing.instrument(
         request.handleHeadersFromXHR_,
-        'spf.nav.request.handleHeadersFromXHR_');
-    request.handleChunkFromXHR_ = spf.tracing.instrument(
+        'spfNavRequest.handleHeadersFromXHR_');
+    request.handleChunkFromXHR_ = spfTracing.instrument(
         request.handleChunkFromXHR_,
-        'spf.nav.request.handleChunkFromXHR_');
-    request.handleCompleteFromXHR_ = spf.tracing.instrument(
+        'spfNavRequest.handleChunkFromXHR_');
+    request.handleCompleteFromXHR_ = spfTracing.instrument(
         request.handleCompleteFromXHR_,
-        'spf.nav.request.handleCompleteFromXHR_');
-    request.done_ = spf.tracing.instrument(
-        request.done_, 'spf.nav.request.done_');
+        'spfNavRequest.handleCompleteFromXHR_');
+    request.done_ = spfTracing.instrument(
+        request.done_, 'spfNavRequest.done_');
   })();
 }
+
+export default spfNavRequest;

@@ -10,11 +10,12 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.net.connect');
+import spfArray from '../array/array';
+import spfNetResource from '../net/resource';
+import spfTracing from '../tracing/tracing';
 
-goog.require('spf.array');
-goog.require('spf.net.resource');
-goog.require('spf.tracing');
+let spfNetConnect = {};
+// goog.provide('spfNetConnect');
 
 
 /**
@@ -23,24 +24,26 @@ goog.require('spf.tracing');
  *
  * @param {string|Array.<string>} urls One or more URLs to preconnect.
  */
-spf.net.connect.preconnect = function(urls) {
+spfNetConnect.preconnect = function(urls) {
   // Use an <img> tag to handle the preconnect in a compatible manner.
-  var type = spf.net.resource.Type.IMG;
+  var type = spfNetResource.Type.IMG;
   // Convert to an array if needed.
-  urls = spf.array.toArray(urls);
-  spf.array.each(urls, function(url) {
+  urls = spfArray.toArray(urls);
+  spfArray.each(urls, function(url) {
     // When preconnecting, always fetch the image and make the request.
     // This is necessary to consistenly establish connections to repeat
     // URLs when the keep-alive time is shorter than the interval between
     // attempts.
-    spf.net.resource.prefetch(type, url, true);  // Force repeat fetching.
+    spfNetResource.prefetch(type, url, true);  // Force repeat fetching.
   });
 };
 
 
-if (spf.tracing.ENABLED) {
+if (spfTracing.ENABLED) {
   (function() {
-    spf.net.connect.preconnect = spf.tracing.instrument(
-        spf.net.connect.preconnect, 'spf.net.connect.preconnect');
+    spfNetConnect.preconnect = spfTracing.instrument(
+        spfNetConnect.preconnect, 'spfNetConnect.preconnect');
   })();
 }
+
+export default spfNetConnect;

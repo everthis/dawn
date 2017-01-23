@@ -9,12 +9,14 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.net.style');
+// goog.provide('spfNetStyle');
 
-goog.require('spf.array');
-goog.require('spf.net.resource');
-goog.require('spf.string');
-goog.require('spf.tracing');
+import spfArray from '../array/array';
+import spfNetResource from '../net/resource';
+import spfTracing from '../tracing/tracing';
+import spfString from '../string/string';
+
+let spfNetStyle = {};
 
 
 /**
@@ -43,9 +45,9 @@ goog.require('spf.tracing');
  * @param {Function=} opt_fn Optional callback function to execute when the
  *     stylesheet is loaded.
  */
-spf.net.style.load = function(url, name, opt_fn) {
-  var type = spf.net.resource.Type.CSS;
-  spf.net.resource.load(type, url, name, opt_fn);
+spfNetStyle.load = function(url, name, opt_fn) {
+  var type = spfNetResource.Type.CSS;
+  spfNetResource.load(type, url, name, opt_fn);
 };
 
 
@@ -54,18 +56,18 @@ spf.net.style.load = function(url, name, opt_fn) {
  *
  * @param {string} name The dependency name.
  */
-spf.net.style.unload = function(name) {
-  var type = spf.net.resource.Type.CSS;
-  spf.net.resource.unload(type, name);
+spfNetStyle.unload = function(name) {
+  var type = spfNetResource.Type.CSS;
+  spfNetResource.unload(type, name);
 };
 
 
 /**
  * Discovers existing stylesheets in the document and registers them as loaded.
  */
-spf.net.style.discover = function() {
-  var type = spf.net.resource.Type.CSS;
-  spf.net.resource.discover(type);
+spfNetStyle.discover = function() {
+  var type = spfNetResource.Type.CSS;
+  spfNetResource.discover(type);
 };
 
 
@@ -78,11 +80,11 @@ spf.net.style.discover = function() {
  * @param {string} url URL of the stylesheet to load.
  * @param {Function=} opt_fn Function to execute when loaded.
  */
-spf.net.style.get = function(url, opt_fn) {
+spfNetStyle.get = function(url, opt_fn) {
   // NOTE: Callback execution depends on onload support and is best effort.
   // Chrome 19, Safari 6, Firefox 9, Opera and IE 5.5 support stylesheet onload.
-  var type = spf.net.resource.Type.CSS;
-  spf.net.resource.create(type, url, opt_fn);
+  var type = spfNetResource.Type.CSS;
+  spfNetResource.create(type, url, opt_fn);
 };
 
 
@@ -93,12 +95,12 @@ spf.net.style.get = function(url, opt_fn) {
  *
  * @param {string|Array.<string>} urls One or more stylesheet URLs to prefetch.
  */
-spf.net.style.prefetch = function(urls) {
-  var type = spf.net.resource.Type.CSS;
+spfNetStyle.prefetch = function(urls) {
+  var type = spfNetResource.Type.CSS;
   // Convert to an array if needed.
-  urls = spf.array.toArray(urls);
-  spf.array.each(urls, function(url) {
-    spf.net.resource.prefetch(type, url);
+  urls = spfArray.toArray(urls);
+  spfArray.each(urls, function(url) {
+    spfNetResource.prefetch(type, url);
   });
 };
 
@@ -113,9 +115,9 @@ spf.net.style.prefetch = function(urls) {
  * @param {string} name Name to identify the style.
  * @return {undefined}
  */
-spf.net.style.eval = function(text, name) {
-  var type = spf.net.resource.Type.CSS;
-  spf.net.resource.eval(type, text, name);
+spfNetStyle.eval = function(text, name) {
+  var type = spfNetResource.Type.CSS;
+  spfNetResource.eval(type, text, name);
 };
 
 
@@ -124,9 +126,9 @@ spf.net.style.eval = function(text, name) {
  *
  * @param {string} text The text of the style.
  */
-spf.net.style.exec = function(text) {
-  var type = spf.net.resource.Type.CSS;
-  spf.net.resource.exec(type, text);
+spfNetStyle.exec = function(text) {
+  var type = spfNetResource.Type.CSS;
+  spfNetResource.exec(type, text);
 };
 
 
@@ -137,27 +139,29 @@ spf.net.style.exec = function(text) {
  *
  * @param {string|Object.<string>} paths The paths.
  */
-spf.net.style.path = function(paths) {
-  var type = spf.net.resource.Type.CSS;
-  spf.net.resource.path(type, paths);
+spfNetStyle.path = function(paths) {
+  var type = spfNetResource.Type.CSS;
+  spfNetResource.path(type, paths);
 };
 
 
-if (spf.tracing.ENABLED) {
+if (spfTracing.ENABLED) {
   (function() {
-    spf.net.style.load = spf.tracing.instrument(
-        spf.net.style.load, 'spf.net.style.load');
-    spf.net.style.unload = spf.tracing.instrument(
-        spf.net.style.unload, 'spf.net.style.unload');
-    spf.net.style.discover = spf.tracing.instrument(
-        spf.net.style.discover, 'spf.net.style.discover');
-    spf.net.style.get = spf.tracing.instrument(
-        spf.net.style.get, 'spf.net.style.get');
-    spf.net.style.prefetch = spf.tracing.instrument(
-        spf.net.style.prefetch, 'spf.net.style.prefetch');
-    spf.net.style.eval = spf.tracing.instrument(
-        spf.net.style.eval, 'spf.net.style.eval');
-    spf.net.style.path = spf.tracing.instrument(
-        spf.net.style.path, 'spf.net.style.path');
+    spfNetStyle.load = spfTracing.instrument(
+        spfNetStyle.load, 'spfNetStyle.load');
+    spfNetStyle.unload = spfTracing.instrument(
+        spfNetStyle.unload, 'spfNetStyle.unload');
+    spfNetStyle.discover = spfTracing.instrument(
+        spfNetStyle.discover, 'spfNetStyle.discover');
+    spfNetStyle.get = spfTracing.instrument(
+        spfNetStyle.get, 'spfNetStyle.get');
+    spfNetStyle.prefetch = spfTracing.instrument(
+        spfNetStyle.prefetch, 'spfNetStyle.prefetch');
+    spfNetStyle.eval = spfTracing.instrument(
+        spfNetStyle.eval, 'spfNetStyle.eval');
+    spfNetStyle.path = spfTracing.instrument(
+        spfNetStyle.path, 'spfNetStyle.path');
   })();
 }
+
+export default spfNetStyle;

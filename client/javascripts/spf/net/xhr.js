@@ -9,9 +9,12 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.net.xhr');
+// goog.provide('spfNetXhr');
 
-goog.require('spf');
+import {spfBase} from '../base';
+let spfNetXhr = {};
+
+// goog.require('spf');
 
 
 /**
@@ -43,25 +46,25 @@ goog.require('spf');
  *   withCredentials: (boolean|undefined)
  * }}
  */
-spf.net.xhr.Options;
+spfNetXhr.Options;
 
 
 /**
  * Type definition for POST data.
  * @typedef {(ArrayBuffer|Blob|Document|FormData|null|string|undefined)}
  */
-spf.net.xhr.PostData;
+spfNetXhr.PostData;
 
 
 /**
  * Sends an XMLHttpRequest object as asynchronous GET request.
  *
  * @param {string} url The URL to send the XHR to.
- * @param {spf.net.xhr.Options=} opt_options Configuration options for the XHR.
+ * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spf.net.xhr.get = function(url, opt_options) {
-  return spf.net.xhr.send('GET', url, null, opt_options);
+spfNetXhr.get = function(url, opt_options) {
+  return spfNetXhr.send('GET', url, null, opt_options);
 };
 
 
@@ -69,12 +72,12 @@ spf.net.xhr.get = function(url, opt_options) {
  * Sends an XMLHttpRequest object as asynchronous POST request.
  *
  * @param {string} url The URL to send the XHR to.
- * @param {spf.net.xhr.PostData} data The data to send with the XHR.
- * @param {spf.net.xhr.Options=} opt_options Configuration options for the XHR.
+ * @param {spfNetXhr.PostData} data The data to send with the XHR.
+ * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spf.net.xhr.post = function(url, data, opt_options) {
-  return spf.net.xhr.send('POST', url, data, opt_options);
+spfNetXhr.post = function(url, data, opt_options) {
+  return spfNetXhr.send('POST', url, data, opt_options);
 };
 
 
@@ -83,11 +86,11 @@ spf.net.xhr.post = function(url, data, opt_options) {
  *
  * @param {string} method The HTTP method for the XHR.
  * @param {string} url The URL to send the XHR to.
- * @param {spf.net.xhr.PostData} data The data to send with the XHR.
- * @param {spf.net.xhr.Options=} opt_options Configuration options for the XHR.
+ * @param {spfNetXhr.PostData} data The data to send with the XHR.
+ * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spf.net.xhr.send = function(method, url, data, opt_options) {
+spfNetXhr.send = function(method, url, data, opt_options) {
   var options = opt_options || {};
   var chunked = false;
   var offset = 0;
@@ -107,23 +110,23 @@ spf.net.xhr.send = function(method, url, data, opt_options) {
 
   xhr.onreadystatechange = function() {
     var timing = xhr['timing'];
-    if (xhr.readyState == spf.net.xhr.State.HEADERS_RECEIVED) {
+    if (xhr.readyState == spfNetXhr.State.HEADERS_RECEIVED) {
       // Record responseStart time when first byte is received.
-      timing['responseStart'] = timing['responseStart'] || spf.now();
+      timing['responseStart'] = timing['responseStart'] || spfBase.now();
       // Determine whether to process chunks as they arrive.
-      chunked = spf.net.xhr.isChunked_(xhr);
+      chunked = spfNetXhr.isChunked_(xhr);
       if (options.onHeaders) {
         options.onHeaders(xhr);
       }
-    } else if (xhr.readyState == spf.net.xhr.State.LOADING) {
+    } else if (xhr.readyState == spfNetXhr.State.LOADING) {
       if (chunked && options.onChunk) {
         var chunk = xhr.responseText.substring(offset);
         offset = xhr.responseText.length;
         options.onChunk(xhr, chunk);
       }
-    } else if (xhr.readyState == spf.net.xhr.State.DONE) {
+    } else if (xhr.readyState == spfNetXhr.State.DONE) {
       // Record responseEnd time when full response is received.
-      timing['responseEnd'] = timing['responseEnd'] || spf.now();
+      timing['responseEnd'] = timing['responseEnd'] || spfBase.now();
       // Record Resource Timing relative timings (where available) to later be
       // converted into Navigation Timing absolute timings.
       if (window.performance && window.performance.getEntriesByName) {
@@ -184,7 +187,7 @@ spf.net.xhr.send = function(method, url, data, opt_options) {
   }
 
   // Record fetchStart time when request is sent.
-  xhr['timing']['fetchStart'] = spf.now();
+  xhr['timing']['fetchStart'] = spfBase.now();
   xhr.send(data);
 
   return xhr;
@@ -199,7 +202,7 @@ spf.net.xhr.send = function(method, url, data, opt_options) {
  * @return {boolean}
  * @private
  */
-spf.net.xhr.isChunked_ = function(xhr) {
+spfNetXhr.isChunked_ = function(xhr) {
   if (xhr.responseType == 'json') {
     return false;
   }
@@ -228,10 +231,11 @@ spf.net.xhr.isChunked_ = function(xhr) {
 /**
  * @enum {number}
  */
-spf.net.xhr.State = {
+spfNetXhr.State = {
   UNSENT: 0,
   OPENED: 1,
   HEADERS_RECEIVED: 2,
   LOADING: 3,
   DONE: 4
 };
+export default spfNetXhr;

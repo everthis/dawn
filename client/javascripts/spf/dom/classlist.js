@@ -1,18 +1,14 @@
-// Copyright 2013 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
 /**
  * @fileoverview Element class manipulation functions.
  * See {@link http://www.w3.org/TR/html5/dom.html#classes}.
  *
- * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.dom.classlist');
+// goog.provide('spfDomClasslist');
 
-goog.require('spf.array');
+import spfArray from '../array/array'
+let spfDomClasslist = {};
+
 
 
 /**
@@ -21,7 +17,7 @@ goog.require('spf.array');
  * @param {Node|EventTarget} node DOM node to evaluate.
  * @return {{length: number}} Array-like object of class names on the node.
  */
-spf.dom.classlist.get = function(node) {
+spfDomClasslist.get = function(node) {
   if (node.classList) {
     return node.classList;
   } else {
@@ -37,14 +33,14 @@ spf.dom.classlist.get = function(node) {
  * @param {string} cls Class name to test for.
  * @return {boolean} Whether node has the class.
  */
-spf.dom.classlist.contains = function(node, cls) {
+spfDomClasslist.contains = function(node, cls) {
   if (!cls) {
     return false;
   } else if (node.classList) {
     return node.classList.contains(cls);
   } else {
-    var classes = spf.dom.classlist.get(node);
-    return spf.array.some(classes, function(item) {
+    var classes = spfDomClasslist.get(node);
+    return spfArray.some(classes, function(item) {
       return item == cls;
     });
   }
@@ -57,11 +53,11 @@ spf.dom.classlist.contains = function(node, cls) {
  * @param {Node|EventTarget} node DOM node to add class to.
  * @param {string} cls Class name to add.
  */
-spf.dom.classlist.add = function(node, cls) {
+spfDomClasslist.add = function(node, cls) {
   if (cls) {
     if (node.classList) {
       node.classList.add(cls);
-    } else if (!spf.dom.classlist.contains(node, cls)) {
+    } else if (!spfDomClasslist.contains(node, cls)) {
       node.className += ' ' + cls;
     }
   }
@@ -74,16 +70,18 @@ spf.dom.classlist.add = function(node, cls) {
  * @param {Node|EventTarget} node DOM node to remove class from.
  * @param {string} cls Class name to remove.
  */
-spf.dom.classlist.remove = function(node, cls) {
+spfDomClasslist.remove = function(node, cls) {
   if (cls) {
     if (node.classList) {
       node.classList.remove(cls);
     } else {
-      var classes = spf.dom.classlist.get(node);
-      var newClasses = spf.array.filter(classes, function(item) {
+      var classes = spfDomClasslist.get(node);
+      var newClasses = spfArray.filter(classes, function(item) {
         return item != cls;
       });
       node.className = newClasses.join(' ');
     }
   }
 };
+
+export default spfDomClasslist;

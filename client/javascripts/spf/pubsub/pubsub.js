@@ -10,11 +10,16 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.pubsub');
+import {spfBase, SPF_BOOTLOADER} from '../base';
+import spfArray from '../array/array';
+import spfState from '../state';
 
-goog.require('spf');
-goog.require('spf.array');
-goog.require('spf.state');
+let spfPubsub = {};
+// goog.provide('spfPubsub');
+
+// goog.require('spf');
+// goog.require('spfArray');
+// goog.require('spfState');
 
 
 /**
@@ -28,12 +33,12 @@ goog.require('spf.state');
  *     published to the given topic. Passing `null` or `undefined`
  *     does nothing.
  */
-spf.pubsub.subscribe = function(topic, fn) {
+spfPubsub.subscribe = function(topic, fn) {
   if (topic && fn) {
-    if (!(topic in spf.pubsub.subscriptions)) {
-      spf.pubsub.subscriptions[topic] = [];
+    if (!(topic in spfPubsub.subscriptions)) {
+      spfPubsub.subscriptions[topic] = [];
     }
-    spf.pubsub.subscriptions[topic].push(fn);
+    spfPubsub.subscriptions[topic].push(fn);
   }
 };
 
@@ -46,9 +51,9 @@ spf.pubsub.subscribe = function(topic, fn) {
  * @param {Function|undefined} fn Function to unsubscribe. Passing `null`
  *     or `undefined` does nothing.
  */
-spf.pubsub.unsubscribe = function(topic, fn) {
-  if (topic in spf.pubsub.subscriptions && fn) {
-    spf.array.every(spf.pubsub.subscriptions[topic], function(subFn, i, arr) {
+spfPubsub.unsubscribe = function(topic, fn) {
+  if (topic in spfPubsub.subscriptions && fn) {
+    spfArray.every(spfPubsub.subscriptions[topic], function(subFn, i, arr) {
       if (subFn == fn) {
         arr[i] = null;
         return false;
@@ -67,8 +72,8 @@ spf.pubsub.unsubscribe = function(topic, fn) {
  * @param {string} topic Topic to publish. Passing an empty string does
  *     nothing.
  */
-spf.pubsub.publish = function(topic) {
-  spf.pubsub.publish_(topic);
+spfPubsub.publish = function(topic) {
+  spfPubsub.publish_(topic);
 };
 
 
@@ -81,8 +86,8 @@ spf.pubsub.publish = function(topic) {
  * @param {string} topic Topic to publish. Passing an empty string does
  *     nothing.
  */
-spf.pubsub.flush = function(topic) {
-  spf.pubsub.publish_(topic, true);
+spfPubsub.flush = function(topic) {
+  spfPubsub.publish_(topic, true);
 };
 
 
@@ -93,9 +98,9 @@ spf.pubsub.flush = function(topic) {
  * @param {boolean=} opt_unsub Whether to unsubscribe functions beforehand.
  * @private
  */
-spf.pubsub.publish_ = function(topic, opt_unsub) {
-  if (topic in spf.pubsub.subscriptions) {
-    spf.array.each(spf.pubsub.subscriptions[topic], function(subFn, i, arr) {
+spfPubsub.publish_ = function(topic, opt_unsub) {
+  if (topic in spfPubsub.subscriptions) {
+    spfArray.each(spfPubsub.subscriptions[topic], function(subFn, i, arr) {
       if (opt_unsub) {
         arr[i] = null;
       }
@@ -116,12 +121,12 @@ spf.pubsub.publish_ = function(topic, opt_unsub) {
  * @param {string} newTopic The new name for the topic. Passing an empty string
  *     does nothing.
  */
-spf.pubsub.rename = function(oldTopic, newTopic) {
-  if (oldTopic && newTopic && oldTopic in spf.pubsub.subscriptions) {
-    var existing = spf.pubsub.subscriptions[newTopic] || [];
-    spf.pubsub.subscriptions[newTopic] =
-        existing.concat(spf.pubsub.subscriptions[oldTopic]);
-    spf.pubsub.clear(oldTopic);
+spfPubsub.rename = function(oldTopic, newTopic) {
+  if (oldTopic && newTopic && oldTopic in spfPubsub.subscriptions) {
+    var existing = spfPubsub.subscriptions[newTopic] || [];
+    spfPubsub.subscriptions[newTopic] =
+        existing.concat(spfPubsub.subscriptions[oldTopic]);
+    spfPubsub.clear(oldTopic);
   }
 };
 
@@ -131,8 +136,8 @@ spf.pubsub.rename = function(oldTopic, newTopic) {
  *
  * @param {string} topic Topic to clear.
  */
-spf.pubsub.clear = function(topic) {
-  delete spf.pubsub.subscriptions[topic];
+spfPubsub.clear = function(topic) {
+  delete spfPubsub.subscriptions[topic];
 };
 
 
@@ -140,17 +145,19 @@ spf.pubsub.clear = function(topic) {
  * Map of subscriptions.
  * @type {!Object.<Array>}
  */
-spf.pubsub.subscriptions = {};
+spfPubsub.subscriptions = {};
 
 
-// Automatic initialization for spf.pubsub.subscriptions.
+// Automatic initialization for spfPubsub.subscriptions.
 // When built for the bootloader, unconditionally set in state.
 if (SPF_BOOTLOADER) {
-  spf.state.set(spf.state.Key.PUBSUB_SUBS, spf.pubsub.subscriptions);
+  spfState.set(spfState.Key.PUBSUB_SUBS, spfPubsub.subscriptions);
 } else {
-  if (!spf.state.has(spf.state.Key.PUBSUB_SUBS)) {
-    spf.state.set(spf.state.Key.PUBSUB_SUBS, spf.pubsub.subscriptions);
+  if (!spfState.has(spfState.Key.PUBSUB_SUBS)) {
+    spfState.set(spfState.Key.PUBSUB_SUBS, spfPubsub.subscriptions);
   }
-  spf.pubsub.subscriptions = /** @type {!Object.<Array>} */ (
-      spf.state.get(spf.state.Key.PUBSUB_SUBS));
+  spfPubsub.subscriptions = /** @type {!Object.<Array>} */ (
+      spfState.get(spfState.Key.PUBSUB_SUBS));
 }
+
+export default spfPubsub;

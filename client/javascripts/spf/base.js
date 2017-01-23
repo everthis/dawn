@@ -27,15 +27,16 @@
 // this means that the common library functions are supported in IE 8+, with
 // all functions supported in IE 10+.
 
-goog.provide('spf');
+// goog.provide('spf');
 
+let spfBase = {};
 
 /** @define {boolean} Compiler flag to build the bootstrap script loader. */
 var SPF_BOOTLOADER = false;
 
 
 /** @define {boolean} Compiler flag to include debugging code. */
-var SPF_DEBUG = true;
+var SPF_DEBUG = false;
 
 
 /** @define {boolean} Compiler flag to include tracing code. */
@@ -56,7 +57,7 @@ var SPF_TRACING = false;
  *     invoked on.
  * @template T
  */
-spf.bind = function(fn, self, var_args) {
+spfBase.bind = function(fn, self, var_args) {
   var args = Array.prototype.slice.call(arguments, 2);
   return function() {
     // Clone the args and append additional ones.
@@ -74,7 +75,7 @@ spf.bind = function(fn, self, var_args) {
  * @param {...*} var_args Arguments to apply to the function.
  * @return {*} The function result or Error if execution failed.
  */
-spf.execute = function(fn, var_args) {
+spfBase.execute = function(fn, var_args) {
   if (fn) {
     var args = Array.prototype.slice.call(arguments, 1);
     try {
@@ -89,11 +90,11 @@ spf.execute = function(fn, var_args) {
 /**
  * Dispatches a custom event.
  *
- * @param {spf.EventName} name The custom event name.
+ * @param {spfBase.EventName} name The custom event name.
  * @param {!Object=} opt_detail The custom event detail (data).
  * @return {boolean} False if the event was canceled.
  */
-spf.dispatch = function(name, opt_detail) {
+spfBase.dispatch = function(name, opt_detail) {
   if (document.createEvent) {
     var evt = document.createEvent('CustomEvent');
     var bubbles = true;
@@ -113,7 +114,7 @@ spf.dispatch = function(name, opt_detail) {
  *     that support DOMHighResTimestamp, this value is a floating point number;
  *     otherwise, it is an integer.
  */
-spf.now = (function() {
+spfBase.now = (function() {
   if (window.performance && window.performance.timing &&
       window.performance.now) {
     return function() {
@@ -132,8 +133,8 @@ spf.now = (function() {
  *
  * @return {number} A unique number.
  */
-spf.uid = function() {
-  // Special case to not use spf.state directly to avoid circular dependencies.
+spfBase.uid = function() {
+  // Special case to not use spfBase.state directly to avoid circular dependencies.
   var state = (window['_spf_state'] = window['_spf_state'] || {});
   var uid = parseInt(state['uid'], 10) || 0;
   uid++;
@@ -144,13 +145,13 @@ spf.uid = function() {
 /**
  * An empty no-op function.
  */
-spf.nullFunction = function() {};
+spfBase.nullFunction = function() {};
 
 
 /**
  * @enum {string}
  */
-spf.EventName = {
+spfBase.EventName = {
   CLICK: 'spfclick',
   CSS_BEFORE_UNLOAD: 'spfcssbeforeunload',
   CSS_UNLOAD: 'spfcssunload',
@@ -177,7 +178,7 @@ spf.EventName = {
  *   async: (boolean|undefined)
  * }}
  */
-spf.ScriptResource;
+spfBase.ScriptResource;
 
 
 /** Type definition for a parsed style resource in a SPF response fragment.
@@ -188,7 +189,7 @@ spf.ScriptResource;
  *   name: (string|undefined)
  * }}
  */
-spf.StyleResource;
+spfBase.StyleResource;
 
 
 /** Type definition for a parsed link resource in a SPF response fragment.
@@ -198,7 +199,7 @@ spf.StyleResource;
  *   rel: (string|undefined)
  * }}
  */
-spf.LinkResource;
+spfBase.LinkResource;
 
 
 /**
@@ -212,7 +213,7 @@ spf.LinkResource;
  *   links: (Array.<spf.LinkResource>|undefined)
  * }}
  */
-spf.ResponseFragment;
+spfBase.ResponseFragment;
 
 
 /**
@@ -249,7 +250,7 @@ spf.ResponseFragment;
  *   url: (string|undefined)
  * }}
  */
-spf.SingleResponse;
+spfBase.SingleResponse;
 
 
 /**
@@ -268,7 +269,7 @@ spf.SingleResponse;
  *   type: string
  * }}
  */
-spf.MultipartResponse;
+spfBase.MultipartResponse;
 
 
 /**
@@ -300,7 +301,7 @@ spf.MultipartResponse;
  *   withCredentials: (boolean|undefined)
  * }}
  */
-spf.RequestOptions;
+spfBase.RequestOptions;
 
 
 /**
@@ -337,7 +338,7 @@ spf.RequestOptions;
  *   url: (string|undefined)
  * }}
  */
-spf.EventDetail;
+spfBase.EventDetail;
 
 
 /**
@@ -351,4 +352,7 @@ spf.EventDetail;
  *   cancelTask: (function(number))
  * }}
  */
-spf.TaskScheduler;
+spfBase.TaskScheduler;
+
+
+export {SPF_DEBUG, SPF_BOOTLOADER, SPF_TRACING, spfBase};

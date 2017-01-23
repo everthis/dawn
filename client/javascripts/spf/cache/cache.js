@@ -9,11 +9,13 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.cache');
+// goog.provide('spfCache');
 
-goog.require('spf');
-goog.require('spf.config');
-goog.require('spf.state');
+import {spfBase} from '../base';
+import spfConfig from '../config';
+import spfState from '../state';
+
+let spfCache = {};
 
 
 /**
@@ -26,19 +28,19 @@ goog.require('spf.state');
  * @param {string} key Key for the data object.
  * @return {*} The data, if it exists.
  */
-spf.cache.get = function(key) {
-  var storage = spf.cache.storage_();
+spfCache.get = function(key) {
+  var storage = spfCache.storage_();
   if (!(key in storage)) {
     return;
   }
   var unit = storage[key];
   // If the data is valid, return it.
-  if (spf.cache.valid_(unit)) {
-    spf.cache.updateCount_(unit);
+  if (spfCache.valid_(unit)) {
+    spfCache.updateCount_(unit);
     return unit['data'];
   }
   // Otherwise, the data should be removed from the cache.
-  spf.cache.remove(key);
+  spfCache.remove(key);
 };
 
 
@@ -52,17 +54,17 @@ spf.cache.get = function(key) {
  *     Defaults to forever if not specified or if null is specified. If a
  *     lifetime of less than 1 is specified, the data is not set in the cache.
  */
-spf.cache.set = function(key, data, opt_lifetime) {
+spfCache.set = function(key, data, opt_lifetime) {
   var lifetime = parseInt(opt_lifetime, 10);
-  var max = parseInt(spf.config.get('cache-max'), 10);
+  var max = parseInt(spfConfig.get('cache-max'), 10);
   if (lifetime <= 0 || max <= 0) {
     return;
   }
-  var storage = spf.cache.storage_();
-  storage[key] = spf.cache.create_(key, data, lifetime);
+  var storage = spfCache.storage_();
+  storage[key] = spfCache.create_(key, data, lifetime);
   // When setting data in the cache, trigger an asynchronous garbage collection
   // run to prevent unnecessary memory growth.
-  setTimeout(spf.cache.collect, 1000);
+  setTimeout(spfCache.collect, 1000);
 };
 
 
@@ -71,8 +73,8 @@ spf.cache.set = function(key, data, opt_lifetime) {
  *
  * @param {string} key Key for the data object.
  */
-spf.cache.remove = function(key) {
-  var storage = spf.cache.storage_();
+spfCache.remove = function(key) {
+  var storage = spfCache.storage_();
   if (key in storage) {
     delete storage[key];
   }
@@ -82,8 +84,8 @@ spf.cache.remove = function(key) {
 /**
  * Removes all data from the cache.
  */
-spf.cache.clear = function() {
-  spf.cache.storage_({});
+spfCache.clear = function() {
+  spfCache.storage_({});
 };
 
 
@@ -91,17 +93,17 @@ spf.cache.clear = function() {
  * Removes expired data from the cache (aka garbage collection). Invalid data
  * and data with an age exceeding the data lifetime will be removed.
  */
-spf.cache.collect = function() {
-  var storage = spf.cache.storage_();
+spfCache.collect = function() {
+  var storage = spfCache.storage_();
   for (var key in storage) {
     var unit = storage[key];
     // If invalid data exists, remove.
-    if (!spf.cache.valid_(unit)) {
+    if (!spfCache.valid_(unit)) {
       delete storage[key];
     }
   }
   // Trim the oldest entries if the cache is still above the max size.
-  spf.cache.trim_();
+  spfCache.trim_();
 };
 
 
@@ -120,15 +122,15 @@ spf.cache.collect = function() {
  *   count: number
  * }}
  */
-spf.cache.Unit;
+spfCache.Unit;
 
 
 /**
- * @param {spf.cache.Unit} unit The cache unit.
+ * @param {spfCache.Unit} unit The cache unit.
  * @return {boolean}
  * @private
  */
-spf.cache.valid_ = function(unit) {
+spfCache.valid_ = function(unit) {
   // Ensure valid data is availabe.
   if (!(unit && 'data' in unit)) {
     return false;
@@ -139,7 +141,7 @@ spf.cache.valid_ = function(unit) {
   var lifetime = unit['life'];
   lifetime = isNaN(lifetime) ? Infinity : lifetime;
   var timestamp = unit['time'];
-  var age = spf.now() - timestamp;
+  var age = spfBase.now() - timestamp;
   return age < lifetime;
 };
 
@@ -150,9 +152,9 @@ spf.cache.valid_ = function(unit) {
  *
  * @private
  */
-spf.cache.trim_ = function() {
-  var storage = spf.cache.storage_();
-  var max = parseInt(spf.config.get('cache-max'), 10);
+spfCache.trim_ = function() {
+  var storage = spfCache.storage_();
+  var max = parseInt(spfConfig.get('cache-max'), 10);
   max = isNaN(max) ? Infinity : max;
   var extra = Object.keys(storage).length - max;
   // If the current cache is smaller than the max, no trimming is needed.
@@ -178,12 +180,12 @@ spf.cache.trim_ = function() {
  * @param {string} key Key for the data object.
  * @param {*} data The data.
  * @param {number} lifetime Lifetime for the data object.
- * @return {!spf.cache.Unit}
+ * @return {!spfCache.Unit}
  * @private
  */
-spf.cache.create_ = function(key, data, lifetime) {
-  var unit = {'data': data, 'life': lifetime, 'time': spf.now(), 'count': 0};
-  spf.cache.updateCount_(unit);
+spfCache.create_ = function(key, data, lifetime) {
+  var unit = {'data': data, 'life': lifetime, 'time': spfBase.now(), 'count': 0};
+  spfCache.updateCount_(unit);
   return unit;
 };
 
@@ -191,29 +193,31 @@ spf.cache.create_ = function(key, data, lifetime) {
 /**
  * Update the count of the given unit and the global cache counter to the
  * latest.
- * @param {spf.cache.Unit} unit The cache unit.
+ * @param {spfCache.Unit} unit The cache unit.
  * @private
  */
-spf.cache.updateCount_ = function(unit) {
-  var count = parseInt(spf.state.get(spf.state.Key.CACHE_COUNTER), 10) || 0;
+spfCache.updateCount_ = function(unit) {
+  var count = parseInt(spfState.get(spfState.Key.CACHE_COUNTER), 10) || 0;
   count++;
-  spf.state.set(spf.state.Key.CACHE_COUNTER, count);
+  spfState.set(spfState.Key.CACHE_COUNTER, count);
 
   unit.count = count;
 };
 
 
 /**
- * @param {!Object.<string, spf.cache.Unit>=} opt_storage Optional storage
+ * @param {!Object.<string, spfCache.Unit>=} opt_storage Optional storage
  *     object to overwrite the current value.
- * @return {!Object.<string, spf.cache.Unit>} Current storage object.
+ * @return {!Object.<string, spfCache.Unit>} Current storage object.
  * @private
  */
-spf.cache.storage_ = function(opt_storage) {
-  if (opt_storage || !spf.state.has(spf.state.Key.CACHE_STORAGE)) {
-    return /** @type {!Object.<string, spf.cache.Unit>} */ (
-        spf.state.set(spf.state.Key.CACHE_STORAGE, (opt_storage || {})));
+spfCache.storage_ = function(opt_storage) {
+  if (opt_storage || !spfState.has(spfState.Key.CACHE_STORAGE)) {
+    return /** @type {!Object.<string, spfCache.Unit>} */ (
+        spfState.set(spfState.Key.CACHE_STORAGE, (opt_storage || {})));
   }
-  return /** @type {!Object.<string, spf.cache.Unit>} */ (
-      spf.state.get(spf.state.Key.CACHE_STORAGE));
+  return /** @type {!Object.<string, spfCache.Unit>} */ (
+      spfState.get(spfState.Key.CACHE_STORAGE));
 };
+
+export default spfCache;

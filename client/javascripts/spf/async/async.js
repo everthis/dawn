@@ -1,8 +1,3 @@
-// Copyright 2015 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
 /**
  * @fileoverview Fast asynchronous function execution.
  *
@@ -15,15 +10,16 @@
  * tab, setTimeout calls deprioritized to execute with a 1s delay.  In these
  * cases, this package provides an alternative.
  *
- * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.async');
+import {spfBase, SPF_BOOTLOADER} from '../base';
+import spfState from '../state';
+import spfString from '../string/string';
+import spfTracing from '../tracing/tracing';
 
-goog.require('spf');
-goog.require('spf.state');
-goog.require('spf.string');
-goog.require('spf.tracing');
+// goog.provide('spfAsync');
+
+let spfAsync = {};
 
 
 /**
@@ -31,13 +27,13 @@ goog.require('spf.tracing');
  *
  * @param {!Function} fn The function to defer.
  */
-spf.async.defer = function(fn) {
-  var uid = spf.uid();
-  spf.async.defers_[uid] = fn;
-  if (spf.async.POSTMESSAGE_SUPPORTED_) {
-    window.postMessage(spf.async.PREFIX_ + uid, '*');
+spfAsync.defer = function(fn) {
+  var uid = spfBase.uid();
+  spfAsync.defers_[uid] = fn;
+  if (spfAsync.POSTMESSAGE_SUPPORTED_) {
+    window.postMessage(spfAsync.PREFIX_ + uid, '*');
   } else {
-    window.setTimeout(spf.bind(spf.async.run_, null, uid), 0);
+    window.setTimeout(spfBase.bind(spfAsync.run_, null, uid), 0);
   }
 };
 
@@ -48,11 +44,11 @@ spf.async.defer = function(fn) {
  * @param {Event} evt The click event.
  * @private
  */
-spf.async.handleMessage_ = function(evt) {
-  if (evt.data && spf.string.isString(evt.data) &&
-      spf.string.startsWith(evt.data, spf.async.PREFIX_)) {
-    var uid = evt.data.substring(spf.async.PREFIX_.length);
-    spf.async.run_(uid);
+spfAsync.handleMessage_ = function(evt) {
+  if (evt.data && spfString.isString(evt.data) &&
+      spfString.startsWith(evt.data, spfAsync.PREFIX_)) {
+    var uid = evt.data.substring(spfAsync.PREFIX_.length);
+    spfAsync.run_(uid);
   }
 };
 
@@ -63,10 +59,10 @@ spf.async.handleMessage_ = function(evt) {
  * @param {string|number} uid The UID associated with the function.
  * @private
  */
-spf.async.run_ = function(uid) {
-  var fn = spf.async.defers_[uid];
+spfAsync.run_ = function(uid) {
+  var fn = spfAsync.defers_[uid];
   if (fn) {
-    delete spf.async.defers_[uid];
+    delete spfAsync.defers_[uid];
     fn();
   }
 };
@@ -78,7 +74,7 @@ spf.async.run_ = function(uid) {
  * @param {!Function} fn The function to add as a listener.
  * @private
  */
-spf.async.addListener_ = function(fn) {
+spfAsync.addListener_ = function(fn) {
   if (window.addEventListener) {
     window.addEventListener('message', fn, false);
   } else if (window.attachEvent) {
@@ -93,7 +89,7 @@ spf.async.addListener_ = function(fn) {
  * @param {!Function} fn The function to remove as a listener.
  * @private
  */
-spf.async.removeListener_ = function(fn) {
+spfAsync.removeListener_ = function(fn) {
   if (window.removeEventListener) {
     window.removeEventListener('message', fn, false);
   } else if (window.detachEvent) {
@@ -107,7 +103,7 @@ spf.async.removeListener_ = function(fn) {
  *
  * @private {boolean}
  */
-spf.async.POSTMESSAGE_SUPPORTED_ = (function() {
+spfAsync.POSTMESSAGE_SUPPORTED_ = (function() {
   if (!window.postMessage) {
     return false;
   }
@@ -117,9 +113,9 @@ spf.async.POSTMESSAGE_SUPPORTED_ = (function() {
   var supported = true;
   var listener = function() { supported = false; };
   // Add the listener, dispatch a message event, and remove the listener.
-  spf.async.addListener_(listener);
+  spfAsync.addListener_(listener);
   window.postMessage('', '*');
-  spf.async.removeListener_(listener);
+  spfAsync.removeListener_(listener);
   // Return the status.  If the postMessage implementation is correctly
   // asynchronous, then the value of the `supported` variable will be
   // true, but if the postMessage implementation is synchronous, the
@@ -134,50 +130,52 @@ spf.async.POSTMESSAGE_SUPPORTED_ = (function() {
  *
  * @private {string}
  */
-spf.async.PREFIX_ = 'spf:';
+spfAsync.PREFIX_ = 'spf:';
 
 
 /**
  * Map of deferred function calls.
  * @private {!Object.<!Function>}
  */
-spf.async.defers_ = {};
+spfAsync.defers_ = {};
 
 
-// Automatic initialization for spf.async.defers_.
+// Automatic initialization for spfAsync.defers_.
 // When built for the bootloader, unconditionally set in state.
 if (SPF_BOOTLOADER) {
-  spf.state.set(spf.state.Key.ASYNC_DEFERS, spf.async.defers_);
+  spfState.set(spfState.Key.ASYNC_DEFERS, spfAsync.defers_);
 } else {
-  if (!spf.state.has(spf.state.Key.ASYNC_DEFERS)) {
-    spf.state.set(spf.state.Key.ASYNC_DEFERS, spf.async.defers_);
+  if (!spfState.has(spfState.Key.ASYNC_DEFERS)) {
+    spfState.set(spfState.Key.ASYNC_DEFERS, spfAsync.defers_);
   }
-  spf.async.defers_ = /** @type {!Object.<!Function>} */ (
-      spf.state.get(spf.state.Key.ASYNC_DEFERS));
+  spfAsync.defers_ = /** @type {!Object.<!Function>} */ (
+      spfState.get(spfState.Key.ASYNC_DEFERS));
 }
 
-// Automatic initialization for spf.state.Key.ASYNC_LISTENER.
+// Automatic initialization for spfState.Key.ASYNC_LISTENER.
 // When built for the bootloader, unconditionally set in state.
 if (SPF_BOOTLOADER) {
-  if (spf.async.POSTMESSAGE_SUPPORTED_) {
-    spf.async.addListener_(spf.async.handleMessage_);
-    spf.state.set(spf.state.Key.ASYNC_LISTENER, spf.async.handleMessage_);
+  if (spfAsync.POSTMESSAGE_SUPPORTED_) {
+    spfAsync.addListener_(spfAsync.handleMessage_);
+    spfState.set(spfState.Key.ASYNC_LISTENER, spfAsync.handleMessage_);
   }
 } else {
-  if (spf.async.POSTMESSAGE_SUPPORTED_) {
-    if (spf.state.has(spf.state.Key.ASYNC_LISTENER)) {
-      spf.async.removeListener_(/** @type {function(Event)} */ (
-          spf.state.get(spf.state.Key.ASYNC_LISTENER)));
+  if (spfAsync.POSTMESSAGE_SUPPORTED_) {
+    if (spfState.has(spfState.Key.ASYNC_LISTENER)) {
+      spfAsync.removeListener_(/** @type {function(Event)} */ (
+          spfState.get(spfState.Key.ASYNC_LISTENER)));
     }
-    spf.async.addListener_(spf.async.handleMessage_);
-    spf.state.set(spf.state.Key.ASYNC_LISTENER, spf.async.handleMessage_);
+    spfAsync.addListener_(spfAsync.handleMessage_);
+    spfState.set(spfState.Key.ASYNC_LISTENER, spfAsync.handleMessage_);
   }
 }
 
 
-if (spf.tracing.ENABLED) {
+if (spfTracing.ENABLED) {
   (function() {
-    spf.async.defer = spf.tracing.instrument(
-        spf.async.defer, 'spf.async.defer');
+    spfAsync.defer = spfTracing.instrument(
+        spfAsync.defer, 'spfAsync.defer');
   })();
 }
+
+export default spfAsync;

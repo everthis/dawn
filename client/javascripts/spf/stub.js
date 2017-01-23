@@ -11,10 +11,10 @@
 
 
 /** @define {boolean} Compiler flag to remove development code. */
-var COMPILED = false;
+let COMPILED = false;
 
 
-var goog = {};
+let goog = {};
 
 
 /**
@@ -64,3 +64,5 @@ goog.nullFunction = function() {};
  goog.identityFunction = function(opt_returnValue, var_args) {
    return opt_returnValue;
  };
+
+export { COMPILED, goog };
