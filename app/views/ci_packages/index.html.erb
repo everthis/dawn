@@ -9,7 +9,6 @@
   }
   .ci-packages-container {
     background-color: #fff;
-    margin-top: 1.5rem;
   }
   .nav {
     background-color: #fff;
@@ -21,7 +20,7 @@
 <% content_for :content do %>
 <div class="ci-packages-container">
     <div class="search-wrap">
-      <span>search: </span>
+      <span><%= t('.search') %>: </span>
       <input type="text" class="search-input c-input">
       <div class="api-search-result hide"></div>
     </div>
@@ -31,8 +30,8 @@
     </div>
 
     <div>
-      <div class="plugins c-grid-span38">
-        <div class="plugins-wrap c-gap-bottom">
+      <div class="packages">
+        <div class="packages-wrap c-gap-bottom">
           <div class="plugins-hread c-grid-row c-pad-left">
             <div class="c-grid-span10">packageName</div>
             <div class="c-grid-span6">packageVersion</div>
@@ -52,7 +51,7 @@
       <%= will_paginate %>
 
       <div class="c-gap-top">
-        <%= link_to 'New Ci Packages', new_ci_package_path, class: "fnpu-link" %>
+        <%= link_to t('.new_ci_packages_link'), new_ci_package_path, class: "fnpu-link" %>
       </div>
     </div>
 </div>

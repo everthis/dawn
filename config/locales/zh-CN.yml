@@ -46,3 +46,8 @@ zh-CN:
       profile:     "档案"
       token-text:  "当前使用的token:"
 
+  ci_packages:
+    index:
+      search:                  "搜索"
+      new_ci_packages_link:    "添加CI_npm包"
+

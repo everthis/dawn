@@ -68,3 +68,8 @@ en:
       token-text:  "The token that is currently being used :"
 
   thanks:          "Thanks"
+
+  ci_packages:
+    index:
+      search:                  "Search"
+      new_ci_packages_link:    "Add new CI npm packages"

@@ -146,6 +146,7 @@ export function ciNpmPackages() {
       },
 
     });
+    console.log(app);
 
     /* use ActionCable to update status of pending plugin */
 

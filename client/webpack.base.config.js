@@ -66,7 +66,7 @@ let defaults = {
         }
     },
     plugins: [
-        new webpack.NoErrorsPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new ExtractTextPlugin({ filename: '[name]-bundle.css', disable: false, allChunks: true }),
         new webpack.LoaderOptionsPlugin({
             options: {
