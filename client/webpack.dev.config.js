@@ -10,6 +10,9 @@ devConfig = merge.smartStrategy({
 })({}, baseConfig, {
     output: {
         publicPath: '/assets/'
+    },
+    performance: {
+      hints: false
     }
 });
 module.exports = devConfig;

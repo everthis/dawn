@@ -23,7 +23,6 @@ import spfNetScript from '../net/script';
 import spfNetStyle from '../net/style';
 import spfString from '../string/string';
 import spfTasks from '../tasks/tasks';
-import spfTracing from '../tracing/tracing';
 import spfUrl from '../url/url';
 
 
@@ -941,42 +940,7 @@ spfNavResponse.Token = {
 };
 
 
-if (spfTracing.ENABLED) {
-  (function() {
-    spfNavResponse.parse = spfTracing.instrument(
-        spfNavResponse.parse, 'spfNavResponse.parse');
-    spfNavResponse.process = spfTracing.instrument(
-        spfNavResponse.process, 'spfNavResponse.process');
-    spfNavResponse.preprocess = spfTracing.instrument(
-        spfNavResponse.preprocess, 'spfNavResponse.preprocess');
 
-    spfNavResponse.extract = spfTracing.instrument(
-        spfNavResponse.extract, 'spfNavResponse.extract');
-    spfNavResponse.extract_ = spfTracing.instrument(
-        spfNavResponse.extract_, 'spfNavResponse.extract_');
-
-    spfNavResponse.installScripts_ = spfTracing.instrument(
-        spfNavResponse.installScripts_,
-        'spfNavResponse.installScripts_');
-    spfNavResponse.preinstallScripts_ = spfTracing.instrument(
-        spfNavResponse.preinstallScripts_,
-        'spfNavResponse.preinstallScripts_');
-
-    spfNavResponse.installStyles_ = spfTracing.instrument(
-        spfNavResponse.installStyles_,
-        'spfNavResponse.installStyles_');
-    spfNavResponse.preinstallStyles_ = spfTracing.instrument(
-        spfNavResponse.preinstallStyles_,
-        'spfNavResponse.preinstallStyles_');
-
-    spfNavResponse.installLinks_ = spfTracing.instrument(
-        spfNavResponse.installLinks_,
-        'spfNavResponse.installLinks_');
-    spfNavResponse.preinstallLinks_ = spfTracing.instrument(
-        spfNavResponse.preinstallLinks_,
-        'spfNavResponse.preinstallLinks_');
-  })();
-}
 
 export default spfNavResponse;
 

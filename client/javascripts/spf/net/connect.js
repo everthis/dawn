@@ -12,7 +12,6 @@
 
 import spfArray from '../array/array';
 import spfNetResource from '../net/resource';
-import spfTracing from '../tracing/tracing';
 
 let spfNetConnect = {};
 // goog.provide('spfNetConnect');
@@ -39,11 +38,5 @@ spfNetConnect.preconnect = function(urls) {
 };
 
 
-if (spfTracing.ENABLED) {
-  (function() {
-    spfNetConnect.preconnect = spfTracing.instrument(
-        spfNetConnect.preconnect, 'spfNetConnect.preconnect');
-  })();
-}
 
 export default spfNetConnect;

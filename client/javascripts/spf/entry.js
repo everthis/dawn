@@ -82,7 +82,4 @@ for (var ns in spfEntry.extra_) {
   }
 }
 
-// Signal that the API is ready with custom event.  Only supported in IE 9+.
-spfBase.dispatch(spfBase.EventName.READY);
-
 export default spfEs;

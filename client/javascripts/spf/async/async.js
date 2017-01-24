@@ -15,7 +15,6 @@
 import {spfBase, SPF_BOOTLOADER} from '../base';
 import spfState from '../state';
 import spfString from '../string/string';
-import spfTracing from '../tracing/tracing';
 
 // goog.provide('spfAsync');
 
@@ -171,11 +170,5 @@ if (SPF_BOOTLOADER) {
 }
 
 
-if (spfTracing.ENABLED) {
-  (function() {
-    spfAsync.defer = spfTracing.instrument(
-        spfAsync.defer, 'spfAsync.defer');
-  })();
-}
 
 export default spfAsync;

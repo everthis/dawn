@@ -13,7 +13,6 @@ import {spfBase} from '../base';
 import spfConfig from '../config';
 import spfState from '../state';
 import spfString from '../string/string';
-import spfTracing from '../tracing/tracing';
 let spfTasks = {};
 
 // goog.provide('spfTasks');
@@ -299,29 +298,5 @@ spfTasks.createTask_ = function(fn, delay) {
 spfTasks.queues_ = {};
 
 
-if (spfTracing.ENABLED) {
-  (function() {
-    spfTasks.add = spfTracing.instrument(
-        spfTasks.add, 'spfTasks.add');
-    spfTasks.run = spfTracing.instrument(
-        spfTasks.run, 'spfTasks.run');
-    spfTasks.suspend = spfTracing.instrument(
-        spfTasks.suspend, 'spfTasks.suspend');
-    spfTasks.resume = spfTracing.instrument(
-        spfTasks.resume, 'spfTasks.resume');
-    spfTasks.cancel = spfTracing.instrument(
-        spfTasks.cancel, 'spfTasks.cancel');
-    spfTasks.cancelAllExcept = spfTracing.instrument(
-        spfTasks.cancelAllExcept, 'spfTasks.cancelAllExcept');
-    spfTasks.key = spfTracing.instrument(
-        spfTasks.key, 'spfTasks.key');
-    spfTasks.do_ = spfTracing.instrument(
-        spfTasks.do_, 'spfTasks.do_');
-    spfTasks.createQueue_ = spfTracing.instrument(
-        spfTasks.createQueue_, 'spfTasks.createQueue_');
-    spfTasks.createTask_ = spfTracing.instrument(
-        spfTasks.createTask_, 'spfTasks.createTask_');
-  })();
-}
 
 export default spfTasks;

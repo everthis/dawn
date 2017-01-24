@@ -2,18 +2,18 @@
 <% provide(:name, 'newCiNpmPackages') %>
 
 <% content_for :head do %>
-<style rel="stylesheet" name="newCiNpmPackages">
-  body {
-    background-color: #d3d3d3;
-  }
-  .ci-packages-container {
-    background-color: #fff;
-  }
-  .nav {
-    background-color: #fff;
-    margin-bottom: 1.5rem;
-  }
-</style>
+  <style rel="stylesheet" name="newCiNpmPackages">
+    body {
+      background-color: #d3d3d3;
+    }
+    .ci-packages-container {
+      background-color: #fff;
+    }
+    .nav {
+      background-color: #fff;
+      margin-bottom: 1.5rem;
+    }
+  </style>
 <% end %>
 
 <% content_for :content do %>
@@ -24,7 +24,6 @@
 
     <div id="app">
       <new-plugins></new-plugins>
-
     </div>
 
     <%= link_to 'Back', ci_packages_path, class: "fnpu-link" %>
@@ -33,11 +32,4 @@
 
 <% content_for :foot do %>
   <%= client_javascript_include_tag 'newCiNpmPackages', "newCiNpmPackages" %>
-  <script name="newCiNpmPackages">
-  	(function() {
-  		if (window.A.ncnp) {
-  			window.A.ncnp.apply(null);
-  		}
-  	})();
-  </script>
 <% end %>

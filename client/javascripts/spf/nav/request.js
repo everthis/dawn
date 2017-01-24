@@ -18,7 +18,6 @@ import spfDebug from '../debug/debug';
 import spfNavResponse from '../nav/response';
 import spfNetXhr from '../net/xhr';
 import spfString from '../string/string';
-import spfTracing from '../tracing/tracing';
 import spfUrl from '../url/url';
 
 let spfNavRequest = {};
@@ -648,26 +647,5 @@ spfNavRequest.Chunking_ = function() {
 };
 
 
-if (spfTracing.ENABLED) {
-  (function() {
-    var request = spfNavRequest;
-    request.send = spfTracing.instrument(
-        request.send, 'spfNavRequest.send');
-    request.handleResponseFromCache_ = spfTracing.instrument(
-        request.handleResponseFromCache_,
-        'spfNavRequest.handleResponseFromCache_');
-    request.handleHeadersFromXHR_ = spfTracing.instrument(
-        request.handleHeadersFromXHR_,
-        'spfNavRequest.handleHeadersFromXHR_');
-    request.handleChunkFromXHR_ = spfTracing.instrument(
-        request.handleChunkFromXHR_,
-        'spfNavRequest.handleChunkFromXHR_');
-    request.handleCompleteFromXHR_ = spfTracing.instrument(
-        request.handleCompleteFromXHR_,
-        'spfNavRequest.handleCompleteFromXHR_');
-    request.done_ = spfTracing.instrument(
-        request.done_, 'spfNavRequest.done_');
-  })();
-}
 
 export default spfNavRequest;

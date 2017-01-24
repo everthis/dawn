@@ -20,8 +20,8 @@ let defaults = {
         newCiNpmPackages: [
             path.join(__dirname, '/javascripts/entries/newCiNpmPackages.js')
         ],
-        application: [
-            path.join(__dirname, '/javascripts/application.js')
+        ciNpmPackages: [
+            path.join(__dirname, '/javascripts/entries/ciNpmPackages.js')
         ]
     },
     output: {

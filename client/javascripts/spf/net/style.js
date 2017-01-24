@@ -13,7 +13,6 @@
 
 import spfArray from '../array/array';
 import spfNetResource from '../net/resource';
-import spfTracing from '../tracing/tracing';
 import spfString from '../string/string';
 
 let spfNetStyle = {};
@@ -144,24 +143,5 @@ spfNetStyle.path = function(paths) {
   spfNetResource.path(type, paths);
 };
 
-
-if (spfTracing.ENABLED) {
-  (function() {
-    spfNetStyle.load = spfTracing.instrument(
-        spfNetStyle.load, 'spfNetStyle.load');
-    spfNetStyle.unload = spfTracing.instrument(
-        spfNetStyle.unload, 'spfNetStyle.unload');
-    spfNetStyle.discover = spfTracing.instrument(
-        spfNetStyle.discover, 'spfNetStyle.discover');
-    spfNetStyle.get = spfTracing.instrument(
-        spfNetStyle.get, 'spfNetStyle.get');
-    spfNetStyle.prefetch = spfTracing.instrument(
-        spfNetStyle.prefetch, 'spfNetStyle.prefetch');
-    spfNetStyle.eval = spfTracing.instrument(
-        spfNetStyle.eval, 'spfNetStyle.eval');
-    spfNetStyle.path = spfTracing.instrument(
-        spfNetStyle.path, 'spfNetStyle.path');
-  })();
-}
 
 export default spfNetStyle;

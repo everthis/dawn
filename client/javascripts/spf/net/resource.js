@@ -25,7 +25,6 @@ import spfPubsub from '../pubsub/pubsub';
 import spfState from '../state';
 import spfString from '../string/string';
 import spfTasks from '../tasks/tasks';
-import spfTracing from '../tracing/tracing';
 import spfUrl from '../url/url';
 
 let spfNetResource = {};
@@ -955,54 +954,5 @@ if (SPF_BOOTLOADER) {
 }
 
 
-if (spfTracing.ENABLED) {
-  (function() {
-    spfNetResource.load = spfTracing.instrument(
-        spfNetResource.load, 'spfNetResource.load');
-    spfNetResource.unload = spfTracing.instrument(
-        spfNetResource.unload, 'spfNetResource.unload');
-    spfNetResource.unload_ = spfTracing.instrument(
-        spfNetResource.unload_, 'spfNetResource.unload_');
-    spfNetResource.check = spfTracing.instrument(
-        spfNetResource.check, 'spfNetResource.check');
-    spfNetResource.create = spfTracing.instrument(
-        spfNetResource.create, 'spfNetResource.create');
-    spfNetResource.destroy = spfTracing.instrument(
-        spfNetResource.destroy, 'spfNetResource.destroy');
-    spfNetResource.discover = spfTracing.instrument(
-        spfNetResource.discover, 'spfNetResource.discover');
-    spfNetResource.prefetch = spfTracing.instrument(
-        spfNetResource.prefetch, 'spfNetResource.prefetch');
-    spfNetResource.prefetch_ = spfTracing.instrument(
-        spfNetResource.prefetch_, 'spfNetResource.prefetch_');
-    spfNetResource.eval = spfTracing.instrument(
-        spfNetResource.eval, 'spfNetResource.eval');
-    spfNetResource.exec = spfTracing.instrument(
-        spfNetResource.exec, 'spfNetResource.exec');
-    spfNetResource.path = spfTracing.instrument(
-        spfNetResource.path, 'spfNetResource.path');
-    spfNetResource.canonicalize = spfTracing.instrument(
-        spfNetResource.canonicalize, 'spfNetResource.canonicalize');
-    spfNetResource.key = spfTracing.instrument(
-        spfNetResource.key, 'spfNetResource.key');
-    spfNetResource.label = spfTracing.instrument(
-        spfNetResource.label, 'spfNetResource.label');
-    spfNetResource.status.set = spfTracing.instrument(
-        spfNetResource.status.set, 'spfNetResource.status.set');
-    spfNetResource.status.get = spfTracing.instrument(
-        spfNetResource.status.get, 'spfNetResource.status.get');
-    spfNetResource.status.clear = spfTracing.instrument(
-        spfNetResource.status.clear, 'spfNetResource.status.clear');
-    spfNetResource.status.loaded = spfTracing.instrument(
-        spfNetResource.status.loaded, 'spfNetResource.status.loaded');
-    spfNetResource.url.set = spfTracing.instrument(
-        spfNetResource.url.set, 'spfNetResource.url.set');
-    spfNetResource.url.get = spfTracing.instrument(
-        spfNetResource.url.get, 'spfNetResource.url.get');
-    spfNetResource.url.clear = spfTracing.instrument(
-        spfNetResource.url.clear, 'spfNetResource.url.clear');
-    spfNetResource.url.loaded = spfTracing.instrument(
-        spfNetResource.url.loaded, 'spfNetResource.url.loaded');
-  })();
-}
+
  export default spfNetResource;

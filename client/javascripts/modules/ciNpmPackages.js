@@ -71,77 +71,73 @@ function clearSearchResult() {
   apiSearchResultEle.classList.add('hide');
 }
 
-export function fcp() {
+Vue.component('packages', {
+  data: function() {
+    return {
+      pluginsInput: gc,
+      showLogs: false
+    };
+  },
+  template: `
+    <div class="plugins-wrap">
+      <div class="plugin-wrap" v-for="(perplugin,index) in pluginsInput">
+
+        <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
+          <span class="c-grid-span10 package-name">{{ perplugin.packageName }}</span>
+          <span class="c-grid-span6 package-version">{{ perplugin.packageVersion }}</span>
+          <span class="c-grid-span10 package-ci-package-name">{{ perplugin.ciPackageName }}</span>
+          <div class="c-grid-span6">{{ perplugin.ciPackageVersion }}</div>
+          <div class="c-grid-span8">{{ perplugin.ciPackageVersionPatch }}</div>
+          <span class="c-grid-span5 package-status">{{ perplugin.status }}</span>
+          <span class="c-grid-span3 package-log c-center"><svg class="icon icon-more" @click="toggleLog(perplugin)"><use xlink:href="#icon-more"></use></svg></span>
+        </div>
+
+        <div class="package-log" v-if="perplugin.showLogs">
+          <div class="loading-placeholder c-center c-pad-top" v-if="!perplugin.log">processing</div>
+          <div class="per-phase-log" v-for="(val, key) in perplugin.log">
+            <p class="package-log-head">{{ key }}</p>
+            <pre class="package-log-pre" v-html='val.detail'></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>`,
+  methods: {
+    toggleLog: function(item) {
+      if (!item.showLogs) {
+        item.gc = App.cable.subscriptions.create({
+            'channel': "CiPackageLogsChannel",
+            'plugin_id': item.id
+          }, {
+            connected: function() {
+              this.perform('send_current_log', {
+                plugin_id: item.id
+              });
+            },
+            received: function(data) {
+              item.log = data;
+              if (item.status === 'failed' || item.status === 'success') {
+                item.gc.unsubscribe();
+              }
+            }
+          });
+
+      } else {
+        if (item.status === 'failed' || item.status === 'success') {} else {
+          item.gc.unsubscribe();
+        }
+      }
+      item.showLogs = !item.showLogs;
+    },
+    subscribe: function(id) {}
+  }
+
+});
+
+export function ciNpmPackages() {
     let App = {};
 
     App.cable = ActionCable.createConsumer();
-
-
-    Vue.component('plugin-item', {
-      props: ['plugins'],
-      data: function() {
-        return {
-          pluginsInput: gc,
-          showLogs: false
-        };
-      },
-      template: `
-        <div class="plugins-wrap">
-          <div class="plugin-wrap" v-for="(perplugin,index) in pluginsInput">
-
-            <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">
-              <span class="c-grid-span10 package-name">{{ perplugin.packageName }}</span>
-              <span class="c-grid-span6 package-version">{{ perplugin.packageVersion }}</span>
-              <span class="c-grid-span10 package-ci-package-name">{{ perplugin.ciPackageName }}</span>
-              <div class="c-grid-span6">{{ perplugin.ciPackageVersion }}</div>
-              <div class="c-grid-span8">{{ perplugin.ciPackageVersionPatch }}</div>
-              <span class="c-grid-span5 package-status">{{ perplugin.status }}</span>
-              <span class="c-grid-span3 package-log c-center"><svg class="icon icon-more" @click="toggleLog(perplugin)"><use xlink:href="#icon-more"></use></svg></span>
-            </div>
-
-            <div class="package-log" v-if="perplugin.showLogs">
-              <div class="loading-placeholder c-center c-pad-top" v-if="!perplugin.log">processing</div>
-              <div class="per-phase-log" v-for="(val, key) in perplugin.log">
-                <p class="package-log-head">{{ key }}</p>
-                <pre class="package-log-pre" v-html='val.detail'></pre>
-              </div>
-            </div>
-
-          </div>
-        </div>`,
-      methods: {
-        toggleLog: function(item) {
-          if (!item.showLogs) {
-            item.gc = App.cable.subscriptions.create({
-                'channel': "CiPackageLogsChannel",
-                'plugin_id': item.id
-              }, {
-                connected: function() {
-                  this.perform('send_current_log', {
-                    plugin_id: item.id
-                  });
-                },
-                received: function(data) {
-                  item.log = data;
-                  if (item.status === 'failed' || item.status === 'success') {
-                    item.gc.unsubscribe();
-                  }
-                }
-              });
-
-          } else {
-            if (item.status === 'failed' || item.status === 'success') {} else {
-              item.gc.unsubscribe();
-            }
-          }
-          item.showLogs = !item.showLogs;
-        },
-        subscribe: function(id) {}
-      }
-
-    });
-
-
 
     let app = new Vue({
       el: '#app',

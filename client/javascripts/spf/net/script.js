@@ -37,7 +37,6 @@ import spfNetResource from '../net/resource';
 import spfPubsub from '../pubsub/pubsub';
 import spfState from '../state';
 import spfString from '../string/string';
-import spfTracing from '../tracing/tracing';
 
 // goog.provide('spfNetScript');
 let spfNetScript = {};
@@ -403,37 +402,6 @@ if (SPF_BOOTLOADER) {
 }
 
 
-if (spfTracing.ENABLED) {
-  (function() {
-    spfNetScript.load = spfTracing.instrument(
-        spfNetScript.load, 'spfNetScript.load');
-    spfNetScript.unload = spfTracing.instrument(
-        spfNetScript.unload, 'spfNetScript.unload');
-    spfNetScript.discover = spfTracing.instrument(
-        spfNetScript.discover, 'spfNetScript.discover');
-    spfNetScript.get = spfTracing.instrument(
-        spfNetScript.get, 'spfNetScript.get');
-    spfNetScript.prefetch = spfTracing.instrument(
-        spfNetScript.prefetch, 'spfNetScript.prefetch');
-    spfNetScript.ready = spfTracing.instrument(
-        spfNetScript.ready, 'spfNetScript.ready');
-    spfNetScript.done = spfTracing.instrument(
-        spfNetScript.done, 'spfNetScript.done');
-    spfNetScript.ignore = spfTracing.instrument(
-        spfNetScript.ignore, 'spfNetScript.ignore');
-    spfNetScript.require = spfTracing.instrument(
-        spfNetScript.require, 'spfNetScript.require');
-    spfNetScript.require_ = spfTracing.instrument(
-        spfNetScript.require_, 'spfNetScript.require_');
-    spfNetScript.unrequire = spfTracing.instrument(
-        spfNetScript.unrequire, 'spfNetScript.unrequire');
-    spfNetScript.eval = spfTracing.instrument(
-        spfNetScript.eval, 'spfNetScript.eval');
-    spfNetScript.declare = spfTracing.instrument(
-        spfNetScript.declare, 'spfNetScript.declare');
-    spfNetScript.path = spfTracing.instrument(
-        spfNetScript.path, 'spfNetScript.path');
-  })();
-}
+
 
 export default spfNetScript;

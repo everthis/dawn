@@ -23,7 +23,6 @@ import spfNavResponse from '../nav/response';
 import spfState from '../state';
 import spfString from '../string/string';
 import spfTasks from '../tasks/tasks';
-import spfTracing from '../tracing/tracing';
 import spfUrl from '../url/url';
 
 let spfNav = {};
@@ -1807,50 +1806,5 @@ spfNav.ReloadReason = {
       '10: An uncaught error occurred processing.'
 };
 
-
-if (spfTracing.ENABLED) {
-  (function() {
-    spfNav.init = spfTracing.instrument(
-        spfNav.init, 'spfNav.init');
-    spfNav.dispose = spfTracing.instrument(
-        spfNav.dispose, 'spfNav.dispose');
-    spfNav.handleClick_ = spfTracing.instrument(
-        spfNav.handleClick_, 'spfNav.handleClick_');
-    spfNav.handleHistory_ = spfTracing.instrument(
-        spfNav.handleHistory_, 'spfNav.handleHistory_');
-    spfNav.navigate = spfTracing.instrument(
-        spfNav.navigate, 'spfNav.navigate');
-    spfNav.navigate_ = spfTracing.instrument(
-        spfNav.navigate_, 'spfNav.navigate_');
-    spfNav.navigatePromotePrefetch_ = spfTracing.instrument(
-        spfNav.navigatePromotePrefetch_, 'spfNav.navigatePromotePrefetch_');
-    spfNav.navigateSendRequest_ = spfTracing.instrument(
-        spfNav.navigateSendRequest_, 'spfNav.navigateSendRequest_');
-    spfNav.handleNavigateError_ = spfTracing.instrument(
-        spfNav.handleNavigateError_, 'spfNav.handleNavigateError_');
-    spfNav.handleNavigatePart_ = spfTracing.instrument(
-        spfNav.handleNavigatePart_, 'spfNav.handleNavigatePart_');
-    spfNav.handleNavigateSuccess_ = spfTracing.instrument(
-        spfNav.handleNavigateSuccess_, 'spfNav.handleNavigateSuccess_');
-    spfNav.cancel = spfTracing.instrument(
-        spfNav.cancel, 'spfNav.cancel');
-    spfNav.callback = spfTracing.instrument(
-        spfNav.callback, 'spfNav.callback');
-    spfNav.reload = spfTracing.instrument(
-        spfNav.reload, 'spfNav.reload');
-    spfNav.prefetch = spfTracing.instrument(
-        spfNav.prefetch, 'spfNav.prefetch');
-    spfNav.prefetch_ = spfTracing.instrument(
-        spfNav.prefetch_, 'spfNav.prefetch_');
-    spfNav.load = spfTracing.instrument(
-        spfNav.load, 'spfNav.load');
-    spfNav.handleLoadError_ = spfTracing.instrument(
-        spfNav.handleLoadError_, 'spfNav.handleLoadError_');
-    spfNav.handleLoadPart_ = spfTracing.instrument(
-        spfNav.handleLoadPart_, 'spfNav.handleLoadPart_');
-    spfNav.handleLoadSuccess_ = spfTracing.instrument(
-        spfNav.handleLoadSuccess_, 'spfNav.handleLoadSuccess_');
-  })();
-}
 
 export default spfNav;

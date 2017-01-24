@@ -1,7 +1,4 @@
-import styles from '../../stylesheets/newCiNpmPackages.scss';
-import {newCiPackages as ncnp} from '../modules/newCiPackages';
+import {initNewCiNpmPackages} from '../modules/newCiNpmPackages';
 (function() {
-  let A = window.A || {};
-  window.A = A;
-  A.ncnp = ncnp;
+  A.gc['currentInitFunc'] = initNewCiNpmPackages;
 })();

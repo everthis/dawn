@@ -1,0 +1,5 @@
+(function() {
+  A.app.init();
+  A.init[A.gc.currentName] = A.gc.currentInitFunc;
+  if(A.init[A.gc.currentName]) A.init[A.gc.currentName].apply(null);
+})();

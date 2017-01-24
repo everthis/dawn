@@ -1,3 +1,7 @@
+import styles from '../stylesheets/globalA.scss';
+
+import {ActionCable} from './common/ActionCable';
+
 import spfEs from "./spf/entry";
 import {dataLinks} from "./modules/dataLinks";
 
@@ -7,11 +11,6 @@ A.spf = spfEs;
 let app = window.A.app || {};
 
 dataLinks();
-
-/**
- * The demo app namespace.
- * @type {Object}
- */
 
 /**
  * Initialize the app.
@@ -136,9 +135,11 @@ app.onProcess = function(evt) {
  * @param {CustomEvent} evt The event.
  */
 app.onDone = function(evt) {
-  app.log('globalA--navigate done ' + evt.detail.url);
   app.destroy(A.gc.currentName);
   A.gc.currentName = evt.detail.response.name;
+  if(A.gc.currentInitFunc) A.init[A.gc.currentName] = A.gc.currentInitFunc;
+  A.gc.currentInitFunc = null;
+  if(A.init[A.gc.currentName]) A.init[A.gc.currentName].apply(null);
 };
 
 
@@ -200,7 +201,7 @@ app.onStyleUnload = function(evt) {
  */
 app.destroy = function(name) {
   A.spf.style.unload(name);
-  A.spf.script.unload(name);
+  // A.spf.script.unload(name);
 };
 
 
@@ -229,5 +230,3 @@ app.timer_ = 0;
 
 A.app = app;
 
-
-A.app.init();

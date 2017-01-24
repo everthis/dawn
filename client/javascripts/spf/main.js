@@ -34,6 +34,9 @@ spfMain.init = function(opt_config) {
   if (enable) {
     spfNav.init();
   }
+  // Signal that the API is ready with custom event.  Only supported in IE 9+.
+  spfBase.dispatch(spfBase.EventName.READY);
+
   return enable;
 };
 

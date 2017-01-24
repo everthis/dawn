@@ -4,9 +4,12 @@
 <% content_for :head do %>
 
 <style rel="stylesheet" name="ciNpmPackages">
-
+  body {
+    background-color: #fff;
+  }
   .ci-packages-container {
     background-color: #fff;
+    margin-top: 1.5rem;
   }
   .nav {
     background-color: #fff;
@@ -41,7 +44,7 @@
           </div>
 
           <div id="app">
-            <plugin-item></plugin-item>
+            <packages></packages>
           </div>
         </div>
       </div>
@@ -69,6 +72,6 @@
     element.gc = null;
   });
 })();
-
 </script>
+<%= client_javascript_include_tag 'ciNpmPackages', "ciNpmPackages" %>
 <% end %>
