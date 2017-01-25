@@ -4,6 +4,8 @@
     height: 600px;
 }
 </style>
+
+<% content_for :content do %>
 <div class="document-container">
 	<%= render 'form' %>
 </div>
@@ -12,6 +14,7 @@
 	<%= link_to 'Show', @doc %> |
 	<%= link_to 'Back', docs_path %>
 </div>
+<% end %>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.14.2/codemirror.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.14.2/mode/markdown/markdown.min.js"></script>

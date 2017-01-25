@@ -1,5 +1,4 @@
 <%= will_paginate @docs, :renderer => PaginationListLinkRenderer %>
-<%= page_entries_info %>
 
 <div class="list-header">
   <div class="c-simulate-table">
@@ -31,6 +30,6 @@
 
 <%= will_paginate @docs, :renderer => PaginationListLinkRenderer %>
 
-<div class="center c-gap-top">
-  <%= link_to 'New Doc', new_doc_path %>
+<div class="c-gap-top">
+  <%= link_to 'New Doc', new_doc_path, class: "fnpu-link"  %>
 </div>

@@ -22,6 +22,9 @@ let defaults = {
         ],
         ciNpmPackages: [
             path.join(__dirname, '/javascripts/entries/ciNpmPackages.js')
+        ],
+        newDocumentation: [
+            path.join(__dirname, '/javascripts/entries/newDocumentation.js')
         ]
     },
     output: {
@@ -33,6 +36,7 @@ let defaults = {
         rules: [{
             test: /\.css$/,
             loader: 'style-loader!css-loader'
+            // loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
         }, {
             test: /\.js$/,
             loader: 'babel-loader',
