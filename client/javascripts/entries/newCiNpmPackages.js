@@ -1,5 +1,5 @@
-import {initNewCiNpmPackages} from '../modules/newCiNpmPackages';
+import {initNewCiNpmPackages, exitNewCiNpmPackages} from '../modules/newCiNpmPackages';
 (function() {
-	console.log("newnew");
-  A.gc['currentInitFunc'] = initNewCiNpmPackages;
+  A.init[A.gc.currentName] = initNewCiNpmPackages;
+  A.destroy[A.gc.currentName] = exitNewCiNpmPackages;
 })();

@@ -35,9 +35,21 @@
 <% content_for :foot do %>
   <script name="userPreference">
     (function() {
-      var wgc = window.gc || {};
-      var sct = document.getElementsByClassName('select-change-trigger')[0];
-      sct.addEventListener('change', cb, false);
+      var sct;
+      var cname = A.gc.currentName;
+      function getSelectEle() {
+        sct = document.getElementsByClassName('select-change-trigger')[0]
+      }
+      function initUserPreference() {
+        getSelectEle();
+        sct.addEventListener('change', cb, false);
+      }
+      function destroyUserPreference() {
+        sct.removeEventListener('change', cb, false);
+      }
+      function detachUserPreference() {
+        A.spf.script.unload(cname);
+      }
       function cb(ev) {
         var f = ev.target.form;
         var fa = f.action;
@@ -45,13 +57,17 @@
         window.A.spf.load(fa, {
           method: "POST",
           postData: fd,
-          onDone: function() {}
+          onProcess: function(evt) {
+            destroyUserPreference();
+          },
+          onDone: function(evt) {
+            initUserPreference();
+          }
         });
-
       }
-
-      function cbb(data) {
-      }
+      A.init[cname] = initUserPreference;
+      A.destroy[cname] = destroyUserPreference;
+      A.detach[cname] = detachUserPreference;
     })();
   </script>
 <% end %>

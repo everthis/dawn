@@ -14,7 +14,7 @@ zh-CN:
   errors:
     template:
       body:        "There were problems with the following fields:"
-      header:       
+      header:
         one:       "1 error prohibited this %{model} from being saved"
         other:     "%{count} errors prohibited this %{model} from being saved"
 
@@ -35,11 +35,11 @@ zh-CN:
       profile:              "档案"
       settings:             "设置"
       logout:               "注销"
-      ci-npm-packages:      "CI-npm包"
+      ci-npm-packages:      "CI_npm包"
       npm-registries:       "npm源"
       uuap-login-logs:      "UUAP登录日志"
       test:                 "测试"
-  
+
   users:
     settings:
       language:    "语言"
@@ -50,4 +50,8 @@ zh-CN:
     index:
       search:                  "搜索"
       new_ci_packages_link:    "添加CI_npm包"
+    new:
+      install_new_ci_npm_packages:   "安装新的CI_npm包"
+      format:                        "格式"
+      back:                          "返回列表"
 

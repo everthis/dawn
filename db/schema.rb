@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20170115130313) do
   end
 
   create_table "ci_package_logs", force: :cascade do |t|
-    t.integer  "ci_plugin_id"
+    t.integer  "ci_package_id"
     t.json     "log"
     t.integer  "job_record_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["ci_plugin_id"], name: "index_ci_package_logs_on_ci_plugin_id", using: :btree
+    t.index ["ci_package_id"], name: "index_ci_package_logs_on_ci_package_id", using: :btree
   end
 
   create_table "ci_packages", force: :cascade do |t|
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20170115130313) do
   end
 
   add_foreign_key "apis", "users"
-  add_foreign_key "ci_package_logs", "ci_packages", column: "ci_plugin_id"
+  add_foreign_key "ci_package_logs", "ci_packages", column: "ci_package_id"
   add_foreign_key "ci_packages", "users"
   add_foreign_key "docs", "users"
   add_foreign_key "third_party_accounts", "users"

@@ -126,6 +126,10 @@ app.onPartDone = function(evt) {
  * @param {CustomEvent} evt The event.
  */
 app.onProcess = function(evt) {
+  if(A.detach[A.gc.currentName]) A.detach[A.gc.currentName].apply(null);
+  if(A.destroy[A.gc.currentName]) A.destroy[A.gc.currentName].apply(null);
+  app.destroy(A.gc.currentName);
+  A.gc.currentName = evt.detail.response.name;
   app.log('globalA--navigate process ' + evt.detail.url);
 };
 
@@ -135,10 +139,6 @@ app.onProcess = function(evt) {
  * @param {CustomEvent} evt The event.
  */
 app.onDone = function(evt) {
-  app.destroy(A.gc.currentName);
-  A.gc.currentName = evt.detail.response.name;
-  if(A.gc.currentInitFunc) A.init[A.gc.currentName] = A.gc.currentInitFunc;
-  A.gc.currentInitFunc = null;
   if(A.init[A.gc.currentName]) A.init[A.gc.currentName].apply(null);
 };
 

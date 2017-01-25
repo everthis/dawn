@@ -1,6 +1,6 @@
 import Vue from 'vue';
-
-Vue.component('new-plugins', {
+let vueApp;
+Vue.component('new-packages', {
   props: ['textareaInput'],
   data: function() {
     return {
@@ -96,6 +96,7 @@ Vue.component('new-plugins', {
       var submitEle = document.getElementsByClassName('fis-ci-plgins-form-submit-btn')[0];
       var pluginInputEle = document.getElementsByClassName('plugin-input')[0];
       var tmpFormEle;
+      var fd, fa;
       if (that.processedPluginsInput.length === 0) {alert('0'); return;}
       if (!that.checkValidation(that.processedPluginsInput)) {alert("包名不能以fis开头\n必须带正确的版本号\n版本号不能带有‘＝’,‘～’,‘<’,'<=','>','>=','^'等标记。"); return;}
       that.processedPluginsInput.forEach(function(element, index) {
@@ -107,7 +108,19 @@ Vue.component('new-plugins', {
         }
       });
       if (that.canSubmit) {
-        submitEle.click();
+        fd = new FormData(submitForm);
+        fa = submitForm.action;
+        window.A.spf.load(fa, {
+          method: "POST",
+          postData: fd,
+          onProcess: function(evt) {
+          },
+          onDone: function(evt) {
+            if(evt.response.status && evt.response.status === 'success') {
+              if (evt.response.url) A.spf.navigate(evt.response.url);
+            }
+          }
+        });
       }
     },
     checkValidation: function(arr) {
@@ -116,7 +129,6 @@ Vue.component('new-plugins', {
       var objArr = JSON.parse(str);
       var ele;
       var re = /[^A-Za-z0-9@\.\-_]/g;
-      console.log(objArr);
       for(var i = 0, length1 = objArr.length; i < length1; i++){
         ele = objArr[i];
 
@@ -125,7 +137,6 @@ Vue.component('new-plugins', {
           if (ele.input.indexOf('fis') === 0 || ele.input.split('@').length === 1 || ele.input.indexOf('@') === ele.input.length - 1 ) {
             that.canSubmit = false;
           }
-          console.log(ele.input);
           if(re.exec(ele.input)) {
             that.canSubmit = false;
           }
@@ -185,7 +196,11 @@ Vue.component('new-plugins', {
 
 });
 export function initNewCiNpmPackages() {
-  let app = new Vue({
+  vueApp = new Vue({
     el: '#app'
   });
+}
+
+export function exitNewCiNpmPackages() {
+  if (vueApp) vueApp.$destroy();
 }

@@ -40,18 +40,18 @@ class CiPackagesController < CBaseController
     # @ci_package = current_user.ci_packages.build(ci_package_params)
     # CiPackage.create!(@ci_packages)
 
-    respond_to do |format|
 
-      begin
-        # CiPackage.import @ci_packages
-        @ci_packages.map {|ci_package| ci_package.save }
-        format.html { redirect_to ci_packages_path, notice: ' ci plugin was successfully created.' }
-      rescue => ex
-        logger.error ex.message
-        format.html { render :new }
-      end
-
+    begin
+      # CiPackage.import @ci_packages
+      @ci_packages.map {|ci_package| ci_package.save }
+      # format.html { redirect_to ci_packages_path(:fnpu => 'navigate'), notice: ' ci plugin was successfully created.' }
+      render :json => {:status => 'success', :url => ci_packages_url}
+    rescue => ex
+      logger.error ex.message
+      # format.html { render :new }
+      render :json => {:status => 'error'}
     end
+
 
     # respond_to do |format|
     #   if @ci_packages.save

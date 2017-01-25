@@ -18,15 +18,14 @@
 
 <% content_for :content do %>
   <div class="ci-packages-container">
-    <h1>Install New CI Packages</h1>
-
+    <h1><%= t('.install_new_ci_npm_packages') %></h1>
     <%= render 'form', ci_packages: @ci_packages %>
 
     <div id="app">
-      <new-plugins></new-plugins>
+      <new-packages></new-packages>
     </div>
 
-    <%= link_to 'Back', ci_packages_path, class: "fnpu-link" %>
+    <%= link_to t('.back'), ci_packages_path, class: "fnpu-link" %>
   </div>
 <% end %>
 

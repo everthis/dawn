@@ -2,6 +2,8 @@ import {$http} from '../common/ajax';
 import Vue from 'vue';
 import {insertAfter, strToDom, debounce} from '../common/utilities';
 
+let vueApp;
+let App;
 let payload = {};
 let callback = {
   apiQuerySuccess: function(data) {
@@ -18,6 +20,7 @@ let callback = {
     </div>
     `;
     contentStr += headStr;
+    contentStr += '<div class="result-body">';
     for (let i = 0, Len = dataObj.length; i < Len; i++) {
       contentStr += `<div class='per-search-result'>
         <span class="per-result-column per-result-input">${dataObj[i].input}</span>
@@ -27,6 +30,7 @@ let callback = {
         <span class="per-result-column per-result-status">${dataObj[i].status}</span>
       </div>`;
     }
+    contentStr += '</div>';
     searchList.innerHTML = contentStr;
     dataObj.length > 0 ? searchList.classList.remove('hide') : searchList.classList.add('hide');
   }
@@ -135,18 +139,13 @@ Vue.component('packages', {
 });
 
 export function ciNpmPackages() {
-    let App = {};
+    App = {};
 
     App.cable = ActionCable.createConsumer();
 
-    let app = new Vue({
+    vueApp = new Vue({
       el: '#app',
-
-      computed: {
-      },
-
     });
-    console.log(app);
 
     /* use ActionCable to update status of pending plugin */
 
@@ -237,4 +236,9 @@ export function ciNpmPackages() {
     //   }
     // });
 
+}
+
+export function exitCiNpmPackages() {
+  if(vueApp) vueApp.$destroy();
+  App.cable.disconnect();
 }
