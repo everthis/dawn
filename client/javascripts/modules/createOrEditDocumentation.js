@@ -7,6 +7,7 @@ let cmInstance;
 
 export function newDocumentation() {
 	let myTextArea = document.getElementById('doc_content');
+  let f, fa, fd;
 	cmInstance = CodeMirror.fromTextArea(myTextArea, {
 		lineWrapping: true,
 		lineNumbers: true,
@@ -16,7 +17,23 @@ export function newDocumentation() {
 	});
 	document.getElementsByClassName('save-document')[0].addEventListener('click', function(ev) {
 	    ev.preventDefault();
-	    document.doc_form.submit();
+	    // document.doc_form.submit();
+      f = document.forms.doc_form;
+      document.getElementById('doc_content').value = cmInstance.getValue();
+      fa = f.action;
+      fd = new FormData(f);
+      window.A.spf.load(fa, {
+        method: "POST",
+        postData: fd,
+        onProcess: function(evt) {
+          exitNewDocumentation();
+        },
+        onDone: function(evt) {
+          if(evt.response.status && evt.response.status === 'success') {
+            if (evt.response.url) A.spf.navigate(evt.response.url);
+          }
+        }
+      });
 	});
 }
 

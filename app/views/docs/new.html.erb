@@ -1,8 +1,8 @@
 <% provide(:title, 'New-documentation') %>
-<% provide(:name, 'newDocumentation') %>
+<% provide(:name, 'createOrEditDocumentation') %>
 
 <% content_for :head do %>
-<style name="newDocumentation">
+<style name="createOrEditDocumentation">
 .CodeMirror {
     height: 600px;
 }
@@ -13,11 +13,11 @@
 <div class="document-container">
     <h1>New Doc</h1>
     <%= render 'form' %>
-    <%= link_to 'Back', docs_path %>
+    <%= link_to 'Back', docs_path, class: 'fnpu-link' %>
 </div>
 <% end %>
 
 
 <% content_for :foot do %>
-	<%= client_javascript_include_tag 'newDocumentation', "newDocumentation" %>
+	<%= client_javascript_include_tag 'createOrEditDocumentation', "createOrEditDocumentation" %>
 <% end %>

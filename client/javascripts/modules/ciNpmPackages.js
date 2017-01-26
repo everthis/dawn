@@ -1,4 +1,5 @@
 import {$http} from '../common/ajax';
+import {disableScroll, enableScroll} from '../common/toggleScroll';
 import Vue from 'vue';
 import {insertAfter, strToDom, debounce} from '../common/utilities';
 
@@ -49,6 +50,7 @@ function listenApiQuery() {
   });
   apiQueryInput.parentElement.addEventListener('mouseenter', function(ev) {
     inWrapper = true;
+    disableScroll();
   });
   apiQueryInput.addEventListener('blur', function(ev) {
     if (!inWrapper) clearSearchResult();
@@ -73,6 +75,7 @@ function clearSearchResult() {
   let apiSearchResultEle = document.getElementsByClassName('api-search-result')[0];
   apiSearchResultEle.innerHTML = '';
   apiSearchResultEle.classList.add('hide');
+  enableScroll();
 }
 
 Vue.component('packages', {

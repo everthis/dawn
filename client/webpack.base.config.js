@@ -23,8 +23,11 @@ let defaults = {
         ciNpmPackages: [
             path.join(__dirname, '/javascripts/entries/ciNpmPackages.js')
         ],
-        newDocumentation: [
-            path.join(__dirname, '/javascripts/entries/newDocumentation.js')
+        createOrEditDocumentation: [
+            path.join(__dirname, '/javascripts/entries/createOrEditDocumentation.js')
+        ],
+        documentation: [
+            path.join(__dirname, '/javascripts/modules/documentation.js')
         ]
     },
     output: {
