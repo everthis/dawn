@@ -6,10 +6,10 @@
     <div class="micropost-info">
       <%= link_to micropost.user.name, micropost.user %>
       <span class="timestamp">
-        <%= time_ago_in_words(micropost.created_at) %> ago.
+        <%= time_ago_in_words(micropost.created_at) %> <%= t('.ago') %>
       </span>
       <% if current_user?(micropost.user) %>
-        <%= link_to "delete", micropost, method: :delete,
+        <%= link_to t(".delete"), micropost, method: :fnpu_delete,
                                          data: { confirm: "You sure?" } %>
       <% end %>
     </div>

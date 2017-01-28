@@ -1,0 +1,12 @@
+<% provide(:title, 'API') %>
+<% provide(:name, 'apiOperation') %>
+
+<% content_for :content do %>
+<div class="apis-container">
+		<div class="api-header-pre-mark"></div>
+</div>
+<% end %>
+
+<% content_for :foot do%>
+	<%= client_javascript_include_tag 'apiOperation', "apiOperation" %>
+<% end %>

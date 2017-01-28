@@ -64,8 +64,12 @@ var callback = {
     parseAndFlash(data);
   }
 };
-export function initXhr() {
+export function initApiOperation() {
   getAllApis();
+}
+
+export function disposeApiOperation() {
+
 }
 
 let debouncedApiQueryInput = debounce(apiQuery, 100, false);
@@ -188,7 +192,7 @@ function createApiUl() {
 }
 function newApiBtn() {
   let newApiDiv;
-  let header = document.getElementsByTagName('header')[0];
+  let header = document.getElementsByClassName('api-header-pre-mark')[0];
   let newApiStr = `
     <div class="api-add-query">
       <span class="add-api-btn">new API</span>

@@ -54,6 +54,13 @@ $grid-columns: 48;
 $head-bg-color: #0cc;
 $white: #fff;
 $cyan: #0cc;
+$bsc: #756a6a;
 
 /* border */
 $bdrs: .5rem;
+
+/* dimension */
+$card-width: 50rem;
+
+/* box-shadow */
+$bs: 0 0 .8rem 0 $bsc;

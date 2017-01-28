@@ -9,6 +9,6 @@
   <div class="new-post-toolbar">
     <%= render :partial => "shared/img_upload", :locals=>{:f=>f, :name=>:picture} %>
 
-    <%= f.submit "Post", class: "btn btn-submit" %>
+    <%= f.submit t('.post'), class: "btn btn-submit" %>
   </div>
 <% end %>

@@ -32,7 +32,7 @@ class StaticPagesController < CBaseController
     # end
   end
 
-  def dev
+  def api
   end
 
   private

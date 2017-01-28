@@ -3,7 +3,7 @@
       <ul class="static-links">
         <li class="first-layer"><%= link_to t('.home'), root_path, id: "logo", class: 'fnpu-link' %></li>
         <% if logged_in? %>
-        <li class="first-layer"><%= link_to t('.dev'), dev_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.dev'), api_path, class: 'fnpu-link' %></li>
         <li class="first-layer"><%= link_to t('.third-paty-accounts'), third_party_accounts_path, class: 'fnpu-link' %></li>
         <li class="first-layer"><%= link_to t('.email-whitelist'), email_whitelists_path, class: 'fnpu-link' %></li>
         <li class="first-layer"><%= link_to t('.documentation'), docs_path, class: 'fnpu-link' %></li>

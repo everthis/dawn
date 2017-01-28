@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get    'about'        => 'static_pages#about'
   get    'test'         => 'static_pages#test'
   get    'contact'      => 'static_pages#contact'
-  get    'dev'          => 'static_pages#dev'
+  get    'api'          => 'static_pages#api'
   get    'log'          => 'logs#index'
   get    'passport'     => 'static_pages#passport'
   get    'signup'       => 'users#new'

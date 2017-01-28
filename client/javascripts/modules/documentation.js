@@ -3,8 +3,7 @@ import {handleMethod} from '../common/handleMethod2';
       let cname = A.gc.currentName;
       let hmInstance;
       let fd, fa;
-      function dataLinks() {
-      }
+
       function processDataLink(ev) {
         let e = window.e || ev;
 
@@ -19,7 +18,7 @@ import {handleMethod} from '../common/handleMethod2';
             method: "POST",
             postData: fd,
             onProcess: function(evt) {
-              exitDocumentation();
+              // detachDocumentation();
             },
             onDone: function(evt) {
               documentation();
@@ -38,5 +37,5 @@ import {handleMethod} from '../common/handleMethod2';
       }
       A.init[cname] = documentation;
       A.destroy[cname] = exitDocumentation;
-      A.detach[cname] = detachDocumentation;
+      // A.detach[cname] = detachDocumentation;
     })();

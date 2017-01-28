@@ -76,3 +76,13 @@ en:
     new:
       install_new_ci_npm_packages:   "Install New CI npm Packages"
       format:                        "Format"
+  microposts:
+    micropost:
+      ago:     "ago"
+      delete: "delete"
+
+  shared:
+    img_upload:
+      choose_an_img: "choose an image"
+    micropost_form:
+      post:          "Post"

@@ -35,6 +35,7 @@
     height: 1rem;
     padding: .5rem 2rem;
     box-sizing: content-box;
+    cursor: pointer;
     &:hover {
     	@extend %btn-hover-state;
     }
@@ -69,7 +70,11 @@
 		flex: 1;
 	}
 	.micropost-img {
-		max-height: 665px;
+		max-height: 506px;
 		overflow: hidden;
+		border-radius: $bdrs;
+		img {
+			max-width: 100%;
+		}
 	}
 }

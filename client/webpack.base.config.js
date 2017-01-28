@@ -17,6 +17,9 @@ let defaults = {
         globalA: [
             path.join(__dirname, '/javascripts/globalA.js')
         ],
+        homepage: [
+            path.join(__dirname, '/javascripts/entries/homepage.js')
+        ],
         newCiNpmPackages: [
             path.join(__dirname, '/javascripts/entries/newCiNpmPackages.js')
         ],
@@ -28,6 +31,9 @@ let defaults = {
         ],
         documentation: [
             path.join(__dirname, '/javascripts/modules/documentation.js')
+        ],
+        apiOperation: [
+            path.join(__dirname, '/javascripts/entries/apiOperation.js')
         ]
     },
     output: {
