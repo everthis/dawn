@@ -1,10 +1,11 @@
 <% json_obj = {} %>
 <% json_obj['body'] = {} %>
 <% content_target = content_for?(:content_target) ? yield(:content_target).squish : "page-container" %>
+<% body_class = {:body => {:class => "#{controller.controller_name}" }} %>
 <% content_for?(:content) ? json_obj['body'][content_target] = yield(:content) : "" %>
 <% content_for?(:head) ? json_obj['head'] = yield(:head).squish : "" %>
 <% content_for?(:foot) ? json_obj['foot'] = yield(:foot).squish : "" %>
-<% content_for?(:attr) ? json_obj['attr'] = JSON.parse("#{yield(:attr)}".html_safe) : "" %>
+<% content_for?(:attr) ? json_obj['attr'] = JSON.parse("#{yield(:attr)}".html_safe).merge(body_class) : (json_obj['attr'] = body_class) %>
 <% content_for?(:title) ? json_obj['title'] = full_title(yield(:title).squish) : "" %>
 <% content_for?(:name) ? json_obj['name'] = yield(:name).squish : "" %>
 <% json_obj['url'] = Utilities.remove_param_from_url_str( request.fullpath, 'fnpu') %>

@@ -24,11 +24,13 @@
 	.btn-submit {
 		display: block;
 		margin: 0 auto;
-		width: 10rem;
+		width: 6rem;
+		@include sameHeightLineheight(2rem);
 		padding: 0;
 		background-color: #fff;
 		border: 1px solid #999;
-		border-radius: 4px;
+		border-radius: $bdrs;
+		cursor: pointer;
 	}
 }
 .new_user {

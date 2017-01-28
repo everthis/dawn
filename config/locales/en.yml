@@ -85,4 +85,5 @@ en:
     img_upload:
       choose_an_img: "choose an image"
     micropost_form:
-      post:          "Post"
+      post:              "Post"
+      what_is_happening: "What's happening?"

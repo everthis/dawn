@@ -8,7 +8,7 @@
 
   <%= content_for?(:head) ? yield(:head) : nil %>
 </head>
-<body class='<%= controller.controller_name %>' data-spf-name="<%= yield(:name) %>">
+<body id="body" class='<%= controller.controller_name %>' data-spf-name="<%= yield(:name) %>">
   <%= render 'layouts/svg_icons.html'%>
   <% flash.each do |message_type, message| %>
     <div class="alert alert-<%= message_type %>"><%= message %></div>

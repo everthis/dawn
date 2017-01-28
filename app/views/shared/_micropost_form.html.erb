@@ -2,8 +2,8 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :content, type: "hidden", placeholder: "What's happening?", class: "new-post-text" %>
-    <div class="tweet-box condensed tweet-box-text" contenteditable="true" spellcheck="true" role="textbox" data-placeholder-default="What's happening?">
-      <div>What's happening?</div>
+    <div class="tweet-box condensed tweet-box-text" contenteditable="true" spellcheck="true" role="textbox" data-placeholder-default="<%= t('.what_is_happening') %>">
+      <div><%= t('.what_is_happening') %></div>
     </div>
   </div>
   <div class="new-post-toolbar">

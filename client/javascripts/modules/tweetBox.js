@@ -1,4 +1,4 @@
-let f, fa, fd, tb, tbdString, tbd, tbt, postText, submitBtn, inputs, label, labelVal, fileName;
+let f, fa, fd, tb, tbdString, tbd, tbt, tbtpd, postText, submitBtn, inputs, label, labelVal, fileName;
 let $micropost_picture;
 let doc = document;
 function setFocus(el) {
@@ -42,7 +42,7 @@ function bindFocus() {
   } else {
     tb.classList.add('showPlaceholder');
   }
-  if (tbd.innerHTML === 'What\'s happening?') {
+  if (tbd.innerHTML === tbtpd) {
 
     tbd.innerHTML = '<br>';
   }
@@ -57,7 +57,7 @@ function bindImgInputChange() {
 
 function bindSubmitBtn(ev) {
   ev.preventDefault();
-  if(tbt.textContent.trim() === 'What\'s happening?'){
+  if(tbt.textContent.trim() === tbtpd){
     postText.value = '';
   } else {
     postText.value = tbt.textContent.trim();
@@ -101,6 +101,7 @@ export function tweetBox() {
   f = doc.getElementById('new_micropost');
   $micropost_picture = doc.getElementById('micropost_picture');
   tbt = doc.getElementsByClassName('tweet-box-text')[0];
+  tbtpd = tbt.dataset.placeholderDefault;
   postText = doc.getElementsByClassName('new-post-text')[0];
   submitBtn = doc.getElementsByClassName('btn-submit')[0];
   inputs = doc.getElementsByClassName('micropost-input-file')[0];
