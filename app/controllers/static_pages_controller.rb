@@ -1,5 +1,5 @@
 class StaticPagesController < CBaseController
-  before_action :logged_in_user, only: [:dev]
+  before_action :logged_in_user, only: [:api]
   # layout :resolve_layout
   # layout Proc.new{ ['index', 'new', 'create'].include?(action_name) ? 'some_layout' : 'other_layout' }
   def home

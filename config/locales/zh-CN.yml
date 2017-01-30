@@ -105,4 +105,7 @@ zh-CN:
     micropost_form:
       post:          "发布"
       what_is_happening: "有什么新鲜事？"
+    stats:
+      following:     "正在关注"
+      followers:     "关注者"
       

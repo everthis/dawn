@@ -1,5 +1,5 @@
 class ThirdPartyAccountsController < CBaseController
-  before_action :logged_in_user, only: [:index, :show, :create, :destroy, :update, :edit ]
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :update, :edit ]
   before_action :set_third_party_account, only: [:show, :edit, :update, :destroy]
 
   # GET /third_party_accounts

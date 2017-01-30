@@ -87,3 +87,6 @@ en:
     micropost_form:
       post:              "Post"
       what_is_happening: "What's happening?"
+    stats:
+      following:     "following"
+      followers:     "followers"

@@ -192,21 +192,22 @@ function createApiUl() {
 }
 function newApiBtn() {
   let newApiDiv;
-  let header = document.getElementsByClassName('api-header-pre-mark')[0];
-  let newApiStr = `
-    <div class="api-add-query">
-      <span class="add-api-btn">new API</span>
-      <div class="api-search-wrapper">
-        <input class="api-query" type="search" placeholder="search">
-        <div class="api-search-result hide"></div>
-      </div>
-      <a class="c-hide icon-text-link c-float-right dev-env-settings" href="javascript:;"><span class="icon-text-icon"><svg class="icon icon-settings icon-fit"><use xlink:href="#icon-settings"></use></svg></span><span class="icon-text-text">环境同步数据配置</span></a>
-    </div>
-  `;
-  newApiDiv = strToDom(newApiStr);
+  // let header = document.getElementsByClassName('api-header-pre-mark')[0];
+  // let newApiStr = `
+  //   <div class="api-add-query">
+  //     <span class="add-api-btn">new API</span>
+  //     <div class="api-search-wrapper">
+  //       <input class="api-query" type="search" placeholder="search">
+  //       <div class="api-search-result hide"></div>
+  //     </div>
+  //     <a class="c-hide icon-text-link c-float-right dev-env-settings" href="javascript:;"><span class="icon-text-icon"><svg class="icon icon-settings icon-fit"><use xlink:href="#icon-settings"></use></svg></span><span class="icon-text-text">环境同步数据配置</span></a>
+  //   </div>
+  // `;
+  // newApiDiv = strToDom(newApiStr);
+  newApiDiv = document.getElementsByClassName('api-add-query')[0];
   newApiDiv.getElementsByClassName('add-api-btn')[0].addEventListener('click', debouncedNewApiBtn);
   newApiDiv.getElementsByClassName('dev-env-settings')[0].addEventListener('click', debouncedEnvBtn);
-  insertAfter(newApiDiv, header);
+  // insertAfter(newApiDiv, header);
   return newApiDiv;
 }
 

@@ -19,10 +19,10 @@ function processDataLink(ev) {
       method: "POST",
       postData: fd,
       onProcess: function(evt) {
-        disposeHomePage();
+        disposeHomepage();
       },
       onDone: function(evt) {
-        homepage();
+        initHomepage();
       }
     });
   }
@@ -35,18 +35,22 @@ function removeBindClick() {
 }
 
 
-function homepage() {
-	bindClick();
+function initHomepage() {
+	// bindClick();
 	tweetBox();
 }
 
-function disposeHomePage() {
-	removeBindClick();
+function disposeHomepage() {
+	// removeBindClick();
 	exitTweetBox();
 }
 
 (function() {
-	A.init[A.gc.currentName] = homepage;
-	A.destroy[A.gc.currentName] = disposeHomePage;
+  A.fnpuLoad[A.gc.currentName] = {
+    process: disposeHomepage,
+    done: initHomepage
+  };
+	A.init[A.gc.currentName] = initHomepage;
+	A.destroy[A.gc.currentName] = disposeHomepage;
 })();
 

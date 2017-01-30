@@ -1,5 +1,5 @@
 class DocsController < CBaseController
-  before_action :logged_in_user, only: [:index, :show, :create, :destroy, :update, :edit ]
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :update, :edit ]
   before_action :set_doc, only: [:show, :update, :destroy]
   before_action :correct_user,   only: :destroy
   # GET /docs

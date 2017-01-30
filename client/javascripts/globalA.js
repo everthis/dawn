@@ -5,12 +5,15 @@ import {ActionCable} from './common/ActionCable';
 import spfEs from "./spf/entry";
 import {dataLinks} from "./modules/dataLinks";
 
+import {processPostLink} from "./modules/postHandler";
+
 let A = window.A || {};
 window.A = A;
 A.spf = spfEs;
 let app = window.A.app || {};
 
 dataLinks();
+processPostLink();
 
 /**
  * Initialize the app.

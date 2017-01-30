@@ -22,15 +22,26 @@
 		margin: 0 0 0 1rem
 	}
 	.user-avatars {
-	    display: flex;
-	    padding: .3rem 0 0 0;
+			display: block;
+			position: relative;
+			padding: .3rem 0 0 0;
+			font-size: 0;
 	    &:hover {
   			background-color: initial;
   			color: #333;
-  		} 
+  		}
+  		.follow-avatar-name {
+  			display: inline-block;
+  			width: 20%;
+  			font-size: 12px;
+  			padding: .2rem;
+  			&:hover {
+  				background-color: transparent;
+  				color: #000;
+  			}
+  		}
 	}
 	.follow-avatar-name {
-		margin: 0 2px;
 		.avatar {
 			font-size: 0;
 		}
