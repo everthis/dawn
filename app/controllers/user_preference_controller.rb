@@ -32,7 +32,6 @@ class UserPreferenceController < CBaseController
 	def update
 		@user_pref = current_user.user_preference
 		@user_pref.update(preference_params)
-		flash.now[:success] = "Micropost updated!"		
 	end
 
 	def destroy

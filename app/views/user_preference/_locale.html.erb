@@ -10,7 +10,7 @@
 <div id="locale-container">
   <%= form_for(@user_pref, url:{:controller=>'user_preference', :action=>'update'},
                           method: 'post',
-                html: {class: "signup-form"}) do |f| %>
+                html: {class: "locale-form"}) do |f| %>
     <% if f.object.errors.any? %>
       <div class="">
         <%= render 'shared/error_messages', object: f.object %>

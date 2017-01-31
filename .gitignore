@@ -31,6 +31,8 @@ npm-debug.log
 /node_modules
 /app/assets/javascripts/*
 /app/assets/stylesheets/*
+/app/*.js
+/app/*.css
 
 /shared/pids/*
 /shared/log/*

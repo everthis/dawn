@@ -1,81 +1,40 @@
-var path = require('path')
-var _ = require('lodash')
-var webpack = require('webpack')
-var assetsPath = path.join(__dirname, '..', 'public', 'assets')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var ManifestPlugin = require('webpack-manifest-plugin')
+let merge = require('webpack-merge');
+let webpack = require('webpack');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let ManifestPlugin = require('webpack-manifest-plugin');
+let baseConfig = require('./webpack.base.config').defaults;
+let prodConfig = {};
 
-var config = {
-  context: path.join(__dirname, '..'),
-  entry: {
-    application: path.join(__dirname, '/javascripts/application.js')
-  },
-  output: {
-    path: assetsPath,
-    filename: '[name]-bundle-[chunkhash].js',
-    publicPath: '/assets/'
-  },
-  resolve: {
-    extensions: ['', '.js', '.coffee', '.json']
-  },
-  debug: true,
-  displayErrorDetails: true,
-  outputPathinfo: true,
-  devtool: 'cheap-module-eval-source-map',
-  module: {
-    loaders: [
-      {
-        test: require.resolve('jquery'),
-        loader: 'expose?jQuery'
-      },
-      {
-        test: require.resolve('jquery'),
-        loader: 'expose?$'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.coffee$/,
-        loader: 'coffee'
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)\??.*$/,
-        loader: 'url?limit=8192&name=[name]-[hash].[ext]'
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)\??.*$/,
-        loader: 'url?limit=8192&name=[name]-[hash].[ext]'
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css')
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!sass')
-      }
+let cl = console.log;
+prodConfig = merge.smartStrategy({
+    'entry': 'prepend',
+    'module.loaders': 'prepend'
+})({}, baseConfig, {
+    output: {
+      publicPath: '/assets/'
+    },
+    performance: {
+      hints: false
+    },
+    module: {
+        rules: [{
+            test: /\.css$/,
+            // loader: 'style-loader!css-loader'
+            loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+        }]
+    },
+    plugins: [
+      new ExtractTextPlugin({ filename: '[name]-bundle.css', disable: false, allChunks: true }),
+      new ManifestPlugin({
+        fileName: 'client_manifest.json'
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"production"'
+        }
+      })
     ]
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
-    new ExtractTextPlugin('[name]-bundle-[chunkhash].css', {
-      allChunks: true
-    }),
-    new ManifestPlugin({
-      fileName: 'client_manifest.json'
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    })
-  ]
-}
-
-module.exports = config
+});
+module.exports = prodConfig;
+// console.(prodConfig);
+// console.log(JSON.stringify(prodConfig, null, 4));
