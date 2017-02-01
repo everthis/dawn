@@ -10,7 +10,6 @@ gem 'fog'
 gem 'will_paginate'
 gem 'uglifier'
 gem 'sass'
-gem 'turbolinks'
 gem 'jbuilder'
 gem 'net-ssh'
 gem 'sdoc', group: :doc

@@ -1,8 +1,10 @@
 let merge = require('webpack-merge');
 let webpack = require('webpack');
+let path = require('path');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let ManifestPlugin = require('webpack-manifest-plugin');
 let baseConfig = require('./webpack.base.config').defaults;
+let assetsDistPath = path.join(__dirname, '..', 'app', 'assets', 'javascripts');
 let prodConfig = {};
 
 let cl = console.log;
@@ -11,20 +13,14 @@ prodConfig = merge.smartStrategy({
     'module.loaders': 'prepend'
 })({}, baseConfig, {
     output: {
+      path: assetsDistPath,
       publicPath: '/assets/'
     },
     performance: {
       hints: false
     },
-    module: {
-        rules: [{
-            test: /\.css$/,
-            // loader: 'style-loader!css-loader'
-            loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
-        }]
-    },
     plugins: [
-      new ExtractTextPlugin({ filename: '[name]-bundle.css', disable: false, allChunks: true }),
+      new ExtractTextPlugin({ filename: '../stylesheets/[name]-bundle.css', disable: false, allChunks: true }),
       new ManifestPlugin({
         fileName: 'client_manifest.json'
       }),

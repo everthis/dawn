@@ -1,3 +1,5 @@
+require 'pagination_list_link_renderer'
+
 class DocsController < CBaseController
   before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :update, :edit ]
   before_action :set_doc, only: [:show, :update, :destroy]

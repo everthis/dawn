@@ -21,5 +21,5 @@
 <% content_for?(:attr) ? json_obj['attr'] = JSON.parse("#{yield(:attr)}".html_safe).merge(body_class) : (json_obj['attr'] = body_class) %>
 <% content_for?(:title) ? json_obj['title'] = full_title(yield(:title).squish) : "" %>
 <% content_for?(:name) ? json_obj['name'] = yield(:name).squish : "" %>
-<% json_obj['url'] = Utilities.remove_param_from_url_str( request.fullpath, 'fnpu') %>
+<% json_obj['url'] = remove_param_from_url_str( request.fullpath, 'fnpu') %>
 <%= "#{json_obj.to_json}".html_safe %>

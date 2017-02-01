@@ -1,4 +1,4 @@
-<% provide(:c_layout, 'c_base_spf.html') %>
+<% provide(:c_layout, 'c_base_spf') %>
 
 <% content_for :title do %>
 lorem_title
@@ -38,6 +38,6 @@ page-container
       console.log('ok!')
     })();
   </script>
-  <%= client_javascript_include_tag 'application' %>
+  <%= c_javascript_include_tag 'ciNpmPackages', name: 'ciNpmPackages' %>
 <% end %>
 <div>ok</div>

@@ -44,8 +44,12 @@ let defaults = {
     module: {
         rules: [{
             test: /\.css$/,
+            exclude: /codemirror\.css$/,
+            // loader: 'style-loader!css-loader'
+            loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+        }, {
+            test: /codemirror\.css$/,
             loader: 'style-loader!css-loader'
-            // loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
         }, {
             test: /\.js$/,
             loader: 'babel-loader',

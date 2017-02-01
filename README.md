@@ -94,6 +94,11 @@ run redis-server
 redis-server ~/redis-stable/redis.conf
 ```
 
+rails console production
+```bash
+rails console production
+```
+
 ### start rails with UNIX sockets in development
 ```
 bundle exec puma -C config/puma.rb
@@ -339,6 +344,16 @@ Since `Rails needs superuser privileges to disable referential integrity.`, you 
 sudo -u postgres createuser -d -s -P dawn_pg_test
 ```
 then modify `.env.test` file with username and password.
+
+```
+uninitialized constant 
+```
+For Class defined in `lib` directory, with Rails 5 and it appeared in production but not in development. To fix it you need to add the lib directory to eager_load_paths. Here is the relevant part from my application.rb:
+
+```
+config.autoload_paths << "#{Rails.root}/lib"
+config.eager_load_paths << "#{Rails.root}/lib"
+```
 
 ### change java version on idev machines
 
