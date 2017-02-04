@@ -1,0 +1,13 @@
+{
+  "body": {
+    "page-container": "<%= j render 'ci_packages' %>"
+  },
+  "attr": {
+    "page-container": {
+      "class": "ci-packages-container"
+    }
+  },
+  "url": "<%= remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title("CI-npm-packages") %>",
+  "name": "dawn"
+}

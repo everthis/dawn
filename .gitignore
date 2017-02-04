@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+npm-debug.log
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -30,11 +31,25 @@
 /node_modules
 /app/assets/javascripts/*
 /app/assets/stylesheets/*
+/app/*.js
+/app/*.css
 
 /shared/pids/*
 /shared/log/*
 /shared/sockets/*
 
+/.dev-shared/pids/*
+/.dev-shared/log/*
+/.dev-shared/sockets/*
+!/.dev-shared/pids/.gitkeep
+!/.dev-shared/log/.gitkeep
+!/.dev-shared/sockets/.gitkeep
 # sensitive
 /.env.production
 /.env
+
+# coverage
+/coverage
+
+# shared
+/shared

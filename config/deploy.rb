@@ -180,12 +180,26 @@ namespace :deploy do
     end
   end
 
+
+
   before 'check:linked_files', :check_env
   before 'assets:precompile', :compile_fe
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+end
+
+namespace :assets do
+  task :precompile_assets do
+    run_locally do
+      with rails_env: fetch(:stage) do
+        execute 'rm -rf public/assets'
+        execute :bundle, 'exec rake assets:precompile'
+        execute :bundle, 'exec rake webpack:compile'
+      end
+    end
+  end
 end
 
 # ps aux | grep puma    # Get puma pid

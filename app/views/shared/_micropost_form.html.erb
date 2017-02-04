@@ -2,66 +2,13 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :content, type: "hidden", placeholder: "What's happening?", class: "new-post-text" %>
-    <div class="tweet-box condensed tweet-box-text" contenteditable="true" spellcheck="true" role="textbox" data-placeholder-default="What's happening?">
-      <div>What's happening?</div>
+    <div class="tweet-box condensed tweet-box-text" contenteditable="true" spellcheck="true" role="textbox" data-placeholder-default="<%= t('.what_is_happening') %>">
+      <div><%= t('.what_is_happening') %></div>
     </div>
   </div>
   <div class="new-post-toolbar">
     <%= render :partial => "shared/img_upload", :locals=>{:f=>f, :name=>:picture} %>
 
-    <%= f.submit "Post", class: "btn btn-submit" %>
+    <%= f.submit t('.post'), class: "btn btn-submit" %>
   </div>
 <% end %>
-
-<script type="text/javascript">
-  (function(){
-    var doc = document;
-    var $micropost_picture = doc.getElementById('micropost_picture');
-    $micropost_picture.addEventListener('change', function() {
-      var size_in_megabytes = this.files[0].size/1024/1024;
-      if (size_in_megabytes > 5) {
-        alert('Maximum file size is 5MB. Please choose a smaller file.');
-      }
-    });
-
-    var tbt = document.getElementsByClassName('tweet-box-text')[0];
-    var postText = document.getElementsByClassName('new-post-text')[0];
-    var submitBtn = document.getElementsByClassName('btn-submit')[0];
-
-    submitBtn.addEventListener('click', function() {
-      if(tbt.textContent.trim() === 'What\'s happening?'){
-        postText.value = '';
-      } else {
-        postText.value = tbt.textContent.trim();
-      }
-    });
-
-    var inputs = document.querySelectorAll( '.micropost-input-file' );
-    Array.prototype.forEach.call( inputs, function( input )
-    {
-      var label  = input.nextElementSibling,
-        labelVal = label.innerHTML;
-
-      input.addEventListener( 'change', function( e )
-      {
-        var fileName = '';
-        if( this.files && this.files.length > 1 )
-          fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-        else
-          fileName = e.target.value.split( '\\' ).pop();
-
-        // if( fileName )
-        //   label.querySelector( 'span' ).innerHTML = fileName;
-        // else
-        //   label.innerHTML = labelVal;
-
-        if( fileName )
-          label.getElementsByTagName('span')[0].innerHTML = fileName;
-        else
-          label.getElementsByTagName('span')[0].innerHTML = labelVal;
-
-          
-      });
-    });
-  })();
-</script>

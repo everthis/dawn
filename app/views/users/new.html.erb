@@ -1,6 +1,14 @@
 <% provide(:title, 'Sign up') %>
 <% provide(:button_text, 'Create my account') %>
-<h1 class="center">Sign up</h1>
+
+<% content_for :content do %>
 <div class="form-container">
     <%= render 'form' %>
+
+    <% unless logged_in? %>
+    <div class="c-center c-gap-top">
+        Haven't received activation email? <%= link_to "resend activation email", new_account_activation_path %>
+    </div>
+    <% end %>
 </div>
+<% end %>

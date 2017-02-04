@@ -6,16 +6,16 @@ class CheckInstallationStatusOnSolarSystemJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-    plugin = CiPlugin.find(id)
-    if plugin.ci_plugin_log.log['check_installation_status_on_solar_system']['status'].nil?
+    plugin = CiPackage.find(id)
+    if plugin.ci_package_log.log['check_installation_status_on_solar_system']['status'].nil?
         self.class.set(wait: 5.seconds).perform_later(id)
     end
   end
 
   def perform(*args)
 	id = args[0]
-	plugin = CiPlugin.find(id)
-	job_record_id = plugin.ci_plugin_log.job_record_id
+	plugin = CiPackage.find(id)
+	job_record_id = plugin.ci_package_log.job_record_id
 
     script_path = "~/idev-projects/uuap-auto-login"
 
@@ -32,17 +32,17 @@ class CheckInstallationStatusOnSolarSystemJob < ApplicationJob
 
 	out_arr = stdout.split("\n")
 
-	plugin.ci_plugin_log.log["check_installation_status_on_solar_system"] = {} if plugin.ci_plugin_log.log["check_installation_status_on_solar_system"].nil?
+	plugin.ci_package_log.log["check_installation_status_on_solar_system"] = {} if plugin.ci_package_log.log["check_installation_status_on_solar_system"].nil?
 
 	if out_arr[0] == "0" && status.success? && out_arr[2] == "SUCCESS"
-	  plugin.ci_plugin_log.log["check_installation_status_on_solar_system"]['detail'] = "#{stdout}"
-	  plugin.ci_plugin_log.log["check_installation_status_on_solar_system"]['status'] = 1
+	  plugin.ci_package_log.log["check_installation_status_on_solar_system"]['detail'] = "#{stdout}"
+	  plugin.ci_package_log.log["check_installation_status_on_solar_system"]['status'] = 1
 	end
 	if out_arr[0] == "0" && status.success? && out_arr[2] == "FAIL"
-	  plugin.ci_plugin_log.log["check_installation_status_on_solar_system"]['detail'] = "#{stdout}"
-	  plugin.ci_plugin_log.log["check_installation_status_on_solar_system"]['status'] = 0
+	  plugin.ci_package_log.log["check_installation_status_on_solar_system"]['detail'] = "#{stdout}"
+	  plugin.ci_package_log.log["check_installation_status_on_solar_system"]['status'] = 0
 	end
-	plugin.ci_plugin_log.save!
+	plugin.ci_package_log.save!
 
   end
 end

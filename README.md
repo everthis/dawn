@@ -20,12 +20,7 @@ since PostgreSQL is used,
 apt-get install libpq-dev
 ```
 
-create role and database
 
-```bash
-sudo -u postgres createuser -d -P dawn_pg
-sudo -u postgres createdb -O dawn_pg dawn_development
-```
 login to postgres on debian 
 ```bash
 sudo -u postgres psql
@@ -58,6 +53,7 @@ launch web server, rails livereload, front-end build system
 bundle exec passenger start # OR 'rails s'
 guard -P livereload
 npm run dev:s # OR 'npm run dev:ss'
+bundle exec sidekiq -q default -q mailers # launch sidekiq
 ```
 
 start in production mode
@@ -93,9 +89,196 @@ imagemagick installation failure on iDev,
 --without-tiff --without-dps
 ```
 
+run redis-server 
+```bash
+redis-server ~/redis-stable/redis.conf
+```
+
+rails console production
+```bash
+rails console production
+```
+
+### start rails with UNIX sockets in development
+```
+bundle exec puma -C config/puma.rb
+```
+
+### nginx config
+```
+# www to non-www redirect -- duplicate content is BAD:
+# https://github.com/h5bp/html5-boilerplate/blob/5370479476dceae7cc3ea105946536d6bc0ee468/.htaccess#L362
+# Choose between www and non-www, listen on the *wrong* one and redirect to
+# the right one -- http://wiki.nginx.org/Pitfalls#Server_Name
+upstream app {
+  # Path to Unicorn SOCK file, as defined previously
+  server unix:/home/everthis/projects/dawn/shared/sockets/puma.sock fail_timeout=0;
+}
+upstream static_dev {
+  server unix:/home/everthis/projects/dawn/shared/sockets/webpack.sock fail_timeout=0;
+}
+
+server {
+  # don't forget to tell on which port this server listens
+  listen [::]:80;
+  listen 80;
+
+  # listen on the www host
+  server_name www.example.com;
+
+  # and redirect to the non-www host (declared below)
+  return 301 $scheme://example.com$request_uri;
+}
+
+server {
+  # listen [::]:80 accept_filter=httpready; # for FreeBSD
+  # listen 80 accept_filter=httpready; # for FreeBSD
+  # listen [::]:80 deferred; # for Linux
+  # listen 80 deferred; # for Linux
+  listen [::]:8678;
+  listen 8678;
+
+  # The host name to respond to
+  server_name example.com;
+
+  # Path for static files
+  # root /home/everthis/projects/dawn/public;
+
+  try_files $uri/index.html $uri @app;
+
+  # Specify a charset
+  charset utf-8;
+
+  # Custom 404 page
+  error_page 404 /404.html;
+
+  # Include the basic h5bp config set
+  include h5bp/basic.conf;
+
+  location / {
+    proxy_pass http://app;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+  }
+
+
+  location ^~ /assets/ {
+    try_files $uri $uri/ @static_dev;
+  }
+
+  location ^~ /sockjs-node/ {
+    proxy_pass http://static_dev;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+
+  location ^~ /webpack/ {
+    proxy_pass http://static_dev;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+
+
+  # location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+  location ^~ /uploads/ {
+      root /home/everthis/projects/dawn;
+  }
+
+  location @static_dev {
+    proxy_pass http://static_dev;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+  }
+
+}
+
+
+```
+
+### nginx websocket support
+
+```
+# enables WS support
+location /cable {
+	proxy_pass http://backend;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection "upgrade";
+}
+
+run sidekiq in development
+```bash
+bundle exec sidekiq -e development -C config/sidekiq.yml
+```
 run sidekiq in production
 ```bash
 bundle exec sidekiq -e production -q default -q mailers
+```
+
+
+deploy to production
+```
+cap production deploy
+```
+
+### PostgreSQL setup
+```
+./configure
+make && sudo make install
+```
+
+configure systemd
+```
+sudo vim /etc/systemd/system/postgresql.service
+```
+
+```
+[Unit]
+Description=postgresql Database
+After=network.target
+
+[Service]
+User=postgres
+Type=forking
+ExecStart=/usr/local/pgsql/bin/pg_ctl start -D /usr/local/pgsql/data -o "-c config_file=/usr/local/pgsql/data/postgresql.conf"
+ExecReload=/bin/kill -s HUP $MAINPID
+
+
+[Install]
+WantedBy=multi-user.target
+```
+
+initdb
+```
+su postgres
+/usr/local/pgsql/bin/initdb -E UTF8 -D /usr/local/pgsql/data
+exit
+```
+
+start postgresql.service
+```
+sudo systemctl daemon-reload
+sudo systemctl start postgresql.service
+```
+
+make postgresql.service start with system boot
+```
+sudo systemctl enable postgresql.service
+```
+
+create role and database
+```bash
+sudo -u postgres createuser -d -P dawn_pg
+sudo -u postgres createdb -O dawn_pg -E UTF8 dawn_development
+```
+
+migrate development database
+```
+bin/rails db:migrate RAILS_ENV=development
 ```
 
 ### Chrome HTTP2 
@@ -117,6 +300,8 @@ Host vultr
   User everthis
   ForwardAgent yes
 ```
+Please make sure that `ssh-agent` is running on your dev machine. Especially for Windows users.
+
 Highly recommend using `ssh-copy-id` for moving public keys around.
 
 Please feel free to use a different markup language if you do not plan to run
@@ -127,3 +312,71 @@ Please feel free to use a different markup language if you do not plan to run
 `gem install nokogiri -- --use-system-libraries` if bundle update rails errors.
 
 Execute `rake tmp:cache:clear` and restart server if `LoadError: cannot load such file -- coffee_script` happens.
+
+`Peer authentication failed for user "xxxxx"` , this error occurs when you installed postresql on your server, but host is missing in database.yml. Just set host: localhost to database.yml,  otherwise if it's not localhost definitely tell that app where to find its database.
+
+
+### Caveats
+`bundle exec guard -P livereload -p` if you are on iDev machines. This `-p` force `Force usage of the Listen polling listener` 
+
+execute postgresql command but get the following error while postgresql is running
+```
+psql: could not connect to server: No such file or directory
+    Is the server running locally and accepting
+    connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5432"?
+```
+OR
+```
+psql: could not connect to server: No such file or directory
+    Is the server running locally and accepting
+    connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
+```
+method one: edit `postgresql.conf` and modify `unix_socket_directory`
+
+method two: export `PGHOST`
+
+method three: rebuild postgresql with `--host=HOST` set what you want.
+
+method four: execute like this `PGHOST=localhost; psql`, which sets the variable and executes psq both at once.
+
+method five: execute command with `-h` parameter, for example `psql -h /tmp/`
+
+Since `Rails needs superuser privileges to disable referential integrity.`, you need to create a superuser role for `rails test`
+```
+sudo -u postgres createuser -d -s -P dawn_pg_test
+```
+then modify `.env.test` file with username and password.
+
+```
+uninitialized constant 
+```
+For Class defined in `lib` directory, with Rails 5 and it appeared in production but not in development. To fix it you need to add the lib directory to eager_load_paths. Here is the relevant part from my application.rb:
+
+```
+config.autoload_paths << "#{Rails.root}/lib"
+config.eager_load_paths << "#{Rails.root}/lib"
+```
+
+### change java version on idev machines
+
+```
+source ${JUMBO_ROOT}/opt/sun-java8/sun-java8.sh
+```
+OR
+
+```
+source ${JUMBO_ROOT}/opt/sun-java7/sun-java7.sh
+```
+
+### get CPU info on idev machines
+
+```
+cat /proc/cpuinfo
+# OR
+grep ^model\ name /proc/cpuinfo
+```
+
+
+### TODO
+[optional] decode/encode URL , short link route to page directly.
+[MUST] sync/async same content render, terminate duplicate code.

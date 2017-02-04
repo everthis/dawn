@@ -1,4 +1,7 @@
-class AccountActivationsController < ApplicationController
+class AccountActivationsController < CBaseController
+
+  def new
+  end
 
   def edit
     user = User.find_by(email: params[:email])
@@ -12,4 +15,23 @@ class AccountActivationsController < ApplicationController
       redirect_to root_url
     end
   end
+
+  def create
+    user = User.find_by(email: user_params[:email])
+    if user && !user.activated?
+      user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url      
+    else
+      flash.now[:danger] = 'Email not registered or already activated.'
+      render 'new'
+    end
+  end
+
+  private
+
+    def user_params
+      params.require(:account_activations).permit(:email)
+    end
+
 end

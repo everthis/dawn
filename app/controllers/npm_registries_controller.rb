@@ -1,4 +1,4 @@
-class NpmRegistriesController < ApplicationController
+class NpmRegistriesController < CBaseController
   before_action :set_npm_registry, only: [:show, :edit, :update, :destroy]
 
   # GET /npm_registries

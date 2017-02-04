@@ -1,4 +1,6 @@
 <% provide(:title, 'Reset password') %>
+
+<% content_for :content do %>
 <h1 class="center">Reset password</h1>
 <div class="form-container">
   <%= form_for(@user, url: password_reset_path(params[:id]), html: {class: "reset-pwd-form"}) do |f| %>
@@ -19,5 +21,6 @@
       <%= f.submit "Update password", class: "btn btn-submit" %>
     </div>
   <% end %>
-  
+
 </div>
+<% end %>

@@ -1,0 +1,35 @@
+<% content_for :title do %>
+lorem_title
+<% end %>
+
+<% content_for :name do %>
+lorem_name
+<% end %>
+
+<% content_for :stylesheets do %>
+  <style name="test">
+		.test {
+			font-size: 16px;
+		}  	
+  </style>
+<% end %>
+
+<% content_for :attributes do %>
+{
+  "page-container": {
+    "class": "email-whitelist spf-animate"
+  }
+}
+<% end %>
+
+<% content_for :content do %>
+	<div class="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, dolor.</div>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script name="test">
+		(function() {
+			console.log('ok!')
+		})();
+  </script>
+<% end %>

@@ -1,0 +1,2 @@
+class CBaseController < ApplicationController
+end

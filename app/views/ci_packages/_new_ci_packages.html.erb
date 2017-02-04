@@ -1,0 +1,12 @@
+<div class="ci-packages-container">
+  <h1>Install New CI Plugins</h1>
+
+  <%= render 'form', ci_packages: @ci_packages %>
+
+  <div id="app">
+    <new-plugins></new-plugins>
+
+  </div>
+
+  <%= link_to 'Back', ci_packages_path %>
+</div>

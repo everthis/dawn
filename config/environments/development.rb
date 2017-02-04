@@ -26,6 +26,14 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # config.action_controller.asset_host = Proc.new { |source, request|
+  #     if request && request.ssl?
+  #       "#{request.protocol}#{request.host_with_port}"
+  #     else
+  #       "#{request.protocol}#{request.host_with_port}"
+  #     end
+  #   }
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
@@ -33,6 +41,8 @@ Rails.application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+
+  config.log_level = :debug
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
@@ -47,7 +57,7 @@ Rails.application.configure do
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  config.assets.digest = false
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
@@ -55,7 +65,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-  
+
   # config.action_cable.url = '/cable'
   config.action_cable.mount_path = '/cable'
   # config.action_cable.allowed_request_origins = ['http://rubyonrails.com', %r{http://ruby.*}, 'http://10.0.0.9']
@@ -73,7 +83,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+
   # config.action_mailer.delivery_method = :test
   # config.action_mailer.delivery_method = :letter_opener
   # host = 'localhost:3000'
@@ -81,23 +91,24 @@ Rails.application.configure do
 
   host = ENV["RAILS_HOST"]
   config.action_mailer.default_url_options = { host: host }
+  # config.action_mailer.delivery_method = :test
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
     address: "smtp.exmail.qq.com",
     port: 25,
     domain: "qq.com",
-    authentication: "login", 
-    user_name: ENV["RAILS_EMAIL_FROM"], 
-    password: ENV["RAILS_EMAIL_PWD"], 
+    authentication: "login",
+    user_name: ENV["RAILS_EMAIL_FROM"],
+    password: ENV["RAILS_EMAIL_PWD"],
     enable_starttls_auto: true
   }
 
   config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
+    # Bullet.enable = true
+    # Bullet.alert = true
+    # Bullet.bullet_logger = true
+    # Bullet.console = true
     # Bullet.growl = true
     # Bullet.rails_logger = true
     # Bullet.honeybadger = true

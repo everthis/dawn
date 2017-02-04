@@ -1,0 +1,66 @@
+$chinese-font: 'Courier New', Courier, monospace;
+$english-font: 12px/1.54 Arial,'Helvetica Neue',Helvetica,sans-serif;
+$success-color: #fff;
+$success-bg-color: #7FFFD4;
+
+$danger-bg-color: #B22222;
+$danger-color: #fff;
+
+$info-bg-color: #E6E6FA;
+
+$border-color: #B9B9B9;
+$border: 1px solid $border-color;
+$focus-border-color: #4d90fe;
+$focus-border-style: 1px solid $focus-border-color;
+$notice-bg-color: #e6e6fa;
+$alert-bg-color: #B22222;
+$alert-text-color: #fff;
+
+$gray: #f7f7f7;
+
+/* used for math */
+$default-threshold: pi()/180/20 !default;
+
+
+/* user */
+$user-following-link-padding: 0 .5rem;
+$user-following-link-margin: 0 .5rem;
+$follow-action-padding: 1rem 0 0 0;
+$follow-status-padding: 1rem 0 0 0;
+
+$signin-form-bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAAGCAIAAABhDpMcAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gkeFxks6YflLAAAAKlJREFUWMPt2CEShDAMheGmMCFV1MH9z8MtarC4QKfNiuwwOyxHeJ9r6iJ+ETKz3vu+7/M8D8MQAADetNaO41jXNcYYfUREpZRaK7YDAP9qraUUIvLn6NVg5t77tm2qamZYEwDciEhElmVhZm/H6B8ppZxzCOE8T4QDAB7hmKYp55xS+k48E601VVXV67oQDgB4hIOZRURE/BJKv5kwM1QDAF7bcR84Qggf4ShHovU/ogcAAAAASUVORK5CYII=);
+
+$container-width: 50rem;
+$input-line-height: 1.5;
+$input-height: 2rem;
+
+
+$c-border: 1px solid #999;
+$gap-top: .8rem;
+$gap-bottom: .8rem;
+$gap-left: .5rem;
+$gap-right: .5rem;
+$pad-left: .5rem;
+$pad-top: .5rem;
+$pad-right: .5rem;
+$pad-bottom: .5rem;
+$pad-left-wide: 1rem;
+
+/* grid system */
+$grid-columns: 48;
+
+
+/* colors */
+$head-bg-color: #0cc;
+$white: #fff;
+$cyan: #0cc;
+$bsc: #756a6a;
+
+/* border */
+$bdrs: .5rem;
+
+/* dimension */
+$card-width: 50rem;
+
+/* box-shadow */
+$bs: 0 0 .8rem 0 $bsc;

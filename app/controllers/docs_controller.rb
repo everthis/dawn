@@ -1,13 +1,15 @@
-class DocsController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :create, :destroy, :update, :edit ]
+require 'pagination_list_link_renderer'
+
+class DocsController < CBaseController
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :update, :edit ]
   before_action :set_doc, only: [:show, :update, :destroy]
   before_action :correct_user,   only: :destroy
   # GET /docs
   # GET /docs.json
   def index
     if logged_in?
-      @docs = Doc.all.includes(:user)
-    end 
+      @docs = Doc.includes(:user).paginate(page: params[:page])
+    end
   end
 
   # GET /docs/1
@@ -31,39 +33,62 @@ class DocsController < ApplicationController
   def create
     @doc = current_user.docs.build(doc_params)
 
-    respond_to do |format|
-      if @doc.save
-        format.html { redirect_to @doc, notice: 'Doc was successfully created.' }
-        format.json { render :show, status: :created, location: @doc }
-      else
-        format.html { render :new }
-        format.json { render json: @doc.errors, status: :unprocessable_entity }
-      end
+    begin
+      @doc.save
+      render :json => {:status => 'success', :url => url_for(@doc) }
+    rescue => ex
+      logger.error ex.message
+      # format.html { render :new }
+      render :json => {:status => 'error'}
     end
+
+    # respond_to do |format|
+    #   if @doc.save
+    #     format.html { redirect_to @doc, notice: 'Doc was successfully created.' }
+    #     format.json { render :show, status: :created, location: @doc }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @doc.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
   end
 
   # PATCH/PUT /docs/1
   # PATCH/PUT /docs/1.json
   def update
-    respond_to do |format|
-      if @doc.update(doc_params)
-        format.html { redirect_to @doc, notice: 'Doc was successfully updated.' }
-        format.json { render :show, status: :ok, location: @doc }
-      else
-        format.html { render :edit }
-        format.json { render json: @doc.errors, status: :unprocessable_entity }
-      end
+
+    begin
+      @doc.update(doc_params)
+      render :json => {:status => 'success', :url => url_for(@doc) }
+    rescue => ex
+      logger.error ex.message
+      # format.html { render :new }
+      render :json => {:status => 'error'}
     end
+
+    # respond_to do |format|
+    #   if @doc.update(doc_params)
+    #     format.html { redirect_to @doc, notice: 'Doc was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @doc }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @doc.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
   end
 
   # DELETE /docs/1
   # DELETE /docs/1.json
   def destroy
     @doc.destroy
-    respond_to do |format|
-      format.html { redirect_to docs_url, notice: 'Doc was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @docs = Doc.includes(:user).paginate(page: params[:page])
+    render :index
+    # respond_to do |format|
+    #   format.html { redirect_to docs_url, notice: 'Doc was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private

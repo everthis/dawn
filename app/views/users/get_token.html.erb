@@ -1,4 +1,2 @@
-<div class="c-card-box">
-	<h2>当前正在使用的token:</h2>
-	<h2><%= @user.auth_token %></h2>
-</div>
+<% provide(:title, 'Get token') %>
+<%= render 'get_token' %>

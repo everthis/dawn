@@ -1,5 +1,6 @@
 <% provide(:title, "Log in") %>
-<h1 class="center">Log in</h1>
+
+<% content_for :content do %>
 
 <div class="form-container">
     <%= form_for(:session, url: login_path, html: {class: "signin-form"}) do |f| %>
@@ -25,3 +26,4 @@
     <% end %>
     <p class="extra">New user? <%= link_to "Sign up now!", signup_path %></p>
 </div>
+<% end %>

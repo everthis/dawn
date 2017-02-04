@@ -1,0 +1,13 @@
+{
+  "body": {
+    "page-container": "<%= j render 'docs' %>"
+  },
+  "attr": {
+    "page-container": {
+      "class": "document-container spf-animate"
+    }
+  },
+  "url": "<%= remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title("Documentation") %>",
+  "name": "dawn"
+}

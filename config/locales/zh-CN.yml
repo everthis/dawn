@@ -1,0 +1,111 @@
+zh-CN:
+
+  hello: "你好，世界"
+
+  number:
+    currency:
+      format:
+        unit:      "$"
+        precision: 2
+        separator: "."
+        delimiter: ","
+        format:    "%u%n"
+
+  errors:
+    template:
+      body:        "There were problems with the following fields:"
+      header:
+        one:       "1 error prohibited this %{model} from being saved"
+        other:     "%{count} errors prohibited this %{model} from being saved"
+
+  layouts:
+    application:
+      title:       "Dawn"
+      home:        "首页"
+      questions:   "Questions"
+      news:        "News"
+      contact:     "Contact"
+    header:
+      home:                 "首页"
+      dev:                  "API 配置"
+      third-paty-accounts:  "第三方账户"
+      email-whitelist:      "邮件白名单"
+      documentation:        "文档"
+      users:                "用户列表"
+      profile:              "档案"
+      settings:             "设置"
+      logout:               "注销"
+      ci-npm-packages:      "CI_npm包"
+      npm-registries:       "npm源"
+      uuap-login-logs:      "UUAP登录日志"
+      test:                 "测试"
+
+  users:
+    settings:
+      language:    "语言"
+      profile:     "档案"
+      token-text:  "当前使用的token:"
+
+  ci_packages:
+    index:
+      search:                  "搜索"
+      new_ci_packages_link:    "添加CI_npm包"
+    new:
+      install_new_ci_npm_packages:   "安装新的CI_npm包"
+      format:                        "格式"
+      back:                          "返回列表"
+
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "约1小时"
+        other: "约%{count}小时"
+      about_x_months:
+        one: "约1月"
+        other: "约%{count}月"
+      about_x_years:
+        one: "约1年"
+        other: "约%{count}年"
+      almost_x_years:
+        one: "近1年"
+        other: "近%{count}年"
+      half_a_minute: "半分钟"
+      less_than_x_minutes:
+        one: "小于一分钟"
+        other: "小于%{count}分钟"
+      less_than_x_seconds:
+        one: "小于1秒"
+        other: "小于%{count}秒"
+      over_x_years:
+        one: "超过1年"
+        other: "超过%{count}年"
+      x_days:
+        one: "1天"
+        other: "%{count}天"
+      x_minutes:
+        one: "1分钟"
+        other: "%{count}分钟"
+      x_months:
+        one: "1月"
+        other: "%{count}月"
+      x_years:
+        one: "1年"
+        other: "%{count}年"  
+      x_seconds:
+        one: "1秒"
+        other: "%{count}秒"
+
+  microposts:
+    micropost:
+      ago:      "以前"
+      delete:   "删除"
+  shared:
+    img_upload:
+      choose_an_img: "选择图片上传"
+    micropost_form:
+      post:          "发布"
+      what_is_happening: "有什么新鲜事？"
+    stats:
+      following:     "正在关注"
+      followers:     "关注者"
+      

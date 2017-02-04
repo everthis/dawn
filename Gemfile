@@ -1,39 +1,40 @@
 source 'https://rubygems.org'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
-gem 'rails', '~>5.0.0'
+gem 'rails'
 gem 'bcrypt'
 gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog', '1.38.0'
+gem 'fog'
 gem 'will_paginate'
 gem 'uglifier'
 gem 'sass'
-gem 'turbolinks'
 gem 'jbuilder'
 gem 'net-ssh'
 gem 'sdoc', group: :doc
-gem "guard"
-gem 'pg', '~> 0.18'
+gem 'pg'
 gem 'regexp-examples'
 gem 'structured_warnings'
 gem 'addressable'
 gem 'rack-proxy'
 gem 'puma'
+gem 'redis'
 gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
+gem 'nav_lynx'
 gem 'redis-namespace'
 gem 'whenever', :require => false
+gem 'rails-i18n', '~> 5.0.0'
 
 group :development do
   gem 'pry-rails'
   gem 'foreman'
   gem "letter_opener"
-  gem "awesome_print", '1.6.1'
-  gem "passenger"
+  gem "awesome_print"
   gem "binding_of_caller"
+  gem "guard"
   # gem "rack-livereload", '0.3.15'
   # gem 'guard-livereload'
   gem 'byebug'

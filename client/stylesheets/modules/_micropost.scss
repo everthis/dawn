@@ -1,0 +1,80 @@
+.micropost-text {
+	word-break: break-all;
+	padding: 0.5rem 0;
+}
+.new-post,
+.profile-post {
+	font-size: 12px;
+}
+.new-post-text {
+	outline: none;
+	width: 100%;
+	max-width: 100%;
+}
+.new-post-toolbar {
+	@include clearfix();
+	text-align: center;
+
+	.image-upload {
+		position: relative;
+		float: left;
+
+	}
+	.micropost-input-file {
+		@extend %fileupload-btn;
+	}
+	.btn-submit {
+		display: inline-block;
+		float: right;
+		background-color: #fff;
+    border-radius: 4px;
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #999;
+    line-height: 1rem;
+    height: 1rem;
+    padding: .5rem 2rem;
+    box-sizing: content-box;
+    cursor: pointer;
+    &:hover {
+    	@extend %btn-hover-state;
+    }
+	}
+}
+.feeds {
+	display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem 0 0 0;
+}
+.microposts-list {
+	padding: 0;
+	width: 50rem;
+	border: 1px solid #e1e8ed;
+}
+
+.micropost {
+	display: flex;
+	border-top: 1px solid #e1e8ed;
+	padding: .8rem 1rem;
+	&:first-child {
+		border-top: none;
+	}
+	.avatar-section {
+		flex-basis: 5rem;
+		display: flex;
+    align-items: flex-start;
+    font-size: 0; // get rid of whitespace gap
+	}
+	.content {
+		flex: 1;
+	}
+	.micropost-img {
+		max-height: 506px;
+		overflow: hidden;
+		border-radius: $bdrs;
+		img {
+			max-width: 100%;
+		}
+	}
+}

@@ -1,10 +1,11 @@
+<% content_for :content do %>
 <div class="markdown-body">
   <h1 class=""><%= @doc.title %></h1>
   <%= markdown2(@doc.content) %>
 </div>
 
 <div class="center">
-	<%= link_to 'Edit', edit_doc_path(@doc) %> |
-	<%= link_to 'Back', docs_path %>
+	<%= link_to 'Edit', edit_doc_path(@doc), class: 'fnpu-link' %> |
+	<%= link_to 'Back', docs_path, class: 'fnpu-link' %>
 </div>
-
+<% end %>

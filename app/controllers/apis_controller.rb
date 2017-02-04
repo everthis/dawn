@@ -1,11 +1,12 @@
-class ApisController < ApplicationController
+require 'tree'
+require 'reverse_proxy'
+
+class ApisController < CBaseController
   # before_action :ensure_json_request  
   before_action :logged_in_user, only: [:create, :destroy, :update ]
   before_action :correct_user,   only: :destroy
 
   after_action :cors_set_access_control_headers, only: [:generate_data]
-  include Tree
-  include ReverseProxy::Controller
 
   def index
     if logged_in?

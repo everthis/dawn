@@ -1,4 +1,4 @@
-class UuapLoginLogsController < ApplicationController
+class UuapLoginLogsController < CBaseController
   before_action :set_uuap_login_log, only: [:show, :edit, :update, :destroy]
 
   # GET /uuap_login_logs

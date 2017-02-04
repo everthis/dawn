@@ -1,0 +1,30 @@
+<% @layout = 'fnpu' %>
+<% @page_title = 'Test' %>
+
+<% content_for :stylesheets do %>
+  <style>
+	  #top_menu {display: none}
+	  #right_menu {float: right; background-color: yellow; color: black}
+  </style>
+<% end %>
+
+<% content_for :content do %>
+  <div id="right_menu">Right menu items here</div>
+  <%= content_for?(:news_content) ? yield(:news_content) : yield %>
+<% end %>
+
+<% content_for :javascript_data do %>
+<script>
+	A.setup({
+	  data: 1
+	});
+</script>
+<% end %>
+
+<% content_for :javascripts do %>
+<script data-merge>
+    A.setup(function() {
+		console.log('hello');
+    });
+</script>
+<% end %>

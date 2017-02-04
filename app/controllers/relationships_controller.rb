@@ -1,4 +1,4 @@
-class RelationshipsController < ApplicationController
+class RelationshipsController < CBaseController
   before_action :logged_in_user
 
   def create

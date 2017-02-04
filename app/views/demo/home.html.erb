@@ -1,120 +1,43 @@
-<h1>Demo#home</h1>
-<style>
-  #cn {
-    font-size: 2rem;
-    font-family: 'Courier New', Courier, monospace;
+<% provide(:c_layout, 'c_base_spf') %>
+
+<% content_for :title do %>
+lorem_title
+<% end %>
+
+<% content_for :name do %>
+lorem_name
+<% end %>
+
+<% content_for :head do %>
+  <style name="test">
+    .test {
+      font-size: 16px;
+    }
+  </style>
+<% end %>
+
+<% content_for :attr do %>
+{
+  "page-container": {
+    "class": "email-whitelist spf-animate"
   }
-  .hhh {
-    display: none;
-  }
-</style>
-<p id="cn" class="hhh">哈达岁的盖大使馆度噶速度呀大哥和萨UI更大</p>
-
-<div class="card hhh">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe harum facere vitae asperiores nemo vel ab dolor voluptatibus, blanditiis quis esse? Soluta autem delectus expedita dolorem incidunt esse necessitatibus quaerat modi saepe, ipsam veniam aliquam a illum dolor accusantium quidem atque labore ab velit laborum magnam. Iure suscipit iusto consequatur aliquam repellat animi, harum maxime praesentium itaque earum dicta perspiciatis maiores, laborum sequi perferendis sapiente corporis aliquid ut commodi ab esse distinctio! Est, perferendis ipsa officiis nam esse rerum a quis. Sunt obcaecati sed eaque aspernatur, a amet iusto possimus placeat corrupti incidunt iure ullam cupiditate et magnam molestias quae.</div>
-<div class="grid grid-1 hhh">
-	<span><span></span></span>
-</div>
-
-<div class="wrapper hhh">
-  <svg id="painter-target" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet"><path fill="none" stroke="#4d6480" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" d="M150,68l30,85h90l-70,55l25,85l-75-50l-75,50l25-85l-70-55h90L150,68z"></path><path fill="none" stroke="#4d6480" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" d="M450,68l30,85h90l-70,55l25,85l-75-50l-75,50l25-85l-70-55h90L450,68z"></path></svg>
-
-  <img src="http://bitsofco.de/broken.jpg" alt="Kanye Laughing">
-  
-</div>
-<style>
-	img {  
-  font-family: 'Helvetica';
-  font-weight: 300;
-  line-height: 2;  
-  text-align: center;
-
-  width: 100%;
-  height: auto;
-  display: block;
-  position: relative;
 }
+<% end %>
 
-img:before {  
-  content: "We're sorry, the image below is broken :(";
-  display: block;
-  margin-bottom: 10px;
-}
+<% content_for :content_target do %>
+page-container
+<% end %>
 
-img:after {  
-  content: "(url: " attr(src) ")";
-  display: block;
-  font-size: 12px;
-}
+<% content_for :content do %>
+  <div class="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, dolor.</div>
+<% end %>
 
-/* OR */
-	img {  
-  font-family: 'Helvetica';
-  font-weight: 300;
-  line-height: 2;  
-  text-align: center;
-
-  width: 100%;
-  height: auto;
-  display: block;
-  position: relative;
-}
-img:after {  
-  content: "\f1c5" " " attr(alt);
-
-  font-size: 16px;
-  font-family: FontAwesome;
-  color: rgb(100, 100, 100);
-
-  display: block;
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-
-/* OR */
-img {  
-  font-family: 'Helvetica';
-  font-weight: 300;
-  line-height: 2;  
-  text-align: center;
-
-  width: 100%;
-  height: auto;
-  display: block;
-  position: relative;
-  min-height: 50px;
-}
-
-img:before {  
-  content: " ";
-  display: block;
-
-  position: absolute;
-  top: -10px;
-  left: 0;
-  height: calc(100% + 10px);
-  width: 100%;
-  background-color: rgb(230, 230, 230);
-  border: 2px dotted rgb(200, 200, 200);
-  border-radius: 5px;
-}
-
-img:after {  
-  content: "\f127" " Broken Image of " attr(alt);
-  display: block;
-  font-size: 16px;
-  font-style: normal;
-  font-family: FontAwesome;
-  color: rgb(100, 100, 100);
-
-  position: absolute;
-  top: 5px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-</style>
+<% content_for :foot do %>
+  <script name="test">
+    (function() {
+      console.log('ok!')
+    })();
+  </script>
+  <%= c_javascript_include_tag 'ciNpmPackages', name: 'ciNpmPackages' %>
+<% end %>
+<div>ok</div>

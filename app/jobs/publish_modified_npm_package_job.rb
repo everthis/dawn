@@ -6,9 +6,9 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 
   after_perform do |job|
     id = job.arguments.first
-    plugin = CiPlugin.find(id)
+    plugin = CiPackage.find(id)
   	# puts check_server("https://www.everthis.com")
-    if plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] == 1
+    if plugin.ci_package_log.log['publish_modified_npm_packsge']['status'] == 1
       puts "publish success"
       CheckNpmExistenceInMirrorRegistryJob.perform_later(id)
     else
@@ -18,9 +18,9 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 
   def perform(*args)
     id = args[0]
-	plugin = CiPlugin.find(id)
+	plugin = CiPackage.find(id)
 
-	download_url = plugin.ci_plugin_log.log['check_npm_package_existence_in_registry']['detail']
+	download_url = plugin.ci_package_log.log['check_npm_package_existence_in_registry']['detail']
 
 
 	default_tarball_download_dir = ENV["DOWNLOAD_PATH"]
@@ -41,15 +41,15 @@ class PublishModifiedNpmPackageJob < ApplicationJob
 
 	stdout, stderr, status = Open3.capture3("sh", :stdin_data=>shell_commands, :binmode=>true)
 
-	plugin.ci_plugin_log.log["publish_modified_npm_packsge"] = {} if plugin.ci_plugin_log.log["publish_modified_npm_packsge"].nil?
+	plugin.ci_package_log.log["publish_modified_npm_packsge"] = {} if plugin.ci_package_log.log["publish_modified_npm_packsge"].nil?
 	if stderr.length == 0
-		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['detail'] = "#{stdout}"
-		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] = 1
+		plugin.ci_package_log.log['publish_modified_npm_packsge']['detail'] = "#{stdout}"
+		plugin.ci_package_log.log['publish_modified_npm_packsge']['status'] = 1
 	else
-		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['detail'] = "#{stderr}"
-		plugin.ci_plugin_log.log['publish_modified_npm_packsge']['status'] = 0
+		plugin.ci_package_log.log['publish_modified_npm_packsge']['detail'] = "#{stderr}"
+		plugin.ci_package_log.log['publish_modified_npm_packsge']['status'] = 0
 	end
-	plugin.ci_plugin_log.save!
+	plugin.ci_package_log.save!
 
   end
 

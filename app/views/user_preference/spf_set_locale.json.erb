@@ -1,0 +1,14 @@
+{
+  "body": {
+    "page-container": <%= (render partial: 'users/settings').to_json.html_safe %>,
+    "header-container": <%= (render partial: 'layouts/header').to_json.html_safe %>
+  },
+  "attr": {
+    "page-container": {
+      "class": "set-locale"
+    }
+  },
+  "foot": "<script></script>",
+  "url": "<%= remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title('Locale') %>"
+}

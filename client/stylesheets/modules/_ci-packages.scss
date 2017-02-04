@@ -1,0 +1,146 @@
+.ci-packages-container {
+	@extend %card-box;
+	width: 80rem;
+	input.form-control {
+		display: block;
+		width: 100%;
+	}
+	.plugins-input-area {
+		width: 100%;
+		resize: vertical;
+		max-height: 500px;
+		max-width: 100%;
+	}
+	.packages-wrap {
+		padding-left: 0;
+	}
+	.plugin-wrap {
+		border-bottom: 1px solid $cyan;
+		border-right: 1px solid $cyan;
+		border-left: 1px solid $cyan;
+    margin-bottom: 1rem;
+    border-radius: $bdrs;
+    padding-bottom: $pad-bottom;
+	}
+	.plugins-hread,
+  .result-head {
+		background-color: $head-bg-color;
+		color: $white;
+	}
+	.ci-package-name-input {
+		border: 1px solid $focus-border-color;
+	}
+	.per-row-plugin {
+		padding-bottom: $pad-bottom;
+	}
+	.per-phase-log {
+		overflow: hidden;
+		&:first-child {
+			border-top: 1px solid $cyan;
+		}
+	}
+	.plugin-wrap {
+	}
+	.package-log {
+	}
+	.package-log-head {
+		display: inline;
+		padding-bottom: 2px;
+		padding-left: .5rem;
+		margin: 0;
+		border-bottom: 1px solid $cyan;
+	}
+	.package-log-pre {
+		margin: 0;
+		white-space: pre-wrap;
+	}
+	.per-phase-log {
+		&:first-child {
+			padding-top: $pad-top;
+		}
+	}
+	.plus-patch,
+	.minus-patch {
+		display: inline-block;
+		border: $border;
+		@include sameHeightLineheight(16px);
+		width: 16px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.patch-version {
+		display: inline-block;
+		width: 2rem;
+		text-align: center;
+	}
+	.loading-placeholder {
+		border-top: 1px solid $cyan;
+	}
+	[class*='c-grid-span'] {
+    word-break: break-all;
+    padding: 0 5px;
+	}
+  .search-wrap {
+    display: inline-block;
+    position: relative;
+  }
+  .api-search-result {
+    width: 880px;
+    background-color: #fff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    border-top-color: #d9d9d9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .result-head {
+    display: flex;
+    white-space: nowrap;
+    height: 22px;
+    line-height: 22px;
+  }
+  .result-body {
+    cursor: default;
+    z-index: 9999;
+    max-height: 30rem;
+    overflow-y: auto;
+  }
+  .per-search-result {
+    display: flex;
+    white-space: nowrap;
+    height: 22px;
+    line-height: 22px;
+    &:hover {
+      background-color: #eee;
+    }
+  }
+  .search-input {
+    width: 280px;
+  }
+  .per-result-column {
+    padding: 0 .5rem;
+    flex-basis: 0;
+    @extend %ellipsis;
+  }
+  .per-result-input {
+    flex-grow: 12;
+    flex-shrink: 1;
+  }
+  .per-result-packageVersion {
+    flex-grow: 4;
+    flex-shrink: 1;
+  }
+  .per-result-ciPackageName {
+    flex-grow: 14;
+    flex-shrink: 1;
+  }
+  .per-result-ciPackageVersion {
+    flex-grow: 5;
+    flex-shrink: 1;
+  }
+  .per-result-status {
+    flex-grow: 3;
+    flex-shrink: 1;
+  }
+}

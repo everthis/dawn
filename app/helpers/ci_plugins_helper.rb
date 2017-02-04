@@ -1,2 +1,0 @@
-module CiPluginsHelper
-end

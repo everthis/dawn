@@ -1,0 +1,12 @@
+{
+  "body": {
+    "page-container": <%= (render partial: 'show.html').to_json.html_safe %>
+  },
+  "attr": {
+    "page-container": {
+      "class": "user"
+    }
+  },
+  "url": "<%= remove_param_from_url_str( request.fullpath, 'spf') %>",
+  "title": "<%= full_title(@user.name) %>"
+}

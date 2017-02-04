@@ -1,5 +1,5 @@
-class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
+class UsersController < CBaseController
+  before_action :logged_in_user, only: [:index, :edit, :update, :show, :destroy, :following, :followers, :settings]
   before_action :correct_user,   only: [:edit, :update, :get_token]
   before_action :admin_user,     only: :destroy
   # before_action :authenticate,   only: [:]
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
 	def show
 	  @user = User.find(params[:id])
+	  # @user = current_user
 	  @microposts = @user.microposts.paginate(page: params[:page])
 	end
 
@@ -20,12 +21,15 @@ class UsersController < ApplicationController
 
 	def edit
 	  @user = User.find(params[:id])
+	  @user_pref = current_user.user_preference
 	end
 
 	def destroy
 	  User.find(params[:id]).destroy
-	  flash[:success] = "User deleted"
-	  redirect_to users_url
+	  flash.now[:success] = "User deleted"
+	  # redirect_to users_url
+    @users = User.includes(:following).paginate(page: params[:page])
+    render 'users/index'
 	end
 
 	def create
@@ -45,10 +49,12 @@ class UsersController < ApplicationController
 	  end
 	end
 
+
+
 	def update
 	  @user = User.find(params[:id])
 	  if @user.update_attributes(user_params)
-	    flash[:success] = "Profile updated"
+	    flash.now[:success] = "Profile updated"
 	    redirect_to @user
 	  else
 	    render 'edit'
@@ -59,26 +65,28 @@ class UsersController < ApplicationController
 	  @title = "Following"
 	  @user  = User.find(params[:id])
 	  @users = @user.following.paginate(page: params[:page])
-	  render 'show_follow'
+	  # render 'show_follow'
 	end
 
 	def followers
 	  @title = "Followers"
 	  @user  = User.find(params[:id])
 	  @users = @user.followers.paginate(page: params[:page])
-	  render 'show_follow'
+	  # render 'show_follow'
 	end
 
 	def settings
+	  @user_pref = current_user.user_preference
 	end
 
 	def get_token
-		@user = User.find(params[:id])
-		@user.set_auth_token if @user.auth_token.nil?
-		respond_to do |format|
-			format.html { render :get_token }
-			format.json { render :json => @user, :only=> [:auth_token] }
-		end
+		# @user = User.find(params[:id])
+		current_user.set_auth_token if current_user.auth_token.nil?
+		# respond_to do |format|
+		# 	format.html { render :get_token }
+		# 	# format.json { render :get_token }
+		# 	format.json { render :json => @user, :only=> [:auth_token] }
+		# end
 	end
 
 	def del_token

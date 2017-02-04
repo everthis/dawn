@@ -1,0 +1,26 @@
+<%= form_tag ci_packages_path, class: 'c-hide fis-ci-plgins-form' do %>
+
+
+  <%= ci_packages.each do |ci_package| %>
+
+    <% if ci_package.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(ci_package.errors.count, "error") %> prohibited this ci_package from being saved:</h2>
+
+        <ul>
+        <% ci_package.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    
+  <% end %>
+  
+  <div class="actions">
+    <%= submit_tag "submit", class: "fis-ci-plgins-form-submit-btn"%>
+  </div>
+
+<% end %>

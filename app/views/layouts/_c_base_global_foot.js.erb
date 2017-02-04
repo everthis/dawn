@@ -1,0 +1,39 @@
+(function() {
+  var A = window.A || {};
+  /**
+   * global namespace for the webapp.
+   * @type {[type]}
+   */
+  window.A = A;
+  /**
+   * garbage collection for the webapp.
+   * Store global or entry specific data here.
+   * @type {Object}
+   */
+  A.gc = {};
+  /**
+   * current entry name.
+   * @type {String}
+   */
+  A.gc.currentName = "<%= yield(:name) %>";
+  /**
+   * execute init function for every entry.
+   * Since every entry will be executed at least once, so add entry specified
+   * init function in each entry. And mount in A.init object.
+   * @type {Object}
+   */
+  A.init = {};
+  /**
+   * execute destroy function when leaving an entry.
+   * @type {Object}
+   */
+  A.destroy = {};
+  A.fnpuLoad = {};
+  A.detach = {};
+  var appSpfReady = function(evt) {
+    // console.log('globalA--navigate ready: '+ A.gc.currentName);
+    // console.log(A);
+    // A.init[A.gc.currentName].apply(null);
+  };
+  window.addEventListener('spfready', appSpfReady);
+})();

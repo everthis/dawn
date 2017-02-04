@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
+  has_one  :user_preference, dependent: :destroy
   has_many :docs, dependent: :destroy
   has_many :apis, dependent: :destroy
-  has_many :ci_plugins
+  has_many :ci_packages
   has_many :third_party_accounts, dependent: :destroy
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name:  "Relationship",
@@ -27,6 +28,8 @@ class User < ActiveRecord::Base
   
   mount_uploader :avatars, AvatarUploader
   validate  :avatars_size
+
+  after_create :init_user_preference
 
 
   # Returns the hash digest of the given string.
@@ -129,12 +132,15 @@ class User < ActiveRecord::Base
     update_attribute(:activation_digest,  User.digest(activation_token))
   end
 
-
   private
 
     # Converts email to all lower-case.
     def downcase_email
       self.email = email.downcase
+    end
+
+    def init_user_preference
+      self.create_user_preference
     end
 
 

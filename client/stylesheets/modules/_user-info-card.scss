@@ -1,0 +1,60 @@
+.user-info-card {
+	background-image: linear-gradient(180deg, rgba(255,255,255,0) 60%, #fff),
+										linear-gradient(70deg, #e0f1ff 32%, #fffae3);
+  @extend %card-box;
+	.self-info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.info {
+		padding: 0 1rem;
+	}
+	.card-block-btn {
+		width: 100%;
+	}
+	.card-link-following {
+		padding: $user-following-link-padding;
+		// margin: $user-following-link-margin;
+	}
+	.card-link-followers {
+		padding: $user-following-link-padding;
+		margin: 0 0 0 1rem
+	}
+	.user-avatars {
+			display: block;
+			position: relative;
+			padding: .3rem 0 0 0;
+			font-size: 0;
+	    &:hover {
+  			background-color: initial;
+  			color: #333;
+  		}
+  		.follow-avatar-name {
+  			display: inline-block;
+  			width: 20%;
+  			font-size: 12px;
+  			padding: .2rem;
+  			&:hover {
+  				background-color: transparent;
+  				color: #000;
+  			}
+  		}
+	}
+	.follow-avatar-name {
+		.avatar {
+			font-size: 0;
+		}
+		.name {
+			text-align: center;
+		}
+	}
+	.follow {
+		&-status {
+			padding: $follow-status-padding;
+		}
+		&-action {
+			padding: $follow-action-padding;
+		}
+	}
+}

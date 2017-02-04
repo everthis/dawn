@@ -20,4 +20,73 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+
   hello: "Hello world"
+
+  number:
+    currency:
+      format:
+        unit:      "$"
+        precision: 2
+        separator: "."
+        delimiter: ","
+        format:    "%u%n"
+
+  errors:
+    template:
+      body:        "There were problems with the following fields:"
+      header:
+        one:       "1 error prohibited this %{model} from being saved"
+        other:     "%{count} errors prohibited this %{model} from being saved"
+
+  layouts:
+    application:
+      title:       "The Pragmatic Bookshelf"
+      home:        "Home"
+      questions:   "Questions"
+      news:        "News"
+      contact:     "Contact"
+    header:
+      home:                 "Homepage"
+      dev:                  "API"
+      third-paty-accounts:  "Third party accounts"
+      email-whitelist:      "Email-whitelist"
+      documentation:        "Documentation"
+      users:                "Users"
+      profile:              "Profile"
+      logout:               "Log out"
+      settings:             "Settings"
+      ci-npm-packages:      "CI-npm-packages"
+      npm-registries:       "npm-registries"
+      uuap-login-logs:      "UUAP-login-logs"
+      test:                 "Test"
+
+  users:
+    settings:
+      language:    "Language"
+      profile:     "Profile"
+      token-text:  "The token that is currently being used :"
+
+  thanks:          "Thanks"
+
+  ci_packages:
+    index:
+      search:                  "Search"
+      new_ci_packages_link:    "Add new CI npm packages"
+    new:
+      install_new_ci_npm_packages:   "Install New CI npm Packages"
+      format:                        "Format"
+  microposts:
+    micropost:
+      ago:     "ago"
+      delete: "delete"
+
+  shared:
+    img_upload:
+      choose_an_img: "choose an image"
+    micropost_form:
+      post:              "Post"
+      what_is_happening: "What's happening?"
+    stats:
+      following:     "following"
+      followers:     "followers"
