@@ -108,4 +108,23 @@ zh-CN:
     stats:
       following:     "正在关注"
       followers:     "关注者"
-      
+  
+  docs:
+    new:
+      new_doc:       "新建文档"
+      back:          "返回列表"
+    show:
+      edit:          "编辑"
+      back:          "返回列表"
+    edit:
+      show:          "查看"
+      back:          "返回列表"
+    form:
+      title:         "标题"
+      submit_btn:    "新建文档"
+      content:       "内容"
+    docs:
+      new_documentation: "新建文档"
+      show:              "显示"
+      edit:              "编辑"
+      destroy:           "删除"

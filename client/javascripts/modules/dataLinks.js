@@ -10,6 +10,9 @@ function processDataLink(ev) {
 
   if (e.target.dataset.method === 'delete') {
     e.preventDefault();
+    if (e.target.getAttribute('href') === '/logout') {
+      if(A.destroy[A.gc.currentName]) A.destroy[A.gc.currentName].apply(null);
+    };
     handleMethod(e.target);
   }
   if (e.target.dataset.method === 'PATCH') {

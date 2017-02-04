@@ -12,16 +12,16 @@
   <% end %>
 
   <fieldset>
-    <legend>Title:</legend>
+    <legend><%= t('.title') %>:</legend>
     <%= f.text_field :title, class: 'form-control' %>
   </fieldset>
 
   <fieldset>
-    <legend>Content:</legend>
+    <legend><%= t('.content') %>:</legend>
     <%= f.text_area :content, class: 'c-hide c-block c-full-width' %>
   </fieldset>
 
   <div class="actions center c-gap-top">
-    <%= f.submit class: "save-document c-btn" %>
+    <%= f.submit t('.submit_btn'), class: "save-document c-btn" %>
   </div>
 <% end %>

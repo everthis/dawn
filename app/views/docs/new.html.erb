@@ -3,17 +3,15 @@
 
 <% content_for :head do %>
 <style name="createOrEditDocumentation">
-.CodeMirror {
-    height: 600px;
-}
+
 </style>
 <% end %>
 
 <% content_for :content do %>
 <div class="document-container">
-    <h1>New Doc</h1>
+    <h1><%= t('.new_doc') %></h1>
     <%= render 'form' %>
-    <%= link_to 'Back', docs_path, class: 'fnpu-link' %>
+    <%= link_to t('.back'), docs_path, class: 'fnpu-link' %>
 </div>
 <% end %>
 

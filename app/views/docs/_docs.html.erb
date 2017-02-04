@@ -17,9 +17,9 @@
           <span class="c-grid-span8 doc-list-content c-pad-left c-pad-right c-simulate-bdr"><%= doc.updated_at %></span>
           <span class="c-grid-span6 c-pad-left c-pad-right">
             <span class="c-grid-row">
-              <span class="c-grid-span16 doc-list-operation"><%= link_to 'Show', doc, class: 'fnpu-link' %></span>
-              <span class="c-grid-span16 doc-list-operation"><%= link_to 'Edit', edit_doc_path(doc), class: 'fnpu-link' %></span>
-              <span class="c-grid-span16 doc-list-operation"><%= link_to 'Destroy', doc, method: :fnpu_delete, data: { confirm: 'Are you sure?' } %></span>
+              <span class="c-grid-span16 doc-list-operation"><%= link_to t('.show'), doc, class: 'fnpu-link' %></span>
+              <span class="c-grid-span16 doc-list-operation"><%= link_to t('.edit'), edit_doc_path(doc), class: 'fnpu-link' %></span>
+              <span class="c-grid-span16 doc-list-operation"><%= link_to t('.destroy'), doc, method: :fnpu_delete, data: { confirm: 'Are you sure?' } %></span>
             </span>
           </span>
         </div>
@@ -31,5 +31,5 @@
 <%= will_paginate @docs, :renderer => PaginationListLinkRenderer %>
 
 <div class="c-gap-top">
-  <%= link_to 'New Doc', new_doc_path, class: "fnpu-link"  %>
+  <%= link_to t('.new_documentation'), new_doc_path, class: "fnpu-link"  %>
 </div>

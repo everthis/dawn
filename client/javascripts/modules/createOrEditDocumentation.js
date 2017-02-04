@@ -19,7 +19,6 @@ function clickBind(ev) {
     method: "POST",
     postData: fd,
     onProcess: function(evt) {
-      exitNewDocumentation();
     },
     onDone: function(evt) {
       if(evt.response.status && evt.response.status === 'success') {
@@ -37,6 +36,7 @@ function createCmInstance() {
     styleActiveLine: true,
     matchBrackets: true
   });
+  cmInstance.setSize('100%', '50%');
 }
 
 export function newDocumentation() {
