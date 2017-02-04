@@ -26,7 +26,7 @@
     </div>
 
     <div class="c-gap-bottom">
-      <%= will_paginate %>
+      <%= will_paginate @ci_packages, :renderer => PaginationListLinkRenderer %>
     </div>
 
     <div>
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      <%= will_paginate %>
+      <%= will_paginate @ci_packages, :renderer => PaginationListLinkRenderer %>
 
       <div class="c-gap-top">
         <%= link_to t('.new_ci_packages_link'), new_ci_package_path, class: "fnpu-link" %>

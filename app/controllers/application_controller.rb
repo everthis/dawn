@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
     def set_i18n_locale_from_params
       app_default_locale = params[:locale] ||
-                       (current_user && current_user.user_preference.locale) ||
+                       (current_user && current_user.user_preference && current_user.user_preference.locale) ||
                        I18n.default_locale
       app_default_locale = app_default_locale.to_s if app_default_locale.instance_of? Symbol
       if app_default_locale
