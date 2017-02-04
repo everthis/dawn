@@ -209,3 +209,10 @@
 [4246] - Gracefully shutting down workers...
 [4246] === puma shutdown: 2017-02-04 10:25:26 +0800 ===
 [4246] - Goodbye!
+=== puma startup: 2017-02-04 15:55:22 +0800 ===
+[26468] - Worker 0 (pid: 26657) booted, phase: 0
+[26468] - Gracefully shutting down workers...
+[26468] === puma shutdown: 2017-02-04 15:56:15 +0800 ===
+[26468] - Goodbye!
+=== puma startup: 2017-02-04 15:57:49 +0800 ===
+[1220] - Worker 0 (pid: 1237) booted, phase: 0
