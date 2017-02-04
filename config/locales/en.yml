@@ -48,7 +48,7 @@ en:
       contact:     "Contact"
     header:
       home:                 "Homepage"
-      dev:                  "Dev"
+      dev:                  "API"
       third-paty-accounts:  "Third party accounts"
       email-whitelist:      "Email-whitelist"
       documentation:        "Documentation"

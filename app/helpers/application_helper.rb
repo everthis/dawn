@@ -29,14 +29,11 @@ module ApplicationHelper
   def c_javascript_include_tag(*sources)
     options = sources.extract_options!.stringify_keys
     sn_suffix = '-bundle'
-    logger.info options
     path_options = options.extract!('protocol', 'extname', 'host').symbolize_keys
     sources.uniq.map { |source|
-      logger.info source
       tag_options = {
         "src" => path_to_javascript(source + sn_suffix, path_options)
       }.merge!(options)
-      logger.info tag_options
       content_tag("script".freeze, "", tag_options)
     }.join("\n").html_safe
   end
