@@ -311,6 +311,8 @@ Please feel free to use a different markup language if you do not plan to run
 
 `gem install nokogiri -- --use-system-libraries` if bundle update rails errors.
 
+Execute `rake tmp:cache:clear` and restart server if `LoadError: cannot load such file -- coffee_script` happens.
+
 `Peer authentication failed for user "xxxxx"` , this error occurs when you installed postresql on your server, but host is missing in database.yml. Just set host: localhost to database.yml,  otherwise if it's not localhost definitely tell that app where to find its database.
 
 

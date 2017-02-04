@@ -2,7 +2,10 @@ class UserPreferenceController < CBaseController
 	before_action :logged_in_user,  only: [:index, :edit, :update, :set_locale]
 	before_action :set_user_locale, only: [:update]
 	def index
-	  @user_pref = current_user.user_preference || UserPreference.new
+	  @user_pref = current_user.user_preference
+    if @user_pref.nil?
+      @user_pref = current_user.create_user_preference
+    end
 	end
 
 	def show
@@ -17,7 +20,7 @@ class UserPreferenceController < CBaseController
 	  @user = current_user
 	end
 
-	
+
 	def create
 	  @pref = current_user.user_preference.build(preference_params)
 	  if @pref.save
@@ -27,7 +30,7 @@ class UserPreferenceController < CBaseController
 	    @feed_items = []
 	    render 'static_pages/home'
 	  end
-	end 
+	end
 
 	def update
 		@user_pref = current_user.user_preference
@@ -44,9 +47,9 @@ class UserPreferenceController < CBaseController
 		@user_pref = current_user.user_preference
 		@user_pref.update(preference_params)
 	end
-	
+
 	def postback
-	    puts request.body.read    
+	    puts request.body.read
 	end
 
   private

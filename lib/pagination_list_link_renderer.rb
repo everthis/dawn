@@ -22,4 +22,12 @@ class PaginationListLinkRenderer < WillPaginate::ActionView::LinkRenderer
     tag(:ul, html, container_attributes)
   end
 
+  def merge_get_params(url_params)
+    if @template.respond_to? :request and @template.request and @template.request.get?
+      symbolized_update(url_params, @template.params)
+    end
+    # url_params.slice!(:param_to_remove_1, :param_to_remove_2)
+    url_params.except(:fnpu)
+  end
+
 end
