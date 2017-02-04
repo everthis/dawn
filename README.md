@@ -125,3 +125,5 @@ Please feel free to use a different markup language if you do not plan to run
 ### gotchas
 
 `gem install nokogiri -- --use-system-libraries` if bundle update rails errors.
+
+Execute `rake tmp:cache:clear` and restart server if `LoadError: cannot load such file -- coffee_script` happens.

@@ -1,0 +1,211 @@
+=== puma startup: 2017-01-13 10:44:19 +0800 ===
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2017-01-13 10:44:24 +0800 ===
+- Goodbye!
+=== puma startup: 2017-01-13 10:44:38 +0800 ===
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2017-01-13 11:21:35 +0800 ===
+- Goodbye!
+=== puma startup: 2017-01-13 11:21:43 +0800 ===
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2017-01-13 12:52:30 +0800 ===
+- Goodbye!
+=== puma startup: 2017-01-13 12:55:50 +0800 ===
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2017-01-13 15:24:27 +0800 ===
+- Goodbye!
+=== puma startup: 2017-01-13 15:24:36 +0800 ===
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2017-01-13 15:46:55 +0800 ===
+- Goodbye!
+=== puma startup: 2017-01-13 15:47:04 +0800 ===
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2017-01-13 15:48:54 +0800 ===
+- Goodbye!
+=== puma startup: 2017-01-13 15:49:02 +0800 ===
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2017-01-13 16:26:38 +0800 ===
+- Goodbye!
+=== puma startup: 2017-01-13 16:27:22 +0800 ===
+[22858] * Starting control server on unix:///tmp/puma-status-1484296042127-22858
+[22858] - Gracefully shutting down workers...
+[29520] Early termination of worker
+[22858] === puma shutdown: 2017-01-13 16:28:23 +0800 ===
+[22858] - Goodbye!
+=== puma startup: 2017-01-13 16:28:34 +0800 ===
+[29865] * Starting control server on unix:///tmp/puma-status-1484296114345-29865
+[29865] - Gracefully shutting down workers...
+[2855] Early termination of worker
+[29865] === puma shutdown: 2017-01-13 16:30:04 +0800 ===
+[29865] - Goodbye!
+=== puma startup: 2017-01-13 16:30:08 +0800 ===
+[2933] - Worker 0 (pid: 2955) booted, phase: 0
+[2933] - Gracefully shutting down workers...
+[2933] === puma shutdown: 2017-01-16 10:30:41 +0800 ===
+[2933] - Goodbye!
+=== puma startup: 2017-01-16 10:32:46 +0800 ===
+[21646] - Worker 0 (pid: 21666) booted, phase: 0
+[21646] - Gracefully shutting down workers...
+[21646] === puma shutdown: 2017-01-18 10:56:47 +0800 ===
+[21646] - Goodbye!
+=== puma startup: 2017-01-18 10:56:50 +0800 ===
+[12098] - Worker 0 (pid: 12124) booted, phase: 0
+
+
+
+
+**************
+
+**************
+
+[12098] - Gracefully shutting down workers...
+[12098] === puma shutdown: 2017-01-18 14:29:41 +0800 ===
+[12098] - Goodbye!
+=== puma startup: 2017-01-18 14:29:44 +0800 ===
+[20481] - Worker 0 (pid: 20516) booted, phase: 0
+**************
+
+**************
+
+**************
+
+**************
+
+**************
+
+
+
+[20481] - Gracefully shutting down workers...
+[20481] === puma shutdown: 2017-01-18 16:19:59 +0800 ===
+[20481] - Goodbye!
+=== puma startup: 2017-01-18 16:20:02 +0800 ===
+[24207] - Worker 0 (pid: 24226) booted, phase: 0
+[24207] - Gracefully shutting down workers...
+[24207] === puma shutdown: 2017-01-18 16:25:43 +0800 ===
+[24207] - Goodbye!
+=== puma startup: 2017-01-18 16:27:15 +0800 ===
+[24986] - Worker 0 (pid: 25029) booted, phase: 0
+<div class="">ok</div>
+[24986] - Gracefully shutting down workers...
+[24986] === puma shutdown: 2017-01-19 12:37:45 +0800 ===
+[24986] - Goodbye!
+=== puma startup: 2017-01-19 12:37:48 +0800 ===
+[18371] - Worker 0 (pid: 18399) booted, phase: 0
+[18371] - Gracefully shutting down workers...
+[18371] === puma shutdown: 2017-01-20 09:44:12 +0800 ===
+[18371] - Goodbye!
+=== puma startup: 2017-01-20 09:45:59 +0800 ===
+[906] - Worker 0 (pid: 952) booted, phase: 0
+[906] - Gracefully shutting down workers...
+[906] === puma shutdown: 2017-01-20 10:01:15 +0800 ===
+[906] - Goodbye!
+=== puma startup: 2017-01-20 10:01:28 +0800 ===
+[8848] - Worker 0 (pid: 8874) booted, phase: 0
+[8848] - Gracefully shutting down workers...
+[8848] === puma shutdown: 2017-01-20 10:09:52 +0800 ===
+[8848] - Goodbye!
+=== puma startup: 2017-01-20 10:09:56 +0800 ===
+[14631] - Worker 0 (pid: 14655) booted, phase: 0
+[14631] - Gracefully shutting down workers...
+[14631] === puma shutdown: 2017-01-20 10:38:37 +0800 ===
+[14631] - Goodbye!
+=== puma startup: 2017-01-20 10:38:47 +0800 ===
+[7404] - Worker 0 (pid: 7424) booted, phase: 0
+[7404] - Gracefully shutting down workers...
+[7404] === puma shutdown: 2017-01-20 11:16:40 +0800 ===
+[7404] - Goodbye!
+=== puma startup: 2017-01-20 11:16:45 +0800 ===
+[19187] - Worker 0 (pid: 19206) booted, phase: 0
+[19187] - Gracefully shutting down workers...
+[19187] === puma shutdown: 2017-01-20 12:36:51 +0800 ===
+[19187] - Goodbye!
+=== puma startup: 2017-01-20 12:39:17 +0800 ===
+[25016] - Worker 0 (pid: 25033) booted, phase: 0
+[25016] - Gracefully shutting down workers...
+[25016] === puma shutdown: 2017-01-22 17:20:50 +0800 ===
+[25016] - Goodbye!
+=== puma startup: 2017-01-22 17:20:54 +0800 ===
+[23364] - Worker 0 (pid: 23399) booted, phase: 0
+[23364] - Gracefully shutting down workers...
+[23364] === puma shutdown: 2017-01-24 09:58:43 +0800 ===
+[23364] - Goodbye!
+=== puma startup: 2017-01-24 09:58:45 +0800 ===
+[22306] - Worker 0 (pid: 22422) booted, phase: 0
+[22306] - Gracefully shutting down workers...
+[22306] === puma shutdown: 2017-01-24 13:53:35 +0800 ===
+[22306] - Goodbye!
+=== puma startup: 2017-01-24 13:53:38 +0800 ===
+[12788] - Worker 0 (pid: 13683) booted, phase: 0
+[12788] - Gracefully shutting down workers...
+[12788] === puma shutdown: 2017-01-24 14:38:13 +0800 ===
+[12788] - Goodbye!
+=== puma startup: 2017-01-24 14:38:16 +0800 ===
+[23162] - Worker 0 (pid: 23183) booted, phase: 0
+[23162] - Gracefully shutting down workers...
+[23162] === puma shutdown: 2017-01-24 16:26:26 +0800 ===
+[23162] - Goodbye!
+=== puma startup: 2017-01-24 16:26:29 +0800 ===
+[7954] - Worker 0 (pid: 7980) booted, phase: 0
+[7954] - Gracefully shutting down workers...
+[7954] === puma shutdown: 2017-01-25 14:37:05 +0800 ===
+[7954] - Goodbye!
+=== puma startup: 2017-01-25 14:37:47 +0800 ===
+[939] - Gracefully shutting down workers...
+[973] Early termination of worker
+[939] === puma shutdown: 2017-01-25 14:37:50 +0800 ===
+[939] - Goodbye!
+=== puma startup: 2017-01-25 14:44:09 +0800 ===
+[23229] - Worker 0 (pid: 23260) booted, phase: 0
+[23229] - Gracefully shutting down workers...
+[23229] === puma shutdown: 2017-01-26 09:35:37 +0800 ===
+[23229] - Goodbye!
+=== puma startup: 2017-01-26 09:35:39 +0800 ===
+[22736] - Worker 0 (pid: 22754) booted, phase: 0
+[22736] - Gracefully shutting down workers...
+[22736] === puma shutdown: 2017-01-26 09:36:45 +0800 ===
+[22736] - Goodbye!
+=== puma startup: 2017-01-26 09:36:48 +0800 ===
+[4098] - Worker 0 (pid: 4128) booted, phase: 0
+[4098] - Gracefully shutting down workers...
+[4098] === puma shutdown: 2017-01-26 09:37:57 +0800 ===
+[4098] - Goodbye!
+=== puma startup: 2017-01-26 09:38:07 +0800 ===
+[7685] - Gracefully shutting down workers...
+[7714] Early termination of worker
+[7685] === puma shutdown: 2017-01-26 09:38:09 +0800 ===
+[7685] - Goodbye!
+=== puma startup: 2017-01-26 09:39:33 +0800 ===
+[12596] - Worker 0 (pid: 12618) booted, phase: 0
+[12596] - Gracefully shutting down workers...
+[12596] === puma shutdown: 2017-01-26 10:32:16 +0800 ===
+[12596] - Goodbye!
+=== puma startup: 2017-01-26 10:32:19 +0800 ===
+[17939] - Worker 0 (pid: 17997) booted, phase: 0
+[17939] - Gracefully shutting down workers...
+[17939] === puma shutdown: 2017-01-26 13:32:56 +0800 ===
+[17939] - Goodbye!
+=== puma startup: 2017-01-26 13:33:00 +0800 ===
+[23360] - Worker 0 (pid: 23398) booted, phase: 0
+[23360] - Gracefully shutting down workers...
+[23360] === puma shutdown: 2017-02-04 09:43:38 +0800 ===
+[23360] - Goodbye!
+=== puma startup: 2017-02-04 09:48:42 +0800 ===
+[16646] - Worker 0 (pid: 16684) booted, phase: 0
+[16646] - Gracefully shutting down workers...
+[16646] === puma shutdown: 2017-02-04 10:03:07 +0800 ===
+[16646] - Goodbye!
+=== puma startup: 2017-02-04 10:15:30 +0800 ===
+[2037] - Worker 0 (pid: 2094) booted, phase: 0
+[2037] - Gracefully shutting down workers...
+[2037] === puma shutdown: 2017-02-04 10:16:09 +0800 ===
+[2037] - Goodbye!
+=== puma startup: 2017-02-04 10:21:25 +0800 ===
+[30455] - Worker 0 (pid: 30478) booted, phase: 0
+[30455] - Gracefully shutting down workers...
+[30455] === puma shutdown: 2017-02-04 10:23:18 +0800 ===
+[30455] - Goodbye!
+=== puma startup: 2017-02-04 10:23:28 +0800 ===
+[4246] - Worker 0 (pid: 4264) booted, phase: 0
+[4246] - Gracefully shutting down workers...
+[4246] === puma shutdown: 2017-02-04 10:25:26 +0800 ===
+[4246] - Goodbye!
