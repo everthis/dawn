@@ -350,12 +350,20 @@ then modify `.env.test` file with username and password.
 ```
 uninitialized constant 
 ```
-For Class defined in `lib` directory, with Rails 5 and it appeared in production but not in development. To fix it you need to add the lib directory to eager_load_paths. Here is the relevant part from my application.rb:
 
-```
-config.autoload_paths << "#{Rails.root}/lib"
-config.eager_load_paths << "#{Rails.root}/lib"
-```
+solution: [rails-lib-files](https://github.com/radar/guides/blob/master/rails-lib-files.md)
+For Class defined in `lib` directory, with Rails 5 and it appeared in production but not in development. 
+
+
+> We can place any Ruby file in the lib directory and require it anywhere in our application, because Rails adds this directory to the $LOAD_PATH variable. Let's say we had a file in our application at lib/wildcard_search.rb which defined some additional functionality to any model it was included in. Note that this file isn't a model itself, it simply provides extensions to models. Therefore it's best to place it in the lib directory. Inside this file, the WildcardSearch module is defined.
+
+> To require this file, we can do this in our application:
+
+> ```
+> require 'wildcard_search'
+> ```
+> Then we've got access to the WildcardSearch module where and when we need it.
+
 
 ### change java version on idev machines
 
