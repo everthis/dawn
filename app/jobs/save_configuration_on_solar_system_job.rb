@@ -39,7 +39,7 @@ class SaveConfigurationOnSolarSystemJob < ApplicationJob
     	    steps:
     	        - fis-plugin-install:
                   plugins: '#{pluginName}@#{pluginVersion}'
-                  registry: 'http://cp01-fis-build-02.epc.baidu.com:8995'
+                  registry: 'https://registry.npm.taobao.org/'
     HEREDOC
 
 

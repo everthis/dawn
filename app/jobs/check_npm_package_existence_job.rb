@@ -15,7 +15,7 @@ class CheckNpmPackageExistenceJob < ApplicationJob
   	id = args[0]
   	plugin = CiPackage.find(id)
     plugin.ci_package_log.log = {} if plugin.ci_package_log.log.nil?
-    registry_url = "http://cp01-fis-build-02.epc.baidu.com:8995"
+    registry_url = "https://registry.npm.taobao.org/"
 
     stdout, stderr, status = Open3.capture3("npm v #{plugin.input} dist.tarball --registry=#{registry_url}")
     plugin.ci_package_log.log["check_npm_package_existence_in_registry"] = {} if plugin.ci_package_log.log["check_npm_package_existence_in_registry"].nil?
