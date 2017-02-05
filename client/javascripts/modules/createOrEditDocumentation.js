@@ -47,9 +47,11 @@ export function newDocumentation() {
 		lineNumbers: true,
 		mode: 'markdown',
 		styleActiveLine: true,
+    viewportMargin: Infinity,
     lineSeparator: "\n",
 		matchBrackets: true
 	});
+  cmInstance.setSize('100%', '50%');
 	document.getElementsByClassName('save-document')[0].addEventListener('click', function(ev) {
 	    ev.preventDefault();
 	    // document.doc_form.submit();

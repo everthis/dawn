@@ -20,8 +20,9 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_difference 'Micropost.count', 1 do
       post microposts_path, params: { micropost: { content: content }}
     end
-    assert_redirected_to root_url
-    follow_redirect!
+    assert_response :success
+    # assert_redirected_to root_url
+    # follow_redirect!
     assert_match content, response.body
     # Delete a post.
     assert_select 'a', text: 'delete'

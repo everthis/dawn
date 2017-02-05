@@ -14,8 +14,8 @@ class SessionsController < CBaseController
 	      log_in user
 	      sign_user_id_to_cookie user
 	      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-	      # redirect_back_or user
-	      redirect_back_or root_url
+	      redirect_back_or user
+	      # redirect_back_or root_url
 	    else
 	      message  = "Account not activated. "
 	      message += "Check your email for the activation link."

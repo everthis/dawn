@@ -3,7 +3,9 @@
 
 <% content_for :head do %>
 <style name="createOrEditDocumentation">
-
+.CodeMirror {
+  height: auto;
+}
 </style>
 <% end %>
 
@@ -13,7 +15,7 @@
     <%= render 'form' %>
 </div>
 
-<div class="center">
+<div class="center c-gap-top">
   <%= link_to t('.show'), @doc, class: 'fnpu-link' %> |
   <%= link_to t('.back'), docs_path, class: 'fnpu-link' %>
 </div>
