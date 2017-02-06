@@ -7,7 +7,7 @@ class ReportNpmPackageBinJob < ApplicationJob
     id = job.arguments.first
     plugin = CiPackage.find(id)
     if plugin.ci_package_log.log['report_npm_package_bin']['status'] == 1
-      # PublishModifiedNpmPackageJob.perform_later(id)
+      PublishModifiedNpmPackageJob.perform_later(id)
     end
   end
 

@@ -6,7 +6,7 @@ class CheckNpmPackageExistenceJob < ApplicationJob
     id = job.arguments.first
     plugin = CiPackage.find(id)
     if plugin.ci_package_log.log['check_npm_package_existence_in_registry']['status'] == 1
-      # DownloadNpmPackageJob.perform_later(id)
+      DownloadNpmPackageJob.perform_later(id)
     end
   end
 
