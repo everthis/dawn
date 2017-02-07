@@ -60,6 +60,7 @@ en:
       npm-registries:       "npm-registries"
       uuap-login-logs:      "UUAP-login-logs"
       test:                 "Test"
+      about:                "About"
 
   users:
     settings:

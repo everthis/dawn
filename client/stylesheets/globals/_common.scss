@@ -10,6 +10,7 @@ html {
 body {
 	font: $english-font;
 	background-color: #fff;
+	font-size: $font-size;
 }
 .hide {
 	display: none !important;
@@ -52,4 +53,18 @@ textarea[type="hidden"] {
 }
 .reverse-ellipsis {
 	@extend %reverse-ellipsis;
+}
+.logo-wrap {
+	background-color: #fffaf0;
+	display: flex;
+	align-items: baseline;
+	.logo {
+		font-family: "Courier New";
+		font-size: 10px;
+		line-height: 1.2em;
+		display: inline-block;
+	}
+	.sub-logo {
+    text-decoration: initial;
+	}
 }

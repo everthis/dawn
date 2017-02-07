@@ -30,6 +30,7 @@ Use classes to define visual presentation patterns1*/
 
 /* import all modules */
 @import "modules/grid";
+@import "modules/footer";
 @import "modules/users";
 @import "modules/user-info-card";
 @import "modules/tweet-box";
@@ -60,6 +61,7 @@ Use classes to define visual presentation patterns1*/
 @import "modules/spf-animate";
 @import "modules/loading";
 @import "modules/user_preference";
+@import "modules/responsive";
 
 /* import all pages */
 @import "pages/index";

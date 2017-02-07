@@ -46,6 +46,14 @@
 .c-block {
 	display: block;
 }
+.c-normal-a {
+  box-shadow: none;
+  &:hover {
+  	color: initial;
+  	background-color: initial;
+  	box-shadow: none;
+  }
+}
 .c-full-width {
 	width: 100%;
 }

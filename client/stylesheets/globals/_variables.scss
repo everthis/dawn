@@ -1,5 +1,6 @@
 $chinese-font: 'Courier New', Courier, monospace;
 $english-font: 12px/1.54 Arial,'Helvetica Neue',Helvetica,sans-serif;
+$font-size: 12px;
 $success-color: #fff;
 $success-bg-color: #7FFFD4;
 
@@ -56,6 +57,7 @@ $white: #fff;
 $cyan: #0cc;
 $bsc: #756a6a;
 $black: #000; 
+$transparent: rgba(0, 0, 0, 0);
 
 /* border */
 $bdrs: .5rem;

@@ -1,4 +1,55 @@
 <% provide(:title, "About") %>
-<h1>About</h1>
-<%= markdown2("docs.md") %>
-<p style="display: none;">摆脱mock数据文件，将其移出VCS，又不损害webapp；利于通过改变接口状态的测试。</p>
+<% provide(:name, 'about') %>
+
+<% content_for :content do %>
+<div class="c-normal-card-box">
+	<h1>About</h1>
+	<div class="logo-wrap">
+		<a href="javascript:;" class="c-normal-a" style="text-decoration: line-through;color:#551a8b;line-height:1em;overflow: hidden;display: inline-block;background-color: #fffaf0;">
+		  <pre class="logo">
+███████╗██╗   ██╗███████╗██████╗ ████████╗██╗  ██╗██╗███████╗
+██╔════╝██║   ██║██╔════╝██╔══██╗╚══██╔══╝██║  ██║██║██╔════╝
+█████╗  ██║   ██║█████╗  ██████╔╝   ██║   ███████║██║███████╗
+██╔══╝  ╚██╗ ██╔╝██╔══╝  ██╔══██╗   ██║   ██╔══██║██║╚════██║
+███████╗ ╚████╔╝ ███████╗██║  ██║   ██║   ██║  ██║██║███████║
+╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝</pre>
+		</a>
+		<span class="sub-logo">May the force be with you.</span>
+		
+	</div>
+
+	<div class="footer c-gap-top">
+		  <div class="container">
+		    <div class="contact_methods">
+		        <div class="contact_item">
+		            Contact me:
+		        </div>
+		        <div class="contact_item">
+		            <a class="c-normal-a " href="mailto:wwwaap@gmail.com" title="email">
+			            <svg class="lg-icon icon-email"><use xlink:href="#icon-email"></use></svg>
+		              <span class="email_address">wwwaap@gmail.com</span>
+		            </a>
+		        </div>
+		        <div class="contact_item">
+		            <a class="c-normal-a " href="https://twitter.com/wwwap" target="_blank" title="twitter">
+			            <svg class="lg-icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
+		            </a>
+		        </div>
+		       <!--  <div class="contact_item">
+		            <span class="lg-icon icon-feed"></span>
+		        </div> -->
+		        <div class="contact_item">
+		            <a class="c-normal-a " href="https://github.com/everthis" target="_blank" title="github">
+			            <svg class="lg-icon icon-github"><use xlink:href="#icon-github"></use></svg>
+		            </a>
+		        </div>
+		    </div>
+		    <div class="copyrights">
+		        <svg class="lg-icon icon-heart"><use xlink:href="#icon-heart"></use></svg>
+		        <span class="address">from everthis.com</span>
+		    </div>
+		  </div>
+	</div>
+	
+</div>
+<% end %>

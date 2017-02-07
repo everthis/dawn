@@ -39,6 +39,7 @@ zh-CN:
       npm-registries:       "npm源"
       uuap-login-logs:      "UUAP登录日志"
       test:                 "测试"
+      about:                "关于"
 
   users:
     settings:
