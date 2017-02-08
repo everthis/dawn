@@ -105,7 +105,7 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     address: "smtp.exmail.qq.com",
-    port: 25,
+    port: 587,
     domain: "qq.com",
     authentication: "login",
     user_name: ENV["RAILS_EMAIL_FROM"],
