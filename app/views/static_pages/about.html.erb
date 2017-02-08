@@ -1,6 +1,21 @@
 <% provide(:title, "About") %>
 <% provide(:name, 'about') %>
 
+<% content_for :head do %>
+
+<style rel="stylesheet" name="about">
+.about-img {
+  width: 100%;
+  box-shadow: 0 0 4px 0 #ddd;
+  display: block;
+  margin: 1em auto;
+}
+.normal-img {
+  display: inline-block;
+}
+</style>
+<% end %>
+
 <% content_for :content do %>
 <div class="c-normal-card-box">
 	<h1>About</h1>
@@ -15,8 +30,25 @@
 ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝</pre>
 		</a>
 		<span class="sub-logo">May the force be with you.</span>
-		
+
 	</div>
+
+  <div class="platforms">
+    <h2>API数据生成代理平台</h2>
+    <div class="about-api">
+      <%= image_tag('apiDetail.png', class: "about-img") %>
+      <%= image_tag('dataPreview.png', class: "about-img") %>
+      <%= image_tag('screenshot.png', class: "normal-img") %>
+    </div>
+
+    <h2>编译机npm包管理平台</h2>
+    <div class="about-platforms">
+      <%= image_tag('packageList.png', class: "about-img") %>
+      <%= image_tag('packageLog.png', class: "about-img") %>
+      <%= image_tag('addPackages.png', class: "about-img") %>
+
+    </div>
+  </div>
 
 	<div class="footer c-gap-top">
 		  <div class="container">
@@ -50,6 +82,6 @@
 		    </div>
 		  </div>
 	</div>
-	
+
 </div>
 <% end %>

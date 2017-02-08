@@ -19,11 +19,73 @@
     <%= render 'shared/feed' %>
   </div>
 <% else %>
-  <section class="welcome">
-    <%= render 'rails_logo' %>
+  <div class="c-normal-card-box">
+    <div class="logo-wrap">
+      <a href="javascript:;" class="c-normal-a" style="text-decoration: line-through;color:#551a8b;line-height:1em;overflow: hidden;display: inline-block;background-color: #fffaf0;">
+        <pre class="logo">
+  ███████╗██╗   ██╗███████╗██████╗ ████████╗██╗  ██╗██╗███████╗
+  ██╔════╝██║   ██║██╔════╝██╔══██╗╚══██╔══╝██║  ██║██║██╔════╝
+  █████╗  ██║   ██║█████╗  ██████╔╝   ██║   ███████║██║███████╗
+  ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██╔══██╗   ██║   ██╔══██║██║╚════██║
+  ███████╗ ╚████╔╝ ███████╗██║  ██║   ██║   ██║  ██║██║███████║
+  ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝</pre>
+      </a>
+      <span class="sub-logo">May the force be with you.</span>
 
-    <h1>Yay! You're on Rails!</h1>
-    <%= render 'welcome_img' %>
+    </div>
+
+    <div class="platforms">
+      <h2>API数据生成代理平台</h2>
+      <div class="about-api">
+        <%= image_tag('apiDetail.png', class: "about-img") %>
+        <%= image_tag('dataPreview.png', class: "about-img") %>
+        <%= image_tag('screenshot.png', class: "normal-img") %>
+      </div>
+
+      <h2>编译机npm包管理平台</h2>
+      <div class="about-platforms">
+        <%= image_tag('packageList.png', class: "about-img") %>
+        <%= image_tag('packageLog.png', class: "about-img") %>
+        <%= image_tag('addPackages.png', class: "about-img") %>
+
+      </div>
+    </div>
+
+    <div class="footer c-gap-top">
+        <div class="container">
+          <div class="contact_methods">
+              <div class="contact_item">
+                  Contact me:
+              </div>
+              <div class="contact_item">
+                  <a class="c-normal-a " href="mailto:wwwaap@gmail.com" title="email">
+                    <svg class="lg-icon icon-email"><use xlink:href="#icon-email"></use></svg>
+                    <span class="email_address">wwwaap@gmail.com</span>
+                  </a>
+              </div>
+              <div class="contact_item">
+                  <a class="c-normal-a " href="https://twitter.com/wwwap" target="_blank" title="twitter">
+                    <svg class="lg-icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
+                  </a>
+              </div>
+             <!--  <div class="contact_item">
+                  <span class="lg-icon icon-feed"></span>
+              </div> -->
+              <div class="contact_item">
+                  <a class="c-normal-a " href="https://github.com/everthis" target="_blank" title="github">
+                    <svg class="lg-icon icon-github"><use xlink:href="#icon-github"></use></svg>
+                  </a>
+              </div>
+          </div>
+          <div class="copyrights">
+              <svg class="lg-icon icon-heart"><use xlink:href="#icon-heart"></use></svg>
+              <span class="address">from everthis.com</span>
+          </div>
+        </div>
+    </div>
+
+  </div>
+  <section class="welcome">
 
     <p class="version">
       <strong>Rails version:</strong> <%= Rails.version %><br />
