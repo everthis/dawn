@@ -23,9 +23,9 @@ set :output, '/home/users/hejie03/idev-projects/uuap-auto-login/uuap_login.log'
 # Learn more: http://github.com/javan/whenever
 
 
-every 1.day, :at => '4:30 am' do
-    command "sh /home/users/hejie03/idev-projects/uuap-auto-login/cron_uuap.sh"
-end
+# every 1.day, :at => '4:30 am' do
+#     command "sh /home/users/hejie03/idev-projects/uuap-auto-login/cron_uuap.sh"
+# end
 
 # every 1.minute do
 #   command "sh /home/users/hejie03/idev-projects/uuap-auto-login/cron_uuap.sh"
