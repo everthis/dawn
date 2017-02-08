@@ -19,7 +19,7 @@ class CheckInstallationStatusOnSolarSystemJob < ApplicationJob
 
     script_path = "~/idev-projects/uuap-auto-login"
 
-	record_detail_query_url = "http://solar.baidu.com/ci/api/getRecordDetail"
+	record_detail_query_url = "http://solar.everthis.com/ci/api/getRecordDetail"
 
 	record_detail_query_str = {
 		project_id: "_sys_plugin_install",

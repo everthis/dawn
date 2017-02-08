@@ -20,8 +20,8 @@ class SaveConfigurationOnSolarSystemJob < ApplicationJob
 
     script_path = "~/idev-projects/uuap-auto-login"
 
-    save_conf_url = "http://solar.baidu.com/ci/api/saveProjectRunConf"
-    add_job_url = "http://solar.baidu.com/ci/addJob"
+    save_conf_url = "http://solar.everthis.com/ci/api/saveProjectRunConf"
+    add_job_url = "http://solar.everthis.com/ci/addJob"
 
     other_params = "product_id=_fis_ci&project_id=_sys_plugin_install&"
     pluginName = "#{plugin.ciPackageNamePrefix}#{plugin.ciPackageName}"

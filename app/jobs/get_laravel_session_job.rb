@@ -15,7 +15,7 @@ class GetLaravelSessionJob < ApplicationJob
   	  plugin.ci_package_log.log = {} if plugin.ci_package_log.log.nil?
 
 	    script_path = "~/idev-projects/uuap-auto-login"
-	    solar_system_url = "http://solar.baidu.com/ci/platform/"
+	    solar_system_url = "http://solar.everthis.com/ci/platform/"
       tag = "title"
 	  	stdout, stderr, status = Open3.capture3("curl -sS -L #{solar_system_url} -b #{script_path}/.uuap_cookie -c #{script_path}/.laravel_session | grep '<title>' | tr -d '\n' | sed -e 's/[<>\/ ]/#/g' ")
 

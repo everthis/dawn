@@ -105,7 +105,7 @@ class ApisController < CBaseController
           req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
           except_req_params = req_params.except(:format, :dawn_uri)
 
-          req_headers = {"Cookie" => active_cookie || "", "User-Agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", "HOST" => "yi.baidu.com"
+          req_headers = {"Cookie" => active_cookie || "", "User-Agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", "HOST" => "yi.everthis.com"
           }
 
           case @api.mode
@@ -114,7 +114,7 @@ class ApisController < CBaseController
           when "1"
             render_obj = conditional_proxy(@api.debugAddr, @api.uri, except_req_params, req_method, req_headers)
           when "2"
-            render_obj = conditional_proxy("http://yi.baidu.com", @api.uri, except_req_params, req_method, req_headers)
+            render_obj = conditional_proxy("http://yi.everthis.com", @api.uri, except_req_params, req_method, req_headers)
           end
         end
 
@@ -150,7 +150,7 @@ class ApisController < CBaseController
         req_params = req_method == "GET" ? request.query_parameters : request.request_parameters
         except_req_params = req_params.except(:format, :dawn_uri)
 
-        req_headers = {"Cookie" => active_cookie || "", "User-Agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", "HOST" => "yi.baidu.com"
+        req_headers = {"Cookie" => active_cookie || "", "User-Agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", "HOST" => "yi.everthis.com"
         }
 
         # format.json { render :json => {:message => "api found.", :data => @api }, status: 200 }
@@ -162,7 +162,7 @@ class ApisController < CBaseController
         when "1"
           render_obj = conditional_proxy(@api.debugAddr, @api.uri, except_req_params, req_method, req_headers)
         when "2"
-          render_obj = conditional_proxy("http://yi.baidu.com", @api.uri, except_req_params, req_method, req_headers)
+          render_obj = conditional_proxy("http://yi.everthis.com", @api.uri, except_req_params, req_method, req_headers)
         end
       end
       format.json {

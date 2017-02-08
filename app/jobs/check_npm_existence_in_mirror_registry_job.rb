@@ -17,7 +17,7 @@ class CheckNpmExistenceInMirrorRegistryJob < ApplicationJob
   def perform(*args)
 	id = args[0]
 	plugin = CiPackage.find(id)
-	# registry_url = "http://registry.npm.baidu.com/"
+	# registry_url = "http://registry.npm.everthis.com/"
 	registry_url = "https://registry.npm.taobao.org/"
 	# registry_url = "https://registry.npm.taobao.org/"
 	plugin.ci_package_log.log = {} if plugin.ci_package_log.log.nil?
