@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.6.1'
+lock '3.7.2'
 
 # set :application, 'my_app_name'
 # set :repo_url, 'git@example.com:me/my_repo.git'
@@ -77,7 +77,7 @@ set :sidekiq_log, File.join(shared_path, 'log', 'sidekiq.log')
 set :sidekiq_options, nil
 set :sidekiq_require, nil
 set :sidekiq_tag, nil
-set :sidekiq_config, nil # if you have a config/sidekiq.yml, do not forget to set this. 
+set :sidekiq_config, nil # if you have a config/sidekiq.yml, do not forget to set this.
 set :sidekiq_queue, ['default', 'mailers']
 set :sidekiq_timeout, 10
 set :sidekiq_role, :app
