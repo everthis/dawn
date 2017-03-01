@@ -61,6 +61,7 @@ en:
       uuap-login-logs:      "UUAP-login-logs"
       test:                 "Test"
       about:                "About"
+      front-end-job-interview-questions: "front-end-job-interview-questions"
 
   users:
     settings:

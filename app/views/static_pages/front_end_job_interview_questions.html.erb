@@ -1,0 +1,420 @@
+<% provide(:title, 'Interview-Questions') %>
+<% provide(:name, 'interviewQuestions') %>
+
+<% content_for :head do %>
+  <style rel="stylesheet" name="interviewQuestions">
+
+  	.per-qa {
+	    box-shadow: 0 1px 2px 0 #999;
+  	}
+  	.per-qa + .per-qa {
+			margin-top: 1rem;
+  	}
+		.i-q {
+			background-color: #fffaf0;
+			padding: .5rem 1rem;
+		}
+		.i-q::before {
+			content: "Q: ";
+		}
+		.i-a {
+			background-color: #f0f8ff;
+			padding: .5rem 1rem;
+		}
+		.i-a {
+
+		}
+		.i-a.show-iac .i-a-c {
+			display: block;
+		}
+		.i-a-c {
+			display: none;
+		}
+		.i-a-f {
+			cursor: pointer;
+		}
+		.i-a.show-iac .i-a-f::before {
+			content: "A: (点击收起答案)";
+		}
+		.i-a-f::before {
+			content: "A: (点击展开答案)";
+		}
+		.i-pre {
+/*			text-align: left;
+			white-space: pre-line;*/
+		}
+  </style>
+<% end %>
+
+<% content_for :content do %>
+<div class="per-qa c-hide">
+	<div class="i-q"></div>
+	<div class="i-a">
+		<div class="i-a-f"></div>
+		<div class="i-a-c"></div>
+	</div>
+</div>
+
+  <div class="c-normal-card-box i-qas">
+		<h2>HTML</h2>
+		<div class="per-qa">
+			<div class="i-q">img标签的alt和title的区别?</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">alt是用于图片不能正常显示时的替代文字，title是将鼠标指针悬浮到图片上时显示的类似tooltip的内容。在不能正常显示图片的情况下，hover图片元素，仍能显示title。</div>
+			</div>
+		</div>
+		<h2>CSS</h2>
+		<div class="per-qa">
+			<div class="i-q">浏览器是如何匹配CSS的选择器的？CSS选择器的优先级是？</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">从右向左。优先级从高到低依次是：important > inline(写在元素style attribute上的) > ID > class/伪类/attributes > elements/pseudo-elements </div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">margin／padding为百分比时，是按照谁的百分比计算的？</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">元素直接父元素的宽度</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">水平垂直居中一个元素</div>
+			<div class="i-a show-iac">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<p>方法一</p>
+					<p data-height="265" data-theme-id="0" data-slug-hash="yMeLKB" data-default-tab="css,result" data-user="wwwap" data-embed-version="2" data-pen-title="yMeLKB" class="codepen">See the Pen <a href="http://codepen.io/wwwap/pen/yMeLKB/">yMeLKB</a> by wwwap (<a href="http://codepen.io/wwwap">@wwwap</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+
+					<p>方法二</p>
+					<p data-height="265" data-theme-id="0" data-slug-hash="aJdbRp" data-default-tab="css,result" data-user="wwwap" data-embed-version="2" data-pen-title="aJdbRp" class="codepen">See the Pen <a href="http://codepen.io/wwwap/pen/aJdbRp/">aJdbRp</a> by wwwap (<a href="http://codepen.io/wwwap">@wwwap</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+
+					<p>方法三</p>
+					<p data-height="265" data-theme-id="0" data-slug-hash="aJdbxJ" data-default-tab="css,result" data-user="wwwap" data-embed-version="2" data-pen-title="aJdbxJ" class="codepen">See the Pen <a href="http://codepen.io/wwwap/pen/aJdbxJ/">aJdbxJ</a> by wwwap (<a href="http://codepen.io/wwwap">@wwwap</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">说明div+div.float+div 的排列情况</div>
+			<div class="i-a show-iac">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<p data-height="295" data-theme-id="0" data-slug-hash="RprNPe" data-default-tab="css" data-user="wwwap" data-embed-version="2" data-pen-title="RprNPe" class="codepen">See the Pen <a href="http://codepen.io/wwwap/pen/RprNPe/">RprNPe</a> by wwwap (<a href="http://codepen.io/wwwap">@wwwap</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">手写清除浮动clearfix</div>
+			<div class="i-a show-iac">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<p data-height="325" data-theme-id="0" data-slug-hash="zZrxJR" data-default-tab="css" data-user="wwwap" data-embed-version="2" data-pen-title="zZrxJR" class="codepen">See the Pen <a href="http://codepen.io/wwwap/pen/zZrxJR/">zZrxJR</a> by wwwap (<a href="http://codepen.io/wwwap">@wwwap</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+				</div>
+			</div>
+		</div>
+
+
+		
+		<h2>Javascript</h2>
+		<div class="per-qa">
+			<div class="i-q">
+				<pre class="i-pre">
+					var a = 1;
+					var A = function() {
+					  this.a = 2;
+					};
+					var b = new A();
+					var c = A();
+					console.log(a);
+					console.log(b.a);
+					console.log(c.a);
+				</pre>
+
+			</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<pre class="i-pre">
+						2
+						2
+						Uncaught TypeError: Cannot read property 'a' of undefined
+					</pre>
+				</div>
+			</div>
+		</div>
+		<div class="per-qa">
+			<div class="i-q">arrow function中的this指的是？</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<p>箭头函数没有它自己的this值，箭头函数内的this值继承自外围作用域。</p>
+					<pre class="i-pre">
+					  // 不使用箭头函数
+					  function Person() {
+					    var that = this;
+					    that.age = 0;
+
+					    setInterval(function growUp() {
+					      that.age++;
+					    }, 1000);
+					  }
+
+						// 使用箭头函数
+						function Person(){
+						  this.age = 0;
+
+						  setInterval(() => {
+						    this.age++;
+						  }, 1000);
+						}
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">amd的循环依赖解决办法?</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">参见 <a href="http://efe.baidu.com/blog/dissecting-amd-loader/#解决循环依赖" target="_blank">解决循环依赖</a> 和 <a href="http://efe.baidu.com/blog/dissecting-amd-how/#对于要使用的依赖模块即用即-require" target="_blank">对于要使用的依赖模块即用即-require</a></div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">
+				<pre class="i-pre">
+					<code class="javascript">
+						var a = 1;
+						(function() {
+							console.log(a);
+							a = 2;
+							var a;
+						})();
+						console.log(a);
+					</code>
+
+				</pre>
+			</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<pre class="i-pre">
+						undefined
+						1
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">数组去重</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<pre>
+					uniqueArray = a.filter(function(item, pos, self) {
+					    return self.indexOf(item) == pos;
+					})
+						// OR 
+					function uniq(a) {
+					    var seen = {};
+					    return a.filter(function(item) {
+					        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+					    });
+					}
+					// OR
+					function uniq_fast(a) {
+					    var seen = {};
+					    var out = [];
+					    var len = a.length;
+					    var j = 0;
+					    for(var i = 0; i < len; i++) {
+					         var item = a[i];
+					         if(seen[item] !== 1) {
+					               seen[item] = 1;
+					               out[j++] = item;
+					         }
+					    }
+					    return out;
+					}
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">
+				<p>promise callback函数和setTimeout回调函数的 执行顺序</p>
+				<pre>
+					let p = new Promise(function(resolve, reject) {
+						let ran = Math.random();
+						if (ran > 0.5) {
+						  setTimeout(function() {console.log('OUT');}, 0);
+							resolve('OK');
+						} else {
+							reject('FAIL');
+						}
+					});
+					p.then(function(data) {
+					  console.log(data);
+					});
+				</pre>
+			</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<pre>
+						OK
+						OUT
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">promise.then(func)与promise.then(func).then(func)是同一个promise吗？</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">不是，每次调用.then都会返回一个新的Promise</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">
+				<p>TDZ(1)</p>
+				<pre class="i-pre">
+					let y = 1;
+					function foo(x = function(){console.log(y)}, y = 2) {
+					  x(); // ?
+					  y = 3;
+					  x(); // ?
+					}
+					foo();
+					console.log(y); // ?
+				</pre>
+			</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<pre class="i-pre">
+						2
+						3
+						1
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">
+				<p>TDZ(2)</p>
+				<pre class="i-pre">
+				let y = 1;
+				function foo(x = function(){console.log(y)}) {
+				  let y = 3;
+				  x(); // ?
+				}
+				foo();
+				</pre>
+			</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<pre class="i-pre">
+						1
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">
+				<p>TDZ(3)</p>
+				<pre class="i-pre">
+				function foo(x = function(){console.log(y)}) {
+				  let y = 3;
+				  x(); // ?
+				}
+				foo();
+				</pre>
+			</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<pre class="i-pre">
+						ReferenceError: y is not defined
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<h2>其他</h2>
+		<div class="per-qa">
+			<div class="i-q">webpack与FIS的区别</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<p>webpack是javascript应用的模块化打包工具。</p>
+					<p>FIS是以单文件为中心，对每个文件分编译、打包、发布三个大的阶段进行处理的工程构件工具。</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">webpack的loader与plugin的区别？</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<p>loader主要是对资源文件的转换（比如CSS预处理文件，）。</p>
+					<p>plugin是webpack的基石，webpack本身也是基于这套plugin系统构建的。</p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="per-qa">
+			<div class="i-q">浏览器的缓存是如何工作的？</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					参见 <a href="http://web.jobbole.com/82997/" target="_blank">浏览器缓存机制浅析</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="per-qa">
+			<div class="i-q">何时使用git rebase?</div>
+			<div class="i-a">
+				<div class="i-a-f"></div>
+				<div class="i-a-c">
+					<p>git pull --rebase</p>
+					<p>merge操作会生成一个新的节点，之前的提交分开显示。而rebase操作不会生成新的节点，是将两个分支融合成一个线性的提交。使用rebase可以得到更好的提交树。</p>
+				</div>
+			</div>
+		</div>
+
+  </div>
+<% end %>
+
+<% content_for :foot do%>
+
+<script name="interviewQuestions">
+  /* codepen */
+	document.getElementsByClassName||(document.getElementsByClassName=function(e){var n,t,r,a=document,o=[];if(a.querySelectorAll)return a.querySelectorAll("."+e);if(a.evaluate)for(t=".//*[contains(concat(' ', @class, ' '), ' "+e+" ')]",n=a.evaluate(t,a,null,0,null);r=n.iterateNext();)o.push(r);else for(n=a.getElementsByTagName("*"),t=new RegExp("(^|\\s)"+e+"(\\s|$)"),r=0;r<n.length;r++)t.test(n[r].className)&&o.push(n[r]);return o}),function(){function e(){function e(){for(var e=document.getElementsByClassName("codepen"),t=e.length-1;t>-1;t--){var u=a(e[t]);if(0!==Object.keys(u).length&&(u=o(u),u.user=n(u,e[t]),r(u))){var c=i(u),l=s(u,c);f(e[t],l)}}}function n(e,n){if("string"==typeof e.user)return e.user;for(var t=0,r=n.children.length;t<r;t++){var a=n.children[t],o=a.href||"",i=o.match(/codepen\.(io|dev)\/(\w+)\/pen\//i);if(i)return i[2]}return"anon"}function r(e){return e["slug-hash"]}function a(e){for(var n={},t=e.attributes,r=0,a=t.length;r<a;r++){var o=t[r].name;0===o.indexOf("data-")&&(n[o.replace("data-","")]=t[r].value)}return n}function o(e){return e.href&&(e["slug-hash"]=e.href),e.type&&(e["default-tab"]=e.type),e.safe&&("true"===e.safe?e.animations="run":e.animations="stop-after-5"),e}function i(e){var n=u(e),t=e.user?e.user:"anon",r="?"+l(e),a=e.preview&&"true"===e.preview?"embed/preview":"embed",o=[n,t,a,e["slug-hash"]+r].join("/");return o.replace(/\/\//g,"//")}function u(e){return e.host?c(e.host):"file:"===document.location.protocol?"http://codepen.io":"//codepen.io"}function c(e){return e.match(/^\/\//)||!e.match(/https?:/)?document.location.protocol+"//"+e:e}function l(e){var n="";for(var t in e)""!==n&&(n+="&"),n+=t+"="+encodeURIComponent(e[t]);return n}function s(e,n){var r;e["pen-title"]?r=e["pen-title"]:(r="CodePen Embed "+t,t++);var a={id:"cp_embed_"+e["slug-hash"].replace("/","_"),src:n,scrolling:"no",frameborder:"0",height:d(e),allowTransparency:"true",allowfullscreen:"true",name:"CodePen Embed",title:r,"class":"cp_embed_iframe "+(e["class"]?e["class"]:""),style:"width: "+h+"; overflow: hidden;"},o="<iframe ";for(var i in a)o+=i+'="'+a[i]+'" ';return o+="></iframe>"}function d(e){return e.height?e.height:300}function f(e,n){if(e.parentNode){var t=document.createElement("div");t.className="cp_embed_wrapper",t.innerHTML=n,e.parentNode.replaceChild(t,e)}else e.innerHTML=n}function m(){return 0;var e,n,t}var h="100%";e(),m()}function n(e){/in/.test(document.readyState)?setTimeout("window.__cp_domReady("+e+")",9):e()}var t=1;window.__cp_domReady=n,window.__CPEmbed=e,n(function(){new __CPEmbed})}();
+  (function() {
+  	var doc = document;
+  	var qas = doc.getElementsByClassName('i-qas')[0];
+  	function ccb(ev) {
+  		if (ev.target.className.indexOf('i-a-f') >= 0) {
+  			ev.target.parentElement.classList.toggle('show-iac');
+  		}
+  	}
+  	qas.addEventListener('click', ccb, false);
+  })();
+</script>
+<% end %>

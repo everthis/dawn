@@ -35,6 +35,9 @@ class StaticPagesController < CBaseController
   def api
   end
 
+  def front_end_job_interview_questions
+  end
+
   private
     # def resolve_layout
     #   case action_name

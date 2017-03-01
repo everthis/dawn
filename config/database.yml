@@ -30,12 +30,11 @@ production:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  # <<: *default
   host: localhost
   adapter: postgresql
   encoding: unicode
   database: dawn_<%= Rails.env %>
-  username: <%= ENV['TRAVIS'] ? "postgres" : ENV['DB_USERNAME"] %>
+  username: <%= ENV['TRAVIS'] ? "postgres" : ENV["DB_USERNAME"] %>
   password: <%= ENV['TRAVIS'] ? "" : ENV["DB_PASSWORD"] %>
 
 # production:
