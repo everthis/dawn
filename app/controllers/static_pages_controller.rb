@@ -1,5 +1,6 @@
 class StaticPagesController < CBaseController
   before_action :logged_in_user, only: [:api]
+  # skip_before_action :verify_authenticity_token
   # layout :resolve_layout
   # layout Proc.new{ ['index', 'new', 'create'].include?(action_name) ? 'some_layout' : 'other_layout' }
   def home
@@ -37,6 +38,12 @@ class StaticPagesController < CBaseController
 
   def front_end_job_interview_questions
   end
+
+  # def print_c
+  #   puts "CCCCCCCCCCCCCCC"
+  #   puts request.cookies
+  #   render 'about'
+  # end
 
   private
     # def resolve_layout
