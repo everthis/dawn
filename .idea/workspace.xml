@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f220b01b-a201-4588-ba0c-c8bda056c091" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blank.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/iframe.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/iframe2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._addPackages.jpg" afterPath="$PROJECT_DIR$/app/assets/images/._addPackages.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._apiDetail.jpg" afterPath="$PROJECT_DIR$/app/assets/images/._apiDetail.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._dataPreview.jpg" afterPath="$PROJECT_DIR$/app/assets/images/._dataPreview.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._dataPreview.png" afterPath="$PROJECT_DIR$/app/assets/images/._dataPreview.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._packageList.jpg" afterPath="$PROJECT_DIR$/app/assets/images/._packageList.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._packageLog.jpg" afterPath="$PROJECT_DIR$/app/assets/images/._packageLog.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._screenshot.jpg" afterPath="$PROJECT_DIR$/app/assets/images/._screenshot.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/._screenshot.png" afterPath="$PROJECT_DIR$/app/assets/images/._screenshot.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/addPackages.jpg" afterPath="$PROJECT_DIR$/app/assets/images/addPackages.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/addPackages.png" afterPath="$PROJECT_DIR$/app/assets/images/addPackages.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/apiDetail.jpg" afterPath="$PROJECT_DIR$/app/assets/images/apiDetail.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/apiDetail.png" afterPath="$PROJECT_DIR$/app/assets/images/apiDetail.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/dataPreview.jpg" afterPath="$PROJECT_DIR$/app/assets/images/dataPreview.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/dataPreview.png" afterPath="$PROJECT_DIR$/app/assets/images/dataPreview.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/packageList.jpg" afterPath="$PROJECT_DIR$/app/assets/images/packageList.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/packageList.png" afterPath="$PROJECT_DIR$/app/assets/images/packageList.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/packageLog.jpg" afterPath="$PROJECT_DIR$/app/assets/images/packageLog.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/packageLog.png" afterPath="$PROJECT_DIR$/app/assets/images/packageLog.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/screenshot.jpg" afterPath="$PROJECT_DIR$/app/assets/images/screenshot.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/images/screenshot.png" afterPath="$PROJECT_DIR$/app/assets/images/screenshot.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/_apis.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/_apis.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/favicon.ico" afterPath="$PROJECT_DIR$/public/favicon.ico" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.aprc" afterPath="$PROJECT_DIR$/.aprc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.editorconfig" afterPath="$PROJECT_DIR$/.editorconfig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env.test" afterPath="$PROJECT_DIR$/.env.test" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.jscsrc" afterPath="$PROJECT_DIR$/.jscsrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.ruby-version" afterPath="$PROJECT_DIR$/.ruby-version" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.vscode/settings.json" afterPath="$PROJECT_DIR$/.vscode/settings.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Capfile" afterPath="$PROJECT_DIR$/Capfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Guardfile" afterPath="$PROJECT_DIR$/Guardfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Procfile" afterPath="$PROJECT_DIR$/Procfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Procfile.dev" afterPath="$PROJECT_DIR$/Procfile.dev" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/channels/appearance_channel.rb" afterPath="$PROJECT_DIR$/app/channels/appearance_channel.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/channels/application_cable/channel.rb" afterPath="$PROJECT_DIR$/app/channels/application_cable/channel.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/channels/application_cable/connection.rb" afterPath="$PROJECT_DIR$/app/channels/application_cable/connection.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/channels/chat_channel.rb" afterPath="$PROJECT_DIR$/app/channels/chat_channel.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/channels/ci_package_logs_channel.rb" afterPath="$PROJECT_DIR$/app/channels/ci_package_logs_channel.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/channels/ci_package_status_channel.rb" afterPath="$PROJECT_DIR$/app/channels/ci_package_status_channel.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/account_activations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/account_activations_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/apis_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/apis_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/c_base_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/c_base_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ci_package_log_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/ci_package_log_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ci_packages_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/ci_packages_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/demo_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/demo_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/docs_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/docs_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/email_whitelists_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/email_whitelists_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/logs_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/logs_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/microposts_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/microposts_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/npm_registries_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/npm_registries_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/password_resets_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/password_resets_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/relationships_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/relationships_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/static_pages_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/static_pages_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/test_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/test_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/third_party_accounts_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/third_party_accounts_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/user_preference_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/user_preference_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/users_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/users_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/utility_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/utility_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/uuap_login_logs_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/uuap_login_logs_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/application_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/application_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/ci_package_log_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/ci_package_log_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/ci_packages_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/ci_packages_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/sessions_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/sessions_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/check_installation_status_on_solar_system_job.rb" afterPath="$PROJECT_DIR$/app/jobs/check_installation_status_on_solar_system_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/check_npm_existence_in_mirror_registry_job.rb" afterPath="$PROJECT_DIR$/app/jobs/check_npm_existence_in_mirror_registry_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/check_npm_package_existence_job.rb" afterPath="$PROJECT_DIR$/app/jobs/check_npm_package_existence_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/check_peer_dependencies_job.rb" afterPath="$PROJECT_DIR$/app/jobs/check_peer_dependencies_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/download_npm_package_job.rb" afterPath="$PROJECT_DIR$/app/jobs/download_npm_package_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/execute_ci_package_install_job.rb" afterPath="$PROJECT_DIR$/app/jobs/execute_ci_package_install_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/get_laravel_session_job.rb" afterPath="$PROJECT_DIR$/app/jobs/get_laravel_session_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/modify_npm_package_job.rb" afterPath="$PROJECT_DIR$/app/jobs/modify_npm_package_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/process_ci_packages_job.rb" afterPath="$PROJECT_DIR$/app/jobs/process_ci_packages_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/publish_modified_npm_package_job.rb" afterPath="$PROJECT_DIR$/app/jobs/publish_modified_npm_package_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/report_npm_package_bin_job.rb" afterPath="$PROJECT_DIR$/app/jobs/report_npm_package_bin_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/save_configuration_on_solar_system_job.rb" afterPath="$PROJECT_DIR$/app/jobs/save_configuration_on_solar_system_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/save_install_request_job.rb" afterPath="$PROJECT_DIR$/app/jobs/save_install_request_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/update_uuap_cookie_job.rb" afterPath="$PROJECT_DIR$/app/jobs/update_uuap_cookie_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/jobs/uuap_login_job.rb" afterPath="$PROJECT_DIR$/app/jobs/uuap_login_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mailers/application_mailer.rb" afterPath="$PROJECT_DIR$/app/mailers/application_mailer.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/application_record.rb" afterPath="$PROJECT_DIR$/app/models/application_record.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ci_package.rb" afterPath="$PROJECT_DIR$/app/models/ci_package.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ci_package_log.rb" afterPath="$PROJECT_DIR$/app/models/ci_package_log.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user_preference.rb" afterPath="$PROJECT_DIR$/app/models/user_preference.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/uploaders/picture_uploader.rb" afterPath="$PROJECT_DIR$/app/uploaders/picture_uploader.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/account_activations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/account_activations/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/_config.yml.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/_config.yml.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/_form.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/_new_ci_packages.html.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/_new_ci_packages.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/index.html.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/index.json.jbuilder" afterPath="$PROJECT_DIR$/app/views/ci_packages/index.json.jbuilder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/new.html.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/show.html.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/show.json.jbuilder" afterPath="$PROJECT_DIR$/app/views/ci_packages/show.json.jbuilder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/spf_index.json.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/spf_index.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/ci_packages/spf_new.json.erb" afterPath="$PROJECT_DIR$/app/views/ci_packages/spf_new.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/demo/home.html.erb" afterPath="$PROJECT_DIR$/app/views/demo/home.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/demo/index.html.erb" afterPath="$PROJECT_DIR$/app/views/demo/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/_doc_form.js.erb" afterPath="$PROJECT_DIR$/app/views/docs/_doc_form.js.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/_docs.html.erb" afterPath="$PROJECT_DIR$/app/views/docs/_docs.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/docs/_form.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/docs/edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/index.html.erb" afterPath="$PROJECT_DIR$/app/views/docs/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/new.html.erb" afterPath="$PROJECT_DIR$/app/views/docs/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/show.html.erb" afterPath="$PROJECT_DIR$/app/views/docs/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/docs/spf_index.json.erb" afterPath="$PROJECT_DIR$/app/views/docs/spf_index.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/email_whitelists/_email_whitelists.html.erb" afterPath="$PROJECT_DIR$/app/views/email_whitelists/_email_whitelists.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/email_whitelists/index.html.erb" afterPath="$PROJECT_DIR$/app/views/email_whitelists/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/email_whitelists/new.html.erb" afterPath="$PROJECT_DIR$/app/views/email_whitelists/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/email_whitelists/spf_index.json.erb" afterPath="$PROJECT_DIR$/app/views/email_whitelists/spf_index.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/_c_base_global_foot.js.erb" afterPath="$PROJECT_DIR$/app/views/layouts/_c_base_global_foot.js.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/_c_base_global_foot_post.js.erb" afterPath="$PROJECT_DIR$/app/views/layouts/_c_base_global_foot_post.js.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/_footer.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/_footer.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/_header.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/_header.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/_svg_icons.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/_svg_icons.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/base.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/base.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/blank.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/blank.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/c_base_spf.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/c_base_spf.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/c_base_spf.json.erb" afterPath="$PROJECT_DIR$/app/views/layouts/c_base_spf.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/c_base_spf_bak.json.erb" afterPath="$PROJECT_DIR$/app/views/layouts/c_base_spf_bak.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/fnpu.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/fnpu.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/user_preference_spf.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/user_preference_spf.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/user_preference_spf.json.erb" afterPath="$PROJECT_DIR$/app/views/layouts/user_preference_spf.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/logs/index.html.erb" afterPath="$PROJECT_DIR$/app/views/logs/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/microposts/_micropost.html.erb" afterPath="$PROJECT_DIR$/app/views/microposts/_micropost.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/npm_registries/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/npm_registries/_form.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/npm_registries/index.html.erb" afterPath="$PROJECT_DIR$/app/views/npm_registries/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/npm_registries/new.html.erb" afterPath="$PROJECT_DIR$/app/views/npm_registries/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/npm_registries/show.html.erb" afterPath="$PROJECT_DIR$/app/views/npm_registries/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/password_resets/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/password_resets/edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/password_resets/new.html.erb" afterPath="$PROJECT_DIR$/app/views/password_resets/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sessions/new.html.erb" afterPath="$PROJECT_DIR$/app/views/sessions/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_feed.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_feed.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_img_upload.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_img_upload.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_micropost_form.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_micropost_form.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_stats.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_stats.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/_home.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/_home.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/_interview.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/_interview.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/about.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/about.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/api.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/api.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/contact.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/contact.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/front_end_job_interview_questions.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/front_end_job_interview_questions.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/help.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/help.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/home.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/home.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/log.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/log.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/passport.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/passport.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/spf_dev.json.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/spf_dev.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/spf_home.json.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/spf_home.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/test.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/test.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/test/test.html.erb" afterPath="$PROJECT_DIR$/app/views/test/test.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/third_party_accounts/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/third_party_accounts/_form.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/third_party_accounts/_third_party_accounts.html.erb" afterPath="$PROJECT_DIR$/app/views/third_party_accounts/_third_party_accounts.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/third_party_accounts/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/third_party_accounts/edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/third_party_accounts/index.html.erb" afterPath="$PROJECT_DIR$/app/views/third_party_accounts/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/third_party_accounts/new.html.erb" afterPath="$PROJECT_DIR$/app/views/third_party_accounts/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/third_party_accounts/spf_index.json.erb" afterPath="$PROJECT_DIR$/app/views/third_party_accounts/spf_index.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_mailer/account_activation.html.erb" afterPath="$PROJECT_DIR$/app/views/user_mailer/account_activation.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_mailer/account_activation.text.erb" afterPath="$PROJECT_DIR$/app/views/user_mailer/account_activation.text.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_mailer/password_reset.html.erb" afterPath="$PROJECT_DIR$/app/views/user_mailer/password_reset.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_mailer/password_reset.text.erb" afterPath="$PROJECT_DIR$/app/views/user_mailer/password_reset.text.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/_locale.html.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/_locale.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/_set_locale.html.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/_set_locale.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/index.html.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/set_locale.html.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/set_locale.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/spf_index.json.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/spf_index.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/spf_set_locale.json.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/spf_set_locale.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/spf_update.json.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/spf_update.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user_preference/update.html.erb" afterPath="$PROJECT_DIR$/app/views/user_preference/update.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_form.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_get_token.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_get_token.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_settings.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_settings.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_show_follow.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_show_follow.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_user.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_user.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/_users.html.erb" afterPath="$PROJECT_DIR$/app/views/users/_users.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/users/edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/followers.html.erb" afterPath="$PROJECT_DIR$/app/views/users/followers.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/following.html.erb" afterPath="$PROJECT_DIR$/app/views/users/following.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/get_token.html.erb" afterPath="$PROJECT_DIR$/app/views/users/get_token.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/index.html.erb" afterPath="$PROJECT_DIR$/app/views/users/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/new.html.erb" afterPath="$PROJECT_DIR$/app/views/users/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/settings.html.erb" afterPath="$PROJECT_DIR$/app/views/users/settings.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/show.html.erb" afterPath="$PROJECT_DIR$/app/views/users/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/show_follow.html.erb" afterPath="$PROJECT_DIR$/app/views/users/show_follow.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/spf_edit.json.erb" afterPath="$PROJECT_DIR$/app/views/users/spf_edit.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/spf_followers.json.erb" afterPath="$PROJECT_DIR$/app/views/users/spf_followers.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/spf_following.json.erb" afterPath="$PROJECT_DIR$/app/views/users/spf_following.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/spf_get_token.json.erb" afterPath="$PROJECT_DIR$/app/views/users/spf_get_token.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/spf_index.json.erb" afterPath="$PROJECT_DIR$/app/views/users/spf_index.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/spf_settings.json.erb" afterPath="$PROJECT_DIR$/app/views/users/spf_settings.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/spf_show.json.erb" afterPath="$PROJECT_DIR$/app/views/users/spf_show.json.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/uuap_login_logs/index.html.erb" afterPath="$PROJECT_DIR$/app/views/uuap_login_logs/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appveyor.yml" afterPath="$PROJECT_DIR$/appveyor.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bundle" afterPath="$PROJECT_DIR$/bin/bundle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/rails" afterPath="$PROJECT_DIR$/bin/rails" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/rake" afterPath="$PROJECT_DIR$/bin/rake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/setup" afterPath="$PROJECT_DIR$/bin/setup" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/spring" afterPath="$PROJECT_DIR$/bin/spring" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/update" afterPath="$PROJECT_DIR$/bin/update" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/build/css-loaders.js" afterPath="$PROJECT_DIR$/client/build/css-loaders.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/build/webpack.base.conf.js" afterPath="$PROJECT_DIR$/client/build/webpack.base.conf.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/build/webpack.dev.conf.js" afterPath="$PROJECT_DIR$/client/build/webpack.dev.conf.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/config/index.js" afterPath="$PROJECT_DIR$/client/config/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/api-tree/treeDom.js" afterPath="$PROJECT_DIR$/client/javascripts/api-tree/treeDom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/application.js" afterPath="$PROJECT_DIR$/client/javascripts/application.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/common/ActionCable.js" afterPath="$PROJECT_DIR$/client/javascripts/common/ActionCable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/common/cookies.js" afterPath="$PROJECT_DIR$/client/javascripts/common/cookies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/common/handleMethod2.js" afterPath="$PROJECT_DIR$/client/javascripts/common/handleMethod2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/common/htmlDecode.js" afterPath="$PROJECT_DIR$/client/javascripts/common/htmlDecode.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/common/popup.js" afterPath="$PROJECT_DIR$/client/javascripts/common/popup.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/common/scroll.js" afterPath="$PROJECT_DIR$/client/javascripts/common/scroll.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/common/twoWayDataBinding.js" afterPath="$PROJECT_DIR$/client/javascripts/common/twoWayDataBinding.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/entries/apiOperation.js" afterPath="$PROJECT_DIR$/client/javascripts/entries/apiOperation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/entries/ciNpmPackages.js" afterPath="$PROJECT_DIR$/client/javascripts/entries/ciNpmPackages.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/entries/createOrEditDocumentation.js" afterPath="$PROJECT_DIR$/client/javascripts/entries/createOrEditDocumentation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/entries/homepage.js" afterPath="$PROJECT_DIR$/client/javascripts/entries/homepage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/entries/newCiNpmPackages.js" afterPath="$PROJECT_DIR$/client/javascripts/entries/newCiNpmPackages.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/entry.js" afterPath="$PROJECT_DIR$/client/javascripts/entry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/globalA.js" afterPath="$PROJECT_DIR$/client/javascripts/globalA.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/apiOperation.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/apiOperation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/ciNpmPackages.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/ciNpmPackages.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/createOrEditDocumentation.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/createOrEditDocumentation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/dataLinks.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/dataLinks.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/documentation.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/documentation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/homepage.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/homepage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/newCiNpmPackages.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/newCiNpmPackages.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/postHandler.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/postHandler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/modules/tweetBox.js" afterPath="$PROJECT_DIR$/client/javascripts/modules/tweetBox.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/WTF/wtf.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/WTF/wtf.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/array/array.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/array/array.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/async/async.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/async/async.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/base.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/cache/cache.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/cache/cache.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/config.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/debug/debug.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/debug/debug.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/dom/classlist.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/dom/classlist.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/dom/dataset.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/dom/dataset.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/dom/dom.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/dom/dom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/entry.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/entry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/history/history.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/history/history.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/main.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/nav/nav.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/nav/nav.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/nav/request.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/nav/request.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/nav/response.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/nav/response.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/net/connect.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/net/connect.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/net/resource.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/net/resource.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/net/script.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/net/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/net/style.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/net/style.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/net/xhr.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/net/xhr.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/pubsub/pubsub.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/pubsub/pubsub.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/state.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/state.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/string/string.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/string/string.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/stub.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/stub.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/tasks/tasks.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/tasks/tasks.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/testing/dom.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/testing/dom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/tracing/tracing.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/tracing/tracing.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/javascripts/spf/url/url.js" afterPath="$PROJECT_DIR$/client/javascripts/spf/url/url.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/_debug.scss" afterPath="$PROJECT_DIR$/client/stylesheets/_debug.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/globalA.scss" afterPath="$PROJECT_DIR$/client/stylesheets/globalA.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/globals/_c.scss" afterPath="$PROJECT_DIR$/client/stylesheets/globals/_c.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/globals/_common.scss" afterPath="$PROJECT_DIR$/client/stylesheets/globals/_common.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/globals/_variables.scss" afterPath="$PROJECT_DIR$/client/stylesheets/globals/_variables.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_api-tree.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_api-tree.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_apis.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_apis.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_ci-packages.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_ci-packages.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_email-whitelist.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_email-whitelist.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_flash.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_flash.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_footer.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_footer.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_form.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_form.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_grid.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_grid.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_icon.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_icon.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_json.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_json.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_loading.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_loading.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_micropost.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_micropost.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_nav.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_nav.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_npm-registry.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_npm-registry.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_popup.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_popup.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_responsive.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_responsive.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_spf-animate.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_spf-animate.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_user-info-card.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_user-info-card.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_user_preference.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_user_preference.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/modules/_users.scss" afterPath="$PROJECT_DIR$/client/stylesheets/modules/_users.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/stylesheets/newCiNpmPackages.scss" afterPath="$PROJECT_DIR$/client/stylesheets/newCiNpmPackages.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/webpack.base.config.js" afterPath="$PROJECT_DIR$/client/webpack.base.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/webpack.dev.config.js" afterPath="$PROJECT_DIR$/client/webpack.dev.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/webpack.prod.config.js" afterPath="$PROJECT_DIR$/client/webpack.prod.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/webpack.prod.config.js.bak" afterPath="$PROJECT_DIR$/client/webpack.prod.config.js.bak" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/application.rb" afterPath="$PROJECT_DIR$/config/application.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/cable.yml" afterPath="$PROJECT_DIR$/config/cable.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/database.yml" afterPath="$PROJECT_DIR$/config/database.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/deploy.rb" afterPath="$PROJECT_DIR$/config/deploy.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/development.rb" afterPath="$PROJECT_DIR$/config/environments/development.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/production.rb" afterPath="$PROJECT_DIR$/config/environments/production.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/test.rb" afterPath="$PROJECT_DIR$/config/environments/test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/application_controller_renderer.rb" afterPath="$PROJECT_DIR$/config/initializers/application_controller_renderer.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/assets.rb" afterPath="$PROJECT_DIR$/config/initializers/assets.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/backtrace_silencers.rb" afterPath="$PROJECT_DIR$/config/initializers/backtrace_silencers.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/email_interceptor.rb" afterPath="$PROJECT_DIR$/config/initializers/email_interceptor.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/i18n.rb" afterPath="$PROJECT_DIR$/config/initializers/i18n.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/sidekiq.rb" afterPath="$PROJECT_DIR$/config/initializers/sidekiq.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/webpack.rb" afterPath="$PROJECT_DIR$/config/initializers/webpack.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/locales/en.yml" afterPath="$PROJECT_DIR$/config/locales/en.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/locales/zh-CN.yml" afterPath="$PROJECT_DIR$/config/locales/zh-CN.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/puma.rb" afterPath="$PROJECT_DIR$/config/puma.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/puma_bak.rb" afterPath="$PROJECT_DIR$/config/puma_bak.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/schedule.rb" afterPath="$PROJECT_DIR$/config/schedule.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/sidekiq.yml" afterPath="$PROJECT_DIR$/config/sidekiq.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20160911131428_change_content_type_in_docs.rb" afterPath="$PROJECT_DIR$/db/migrate/20160911131428_change_content_type_in_docs.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20161023120559_create_user_preferences.rb" afterPath="$PROJECT_DIR$/db/migrate/20161023120559_create_user_preferences.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20170104132825_create_npm_registries.rb" afterPath="$PROJECT_DIR$/db/migrate/20170104132825_create_npm_registries.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20170105132830_create_ci_plugins.rb" afterPath="$PROJECT_DIR$/db/migrate/20170105132830_create_ci_plugins.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20170106050754_create_ci_plugin_logs.rb" afterPath="$PROJECT_DIR$/db/migrate/20170106050754_create_ci_plugin_logs.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20170110122943_create_uuap_login_logs.rb" afterPath="$PROJECT_DIR$/db/migrate/20170110122943_create_uuap_login_logs.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20170115130313_rename_ciplugins_to_cipackages.rb" afterPath="$PROJECT_DIR$/db/migrate/20170115130313_rename_ciplugins_to_cipackages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20170204055444_rename_ci_plugin_id_column.rb" afterPath="$PROJECT_DIR$/db/migrate/20170204055444_rename_ci_plugin_id_column.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/seeds.rb" afterPath="$PROJECT_DIR$/db/seeds.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/c_utility.rb" afterPath="$PROJECT_DIR$/lib/c_utility.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/pagination_list_link_renderer.rb" afterPath="$PROJECT_DIR$/lib/pagination_list_link_renderer.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/reverse_proxy/client.rb" afterPath="$PROJECT_DIR$/lib/reverse_proxy/client.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tasks/webpack.rb" afterPath="$PROJECT_DIR$/lib/tasks/webpack.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tree/tree_deps.rb" afterPath="$PROJECT_DIR$/lib/tree/tree_deps.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tree/utils/camel_case_method_handler.rb" afterPath="$PROJECT_DIR$/lib/tree/utils/camel_case_method_handler.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tree/utils/metrics_methods.rb" afterPath="$PROJECT_DIR$/lib/tree/utils/metrics_methods.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tree/utils/tree_merge_handler.rb" afterPath="$PROJECT_DIR$/lib/tree/utils/tree_merge_handler.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/utilities.rb" afterPath="$PROJECT_DIR$/lib/utilities.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/404.html" afterPath="$PROJECT_DIR$/public/404.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/422.html" afterPath="$PROJECT_DIR$/public/422.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/500.html" afterPath="$PROJECT_DIR$/public/500.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/linkciplugins.sh" afterPath="$PROJECT_DIR$/public/linkciplugins.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/passportSuccess.html" afterPath="$PROJECT_DIR$/public/passportSuccess.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/robots.txt" afterPath="$PROJECT_DIR$/public/robots.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/v3Jump.html" afterPath="$PROJECT_DIR$/public/v3Jump.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.html" afterPath="$PROJECT_DIR$/test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/ci_package_log_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/ci_package_log_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/ci_packages_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/ci_packages_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/docs_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/docs_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/email_whitelists_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/email_whitelists_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/microposts_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/microposts_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/relationships_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/relationships_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/third_party_accounts_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/third_party_accounts_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/user_preference_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/user_preference_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controllers/users_controller_test.rb" afterPath="$PROJECT_DIR$/test/controllers/users_controller_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fixtures/ci_package_logs.yml" afterPath="$PROJECT_DIR$/test/fixtures/ci_package_logs.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fixtures/ci_packages.yml" afterPath="$PROJECT_DIR$/test/fixtures/ci_packages.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fixtures/user_preferences.yml" afterPath="$PROJECT_DIR$/test/fixtures/user_preferences.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/helpers/sessions_helper_test.rb" afterPath="$PROJECT_DIR$/test/helpers/sessions_helper_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/following_test.rb" afterPath="$PROJECT_DIR$/test/integration/following_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/microposts_interface_test.rb" afterPath="$PROJECT_DIR$/test/integration/microposts_interface_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/password_resets_test.rb" afterPath="$PROJECT_DIR$/test/integration/password_resets_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/users_edit_test.rb" afterPath="$PROJECT_DIR$/test/integration/users_edit_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/users_login_test.rb" afterPath="$PROJECT_DIR$/test/integration/users_login_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/users_profile_test.rb" afterPath="$PROJECT_DIR$/test/integration/users_profile_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/users_signup_test.rb" afterPath="$PROJECT_DIR$/test/integration/users_signup_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/mailers/user_mailer_test.rb" afterPath="$PROJECT_DIR$/test/mailers/user_mailer_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/models/ci_package_log_test.rb" afterPath="$PROJECT_DIR$/test/models/ci_package_log_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/models/ci_package_test.rb" afterPath="$PROJECT_DIR$/test/models/ci_package_test.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test_helper.rb" afterPath="$PROJECT_DIR$/test/test_helper.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/test.html" afterPath="$PROJECT_DIR$/public/test_bak.html" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="dawn" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="webpack.base.config.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/webpack.base.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="54" />
+    <option name="y" value="-8" />
+    <option name="width" value="2514" />
+    <option name="height" value="1456" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dawn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dawn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dawn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dawn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f220b01b-a201-4588-ba0c-c8bda056c091" name="Default" comment="" />
+      <created>1491530904779</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1491530904779</updated>
+      <workItem from="1491530906086" duration="231000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="231000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="54" y="-8" width="2514" height="1456" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24979983" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/client/webpack.base.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

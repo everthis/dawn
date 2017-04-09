@@ -81,6 +81,9 @@
 .c-hide {
 	display: none !important;
 }
+.c-hidden {
+	visibility: hidden;
+}
 .c-card-box {
 	@extend %card-box;
 }

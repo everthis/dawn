@@ -14,6 +14,6 @@
       <% end %>
     </div>
     <div class="micropost-text"><%= truncate(strip_tags(micropost.content), length: 80) %></div>
-    <div class="micropost-img"><%= image_tag micropost.picture.url if micropost.picture? %></div>
+    <div class="micropost-img"><%= image_tag micropost.picture.url, :class => "" if micropost.picture? %></div>
   </section>
 </li>

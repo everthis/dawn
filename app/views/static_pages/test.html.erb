@@ -6,12 +6,18 @@ lorem_title
 lorem_name
 <% end %>
 
-<% content_for :stylesheets do %>
+<% content_for :head do %>
   <style name="test">
 		.test {
 			font-size: 16px;
 		}  	
   </style>
+  <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/themes/alloyteam/style.css">
+  <script src="http://www.alloyteam.com/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
+  <!-- <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta"> -->
+  <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/plugins/crayon-syntax-highlighter/themes/sublime-text/sublime-text.css?ver=_2.7.2_beta">
+  <!-- <script src="http://www.alloyteam.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1"></script> -->
+  <!-- <script src="http://www.alloyteam.com/wp-content/plugins/images-lazyload-and-slideshow/effects/prettyPhoto%203.1.6/js/jquery.prettyPhoto.js"></script> -->
 <% end %>
 
 <% content_for :attributes do %>
@@ -23,13 +29,49 @@ lorem_name
 <% end %>
 
 <% content_for :content do %>
+<img src="http://upload.chinaz.com/2016/0927/201609271009279855.jpg" alt="">
+<!-- <img src="http://img.mukewang.com/57a202fe0001a6d535082717.png" alt=""> -->
 	<div class="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, dolor.</div>
+	<!-- <iframe id="iii" name="ll1" src="http://10.0.0.9:8455/iframe.html" frameborder="0"></iframe> -->
+	<!-- <iframe id="ll2" name="ll2" src="http://10.0.0.9:8455/iframe2.html" frameborder="0"></iframe> -->
 <% end %>
 
-<% content_for :javascripts do %>
+<% content_for :foot do %>
   <script name="test">
-		(function() {
-			console.log('ok!')
-		})();
+  // function domainData(url, fn)
+  // {
+  //     var isFirst = true;
+  //     var iframe = document.createElement('iframe');
+  //     iframe.style.display = 'none';
+  //     var loadfn = function(){
+  //         if(isFirst){
+  //             iframe.contentWindow.location = 'http://10.0.0.9:8678/blank.html';// 设置的代理文件
+  //             isFirst = false;
+  //         } else {
+  //             fn(iframe.contentWindow.name);
+  //             //获取数据以后销毁这个iframe，释放内存；这也保证了安全（不被其他域frame js访问）
+  //             iframe.contentWindow.document.write('');
+  //             iframe.contentWindow.close();
+  //             document.body.removeChild(iframe);
+  //             iframe.src = '';
+  //             iframe = null;
+  //         }
+  //     };
+  //     iframe.src = url;
+  //     if(iframe.attachEvent){
+  //         iframe.attachEvent('onload', loadfn);
+  //     } else {
+  //         iframe.onload = loadfn;
+  //     }
+       
+  //     document.body.appendChild(iframe);
+  // }
+
+  // domainData('http://10.0.0.9:8455/iframe.html', function(data){
+  //        console.log(data);
+  // });
+  
+  // document.domain = '10.0.0.9';
+  
   </script>
 <% end %>

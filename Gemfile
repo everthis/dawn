@@ -15,7 +15,7 @@ gem 'net-ssh'
 gem 'sdoc', group: :doc
 gem 'pg'
 gem 'regexp-examples'
-gem 'structured_warnings'
+# gem 'structured_warnings'
 gem 'addressable'
 gem 'rack-proxy'
 gem 'puma'
