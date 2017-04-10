@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204055444) do
+ActiveRecord::Schema.define(version: 20170410074501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20170204055444) do
   end
 
   create_table "ci_package_logs", force: :cascade do |t|
-    t.integer  "ci_package_id"
+    t.integer  "ci_plugin_id"
     t.json     "log"
     t.integer  "job_record_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["ci_package_id"], name: "index_ci_package_logs_on_ci_package_id", using: :btree
+    t.index ["ci_plugin_id"], name: "index_ci_package_logs_on_ci_plugin_id", using: :btree
   end
 
   create_table "ci_packages", force: :cascade do |t|
@@ -71,6 +71,17 @@ ActiveRecord::Schema.define(version: 20170204055444) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gists", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.text     "content"
+    t.boolean  "hasAnswer"
+    t.text     "answer"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_gists_on_user_id", using: :btree
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -147,9 +158,10 @@ ActiveRecord::Schema.define(version: 20170204055444) do
   end
 
   add_foreign_key "apis", "users"
-  add_foreign_key "ci_package_logs", "ci_packages"
+  add_foreign_key "ci_package_logs", "ci_packages", column: "ci_plugin_id"
   add_foreign_key "ci_packages", "users"
   add_foreign_key "docs", "users"
+  add_foreign_key "gists", "users"
   add_foreign_key "third_party_accounts", "users"
   add_foreign_key "user_preferences", "users"
 end

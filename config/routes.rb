@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :gists
   resources :uuap_login_logs
   resources :npm_registries
   resources :ci_packages

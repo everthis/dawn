@@ -1,0 +1,31 @@
+<% provide(:title, 'Gist') %>
+<% provide(:name, 'gist') %>
+
+<% content_for :content do %>
+  <div class="c-normal-card-box">
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @gist.description %>
+    </p>
+
+    <p>
+      <strong>Content:</strong>
+      <%= @gist.content %>
+    </p>
+
+    <p>
+      <strong>Hasanswer:</strong>
+      <%= @gist.hasAnswer %>
+    </p>
+
+    <p>
+      <strong>Answer:</strong>
+      <%= @gist.answer %>
+    </p>
+
+    <%= link_to 'Edit', edit_gist_path(@gist) %> |
+    <%= link_to 'Back', gists_path %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<% provide(:title, 'New Gist') %>
+<% provide(:name, 'newGist') %>
+
+
+<% content_for :content do %>
+  <div class="c-normal-card-box">
+    <h1>New Gist</h1>
+
+    <%= render 'form', gist: @gist %>
+
+    <%= link_to 'Back', gists_path, class: 'fnpu-link' %>
+  </div>
+<% end %>
+

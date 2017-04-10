@@ -14,6 +14,9 @@ module Dawn
     config.webpack = {
       asset_manifest: {}
     }
+    config.generators do |g|
+      g.jbuilder          false
+    end
 
     config.active_job.queue_adapter = :sidekiq
 

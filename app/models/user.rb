@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_one  :user_preference, dependent: :destroy
   has_many :docs, dependent: :destroy
   has_many :apis, dependent: :destroy
+  has_many :gists, dependent: :destroy
   has_many :ci_packages
   has_many :third_party_accounts, dependent: :destroy
   has_many :microposts, dependent: :destroy
@@ -10,7 +11,7 @@ class User < ActiveRecord::Base
                                   dependent:   :destroy
   has_many :passive_relationships, class_name:  "Relationship",
                                    foreign_key: "followed_id",
-                                   dependent:   :destroy                                
+                                   dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
@@ -25,7 +26,7 @@ class User < ActiveRecord::Base
   				  uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  
+
   mount_uploader :avatars, AvatarUploader
   validate  :avatars_size
 

@@ -4,6 +4,7 @@ import {ActionCable} from './common/ActionCable';
 
 import spfEs from "./spf/entry";
 import {dataLinks} from "./modules/dataLinks";
+import {formSubmit} from "./modules/formSubmit";
 
 import {processPostLink} from "./modules/postHandler";
 
@@ -13,6 +14,7 @@ A.spf = spfEs;
 let app = window.A.app || {};
 
 dataLinks();
+formSubmit();
 processPostLink();
 
 /**
