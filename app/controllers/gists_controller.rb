@@ -89,4 +89,9 @@ class GistsController < ApplicationController
     def gist_params
       params.require(:gist).permit(:description, :content, :hasAnswer, :answer)
     end
+
+    def correct_user
+      @gist = current_user.gists.find_by(id: params[:id])
+      redirect_to root_url if @gist.nil?
+    end
 end

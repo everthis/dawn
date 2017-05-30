@@ -1,4 +1,4 @@
-<%= form_for(gist) do |f| %>
+<%= form_for(gist, html: {class: "gist_form"}) do |f| %>
   <% if gist.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(gist.errors.count, "error") %> prohibited this gist from being saved:</h2>

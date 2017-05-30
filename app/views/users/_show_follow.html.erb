@@ -4,7 +4,7 @@
       <%= avatar_for @user %>
     </span>
     <span class="info">
-      <span><%= link_to @user.name, @user %></span>
+      <span><%= link_to @user.name, @user, class: "fnpu-link" %></span>
       <span><%= pluralize(@user.microposts.count, "micropost") %></span>
       <%= render 'shared/stats' %>
     </span>
@@ -15,7 +15,7 @@
     <div class="user-avatars">
       <% @users.each do |user| %>
 
-        <%= link_to(user, class: "follow-avatar-name") do %>
+        <%= link_to(user, class: "follow-avatar-name fnpu-link") do %>
           <div class="avatar"><%= avatar_for(user, size: "small_thumb") %></div>
           <div class="name"><%= user.name %></div>
         <% end %>

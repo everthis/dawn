@@ -1,9 +1,9 @@
 <% provide(:title, 'New Gist') %>
-<% provide(:name, 'newGist') %>
+<% provide(:name, 'createOrEditGist') %>
 
 
 <% content_for :content do %>
-  <div class="c-normal-card-box">
+  <div class="c-normal-card-box gist-container">
     <h1>New Gist</h1>
 
     <%= render 'form', gist: @gist %>
@@ -12,3 +12,6 @@
   </div>
 <% end %>
 
+<% content_for :foot do %>
+	<%= javascript_pack_tag 'createOrEditGist', name: "createOrEditGist" %>
+<% end %>

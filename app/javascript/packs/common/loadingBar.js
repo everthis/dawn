@@ -26,7 +26,6 @@ export default class LoadingBar {
   }
 
   start() {
-  	console.log('init')
   	if (this.timer) return;
   	this.percent = 0;
   	this.init();
@@ -70,7 +69,6 @@ export default class LoadingBar {
   destroy() {
   	clearInterval(this.timer)
   	let loadingBarEle = document.getElementById('loadingBar')
-  	console.log('end')
   	loadingBarEle.parentElement.removeChild(loadingBarEle);
   }
 

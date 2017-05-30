@@ -7,10 +7,8 @@ class DocsController < CBaseController
   # GET /docs
   # GET /docs.json
   def index
-
     if logged_in?
       @docs = Doc.includes(:user).paginate(page: params[:page])
-    render :status => 503
     end
   end
 

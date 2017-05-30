@@ -151,8 +151,10 @@ app.onProcess = function(evt) {
  * @param {CustomEvent} evt The event.
  */
 app.onDone = function(evt) {
-  app.ins.finish()
-  setTimeout(() => { app.ins.destroy(); app.ins = null; }, 100 )
+  if (app.ins) {
+    app.ins.finish()
+    setTimeout(() => { app.ins.destroy(); app.ins = null; }, 100 )
+  }
   if(A.init[A.gc.currentName]) A.init[A.gc.currentName].apply(null);
 };
 
