@@ -24,6 +24,6 @@
 
 <% content_for :foot do %>
   <% if logged_in? %>
-		<%= c_javascript_include_tag 'homepage', name: "homepage" %>
+		<%= javascript_pack_tag 'homepage', name: "homepage" %>
 	<% end %>
 <% end %>

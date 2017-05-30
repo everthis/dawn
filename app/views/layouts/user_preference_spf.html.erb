@@ -39,7 +39,7 @@
   <script>
     <%= render 'layouts/c_base_global_foot.js' %>
   </script>
-  <%= c_javascript_include_tag 'globalA', name: 'globalA' %>
+  <%= javascript_pack_tag 'globalA', name: 'globalA' %>
 
   <%= content_for?(:foot) ? yield(:foot) : nil %>
 

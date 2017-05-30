@@ -27,6 +27,7 @@ gem 'nav_lynx'
 gem 'redis-namespace'
 gem 'whenever', :require => false
 gem 'rails-i18n', '~> 5.0.0'
+gem 'webpacker', '~> 2.0'
 
 group :development do
   gem 'pry-rails'

@@ -120,12 +120,14 @@ zh-CN:
       edit:          "编辑"
       back:          "返回列表"
     edit:
+      title:         "编辑文档"
       show:          "查看"
       back:          "返回列表"
     form:
-      title:         "标题"
-      submit_btn:    "新建文档"
-      content:       "内容"
+      title:              "标题"
+      new_submit_btn:     "新建文档"
+      edit_submit_btn:    "编辑文档"
+      content:            "内容"
     docs:
       new_documentation: "新建文档"
       show:              "显示"

@@ -104,6 +104,12 @@ rails console production
 bundle exec puma -C config/puma.rb
 ```
 
+### start app in development mode
+
+```bash
+foreman start -f Procfile.dev
+```
+
 ### nginx config
 ```
 # www to non-www redirect -- duplicate content is BAD:

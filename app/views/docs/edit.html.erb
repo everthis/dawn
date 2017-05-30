@@ -2,16 +2,11 @@
 <% provide(:name, 'createOrEditDocumentation') %>
 
 <% content_for :head do %>
-<style name="createOrEditDocumentation">
-.CodeMirror {
-  height: auto;
-}
-</style>
 <% end %>
 
 <% content_for :content do %>
 <div class="document-container">
-    <h1>New Doc</h1>
+    <h1><%= t('.title') %></h1>
     <%= render 'form' %>
 </div>
 
@@ -23,5 +18,5 @@
 
 
 <% content_for :foot do %>
-  <%= c_javascript_include_tag 'createOrEditDocumentation', name: "createOrEditDocumentation" %>
+  <%= javascript_pack_tag 'createOrEditDocumentation', name: "createOrEditDocumentation" %>
 <% end %>

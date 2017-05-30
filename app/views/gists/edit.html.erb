@@ -1,6 +1,19 @@
-<h1>Editing Gist</h1>
+<% provide(:title, 'Gist') %>
+<% provide(:name, 'gist') %>
 
-<%= render 'form', gist: @gist %>
+<% content_for :content do %>
+<div class="c-normal-card-box">
+	<h1>Editing Gist</h1>
+	<%= render 'form', gist: @gist %>
 
-<%= link_to 'Show', @gist %> |
-<%= link_to 'Back', gists_path %>
+	<%= link_to 'Show', @gist %> |
+	<%= link_to 'Back', gists_path %>
+	
+</div>
+
+<% end %>
+
+<% content_for :foot do %>
+
+  <%= javascript_pack_tag 'createOrEditGist', name: "createOrEditGist" %>
+<% end %>

@@ -4,7 +4,7 @@
   <%= favicon_link_tag 'favicon.ico' %>
   <%= csrf_meta_tags %>
 
-  <%= c_stylesheet_link_tag 'globalA' %>
+  <%= stylesheet_pack_tag 'globalA' %>
 
   <%= content_for?(:head) ? yield(:head) : nil %>
 </head>
@@ -31,13 +31,33 @@
       <%= render 'layouts/footer' %>
     </div>
   </div>
+  <!-- loading bar mount point -->
+  <style>
+  .app-loading-bar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+  }
+  .app-loading-bar-inner-color-primary {
+    background-color: #39f;
+  }
+  .app-loading-bar-inner {
+    display: inline-block;
+    height: 2px;
+    transition: width .2s linear;
+  }
+</style>
+  <div id="loadingBar-container"></div>
 
   <%= debug(params) if Rails.env.development? %>
 
   <script>
     <%= render 'layouts/c_base_global_foot.js' %>
   </script>
-  <%= c_javascript_include_tag 'globalA', name: 'globalA' %>
+  <%= javascript_pack_tag 'globalA', name: 'globalA' %>
 
   <%= content_for?(:foot) ? yield(:foot) : nil %>
 

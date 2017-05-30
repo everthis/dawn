@@ -1,0 +1,12 @@
+/* override redcarpet */
+.markdown-body a {
+    color: $black;
+}
+
+.markdown-body a:hover, 
+.markdown-body a:active {
+    text-decoration: none;
+    color: $white;
+    background-color: $black;
+    box-shadow: none;
+}
