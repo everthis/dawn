@@ -9,10 +9,10 @@ import al from 'codemirror/addon/selection/active-line';
 export default class  {
   constructor(options = {}) {
     this.formEle = options.formEle;
-    this.textArea = options.textArea;
+    this.textAreas = options.textAreas;
     this.submitEle = options.submitEle;
     this.formContainer = options.formContainer;
-    this.cmInstance = null;
+    this.cmInstances = [];
     this.fd = null;
     this.fa = '';
     this.cb = null;
@@ -20,42 +20,60 @@ export default class  {
 
   clickBind(ev) {
     ev.preventDefault();
-    this.textArea.value = this.cmInstance.getValue();
-    this.fa = this.formEle.action;
-    this.fd = new FormData(this.formEle);
-    window.A.spf.load(this.fa, {
-      method: "POST",
-      postData: this.fd,
-      onProcess: function(evt) {
-      },
-      onDone: function(evt) {
-        if(evt.response.status && evt.response.status === 'success') {
-          if (evt.response.url) A.spf.navigate(evt.response.url);
-        }
-      }
-    });
+    for (let i = 0; i < this.cmInstances.length; i++) {
+      this.cmInstances[i].textAreaEle.value = this.cmInstances[i].cmInstance.getValue()
+    }
+    // this.fa = this.formEle.action;
+    // this.fd = new FormData(this.formEle);
+    // console.log(this)
+    // window.A.spf.load(this.fa, {
+    //   method: "POST",
+    //   postData: this.fd,
+    //   onProcess: function(evt) {
+    //   },
+    //   onDone: function(evt) {
+    //     if(evt.response.status && evt.response.status === 'success') {
+    //       if (evt.response.url) A.spf.navigate(evt.response.url);
+    //     }
+    //   }
+    // });
   }
 
-  init() {
-    this.cmInstance = CodeMirror.fromTextArea(this.textArea, {
+  createCMInstance(ta) {
+    let cmIns = CodeMirror.fromTextArea(ta, {
       lineWrapping: true,
       lineNumbers: true,
       mode: 'markdown',
       styleActiveLine: true,
-      viewportMargin: Infinity,
       lineSeparator: "\n",
-      matchBrackets: true
+      matchBrackets: true,
+      viewportMargin: Infinity,
+      scrollbarStyle: 'null'
     });
-    this.cmInstance.setSize('100%', '50%');
+    // cmIns.setSize('100%', '50%');
+    // cmIns.refresh()
+    return cmIns;
+  }
+
+  init() {
+    for (let i = 0; i < this.textAreas.length; i++) {
+      this.cmInstances.push({
+        cmInstance: this.createCMInstance(this.textAreas[i]),
+        textAreaEle: this.textAreas[i]
+      })
+    }
     this.cb = this.clickBind.bind(this);
     this.submitEle.addEventListener('click', this.cb);
   }
 
   destroy() {
+    console.log('leave')
     this.formContainer.classList.add('c-hidden')
-    this.cmInstance.toTextArea();
-    this.cmInstance = null;
-    this.myTextArea = null;
+    for (let i = 0; i < this.cmInstances.length; i++) {
+      this.cmInstances[i].cmInstance.toTextArea()
+      this.cmInstances[i].cmInstance = null
+    }
+    this.submitEle.removeEventListener('click', this.cb);
   }
 
 }

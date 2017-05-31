@@ -29,25 +29,11 @@ class GistsController < ApplicationController
   def create
     @gist = current_user.gists.build(gist_params)
 
-    # respond_to do |format|
-    #   if @gist.save
-    #     format.html { redirect_to @gist, notice: 'Gist was successfully created.' }
-    #     format.json { render :show, status: :created, location: @gist }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @gist.errors, status: :unprocessable_entity }
-    #   end
-    # end
-
-
     if @gist.save
-      # render :json => {:status => 'success', :url => url_for(@gist) }
       @c_status = 'success'
       @c_override_url = url_for(@gist)
       render :show
     else
-      # format.html { render :new }
-      # render :json => {:status => 'error', :errors => @gist.errors.full_messages}
       @c_status = 'error'
       @c_override_url = new_gist_url
       render :new

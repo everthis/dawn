@@ -1,3 +1,10 @@
+<style>
+  .CodeMirror,
+  .CodeMirror-scroll {
+      height: auto;
+      /*min-height: 108px;*/
+  }
+</style>
 <%= form_for(gist, html: {class: "gist_form"}) do |f| %>
   <% if gist.errors.any? %>
     <div id="error_explanation">
@@ -11,27 +18,34 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+  <fieldset>
+    <legend>
+      <%= f.label :description %>
+    </legend>
+      <%= f.text_field :description %>
+  </fieldset>
 
-  <div class="field">
+  <fieldset class="c-auto-fieldset">
+    <legend>
     <%= f.label :content %>
-    <%= f.text_area :content %>
-  </div>
+    </legend>
+    <%= f.text_area :content, class: 'c-hide' %>
+    </legend>
+  </fieldset>
 
-  <div class="field">
-    <%= f.label :hasAnswer %>
+  <div class="field c-gap-top">
+    <%= f.label :hasAnswer, "Has Answer?" %>
     <%= f.check_box :hasAnswer %>
   </div>
 
-  <div class="field">
+  <fieldset class="c-auto-fieldset">
+    <legend>
     <%= f.label :answer %>
-    <%= f.text_area :answer %>
-  </div>
+    </legend>
+    <%= f.text_area :answer, class: 'c-hide' %>
+  </fieldset>
 
-  <div class="actions">
-    <%= f.submit class: 'c-form-submit' %>
+  <div class="actions c-center c-gap-top">
+    <%= f.submit class: 'c-form-submit c-btn' %>
   </div>
 <% end %>
