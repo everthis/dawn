@@ -2,7 +2,10 @@
   .CodeMirror,
   .CodeMirror-scroll {
       height: auto;
-      /*min-height: 108px;*/
+      min-height: 108px;
+  }
+  .CodeMirror-gutter {
+    height: 1px;
   }
 </style>
 <%= form_for(gist, html: {class: "gist_form"}) do |f| %>
@@ -22,8 +25,13 @@
     <legend>
       <%= f.label :description %>
     </legend>
-      <%= f.text_field :description %>
+      <%= f.text_field :description, class: 'c-block-input' %>
   </fieldset>
+
+  <div class="field c-gap-top">
+    <%= f.label :extension, 'Code extension' %>
+    <%= f.select :extension, %w{plaintext javascript markdown css ruby sass html erb PHP SQL}, :include_blank => false %>
+  </div>
 
   <fieldset class="c-auto-fieldset">
     <legend>

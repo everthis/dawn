@@ -1,6 +1,10 @@
 import styles from 'codemirror/lib/codemirror.css';
 import CodeMirror from 'codemirror';
 import md from 'codemirror/mode/markdown/markdown';
+import css from 'codemirror/mode/css/css';
+import sass from 'codemirror/mode/sass/sass';
+import ruby from 'codemirror/mode/ruby/ruby';
+import js from 'codemirror/mode/javascript/javascript';
 import al from 'codemirror/addon/selection/active-line';
 
 /*
@@ -39,26 +43,31 @@ export default class  {
     // });
   }
 
-  createCMInstance(ta) {
+  createCMInstance(ta, language = 'markdown') {
     let cmIns = CodeMirror.fromTextArea(ta, {
       lineWrapping: true,
       lineNumbers: true,
-      mode: 'markdown',
+      mode: language,
       styleActiveLine: true,
       lineSeparator: "\n",
       matchBrackets: true,
       viewportMargin: Infinity,
-      scrollbarStyle: 'null'
+      scrollbarStyle: 'null',
+      extraKeys: {
+        'Tab': function() {
+          return cmIns.execCommand('insertSoftTab');
+        }
+      }
     });
     // cmIns.setSize('100%', '50%');
     // cmIns.refresh()
     return cmIns;
   }
 
-  init() {
+  init(opts) {
     for (let i = 0; i < this.textAreas.length; i++) {
       this.cmInstances.push({
-        cmInstance: this.createCMInstance(this.textAreas[i]),
+        cmInstance: this.createCMInstance(this.textAreas[i], opts.language),
         textAreaEle: this.textAreas[i]
       })
     }
@@ -66,8 +75,13 @@ export default class  {
     this.submitEle.addEventListener('click', this.cb);
   }
 
+  changeOption(field, val) {
+    for (let i = 0; i < this.cmInstances.length; i++) {
+      this.cmInstances[i].cmInstance.setOption(field, val)
+    }
+  }
+
   destroy() {
-    console.log('leave')
     this.formContainer.classList.add('c-hidden')
     for (let i = 0; i < this.cmInstances.length; i++) {
       this.cmInstances[i].cmInstance.toTextArea()

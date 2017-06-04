@@ -106,8 +106,14 @@ module ApplicationHelper
   class CodeRayify < Redcarpet::Render::HTML
     def block_code(code, language)
       language = "plain" if language.nil?
-      CodeRay.scan(code, language).div
+      CodeRay.scan(code, language).div(:line_numbers => :table, :line_number_anchors => false)
+      # CodeRay.scan(code, language).div(:css => :class, :line_numbers => :table, :line_number_anchors => false)
     end
+  end
+
+  def coderay(code, language)
+    html = CodeRay.scan(code, language).div(:line_numbers => :table)
+    html.html_safe
   end
 
   def markdown2(text)

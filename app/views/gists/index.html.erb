@@ -1,5 +1,5 @@
-<% provide(:title, 'Gist') %>
-<% provide(:name, 'gist') %>
+<% provide(:title, 'Gists') %>
+<% provide(:name, 'gists') %>
 
 <% content_for :content do %>
 <div class="c-normal-card-box">
@@ -7,31 +7,19 @@
 
   <h1>Gists</h1>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Description</th>
-        <th>Content</th>
-        <th>Hasanswer</th>
-        <th>Answer</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
       <% @gists.each do |gist| %>
-        <tr>
-          <td><%= gist.description %></td>
-          <td><%= gist.content %></td>
-          <td><%= gist.hasAnswer %></td>
-          <td><%= gist.answer %></td>
-          <td><%= link_to 'Show', gist %></td>
-          <td><%= link_to 'Edit', edit_gist_path(gist) %></td>
-          <td><%= link_to 'Destroy', gist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+          <h3><%= gist.description %></h3>
+          <h3><%= gist.extension %></h3>
+          <div class="per-gist">
+            <%= coderay(truncate(gist.content, length: 450,
+                                 separator: ' ', omission: ' ... ') {}, gist.extension) %>
+          </div>
+          <div><%= gist.hasAnswer %></div>
+          <div><%= markdown2 gist.answer %></div>
+          <div><%= gist.externalId %></div>
+          <div><%= link_to 'Show', gist, class: "fnpu-link" %> | <%= link_to 'Edit', edit_gist_path(gist), class: "fnpu-link" %> | <%= link_to 'Destroy', gist, method: :delete, data: { confirm: 'Are you sure?' } %></div>
       <% end %>
-    </tbody>
-  </table>
+
 
   <br>
 

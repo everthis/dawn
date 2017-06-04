@@ -11,8 +11,15 @@
     </p>
 
     <p>
+      <strong>Extension:</strong>
+      <%= @gist.extension %>
+    </p>
+
+    <p>
       <strong>Content:</strong>
-      <%= @gist.content %>
+      <div class="content-container">
+        <%= coderay(@gist.content, @gist.extension) %>
+      </div>
     </p>
 
     <p>
@@ -25,8 +32,12 @@
       <%= @gist.answer %>
     </p>
 
-    <%= link_to 'Edit', edit_gist_path(@gist) %> |
-    <%= link_to 'Back', gists_path %>
+    <p>
+      <%= @gist.externalId %>
+    </p>
+
+    <%= link_to 'Edit', edit_gist_path(@gist), class: "fnpu-link" %> |
+    <%= link_to 'Back', gists_path, class: "fnpu-link" %>
   </div>
 <% end %>
 

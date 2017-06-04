@@ -1,5 +1,5 @@
 <% provide(:title, 'New Gist') %>
-<% provide(:name, 'createOrEditGist') %>
+<% provide(:name, 'createGist') %>
 
 
 <% content_for :content do %>
@@ -13,5 +13,5 @@
 <% end %>
 
 <% content_for :foot do %>
-	<%= javascript_pack_tag 'createOrEditGist', name: "createOrEditGist" %>
+	<%= javascript_pack_tag 'createOrEditGist', name: "createGist" %>
 <% end %>
