@@ -23,32 +23,32 @@
 
   <fieldset>
     <legend>
-      <%= f.label :description %>
+      <%= f.label :description, t('.description') %>
     </legend>
       <%= f.text_field :description, class: 'c-block-input' %>
   </fieldset>
 
   <div class="field c-gap-top">
-    <%= f.label :extension, 'Code extension' %>
+    <%= f.label :extension, t('.extension') %>
     <%= f.select :extension, %w{plaintext javascript markdown css ruby sass html erb PHP SQL}, :include_blank => false %>
   </div>
 
   <fieldset class="c-auto-fieldset">
     <legend>
-    <%= f.label :content %>
+    <%= f.label :content, t('.content') %>
     </legend>
     <%= f.text_area :content, class: 'c-hide' %>
     </legend>
   </fieldset>
 
   <div class="field c-gap-top">
-    <%= f.label :hasAnswer, "Has Answer?" %>
+    <%= f.label :hasAnswer, t('.hasAnswer') %>
     <%= f.check_box :hasAnswer %>
   </div>
 
   <fieldset class="c-auto-fieldset">
     <legend>
-    <%= f.label :answer %>
+    <%= f.label :answer, t('.answer') %>
     </legend>
     <%= f.text_area :answer, class: 'c-hide' %>
   </fieldset>

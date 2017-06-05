@@ -5,25 +5,33 @@
 <div class="c-normal-card-box">
   <p id="notice"><%= notice %></p>
 
-  <h1>Gists</h1>
+  <h1><%= t('.title') %></h1>
 
       <% @gists.each do |gist| %>
-          <h3><%= gist.description %></h3>
-          <h3><%= gist.extension %></h3>
+          <div class="c-grid-row">
+            <h3 class="c-grid-span c-grid-span20"><%= gist.description %></h3>
+            <span class="c-grid-span c-grid-span3 c-pad-top-m c-center">
+              <% if gist.hasAnswer %>
+              <span class="c-tag c-tag-green">
+                <span class="c-tag-text"><%= gist.hasAnswer ? t('.hasAnswer') : ' ' %></span>
+              </span>
+              <% end %>
+            </span>
+            <span class="c-grid-span c-grid-span4 c-pad-top-m c-center"><%= link_to t('.show'), gist, class: "fnpu-link" %> | <%= link_to t('.edit'), edit_gist_path(gist), class: "fnpu-link" %> | <%= link_to t('.destroy'), gist, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+            
+          </div>
           <div class="per-gist">
             <%= coderay(truncate(gist.content, length: 450,
                                  separator: ' ', omission: ' ... ') {}, gist.extension) %>
           </div>
-          <div><%= gist.hasAnswer %></div>
-          <div><%= markdown2 gist.answer %></div>
           <div><%= gist.externalId %></div>
-          <div><%= link_to 'Show', gist, class: "fnpu-link" %> | <%= link_to 'Edit', edit_gist_path(gist), class: "fnpu-link" %> | <%= link_to 'Destroy', gist, method: :delete, data: { confirm: 'Are you sure?' } %></div>
       <% end %>
 
 
   <br>
 
-  <%= link_to 'New Gist', new_gist_path, class: "fnpu-link" %>
+  <%= link_to t('.new'), new_gist_path, class: "fnpu-link" %>
 </div>
 
 <% end %>
+

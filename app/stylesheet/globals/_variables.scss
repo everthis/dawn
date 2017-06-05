@@ -19,6 +19,11 @@ $alert-text-color: #fff;
 
 $gray: #f7f7f7;
 
+$blue: #2d8cf0;
+$green: #19be6b;
+$red: #ed3f14;
+$yellow: #f90;
+
 /* used for math */
 $default-threshold: pi()/180/20 !default;
 
@@ -43,6 +48,7 @@ $gap-left: .5rem;
 $gap-right: .5rem;
 $pad-left: .5rem;
 $pad-top: .5rem;
+$pad-m: 1.2rem;
 $pad-right: .5rem;
 $pad-bottom: .5rem;
 $pad-left-wide: 1rem;

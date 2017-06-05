@@ -133,3 +133,28 @@ zh-CN:
       show:              "显示"
       edit:              "编辑"
       destroy:           "删除"
+
+  gists:
+    edit:
+      show:              "显示"
+      back:              "返回"
+      title:             "编辑Gist"
+    form:
+      description:       "描述"
+      extension:         "类型"
+      content:           "内容"
+      hasAnswer:         "是否有答案"
+      answer:            "答案"
+    index:
+      new:               "新建Gist"
+      title:             "Gist列表"
+      show:              "显示"
+      edit:              "编辑"
+      destroy:           "删除"
+      hasAnswer:         "有答案"
+    new:
+      title:             "新建Gist"
+      back:              "返回列表"
+    show:
+      edit:              "编辑"
+      back:              "返回列表"

@@ -11,6 +11,7 @@ body {
 	font: $english-font;
 	background-color: #fff;
 	font-size: $font-size;
+	// -webkit-font-smoothing: antialiased;
 }
 .hide {
 	display: none !important;

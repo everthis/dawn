@@ -36,8 +36,8 @@
       <%= @gist.externalId %>
     </p>
 
-    <%= link_to 'Edit', edit_gist_path(@gist), class: "fnpu-link" %> |
-    <%= link_to 'Back', gists_path, class: "fnpu-link" %>
+    <%= link_to t('.edit'), edit_gist_path(@gist), class: "fnpu-link" %> |
+    <%= link_to t('.back'), gists_path, class: "fnpu-link" %>
   </div>
 <% end %>
 

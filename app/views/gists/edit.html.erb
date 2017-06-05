@@ -1,13 +1,13 @@
 <% provide(:title, 'editGist') %>
-<% provide(:name, 'editGist') %>
+<% provide(:name, 'createOrEditGist') %>
 
 <% content_for :content do %>
 <div class="c-normal-card-box gist-container">
-	<h1>Editing Gist</h1>
+	<h1><%= t('.title') %></h1>
 	<%= render 'form', gist: @gist %>
 
-	<%= link_to 'Show', @gist, class: "fnpu-link" %> |
-	<%= link_to 'Back', gists_path, class: "fnpu-link" %>
+	<%= link_to t('.show'), @gist, class: "fnpu-link" %> |
+	<%= link_to t('.back'), gists_path, class: "fnpu-link" %>
 	
 </div>
 
@@ -15,5 +15,5 @@
 
 <% content_for :foot do %>
 
-  <%= javascript_pack_tag 'createOrEditGist', name: "editGist" %>
+  <%= javascript_pack_tag 'createOrEditGist', name: "createOrEditGist" %>
 <% end %>
