@@ -6,33 +6,36 @@
     <p id="notice"><%= notice %></p>
 
     <p>
-      <strong>Description:</strong>
+      <strong><%= t('.description') %>:</strong>
       <%= @gist.description %>
     </p>
 
     <p>
-      <strong>Extension:</strong>
+      <strong><%= t('.extension')%>:</strong>
       <%= @gist.extension %>
     </p>
 
     <p>
-      <strong>Content:</strong>
+      <strong><%= t('.content') %>:</strong>
       <div class="content-container">
         <%= coderay(@gist.content, @gist.extension) %>
       </div>
     </p>
 
     <p>
-      <strong>Hasanswer:</strong>
+      <strong><%= t('.hasAnswer') %>:</strong>
       <%= @gist.hasAnswer %>
     </p>
 
     <p>
-      <strong>Answer:</strong>
-      <%= @gist.answer %>
+      <strong><%= t('.answer') %>:</strong>
+      <span class="answer-container">
+        <%= coderay(@gist.answer, @gist.extension) %>
+      </span>
     </p>
 
     <p>
+      <strong><%= t('.externalId') %>:</strong>
       <%= @gist.externalId %>
     </p>
 

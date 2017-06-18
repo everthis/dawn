@@ -113,3 +113,34 @@ en:
       show:              "Show"
       edit:              "Edit"
       destroy:           "destroy"
+
+  gists:
+    edit:
+      show:              "show"
+      back:              "back"
+      title:             "title"
+    form:
+      description:       "description"
+      extension:         "extension"
+      content:           "content"
+      hasAnswer:         "hasAnswer"
+      answer:            "answer"
+    index:
+      new:               "new"
+      title:             "title"
+      show:              "show"
+      edit:              "edit"
+      destroy:           "destroy"
+      hasAnswer:         "hasAnswer"
+    new:
+      title:             "title"
+      back:              "back"
+    show:
+      edit:              "edit"
+      back:              "back"
+      description:       "description"
+      extension:         "extension"
+      content:           "content"
+      hasAnswer:         "hasAnswer"
+      answer:            "answer"
+      externalId:        "externalId"

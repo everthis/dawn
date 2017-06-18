@@ -158,3 +158,9 @@ zh-CN:
     show:
       edit:              "编辑"
       back:              "返回列表"
+      description:       "描述"
+      extension:         "类型"
+      content:           "内容"
+      hasAnswer:         "是否有答案"
+      answer:            "答案"
+      externalId:        "标记"
