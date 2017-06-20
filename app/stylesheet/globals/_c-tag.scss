@@ -18,7 +18,8 @@
   opacity: 1;
   overflow: hidden;
   cursor: pointer;
-  transform: scale(0.66);
+  /* trick calculate the offset */
+  transform: scale(0.66) translateX(-25%);
   position: relative;
   top: -6px;
   letter-spacing: 2px;

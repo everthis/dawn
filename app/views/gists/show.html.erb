@@ -23,13 +23,17 @@
     </p>
 
     <p>
-      <strong><%= t('.hasAnswer') %>:</strong>
-      <%= @gist.hasAnswer %>
+      <% if @gist.hasAnswer %>
+      <span class="c-tag c-tag-green">
+        <span class="c-tag-text"><%= @gist.hasAnswer ? t('.hasAnswer') : ' ' %></span>
+      </span>
+      <% end %>
     </p>
 
     <p>
       <strong><%= t('.answer') %>:</strong>
-      <span class="answer-container">
+      <span class="collapse-trigger" data-expand="<%= t('.expand') %>" data-collapse="<%= t('.collapse') %>"></span>
+      <span class="answer-container c-hide">
         <%= coderay(@gist.answer, @gist.extension) %>
       </span>
     </p>
@@ -45,4 +49,5 @@
 <% end %>
 
 <% content_for :foot do %>
+  <%= javascript_pack_tag 'gist', name: "gist" %>
 <% end %>
