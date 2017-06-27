@@ -10,273 +10,270 @@
  * remove(child, parent) removes a node in a tree.
  *
  */
-import {Queue} from './queue';
-export function Tree(data) {
-  var node = new Node(data);
-  this._root = node;
+import {Queue} from './queue'
+export function Tree (data) {
+  var node = new Node(data)
+  this._root = node
 }
 
-function Node(data) {
-  this.nodeId = data.nodeId; // leaf index, starts from 0(root node)
-  this.parent = null;
-  this.children = [];
+function Node (data) {
+  this.nodeId = data.nodeId // leaf index, starts from 0(root node)
+  this.parent = null
+  this.children = []
   // added later
-  this.childrenlevel = 1; // rows of descendants of current node
-  this.column = 0; // which column the current node sits in, starts from 0( root node sits in)
-  this.totaloffsetylevel = 0; // total vertical offset to the current tree 
-  this.data = data.data || {};
+  this.childrenlevel = 1 // rows of descendants of current node
+  this.column = 0 // which column the current node sits in, starts from 0( root node sits in)
+  this.totaloffsetylevel = 0 // total vertical offset to the current tree
+  this.data = data.data || {}
 }
 
-Tree.prototype.traverseDF = function(callback) {
-
+Tree.prototype.traverseDF = function (callback) {
   // this is a recurse and immediately-invoking function
-  (function recurse(currentNode) {
+  (function recurse (currentNode) {
     // step 2
     for (var i = 0, length = currentNode.children.length; i < length; i++) {
       // step 3
-      recurse(currentNode.children[i]);
+      recurse(currentNode.children[i])
     }
 
     // step 4
-    callback(currentNode);
+    callback(currentNode)
 
     // step 1
-  })(this._root);
-
-};
+  })(this._root)
+}
 
 // for those nodes who have children
-function calcChildrenLevels(node) {
-  var totalChildrenLevels = 0;
+function calcChildrenLevels (node) {
+  var totalChildrenLevels = 0
   for (var i = 0; i < node.children.length; i++) {
-    totalChildrenLevels += node.children[i].childrenlevel;
+    totalChildrenLevels += node.children[i].childrenlevel
   };
-  return totalChildrenLevels;
+  return totalChildrenLevels
 }
-Tree.prototype.calcChildrenLevel = function() {
-  var callback = function(node) {
-    node.childrenlevel = node.children.length > 0 ? calcChildrenLevels(node) : 1;
-    node.column = node.parent ? (node.parent.column + 1) : 0;
-  };
+Tree.prototype.calcChildrenLevel = function () {
+  var callback = function (node) {
+    node.childrenlevel = node.children.length > 0 ? calcChildrenLevels(node) : 1
+    node.column = node.parent ? (node.parent.column + 1) : 0
+  }
 
-  this.traverseDF(callback);
-};
+  this.traverseDF(callback)
+}
 
-function calcOffY(arr, data) {
-  var nodeIdx = findIndex(arr, data);
-  var totalY = 0;
+function calcOffY (arr, data) {
+  var nodeIdx = findIndex(arr, data)
+  var totalY = 0
   for (var i = 0; i < nodeIdx; i++) {
-    totalY += arr[i].childrenlevel;
+    totalY += arr[i].childrenlevel
   };
-  return totalY;
+  return totalY
 }
 
-Tree.prototype.calcTotalOffsetYLevel = function() {
-  var levelgap = 0;
-  var callback = function(node) {
+Tree.prototype.calcTotalOffsetYLevel = function () {
+  var levelgap = 0
+  var callback = function (node) {
     if (node.parent) {
-      node.totaloffsetylevel = node.parent.totaloffsetylevel + calcOffY(node.parent.children, node.nodeId);
+      node.totaloffsetylevel = node.parent.totaloffsetylevel + calcOffY(node.parent.children, node.nodeId)
     } else if (node.parent === null) {
 
     };
-  };
+  }
 
-  this.traverseBF(callback);
+  this.traverseBF(callback)
+}
 
-};
+Tree.prototype.traverseBF = function (callback) {
+  var queue = new Queue()
 
-Tree.prototype.traverseBF = function(callback) {
-  var queue = new Queue();
+  queue.enqueue(this._root)
 
-  queue.enqueue(this._root);
-
-  var currentTree = queue.dequeue();
+  var currentTree = queue.dequeue()
 
   while (currentTree) {
     for (var i = 0, length = currentTree.children.length; i < length; i++) {
-      queue.enqueue(currentTree.children[i]);
+      queue.enqueue(currentTree.children[i])
     }
 
-    callback(currentTree);
-    currentTree = queue.dequeue();
+    callback(currentTree)
+    currentTree = queue.dequeue()
   }
-};
+}
 
-Tree.prototype.contains = function(callback, traversal) {
-  traversal.call(this, callback);
-};
+Tree.prototype.contains = function (callback, traversal) {
+  traversal.call(this, callback)
+}
 
-Tree.prototype.add = function(data, toData, traversal) {
+Tree.prototype.add = function (data, toData, traversal) {
   var child = new Node(data),
-      parent = null,
-      callback = function(node) {
-        if (node.nodeId === toData) {
-          parent = node;
-        }
-      };
+    parent = null,
+    callback = function (node) {
+      if (node.nodeId === toData) {
+        parent = node
+      }
+    }
 
-  this.contains(callback, traversal);
+  this.contains(callback, traversal)
 
   if (parent) {
-    parent.children.push(child);
-    child.parent = parent;
+    parent.children.push(child)
+    child.parent = parent
   } else {
-    throw new Error('Cannot add node to a non-existent parent.');
+    throw new Error('Cannot add node to a non-existent parent.')
   }
 
-  this.calcChildrenLevel();
-  this.calcTotalOffsetYLevel();
-  this.checkDataHasChild();
+  this.calcChildrenLevel()
+  this.calcTotalOffsetYLevel()
+  this.checkDataHasChild()
   return child
-};
+}
 
-Tree.prototype.remove = function(data, fromData, traversal) {
+Tree.prototype.remove = function (data, fromData, traversal) {
   var tree = this,
-      parent = null,
-      childToRemove = null,
-      index;
+    parent = null,
+    childToRemove = null,
+    index
 
-  var callback = function(node) {
+  var callback = function (node) {
     if (node.nodeId === fromData) {
-      parent = node;
+      parent = node
     }
-  };
+  }
 
-  this.contains(callback, traversal);
+  this.contains(callback, traversal)
 
   if (parent) {
-    index = findIndex(parent.children, data);
+    index = findIndex(parent.children, data)
 
     if (index === undefined) {
-      throw new Error('Node to remove does not exist.');
+      throw new Error('Node to remove does not exist.')
     } else {
-      childToRemove = parent.children.splice(index, 1);
+      childToRemove = parent.children.splice(index, 1)
     }
   } else {
-    throw new Error('Parent does not exist.');
+    throw new Error('Parent does not exist.')
   }
 
-  this.calcChildrenLevel();
-  this.calcTotalOffsetYLevel();
-  this.checkDataHasChild();
-  return childToRemove;
-};
+  this.calcChildrenLevel()
+  this.calcTotalOffsetYLevel()
+  this.checkDataHasChild()
+  return childToRemove
+}
 
-function findIndex(arr, data) {
-  var index;
+function findIndex (arr, data) {
+  var index
 
   for (var i = 0; i < arr.length; i++) {
     if (arr[i].nodeId === data) {
-      index = i;
+      index = i
     }
   }
 
-  return index;
+  return index
 }
 
-/* tree addon*/
+/* tree addon */
 
-Tree.prototype.traverseDirectChild = function(nodedata) {
+Tree.prototype.traverseDirectChild = function (nodedata) {
   var queue = new Queue(),
-  parent = null,
-    callback = function(node) {
+    parent = null,
+    callback = function (node) {
       if (node.nodeId === nodedata) {
-        parent = node;
+        parent = node
       }
-    };
+    }
 
-  this.contains(callback, this.traverseBF);
+  this.contains(callback, this.traverseBF)
 
   while (parent) {
     for (var i = 0, length = parent.children.length; i < length; i++) {
-      queue.enqueue(parent.children[i]);
+      queue.enqueue(parent.children[i])
     }
-    callback(parent);
-    parent = null;
+    callback(parent)
+    parent = null
   }
-  return queue;
-};
-Tree.prototype.applyStyle = function() {
-  var styleObj = {};
-  var callback = function(node) {
-    styleObj[node.nodeId] = node.totaloffsetylevel;
-  };
-  this.traverseBF(callback);
+  return queue
+}
+Tree.prototype.applyStyle = function () {
+  var styleObj = {}
+  var callback = function (node) {
+    styleObj[node.nodeId] = node.totaloffsetylevel
+  }
+  this.traverseBF(callback)
 
-  return styleObj;
-};
+  return styleObj
+}
 
 /**
  * [traverseDescendants description]
  * @param  {[integer]} nodeData [description]
  * @return {[array]}         [description]
  */
-Tree.prototype.traverseDescendants = function(nodeData) {
+Tree.prototype.traverseDescendants = function (nodeData) {
   var queue = new Queue(),
-      parent = null,
-        callback = function(node) {
-          if (node.nodeId === nodeData) {
-            parent = node;
-          }
-        };
+    parent = null,
+    callback = function (node) {
+      if (node.nodeId === nodeData) {
+        parent = node
+      }
+    }
 
-  this.contains(callback, this.traverseBF);
+  this.contains(callback, this.traverseBF)
 
-  queue.enqueue(parent);
+  queue.enqueue(parent)
 
-  var currentTree = queue.dequeue();
-  var descendantsArr = [];
+  var currentTree = queue.dequeue()
+  var descendantsArr = []
 
   while (currentTree) {
-    descendantsArr.push(currentTree);
+    descendantsArr.push(currentTree)
     for (var i = 0, length = currentTree.children.length; i < length; i++) {
-      queue.enqueue(currentTree.children[i]);
+      queue.enqueue(currentTree.children[i])
     }
 
-    currentTree = queue.dequeue();
+    currentTree = queue.dequeue()
   }
 
-  return descendantsArr;
-};
+  return descendantsArr
+}
 
-Tree.prototype.checkDataHasChild = function() {
-  let callback = function(node) {
-    node.data.hasChild = node.children.length > 0 ? true : false;
-  };
-  this.traverseBF(callback);
-};
+Tree.prototype.checkDataHasChild = function () {
+  let callback = function (node) {
+    node.data.hasChild = node.children.length > 0
+  }
+  this.traverseBF(callback)
+}
 
 /* get Max nodeId from tree */
-Tree.prototype.maxId = function() {
-  let maxNodeId = 0;
-  let callback = function(node) {
-    if (node.nodeId > maxNodeId) maxNodeId = node.nodeId;
-  };
-  this.traverseBF(callback);
-  return maxNodeId;
-};
+Tree.prototype.maxId = function () {
+  let maxNodeId = 0
+  let callback = function (node) {
+    if (node.nodeId > maxNodeId) maxNodeId = node.nodeId
+  }
+  this.traverseBF(callback)
+  return maxNodeId
+}
 
 /* tree depth */
-Tree.prototype.depth = function() {
-  var depthArr = [];
-  var callback = function(node) {
-    let depth = 0;
+Tree.prototype.depth = function () {
+  var depthArr = []
+  var callback = function (node) {
+    let depth = 0
     if (node.children.length === 0) {
       while (node.parent !== null) {
-        depth += 1;
-        node = node.parent;
+        depth += 1
+        node = node.parent
       }
-      depthArr.push(depth);
+      depthArr.push(depth)
     }
-  };
-  this.traverseDF(callback);
-  return depthArr;
-};
+  }
+  this.traverseDF(callback)
+  return depthArr
+}
 
-Tree.prototype.dimensions = function() {
-  let horiMax, verticalMax, horiArr = [];
-  horiArr = this.depth();
-  horiMax = Math.max.apply(null, horiArr);
-  verticalMax = this._root.childrenlevel;
-  return [horiMax, verticalMax];
-};
+Tree.prototype.dimensions = function () {
+  let horiMax, verticalMax, horiArr = []
+  horiArr = this.depth()
+  horiMax = Math.max.apply(null, horiArr)
+  verticalMax = this._root.childrenlevel
+  return [horiMax, verticalMax]
+}

@@ -5,16 +5,13 @@
 
 // goog.provide('spfArray');
 
-import {spfBase, SPF_BOOTLOADER} from '../base';
-let spfArray = {};
-
-
+import {spfBase, SPF_BOOTLOADER} from '../base'
+let spfArray = {}
 
 /**
  * @typedef {Array|NodeList|Arguments|{length: number}}
  */
-spfArray.ArrayLike;
-
+spfArray.ArrayLike
 
 /**
  * Compatible Array#forEach implementation.
@@ -26,19 +23,18 @@ spfArray.ArrayLike;
  * @param {THIS=} opt_obj The value to use as "this" in the function.
  * @template THIS, ITEM
  */
-spfArray.each = function(arr, fn, opt_obj) {
+spfArray.each = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.forEach) {
-    arr.forEach(fn, opt_obj);
-    return;
+    arr.forEach(fn, opt_obj)
+    return
   }
   for (var i = 0, l = arr.length; i < l; i++) {
     if (i in arr) {
-      fn.call(opt_obj, arr[i], i, arr);
+      fn.call(opt_obj, arr[i], i, arr)
     }
   }
-};
-
+}
 
 /**
  * Compatible Array#every implementation.
@@ -52,19 +48,18 @@ spfArray.each = function(arr, fn, opt_obj) {
  * @return {boolean} Whether the result of every execution was truthy.
  * @template THIS, ITEM
  */
-spfArray.every = function(arr, fn, opt_obj) {
+spfArray.every = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.every) {
-    return arr.every(fn, opt_obj);
+    return arr.every(fn, opt_obj)
   }
   for (var i = 0, l = arr.length; i < l; i++) {
     if (i in arr && !fn.call(opt_obj, arr[i], i, arr)) {
-      return false;
+      return false
     }
   }
-  return true;
-};
-
+  return true
+}
 
 /**
  * Compatible Array#some implementation.
@@ -78,19 +73,18 @@ spfArray.every = function(arr, fn, opt_obj) {
  * @return {boolean} Whether the result of any execution was truthy.
  * @template THIS, ITEM
  */
-spfArray.some = function(arr, fn, opt_obj) {
+spfArray.some = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.some) {
-    return arr.some(fn, opt_obj);
+    return arr.some(fn, opt_obj)
   }
   for (var i = 0, l = arr.length; i < l; i++) {
     if (i in arr && fn.call(opt_obj, arr[i], i, arr)) {
-      return true;
+      return true
     }
   }
-  return false;
-};
-
+  return false
+}
 
 /**
  * Compatible Array#filter implementation.
@@ -104,20 +98,19 @@ spfArray.some = function(arr, fn, opt_obj) {
  * @return {!Array.<RESULT>} A new array of filtered results.
  * @template THIS, ITEM, RESULT
  */
-spfArray.filter = function(arr, fn, opt_obj) {
+spfArray.filter = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.filter) {
-    return arr.filter(fn, opt_obj);
+    return arr.filter(fn, opt_obj)
   }
-  var res = [];
-  spfArray.each(arr, function(a, i, arr) {
+  var res = []
+  spfArray.each(arr, function (a, i, arr) {
     if (fn.call(opt_obj, a, i, arr)) {
-      res.push(a);
+      res.push(a)
     }
-  });
-  return res;
-};
-
+  })
+  return res
+}
 
 /**
  * Compatible Array#indexOf implementation.
@@ -128,19 +121,18 @@ spfArray.filter = function(arr, fn, opt_obj) {
  * @return {number} The index of the first matching element.
  * @template ITEM
  */
-spfArray.indexOf = function(arr, val, opt_fromIndex) {
+spfArray.indexOf = function (arr, val, opt_fromIndex) {
   if (!SPF_BOOTLOADER && arr.indexOf) {
-    return arr.indexOf(val, opt_fromIndex);
+    return arr.indexOf(val, opt_fromIndex)
   }
-  var start = opt_fromIndex || 0;
+  var start = opt_fromIndex || 0
   for (var i = start; i < arr.length; i++) {
     if (i in arr && arr[i] === val) {
-      return i;
+      return i
     }
   }
-  return -1;
-};
-
+  return -1
+}
 
 /**
  * Compatible Array#map implementation.
@@ -154,19 +146,18 @@ spfArray.indexOf = function(arr, val, opt_fromIndex) {
  * @return {Array.<RESULT>} A new array of mapped results.
  * @template THIS, ITEM, RESULT
  */
-spfArray.map = function(arr, fn, opt_obj) {
+spfArray.map = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
   if (!SPF_BOOTLOADER && arr.map) {
-    return arr.map(fn, opt_obj);
+    return arr.map(fn, opt_obj)
   }
-  var res = [];
-  res.length = arr.length;
-  spfArray.each(arr, function(a, i, arr) {
-    res[i] = fn.call(opt_obj, a, i, arr);
-  });
-  return res;
-};
-
+  var res = []
+  res.length = arr.length
+  spfArray.each(arr, function (a, i, arr) {
+    res[i] = fn.call(opt_obj, a, i, arr)
+  })
+  return res
+}
 
 /**
  * Converts to an array if needed.
@@ -174,10 +165,9 @@ spfArray.map = function(arr, fn, opt_obj) {
  * @param {?} val The value.
  * @return {Array} An array.
  */
-spfArray.toArray = function(val) {
-  return spfArray.isArray(val) ? val : [val];
-};
-
+spfArray.toArray = function (val) {
+  return spfArray.isArray(val) ? val : [val]
+}
 
 /**
  * Simple Array.isArray implementation.
@@ -185,14 +175,14 @@ spfArray.toArray = function(val) {
  * @param {?} val Value to test.
  * @return {boolean} Whether the value is an array.
  */
-spfArray.isArray = function(val) {
+spfArray.isArray = function (val) {
   // When built for the bootloader, optimize for size over complete accuracy.
   if (SPF_BOOTLOADER) {
     // This test will fail if a fake object like "{push: 1}" is passed in, but
     // for the bootloader, this is an acceptable trade off.
-    return !!(val && val.push);
+    return !!(val && val.push)
   }
-  return Object.prototype.toString.call(val) == '[object Array]';
-};
+  return Object.prototype.toString.call(val) == '[object Array]'
+}
 
-export default spfArray;
+export default spfArray

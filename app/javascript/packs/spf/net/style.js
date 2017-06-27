@@ -11,12 +11,11 @@
 
 // goog.provide('spfNetStyle');
 
-import spfArray from '../array/array';
-import spfNetResource from '../net/resource';
-import spfString from '../string/string';
+import spfArray from '../array/array'
+import spfNetResource from '../net/resource'
+import spfString from '../string/string'
 
-let spfNetStyle = {};
-
+let spfNetStyle = {}
 
 /**
  * Loads a stylesheet asynchronously and defines a name to use for dependency
@@ -44,31 +43,28 @@ let spfNetStyle = {};
  * @param {Function=} opt_fn Optional callback function to execute when the
  *     stylesheet is loaded.
  */
-spfNetStyle.load = function(url, name, opt_fn) {
-  var type = spfNetResource.Type.CSS;
-  spfNetResource.load(type, url, name, opt_fn);
-};
-
+spfNetStyle.load = function (url, name, opt_fn) {
+  var type = spfNetResource.Type.CSS
+  spfNetResource.load(type, url, name, opt_fn)
+}
 
 /**
  * Unloads a stylesheet identified by dependency name.  See {@link #load}.
  *
  * @param {string} name The dependency name.
  */
-spfNetStyle.unload = function(name) {
-  var type = spfNetResource.Type.CSS;
-  spfNetResource.unload(type, name);
-};
-
+spfNetStyle.unload = function (name) {
+  var type = spfNetResource.Type.CSS
+  spfNetResource.unload(type, name)
+}
 
 /**
  * Discovers existing stylesheets in the document and registers them as loaded.
  */
-spfNetStyle.discover = function() {
-  var type = spfNetResource.Type.CSS;
-  spfNetResource.discover(type);
-};
-
+spfNetStyle.discover = function () {
+  var type = spfNetResource.Type.CSS
+  spfNetResource.discover(type)
+}
 
 /**
  * Unconditionally loads a stylesheet by dynamically creating an element and
@@ -79,13 +75,12 @@ spfNetStyle.discover = function() {
  * @param {string} url URL of the stylesheet to load.
  * @param {Function=} opt_fn Function to execute when loaded.
  */
-spfNetStyle.get = function(url, opt_fn) {
+spfNetStyle.get = function (url, opt_fn) {
   // NOTE: Callback execution depends on onload support and is best effort.
   // Chrome 19, Safari 6, Firefox 9, Opera and IE 5.5 support stylesheet onload.
-  var type = spfNetResource.Type.CSS;
-  spfNetResource.create(type, url, opt_fn);
-};
-
+  var type = spfNetResource.Type.CSS
+  spfNetResource.create(type, url, opt_fn)
+}
 
 /**
  * Prefetchs one or more stylesheets; the stylesheets will be requested but not
@@ -94,15 +89,14 @@ spfNetStyle.get = function(url, opt_fn) {
  *
  * @param {string|Array.<string>} urls One or more stylesheet URLs to prefetch.
  */
-spfNetStyle.prefetch = function(urls) {
-  var type = spfNetResource.Type.CSS;
+spfNetStyle.prefetch = function (urls) {
+  var type = spfNetResource.Type.CSS
   // Convert to an array if needed.
-  urls = spfArray.toArray(urls);
-  spfArray.each(urls, function(url) {
-    spfNetResource.prefetch(type, url);
-  });
-};
-
+  urls = spfArray.toArray(urls)
+  spfArray.each(urls, function (url) {
+    spfNetResource.prefetch(type, url)
+  })
+}
 
 /**
  * Evaluates style text and defines a name to use for management.
@@ -114,22 +108,20 @@ spfNetStyle.prefetch = function(urls) {
  * @param {string} name Name to identify the style.
  * @return {undefined}
  */
-spfNetStyle.eval = function(text, name) {
-  var type = spfNetResource.Type.CSS;
-  spfNetResource.eval(type, text, name);
-};
-
+spfNetStyle.eval = function (text, name) {
+  var type = spfNetResource.Type.CSS
+  spfNetResource.eval(type, text, name)
+}
 
 /**
  * Unconditionally evaluates style text.  See {@link #eval}.
  *
  * @param {string} text The text of the style.
  */
-spfNetStyle.exec = function(text) {
-  var type = spfNetResource.Type.CSS;
-  spfNetResource.exec(type, text);
-};
-
+spfNetStyle.exec = function (text) {
+  var type = spfNetResource.Type.CSS
+  spfNetResource.exec(type, text)
+}
 
 /**
  * Sets the path prefix or replacement map to use when resolving relative URLs.
@@ -138,10 +130,9 @@ spfNetStyle.exec = function(text) {
  *
  * @param {string|Object.<string>} paths The paths.
  */
-spfNetStyle.path = function(paths) {
-  var type = spfNetResource.Type.CSS;
-  spfNetResource.path(type, paths);
-};
+spfNetStyle.path = function (paths) {
+  var type = spfNetResource.Type.CSS
+  spfNetResource.path(type, paths)
+}
 
-
-export default spfNetStyle;
+export default spfNetStyle

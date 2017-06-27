@@ -11,11 +11,10 @@
 
 // goog.provide('spfNetXhr');
 
-import {spfBase} from '../base';
-let spfNetXhr = {};
+import {spfBase} from '../base'
+let spfNetXhr = {}
 
 // goog.require('spf');
-
 
 /**
  * Type definition for the configuration options for an XMLHttpRequest.
@@ -46,15 +45,13 @@ let spfNetXhr = {};
  *   withCredentials: (boolean|undefined)
  * }}
  */
-spfNetXhr.Options;
-
+spfNetXhr.Options
 
 /**
  * Type definition for POST data.
  * @typedef {(ArrayBuffer|Blob|Document|FormData|null|string|undefined)}
  */
-spfNetXhr.PostData;
-
+spfNetXhr.PostData
 
 /**
  * Sends an XMLHttpRequest object as asynchronous GET request.
@@ -63,10 +60,9 @@ spfNetXhr.PostData;
  * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spfNetXhr.get = function(url, opt_options) {
-  return spfNetXhr.send('GET', url, null, opt_options);
-};
-
+spfNetXhr.get = function (url, opt_options) {
+  return spfNetXhr.send('GET', url, null, opt_options)
+}
 
 /**
  * Sends an XMLHttpRequest object as asynchronous POST request.
@@ -76,10 +72,9 @@ spfNetXhr.get = function(url, opt_options) {
  * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spfNetXhr.post = function(url, data, opt_options) {
-  return spfNetXhr.send('POST', url, data, opt_options);
-};
-
+spfNetXhr.post = function (url, data, opt_options) {
+  return spfNetXhr.send('POST', url, data, opt_options)
+}
 
 /**
  * Sends an XMLHttpRequest object.
@@ -90,109 +85,108 @@ spfNetXhr.post = function(url, data, opt_options) {
  * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spfNetXhr.send = function(method, url, data, opt_options) {
-  var options = opt_options || {};
-  var chunked = false;
-  var offset = 0;
-  var timer;
+spfNetXhr.send = function (method, url, data, opt_options) {
+  var options = opt_options || {}
+  var chunked = false
+  var offset = 0
+  var timer
 
-  var xhr = new XMLHttpRequest();
-  xhr.open(method, url, true);
-  xhr['timing'] = {};
+  var xhr = new XMLHttpRequest()
+  xhr.open(method, url, true)
+  xhr['timing'] = {}
 
   // Overload the abort method to handle the timer.
-  var xhr_abort = xhr.abort;
-  xhr.abort = function() {
-    clearTimeout(timer);
-    xhr.onreadystatechange = null;
-    xhr_abort.call(xhr);
-  };
+  var xhr_abort = xhr.abort
+  xhr.abort = function () {
+    clearTimeout(timer)
+    xhr.onreadystatechange = null
+    xhr_abort.call(xhr)
+  }
 
-  xhr.onreadystatechange = function() {
-    var timing = xhr['timing'];
+  xhr.onreadystatechange = function () {
+    var timing = xhr['timing']
     if (xhr.readyState == spfNetXhr.State.HEADERS_RECEIVED) {
       // Record responseStart time when first byte is received.
-      timing['responseStart'] = timing['responseStart'] || spfBase.now();
+      timing['responseStart'] = timing['responseStart'] || spfBase.now()
       // Determine whether to process chunks as they arrive.
-      chunked = spfNetXhr.isChunked_(xhr);
+      chunked = spfNetXhr.isChunked_(xhr)
       if (options.onHeaders) {
-        options.onHeaders(xhr);
+        options.onHeaders(xhr)
       }
     } else if (xhr.readyState == spfNetXhr.State.LOADING) {
       if (chunked && options.onChunk) {
-        var chunk = xhr.responseText.substring(offset);
-        offset = xhr.responseText.length;
-        options.onChunk(xhr, chunk);
+        var chunk = xhr.responseText.substring(offset)
+        offset = xhr.responseText.length
+        options.onChunk(xhr, chunk)
       }
     } else if (xhr.readyState == spfNetXhr.State.DONE) {
       // Record responseEnd time when full response is received.
-      timing['responseEnd'] = timing['responseEnd'] || spfBase.now();
+      timing['responseEnd'] = timing['responseEnd'] || spfBase.now()
       // Record Resource Timing relative timings (where available) to later be
       // converted into Navigation Timing absolute timings.
       if (window.performance && window.performance.getEntriesByName) {
         // Get always the latest entry available just in case old entries were
         // not cleared out by performance.clearResourceTimings.
-        xhr['resourceTiming'] = window.performance.getEntriesByName(url).pop();
+        xhr['resourceTiming'] = window.performance.getEntriesByName(url).pop()
       }
       // If processing chunks as they arrive and the state was transitioned
       // at response end to DONE without a LOADING, process the final chunk now.
       if (chunked && options.onChunk && xhr.responseText.length > offset) {
-        var chunk = xhr.responseText.substring(offset);
-        offset = xhr.responseText.length;
-        options.onChunk(xhr, chunk);
+        var chunk = xhr.responseText.substring(offset)
+        offset = xhr.responseText.length
+        options.onChunk(xhr, chunk)
       }
-      clearTimeout(timer);
+      clearTimeout(timer)
       if (options.onDone) {
-        options.onDone(xhr);
+        options.onDone(xhr)
       }
     }
-  };
+  }
 
   // If requested, attempt to use the JSON `responseType` to optimize parsing.
   // If the browser supports `responseType` but not the `"json"` type, then
   // the property will remain unset.
   // NOTE: This removes the ability to handle chunked responses on the fly.
   if ('responseType' in xhr && options.responseType == 'json') {
-    xhr.responseType = 'json';
+    xhr.responseType = 'json'
   }
 
   if (options.withCredentials) {
-    xhr.withCredentials = options.withCredentials;
+    xhr.withCredentials = options.withCredentials
   }
 
   // For POST, default to `Content-Type: application/x-www-form-urlencoded`
   // unless a custom header was given.
-  var isFormData = ('FormData' in window && data instanceof FormData);
-  var addContentTypeFormUrlEncoded = (method == 'POST' && !isFormData);
+  var isFormData = ('FormData' in window && data instanceof FormData)
+  var addContentTypeFormUrlEncoded = (method == 'POST' && !isFormData)
   if (options.headers) {
     for (var key in options.headers) {
-      xhr.setRequestHeader(key, options.headers[key]);
-      if ('content-type' == key.toLowerCase()) {
-        addContentTypeFormUrlEncoded = false;
+      xhr.setRequestHeader(key, options.headers[key])
+      if (key.toLowerCase() == 'content-type') {
+        addContentTypeFormUrlEncoded = false
       }
     }
   }
   if (addContentTypeFormUrlEncoded) {
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
   }
 
   // Set the timer if a timeout value was specified.
   if (options.timeoutMs > 0) {
-    timer = setTimeout(function() {
-      xhr.abort();
+    timer = setTimeout(function () {
+      xhr.abort()
       if (options.onTimeout) {
-        options.onTimeout(xhr);
+        options.onTimeout(xhr)
       }
-    }, options.timeoutMs);
+    }, options.timeoutMs)
   }
 
   // Record fetchStart time when request is sent.
-  xhr['timing']['fetchStart'] = spfBase.now();
-  xhr.send(data);
+  xhr['timing']['fetchStart'] = spfBase.now()
+  xhr.send(data)
 
-  return xhr;
-};
-
+  return xhr
+}
 
 /**
  * Determines whether to process chunks as they arrive; should be called when
@@ -202,9 +196,9 @@ spfNetXhr.send = function(method, url, data, opt_options) {
  * @return {boolean}
  * @private
  */
-spfNetXhr.isChunked_ = function(xhr) {
+spfNetXhr.isChunked_ = function (xhr) {
   if (xhr.responseType == 'json') {
-    return false;
+    return false
   }
   // Determine whether to process chunks as they arrive.
   // This is only possible with chunked transfer encoding.
@@ -212,21 +206,20 @@ spfNetXhr.isChunked_ = function(xhr) {
   //   "chunked"  (standard)
   //   "Chunked"  (non-standard)
   //   "chunked, chunked"  (multiple headers sent)
-  var encoding = xhr.getResponseHeader('Transfer-Encoding') || '';
+  var encoding = xhr.getResponseHeader('Transfer-Encoding') || ''
   if (encoding.toLowerCase().indexOf('chunked') > -1) {
-    return true;
+    return true
   }
   // SPDY inherently uses chunked transfer and does not define a header.
   // Firefox provides a synthetic header which can be used instead.
   // For Chrome, a non-standard JS function must be used to determine if
   // the primary document was loaded with SPDY.  If the primary document
   // was loaded with SPDY, then most likely the XHR will be as well.
-  var firefoxSpdy = xhr.getResponseHeader('X-Firefox-Spdy');
-  var loadTimes = window.chrome && chrome.loadTimes && chrome.loadTimes();
-  var chromeSpdy = loadTimes && loadTimes.wasFetchedViaSpdy;
-  return !!(firefoxSpdy || chromeSpdy);
-};
-
+  var firefoxSpdy = xhr.getResponseHeader('X-Firefox-Spdy')
+  var loadTimes = window.chrome && chrome.loadTimes && chrome.loadTimes()
+  var chromeSpdy = loadTimes && loadTimes.wasFetchedViaSpdy
+  return !!(firefoxSpdy || chromeSpdy)
+}
 
 /**
  * @enum {number}
@@ -237,5 +230,5 @@ spfNetXhr.State = {
   HEADERS_RECEIVED: 2,
   LOADING: 3,
   DONE: 4
-};
-export default spfNetXhr;
+}
+export default spfNetXhr

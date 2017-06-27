@@ -6,7 +6,7 @@
 
 // goog.provide('spfDomDataset');
 
-let spfDomDataset = {};
+let spfDomDataset = {}
 
 /**
  * Gets a custom data attribute from a node. The key should be in
@@ -16,14 +16,13 @@ let spfDomDataset = {};
  * @param {string} key Key for the custom data attribute.
  * @return {?string} The attribute value, if it exists.
  */
-spfDomDataset.get = function(node, key)  {
+spfDomDataset.get = function (node, key) {
   if (node.dataset) {
-    return node.dataset[key];
+    return node.dataset[key]
   } else {
-    return node.getAttribute('data-' + spf.string.toSelectorCase(key));
+    return node.getAttribute('data-' + spf.string.toSelectorCase(key))
   }
-};
-
+}
 
 /**
  * Sets a custom data attribute on a node. The key should be in
@@ -33,12 +32,12 @@ spfDomDataset.get = function(node, key)  {
  * @param {string} key Key for the custom data attribute.
  * @param {string} val Value for the custom data attribute.
  */
- spfDomDataset.set = function(node, key, val)  {
+spfDomDataset.set = function (node, key, val) {
   if (node.dataset) {
-    node.dataset[key] = val;
+    node.dataset[key] = val
   } else {
-    node.setAttribute('data-' + spf.string.toSelectorCase(key), val);
+    node.setAttribute('data-' + spf.string.toSelectorCase(key), val)
   }
-};
+}
 
-export default spfDomDataset;
+export default spfDomDataset

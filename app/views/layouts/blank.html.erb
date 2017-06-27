@@ -3,9 +3,13 @@
 <head>
     <title><%= full_title(yield(:title)) %> </title>
     <%= favicon_link_tag 'favicon.ico' %>
+    <%= content_for?(:head) ? yield(:head) : nil %>
 </head>
 <body class='<%= controller.controller_name %> c-watch-height'>
 
     <%= yield %>
+    <%= content_for?(:content) ? yield(:content) : nil %>
+
+      <%= content_for?(:foot) ? yield(:foot) : nil %>
 </body>
 </html>

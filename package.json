@@ -40,7 +40,9 @@
     "dev:s": "npm run dev:check && npm run dev:build && npm run dev:bsmon",
     "dev:ss": "npm run dev:check && npm run dev:ruby-build && npm run dev:bsmon-slient",
     "dev:node-ss": "npm run dev:check && npm run dev:node-build && npm run dev:bsmon-slient",
-    "prod:ss": "npm run dev:check && npm run prod:ruby-build && npm run dev:bsmon-slient"
+    "prod:ss": "npm run dev:check && npm run prod:ruby-build && npm run dev:bsmon-slient",
+    "test": "standard && node my-tests.js",
+    "fix-js-style": "standard --fix"
   },
   "author": "wwwaap <wwwaap@gmail.com> (https://www.everthis.com/)",
   "license": "MIT",
@@ -90,6 +92,7 @@
     "postcss-cli": "*",
     "postcss-loader": "^2.0.5",
     "sass-loader": "^6.0.5",
+    "standard": "^10.0.2",
     "style-loader": "^0.18.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.6.1",

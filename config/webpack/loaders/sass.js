@@ -17,15 +17,14 @@ module.exports = [{
     ]
   })
 }, {
-    test: /codemirror\.css$/,
+  test: /codemirror\.css$/,
     // loader: 'style-loader!css-loader'
-    use: [
-      'style-loader',
-      { loader: 'css-loader',
-        options: {
-          minimize: isProd
-        }
+  use: [
+    'style-loader',
+    { loader: 'css-loader',
+      options: {
+        minimize: isProd
       }
-    ]
-}];
-
+    }
+  ]
+}]

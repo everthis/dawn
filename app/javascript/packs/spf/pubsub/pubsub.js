@@ -10,17 +10,16 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-import {spfBase, SPF_BOOTLOADER} from '../base';
-import spfArray from '../array/array';
-import spfState from '../state';
+import {spfBase, SPF_BOOTLOADER} from '../base'
+import spfArray from '../array/array'
+import spfState from '../state'
 
-let spfPubsub = {};
+let spfPubsub = {}
 // goog.provide('spfPubsub');
 
 // goog.require('spf');
 // goog.require('spfArray');
 // goog.require('spfState');
-
 
 /**
  * Subscribes a function to a topic.  The function is invoked in the global
@@ -33,15 +32,14 @@ let spfPubsub = {};
  *     published to the given topic. Passing `null` or `undefined`
  *     does nothing.
  */
-spfPubsub.subscribe = function(topic, fn) {
+spfPubsub.subscribe = function (topic, fn) {
   if (topic && fn) {
     if (!(topic in spfPubsub.subscriptions)) {
-      spfPubsub.subscriptions[topic] = [];
+      spfPubsub.subscriptions[topic] = []
     }
-    spfPubsub.subscriptions[topic].push(fn);
+    spfPubsub.subscriptions[topic].push(fn)
   }
-};
-
+}
 
 /**
  * Unsubscribes a function from a topic. Only deletes the first match found.
@@ -51,18 +49,17 @@ spfPubsub.subscribe = function(topic, fn) {
  * @param {Function|undefined} fn Function to unsubscribe. Passing `null`
  *     or `undefined` does nothing.
  */
-spfPubsub.unsubscribe = function(topic, fn) {
+spfPubsub.unsubscribe = function (topic, fn) {
   if (topic in spfPubsub.subscriptions && fn) {
-    spfArray.every(spfPubsub.subscriptions[topic], function(subFn, i, arr) {
+    spfArray.every(spfPubsub.subscriptions[topic], function (subFn, i, arr) {
       if (subFn == fn) {
-        arr[i] = null;
-        return false;
+        arr[i] = null
+        return false
       }
-      return true;
-    });
+      return true
+    })
   }
-};
-
+}
 
 /**
  * Publishes a topic.  Calls functions subscribed to the topic in
@@ -72,10 +69,9 @@ spfPubsub.unsubscribe = function(topic, fn) {
  * @param {string} topic Topic to publish. Passing an empty string does
  *     nothing.
  */
-spfPubsub.publish = function(topic) {
-  spfPubsub.publish_(topic);
-};
-
+spfPubsub.publish = function (topic) {
+  spfPubsub.publish_(topic)
+}
 
 /**
  * Simulaneously publishes and clears a topic.  Calls functions subscribed to
@@ -86,10 +82,9 @@ spfPubsub.publish = function(topic) {
  * @param {string} topic Topic to publish. Passing an empty string does
  *     nothing.
  */
-spfPubsub.flush = function(topic) {
-  spfPubsub.publish_(topic, true);
-};
-
+spfPubsub.flush = function (topic) {
+  spfPubsub.publish_(topic, true)
+}
 
 /**
  * See {@link #publish} or {@link #flush}.
@@ -98,19 +93,18 @@ spfPubsub.flush = function(topic) {
  * @param {boolean=} opt_unsub Whether to unsubscribe functions beforehand.
  * @private
  */
-spfPubsub.publish_ = function(topic, opt_unsub) {
+spfPubsub.publish_ = function (topic, opt_unsub) {
   if (topic in spfPubsub.subscriptions) {
-    spfArray.each(spfPubsub.subscriptions[topic], function(subFn, i, arr) {
+    spfArray.each(spfPubsub.subscriptions[topic], function (subFn, i, arr) {
       if (opt_unsub) {
-        arr[i] = null;
+        arr[i] = null
       }
       if (subFn) {
-        subFn();
+        subFn()
       }
-    });
+    })
   }
-};
-
+}
 
 /**
  * Renames a topic.  All functions subscribed to the old topic will then
@@ -121,43 +115,40 @@ spfPubsub.publish_ = function(topic, opt_unsub) {
  * @param {string} newTopic The new name for the topic. Passing an empty string
  *     does nothing.
  */
-spfPubsub.rename = function(oldTopic, newTopic) {
+spfPubsub.rename = function (oldTopic, newTopic) {
   if (oldTopic && newTopic && oldTopic in spfPubsub.subscriptions) {
-    var existing = spfPubsub.subscriptions[newTopic] || [];
+    var existing = spfPubsub.subscriptions[newTopic] || []
     spfPubsub.subscriptions[newTopic] =
-        existing.concat(spfPubsub.subscriptions[oldTopic]);
-    spfPubsub.clear(oldTopic);
+        existing.concat(spfPubsub.subscriptions[oldTopic])
+    spfPubsub.clear(oldTopic)
   }
-};
-
+}
 
 /**
  * Clears the subscription list for a topic.
  *
  * @param {string} topic Topic to clear.
  */
-spfPubsub.clear = function(topic) {
-  delete spfPubsub.subscriptions[topic];
-};
-
+spfPubsub.clear = function (topic) {
+  delete spfPubsub.subscriptions[topic]
+}
 
 /**
  * Map of subscriptions.
  * @type {!Object.<Array>}
  */
-spfPubsub.subscriptions = {};
-
+spfPubsub.subscriptions = {}
 
 // Automatic initialization for spfPubsub.subscriptions.
 // When built for the bootloader, unconditionally set in state.
 if (SPF_BOOTLOADER) {
-  spfState.set(spfState.Key.PUBSUB_SUBS, spfPubsub.subscriptions);
+  spfState.set(spfState.Key.PUBSUB_SUBS, spfPubsub.subscriptions)
 } else {
   if (!spfState.has(spfState.Key.PUBSUB_SUBS)) {
-    spfState.set(spfState.Key.PUBSUB_SUBS, spfPubsub.subscriptions);
+    spfState.set(spfState.Key.PUBSUB_SUBS, spfPubsub.subscriptions)
   }
   spfPubsub.subscriptions = /** @type {!Object.<Array>} */ (
-      spfState.get(spfState.Key.PUBSUB_SUBS));
+      spfState.get(spfState.Key.PUBSUB_SUBS))
 }
 
-export default spfPubsub;
+export default spfPubsub

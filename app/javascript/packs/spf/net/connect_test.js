@@ -7,40 +7,33 @@
  * @fileoverview Tests for handling connections.
  */
 
-goog.require('spf.array');
-goog.require('spf.net.connect');
-goog.require('spf.net.resource');
+goog.require('spf.array')
+goog.require('spf.net.connect')
+goog.require('spf.net.resource')
 
+describe('spf.net.connect', function () {
+  var IMG = spf.net.resource.Type.IMG
 
-describe('spf.net.connect', function() {
+  beforeEach(function () {
+    spyOn(spf.net.resource, 'prefetch')
+  })
 
-  var IMG = spf.net.resource.Type.IMG;
+  describe('preconnect', function () {
+    it('calls for a single url', function () {
+      var url = 'url/a'
+      var force = true
+      spf.net.connect.preconnect(url)
+      expect(spf.net.resource.prefetch).toHaveBeenCalledWith(IMG, url, force)
+    })
 
-  beforeEach(function() {
-    spyOn(spf.net.resource, 'prefetch');
-  });
-
-
-  describe('preconnect', function() {
-
-    it('calls for a single url', function() {
-      var url = 'url/a';
-      var force = true;
-      spf.net.connect.preconnect(url);
-      expect(spf.net.resource.prefetch).toHaveBeenCalledWith(IMG, url, force);
-    });
-
-    it('calls for multiples urls', function() {
-      var urls = ['url/b-1', 'url/b-2'];
-      var force = true;
-      spf.net.connect.preconnect(urls);
-      spf.array.each(urls, function(url) {
+    it('calls for multiples urls', function () {
+      var urls = ['url/b-1', 'url/b-2']
+      var force = true
+      spf.net.connect.preconnect(urls)
+      spf.array.each(urls, function (url) {
         expect(spf.net.resource.prefetch).toHaveBeenCalledWith(
-            IMG, url, force);
-      });
-    });
-
-  });
-
-
-});
+            IMG, url, force)
+      })
+    })
+  })
+})

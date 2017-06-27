@@ -1,43 +1,42 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var conf = require('./gulp/conf');
+var path = require('path')
+var conf = require('./gulp/conf')
 
-var _ = require('lodash');
-var wiredep = require('wiredep');
+var _ = require('lodash')
+var wiredep = require('wiredep')
 
 var pathSrcHtml = [
   path.join(conf.paths.src, '/**/*.html')
-];
+]
 
-function listFiles() {
+function listFiles () {
   var wiredepOptions = _.extend({}, conf.wiredep, {
     dependencies: true,
     devDependencies: true
-  });
+  })
 
   var patterns = wiredep(wiredepOptions).js
     .concat([
-      path.join(conf.paths.tmp, '/serve/app/index.module.js'),
+      path.join(conf.paths.tmp, '/serve/app/index.module.js')
     ])
-    .concat(pathSrcHtml);
+    .concat(pathSrcHtml)
 
-  var files = patterns.map(function(pattern) {
+  var files = patterns.map(function (pattern) {
     return {
       pattern: pattern
-    };
-  });
+    }
+  })
   files.push({
     pattern: path.join(conf.paths.src, '/assets/**/*'),
     included: false,
     served: true,
     watched: false
-  });
-  return files;
+  })
+  return files
 }
 
-module.exports = function(config) {
-
+module.exports = function (config) {
   var configuration = {
     files: listFiles(),
 
@@ -54,9 +53,9 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
-    browsers : ['PhantomJS'],
+    browsers: ['PhantomJS'],
 
-    plugins : [
+    plugins: [
       'karma-phantomjs-launcher',
       'karma-coverage',
       'karma-jasmine',
@@ -64,8 +63,8 @@ module.exports = function(config) {
     ],
 
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
+      type: 'html',
+      dir: 'coverage/'
     },
 
     reporters: ['progress'],
@@ -73,30 +72,30 @@ module.exports = function(config) {
     proxies: {
       '/assets/': path.join('/base/', conf.paths.src, '/assets/')
     }
-  };
+  }
 
   // This is the default preprocessors configuration for a usage with Karma cli
   // The coverage preprocessor is added in gulp/unit-test.js only for single tests
   // It was not possible to do it there because karma doesn't let us now if we are
   // running a single test or not
-  configuration.preprocessors = {};
-  pathSrcHtml.forEach(function(path) {
-    configuration.preprocessors[path] = ['ng-html2js'];
-  });
+  configuration.preprocessors = {}
+  pathSrcHtml.forEach(function (path) {
+    configuration.preprocessors[path] = ['ng-html2js']
+  })
 
   // This block is needed to execute Chrome on Travis
   // If you ever plan to use Chrome and Travis, you can keep it
   // If not, you can safely remove it
   // https://github.com/karma-runner/karma/issues/1144#issuecomment-53633076
-  if(configuration.browsers[0] === 'Chrome' && process.env.TRAVIS) {
+  if (configuration.browsers[0] === 'Chrome' && process.env.TRAVIS) {
     configuration.customLaunchers = {
       'chrome-travis-ci': {
         base: 'Chrome',
         flags: ['--no-sandbox']
       }
-    };
-    configuration.browsers = ['chrome-travis-ci'];
+    }
+    configuration.browsers = ['chrome-travis-ci']
   }
 
-  config.set(configuration);
-};
+  config.set(configuration)
+}

@@ -1,8 +1,8 @@
-import Vue from 'vue';
-let vueApp;
+import Vue from 'vue'
+let vueApp
 Vue.component('new-packages', {
   props: ['textareaInput'],
-  data: function() {
+  data: function () {
     return {
       pluginsInput: undefined,
       canSubmit: true,
@@ -54,153 +54,148 @@ Vue.component('new-packages', {
       </div>
     </div>`,
   computed: {
-      processedPluginsInput: {
-        get: function() {
-          var arr = [];
-          var val;
-          var splitArr = [];
-          this.processed += 1;
-          if (!this.pluginsInput) {
-            this.processedPluginsInputData = arr;
-            return arr;
-          }
-          var lines = this.pluginsInput.split('\n');
-          for (var i = 0; i < lines.length; i++) {
-            if (lines[i].trim().length > 0) {
-              val = lines[i].trim().replace(/^\"|^\'|\'$|\"$/g, '');
-              splitArr = val.split('@');
-              arr.push({
-                input: val,
-                packageName: splitArr[0],
-                packageVersion: splitArr[1] || '',
-                ciPackageName: splitArr[1] ? ( '' + splitArr[0] + '_' + splitArr[1].split('.').join('_') ) : '',
-                ciPackageVersion: splitArr[1] || '',
-                ciPackageVersionPatch: 0,
-                ciPackageNamePrefix: 'fis-msprd-'
-              })
-            }
-          }
-          this.processedPluginsInputData = arr;
-          return arr;
-        },
-        set: function() {
+    processedPluginsInput: {
+      get: function () {
+        var arr = []
+        var val
+        var splitArr = []
+        this.processed += 1
+        if (!this.pluginsInput) {
+          this.processedPluginsInputData = arr
+          return arr
         }
-
+        var lines = this.pluginsInput.split('\n')
+        for (var i = 0; i < lines.length; i++) {
+          if (lines[i].trim().length > 0) {
+            val = lines[i].trim().replace(/^\"|^\'|\'$|\"$/g, '')
+            splitArr = val.split('@')
+            arr.push({
+              input: val,
+              packageName: splitArr[0],
+              packageVersion: splitArr[1] || '',
+              ciPackageName: splitArr[1] ? ('' + splitArr[0] + '_' + splitArr[1].split('.').join('_')) : '',
+              ciPackageVersion: splitArr[1] || '',
+              ciPackageVersionPatch: 0,
+              ciPackageNamePrefix: 'fis-msprd-'
+            })
+          }
+        }
+        this.processedPluginsInputData = arr
+        return arr
       },
+      set: function () {
+      }
+
+    }
   },
   methods: {
-    submit: function() {
-      this.canSubmit = true;
-      var that = this;
-      var submitForm = document.getElementsByClassName('fis-ci-plgins-form')[0];
-      var submitEle = document.getElementsByClassName('fis-ci-plgins-form-submit-btn')[0];
-      var pluginInputEle = document.getElementsByClassName('plugin-input')[0];
-      var tmpFormEle;
-      var fd, fa;
-      if (that.processedPluginsInput.length === 0) {alert('0'); return;}
-      if (!that.checkValidation(that.processedPluginsInput)) {alert("包名不能以fis开头\n必须带正确的版本号\n版本号不能带有‘＝’,‘～’,‘<’,'<=','>','>=','^'等标记。"); return;}
-      that.processedPluginsInput.forEach(function(element, index) {
+    submit: function () {
+      this.canSubmit = true
+      var that = this
+      var submitForm = document.getElementsByClassName('fis-ci-plgins-form')[0]
+      var submitEle = document.getElementsByClassName('fis-ci-plgins-form-submit-btn')[0]
+      var pluginInputEle = document.getElementsByClassName('plugin-input')[0]
+      var tmpFormEle
+      var fd, fa
+      if (that.processedPluginsInput.length === 0) { alert('0'); return }
+      if (!that.checkValidation(that.processedPluginsInput)) { alert("包名不能以fis开头\n必须带正确的版本号\n版本号不能带有‘＝’,‘～’,‘<’,'<=','>','>=','^'等标记。"); return }
+      that.processedPluginsInput.forEach(function (element, index) {
         for (var el in element) {
           if (element.hasOwnProperty(el)) {
-            tmpFormEle = that.createFormEle('ci_packages[][' + el + ']', element[el]);
-            submitForm.appendChild(tmpFormEle);
+            tmpFormEle = that.createFormEle('ci_packages[][' + el + ']', element[el])
+            submitForm.appendChild(tmpFormEle)
           }
         }
-      });
+      })
       if (that.canSubmit) {
-        fd = new FormData(submitForm);
-        fa = submitForm.action;
+        fd = new FormData(submitForm)
+        fa = submitForm.action
         window.A.spf.load(fa, {
-          method: "POST",
+          method: 'POST',
           postData: fd,
-          onProcess: function(evt) {
+          onProcess: function (evt) {
           },
-          onDone: function(evt) {
-            if(evt.response.status && evt.response.status === 'success') {
-              if (evt.response.url) A.spf.navigate(evt.response.url);
+          onDone: function (evt) {
+            if (evt.response.status && evt.response.status === 'success') {
+              if (evt.response.url) A.spf.navigate(evt.response.url)
             }
           }
-        });
+        })
       }
     },
-    checkValidation: function(arr) {
-      var that = this;
-      var str = JSON.stringify(arr);
-      var objArr = JSON.parse(str);
-      var ele;
-      var re = /[^A-Za-z0-9@\.\-_]/g;
-      for(var i = 0, length1 = objArr.length; i < length1; i++){
-        ele = objArr[i];
+    checkValidation: function (arr) {
+      var that = this
+      var str = JSON.stringify(arr)
+      var objArr = JSON.parse(str)
+      var ele
+      var re = /[^A-Za-z0-9@\.\-_]/g
+      for (var i = 0, length1 = objArr.length; i < length1; i++) {
+        ele = objArr[i]
 
         if (ele.hasOwnProperty('input')) {
-
-          if (ele.input.indexOf('fis') === 0 || ele.input.split('@').length === 1 || ele.input.indexOf('@') === ele.input.length - 1 ) {
-            that.canSubmit = false;
+          if (ele.input.indexOf('fis') === 0 || ele.input.split('@').length === 1 || ele.input.indexOf('@') === ele.input.length - 1) {
+            that.canSubmit = false
           }
-          if(re.exec(ele.input)) {
-            that.canSubmit = false;
+          if (re.exec(ele.input)) {
+            that.canSubmit = false
           }
         }
       }
 
-
-      return that.canSubmit;
+      return that.canSubmit
     },
-    createFormEle: function(name, value) {
-      var inputEle = document.createElement("input");
-      inputEle.setAttribute('name', name);
-      inputEle.value = value;
-      return inputEle;
+    createFormEle: function (name, value) {
+      var inputEle = document.createElement('input')
+      inputEle.setAttribute('name', name)
+      inputEle.value = value
+      return inputEle
     },
-    getPatchCiPackageVersion: function(item) {
-      let version = item.packageVersion;
-      let verArr = version.split('-');
-      let verArrLen;
-      let secPartArr;
-      let firstPartArr;
+    getPatchCiPackageVersion: function (item) {
+      let version = item.packageVersion
+      let verArr = version.split('-')
+      let verArrLen
+      let secPartArr
+      let firstPartArr
       if (verArr.length === 1) {
-        firstPartArr = version.split('.');
-        verArrLen = firstPartArr.length;
-        if (verArrLen === 2) firstPartArr[2] = 0;
-        if (verArrLen === 1) {firstPartArr[1] = 0; firstPartArr[2] = 0;}
-        verArrLen = firstPartArr.length;
-        firstPartArr[verArrLen - 1] = +firstPartArr[verArrLen - 1] + item.ciPackageVersionPatch;
-        item.ciPackageVersion = firstPartArr.join('.');
-        return;
+        firstPartArr = version.split('.')
+        verArrLen = firstPartArr.length
+        if (verArrLen === 2) firstPartArr[2] = 0
+        if (verArrLen === 1) { firstPartArr[1] = 0; firstPartArr[2] = 0 }
+        verArrLen = firstPartArr.length
+        firstPartArr[verArrLen - 1] = +firstPartArr[verArrLen - 1] + item.ciPackageVersionPatch
+        item.ciPackageVersion = firstPartArr.join('.')
+        return
       }
       if (verArr.length === 2) {
-        secPartArr = verArr[1].split('.');
+        secPartArr = verArr[1].split('.')
         if (secPartArr.length === 1) {
-          verArr[1] = verArr[1] + '.' +  item.ciPackageVersionPatch;
-          item.ciPackageVersion = verArr.join('-');
-          return;
+          verArr[1] = verArr[1] + '.' + item.ciPackageVersionPatch
+          item.ciPackageVersion = verArr.join('-')
         } else {
-          secPartArr[1] = +secPartArr[1] + item.ciPackageVersionPatch;
-          verArr[1] = secPartArr.join('.');
-          item.ciPackageVersion = verArr.join('-');
-          return;
+          secPartArr[1] = +secPartArr[1] + item.ciPackageVersionPatch
+          verArr[1] = secPartArr.join('.')
+          item.ciPackageVersion = verArr.join('-')
         }
-
       }
     },
-    minusPatchVersion: function(item, idx) {
-      item.ciPackageVersionPatch = item.ciPackageVersionPatch === 0 ? 0 : (item.ciPackageVersionPatch - 1);
-      this.getPatchCiPackageVersion(item);
+    minusPatchVersion: function (item, idx) {
+      item.ciPackageVersionPatch = item.ciPackageVersionPatch === 0 ? 0 : (item.ciPackageVersionPatch - 1)
+      this.getPatchCiPackageVersion(item)
     },
-    plusPatchVersion: function(item, idx) {
-      item.ciPackageVersionPatch = item.ciPackageVersionPatch === 5 ? 5 : (item.ciPackageVersionPatch + 1);
-      this.getPatchCiPackageVersion(item);
+    plusPatchVersion: function (item, idx) {
+      item.ciPackageVersionPatch = item.ciPackageVersionPatch === 5 ? 5 : (item.ciPackageVersionPatch + 1)
+      this.getPatchCiPackageVersion(item)
     }
 
   }
 
-});
-export function initNewCiNpmPackages() {
+})
+export function initNewCiNpmPackages () {
   vueApp = new Vue({
     el: '#app'
-  });
+  })
 }
 
-export function exitNewCiNpmPackages() {
-  if (vueApp) vueApp.$destroy();
+export function exitNewCiNpmPackages () {
+  if (vueApp) vueApp.$destroy()
 }

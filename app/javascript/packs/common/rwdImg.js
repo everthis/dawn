@@ -11,69 +11,66 @@
  *     </noscript>
  * </div>
  */
-(function(win) {
-  'use strict';
+(function (win) {
+  'use strict'
 
-  var screenPixelRatio = function() {
-    var retVal = 1;
-    if (win.devicePixelRatio) {
-      retVal = win.devicePixelRatio;
-    } else if ('matchMedia' in win && win.matchMedia) {
-      if (win.matchMedia('(min-resolution: 2dppx)').matches ||
+  var screenPixelRatio = function () {
+      var retVal = 1
+      if (win.devicePixelRatio) {
+        retVal = win.devicePixelRatio
+      } else if ('matchMedia' in win && win.matchMedia) {
+        if (win.matchMedia('(min-resolution: 2dppx)').matches ||
         win.matchMedia('(min-resolution: 192dpi)').matches) {
-        retVal = 2;
-      } else if (win.matchMedia('(min-resolution: 1.5dppx)').matches ||
+          retVal = 2
+        } else if (win.matchMedia('(min-resolution: 1.5dppx)').matches ||
         win.matchMedia('(min-resolution: 144dpi)').matches) {
-        retVal = 1.5;
+          retVal = 1.5
+        }
       }
-    }
-    return retVal;
-  },
-    getImageVersion = function() {
-
-      var pixelRatio = screenPixelRatio();
-      var width = win.innerWidth * pixelRatio;
+      return retVal
+    },
+    getImageVersion = function () {
+      var pixelRatio = screenPixelRatio()
+      var width = win.innerWidth * pixelRatio
 
       // sizes: small = 320, medium = 640, high = 720
       if (width > 320 && width <= 640) {
-        return 'medium';
+        return 'medium'
       } else if (width > 640 && pixelRatio > 1) {
-        return 'high';
-      }else if (width > 640) {
-        return 'x-high';
+        return 'high'
+      } else if (width > 640) {
+        return 'x-high'
       } else {
-        return 'small'; // default version
+        return 'small' // default version
       }
     },
-    lazyloadImage = function(imageContainer) {
-
-      var imageVersion = getImageVersion();
+    lazyloadImage = function (imageContainer) {
+      var imageVersion = getImageVersion()
 
       if (!imageContainer || !imageContainer.children) {
-        return;
+        return
       }
-      var img = imageContainer.children[0];
+      var img = imageContainer.children[0]
 
       if (img) {
-        var imgSRC = img.getAttribute('data-src-' + imageVersion);
-        var altTxt = img.getAttribute('data-alt');
+        var imgSRC = img.getAttribute('data-src-' + imageVersion)
+        var altTxt = img.getAttribute('data-alt')
         if (imgSRC) {
           try {
-            var imageElement = new Image();
-            imageElement.src = imgSRC;
-            imageElement.setAttribute('alt', altTxt ? altTxt : '');
-            imageContainer.appendChild(imageElement);
+            var imageElement = new Image()
+            imageElement.src = imgSRC
+            imageElement.setAttribute('alt', altTxt || '')
+            imageContainer.appendChild(imageElement)
           } catch (e) {
-            console.log('img error' + e);
+            console.log('img error' + e)
           }
-          imageContainer.removeChild(imageContainer.children[0]);
+          imageContainer.removeChild(imageContainer.children[0])
         }
       }
     },
-    lazyLoadedImages = document.getElementsByClassName('lazy-load');
+    lazyLoadedImages = document.getElementsByClassName('lazy-load')
 
   for (var i = 0; i < lazyLoadedImages.length; i++) {
-    lazyloadImage(lazyLoadedImages[i]);
+    lazyloadImage(lazyLoadedImages[i])
   }
-
-})(window);
+})(window)

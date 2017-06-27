@@ -10,12 +10,11 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-import spfArray from '../array/array';
-import spfNetResource from '../net/resource';
+import spfArray from '../array/array'
+import spfNetResource from '../net/resource'
 
-let spfNetConnect = {};
+let spfNetConnect = {}
 // goog.provide('spfNetConnect');
-
 
 /**
  * Preconnects to a URL.
@@ -23,20 +22,18 @@ let spfNetConnect = {};
  *
  * @param {string|Array.<string>} urls One or more URLs to preconnect.
  */
-spfNetConnect.preconnect = function(urls) {
+spfNetConnect.preconnect = function (urls) {
   // Use an <img> tag to handle the preconnect in a compatible manner.
-  var type = spfNetResource.Type.IMG;
+  var type = spfNetResource.Type.IMG
   // Convert to an array if needed.
-  urls = spfArray.toArray(urls);
-  spfArray.each(urls, function(url) {
+  urls = spfArray.toArray(urls)
+  spfArray.each(urls, function (url) {
     // When preconnecting, always fetch the image and make the request.
     // This is necessary to consistenly establish connections to repeat
     // URLs when the keep-alive time is shorter than the interval between
     // attempts.
-    spfNetResource.prefetch(type, url, true);  // Force repeat fetching.
-  });
-};
+    spfNetResource.prefetch(type, url, true)  // Force repeat fetching.
+  })
+}
 
-
-
-export default spfNetConnect;
+export default spfNetConnect

@@ -29,19 +29,16 @@
 
 // goog.provide('spf');
 
-let spfBase = {};
+let spfBase = {}
 
 /** @define {boolean} Compiler flag to build the bootstrap script loader. */
-var SPF_BOOTLOADER = false;
-
+var SPF_BOOTLOADER = false
 
 /** @define {boolean} Compiler flag to include debugging code. */
-var SPF_DEBUG = false;
-
+var SPF_DEBUG = false
 
 /** @define {boolean} Compiler flag to include tracing code. */
-var SPF_TRACING = false;
-
+var SPF_TRACING = false
 
 /**
  * Creates a new function that, when called, has its `this` set to the
@@ -57,16 +54,15 @@ var SPF_TRACING = false;
  *     invoked on.
  * @template T
  */
-spfBase.bind = function(fn, self, var_args) {
-  var args = Array.prototype.slice.call(arguments, 2);
-  return function() {
+spfBase.bind = function (fn, self, var_args) {
+  var args = Array.prototype.slice.call(arguments, 2)
+  return function () {
     // Clone the args and append additional ones.
-    var newArgs = args.slice();
-    newArgs.push.apply(newArgs, arguments);
-    return fn.apply(self, newArgs);
-  };
-};
-
+    var newArgs = args.slice()
+    newArgs.push.apply(newArgs, arguments)
+    return fn.apply(self, newArgs)
+  }
+}
 
 /**
  * Executes a function inside a try/catch to gracefully handle failures.
@@ -75,17 +71,16 @@ spfBase.bind = function(fn, self, var_args) {
  * @param {...*} var_args Arguments to apply to the function.
  * @return {*} The function result or Error if execution failed.
  */
-spfBase.execute = function(fn, var_args) {
+spfBase.execute = function (fn, var_args) {
   if (fn) {
-    var args = Array.prototype.slice.call(arguments, 1);
+    var args = Array.prototype.slice.call(arguments, 1)
     try {
-      return fn.apply(null, args);
+      return fn.apply(null, args)
     } catch (err) {
-      return err;
+      return err
     }
   }
-};
-
+}
 
 /**
  * Dispatches a custom event.
@@ -94,17 +89,16 @@ spfBase.execute = function(fn, var_args) {
  * @param {!Object=} opt_detail The custom event detail (data).
  * @return {boolean} False if the event was canceled.
  */
-spfBase.dispatch = function(name, opt_detail) {
+spfBase.dispatch = function (name, opt_detail) {
   if (document.createEvent) {
-    var evt = document.createEvent('CustomEvent');
-    var bubbles = true;
-    var cancelable = true;
-    evt.initCustomEvent(name, bubbles, cancelable, opt_detail);
-    return document.dispatchEvent(evt);
+    var evt = document.createEvent('CustomEvent')
+    var bubbles = true
+    var cancelable = true
+    evt.initCustomEvent(name, bubbles, cancelable, opt_detail)
+    return document.dispatchEvent(evt)
   }
-  return true;
-};
-
+  return true
+}
 
 /**
  * Gets the current timestamp.
@@ -114,39 +108,36 @@ spfBase.dispatch = function(name, opt_detail) {
  *     that support DOMHighResTimestamp, this value is a floating point number;
  *     otherwise, it is an integer.
  */
-spfBase.now = (function() {
+spfBase.now = (function () {
   if (window.performance && window.performance.timing &&
       window.performance.now) {
-    return function() {
+    return function () {
       return (window.performance.timing.navigationStart +
-              window.performance.now());
-    };
+              window.performance.now())
+    }
   }
-  return function() {
-    return (new Date()).getTime();
-  };
-})();
-
+  return function () {
+    return (new Date()).getTime()
+  }
+})()
 
 /**
  * Gets a UID.
  *
  * @return {number} A unique number.
  */
-spfBase.uid = function() {
+spfBase.uid = function () {
   // Special case to not use spfBase.state directly to avoid circular dependencies.
-  var state = (window['_spf_state'] = window['_spf_state'] || {});
-  var uid = parseInt(state['uid'], 10) || 0;
-  uid++;
-  return (state['uid'] = uid);
-};
-
+  var state = (window['_spf_state'] = window['_spf_state'] || {})
+  var uid = parseInt(state['uid'], 10) || 0
+  uid++
+  return (state['uid'] = uid)
+}
 
 /**
  * An empty no-op function.
  */
-spfBase.nullFunction = function() {};
-
+spfBase.nullFunction = function () {}
 
 /**
  * @enum {string}
@@ -166,8 +157,7 @@ spfBase.EventName = {
   READY: 'spfready',
   RELOAD: 'spfreload',
   REQUEST: 'spfrequest'
-};
-
+}
 
 /** Type definition for a parsed script resource in a SPF response fragment.
  *
@@ -178,8 +168,7 @@ spfBase.EventName = {
  *   async: (boolean|undefined)
  * }}
  */
-spfBase.ScriptResource;
-
+spfBase.ScriptResource
 
 /** Type definition for a parsed style resource in a SPF response fragment.
  *
@@ -189,8 +178,7 @@ spfBase.ScriptResource;
  *   name: (string|undefined)
  * }}
  */
-spfBase.StyleResource;
-
+spfBase.StyleResource
 
 /** Type definition for a parsed link resource in a SPF response fragment.
  *
@@ -199,8 +187,7 @@ spfBase.StyleResource;
  *   rel: (string|undefined)
  * }}
  */
-spfBase.LinkResource;
-
+spfBase.LinkResource
 
 /**
  * Type definition for a fragment of a SPF response.  Either a string of HTML or
@@ -213,8 +200,7 @@ spfBase.LinkResource;
  *   links: (Array.<spf.LinkResource>|undefined)
  * }}
  */
-spfBase.ResponseFragment;
-
+spfBase.ResponseFragment
 
 /**
  * Type definition for a single SPF response object.
@@ -250,8 +236,7 @@ spfBase.ResponseFragment;
  *   url: (string|undefined)
  * }}
  */
-spfBase.SingleResponse;
-
+spfBase.SingleResponse
 
 /**
  * Type definition for a multipart SPF response object.
@@ -269,8 +254,7 @@ spfBase.SingleResponse;
  *   type: string
  * }}
  */
-spfBase.MultipartResponse;
-
+spfBase.MultipartResponse
 
 /**
  * Type definition for the configuration options for requesting a URL.
@@ -301,8 +285,7 @@ spfBase.MultipartResponse;
  *   withCredentials: (boolean|undefined)
  * }}
  */
-spfBase.RequestOptions;
-
+spfBase.RequestOptions
 
 /**
  * Type definition for custom event detail (data), also used for callbacks.
@@ -338,8 +321,7 @@ spfBase.RequestOptions;
  *   url: (string|undefined)
  * }}
  */
-spfBase.EventDetail;
-
+spfBase.EventDetail
 
 /**
  * Type definition for a task scheduler optionally used by spf.tasks.
@@ -352,7 +334,6 @@ spfBase.EventDetail;
  *   cancelTask: (function(number))
  * }}
  */
-spfBase.TaskScheduler;
+spfBase.TaskScheduler
 
-
-export {SPF_DEBUG, SPF_BOOTLOADER, SPF_TRACING, spfBase};
+export {SPF_DEBUG, SPF_BOOTLOADER, SPF_TRACING, spfBase}

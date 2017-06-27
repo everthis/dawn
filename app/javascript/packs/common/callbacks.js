@@ -1,14 +1,14 @@
-import {flash, parseAndFlash} from './flash';
+import {flash, parseAndFlash} from './flash'
 export let callbacks = {
-  deleteSuccess: function(data) {
-    function destoryApiLi() {
-      this.target.closest('.api-ul').removeChild(this.target.closest('.api-li'));
+  deleteSuccess: function (data) {
+    function destoryApiLi () {
+      this.target.closest('.api-ul').removeChild(this.target.closest('.api-li'))
     }
-    parseAndFlash(data, destoryApiLi.bind(this));
+    parseAndFlash(data, destoryApiLi.bind(this))
   },
-  success: function(data) {
+  success: function (data) {
   },
-  error: function(data) {
-    parseAndFlash(data);
+  error: function (data) {
+    parseAndFlash(data)
   }
-};
+}

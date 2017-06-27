@@ -11,8 +11,7 @@
 
 // goog.provide('spfState');
 
-let spfState = {};
-
+let spfState = {}
 
 /**
  * Checks whether a current state value exists.
@@ -20,10 +19,9 @@ let spfState = {};
  * @param {spfState.Key} key The state key.
  * @return {boolean} Whether the state value exists.
  */
-spfState.has = function(key) {
-  return key in spfState.values_;
-};
-
+spfState.has = function (key) {
+  return key in spfState.values_
+}
 
 /**
  * Gets a current state value.
@@ -31,10 +29,9 @@ spfState.has = function(key) {
  * @param {spfState.Key} key The state key.
  * @return {*} The state value.
  */
-spfState.get = function(key) {
-  return spfState.values_[key];
-};
-
+spfState.get = function (key) {
+  return spfState.values_[key]
+}
 
 /**
  * Sets a current state value.
@@ -44,11 +41,10 @@ spfState.get = function(key) {
  * @return {T} The state value.
  * @template T
  */
-spfState.set = function(key, value) {
-  spfState.values_[key] = value;
-  return value;
-};
-
+spfState.set = function (key, value) {
+  spfState.values_[key] = value
+  return value
+}
 
 /**
  * @enum {string}
@@ -87,15 +83,14 @@ spfState.Key = {
   SCRIPT_DEPS: 'js-d',
   SCRIPT_URL: 'js-u',
   TASKS_UID: 'uid'
-};
-
+}
 
 /**
  * Current state values.  Globally exported to maintain continuity
  * across revisions.
  * @private {Object}
  */
-spfState.values_ = {};
-spfState['_spf_state'] = spfState.values_;
+spfState.values_ = {}
+spfState['_spf_state'] = spfState.values_
 
-export default spfState;
+export default spfState

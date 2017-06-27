@@ -10,18 +10,16 @@
  * @suppress {missingProperties}
  */
 
-import spfArray from '../array/array';
-import spfConfig from '../config';
-import spfString from '../string/string';
+import spfArray from '../array/array'
+import spfConfig from '../config'
+import spfString from '../string/string'
 
-let spfUrl = {};
+let spfUrl = {}
 // goog.provide('spfUrl');
 
 // goog.require('spfArray');
 // goog.require('spfConfig');
 // goog.require('spfString');
-
-
 
 /**
  * See {@link https://developer.mozilla.org/en-US/docs/Web/API/URLUtils}.
@@ -40,8 +38,7 @@ let spfUrl = {};
  *   origin: string
  * }}
  */
-spfUrl.URLUtils;
-
+spfUrl.URLUtils
 
 /**
  * Returns a URLUtils compatible object for a given url. For the interface, see
@@ -50,12 +47,12 @@ spfUrl.URLUtils;
  * @param {string} url A relative or absolute URL.
  * @return {spfUrl.URLUtils} The URLUtils object.
  */
-spfUrl.utils = function(url) {
-  var aEl = document.createElement('a');
+spfUrl.utils = function (url) {
+  var aEl = document.createElement('a')
   // If the URL is relative, IE will not populate host/port parameters.
-  aEl.href = url;
+  aEl.href = url
   // Assigning the absolute URL back to the href value solves this IE bug.
-  aEl.href = aEl.href;
+  aEl.href = aEl.href
   var utils = {
     href: aEl.href,
     protocol: aEl.protocol,
@@ -67,17 +64,16 @@ spfUrl.utils = function(url) {
     hash: aEl.hash,
     username: aEl.username,
     password: aEl.password
-  };
+  }
   // The origin is the combination of scheme, domain, and port.
-  utils.origin = utils.protocol + '//' + utils.host;
+  utils.origin = utils.protocol + '//' + utils.host
   // IE does not include the leading slash on a path. So if the path is
   // available, but no leading slash is present, prepend one.
   if (!utils.pathname || utils.pathname[0] != '/') {
-    utils.pathname = '/' + utils.pathname;
+    utils.pathname = '/' + utils.pathname
   }
-  return utils;
-};
-
+  return utils
+}
 
 /**
  * Converts a relative URL to absolute based on the current document domain.
@@ -87,11 +83,10 @@ spfUrl.utils = function(url) {
  *     if one exists.  Defaults to false.
  * @return {string} An absolute URL (with hash removed, if possible).
  */
-spfUrl.absolute = function(relative, opt_keepHash) {
-  var utils = spfUrl.utils(relative);
-  return opt_keepHash ? utils.href : spfUrl.unhash(utils.href);
-};
-
+spfUrl.absolute = function (relative, opt_keepHash) {
+  var utils = spfUrl.utils(relative)
+  return opt_keepHash ? utils.href : spfUrl.unhash(utils.href)
+}
 
 /**
  * Returns the path portion of a given URL.
@@ -99,11 +94,10 @@ spfUrl.absolute = function(relative, opt_keepHash) {
  * @param {string} url A relative or absolute URL.
  * @return {string} The path portion of the URL.
  */
-spfUrl.path = function(url) {
-  var utils = spfUrl.utils(url);
-  return utils.pathname;
-};
-
+spfUrl.path = function (url) {
+  var utils = spfUrl.utils(url)
+  return utils.pathname
+}
 
 /**
  * Returns the origin of a given URL (scheme + domain + port).
@@ -111,11 +105,10 @@ spfUrl.path = function(url) {
  * @param {string} url A relative or absolute URL.
  * @return {string} The origin of the URL.
  */
-spfUrl.origin = function(url) {
-  var utils = spfUrl.utils(url);
-  return utils.origin;
-};
-
+spfUrl.origin = function (url) {
+  var utils = spfUrl.utils(url)
+  return utils.origin
+}
 
 /**
  * Adds the SPF identifier to a URL, to be used in requests.  If the
@@ -126,20 +119,20 @@ spfUrl.origin = function(url) {
  * @param {string=} opt_type An optional type for identification.
  * @return {string} An identified URL.
  */
-spfUrl.identify = function(url, opt_type) {
-  var ident = /** @type {string} */ (spfConfig.get('url-identifier')) || '';
+spfUrl.identify = function (url, opt_type) {
+  var ident = /** @type {string} */ (spfConfig.get('url-identifier')) || ''
   if (ident) {
-    var type = opt_type || '';
-    ident = ident.replace('__type__', type);
+    var type = opt_type || ''
+    ident = ident.replace('__type__', type)
 
     // Split the URL.
-    var hashParts = spfString.partition(url, '#');
-    var queryParts = spfString.partition(hashParts[0], '?');
-    var path = queryParts[0];
-    var querySep = queryParts[1];
-    var queryVal = queryParts[2];
-    var hashSep = hashParts[1];
-    var hashVal = hashParts[2];
+    var hashParts = spfString.partition(url, '#')
+    var queryParts = spfString.partition(hashParts[0], '?')
+    var path = queryParts[0]
+    var querySep = queryParts[1]
+    var queryVal = queryParts[2]
+    var hashSep = hashParts[1]
+    var hashVal = hashParts[2]
 
     // Inject the identifier.
     if (spfString.startsWith(ident, '?')) {
@@ -149,9 +142,9 @@ spfUrl.identify = function(url, opt_type) {
       //     /path -> path?ident
       //     /path?query -> path?query&ident
       if (querySep) {
-        ident = ident.replace('?', '&');
+        ident = ident.replace('?', '&')
       }
-      queryVal += ident;
+      queryVal += ident
     } else if (spfString.startsWith(ident, '.')) {
       // If using an extension-based identifier, replace the existing
       // extension with the identifier.  If no extension exists, the
@@ -162,14 +155,14 @@ spfUrl.identify = function(url, opt_type) {
       //     /path.ext -> /path.ident
       //     /path/ -> /path/index.ident
       if (spfString.endsWith(path, '/')) {
-        ident = 'index' + ident;
+        ident = 'index' + ident
       } else {
-        var ext = path.lastIndexOf('.');
+        var ext = path.lastIndexOf('.')
         if (ext > -1) {
-          path = path.substring(0, ext);
+          path = path.substring(0, ext)
         }
       }
-      path += ident;
+      path += ident
     } else {
       // Finally, if using any other identifier, just append the identifier,
       // preventing duplicate "/" in the URL.
@@ -180,17 +173,16 @@ spfUrl.identify = function(url, opt_type) {
       //     /path -> /path_ident
       //     /path/ -> /path/_ident
       if (spfString.endsWith(path, '/') && spfString.startsWith(ident, '/')) {
-        ident = ident.substring(1);
+        ident = ident.substring(1)
       }
-      path += ident;
+      path += ident
     }
 
     // Re-assemble the URL.
-    url = path + querySep + queryVal + hashSep + hashVal;
+    url = path + querySep + queryVal + hashSep + hashVal
   }
-  return url;
-};
-
+  return url
+}
 
 /**
  * Appends the parameters to the url. Any existing parameters or hashes are
@@ -201,21 +193,20 @@ spfUrl.identify = function(url, opt_type) {
  *    as key/value pairs.
  * @return {string} A new URL with the parameters included.
  */
-spfUrl.appendParameters = function(url, parameters) {
-  var result = spfString.partition(url, '#');
-  url = result[0];
-  var delim = spfString.contains(url, '?') ? '&' : '?';
+spfUrl.appendParameters = function (url, parameters) {
+  var result = spfString.partition(url, '#')
+  url = result[0]
+  var delim = spfString.contains(url, '?') ? '&' : '?'
   for (var key in parameters) {
-    url += delim + key;
+    url += delim + key
     if (parameters[key]) {
-      url += '=' + parameters[key];
+      url += '=' + parameters[key]
     }
-    delim = '&';
+    delim = '&'
   }
   // Reattach the hash.
-  return url + result[1] + result[2];
-};
-
+  return url + result[1] + result[2]
+}
 
 /**
  * Removes a list of parameters from a given url.
@@ -224,24 +215,23 @@ spfUrl.appendParameters = function(url, parameters) {
  * @param {!Array.<string>} parameters A list of parameter keys to remove.
  * @return {string} A new URL with the parameters removed.
  */
-spfUrl.removeParameters = function(url, parameters) {
-  var result = spfString.partition(url, '#');
-  url = result[0];
-  spfArray.each(parameters, function(param) {
+spfUrl.removeParameters = function (url, parameters) {
+  var result = spfString.partition(url, '#')
+  url = result[0]
+  spfArray.each(parameters, function (param) {
     // Strip all parameters matching the param key.
-    var regex = new RegExp('([?&])' + param + '(?:=[^&]*)?(?:(?=[&])|$)', 'g');
-    url = url.replace(regex, function(_, delim) {
-      return delim == '?' ? delim : '';
-    });
-  });
+    var regex = new RegExp('([?&])' + param + '(?:=[^&]*)?(?:(?=[&])|$)', 'g')
+    url = url.replace(regex, function (_, delim) {
+      return delim == '?' ? delim : ''
+    })
+  })
   // Remove an unecessary trailing question marks.
   if (spfString.endsWith(url, '?')) {
-    url = url.slice(0, -1);
+    url = url.slice(0, -1)
   }
   // Reattach the hash.
-  return url + result[1] + result[2];
-};
-
+  return url + result[1] + result[2]
+}
 
 /**
  * Appends a configurable set of parameters that should persist across URLs.
@@ -249,18 +239,17 @@ spfUrl.removeParameters = function(url, parameters) {
  * @param {string} url A URL.
  * @return {string} A new URL with the persistent parameters included.
  */
-spfUrl.appendPersistentParameters = function(url) {
+spfUrl.appendPersistentParameters = function (url) {
   // Get the param config of the form "abc=def&foo=bar"
-  var parameterConfig = spfConfig.get('advanced-persistent-parameters') || '';
-  var result = spfString.partition(url, '#');
-  url = result[0];
-  var delim = spfString.contains(url, '?') ? '&' : '?';
+  var parameterConfig = spfConfig.get('advanced-persistent-parameters') || ''
+  var result = spfString.partition(url, '#')
+  url = result[0]
+  var delim = spfString.contains(url, '?') ? '&' : '?'
   // Append the persistent parameters to the URL.
-  url += parameterConfig ? delim + parameterConfig : '';
+  url += parameterConfig ? delim + parameterConfig : ''
   // Reattach the hash.
-  return url + result[1] + result[2];
-};
-
+  return url + result[1] + result[2]
+}
 
 /**
  * Converts an absolute URL to protocol-relative (e.g. no http: or https:).
@@ -269,10 +258,9 @@ spfUrl.appendPersistentParameters = function(url) {
  * @param {string} url An absolute URL.
  * @return {string} An protocol-relative URL, if possible.
  */
-spfUrl.unprotocol = function(url) {
-  return url.replace(/^[a-zA-Z]+:\/\//, '//');
-};
-
+spfUrl.unprotocol = function (url) {
+  return url.replace(/^[a-zA-Z]+:\/\//, '//')
+}
 
 /**
  * Removes a hash from a URL.
@@ -280,9 +268,9 @@ spfUrl.unprotocol = function(url) {
  * @param {string} url A URL.
  * @return {string}  A URL without a hash, if possible.
  */
-spfUrl.unhash = function(url) {
-  var res = spfString.partition(url, '#');
-  return res[0];
-};
+spfUrl.unhash = function (url) {
+  var res = spfString.partition(url, '#')
+  return res[0]
+}
 
-export default spfUrl;
+export default spfUrl

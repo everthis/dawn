@@ -9,11 +9,11 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-import {spfBase} from '../base';
-import spfConfig from '../config';
-import spfState from '../state';
-import spfString from '../string/string';
-let spfTasks = {};
+import {spfBase} from '../base'
+import spfConfig from '../config'
+import spfState from '../state'
+import spfString from '../string/string'
+let spfTasks = {}
 
 // goog.provide('spfTasks');
 
@@ -22,7 +22,6 @@ let spfTasks = {};
 // goog.require('spfState');
 // goog.require('spfString');
 // goog.require('spfTracing');
-
 
 /**
  * Adds a task to a queue to be executed asynchronously.
@@ -33,19 +32,18 @@ let spfTasks = {};
  *     the function; defaults to 0.
  * @return {number} The number of tasks in the queue afterwards.
  */
-spfTasks.add = function(key, fn, opt_delay) {
-  var queues = spfTasks.queues_;
-  var queue = queues[key];
+spfTasks.add = function (key, fn, opt_delay) {
+  var queues = spfTasks.queues_
+  var queue = queues[key]
   if (key && fn) {
     if (!queue) {
-      queue = queues[key] = spfTasks.createQueue_();
+      queue = queues[key] = spfTasks.createQueue_()
     }
-    var task = spfTasks.createTask_(fn, opt_delay || 0);
-    return queue.items.push(task);
+    var task = spfTasks.createTask_(fn, opt_delay || 0)
+    return queue.items.push(task)
   }
-  return (queue && queue.items.length) || 0;
-};
-
+  return (queue && queue.items.length) || 0
+}
 
 /**
  * Runs queued tasks, if not already running.
@@ -54,17 +52,16 @@ spfTasks.add = function(key, fn, opt_delay) {
  * @param {boolean=} opt_sync Whether to execute the queued tasks synchronously;
  *     defaults to false.
  */
-spfTasks.run = function(key, opt_sync) {
-  var queue = spfTasks.queues_[key];
+spfTasks.run = function (key, opt_sync) {
+  var queue = spfTasks.queues_[key]
   if (queue) {
-    var active = !!queue.scheduledKey || !!queue.timeoutKey;
-    var suspended = !(queue.semaphore > 0);
+    var active = !!queue.scheduledKey || !!queue.timeoutKey
+    var suspended = !(queue.semaphore > 0)
     if (!suspended && (opt_sync || !active)) {
-      spfTasks.do_(key, opt_sync);
+      spfTasks.do_(key, opt_sync)
     }
   }
-};
-
+}
 
 /**
  * Suspends execution of a running task queue.
@@ -78,13 +75,12 @@ spfTasks.run = function(key, opt_sync) {
  *
  * @param {string} key The key to identify the task queue.
  */
-spfTasks.suspend = function(key) {
-  var queue = spfTasks.queues_[key];
+spfTasks.suspend = function (key) {
+  var queue = spfTasks.queues_[key]
   if (queue) {
-    queue.semaphore--;
+    queue.semaphore--
   }
-};
-
+}
 
 /**
  * Resumes execution of a running task queue.
@@ -100,28 +96,26 @@ spfTasks.suspend = function(key) {
  * @param {boolean=} opt_sync Whether to execute the queued tasks synchronously;
  *     defaults to false.
  */
-spfTasks.resume = function(key, opt_sync) {
-  var queue = spfTasks.queues_[key];
+spfTasks.resume = function (key, opt_sync) {
+  var queue = spfTasks.queues_[key]
   if (queue) {
-    queue.semaphore++;
-    spfTasks.run(key, opt_sync);
+    queue.semaphore++
+    spfTasks.run(key, opt_sync)
   }
-};
-
+}
 
 /**
  * Cancels execution of a running task queue.
  *
  * @param {string} key The key to identify the task queue.
  */
-spfTasks.cancel = function(key) {
-  var queue = spfTasks.queues_[key];
+spfTasks.cancel = function (key) {
+  var queue = spfTasks.queues_[key]
   if (queue) {
-    spfTasks.clearAsyncTasks_(queue);
-    delete spfTasks.queues_[key];
+    spfTasks.clearAsyncTasks_(queue)
+    delete spfTasks.queues_[key]
   }
-};
-
+}
 
 /**
  * Cancels execution of all current task queues, optionally limited to
@@ -131,15 +125,14 @@ spfTasks.cancel = function(key) {
  * @param {string=} opt_skipKey The key of the task queue that should not
  *     be canceled.
  */
-spfTasks.cancelAllExcept = function(opt_keyPrefix, opt_skipKey) {
-  var keyPrefix = opt_keyPrefix || '';
+spfTasks.cancelAllExcept = function (opt_keyPrefix, opt_skipKey) {
+  var keyPrefix = opt_keyPrefix || ''
   for (var key in spfTasks.queues_) {
     if (opt_skipKey != key && spfString.startsWith(key, keyPrefix)) {
-      spfTasks.cancel(key);
+      spfTasks.cancel(key)
     }
   }
-};
-
+}
 
 /**
  * Gets a unique key for an object.  Mutates the object to store the key so
@@ -148,13 +141,12 @@ spfTasks.cancelAllExcept = function(opt_keyPrefix, opt_skipKey) {
  * @param {Object} obj The object to get a unique key for.
  * @return {string} The unique key.
  */
-spfTasks.key = function(obj) {
-  var uid = parseInt(spfState.get(spfState.Key.TASKS_UID), 10) || 0;
-  uid++;
+spfTasks.key = function (obj) {
+  var uid = parseInt(spfState.get(spfState.Key.TASKS_UID), 10) || 0
+  uid++
   return obj['spf-key'] || (
-      obj['spf-key'] = '' + spfState.set(spfState.Key.TASKS_UID, uid));
-};
-
+      obj['spf-key'] = '' + spfState.set(spfState.Key.TASKS_UID, uid))
+}
 
 /**
  * @param {string} key The key to identify the task queue.
@@ -162,29 +154,28 @@ spfTasks.key = function(obj) {
  *     defaults to false.
  * @private
  */
-spfTasks.do_ = function(key, opt_sync) {
-  var queue = spfTasks.queues_[key];
+spfTasks.do_ = function (key, opt_sync) {
+  var queue = spfTasks.queues_[key]
   if (queue) {
-    spfTasks.clearAsyncTasks_(queue);
+    spfTasks.clearAsyncTasks_(queue)
     if (queue.semaphore > 0 && queue.items.length) {
-      var task = queue.items[0];
+      var task = queue.items[0]
       if (task) {
-        var next = spfBase.bind(spfTasks.do_, null, key, opt_sync);
-        var step = spfBase.bind(function(nextFn, taskFn) {
-          taskFn();
-          nextFn();
-        }, null, next);
+        var next = spfBase.bind(spfTasks.do_, null, key, opt_sync)
+        var step = spfBase.bind(function (nextFn, taskFn) {
+          taskFn()
+          nextFn()
+        }, null, next)
         if (opt_sync) {
-          queue.items.shift();
-          step(task.fn);
+          queue.items.shift()
+          step(task.fn)
         } else {
-          spfTasks.scheduleTask_(queue, task, step);
+          spfTasks.scheduleTask_(queue, task, step)
         }
       }
     }
   }
-};
-
+}
 
 /**
  * Schedule a task for asynchronous execution.
@@ -193,51 +184,49 @@ spfTasks.do_ = function(key, opt_sync) {
  * @param {!Function} step The task execution function.
  * @private
  */
-spfTasks.scheduleTask_ = function(queue, task, step) {
+spfTasks.scheduleTask_ = function (queue, task, step) {
   if (task.delay) {
     // For a delay an empty step is run, and the task's functionality is saved
     // for the next step.
-    var fn = spfBase.bind(step, null, spfBase.nullFunction);
-    queue.timeoutKey = setTimeout(fn, task.delay);
+    var fn = spfBase.bind(step, null, spfBase.nullFunction)
+    queue.timeoutKey = setTimeout(fn, task.delay)
     // Instead of removing the task from the queue, set it's delay to 0 so it
     // will be processed traditionally on the next step.
-    task.delay = 0;
+    task.delay = 0
   } else {
-    queue.items.shift();
-    var fn = spfBase.bind(step, null, task.fn);
+    queue.items.shift()
+    var fn = spfBase.bind(step, null, task.fn)
     var scheduler = /** @type {spfBase.TaskScheduler} */ (
-        spfConfig.get('advanced-task-scheduler'));
-    var addTask = scheduler && scheduler['addTask'];
+        spfConfig.get('advanced-task-scheduler'))
+    var addTask = scheduler && scheduler['addTask']
     if (addTask) {
-      queue.scheduledKey = addTask(fn);
+      queue.scheduledKey = addTask(fn)
     } else {
-      queue.timeoutKey = setTimeout(fn, 0);
+      queue.timeoutKey = setTimeout(fn, 0)
     }
   }
-};
-
+}
 
 /**
  * Clear the current asynchronous tasks.
  * @param {!spfTasks.Queue} queue The queue.
  * @private
  */
-spfTasks.clearAsyncTasks_ = function(queue) {
+spfTasks.clearAsyncTasks_ = function (queue) {
   if (queue.scheduledKey) {
     var scheduler = /** @type {spfBase.TaskScheduler} */ (
-        spfConfig.get('advanced-task-scheduler'));
-    var cancelTask = scheduler && scheduler['cancelTask'];
+        spfConfig.get('advanced-task-scheduler'))
+    var cancelTask = scheduler && scheduler['cancelTask']
     if (cancelTask) {
-      cancelTask(queue.scheduledKey);
+      cancelTask(queue.scheduledKey)
     }
-    queue.scheduledKey = 0;
+    queue.scheduledKey = 0
   }
   if (queue.timeoutKey) {
-    clearTimeout(queue.timeoutKey);
-    queue.timeoutKey = 0;
+    clearTimeout(queue.timeoutKey)
+    queue.timeoutKey = 0
   }
-};
-
+}
 
 /**
  * Type definition for a SPF task.
@@ -249,8 +238,7 @@ spfTasks.clearAsyncTasks_ = function(queue) {
  *   delay: number
  * }}
  */
-spfTasks.Task;
-
+spfTasks.Task
 
 /**
  * Type definition for a SPF task queue.
@@ -267,17 +255,15 @@ spfTasks.Task;
  *   semaphore: number
  * }}
  */
-spfTasks.Queue;
-
+spfTasks.Queue
 
 /**
  * @return {spfTasks.Queue}
  * @private
  */
-spfTasks.createQueue_ = function() {
-  return {items: [], scheduledKey: 0, timeoutKey: 0, semaphore: 1};
-};
-
+spfTasks.createQueue_ = function () {
+  return {items: [], scheduledKey: 0, timeoutKey: 0, semaphore: 1}
+}
 
 /**
  * @param {!Function} fn The function to execute.
@@ -286,17 +272,14 @@ spfTasks.createQueue_ = function() {
  * @return {spfTasks.Task}
  * @private
  */
-spfTasks.createTask_ = function(fn, delay) {
-  return {fn: fn, delay: delay};
-};
-
+spfTasks.createTask_ = function (fn, delay) {
+  return {fn: fn, delay: delay}
+}
 
 /**
  * @type {!Object.<string, spfTasks.Queue>}
  * @private
  */
-spfTasks.queues_ = {};
+spfTasks.queues_ = {}
 
-
-
-export default spfTasks;
+export default spfTasks

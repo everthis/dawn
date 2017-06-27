@@ -30,17 +30,16 @@
  *
  * @author nicksay@google.com (Alex Nicksay)
  */
-import {SPF_BOOTLOADER} from '../base';
-import spfArray from '../array/array';
-import spfDebug from '../debug/debug';
-import spfNetResource from '../net/resource';
-import spfPubsub from '../pubsub/pubsub';
-import spfState from '../state';
-import spfString from '../string/string';
+import {SPF_BOOTLOADER} from '../base'
+import spfArray from '../array/array'
+import spfDebug from '../debug/debug'
+import spfNetResource from '../net/resource'
+import spfPubsub from '../pubsub/pubsub'
+import spfState from '../state'
+import spfString from '../string/string'
 
 // goog.provide('spfNetScript');
-let spfNetScript = {};
-
+let spfNetScript = {}
 
 /**
  * Loads a script asynchronously and defines a name to use for dependency
@@ -65,11 +64,10 @@ let spfNetScript = {};
  * @param {Function=} opt_fn Optional callback function to execute when the
  *     script is loaded.
  */
-spfNetScript.load = function(url, name, opt_fn) {
-  var type = spfNetResource.Type.JS;
-  spfNetResource.load(type, url, name, opt_fn);
-};
-
+spfNetScript.load = function (url, name, opt_fn) {
+  var type = spfNetResource.Type.JS
+  spfNetResource.load(type, url, name, opt_fn)
+}
 
 /**
  * Unloads scripts identified by name.  See {@link #load}.
@@ -79,20 +77,18 @@ spfNetScript.load = function(url, name, opt_fn) {
  *
  * @param {string} name The name.
  */
-spfNetScript.unload = function(name) {
-  var type = spfNetResource.Type.JS;
-  spfNetResource.unload(type, name);
-};
-
+spfNetScript.unload = function (name) {
+  var type = spfNetResource.Type.JS
+  spfNetResource.unload(type, name)
+}
 
 /**
  * Discovers existing scripts in the document and registers them as loaded.
  */
-spfNetScript.discover = function() {
-  var type = spfNetResource.Type.JS;
-  spfNetResource.discover(type);
-};
-
+spfNetScript.discover = function () {
+  var type = spfNetResource.Type.JS
+  spfNetResource.discover(type)
+}
 
 /**
  * Unconditionally loads a script by dynamically creating an element and
@@ -103,11 +99,10 @@ spfNetScript.discover = function() {
  * @param {string} url URL of the script to load.
  * @param {Function=} opt_fn Function to execute when loaded.
  */
-spfNetScript.get = function(url, opt_fn) {
-  var type = spfNetResource.Type.JS;
-  spfNetResource.create(type, url, opt_fn);
-};
-
+spfNetScript.get = function (url, opt_fn) {
+  var type = spfNetResource.Type.JS
+  spfNetResource.create(type, url, opt_fn)
+}
 
 /**
  * Prefetchs one or more scripts; the scripts will be requested but not loaded.
@@ -116,15 +111,14 @@ spfNetScript.get = function(url, opt_fn) {
  *
  * @param {string|Array.<string>} urls One or more URLs of scripts to prefetch.
  */
-spfNetScript.prefetch = function(urls) {
-  var type = spfNetResource.Type.JS;
+spfNetScript.prefetch = function (urls) {
+  var type = spfNetResource.Type.JS
   // Convert to an array if needed.
-  urls = spfArray.toArray(urls);
-  spfArray.each(urls, function(url) {
-    spfNetResource.prefetch(type, url);
-  });
-};
-
+  urls = spfArray.toArray(urls)
+  spfArray.each(urls, function (url) {
+    spfNetResource.prefetch(type, url)
+  })
+}
 
 /**
  * Waits for one or more scripts identified by name to be loaded and executes
@@ -137,47 +131,46 @@ spfNetScript.prefetch = function(urls) {
  * @param {Function=} opt_require Callback function to execute if names
  *     are specified that have not yet been defined/loaded.
  */
-spfNetScript.ready = function(names, opt_fn, opt_require) {
-  var type = spfNetResource.Type.JS;
+spfNetScript.ready = function (names, opt_fn, opt_require) {
+  var type = spfNetResource.Type.JS
 
   // Convert to an array if needed.
-  names = spfArray.toArray(names);
-  spfDebug.debug('script.ready', names);
+  names = spfArray.toArray(names)
+  spfDebug.debug('script.ready', names)
 
   // Filter out empty names.
-  names = spfArray.filter(names, function(name) {
-    return !!name;
-  });
+  names = spfArray.filter(names, function (name) {
+    return !!name
+  })
 
   // Find unknown names.
-  var unknown = [];
-  spfArray.each(names, function(name) {
+  var unknown = []
+  spfArray.each(names, function (name) {
     if (spfNetResource.url.get(type, name) == undefined) {
-      unknown.push(name);
+      unknown.push(name)
     }
-  });
+  })
 
   // Check if all urls for the names are loaded.
-  var known = !unknown.length;
+  var known = !unknown.length
   if (opt_fn) {
-    var loaded = spf.bind(spfNetResource.url.loaded, null, type);
-    var ready = spfArray.every(names, loaded);
+    var loaded = spf.bind(spfNetResource.url.loaded, null, type)
+    var ready = spfArray.every(names, loaded)
     if (known && ready) {
       // If ready, execute the callback.
-      opt_fn();
+      opt_fn()
     } else {
       // Otherwise, wait for them to be loaded.
-      var topic = spfNetResource.key(type, names.sort().join('|'));
-      spfDebug.debug('  subscribing', topic);
-      spfPubsub.subscribe(topic, opt_fn);
+      var topic = spfNetResource.key(type, names.sort().join('|'))
+      spfDebug.debug('  subscribing', topic)
+      spfPubsub.subscribe(topic, opt_fn)
     }
   }
   // If provided, call the require function to allow lazy-loading.
   if (opt_require && !known) {
-    opt_require(unknown);
+    opt_require(unknown)
   }
-};
-
+}
 
 /**
  * Notifies any waiting callbacks that `name` has completed loading.
@@ -185,12 +178,11 @@ spfNetScript.ready = function(names, opt_fn, opt_require) {
  *
  * @param {string} name The ready name.
  */
-spfNetScript.done = function(name) {
-  var type = spfNetResource.Type.JS;
-  spfNetResource.url.set(type, name, '');  // No associated URL.
-  spfNetResource.check(type);
-};
-
+spfNetScript.done = function (name) {
+  var type = spfNetResource.Type.JS
+  spfNetResource.url.set(type, name, '')  // No associated URL.
+  spfNetResource.check(type)
+}
 
 /**
  * "Ignores" a script load by canceling execution of a pending callback.
@@ -204,16 +196,15 @@ spfNetScript.done = function(name) {
  * @param {string|Array.<string>} names One or more names.
  * @param {Function} fn Callback function to cancel.
  */
-spfNetScript.ignore = function(names, fn) {
-  var type = spfNetResource.Type.JS;
+spfNetScript.ignore = function (names, fn) {
+  var type = spfNetResource.Type.JS
   // Convert to an array if needed.
-  names = spfArray.toArray(names);
-  spfDebug.debug('script.ignore', names);
-  var topic = spfNetResource.key(type, names.sort().join('|'));
-  spfDebug.debug('  unsubscribing', topic);
-  spfPubsub.unsubscribe(topic, fn);
-};
-
+  names = spfArray.toArray(names)
+  spfDebug.debug('script.ignore', names)
+  var topic = spfNetResource.key(type, names.sort().join('|'))
+  spfDebug.debug('  unsubscribing', topic)
+  spfPubsub.unsubscribe(topic, fn)
+}
 
 /**
  * Recursively loads scripts identified by name, first loading
@@ -223,9 +214,9 @@ spfNetScript.ignore = function(names, fn) {
  * @param {Function=} opt_fn Callback function to execute when the
  *     scripts have loaded.
  */
-spfNetScript.require = function(names, opt_fn) {
-  var type = spfNetResource.Type.JS;
-  spfDebug.debug('script.require', names);
+spfNetScript.require = function (names, opt_fn) {
+  var type = spfNetResource.Type.JS
+  spfDebug.debug('script.require', names)
 
   // When built for the bootloader, automatic unloading of scripts is not
   // supported.  If someone is attempting to load a new version of a script
@@ -233,22 +224,21 @@ spfNetScript.require = function(names, opt_fn) {
   // unloading of scripts is primarily intended for navigation between versions.
   if (!SPF_BOOTLOADER) {
     // Convert to an array if needed.
-    names = spfArray.toArray(names);
-    spfArray.each(names, function(name) {
+    names = spfArray.toArray(names)
+    spfArray.each(names, function (name) {
       if (name) {
-        var url = spfNetScript.url_[name] || name;
-        url = spfNetResource.canonicalize(type, url);
-        var previous = spfNetResource.url.get(type, name);
+        var url = spfNetScript.url_[name] || name
+        url = spfNetResource.canonicalize(type, url)
+        var previous = spfNetResource.url.get(type, name)
         if (previous && url != previous) {
-          spfNetScript.unrequire(name);
+          spfNetScript.unrequire(name)
         }
       }
-    });
+    })
   }
 
-  spfNetScript.ready(names, opt_fn, spfNetScript.require_);
-};
-
+  spfNetScript.ready(names, opt_fn, spfNetScript.require_)
+}
 
 /**
  * See {@link #require}.
@@ -256,24 +246,23 @@ spfNetScript.require = function(names, opt_fn) {
  * @param {Array.<string>} names The names.
  * @private
  */
-spfNetScript.require_ = function(names) {
+spfNetScript.require_ = function (names) {
   // Iterate and check if there are declared dependencies.
   // If so, check if the deps are ready and if not recurse.
   // If not, load the scripts for that name.
-  spfArray.each(names, function(name) {
-    var deps = spfNetScript.deps_[name];
-    var url = spfNetScript.url_[name] || name;
-    var next = function() {
-      spfNetScript.load(url, name);
-    };
-    if (deps) {
-      spfNetScript.require(deps, next);
-    } else {
-      next();
+  spfArray.each(names, function (name) {
+    var deps = spfNetScript.deps_[name]
+    var url = spfNetScript.url_[name] || name
+    var next = function () {
+      spfNetScript.load(url, name)
     }
-  });
-};
-
+    if (deps) {
+      spfNetScript.require(deps, next)
+    } else {
+      next()
+    }
+  })
+}
 
 /**
  * Recursively unloads scripts identified by name, first unloading
@@ -281,28 +270,27 @@ spfNetScript.require_ = function(names) {
  *
  * @param {string|Array.<string>} names One or more names.
  */
-spfNetScript.unrequire = function(names) {
-  spfDebug.debug('script.unrequire', names);
+spfNetScript.unrequire = function (names) {
+  spfDebug.debug('script.unrequire', names)
   // Convert to an array if needed.
-  names = spfArray.toArray(names);
-  spfArray.each(names, function(name) {
-    var descendants = [];
+  names = spfArray.toArray(names)
+  spfArray.each(names, function (name) {
+    var descendants = []
     for (var dep in spfNetScript.deps_) {
-      var list = spfNetScript.deps_[dep];
-      list = spfArray.toArray(list);
-      spfArray.each(list, function(l) {
+      var list = spfNetScript.deps_[dep]
+      list = spfArray.toArray(list)
+      spfArray.each(list, function (l) {
         if (l == name) {
-          descendants.push(dep);
+          descendants.push(dep)
         }
-      });
+      })
     }
-    spfArray.each(descendants, function(descend) {
-      spfNetScript.unrequire(descend);
-    });
-    spfNetScript.unload(name);
-  });
-};
-
+    spfArray.each(descendants, function (descend) {
+      spfNetScript.unrequire(descend)
+    })
+    spfNetScript.unload(name)
+  })
+}
 
 /**
  * Evaluates script text and defines a name to use for management.
@@ -314,22 +302,20 @@ spfNetScript.unrequire = function(names) {
  * @param {string} name Name to identify the script.
  * @return {undefined}
  */
-spfNetScript.eval = function(text, name) {
-  var type = spfNetResource.Type.JS;
-  var el = spfNetResource.eval(type, text, name);
-};
-
+spfNetScript.eval = function (text, name) {
+  var type = spfNetResource.Type.JS
+  var el = spfNetResource.eval(type, text, name)
+}
 
 /**
  * Unconditionally evaluates script text.  See {@link #eval}.
  *
  * @param {string} text The text of the script.
  */
-spfNetScript.exec = function(text) {
-  var type = spfNetResource.Type.JS;
-  var el = spfNetResource.exec(type, text);
-};
-
+spfNetScript.exec = function (text) {
+  var type = spfNetResource.Type.JS
+  var el = spfNetResource.exec(type, text)
+}
 
 /**
  * Sets the dependency map and optional URL map used when requiring scripts.
@@ -338,19 +324,18 @@ spfNetScript.exec = function(text) {
  * @param {Object.<(string|Array.<string>)>} deps The dependency map.
  * @param {Object.<string>=} opt_urls The optional URL map.
  */
-spfNetScript.declare = function(deps, opt_urls) {
+spfNetScript.declare = function (deps, opt_urls) {
   if (deps) {
     for (var name in deps) {
-      spfNetScript.deps_[name] = deps[name];
+      spfNetScript.deps_[name] = deps[name]
     }
     if (opt_urls) {
       for (var name in opt_urls) {
-        spfNetScript.url_[name] = opt_urls[name];
+        spfNetScript.url_[name] = opt_urls[name]
       }
     }
   }
-};
-
+}
 
 /**
  * Sets the path prefix or replacement map to use when resolving relative URLs.
@@ -359,29 +344,27 @@ spfNetScript.declare = function(deps, opt_urls) {
  *
  * @param {string|Object.<string>} paths The paths.
  */
-spfNetScript.path = function(paths) {
-  var type = spfNetResource.Type.JS;
-  spfNetResource.path(type, paths);
-};
-
+spfNetScript.path = function (paths) {
+  var type = spfNetResource.Type.JS
+  spfNetResource.path(type, paths)
+}
 
 /**
  * Map of dependencies used for {@link #require}.
  * @type {!Object.<(string|Array.<string>)>}
  * @private
  */
-spfNetScript.deps_ = {};
+spfNetScript.deps_ = {}
 // When built for the bootloader, unconditionally set the map in state.
 if (SPF_BOOTLOADER) {
-  spfState.set(spfState.Key.SCRIPT_DEPS, spfNetScript.deps_);
+  spfState.set(spfState.Key.SCRIPT_DEPS, spfNetScript.deps_)
 } else {
   if (!spfState.has(spfState.Key.SCRIPT_DEPS)) {
-    spfState.set(spfState.Key.SCRIPT_DEPS, spfNetScript.deps_);
+    spfState.set(spfState.Key.SCRIPT_DEPS, spfNetScript.deps_)
   }
   spfNetScript.deps_ = /** @type {!Object.<(string|Array.<string>)>} */ (
-      spfState.get(spfState.Key.SCRIPT_DEPS));
+      spfState.get(spfState.Key.SCRIPT_DEPS))
 }
-
 
 /**
  * Map of dependency names to URLs for {@link #require}, used for custom
@@ -389,19 +372,16 @@ if (SPF_BOOTLOADER) {
  * @type {!Object.<string>}
  * @private
  */
-spfNetScript.url_ = {};
+spfNetScript.url_ = {}
 // When built for the bootloader, unconditionally set the map in state.
 if (SPF_BOOTLOADER) {
-  spfState.set(spfState.Key.SCRIPT_URL, spfNetScript.url_);
+  spfState.set(spfState.Key.SCRIPT_URL, spfNetScript.url_)
 } else {
   if (!spfState.has(spfState.Key.SCRIPT_URL)) {
-    spfState.set(spfState.Key.SCRIPT_URL, spfNetScript.url_);
+    spfState.set(spfState.Key.SCRIPT_URL, spfNetScript.url_)
   }
   spfNetScript.url_ = /** @type {!Object.<string>} */ (
-      spfState.get(spfState.Key.SCRIPT_URL));
+      spfState.get(spfState.Key.SCRIPT_URL))
 }
 
-
-
-
-export default spfNetScript;
+export default spfNetScript

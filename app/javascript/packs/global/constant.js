@@ -1,1 +1,1 @@
-export const rootAPI = window.location.origin + '/apis';
+export const rootAPI = window.location.origin + '/apis'

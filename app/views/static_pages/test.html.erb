@@ -1,21 +1,41 @@
 <% content_for :title do %>
 lorem_title
 <% end %>
+<% content_for :c_layout do %>
+blank
+<% end %>
 
 <% content_for :name do %>
 lorem_name
 <% end %>
 
 <% content_for :head do %>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <style name="test">
 		.test {
 			font-size: 16px;
 		}  	
   </style>
-  <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/themes/alloyteam/style.css">
-  <script src="http://www.alloyteam.com/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
+    <style>
+    .top-bar a {
+      font-size: 36px;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      opacity: 1;
+      color: #fff;
+      text-decoration: none;
+      background-color: blue;
+    }
+    .top-bar a:active {
+      background-color: red;
+      opacity: 0.2;
+    }
+  </style>
+  <!-- <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/themes/alloyteam/style.css"> -->
+  <!-- <script src="http://www.alloyteam.com/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script> -->
   <!-- <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta"> -->
-  <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/plugins/crayon-syntax-highlighter/themes/sublime-text/sublime-text.css?ver=_2.7.2_beta">
+  <!-- <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/plugins/crayon-syntax-highlighter/themes/sublime-text/sublime-text.css?ver=_2.7.2_beta"> -->
   <!-- <script src="http://www.alloyteam.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1"></script> -->
   <!-- <script src="http://www.alloyteam.com/wp-content/plugins/images-lazyload-and-slideshow/effects/prettyPhoto%203.1.6/js/jquery.prettyPhoto.js"></script> -->
 <% end %>
@@ -29,14 +49,20 @@ lorem_name
 <% end %>
 
 <% content_for :content do %>
-<img src="http://upload.chinaz.com/2016/0927/201609271009279855.jpg" alt="">
+<!-- <img src="http://upload.chinaz.com/2016/0927/201609271009279855.jpg" alt=""> -->
 <!-- <img src="http://img.mukewang.com/57a202fe0001a6d535082717.png" alt=""> -->
-	<div class="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, dolor.</div>
+	<!-- <div class="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, dolor.</div> -->
 	<!-- <iframe id="iii" name="ll1" src="http://10.0.0.9:8455/iframe.html" frameborder="0"></iframe> -->
 	<!-- <iframe id="ll2" name="ll2" src="http://10.0.0.9:8455/iframe2.html" frameborder="0"></iframe> -->
+
+  <div class="top-bar" oncontextmenu="return false;">
+    <a href="//www.baidu.com">Lorem ipsum.</a>
+  </div>
+
 <% end %>
 
 <% content_for :foot do %>
+  <script src="http://zeptojs.com/zepto.min.js"></script>
   <script name="test">
   // function domainData(url, fn)
   // {
@@ -73,5 +99,39 @@ lorem_name
   
   // document.domain = '10.0.0.9';
   
+
+
+  $('body').on('touchstart', '.top-bar a', function(e) {
+    $(this).css('opacity', 0.2)
+  })
+  $('body').on('touchmove', '.top-bar a', function(e) {
+    e.preventDefault()
+  })
+  $('body').on('touchend', '.top-bar a', function(e) {
+    $(this).css('opacity', 1)
+    console.log(e.target.getAttribute('href'))
+    e.stopImmediatePropagation()
+  })
+  $('body').on('click', '.top-bar a', function(e) {
+    console.log('op')
+    e.preventDefault()
+  })
+
+  // var alink = document.querySelector('.top-bar a')
+  // alink.addEventListener('click', function(e) {
+  //  e.preventDefault()
+  // })
+  // alink.addEventListener('touchstart', function(e){
+  //  e.target.style.opacity = '0.2'
+  // })
+  // alink.addEventListener('touchmove', function(e){
+  //  e.preventDefault()
+  // })
+  // alink.addEventListener('touchend', function(e){
+  //  e.target.style.opacity = '1'
+  //  console.log(e.target.getAttribute('href'))
+  // })
   </script>
 <% end %>
+
+

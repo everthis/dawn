@@ -9,49 +9,42 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-
 /** @define {boolean} Compiler flag to remove development code. */
-let COMPILED = false;
+let COMPILED = false
 
-
-let goog = {};
-
+let goog = {}
 
 /**
  * @param {string} ns Namespace required in the form "base.package.part".
  */
-goog.require = function(ns) {};
-
+goog.require = function (ns) {}
 
 /**
  * @param {string} ns Namespace provided in the form "base.package.part".
  */
-goog.provide = function(ns) {
-  var parts = ns.split('.');
-  var cur = window;
+goog.provide = function (ns) {
+  var parts = ns.split('.')
+  var cur = window
   for (var name; parts.length && (name = parts.shift());) {
     if (cur[name]) {
-      cur = cur[name];
+      cur = cur[name]
     } else {
-      cur = cur[name] = {};
+      cur = cur[name] = {}
     }
   }
-};
-
+}
 
 /**
  * Reference to the global context.  In most cases this will be 'window'.
  */
-goog.global = this;
-
+goog.global = this
 
 /**
  * Empty function that does nothing.
  *
  * Used to allow compiler to optimize away functions.
  */
-goog.nullFunction = function() {};
-
+goog.nullFunction = function () {}
 
 /**
  * Identity function that returns its first argument.
@@ -61,8 +54,8 @@ goog.nullFunction = function() {};
  * @return {T} The first argument.
  * @template T
  */
- goog.identityFunction = function(opt_returnValue, var_args) {
-   return opt_returnValue;
- };
+goog.identityFunction = function (opt_returnValue, var_args) {
+  return opt_returnValue
+}
 
-export { COMPILED, goog };
+export { COMPILED, goog }

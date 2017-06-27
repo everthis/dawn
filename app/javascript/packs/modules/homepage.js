@@ -1,5 +1,5 @@
-import {tweetBox} from './tweetBox';
+import {tweetBox} from './tweetBox'
 
-export function home() {
-	tweetBox();
+export function home () {
+  tweetBox()
 }

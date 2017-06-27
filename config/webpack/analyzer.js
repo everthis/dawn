@@ -29,4 +29,4 @@ module.exports = productionConfig.plugins.push(new BundleAnalyzerPlugin({
   statsOptions: null,
   // Log level. Can be 'info', 'warn', 'error' or 'silent'.
   logLevel: 'info'
-}));
+}))

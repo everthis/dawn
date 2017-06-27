@@ -1,14 +1,14 @@
-import {spfBase} from './base';
-import spfMain from './main';
-import spfConfig from './config';
-import spfCache from './cache/cache';
-import spfDebug from './debug/debug';
-import spfHistory from './history/history';
-import spfNav from './nav/nav';
-import spfNetStyle from './net/style';
-import spfNetScript from './net/script';
+import {spfBase} from './base'
+import spfMain from './main'
+import spfConfig from './config'
+import spfCache from './cache/cache'
+import spfDebug from './debug/debug'
+import spfHistory from './history/history'
+import spfNav from './nav/nav'
+import spfNetStyle from './net/style'
+import spfNetScript from './net/script'
 
-let spfEntry = {};
+let spfEntry = {}
 // Create the API by exporting aliased functions.
 // Core API functions are available on the top-level namespace.
 // Extra API functions are available on second-level namespaces.
@@ -20,7 +20,7 @@ spfEntry.api_ = {
   'load': spfNav.load,
   'prefetch': spfNav.prefetch,
   'process': spfNav.process
-};
+}
 /** @private {!Object} */
 spfEntry.extra_ = {
   'cache': {
@@ -65,21 +65,21 @@ spfEntry.extra_ = {
     // * Prefetch.
     'prefetch': spfNetStyle.prefetch
   }
-};
+}
 // For a production/debug build, isolate access to the API.
 // For a development build, mixin the API to the existing namespace.
-let spfEs = {};
+let spfEs = {}
 
 for (var fn1 in spfEntry.api_) {
-  spfEs[fn1] = spfEntry.api_[fn1];
+  spfEs[fn1] = spfEntry.api_[fn1]
 }
 // Use two-stage exporting to allow aliasing the intermediate namespaces
 // created by the bootloader (e.g. s = spf.script; s.load(...)).
 for (var ns in spfEntry.extra_) {
   for (var fn2 in spfEntry.extra_[ns]) {
-    spfEs[ns] = spfEs[ns] || {};
-    spfEs[ns][fn2] = spfEntry.extra_[ns][fn2];
+    spfEs[ns] = spfEs[ns] || {}
+    spfEs[ns][fn2] = spfEntry.extra_[ns][fn2]
   }
 }
 
-export default spfEs;
+export default spfEs

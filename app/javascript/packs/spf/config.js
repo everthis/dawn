@@ -9,9 +9,8 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-import spfState from './state';
-let spfConfig = {};
-
+import spfState from './state'
+let spfConfig = {}
 
 /**
  * Type definition for a SPF config value.
@@ -21,8 +20,7 @@ let spfConfig = {};
  *
  * @typedef {string|number|boolean|Function|null}
  */
-spfConfig.Value;
-
+spfConfig.Value
 
 /**
  * Default configuration values.
@@ -41,8 +39,7 @@ spfConfig.defaults = {
   'reload-identifier': null,  // Always a param, no '?' needed.
   'request-timeout': 0,  // No request timeout.
   'url-identifier': '?fnpu=__type__'
-};
-
+}
 
 /**
  * Initialize the configuration with an optional object.  If values are not
@@ -50,21 +47,20 @@ spfConfig.defaults = {
  *
  * @param {Object.<spfConfig.Value>=} opt_config Optional configuration object.
  */
-spfConfig.init = function(opt_config) {
-  var config = opt_config || {};
+spfConfig.init = function (opt_config) {
+  var config = opt_config || {}
   // Set primary configs; each has a default.
   for (var key in spfConfig.defaults) {
-    var value = (key in config) ? config[key] : spfConfig.defaults[key];
-    spfConfig.set(key, value);
+    var value = (key in config) ? config[key] : spfConfig.defaults[key]
+    spfConfig.set(key, value)
   }
   // Set advanced and experimental configs; none have defaults.
   for (var key in config) {
     if (!(key in spfConfig.defaults)) {
-      spfConfig.set(key, config[key]);
+      spfConfig.set(key, config[key])
     }
   }
-};
-
+}
 
 /**
  * Checks whether a current configuration value exists.
@@ -72,10 +68,9 @@ spfConfig.init = function(opt_config) {
  * @param {string} name The configuration name.
  * @return {boolean} Whether the configuration value exists.
  */
-spfConfig.has = function(name) {
-  return name in spfConfig.values;
-};
-
+spfConfig.has = function (name) {
+  return name in spfConfig.values
+}
 
 /**
  * Gets a current configuration value.
@@ -83,10 +78,9 @@ spfConfig.has = function(name) {
  * @param {string} name The configuration name.
  * @return {spfConfig.Value|undefined} The configuration value.
  */
-spfConfig.get = function(name) {
-  return spfConfig.values[name];
-};
-
+spfConfig.get = function (name) {
+  return spfConfig.values[name]
+}
 
 /**
  * Sets a current configuration value.
@@ -95,34 +89,31 @@ spfConfig.get = function(name) {
  * @param {spfConfig.Value} value The configuration value.
  * @return {spfConfig.Value} The configuration value.
  */
-spfConfig.set = function(name, value) {
-  spfConfig.values[name] = value;
-  return value;
-};
-
+spfConfig.set = function (name, value) {
+  spfConfig.values[name] = value
+  return value
+}
 
 /**
  * Removes all data from the config.
  */
-spfConfig.clear = function() {
+spfConfig.clear = function () {
   for (var key in spfConfig.values) {
-    delete spfConfig.values[key];
+    delete spfConfig.values[key]
   }
-};
-
+}
 
 /**
  * The config storage object.
  * @type {!Object.<spfConfig.Value>}
  */
-spfConfig.values = {};
-
+spfConfig.values = {}
 
 // Automatic initialization for spfConfig.values.
 if (!spfState.has(spfState.Key.CONFIG_VALUES)) {
-  spfState.set(spfState.Key.CONFIG_VALUES, spfConfig.values);
+  spfState.set(spfState.Key.CONFIG_VALUES, spfConfig.values)
 }
 spfConfig.values = /** @type {!Object.<spfConfig.Value>} */ (
-    spfState.get(spfState.Key.CONFIG_VALUES));
+    spfState.get(spfState.Key.CONFIG_VALUES))
 
-export default spfConfig;
+export default spfConfig

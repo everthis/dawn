@@ -1,15 +1,15 @@
-import {disableScroll, enableScroll} from './toggleScroll';
-export function popup(ev, params, callback) {
-  let popupEle = document.createElement('div');
-  popupEle.classList.add('popup-layer');
-  popupEle.innerHTML = generatePopupTpl();
-  positionPopupEle(popupEle, ev);
-  bindPopupEvents(popupEle, ev, params, callback);
-  document.body.appendChild(popupEle);
-  disableScroll();
+import {disableScroll, enableScroll} from './toggleScroll'
+export function popup (ev, params, callback) {
+  let popupEle = document.createElement('div')
+  popupEle.classList.add('popup-layer')
+  popupEle.innerHTML = generatePopupTpl()
+  positionPopupEle(popupEle, ev)
+  bindPopupEvents(popupEle, ev, params, callback)
+  document.body.appendChild(popupEle)
+  disableScroll()
 }
 
-function generatePopupTpl(data) {
+function generatePopupTpl (data) {
   let tpl = `
     <div class="popup-shadow">
       <div class="popup-content">
@@ -20,30 +20,30 @@ function generatePopupTpl(data) {
 				</div>
       </div>
     </div>
-	`;
-  return tpl;
+	`
+  return tpl
 }
 
-function bindPopupEvents(ele, ev, params, callback) {
-  ele.getElementsByClassName('popup-cancel-btn')[0].addEventListener('click', closePopup);
-  ele.getElementsByClassName('popup-shadow')[0].addEventListener('click', closePopup);
-  ele.getElementsByClassName('popup-confirm-btn')[0].addEventListener('click', confirm.bind(this, ev, ele, params, callback));
+function bindPopupEvents (ele, ev, params, callback) {
+  ele.getElementsByClassName('popup-cancel-btn')[0].addEventListener('click', closePopup)
+  ele.getElementsByClassName('popup-shadow')[0].addEventListener('click', closePopup)
+  ele.getElementsByClassName('popup-confirm-btn')[0].addEventListener('click', confirm.bind(this, ev, ele, params, callback))
 }
 
-function confirm(ev, ele, params, callback) {
-  callback();
-  document.body.removeChild(ele);
+function confirm (ev, ele, params, callback) {
+  callback()
+  document.body.removeChild(ele)
 }
 
-function positionPopupEle(ele, coordinates) {
-  ele.getElementsByClassName('popup-content')[0].style.transform = 'translate3d(' + coordinates.clientX + 'px, ' + coordinates.clientY + 'px, 0)';
+function positionPopupEle (ele, coordinates) {
+  ele.getElementsByClassName('popup-content')[0].style.transform = 'translate3d(' + coordinates.clientX + 'px, ' + coordinates.clientY + 'px, 0)'
 }
 
-function closePopup(ev) {
-  if (ev.target !== ev.currentTarget) return;
-  let popLayer = ev.target.closest('.popup-layer');
+function closePopup (ev) {
+  if (ev.target !== ev.currentTarget) return
+  let popLayer = ev.target.closest('.popup-layer')
   if (popLayer) {
-    document.body.removeChild(popLayer);
-    enableScroll();
+    document.body.removeChild(popLayer)
+    enableScroll()
   }
 }

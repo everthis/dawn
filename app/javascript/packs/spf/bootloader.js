@@ -14,11 +14,10 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-goog.provide('spf.bootloader');
+goog.provide('spf.bootloader')
 
-goog.require('spf');
-goog.require('spf.net.script');
-
+goog.require('spf')
+goog.require('spf.net.script')
 
 // Create the bootloader API by exporting aliased functions.
 /** @private {!Object} */
@@ -37,12 +36,12 @@ spf.bootloader.api_ = {
     'declare': spf.net.script.declare,
     'path': spf.net.script.path
   }
-};
+}
 // For a production/debug build, isolate access to the API.
 // For a development build, mixin the API to the existing namespace.
-var global = this;
-global['spf'] = global['spf'] || {};
-var api = global['spf'];
+var global = this
+global['spf'] = global['spf'] || {}
+var api = global['spf']
 for (var fn in spf.bootloader.api_) {
-  api[fn] = spf.bootloader.api_[fn];
+  api[fn] = spf.bootloader.api_[fn]
 }

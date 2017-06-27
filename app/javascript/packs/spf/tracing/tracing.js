@@ -59,15 +59,14 @@
  * @author zhaoz@google.com (Ziling Zhao)
  */
 
-import WTF from '../WTF/wtf';
-import {SPF_TRACING} from '../base';
-let spfTracing = {};
+import WTF from '../WTF/wtf'
+import {SPF_TRACING} from '../base'
+let spfTracing = {}
 // goog.provide('spfTracing');
 
 // goog.require('WTF');
 // goog.require('WTF.data.EventFlag');
 // goog.require('WTF.trace');
-
 
 /**
  * @define {boolean} Turn trace stats collecting for WTF or the native browser
@@ -105,8 +104,7 @@ let spfTracing = {};
  * See http://www.html5rocks.com/en/tutorials/games/abouttracing/ for more
  * details on chrome's about:tracing tool.
  */
-spfTracing.ENABLED = SPF_TRACING;
-
+spfTracing.ENABLED = SPF_TRACING
 
 /**
  * A hook that can be manipulated at runtime to disable tracing even if it is
@@ -116,8 +114,7 @@ spfTracing.ENABLED = SPF_TRACING;
  * @const
  */
 spfTracing.RUNTIME_DISABLED_ =
-    window['_spf_tracing_runtime_disabled'] || false;
-
+    window['_spf_tracing_runtime_disabled'] || false
 
 /**
  * Whether the Web Tracing Framework should be used.
@@ -130,8 +127,7 @@ spfTracing.RUNTIME_DISABLED_ =
 spfTracing.USE_WTF_ =
     spfTracing.ENABLED &&
     !spfTracing.RUNTIME_DISABLED_ &&
-    WTF.PRESENT;
-
+    WTF.PRESENT
 
 /**
  * Whether to fallback to the `console` APIs when WTF is not present.
@@ -144,16 +140,14 @@ spfTracing.USE_CONSOLE_ =
     !WTF.PRESENT &&
     !!window.console &&
     !!window.console.time &&
-    !!window.console.timeEnd;
-
+    !!window.console.timeEnd
 
 /**
  * Empty function that does nothing.
  *
  * Used to allow compiler to optimize away functions.
  */
-spfTracing.nullFunction = function() {};
-
+spfTracing.nullFunction = function () {}
 
 /**
  * Identity function that returns its first argument.
@@ -163,10 +157,9 @@ spfTracing.nullFunction = function() {};
  * @return {T} The first argument.
  * @template T
  */
- spfTracing.identityFunction = function(opt_returnValue, var_args) {
-   return opt_returnValue;
- };
-
+spfTracing.identityFunction = function (opt_returnValue, var_args) {
+  return opt_returnValue
+}
 
 /**
  * Initializes on* event properties on the given DOM element and optionally
@@ -185,9 +178,8 @@ spfTracing.nullFunction = function() {};
  * @param {!Element} target Target DOM element.
  * @param {boolean=} opt_recursive Also initialize for all children.
  */
-spfTracing.initializeDomEventProperties = spfTracing.USE_WTF_ ?
-    WTF.trace.initializeDomEventProperties : spfTracing.nullFunction;
-
+spfTracing.initializeDomEventProperties = spfTracing.USE_WTF_
+    ? WTF.trace.initializeDomEventProperties : spfTracing.nullFunction
 
 /**
  * Creates and registers a new event type, returning a function that can be used
@@ -222,11 +214,10 @@ spfTracing.initializeDomEventProperties = spfTracing.USE_WTF_ ?
  * @param {number=} opt_flags A bitmask of {@see WTF.data.EventFlag} values.
  * @return {Function} New event type.
  */
-spfTracing.createInstanceEvent = spfTracing.USE_WTF_ ?
-    WTF.trace.events.createInstance : function(signature, opt_flags) {
-      return spfTracing.nullFunction;
-    };
-
+spfTracing.createInstanceEvent = spfTracing.USE_WTF_
+    ? WTF.trace.events.createInstance : function (signature, opt_flags) {
+      return spfTracing.nullFunction
+    }
 
 /**
  * Similar to {@see spfTracing.createInstanceEvent}, but creates an
@@ -235,11 +226,10 @@ spfTracing.createInstanceEvent = spfTracing.USE_WTF_ ?
  * @param {string} signature Event signature.
  * @return {Function} New event type.
  */
-spfTracing.createAppendScopeDataEvent = function(signature) {
+spfTracing.createAppendScopeDataEvent = function (signature) {
   return spfTracing.createInstanceEvent(
-      signature, WTF.data.EventFlag.APPEND_SCOPE_DATA);
-};
-
+      signature, WTF.data.EventFlag.APPEND_SCOPE_DATA)
+}
 
 /**
  * Creates and registers a new event type, returning a function that can be used
@@ -275,11 +265,10 @@ spfTracing.createAppendScopeDataEvent = function(signature) {
  * @param {number=} opt_flags A bitmask of {@see WTF.data.EventFlag} values.
  * @return {Function} New event type.
  */
-spfTracing.createScopeEvent = spfTracing.USE_WTF_ ?
-    WTF.trace.events.createScope : function(signature, opt_flags) {
-      return spfTracing.nullFunction;
-    };
-
+spfTracing.createScopeEvent = spfTracing.USE_WTF_
+    ? WTF.trace.events.createScope : function (signature, opt_flags) {
+      return spfTracing.nullFunction
+    }
 
 /**
  * Wrap the instance methods provided with tracing scope calls.
@@ -292,9 +281,8 @@ spfTracing.createScopeEvent = spfTracing.USE_WTF_ ?
  * @param {!Object.<!Function>} methodMap A mapping between method names
  *     and the methods themselves.
  */
-spfTracing.traceMethods = spfTracing.USE_WTF_ ?
-    WTF.trace.instrumentTypeSimple : spfTracing.nullFunction;
-
+spfTracing.traceMethods = spfTracing.USE_WTF_
+    ? WTF.trace.instrumentTypeSimple : spfTracing.nullFunction
 
 /**
  * Enters a call scope.
@@ -312,9 +300,8 @@ spfTracing.traceMethods = spfTracing.USE_WTF_ ?
  * @param {string} name Scope name.
  * @return {WTF.trace.Scope} An initialized scope object.
  */
-spfTracing.enterScope = spfTracing.USE_WTF_ ?
-    WTF.trace.enterScope : spfTracing.nullFunction;
-
+spfTracing.enterScope = spfTracing.USE_WTF_
+    ? WTF.trace.enterScope : spfTracing.nullFunction
 
 /**
  * Leaves a scope previously entered with {@see #enterScope} or a custom
@@ -328,9 +315,8 @@ spfTracing.enterScope = spfTracing.USE_WTF_ ?
  * @return {T|undefined} The value of the `opt_result` parameter.
  * @template T
  */
-spfTracing.leaveScope = spfTracing.USE_WTF_ ?
-    WTF.trace.leaveScope : spfTracing.nullFunction;
-
+spfTracing.leaveScope = spfTracing.USE_WTF_
+    ? WTF.trace.leaveScope : spfTracing.nullFunction
 
 /**
  * Appends a named argument of any type to the currently traced method scope.
@@ -358,9 +344,8 @@ spfTracing.leaveScope = spfTracing.USE_WTF_ ?
  * @param {string} name Argument name. Must be ASCII.
  * @param {*} value Value. Will be JSON stringified.
  */
-spfTracing.appendScopeData = spfTracing.USE_WTF_ ?
-    WTF.trace.appendScopeData : spfTracing.nullFunction;
-
+spfTracing.appendScopeData = spfTracing.USE_WTF_
+    ? WTF.trace.appendScopeData : spfTracing.nullFunction
 
 /**
  * Marks a stage on the timeline.
@@ -381,9 +366,8 @@ spfTracing.appendScopeData = spfTracing.USE_WTF_ ?
  * @param {string} name Marker name.
  * @param {*=} opt_value Optional data value.
  */
-spfTracing.markTimeline = spfTracing.USE_WTF_ ?
-    WTF.trace.mark : spfTracing.nullFunction;
-
+spfTracing.markTimeline = spfTracing.USE_WTF_
+    ? WTF.trace.mark : spfTracing.nullFunction
 
 /**
  * Adds a time stamp to the timeline, indicating the occurrence of an event.
@@ -397,9 +381,8 @@ spfTracing.markTimeline = spfTracing.USE_WTF_ ?
  * @param {string} name Time stamp name.
  * @param {*=} opt_value Optional data value.
  */
-spfTracing.timeStamp = spfTracing.USE_WTF_ ?
-    WTF.trace.timeStamp : spfTracing.nullFunction;
-
+spfTracing.timeStamp = spfTracing.USE_WTF_
+    ? WTF.trace.timeStamp : spfTracing.nullFunction
 
 /**
  * Begins an async timer.
@@ -429,9 +412,8 @@ spfTracing.timeStamp = spfTracing.USE_WTF_ ?
  * @param {*=} opt_value Optional data value.
  * @return {WTF.trace.TimeRange} Time range handle.
  */
-spfTracing.beginTimeRange = spfTracing.USE_WTF_ ?
-    WTF.trace.beginTimeRange : spfTracing.nullFunction;
-
+spfTracing.beginTimeRange = spfTracing.USE_WTF_
+    ? WTF.trace.beginTimeRange : spfTracing.nullFunction
 
 /**
  * Ends an async time range previously started with {@see #beginTimeRange}.
@@ -441,9 +423,8 @@ spfTracing.beginTimeRange = spfTracing.USE_WTF_ ?
  * @param {WTF.trace.TimeRange} timeRange Handle returned from
  *     {@see #beginTimeRange}.
  */
-spfTracing.endTimeRange = spfTracing.USE_WTF_ ?
-    WTF.trace.endTimeRange : spfTracing.nullFunction;
-
+spfTracing.endTimeRange = spfTracing.USE_WTF_
+    ? WTF.trace.endTimeRange : spfTracing.nullFunction
 
 /**
  * Automatically instruments a method.
@@ -468,5 +449,5 @@ spfTracing.endTimeRange = spfTracing.USE_WTF_ ?
  * @return {T} The instrumented input value.
  * @template T
  */
-spfTracing.instrument = spfTracing.USE_WTF_ ?
-    WTF.trace.instrument : spfTracing.identityFunction;
+spfTracing.instrument = spfTracing.USE_WTF_
+    ? WTF.trace.instrument : spfTracing.identityFunction

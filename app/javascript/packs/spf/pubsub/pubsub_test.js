@@ -7,161 +7,158 @@
  * @fileoverview Tests for publish/subscribe notifications.
  */
 
-goog.require('spf.pubsub');
+goog.require('spf.pubsub')
 
+describe('spf.pubsub', function () {
+  var callbacks
+  var subs
 
-describe('spf.pubsub', function() {
-
-  var callbacks;
-  var subs;
-
-  beforeEach(function() {
+  beforeEach(function () {
     callbacks = {
       one: jasmine.createSpy('one'),
       two: jasmine.createSpy('two'),
       three: jasmine.createSpy('three'),
       four: jasmine.createSpy('four')
-    };
-    subs = spf.pubsub.subscriptions;
-  });
+    }
+    subs = spf.pubsub.subscriptions
+  })
 
-  afterEach(function() {
-    spf.pubsub.subscriptions = {};
-    subs = null;
-    callbacks = null;
-  });
+  afterEach(function () {
+    spf.pubsub.subscriptions = {}
+    subs = null
+    callbacks = null
+  })
 
-  it('subscribe', function() {
+  it('subscribe', function () {
     // No subscriptions.
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
     // One subscription.
-    spf.pubsub.subscribe('foo', callbacks.one);
-    expect(subs['foo'] || []).toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
+    spf.pubsub.subscribe('foo', callbacks.one)
+    expect(subs['foo'] || []).toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
     // Two subscriptions.
-    spf.pubsub.subscribe('foo', callbacks.two);
-    expect(subs['foo'] || []).toContain(callbacks.one);
-    expect(subs['foo'] || []).toContain(callbacks.two);
-  });
+    spf.pubsub.subscribe('foo', callbacks.two)
+    expect(subs['foo'] || []).toContain(callbacks.one)
+    expect(subs['foo'] || []).toContain(callbacks.two)
+  })
 
-  it('unsubscribe', function() {
-    spf.pubsub.subscribe('foo', callbacks.one);
-    spf.pubsub.subscribe('foo', callbacks.two);
-    spf.pubsub.subscribe('bar', callbacks.three);
-    spf.pubsub.subscribe('bar', callbacks.four);
+  it('unsubscribe', function () {
+    spf.pubsub.subscribe('foo', callbacks.one)
+    spf.pubsub.subscribe('foo', callbacks.two)
+    spf.pubsub.subscribe('bar', callbacks.three)
+    spf.pubsub.subscribe('bar', callbacks.four)
     // Two subscriptions.
-    expect(subs['foo'] || []).toContain(callbacks.one);
-    expect(subs['foo'] || []).toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
+    expect(subs['foo'] || []).toContain(callbacks.one)
+    expect(subs['foo'] || []).toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
     // One subscription.
-    spf.pubsub.unsubscribe('foo', callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
+    spf.pubsub.unsubscribe('foo', callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
     // No subscriptions.
-    spf.pubsub.unsubscribe('foo', callbacks.two);
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
+    spf.pubsub.unsubscribe('foo', callbacks.two)
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
     // Unknown topic or missing function.
-    var func1 = function() { spf.pubsub.unsubscribe('_', callbacks.three); };
-    var func2 = function() { spf.pubsub.unsubscribe('bar', null); };
-    expect(func1).not.toThrow();
-    expect(func2).not.toThrow();
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
-  });
+    var func1 = function () { spf.pubsub.unsubscribe('_', callbacks.three) }
+    var func2 = function () { spf.pubsub.unsubscribe('bar', null) }
+    expect(func1).not.toThrow()
+    expect(func2).not.toThrow()
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
+  })
 
-  it('publish', function() {
-    spf.pubsub.subscribe('foo', callbacks.one);
-    spf.pubsub.subscribe('foo', callbacks.two);
+  it('publish', function () {
+    spf.pubsub.subscribe('foo', callbacks.one)
+    spf.pubsub.subscribe('foo', callbacks.two)
     // Two subscriptions.
-    spf.pubsub.publish('foo');
-    spf.pubsub.publish('bar');
-    expect(callbacks.one.calls.count()).toEqual(1);
-    expect(callbacks.two.calls.count()).toEqual(1);
+    spf.pubsub.publish('foo')
+    spf.pubsub.publish('bar')
+    expect(callbacks.one.calls.count()).toEqual(1)
+    expect(callbacks.two.calls.count()).toEqual(1)
     // One subscription.
-    spf.pubsub.unsubscribe('foo', callbacks.one);
-    spf.pubsub.publish('foo');
-    spf.pubsub.publish('bar');
-    expect(callbacks.one.calls.count()).toEqual(1);
-    expect(callbacks.two.calls.count()).toEqual(2);
+    spf.pubsub.unsubscribe('foo', callbacks.one)
+    spf.pubsub.publish('foo')
+    spf.pubsub.publish('bar')
+    expect(callbacks.one.calls.count()).toEqual(1)
+    expect(callbacks.two.calls.count()).toEqual(2)
     // No subscriptions.
-    spf.pubsub.unsubscribe('foo', callbacks.two);
-    spf.pubsub.publish('foo');
-    spf.pubsub.publish('bar');
-    expect(callbacks.one.calls.count()).toEqual(1);
-    expect(callbacks.two.calls.count()).toEqual(2);
-  });
+    spf.pubsub.unsubscribe('foo', callbacks.two)
+    spf.pubsub.publish('foo')
+    spf.pubsub.publish('bar')
+    expect(callbacks.one.calls.count()).toEqual(1)
+    expect(callbacks.two.calls.count()).toEqual(2)
+  })
 
-  it('flush', function() {
-    spf.pubsub.subscribe('foo', callbacks.one);
-    spf.pubsub.subscribe('foo', callbacks.two);
+  it('flush', function () {
+    spf.pubsub.subscribe('foo', callbacks.one)
+    spf.pubsub.subscribe('foo', callbacks.two)
     // Two subscriptions.
-    spf.pubsub.flush('foo');
-    expect(callbacks.one.calls.count()).toEqual(1);
-    expect(callbacks.two.calls.count()).toEqual(1);
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
+    spf.pubsub.flush('foo')
+    expect(callbacks.one.calls.count()).toEqual(1)
+    expect(callbacks.two.calls.count()).toEqual(1)
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
     // No subscriptions.
-    spf.pubsub.flush('foo');
-    spf.pubsub.flush('bar');
-    expect(callbacks.one.calls.count()).toEqual(1);
-    expect(callbacks.two.calls.count()).toEqual(1);
-  });
+    spf.pubsub.flush('foo')
+    spf.pubsub.flush('bar')
+    expect(callbacks.one.calls.count()).toEqual(1)
+    expect(callbacks.two.calls.count()).toEqual(1)
+  })
 
-  it('rename', function() {
+  it('rename', function () {
     // Subscribe.
-    spf.pubsub.subscribe('foo', callbacks.one);
-    spf.pubsub.subscribe('foo', callbacks.two);
-    spf.pubsub.publish('foo');
-    expect(callbacks.one.calls.count()).toEqual(1);
-    expect(callbacks.two.calls.count()).toEqual(1);
+    spf.pubsub.subscribe('foo', callbacks.one)
+    spf.pubsub.subscribe('foo', callbacks.two)
+    spf.pubsub.publish('foo')
+    expect(callbacks.one.calls.count()).toEqual(1)
+    expect(callbacks.two.calls.count()).toEqual(1)
     // Rename.
-    spf.pubsub.rename('foo', 'bar');
-    spf.pubsub.publish('bar');
-    expect(callbacks.one.calls.count()).toEqual(2);
-    expect(callbacks.two.calls.count()).toEqual(2);
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.one);
-    expect(subs['bar'] || []).toContain(callbacks.two);
-  });
+    spf.pubsub.rename('foo', 'bar')
+    spf.pubsub.publish('bar')
+    expect(callbacks.one.calls.count()).toEqual(2)
+    expect(callbacks.two.calls.count()).toEqual(2)
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.one)
+    expect(subs['bar'] || []).toContain(callbacks.two)
+  })
 
-  it('clear', function() {
-    spf.pubsub.subscribe('bar', callbacks.three);
-    spf.pubsub.subscribe('bar', callbacks.four);
+  it('clear', function () {
+    spf.pubsub.subscribe('bar', callbacks.three)
+    spf.pubsub.subscribe('bar', callbacks.four)
     // No subscriptions.
-    spf.pubsub.clear('foo');
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
+    spf.pubsub.clear('foo')
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
     // One subscription.
-    spf.pubsub.subscribe('foo', callbacks.one);
-    spf.pubsub.clear('foo');
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
+    spf.pubsub.subscribe('foo', callbacks.one)
+    spf.pubsub.clear('foo')
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
     // Two subscriptions.
-    spf.pubsub.subscribe('foo', callbacks.one);
-    spf.pubsub.subscribe('foo', callbacks.two);
-    spf.pubsub.clear('foo');
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
+    spf.pubsub.subscribe('foo', callbacks.one)
+    spf.pubsub.subscribe('foo', callbacks.two)
+    spf.pubsub.clear('foo')
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
     // Unknown topic.
-    spf.pubsub.clear('_');
-    expect(subs['foo'] || []).not.toContain(callbacks.one);
-    expect(subs['foo'] || []).not.toContain(callbacks.two);
-    expect(subs['bar'] || []).toContain(callbacks.three);
-    expect(subs['bar'] || []).toContain(callbacks.four);
-  });
-
-});
+    spf.pubsub.clear('_')
+    expect(subs['foo'] || []).not.toContain(callbacks.one)
+    expect(subs['foo'] || []).not.toContain(callbacks.two)
+    expect(subs['bar'] || []).toContain(callbacks.three)
+    expect(subs['bar'] || []).toContain(callbacks.four)
+  })
+})

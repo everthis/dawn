@@ -7,9 +7,7 @@
 // goog.provide('spfDomClasslist');
 
 import spfArray from '../array/array'
-let spfDomClasslist = {};
-
-
+let spfDomClasslist = {}
 
 /**
  * Returns an array of class names on a node.
@@ -17,14 +15,13 @@ let spfDomClasslist = {};
  * @param {Node|EventTarget} node DOM node to evaluate.
  * @return {{length: number}} Array-like object of class names on the node.
  */
-spfDomClasslist.get = function(node) {
+spfDomClasslist.get = function (node) {
   if (node.classList) {
-    return node.classList;
+    return node.classList
   } else {
-    return node.className && node.className.match(/\S+/g) || [];
+    return node.className && node.className.match(/\S+/g) || []
   }
-};
-
+}
 
 /**
  * Returns true if a node has a class.
@@ -33,19 +30,18 @@ spfDomClasslist.get = function(node) {
  * @param {string} cls Class name to test for.
  * @return {boolean} Whether node has the class.
  */
-spfDomClasslist.contains = function(node, cls) {
+spfDomClasslist.contains = function (node, cls) {
   if (!cls) {
-    return false;
+    return false
   } else if (node.classList) {
-    return node.classList.contains(cls);
+    return node.classList.contains(cls)
   } else {
-    var classes = spfDomClasslist.get(node);
-    return spfArray.some(classes, function(item) {
-      return item == cls;
-    });
+    var classes = spfDomClasslist.get(node)
+    return spfArray.some(classes, function (item) {
+      return item == cls
+    })
   }
-};
-
+}
 
 /**
  * Adds a class to a node. Does not add multiples.
@@ -53,16 +49,15 @@ spfDomClasslist.contains = function(node, cls) {
  * @param {Node|EventTarget} node DOM node to add class to.
  * @param {string} cls Class name to add.
  */
-spfDomClasslist.add = function(node, cls) {
+spfDomClasslist.add = function (node, cls) {
   if (cls) {
     if (node.classList) {
-      node.classList.add(cls);
+      node.classList.add(cls)
     } else if (!spfDomClasslist.contains(node, cls)) {
-      node.className += ' ' + cls;
+      node.className += ' ' + cls
     }
   }
-};
-
+}
 
 /**
  * Removes a class from a node.
@@ -70,18 +65,18 @@ spfDomClasslist.add = function(node, cls) {
  * @param {Node|EventTarget} node DOM node to remove class from.
  * @param {string} cls Class name to remove.
  */
-spfDomClasslist.remove = function(node, cls) {
+spfDomClasslist.remove = function (node, cls) {
   if (cls) {
     if (node.classList) {
-      node.classList.remove(cls);
+      node.classList.remove(cls)
     } else {
-      var classes = spfDomClasslist.get(node);
-      var newClasses = spfArray.filter(classes, function(item) {
-        return item != cls;
-      });
-      node.className = newClasses.join(' ');
+      var classes = spfDomClasslist.get(node)
+      var newClasses = spfArray.filter(classes, function (item) {
+        return item != cls
+      })
+      node.className = newClasses.join(' ')
     }
   }
-};
+}
 
-export default spfDomClasslist;
+export default spfDomClasslist

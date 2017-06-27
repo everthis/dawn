@@ -5,14 +5,14 @@ export let rorParams = {
   csrfParam: () => document.querySelector('meta[name=csrf-param]').getAttribute('content'),
   // Determines if the request is a cross domain request.
   isCrossDomain: url => {
-    let originAnchor = document.createElement('a');
-    originAnchor.href = location.href;
-    let urlAnchor = document.createElement('a');
+    let originAnchor = document.createElement('a')
+    originAnchor.href = location.href
+    let urlAnchor = document.createElement('a')
 
     try {
-      urlAnchor.href = url;
+      urlAnchor.href = url
       // This is a workaround to a IE bug.
-      urlAnchor.href = urlAnchor.href;
+      urlAnchor.href = urlAnchor.href
 
       // If URL protocol is false or is a string containing a single colon
       // *and* host are false, assume it is not a cross-domain request
@@ -21,10 +21,10 @@ export let rorParams = {
       // protocol and host.
       return !(((!urlAnchor.protocol || urlAnchor.protocol === ':') && !urlAnchor.host) ||
         (originAnchor.protocol + '//' + originAnchor.host ===
-          urlAnchor.protocol + '//' + urlAnchor.host));
+          urlAnchor.protocol + '//' + urlAnchor.host))
     } catch (e) {
       // If there is an error parsing the URL, assume it is crossDomain.
-      return true;
+      return true
     }
   }
-};
+}
