@@ -19,7 +19,12 @@ class InstagramImagesController < ApplicationController
   end
 
   def create
-    @images = [params] unless params.is_a? Array
+    # @images = [params] unless params.is_a? Array
+    if params.is_a? Array
+      @images = params
+    else
+      @images = [params]
+    end
     @images = @images.map { |el| InstagramImage.new(instagram_images_params(el)) }
     begin
       ActiveRecord::Base.transaction do
@@ -43,12 +48,7 @@ class InstagramImagesController < ApplicationController
   private
 
     def instagram_images_params(param)
-      param.require(:instagram_image).permit(:code, :url, :dimensions, :type, :owner_id, :owner_name)
-    end
-
-    def authenticate_request
-      @current_user = AuthorizeApiRequest.call(request.headers).result
-      render json: { error: 'Not Authorized' }, status: 401 unless @current_user
+      param.require(:instagram_image).permit(:code, :url, { :dimensions => [:height, :width] }, :type, :owner_id, :owner_name)
     end
 
 end
