@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604102253) do
+ActiveRecord::Schema.define(version: 20170923104255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,27 @@ ActiveRecord::Schema.define(version: 20170604102253) do
     t.string "extension"
     t.string "externalId"
     t.index ["user_id"], name: "index_gists_on_user_id"
+  end
+
+  create_table "instagram_images", force: :cascade do |t|
+    t.string "code"
+    t.string "url"
+    t.json "dimensions"
+    t.string "type"
+    t.string "owner_id"
+    t.string "owner_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "instagram_users", force: :cascade do |t|
+    t.string "user_id"
+    t.boolean "account_is_private"
+    t.integer "media_count"
+    t.string "user_name"
+    t.string "profile_pic_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "microposts", id: :serial, force: :cascade do |t|

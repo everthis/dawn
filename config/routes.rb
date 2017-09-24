@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :instagram_users
+  resources :instagram_images
   resources :gists
   resources :uuap_login_logs
   resources :npm_registries
@@ -62,6 +64,8 @@ Rails.application.routes.draw do
   get  '/user_preference',  to: 'user_preference#index'
   get  '/user_preference/set_locale',  to: 'user_preference#index'
   post '/user_preference/update', to: 'user_preference#update'
+
+  post 'authenticate', to: 'authentication#authenticate'
 
   # scope '(:locale)' do
   #   resources :orders

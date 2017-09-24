@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'rails'
 gem 'bcrypt'
+gem 'jwt', '~> 1.5.6'
+gem 'simple_command'
 gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
@@ -27,7 +29,7 @@ gem 'nav_lynx'
 gem 'redis-namespace'
 gem 'whenever', :require => false
 gem 'rails-i18n', '~> 5.0.0'
-gem 'webpacker', '~> 2.0'
+gem 'webpacker', '~> 3.0.0'
 
 group :development do
   gem 'pry-rails'

@@ -4,43 +4,66 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": "webpack --config=client/development.config.js --display-reasons --display-chunks --progress --color --watch",
+    "build:dev":
+      "webpack --config=client/development.config.js --display-reasons --display-chunks --progress --color --watch",
     "build:new": "webpack --config=client/production.config.js -p",
-    "dev-bak": "webpack-dev-server --config client/webpack.dev.config.js --progress --inline --socket shared/sockets/webpack.sock",
-    "dev": "webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket shared/sockets/webpack.sock",
-    "sp-dev": "NODE_ENV=development supervisor -w ./client,./config -e js,xtpl -- ./node_modules/.bin/webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket shared/sockets/webpack.sock",
-    "mon-dev": "NODE_ENV=development nodemon -w ./client -w package.json -e js,json -- ./node_modules/.bin/webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket shared/sockets/webpack.sock",
+    "dev-bak":
+      "webpack-dev-server --config client/webpack.dev.config.js --progress --inline --socket shared/sockets/webpack.sock",
+    "dev":
+      "webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket shared/sockets/webpack.sock",
+    "sp-dev":
+      "NODE_ENV=development supervisor -w ./client,./config -e js,xtpl -- ./node_modules/.bin/webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket shared/sockets/webpack.sock",
+    "mon-dev":
+      "NODE_ENV=development nodemon -w ./client -w package.json -e js,json -- ./node_modules/.bin/webpack-dev-server --config client/webpack.dev.config.js --public 0.0.0.0:8678 --progress --inline --hot --socket shared/sockets/webpack.sock",
     "prod": "webpack --config client/webpack.prod.config.js --progress",
     "clean": "rimraf app/assets/stylesheets/*",
     "prebuild": "npm run clean -s",
-    "build": "npm run build:devscripts -s && npm run build:styles -s && npm run build:cp -s",
-    "dev:bs": "browser-sync start --proxy localhost:3000 --ws --browser='google chrome canary' --files='assets/*.html'",
-    "dev:bs-bak": "browser-sync start --browser='google chrome canary' --server 'assets' --files='app/assets/stylesheets/*.css, assets/*.html, app/assets/javascripts/*.js' --index='index.html'",
-    "dev:ruby-moncss": "nodemon --watch front-end/stylesheets --ext scss --exec 'npm run dev:ruby-css' ",
-    "dev:moncss": "nodemon --watch front-end/stylesheets --ext scss --exec 'npm run dev:node-css' ",
-    "dev:monjs": "nodemon --watch front-end/javascripts --ext js --exec 'npm run dev:js' ",
-    "dev:ruby-sass-to-css": "sass --trace --scss --sourcemap=inline --load-path front-end/stylesheets front-end/stylesheets/application.scss .tmp/stylesheets/application.css",
-    "dev:add-prefix": "postcss --use autoprefixer --autoprefixer.browsers '> 1%' -m -o app/assets/stylesheets/application.css .tmp/stylesheets/application.css",
+    "build":
+      "npm run build:devscripts -s && npm run build:styles -s && npm run build:cp -s",
+    "dev:bs":
+      "browser-sync start --proxy localhost:3000 --ws --browser='google chrome canary' --files='assets/*.html'",
+    "dev:bs-bak":
+      "browser-sync start --browser='google chrome canary' --server 'assets' --files='app/assets/stylesheets/*.css, assets/*.html, app/assets/javascripts/*.js' --index='index.html'",
+    "dev:ruby-moncss":
+      "nodemon --watch front-end/stylesheets --ext scss --exec 'npm run dev:ruby-css' ",
+    "dev:moncss":
+      "nodemon --watch front-end/stylesheets --ext scss --exec 'npm run dev:node-css' ",
+    "dev:monjs":
+      "nodemon --watch front-end/javascripts --ext js --exec 'npm run dev:js' ",
+    "dev:ruby-sass-to-css":
+      "sass --trace --scss --sourcemap=inline --load-path front-end/stylesheets front-end/stylesheets/application.scss .tmp/stylesheets/application.css",
+    "dev:add-prefix":
+      "postcss --use autoprefixer --autoprefixer.browsers '> 1%' -m -o app/assets/stylesheets/application.css .tmp/stylesheets/application.css",
     "dev:ruby-css": "npm run dev:ruby-sass-to-css && npm run dev:add-prefix",
     "dev:node-css": "npm run dev:node-sass-to-css && npm run dev:add-prefix",
-    "dev:node-sass-to-css": "node-sass --source-map=true --source-map-contents --include-path front-end/stylesheets front-end/stylesheets/application.scss --output .tmp/stylesheets/",
-    "prod:node-css": "node-sass --source-map=false --output-style=compressed --include-path front-end/stylesheets front-end/stylesheets/application.scss --output app/assets/stylesheets/",
-    "dev:js-bak": "browserify -d -e front-end/javascripts/application.js --outfile app/assets/javascripts/application.js -t babelify ",
-    "prod:js": "webpack --debug --devtool inline-source-map --output-pathinfo --module-bind 'js=babel-loader' --resolve-alias 'vue$=vue/dist/vue.common.js' -p --define process.env.NODE_ENV='\"production\"' front-end/javascripts/application.js app/assets/javascripts/application.js",
-    "dev:js": "webpack --debug --devtool inline-source-map --output-pathinfo --module-bind 'js=babel-loader' --resolve-alias 'vue$=vue/dist/vue.common.js' front-end/javascripts/application.js app/assets/javascripts/application.js",
+    "dev:node-sass-to-css":
+      "node-sass --source-map=true --source-map-contents --include-path front-end/stylesheets front-end/stylesheets/application.scss --output .tmp/stylesheets/",
+    "prod:node-css":
+      "node-sass --source-map=false --output-style=compressed --include-path front-end/stylesheets front-end/stylesheets/application.scss --output app/assets/stylesheets/",
+    "dev:js-bak":
+      "browserify -d -e front-end/javascripts/application.js --outfile app/assets/javascripts/application.js -t babelify ",
+    "prod:js":
+      "webpack --debug --devtool inline-source-map --output-pathinfo --module-bind 'js=babel-loader' --resolve-alias 'vue$=vue/dist/vue.common.js' -p --define process.env.NODE_ENV='\"production\"' front-end/javascripts/application.js app/assets/javascripts/application.js",
+    "dev:js":
+      "webpack --debug --devtool inline-source-map --output-pathinfo --module-bind 'js=babel-loader' --resolve-alias 'vue$=vue/dist/vue.common.js' front-end/javascripts/application.js app/assets/javascripts/application.js",
     "dev:ruby-build": "npm run dev:ruby-css & npm run dev:js",
     "dev:node-build": "npm run dev:node-css & npm run dev:js",
     "prod:ruby-build": "npm run dev:ruby-css & npm run prod:js",
     "dev:build": "npm run dev:node-css & npm run dev:js",
     "dev:bsmon": "npm run dev:bs & npm run dev:moncss & npm run dev:monjs",
-    "dev:ruby-bsmon": "npm run dev:bs & npm run dev:ruby-moncss & npm run dev:monjs",
+    "dev:ruby-bsmon":
+      "npm run dev:bs & npm run dev:ruby-moncss & npm run dev:monjs",
     "dev:bsmon-slient": "npm run dev:ruby-moncss & npm run dev:monjs",
     "dev:check": "node front-end/npmScripts/mkdir.js",
-    "dev:rs": "npm run dev:check && npm run dev:ruby-build && npm run dev:ruby-bsmon",
+    "dev:rs":
+      "npm run dev:check && npm run dev:ruby-build && npm run dev:ruby-bsmon",
     "dev:s": "npm run dev:check && npm run dev:build && npm run dev:bsmon",
-    "dev:ss": "npm run dev:check && npm run dev:ruby-build && npm run dev:bsmon-slient",
-    "dev:node-ss": "npm run dev:check && npm run dev:node-build && npm run dev:bsmon-slient",
-    "prod:ss": "npm run dev:check && npm run prod:ruby-build && npm run dev:bsmon-slient",
+    "dev:ss":
+      "npm run dev:check && npm run dev:ruby-build && npm run dev:bsmon-slient",
+    "dev:node-ss":
+      "npm run dev:check && npm run dev:node-build && npm run dev:bsmon-slient",
+    "prod:ss":
+      "npm run dev:check && npm run prod:ruby-build && npm run dev:bsmon-slient",
     "test": "standard && node my-tests.js",
     "fix-js-style": "standard --fix"
   },
@@ -104,9 +127,7 @@
     "webpack-merge": "^4.1.0"
   },
   "babel": {
-    "presets": [
-      "es2015"
-    ],
+    "presets": ["es2015"],
     "plugins": [
       [
         "transform-runtime",

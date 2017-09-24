@@ -1,0 +1,13 @@
+<% provide(:title, 'Edit instagram users') %>
+<% provide(:name, 'edit_instagram_users') %>
+
+<% content_for :content do %>
+  <div class="c-normal-card-box">
+    <h1>Editing Instagram User</h1>
+
+    <%= render 'form', instagram_user: @instagram_user %>
+
+    <%= link_to 'Show', @instagram_user, class: "fnpu-link" %> |
+    <%= link_to 'Back', instagram_users_path, class: "fnpu-link" %>
+  </div>
+<% end %>

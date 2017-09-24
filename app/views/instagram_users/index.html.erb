@@ -1,0 +1,17 @@
+<% provide(:title, 'Instagram users') %>
+<% provide(:name, 'instagram_users') %>
+
+<% content_for :content do %>
+<div class="c-normal-card-box">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Instagram Users</h1>
+
+  <%= render 'instagram_users' %>
+
+  <div class="c-gap-top">
+    <%= link_to t('.new_instagram_user'), new_instagram_user_path, class: "fnpu-link"  %>
+  </div>
+
+</div>
+<% end %>

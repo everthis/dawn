@@ -1,0 +1,22 @@
+{
+  "apiOperation.js": "/static/dawn/apiOperation.js",
+  "apiOperation.js.map": "/static/dawn/apiOperation.js.map",
+  "ciNpmPackages.js": "/static/dawn/ciNpmPackages.js",
+  "ciNpmPackages.js.map": "/static/dawn/ciNpmPackages.js.map",
+  "createOrEditDocumentation.js": "/static/dawn/createOrEditDocumentation.js",
+  "createOrEditDocumentation.js.map": "/static/dawn/createOrEditDocumentation.js.map",
+  "createOrEditGist.js": "/static/dawn/createOrEditGist.js",
+  "createOrEditGist.js.map": "/static/dawn/createOrEditGist.js.map",
+  "documentation.js": "/static/dawn/documentation.js",
+  "documentation.js.map": "/static/dawn/documentation.js.map",
+  "gist.js": "/static/dawn/gist.js",
+  "gist.js.map": "/static/dawn/gist.js.map",
+  "globalA.css": "/static/dawn/globalA.css",
+  "globalA.css.map": "/static/dawn/globalA.css.map",
+  "globalA.js": "/static/dawn/globalA.js",
+  "globalA.js.map": "/static/dawn/globalA.js.map",
+  "homepage.js": "/static/dawn/homepage.js",
+  "homepage.js.map": "/static/dawn/homepage.js.map",
+  "newCiNpmPackages.js": "/static/dawn/newCiNpmPackages.js",
+  "newCiNpmPackages.js.map": "/static/dawn/newCiNpmPackages.js.map"
+}

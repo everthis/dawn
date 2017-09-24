@@ -8,6 +8,7 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+
   def remove_param_from_url_str(url, param_to_remove)
     url.sub(/\?#{param_to_remove}=[^&]*/, '?').gsub(/\&#{param_to_remove}=[^&]*/, '').sub(/\?$/,'')
   end

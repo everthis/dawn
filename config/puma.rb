@@ -77,3 +77,10 @@ state_path "#{shared_dir}/pids/puma.state"
 #   ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
 #   ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
 # end
+# If you are preloading your application and using Active Record, it's
+# recommended that you close any connections to the database before workers
+# are forked to prevent connection leakage.
+#
+# before_fork do
+#   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
+# end

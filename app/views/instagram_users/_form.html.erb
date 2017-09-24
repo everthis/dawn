@@ -1,0 +1,42 @@
+<%= form_with(model: instagram_user, local: true, class: 'c-normal-form') do |form| %>
+  <% if instagram_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(instagram_user.errors.count, "error") %> prohibited this instagram_user from being saved:</h2>
+
+      <ul>
+      <% instagram_user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :instagram_user_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :account_is_private %>
+    <%= form.check_box :account_is_private, id: :instagram_user_account_is_private %>
+  </div>
+
+  <div class="field">
+    <%= form.label :media_count %>
+    <%= form.number_field :media_count, id: :instagram_user_media_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_name %>
+    <%= form.text_field :user_name, id: :instagram_user_user_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :profile_pic_url %>
+    <%= form.text_field :profile_pic_url, id: :instagram_user_profile_pic_url %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

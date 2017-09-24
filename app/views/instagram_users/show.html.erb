@@ -1,0 +1,31 @@
+<% provide(:title, 'Show instagram users') %>
+<% provide(:name, 'show_instagram_users') %>
+
+<% content_for :content do %>
+<div class="c-normal-card-box">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @instagram_user.user_id %>
+  </p>
+
+  <p>
+    <strong>Account is private:</strong>
+    <%= @instagram_user.account_is_private %>
+  </p>
+
+  <p>
+    <strong>Media count:</strong>
+    <%= @instagram_user.media_count %>
+  </p>
+
+  <p>
+    <strong>User name:</strong>
+    <%= @instagram_user.user_name %>
+  </p>
+
+  <%= link_to 'Edit', edit_instagram_user_path(@instagram_user), class: "fnpu-link" %> |
+  <%= link_to 'Back', instagram_users_path, class: "fnpu-link" %>
+</div>
+<% end %>

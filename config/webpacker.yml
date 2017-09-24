@@ -3,7 +3,7 @@
 default: &default
   source_path: app/javascript
   source_entry_path: packs/entries
-  public_output_path: packs
+  public_output_path: static/dawn
 
   extensions:
     - .coffee
@@ -26,7 +26,7 @@ development:
 
   dev_server:
     host: 0.0.0.0
-    port: 8080
+    port: 8083
     https: false
 
 test:

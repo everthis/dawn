@@ -5,11 +5,14 @@ var devConfig = {}
 
 var cl = console.log
 devConfig = merge.smartStrategy({
-  'entry': 'prepend',
+  entry: 'prepend',
   'module.loaders': 'prepend'
 })({}, baseConfig, {
   output: {
-    publicPath: '/assets/'
+    publicPath: '/static/dawn'
+  },
+  devServer: {
+    disableHostCheck: true
   },
   performance: {
     hints: false
