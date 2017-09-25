@@ -14,7 +14,7 @@
     <div class="list-body c-gap-bottom">
       <% @instagram_users.each do |user| %>
         <div class="c-grid-row c-gap-top c-summary-row c-left-wide-bdr-row">
-          <span class="c-grid-span8 user-list-content c-pad-left c-pad-right c-simulate-bdr" ><%= image_tag("#{user.profile_pic_url}", size: '36x20') %></span>
+          <span class="c-grid-span8 user-list-content c-pad-left c-pad-right c-simulate-bdr" ><%= image_tag("#{user.profile_pic_url}", size: '150x150') %></span>
           <span class="c-grid-span10 user-list-title c-pad-left c-text-indent c-pad-right c-simulate-bdr c-left-wide-bdr-item"><%= truncate(user.user_id, length: 66) %></span>
           <span class="c-grid-span5 user-list-content c-pad-left c-pad-right c-simulate-bdr"><% unless user.user_name.nil? %><%= user.user_name %><% end %></span>
           <span class="c-grid-span8 user-list-content c-pad-left c-pad-right c-simulate-bdr"><%= user.account_is_private %></span>

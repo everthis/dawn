@@ -4,15 +4,17 @@ class InstagramUsersController < ApplicationController
   # wrap_parameters InstagramUser
   wrap_parameters false
   before_action :authenticate_request
-  attr_reader :current_user
+  # attr_reader :current_user
 
   def index
-    @users = InstagramUser.paginate(page: params[:page])
+    @instagram_users = InstagramUser.paginate(page: params[:page])
     respond_to do |format|
-      if @users.empty?
+      if @instagram_users.empty?
+        format.html { render 'index'}
         format.json { render :json => [], status: 200 }
       else
-        format.json { render :json => @users, :only=> [:account_is_private, :user_id, :media_count, :user_name, :profile_pic_url] }
+        format.html { render 'index'}
+        format.json { render :json => @instagram_users, :only=> [:account_is_private, :user_id, :media_count, :user_name, :profile_pic_url] }
       end
     end
   end
@@ -21,15 +23,10 @@ class InstagramUsersController < ApplicationController
   end
 
   def create
-    if params['_json'].is_a? Array
-      @users = params['_json']
-    else
-      @users = [params['_json']]
-    end
-    @users = @users.map { |el| InstagramUser.new(instagram_users_params(el)) }
+    @instagram_users = instagram_users_params.map { |el| InstagramUser.new(el) }
     begin
       ActiveRecord::Base.transaction do
-        @users.each do |user|
+        @instagram_users.each do |user|
           user.save
         end
       end
@@ -48,9 +45,12 @@ class InstagramUsersController < ApplicationController
 
   private
 
-    def instagram_users_params(param)
-      # param.require(:instagram_user).permit(:account_is_private, :user_id, :media_count, :user_name, :profile_pic_url)
-      param.permit(:account_is_private, :user_id, :media_count, :user_name, :profile_pic_url)
+    def instagram_users_params
+      params.permit(instagram_users: [:account_is_private, :user_id, :media_count, :user_name, :profile_pic_url]).require(:instagram_users)
+      # params.require(:instagram_users).map do |p|
+        # ActionController::Parameters.new(p.to_unsafe_h).permit(:account_is_private, :user_id, :media_count, :user_name, :profile_pic_url)
+        # ActionController::Parameters.new(p.to_hash).permit(:account_is_private, :user_id, :media_count, :user_name, :profile_pic_url)
+      # end
     end
 
 end

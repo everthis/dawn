@@ -20,12 +20,13 @@ class InstagramImagesController < ApplicationController
 
   def create
     # @images = [params] unless params.is_a? Array
-    if params.is_a? Array
-      @images = params
-    else
-      @images = [params]
-    end
-    @images = @images.map { |el| InstagramImage.new(instagram_images_params(el)) }
+    # if params.is_a? Array
+    #   @images = params
+    # else
+    #   @images = [params]
+    # end
+    # @images = @images.map { |el| InstagramImage.new(instagram_images_params(el)) }
+    @images = instagram_images_params.map { |el| InstagramImage.new(el) }
     begin
       ActiveRecord::Base.transaction do
         @images.each do |image|
@@ -47,8 +48,9 @@ class InstagramImagesController < ApplicationController
 
   private
 
-    def instagram_images_params(param)
-      param.require(:instagram_image).permit(:code, :url, { :dimensions => [:height, :width] }, :type, :owner_id, :owner_name)
+    def instagram_images_params
+      # params.require(:instagram_images).permit(:code, :url, { :dimensions => [:height, :width] }, :type, :owner_id, :owner_name)
+      params.permit(instagram_images: [:code, :url, { :dimensions => [:height, :width] }, :type, :owner_id, :owner_name]).require(:instagram_images)
     end
 
 end

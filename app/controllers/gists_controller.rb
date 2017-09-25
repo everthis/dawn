@@ -8,6 +8,7 @@ class GistsController < ApplicationController
   # GET /gists
   # GET /gists.json
   def index
+    p logged_in?
     @gists = Gist.all
   end
 
