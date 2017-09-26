@@ -1,0 +1,26 @@
+.instagram_users_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px 10px;
+  .avatar_img {
+  }
+  .instagram_user {
+    display: grid;
+    cursor: pointer;
+    grid: 'avatar avatar avatar' 160px 'type name name' 1.2em 'type count count'
+      1.2em / 2em auto auto;
+    .type {
+      grid-area: type;
+    }
+    .avatar {
+      grid-area: avatar;
+      overflow: hidden;
+    }
+    .user_name {
+      grid-area: name;
+    }
+    .media_count {
+      grid-area: count;
+    }
+  }
+}

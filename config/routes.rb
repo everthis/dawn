@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   post '/user_preference/update', to: 'user_preference#update'
 
   post 'authenticate', to: 'authentication#authenticate'
+  get 'instagram_users_media_count', to: 'instagram_users#media_count'
 
   # scope '(:locale)' do
   #   resources :orders

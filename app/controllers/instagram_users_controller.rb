@@ -43,6 +43,13 @@ class InstagramUsersController < ApplicationController
   def destroy
   end
 
+  def media_count
+    users_media_count = InstagramUser.all.map { |el| {:id => el.user_id, :count => el.media_count, :username => el.user_name} }
+    respond_to do |format|
+      format.json {render :json => users_media_count}
+    end
+  end
+
   private
 
     def instagram_users_params

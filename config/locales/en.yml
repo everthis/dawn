@@ -65,6 +65,10 @@ en:
       instagram:            "Instagram"
       front-end-job-interview-questions: "front-end-job-interview-questions"
 
+  will_paginate:
+    previous_label:   "previous_page"
+    next_label:       "next_page"
+
   users:
     settings:
       language:    "Language"

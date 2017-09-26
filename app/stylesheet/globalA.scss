@@ -18,60 +18,60 @@ Use classes to define visual presentation patterns1*/
 /**
  * For resolving "like a module" you can prefix ~
  */
-@import "~normalize.css";
+@import '~normalize.css';
 /* import all globals */
-@import "globals/variables";
-@import "globals/functions";
-@import "globals/mixins";
-@import "globals/placeholders";
-@import "globals/math";
-@import "globals/common";
-@import "globals/c";
-@import "globals/c-tag";
+@import 'globals/variables';
+@import 'globals/functions';
+@import 'globals/mixins';
+@import 'globals/placeholders';
+@import 'globals/math';
+@import 'globals/common';
+@import 'globals/c';
+@import 'globals/c-tag';
 
 /* import all modules */
-@import "modules/grid";
-@import "modules/footer";
-@import "modules/users";
-@import "modules/user-info-card";
-@import "modules/tweet-box";
-@import "modules/micropost";
-@import "modules/pagination";
-@import "modules/sessions";
-@import "modules/password-resets";
-@import "modules/apis";
-@import "modules/alert";
-@import "modules/api-tree";
-@import "modules/card";
-@import "modules/json";
-@import "modules/nav";
-@import "modules/profile";
-@import "modules/form";
-@import "modules/icon";
-@import "modules/collapse";
-@import "modules/popup";
-@import "modules/slide";
-@import "modules/flash";
-@import "modules/scroll";
-@import "modules/email-whitelist";
-@import "modules/github-style-markdown";
-@import "modules/textarea";
-@import "modules/document";
-@import "modules/ci-packages";
-@import "modules/npm-registry";
-@import "modules/spf-animate";
-@import "modules/loading";
-@import "modules/user_preference";
-@import "modules/coderay";
-@import "modules/responsive";
+@import 'modules/grid';
+@import 'modules/footer';
+@import 'modules/users';
+@import 'modules/user-info-card';
+@import 'modules/tweet-box';
+@import 'modules/micropost';
+@import 'modules/pagination';
+@import 'modules/sessions';
+@import 'modules/password-resets';
+@import 'modules/apis';
+@import 'modules/alert';
+@import 'modules/api-tree';
+@import 'modules/card';
+@import 'modules/json';
+@import 'modules/nav';
+@import 'modules/profile';
+@import 'modules/form';
+@import 'modules/icon';
+@import 'modules/collapse';
+@import 'modules/popup';
+@import 'modules/slide';
+@import 'modules/flash';
+@import 'modules/scroll';
+@import 'modules/email-whitelist';
+@import 'modules/github-style-markdown';
+@import 'modules/textarea';
+@import 'modules/document';
+@import 'modules/instagram';
+@import 'modules/ci-packages';
+@import 'modules/npm-registry';
+@import 'modules/spf-animate';
+@import 'modules/loading';
+@import 'modules/user_preference';
+@import 'modules/coderay';
+@import 'modules/responsive';
 
 /* import all pages */
-@import "pages/index";
-@import "pages/welcome";
-@import "pages/gist";
+@import 'pages/index';
+@import 'pages/welcome';
+@import 'pages/gist';
 
-/* override	*/
-@import "globals/override";
+/* override */
+@import 'globals/override';
 
-
-@import "debug";
+@import 'debug';

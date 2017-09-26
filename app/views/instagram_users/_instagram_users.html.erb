@@ -1,35 +1,19 @@
 <%= will_paginate @instagram_users, :renderer => PaginationListLinkRenderer %>
 
-<div class="list-header">
-  <div class="c-simulate-table">
-    <div class="c-simulate-tr c-grid-row">
-      <span class="c-simulate-th c-grid-span8 c-text-indent c-text">profile_pic_url</span>
-      <span class="c-simulate-th c-grid-span10 c-text">user_id</span>
-      <span class="c-simulate-th c-grid-span5 c-text">user_name</span>
-      <span class="c-simulate-th c-grid-span8 c-text">account_is_private</span>
-      <span class="c-simulate-th c-grid-span8 c-text">media_count</span>
-      <span class="c-simulate-th c-grid-span6 c-text c-simulate-last-row-item">Operations</span>
-    </div>
-
-    <div class="list-body c-gap-bottom">
-      <% @instagram_users.each do |user| %>
-        <div class="c-grid-row c-gap-top c-summary-row c-left-wide-bdr-row">
-          <span class="c-grid-span8 user-list-content c-pad-left c-pad-right c-simulate-bdr" ><%= image_tag("#{user.profile_pic_url}", size: '150x150') %></span>
-          <span class="c-grid-span10 user-list-title c-pad-left c-text-indent c-pad-right c-simulate-bdr c-left-wide-bdr-item"><%= truncate(user.user_id, length: 66) %></span>
-          <span class="c-grid-span5 user-list-content c-pad-left c-pad-right c-simulate-bdr"><% unless user.user_name.nil? %><%= user.user_name %><% end %></span>
-          <span class="c-grid-span8 user-list-content c-pad-left c-pad-right c-simulate-bdr"><%= user.account_is_private %></span>
-          <span class="c-grid-span8 user-list-content c-pad-left c-pad-right c-simulate-bdr"><%= user.media_count %></span>
-          <span class="c-grid-span6 c-pad-left c-pad-right">
-            <span class="c-grid-row">
-              <span class="c-grid-span16 user-list-operation"><%= link_to t('.show'), user, class: 'fnpu-link' %></span>
-              <span class="c-grid-span16 user-list-operation"><%= link_to t('.edit'), edit_instagram_user_path(user), class: 'fnpu-link' %></span>
-              <span class="c-grid-span16 user-list-operation"><%= link_to t('.destroy'), user, method: :fnpu_delete, data: { confirm: 'Are you sure?' } %></span>
-            </span>
-          </span>
-        </div>
+<div class="instagram_users_container">
+  <% @instagram_users.each do |user| %>
+  <div class="instagram_user c-border c-center c-padding">
+    <div class="avatar"><%= image_tag("#{user.profile_pic_url}", size: '160x160', :class => "avatar_img") %></div>
+    <div class="user_name"><%= user.user_name %></div>
+    <div class="type">
+      <% if user.account_is_private %>
+        <svg class="lg-icon icon-private"><use xlink:href="#icon-private"></use></svg>
       <% end %>
     </div>
+    <div class="media_count">media_count: <%= user.media_count %></div>
   </div>
+  <% end %>
 </div>
+
 
 <%= will_paginate @instagram_users, :renderer => PaginationListLinkRenderer %>
