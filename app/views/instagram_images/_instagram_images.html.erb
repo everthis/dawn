@@ -1,0 +1,14 @@
+<%= will_paginate @instagram_images, :renderer => PaginationListLinkRenderer %>
+
+<div class="instagram_images_container">
+  <% @instagram_images.each do |image| %>
+  <div class="instagram_image c-border c-center c-padding">
+    <div class="thumbnail"><%= image_tag("#{image.thumbnail}", size: '620x620', :class => "avatar_img") %></div>
+    <div class="code"><%= image.code %></div>
+    <div class="owner_id">owner_id: <%= image.owner_id %></div>
+  </div>
+  <% end %>
+</div>
+
+
+<%= will_paginate @instagram_images, :renderer => PaginationListLinkRenderer %>

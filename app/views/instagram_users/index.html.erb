@@ -4,8 +4,17 @@
 <% content_for :content do %>
 <div class="c-normal-card-box">
   <p id="notice"><%= notice %></p>
-
+  <div class="ins-search-container">
+    <div class="ins-mask c-hide"></div>
+    <div class="ins-search">
+      <input type="text" id="ins_user_q" class="c-input">
+      <div class="ins-search-result instagram_users_container c-pad-top"></div>
+    </div>
+  </div>
   <%= render 'instagram_users' %>
 
 </div>
+<% end %>
+<% content_for :foot do%>
+  <%= javascript_pack_tag 'instagramUser', name: "instagramUser" %>
 <% end %>

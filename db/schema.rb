@@ -90,9 +90,9 @@ ActiveRecord::Schema.define(version: 20170923104255) do
     t.string "code"
     t.string "url"
     t.json "dimensions"
-    t.string "type"
+    t.string "media_type"
     t.string "owner_id"
-    t.string "owner_name"
+    t.string "thumbnail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

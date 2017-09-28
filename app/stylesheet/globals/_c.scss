@@ -109,6 +109,10 @@
   @extend %card-box;
   width: 80rem;
 }
+.c-wide-card-box {
+  @extend %card-box;
+  width: 166rem;
+}
 .c-table {
   table-layout: fixed;
   word-break: break-word;

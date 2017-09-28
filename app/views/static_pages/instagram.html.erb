@@ -1,0 +1,37 @@
+<% provide(:title, "Instagram") %>
+<% provide(:name, 'instagram') %>
+
+<% content_for :head do %>
+
+<style rel="stylesheet" name="homepage">
+.instagram_users_entry {
+  display: inline-block;
+  width: 10em;
+  height: 10em;
+  text-align: center;
+  line-height: 10em;
+  border-radius: 50%;
+  background-color: #73b2dc;
+}
+.instagram_images_entry {
+  display: inline-block;
+  width: 10em;
+  height: 10em;
+  text-align: center;
+  line-height: 10em;
+  border-radius: 50%;
+  background-color: #d23ac1;
+}
+</style>
+<% end %>
+
+<% content_for :content do %>
+<div class="instagram-container c-card-box c-center">
+    <%= link_to 'instagram_users', instagram_users_path, class: "fnpu-link instagram_users_entry c-gap-right" %>
+    <%= link_to 'instagram_images', instagram_images_path, class: "fnpu-link instagram_images_entry" %>
+</div>
+<% end %>
+
+<% content_for :foot do %>
+
+<% end %>

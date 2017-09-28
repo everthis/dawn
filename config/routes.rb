@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post   'login'        => 'sessions#create'
   delete 'logout'       => 'sessions#destroy'
   get    'clilogin'     => 'users#cli_login'
+  get    'instagram'    => 'static_pages#instagram'
 
   get   'packages_bin' => 'ci_packages#packages_bin'
   get 'plugins_instantsearch'  => 'ci_packages#query'
@@ -67,6 +68,7 @@ Rails.application.routes.draw do
 
   post 'authenticate', to: 'authentication#authenticate'
   get 'instagram_users_media_count', to: 'instagram_users#media_count'
+  get 'queryInstagramUserId', to: 'instagram_users#queryInstagramUserId'
 
   # scope '(:locale)' do
   #   resources :orders

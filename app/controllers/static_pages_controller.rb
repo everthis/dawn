@@ -39,6 +39,9 @@ class StaticPagesController < CBaseController
   def front_end_job_interview_questions
   end
 
+  def instagram
+  end
+
   # def print_c
   #   puts "CCCCCCCCCCCCCCC"
   #   puts request.cookies

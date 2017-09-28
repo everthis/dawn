@@ -3,11 +3,11 @@ class InstagramUsersController < ApplicationController
   skip_before_action :verify_authenticity_token
   # wrap_parameters InstagramUser
   wrap_parameters false
-  before_action :authenticate_request
+  before_action :authenticate_request, :except => [:queryInstagramUserId]
   # attr_reader :current_user
 
   def index
-    @instagram_users = InstagramUser.paginate(page: params[:page])
+    @instagram_users = InstagramUser.paginate(page: params[:page]).order("created_at ASC")
     respond_to do |format|
       if @instagram_users.empty?
         format.html { render 'index'}
@@ -47,6 +47,18 @@ class InstagramUsersController < ApplicationController
     users_media_count = InstagramUser.all.map { |el| {:id => el.user_id, :count => el.media_count, :username => el.user_name} }
     respond_to do |format|
       format.json {render :json => users_media_count}
+    end
+  end
+
+  def queryInstagramUserId
+    p params
+    respond_to do |format|
+      p params[:q].blank?
+      unless params[:q].blank?
+        p 'in'
+        @instagram_users = InstagramUser.where('user_name like :search', search: "%#{params[:q]}%").limit(10)
+        format.json { render :json => @instagram_users, :only=> [:account_is_private, :user_id, :user_name, :profile_pic_url] }
+      end
     end
   end
 

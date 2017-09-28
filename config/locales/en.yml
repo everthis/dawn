@@ -68,6 +68,7 @@ en:
   will_paginate:
     previous_label:   "previous_page"
     next_label:       "next_page"
+    page_gap:         "..."
 
   users:
     settings:

@@ -17,6 +17,8 @@
   "globalA.js.map": "/static/dawn/globalA.js.map",
   "homepage.js": "/static/dawn/homepage.js",
   "homepage.js.map": "/static/dawn/homepage.js.map",
+  "instagramUser.js": "/static/dawn/instagramUser.js",
+  "instagramUser.js.map": "/static/dawn/instagramUser.js.map",
   "newCiNpmPackages.js": "/static/dawn/newCiNpmPackages.js",
   "newCiNpmPackages.js.map": "/static/dawn/newCiNpmPackages.js.map"
 }

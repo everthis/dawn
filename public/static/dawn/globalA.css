@@ -486,7 +486,7 @@ textarea {
   cursor: pointer;
 }
 
-.c-card-box, .c-normal-card-box, .user-info-card, .micropost-form, .document-container, .ci-packages-container {
+.c-card-box, .c-normal-card-box, .c-wide-card-box, .user-info-card, .micropost-form, .document-container, .ci-packages-container {
   padding: 1rem;
   width: 50rem;
   margin: 0 auto;
@@ -726,6 +726,10 @@ textarea[type="hidden"] {
   margin-right: 0.5rem;
 }
 
+.c-padding {
+  padding: 0.5rem;
+}
+
 .c-pad-left {
   padding-left: 0.5rem;
 }
@@ -743,7 +747,7 @@ textarea[type="hidden"] {
 }
 
 .c-text-indent {
-  text-indent: .5rem;
+  text-indent: 0.5rem;
 }
 
 .c-pad-left-wide {
@@ -803,8 +807,8 @@ textarea[type="hidden"] {
 
 .c-summary-row {
   background-color: #eee;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .c-summary-row:hover {
@@ -812,7 +816,7 @@ textarea[type="hidden"] {
           box-shadow: 1px 1px #2124dc;
 }
 
-.c-input {
+.c-input, .c-normal-form input {
   border-bottom: 1px solid #999;
 }
 
@@ -841,6 +845,10 @@ textarea[type="hidden"] {
   width: 80rem;
 }
 
+.c-wide-card-box {
+  width: 166rem;
+}
+
 .c-table {
   table-layout: fixed;
   word-break: break-word;
@@ -850,7 +858,7 @@ textarea[type="hidden"] {
 
 .c-table, .c-table th, .c-table td {
   border: 1px solid #999;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .c-bg-gray {
@@ -875,7 +883,7 @@ textarea[type="hidden"] {
 
 .c-simulate-table .c-simulate-td, .c-simulate-table .c-simulate-th {
   color: #333;
-  padding: .5rem;
+  padding: 0.5rem;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }
@@ -900,8 +908,8 @@ textarea[type="hidden"] {
 }
 
 .c-simulate-table .current_active {
-  margin: -.5rem -.5rem 0 -.5rem;
-  padding: .5rem;
+  margin: -.5rem -0.5rem 0 -0.5rem;
+  padding: 0.5rem;
   background-color: #7fff00;
 }
 
@@ -924,7 +932,7 @@ textarea[type="hidden"] {
   color: #0e83cd;
   background: none;
   cursor: pointer;
-  padding: .6rem 1rem;
+  padding: 0.6rem 1rem;
   display: inline-block;
   letter-spacing: 1px;
   font-weight: 700;
@@ -940,7 +948,7 @@ textarea[type="hidden"] {
 }
 
 .c-btn.c-small-btn, .c-small-btn.c-button {
-  padding: .1rem .15rem;
+  padding: 0.1rem 0.15rem;
 }
 
 .c-tag.c-tag-blue, .c-tag.c-tag-green, .c-tag.c-tag-red, .c-tag.c-tag-yellow {
@@ -1978,17 +1986,17 @@ textarea[type="hidden"] {
 }
 
 .alert-success {
-  background-color: #7FFFD4;
+  background-color: #7fffd4;
   color: #fff;
 }
 
 .alert-danger {
-  background-color: #B22222;
+  background-color: #b22222;
   color: #fff;
 }
 
 .alert-info {
-  background-color: #E6E6FA;
+  background-color: #e6e6fa;
 }
 
 .api-li-collapse {
@@ -2469,7 +2477,7 @@ div.field, div.actions {
 }
 
 .alert-alert {
-  background-color: #B22222;
+  background-color: #b22222;
   color: #fff;
 }
 
@@ -3556,6 +3564,68 @@ div.field, div.actions {
   width: 100%;
 }
 
+.instagram_users_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px 10px;
+}
+
+.instagram_users_container .instagram_user {
+  display: grid;
+  cursor: pointer;
+  grid: 'avatar avatar avatar' 160px 'type name name' 1.2em 'type count count' 1.2em / 2em auto auto;
+}
+
+.instagram_users_container .instagram_user .type {
+  grid-area: type;
+}
+
+.instagram_users_container .instagram_user .avatar {
+  grid-area: avatar;
+  overflow: hidden;
+}
+
+.instagram_users_container .instagram_user .user_name {
+  grid-area: name;
+}
+
+.instagram_users_container .instagram_user .media_count {
+  grid-area: count;
+}
+
+.ins-search-container {
+  position: relative;
+  height: 2em;
+  margin-left: -1em;
+  margin-right: -1em;
+  padding: 0 1em 1em 1em;
+}
+
+.ins-search-container .ins-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.ins-search {
+  position: absolute;
+  background-color: #fff;
+  left: 0;
+  right: 0;
+  padding: 0 1em 1em 1em;
+}
+
+.ins-search #ins_user_q {
+  position: relative;
+}
+
+.ins-search .ins-search-result {
+  position: relative;
+}
+
 .ci-packages-container {
   width: 80rem;
 }
@@ -3625,7 +3695,7 @@ div.field, div.actions {
 
 .ci-packages-container .plus-patch, .ci-packages-container .minus-patch {
   display: inline-block;
-  border: 1px solid #B9B9B9;
+  border: 1px solid #b9b9b9;
   height: 16px;
   line-height: 16px;
   width: 16px;
@@ -4384,7 +4454,7 @@ table.CodeRay {
   content: attr(data-collapse);
 }
 
-/* override	*/
+/* override */
 
 /* override redcarpet */
 

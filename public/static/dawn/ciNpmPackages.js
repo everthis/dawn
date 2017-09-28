@@ -63,12 +63,65 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 69);
+/******/ 	return __webpack_require__(__webpack_require__.s = 70);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 10:
+/* exports provided: disableScroll, enableScroll */
+/* exports used: disableScroll, enableScroll */
+/*!*****************************************************!*\
+  !*** ./app/javascript/packs/common/toggleScroll.js ***!
+  \*****************************************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = disableScroll;
+/* harmony export (immutable) */ __webpack_exports__["b"] = enableScroll;
+// left: 37, up: 38, right: 39, down: 40,
+// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
+
+function preventDefault(e) {
+  e = e || window.event;
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  e.returnValue = false;
+}
+
+function preventDefaultForScrollKeys(e) {
+  if (keys[e.keyCode]) {
+    preventDefault(e);
+    return false;
+  }
+}
+
+function disableScroll() {
+  if (window.addEventListener) // older FF
+    {
+      window.addEventListener('DOMMouseScroll', preventDefault, false);
+    }
+  window.onwheel = preventDefault; // modern standard
+  window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+  window.ontouchmove = preventDefault; // mobile
+  document.onkeydown = preventDefaultForScrollKeys;
+}
+
+function enableScroll() {
+  if (window.removeEventListener) {
+    window.removeEventListener('DOMMouseScroll', preventDefault, false);
+  }
+  window.onmousewheel = document.onmousewheel = null;
+  window.onwheel = null;
+  window.ontouchmove = null;
+  document.onkeydown = null;
+}
+
+/***/ }),
+
+/***/ 11:
 /* exports provided: $http */
 /* exports used: $http */
 /*!*********************************************!*\
@@ -78,9 +131,9 @@
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = $http;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__serialize__ = __webpack_require__(/*! ./serialize */ 16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utilities__ = __webpack_require__(/*! ./utilities */ 5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__csrf__ = __webpack_require__(/*! ./csrf */ 2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__serialize__ = __webpack_require__(/*! ./serialize */ 17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utilities__ = __webpack_require__(/*! ./utilities */ 2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__csrf__ = __webpack_require__(/*! ./csrf */ 3);
 /**
 // B-> Here you define its functions and its payload
 var mdnAPI = 'https://developer.mozilla.org/en-US/search.json';
@@ -196,7 +249,7 @@ function extendGeneralParams(obj) {
 
 /***/ }),
 
-/***/ 16:
+/***/ 17:
 /* exports provided: serialize */
 /* exports used: serialize */
 /*!**************************************************!*\
@@ -230,60 +283,127 @@ function serialize(obj, prefix) {
 
 /***/ }),
 
-/***/ 17:
-/* exports provided: disableScroll, enableScroll */
-/* exports used: disableScroll, enableScroll */
-/*!*****************************************************!*\
-  !*** ./app/javascript/packs/common/toggleScroll.js ***!
-  \*****************************************************/
+/***/ 2:
+/* exports provided: isEmpty, cloneObj, mergeObj, addPrefixToObj, wrapObj, strToDom, insertAfter, debounce, isStrictMode, generateUUID */
+/* exports used: debounce, wrapObj, addPrefixToObj, mergeObj, strToDom, insertAfter, generateUUID */
+/*!**************************************************!*\
+  !*** ./app/javascript/packs/common/utilities.js ***!
+  \**************************************************/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = disableScroll;
-/* harmony export (immutable) */ __webpack_exports__["b"] = enableScroll;
-// left: 37, up: 38, right: 39, down: 40,
-// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
-
-function preventDefault(e) {
-  e = e || window.event;
-  if (e.preventDefault) {
-    e.preventDefault();
-  }
-  e.returnValue = false;
+/* unused harmony export isEmpty */
+/* unused harmony export cloneObj */
+/* harmony export (immutable) */ __webpack_exports__["d"] = mergeObj;
+/* harmony export (immutable) */ __webpack_exports__["c"] = addPrefixToObj;
+/* harmony export (immutable) */ __webpack_exports__["b"] = wrapObj;
+/* harmony export (immutable) */ __webpack_exports__["e"] = strToDom;
+/* harmony export (immutable) */ __webpack_exports__["f"] = insertAfter;
+/* harmony export (immutable) */ __webpack_exports__["a"] = debounce;
+/* unused harmony export isStrictMode */
+/* harmony export (immutable) */ __webpack_exports__["g"] = generateUUID;
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
 }
-
-function preventDefaultForScrollKeys(e) {
-  if (keys[e.keyCode]) {
-    preventDefault(e);
-    return false;
-  }
+function cloneObj(obj) {
+  return JSON.parse(JSON.stringify(obj));
 }
+/* consider Object.assign(target, ...sources) */
+function mergeObj() {
+  var obj1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var obj2 = arguments[1];
 
-function disableScroll() {
-  if (window.addEventListener) // older FF
-    {
-      window.addEventListener('DOMMouseScroll', preventDefault, false);
+  var newObj = JSON.parse(JSON.stringify(obj1));
+  for (var key in obj2) {
+    if (obj2.hasOwnProperty(key)) {
+      newObj[key] = obj2[key];
     }
-  window.onwheel = preventDefault; // modern standard
-  window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-  window.ontouchmove = preventDefault; // mobile
-  document.onkeydown = preventDefaultForScrollKeys;
+  }
+  return newObj;
+}
+function addPrefixToObj(obj, prefix) {
+  if (!prefix) return obj;
+  var newObj = {};
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj['' + prefix + '[' + key + ']'] = obj[key];
+    }
+  }
+  return newObj;
+}
+function wrapObj(obj, wrapper) {
+  if (!wrapper) return obj;
+  var newObj = {};
+  newObj[wrapper] = {};
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[wrapper][key] = obj[key];
+    }
+  }
+  return newObj;
 }
 
-function enableScroll() {
-  if (window.removeEventListener) {
-    window.removeEventListener('DOMMouseScroll', preventDefault, false);
-  }
-  window.onmousewheel = document.onmousewheel = null;
-  window.onwheel = null;
-  window.ontouchmove = null;
-  document.onkeydown = null;
+function strToDom(str) {
+  var tmpEle = document.createElement('div');
+  tmpEle.innerHTML = str;
+  var returnDom = tmpEle.children[0];
+  return returnDom;
+}
+/**
+ * [insertAfter description: According to MDN if the element is last (and so nextSibling is null) the newNode will be appended as expected]
+ * @param  {[type]} newNode       [description]
+ * @param  {[type]} referenceNode [description]
+ * @return {undefined}               [description]
+ */
+function insertAfter(newNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+/*
+var myEfficientFn = debounce(function() {
+  // All the taxing stuff you do
+}, 250);
+
+window.addEventListener('resize', myEfficientFn);
+ */
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+        args = arguments;
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
+function isStrictMode() {
+  var isStrict = function () {
+    return !this;
+  }();
+  return isStrict;
+}
+
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : r & 0x3 | 0x8;
+    return v.toString(16);
+  });
 }
 
 /***/ }),
 
-/***/ 2:
+/***/ 3:
 /* exports provided: rorParams */
 /* exports used: rorParams */
 /*!*********************************************!*\
@@ -7813,10 +7933,10 @@ module.exports = g;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = ciNpmPackages;
 /* harmony export (immutable) */ __webpack_exports__["b"] = exitCiNpmPackages;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_ajax__ = __webpack_require__(/*! ../common/ajax */ 10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_toggleScroll__ = __webpack_require__(/*! ../common/toggleScroll */ 17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_ajax__ = __webpack_require__(/*! ../common/ajax */ 11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_toggleScroll__ = __webpack_require__(/*! ../common/toggleScroll */ 10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(/*! vue */ 33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_utilities__ = __webpack_require__(/*! ../common/utilities */ 5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_utilities__ = __webpack_require__(/*! ../common/utilities */ 2);
 
 
 
@@ -8027,127 +8147,7 @@ function exitCiNpmPackages() {
 
 /***/ }),
 
-/***/ 5:
-/* exports provided: isEmpty, cloneObj, mergeObj, addPrefixToObj, wrapObj, strToDom, insertAfter, debounce, isStrictMode, generateUUID */
-/* exports used: debounce, wrapObj, addPrefixToObj, mergeObj, strToDom, insertAfter, generateUUID */
-/*!**************************************************!*\
-  !*** ./app/javascript/packs/common/utilities.js ***!
-  \**************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export isEmpty */
-/* unused harmony export cloneObj */
-/* harmony export (immutable) */ __webpack_exports__["d"] = mergeObj;
-/* harmony export (immutable) */ __webpack_exports__["c"] = addPrefixToObj;
-/* harmony export (immutable) */ __webpack_exports__["b"] = wrapObj;
-/* harmony export (immutable) */ __webpack_exports__["e"] = strToDom;
-/* harmony export (immutable) */ __webpack_exports__["f"] = insertAfter;
-/* harmony export (immutable) */ __webpack_exports__["a"] = debounce;
-/* unused harmony export isStrictMode */
-/* harmony export (immutable) */ __webpack_exports__["g"] = generateUUID;
-function isEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-function cloneObj(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-/* consider Object.assign(target, ...sources) */
-function mergeObj() {
-  var obj1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var obj2 = arguments[1];
-
-  var newObj = JSON.parse(JSON.stringify(obj1));
-  for (var key in obj2) {
-    if (obj2.hasOwnProperty(key)) {
-      newObj[key] = obj2[key];
-    }
-  }
-  return newObj;
-}
-function addPrefixToObj(obj, prefix) {
-  if (!prefix) return obj;
-  var newObj = {};
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      newObj['' + prefix + '[' + key + ']'] = obj[key];
-    }
-  }
-  return newObj;
-}
-function wrapObj(obj, wrapper) {
-  if (!wrapper) return obj;
-  var newObj = {};
-  newObj[wrapper] = {};
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      newObj[wrapper][key] = obj[key];
-    }
-  }
-  return newObj;
-}
-
-function strToDom(str) {
-  var tmpEle = document.createElement('div');
-  tmpEle.innerHTML = str;
-  var returnDom = tmpEle.children[0];
-  return returnDom;
-}
-/**
- * [insertAfter description: According to MDN if the element is last (and so nextSibling is null) the newNode will be appended as expected]
- * @param  {[type]} newNode       [description]
- * @param  {[type]} referenceNode [description]
- * @return {undefined}               [description]
- */
-function insertAfter(newNode, referenceNode) {
-  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
-
-// Returns a function, that, as long as it continues to be invoked, will not
-// be triggered. The function will be called after it stops being called for
-// N milliseconds. If `immediate` is passed, trigger the function on the
-// leading edge, instead of the trailing.
-/*
-var myEfficientFn = debounce(function() {
-  // All the taxing stuff you do
-}, 250);
-
-window.addEventListener('resize', myEfficientFn);
- */
-function debounce(func, wait, immediate) {
-  var timeout;
-  return function () {
-    var context = this,
-        args = arguments;
-    var later = function later() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
-function isStrictMode() {
-  var isStrict = function () {
-    return !this;
-  }();
-  return isStrict;
-}
-
-function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0,
-        v = c == 'x' ? r : r & 0x3 | 0x8;
-    return v.toString(16);
-  });
-}
-
-/***/ }),
-
-/***/ 69:
+/***/ 70:
 /* no static exports found */
 /* all exports used */
 /*!*******************************************************!*\

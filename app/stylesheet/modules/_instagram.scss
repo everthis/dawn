@@ -24,3 +24,37 @@
     }
   }
 }
+.instagram_images_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.ins-search-container {
+  position: relative;
+  height: 2em;
+  margin-left: -1em;
+  margin-right: -1em;
+  padding: 0 1em 1em 1em;
+  .ins-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+.ins-search {
+  position: absolute;
+  background-color: $white;
+  left: 0;
+  right: 0;
+  padding: 0 1em 1em 1em;
+  #ins_user_q {
+    position: relative;
+  }
+  .ins-search-result {
+    position: relative;
+  }
+}
