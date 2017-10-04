@@ -1,3 +1,4 @@
+require 'uri'
 module ApplicationHelper
   # Returns the full title on a per-page basis.
   def full_title(page_title = '')
@@ -11,6 +12,20 @@ module ApplicationHelper
 
   def remove_param_from_url_str(url, param_to_remove)
     url.sub(/\?#{param_to_remove}=[^&]*/, '?').gsub(/\&#{param_to_remove}=[^&]*/, '').sub(/\?$/,'')
+  end
+
+  def filename_from_url(url)
+    uri = URI.parse(url)
+    File.basename(uri.path)
+  end
+
+  def local_static_path(filename, dir)
+    "/static/dawn/images#{dir.nil? ? '' : '/' + dir}/#{filename}"
+  end
+
+  def local_instagram_path(url, dir)
+    fn = filename_from_url(url)
+    local_static_path(fn, dir)
   end
 
   def client_javascript_include_tag(name, name_attr = '')

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :instagram_tasks
   resources :instagram_users
   resources :instagram_images
   resources :gists
@@ -69,6 +70,13 @@ Rails.application.routes.draw do
   post 'authenticate', to: 'authentication#authenticate'
   get 'instagram_users_media_count', to: 'instagram_users#media_count'
   get 'queryInstagramUserId', to: 'instagram_users#queryInstagramUserId'
+  get 'instagram_profile_pics', to: 'instagram_users#profile_pics'
+  get 'imagesByOwnerId', to: 'instagram_images#imagesByOwnerId'
+  get 'all_instagram_users_id', to: 'instagram_users#all_instagram_users_id'
+  get 'today_success_ids', to: 'instagram_tasks#today_success_ids'
+  get 'instagram_download_failure', to: 'instagram_tasks#download_failure'
+  get 'instagram_user_images_codes', to: 'instagram_images#userImagesCodes'
+  get 'instagram_not_downloaded_images', to: 'instagram_images#notDownloadedImages'
 
   # scope '(:locale)' do
   #   resources :orders

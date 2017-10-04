@@ -22,6 +22,15 @@
   border-radius: 50%;
   background-color: #d23ac1;
 }
+.instagram_tasks_entry {
+  display: inline-block;
+  width: 10em;
+  height: 10em;
+  text-align: center;
+  line-height: 10em;
+  border-radius: 50%;
+  background-color: #09e253;
+}
 </style>
 <% end %>
 
@@ -29,6 +38,7 @@
 <div class="instagram-container c-card-box c-center">
     <%= link_to 'instagram_users', instagram_users_path, class: "fnpu-link instagram_users_entry c-gap-right" %>
     <%= link_to 'instagram_images', instagram_images_path, class: "fnpu-link instagram_images_entry" %>
+    <%= link_to 'instagram_tasks', instagram_tasks_path, class: "fnpu-link instagram_tasks_entry" %>
 </div>
 <% end %>
 

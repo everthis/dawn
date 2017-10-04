@@ -11,7 +11,7 @@
 
 // goog.provide('spfNetXhr');
 
-import {spfBase} from '../base'
+import { spfBase } from '../base'
 let spfNetXhr = {}
 
 // goog.require('spf');
@@ -60,7 +60,7 @@ spfNetXhr.PostData
  * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spfNetXhr.get = function (url, opt_options) {
+spfNetXhr.get = function(url, opt_options) {
   return spfNetXhr.send('GET', url, null, opt_options)
 }
 
@@ -72,7 +72,7 @@ spfNetXhr.get = function (url, opt_options) {
  * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spfNetXhr.post = function (url, data, opt_options) {
+spfNetXhr.post = function(url, data, opt_options) {
   return spfNetXhr.send('POST', url, data, opt_options)
 }
 
@@ -85,7 +85,7 @@ spfNetXhr.post = function (url, data, opt_options) {
  * @param {spfNetXhr.Options=} opt_options Configuration options for the XHR.
  * @return {XMLHttpRequest} The XHR object being sent.
  */
-spfNetXhr.send = function (method, url, data, opt_options) {
+spfNetXhr.send = function(method, url, data, opt_options) {
   var options = opt_options || {}
   var chunked = false
   var offset = 0
@@ -97,13 +97,13 @@ spfNetXhr.send = function (method, url, data, opt_options) {
 
   // Overload the abort method to handle the timer.
   var xhr_abort = xhr.abort
-  xhr.abort = function () {
+  xhr.abort = function() {
     clearTimeout(timer)
     xhr.onreadystatechange = null
     xhr_abort.call(xhr)
   }
 
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function() {
     var timing = xhr['timing']
     if (xhr.readyState == spfNetXhr.State.HEADERS_RECEIVED) {
       // Record responseStart time when first byte is received.
@@ -157,8 +157,8 @@ spfNetXhr.send = function (method, url, data, opt_options) {
 
   // For POST, default to `Content-Type: application/x-www-form-urlencoded`
   // unless a custom header was given.
-  var isFormData = ('FormData' in window && data instanceof FormData)
-  var addContentTypeFormUrlEncoded = (method == 'POST' && !isFormData)
+  var isFormData = 'FormData' in window && data instanceof FormData
+  var addContentTypeFormUrlEncoded = method == 'POST' && !isFormData
   if (options.headers) {
     for (var key in options.headers) {
       xhr.setRequestHeader(key, options.headers[key])
@@ -173,7 +173,7 @@ spfNetXhr.send = function (method, url, data, opt_options) {
 
   // Set the timer if a timeout value was specified.
   if (options.timeoutMs > 0) {
-    timer = setTimeout(function () {
+    timer = setTimeout(function() {
       xhr.abort()
       if (options.onTimeout) {
         options.onTimeout(xhr)
@@ -196,7 +196,7 @@ spfNetXhr.send = function (method, url, data, opt_options) {
  * @return {boolean}
  * @private
  */
-spfNetXhr.isChunked_ = function (xhr) {
+spfNetXhr.isChunked_ = function(xhr) {
   if (xhr.responseType == 'json') {
     return false
   }

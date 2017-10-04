@@ -43,6 +43,11 @@ class InstagramUsersController < ApplicationController
   def destroy
   end
 
+  def all_instagram_users_id
+    users = InstagramUser.all.map { |el| el.user_id }
+    render json: users, status: :ok
+  end
+
   def media_count
     users_media_count = InstagramUser.all.map { |el| {:id => el.user_id, :count => el.media_count, :username => el.user_name} }
     respond_to do |format|
@@ -50,12 +55,14 @@ class InstagramUsersController < ApplicationController
     end
   end
 
+  def profile_pics
+    users_profile_pics = InstagramUser.all.map { |el| {:id => el.user_id, :profile_pic_url => el.profile_pic_url } }
+    render json: users_profile_pics, status: :ok
+  end
+
   def queryInstagramUserId
-    p params
     respond_to do |format|
-      p params[:q].blank?
       unless params[:q].blank?
-        p 'in'
         @instagram_users = InstagramUser.where('user_name like :search', search: "%#{params[:q]}%").limit(10)
         format.json { render :json => @instagram_users, :only=> [:account_is_private, :user_id, :user_name, :profile_pic_url] }
       end

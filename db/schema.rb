@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170923104255) do
+ActiveRecord::Schema.define(version: 20171003035154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,19 @@ ActiveRecord::Schema.define(version: 20170923104255) do
     t.string "thumbnail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "downloaded", default: false
+    t.datetime "timestamp"
+    t.text "caption"
+  end
+
+  create_table "instagram_tasks", force: :cascade do |t|
+    t.string "user_id"
+    t.string "task_type"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "err_msg"
+    t.json "params"
   end
 
   create_table "instagram_users", force: :cascade do |t|

@@ -486,7 +486,7 @@ textarea {
   cursor: pointer;
 }
 
-.c-card-box, .c-normal-card-box, .c-wide-card-box, .user-info-card, .micropost-form, .document-container, .ci-packages-container {
+.c-card-box, .c-normal-card-box, .c-wide-card-box, .c-fw-card-box, .user-info-card, .micropost-form, .document-container, .ci-packages-container {
   padding: 1rem;
   width: 50rem;
   margin: 0 auto;
@@ -726,6 +726,10 @@ textarea[type="hidden"] {
   margin-right: 0.5rem;
 }
 
+.c-gap {
+  margin: 0.5rem;
+}
+
 .c-padding {
   padding: 0.5rem;
 }
@@ -847,6 +851,10 @@ textarea[type="hidden"] {
 
 .c-wide-card-box {
   width: 166rem;
+}
+
+.c-fw-card-box {
+  width: calc(100% - 2em);
 }
 
 .c-table {
@@ -3593,6 +3601,12 @@ div.field, div.actions {
   grid-area: count;
 }
 
+.instagram_images_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
 .ins-search-container {
   position: relative;
   height: 2em;
@@ -3624,6 +3638,11 @@ div.field, div.actions {
 
 .ins-search .ins-search-result {
   position: relative;
+}
+
+.instagram-filter-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .ci-packages-container {

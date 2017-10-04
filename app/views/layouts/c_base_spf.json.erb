@@ -3,13 +3,11 @@
 <% content_target = content_for?(:content_target) ? yield(:content_target).squish : "page-container" %>
 <% body_class = {:body => {:class => "#{controller.controller_name}" }} %>
 <% content_for?(:content) ? json_obj['body'][content_target] = yield(:content) : "" %>
-
 <% content_for :flash_content do %>
 	<% flash.each do |message_type, message| %>
 	  <div class="alert alert-<%= message_type %>"><%= message %></div>
 	<% end %>
 <% end %>
-
 <% content_for?(:flash_content) ? json_obj['body']['flash-container'] = yield(:flash_content).squish : (json_obj['body']['flash-container'] = '') %>
 <% content_for?(:head) ? json_obj['head'] = yield(:head).squish : "" %>
 <% content_for?(:foot) ? json_obj['foot'] = yield(:foot).squish : "" %>
@@ -18,4 +16,4 @@
 <% content_for?(:name) ? json_obj['name'] = yield(:name).squish : "" %>
 <% json_obj['status'] = @c_status ? @c_status : 'success' %>
 <% json_obj['url'] = @c_override_url ? @c_override_url : remove_param_from_url_str( request.fullpath, 'fnpu') %>
-<%= "#{json_obj.to_json}".html_safe %>
+<%= "#{json_obj.to_json}".html_safe -%>

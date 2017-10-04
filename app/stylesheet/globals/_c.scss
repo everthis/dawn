@@ -16,6 +16,9 @@
 .c-gap-right {
   margin-right: $gap-right;
 }
+.c-gap {
+  margin: $gap-left;
+}
 .c-padding {
   padding: $padding;
 }
@@ -112,6 +115,10 @@
 .c-wide-card-box {
   @extend %card-box;
   width: 166rem;
+}
+.c-fw-card-box {
+  @extend %card-box;
+  width: calc(100% - 2em);
 }
 .c-table {
   table-layout: fixed;

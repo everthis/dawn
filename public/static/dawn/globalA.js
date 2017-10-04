@@ -7855,10 +7855,16 @@ function processDataLink(ev) {
 "use strict";
 /* unused harmony export processFormSubmit */
 /* harmony export (immutable) */ __webpack_exports__["a"] = formSubmit;
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var hmInstance = void 0;
 var fd = void 0,
     fa = void 0;
-
+function formDataToQuerystring(fd) {
+  return [].concat(_toConsumableArray(fd.entries())).map(function (e) {
+    return encodeURIComponent(e[0]) + '=' + encodeURIComponent(e[1]);
+  }).join('&');
+}
 function processFormSubmit(ev) {
   var e = window.e || ev;
   var tt = e.target;
@@ -7869,7 +7875,10 @@ function processFormSubmit(ev) {
     var _fa = f.action;
     var fm = f.method;
     var _fd = new FormData(f);
-    window.A.spf.load(_fa, {
+    window.A.spf.load('' + _fa + (fm.toLowerCase() === 'get' ? '?' + formDataToQuerystring(_fd) : ''), {
+      headers: {
+        Accept: 'application/json'
+      },
       method: fm,
       postData: _fd,
       onProcess: function onProcess(evt) {
@@ -7886,7 +7895,7 @@ function processFormSubmit(ev) {
         if (evt.response && evt.response.status === 'success' && evt.response.url) window.A.spf.navigate(evt.response.url);
       }
     });
-  };
+  }
 }
 function formSubmit() {
   document.addEventListener('click', processFormSubmit, false);
@@ -8840,7 +8849,8 @@ spfNavRequest.send = function (url, opt_options) {
   timing['spfPrefetched'] = !!cached && cached.type == 'prefetch';
   timing['spfCached'] = !!cached;
   if (cached) {
-    var response = /** @type {spfBase.SingleResponse|spfBase.MultipartResponse} */cached.response;
+    var response =
+    /** @type {spfBase.SingleResponse|spfBase.MultipartResponse} */cached.response;
     // To ensure a similar execution pattern as an XHR, ensure the
     // cache response is returned asynchronously.
     var handleCache = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavRequest.handleResponseFromCache_, null, url, options, timing, cached.key, response);
@@ -9019,7 +9029,10 @@ spfNavRequest.handleHeadersFromXHR_ = function (url, chunking, xhr) {
  * @private
  */
 spfNavRequest.handleChunkFromXHR_ = function (url, options, timing, chunking, xhr, chunk, opt_lastDitch) {
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleChunkFromXHR_ ', url, { 'extra': chunking.extra, 'chunk': chunk });
+  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleChunkFromXHR_ ', url, {
+    extra: chunking.extra,
+    chunk: chunk
+  });
   // Processing chunks as they arrive requires multipart responses.
   if (!chunking.multipart) {
     __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    skipping non-multipart response');
@@ -9067,7 +9080,10 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
   if (xhr.responseType == 'json') {
     __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleCompleteFromXHR_ ', url, xhr.response);
   } else {
-    __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleCompleteFromXHR_ ', url, { 'extra': chunking.extra, 'complete': xhr.responseText });
+    __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleCompleteFromXHR_ ', url, {
+      extra: chunking.extra,
+      complete: xhr.responseText
+    });
   }
 
   // Record the timing information from the XHR.
@@ -9178,8 +9194,8 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
       }
     });
     response = /** @type {spfBase.MultipartResponse} */{
-      'parts': parts,
-      'type': 'multipart'
+      parts: parts,
+      type: 'multipart'
     };
     if (cacheType) {
       response['cacheType'] = cacheType;
@@ -9313,10 +9329,11 @@ spfNavRequest.getCacheObject_ = function (cacheKey, opt_current) {
  */
 spfNavRequest.setCacheObject_ = function (cacheKey, response, type) {
   var cacheValue = {
-    'response': response,
-    'type': type
+    response: response,
+    type: type
   };
-  __WEBPACK_IMPORTED_MODULE_3__cache_cache__["a" /* default */].set(cacheKey, cacheValue, /** @type {number} */__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('cache-lifetime'));
+  __WEBPACK_IMPORTED_MODULE_3__cache_cache__["a" /* default */].set(cacheKey, cacheValue,
+  /** @type {number} */__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('cache-lifetime'));
 };
 
 /**

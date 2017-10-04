@@ -12,12 +12,12 @@ lorem_name
 <% content_for :head do %>
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <style name="test">
-		.test {
+/*		.test {
 			font-size: 16px;
-		}  	
+		}  	*/
   </style>
     <style>
-    .top-bar a {
+/*    .top-bar a {
       font-size: 36px;
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -30,7 +30,16 @@ lorem_name
     .top-bar a:active {
       background-color: red;
       opacity: 0.2;
-    }
+    }*/
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
   </style>
   <!-- <link rel="stylesheet" href="http://www.alloyteam.com/wp-content/themes/alloyteam/style.css"> -->
   <!-- <script src="http://www.alloyteam.com/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script> -->
@@ -55,14 +64,15 @@ lorem_name
 	<!-- <iframe id="iii" name="ll1" src="http://10.0.0.9:8455/iframe.html" frameborder="0"></iframe> -->
 	<!-- <iframe id="ll2" name="ll2" src="http://10.0.0.9:8455/iframe2.html" frameborder="0"></iframe> -->
 
-  <div class="top-bar" oncontextmenu="return false;">
+<!--   <div class="top-bar" oncontextmenu="return false;">
     <a href="//www.baidu.com">Lorem ipsum.</a>
-  </div>
-
+  </div> -->
+<div class="noselect">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem quos eaque atque ea officia modi vero aperiam culpa. A ex veritatis doloremque praesentium eveniet temporibus ea quisquam adipisci reprehenderit rerum, animi suscipit natus, cupiditate accusamus officia repudiandae eum vero at corporis sunt nemo distinctio. Nesciunt rem nostrum eum, incidunt ipsa sunt. Harum eveniet cumque, mollitia nostrum, magni eum perferendis laboriosam aperiam molestiae obcaecati quisquam sequi quos a consequuntur sunt illum eaque adipisci. Ea eos tempore vero rerum, odit asperiores porro vel veritatis accusamus cum molestias labore architecto illo deleniti, libero officia ratione animi iusto delectus, amet quos cupiditate. Cupiditate, ipsa.</div>
+<p style="color:red;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque voluptatibus magni saepe nostrum facilis tempore dolor debitis, dicta nisi laboriosam.</p>
 <% end %>
 
 <% content_for :foot do %>
-  <script src="http://zeptojs.com/zepto.min.js"></script>
+  <!-- <script src="http://zeptojs.com/zepto.min.js"></script> -->
   <script name="test">
   // function domainData(url, fn)
   // {
@@ -89,33 +99,33 @@ lorem_name
   //     } else {
   //         iframe.onload = loadfn;
   //     }
-       
+
   //     document.body.appendChild(iframe);
   // }
 
   // domainData('http://10.0.0.9:8455/iframe.html', function(data){
   //        console.log(data);
   // });
-  
+
   // document.domain = '10.0.0.9';
-  
 
 
-  $('body').on('touchstart', '.top-bar a', function(e) {
-    $(this).css('opacity', 0.2)
-  })
-  $('body').on('touchmove', '.top-bar a', function(e) {
-    e.preventDefault()
-  })
-  $('body').on('touchend', '.top-bar a', function(e) {
-    $(this).css('opacity', 1)
-    console.log(e.target.getAttribute('href'))
-    e.stopImmediatePropagation()
-  })
-  $('body').on('click', '.top-bar a', function(e) {
-    console.log('op')
-    e.preventDefault()
-  })
+
+  // $('body').on('touchstart', '.top-bar a', function(e) {
+  //   $(this).css('opacity', 0.2)
+  // })
+  // $('body').on('touchmove', '.top-bar a', function(e) {
+  //   e.preventDefault()
+  // })
+  // $('body').on('touchend', '.top-bar a', function(e) {
+  //   $(this).css('opacity', 1)
+  //   console.log(e.target.getAttribute('href'))
+  //   e.stopImmediatePropagation()
+  // })
+  // $('body').on('click', '.top-bar a', function(e) {
+  //   console.log('op')
+  //   e.preventDefault()
+  // })
 
   // var alink = document.querySelector('.top-bar a')
   // alink.addEventListener('click', function(e) {

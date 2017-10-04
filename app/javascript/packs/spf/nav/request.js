@@ -9,7 +9,7 @@
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-import {spfBase} from '../base'
+import { spfBase } from '../base'
 import spfArray from '../array/array'
 import spfAsync from '../async/async'
 import spfCache from '../cache/cache'
@@ -83,7 +83,7 @@ spfNavRequest.Options
  * @param {spfNavRequest.Options=} opt_options Configuration options.
  * @return {XMLHttpRequest} The XHR of the current request.
  */
-spfNavRequest.send = function (url, opt_options) {
+spfNavRequest.send = function(url, opt_options) {
   spfDebug.debug('nav.request.send ', url, opt_options)
   var options = opt_options || /** @type {spfNavRequest.Options} */ ({})
   options.method = ((options.method || 'GET') + '').toUpperCase()
@@ -101,20 +101,32 @@ spfNavRequest.send = function (url, opt_options) {
   // Record fetchStart time before loading from cache. If no cached response
   // is found, this value will be replaced with the one provided by the XHR.
   timing['fetchStart'] = timing['startTime']
-  var cacheKey = spfNavRequest.getCacheKey_(url, options.current, null,
-                                              options.type, false)
+  var cacheKey = spfNavRequest.getCacheKey_(
+    url,
+    options.current,
+    null,
+    options.type,
+    false
+  )
   // Use the absolute URL without identifier to allow cached responses
   // from prefetching to apply to navigation.
   var cached = spfNavRequest.getCacheObject_(cacheKey, options.current)
   timing['spfPrefetched'] = !!cached && cached.type == 'prefetch'
   timing['spfCached'] = !!cached
   if (cached) {
-    var response = /** @type {spfBase.SingleResponse|spfBase.MultipartResponse} */ (
-        cached.response)
+    var response =
+      /** @type {spfBase.SingleResponse|spfBase.MultipartResponse} */ (cached.response)
     // To ensure a similar execution pattern as an XHR, ensure the
     // cache response is returned asynchronously.
-    var handleCache = spfBase.bind(spfNavRequest.handleResponseFromCache_, null,
-                               url, options, timing, cached.key, response)
+    var handleCache = spfBase.bind(
+      spfNavRequest.handleResponseFromCache_,
+      null,
+      url,
+      options,
+      timing,
+      cached.key,
+      response
+    )
     // When WebKit browsers are in a background tab, setTimeout calls are
     // deprioritized to execute with a 1s delay.  Avoid this by using
     // postMessage to schedule execution; see spfAsync.delay for details.
@@ -125,14 +137,15 @@ spfNavRequest.send = function (url, opt_options) {
     spfDebug.debug('    sending XHR')
     var headers = {}
     // Set headers provided by global config first.
-    var configHeaders = /** @type {Object.<string>} */ (
-      spfConfig.get('request-headers'))
+    var configHeaders = /** @type {Object.<string>} */ (spfConfig.get(
+      'request-headers'
+    ))
     if (configHeaders) {
       for (var key in configHeaders) {
         var value = configHeaders[key]
         // Treat undefined and null values as equivalent to an empty string.
         // Note that undefined == null.
-        headers[key] = (value == null) ? '' : value
+        headers[key] = value == null ? '' : value
       }
     }
     // Set headers provided by options second, to allow overrides.
@@ -141,7 +154,7 @@ spfNavRequest.send = function (url, opt_options) {
         var value = options.headers[key]
         // Treat undefined and null values as equivalent to an empty string.
         // Note that undefined == null.
-        headers[key] = (value == null) ? '' : value
+        headers[key] = value == null ? '' : value
       }
     }
     // Allow empty referrer values in history.
@@ -173,19 +186,36 @@ spfNavRequest.send = function (url, opt_options) {
     // (2) The server MUST use SPF-based redirection, as custom headers (i.e.
     // the `X-SPF-Request` header) are typically not propgated by browsers
     // during 30X HTTP redirection.
-    var headerId = /** @type {?string} */ (
-        spfConfig.get('advanced-header-identifier'))
+    var headerId = /** @type {?string} */ (spfConfig.get(
+      'advanced-header-identifier'
+    ))
     if (headerId) {
       headers['X-SPF-Request'] = headerId.replace('__type__', options.type)
       headers['Accept'] = 'application/json'
     }
     var chunking = new spfNavRequest.Chunking_()
-    var handleHeaders = spfBase.bind(spfNavRequest.handleHeadersFromXHR_, null,
-                                 url, chunking)
-    var handleChunk = spfBase.bind(spfNavRequest.handleChunkFromXHR_, null,
-                               url, options, timing, chunking)
-    var handleComplete = spfBase.bind(spfNavRequest.handleCompleteFromXHR_, null,
-                                  url, options, timing, chunking)
+    var handleHeaders = spfBase.bind(
+      spfNavRequest.handleHeadersFromXHR_,
+      null,
+      url,
+      chunking
+    )
+    var handleChunk = spfBase.bind(
+      spfNavRequest.handleChunkFromXHR_,
+      null,
+      url,
+      options,
+      timing,
+      chunking
+    )
+    var handleComplete = spfBase.bind(
+      spfNavRequest.handleCompleteFromXHR_,
+      null,
+      url,
+      options,
+      timing,
+      chunking
+    )
     var xhrOpts = {
       headers: headers,
       timeoutMs: /** @type {number} */ (spfConfig.get('request-timeout')),
@@ -230,8 +260,13 @@ spfNavRequest.send = function (url, opt_options) {
  *     response object.
  * @private
  */
-spfNavRequest.handleResponseFromCache_ = function (url, options, timing,
-                                                    cacheKey, response) {
+spfNavRequest.handleResponseFromCache_ = function(
+  url,
+  options,
+  timing,
+  cacheKey,
+  response
+) {
   spfDebug.debug('nav.request.handleResponseFromCache_ ', url, response)
   var updateCache = false
   // Record the timing information.
@@ -252,7 +287,7 @@ spfNavRequest.handleResponseFromCache_ = function (url, options, timing,
   }
   if (options.onPart && response['type'] == 'multipart') {
     var parts = response['parts']
-    spfArray.each(parts, function (part) {
+    spfArray.each(parts, function(part) {
       if (!part['timing']) {
         part['timing'] = {}
       }
@@ -273,7 +308,7 @@ spfNavRequest.handleResponseFromCache_ = function (url, options, timing,
  * @param {XMLHttpRequest} xhr The XHR of the current request.
  * @private
  */
-spfNavRequest.handleHeadersFromXHR_ = function (url, chunking, xhr) {
+spfNavRequest.handleHeadersFromXHR_ = function(url, chunking, xhr) {
   spfDebug.debug('nav.request.handleHeadersFromXHR_ ', url, xhr)
   var responseType = xhr.getResponseHeader('X-SPF-Response-Type') || ''
   var multipart = spfString.contains(responseType.toLowerCase(), 'multipart')
@@ -295,10 +330,19 @@ spfNavRequest.handleHeadersFromXHR_ = function (url, chunking, xhr) {
  *     one, potentially handling malformed but valid responses.
  * @private
  */
-spfNavRequest.handleChunkFromXHR_ = function (url, options, timing, chunking,
-                                               xhr, chunk, opt_lastDitch) {
-  spfDebug.debug('nav.request.handleChunkFromXHR_ ',
-                  url, {'extra': chunking.extra, 'chunk': chunk})
+spfNavRequest.handleChunkFromXHR_ = function(
+  url,
+  options,
+  timing,
+  chunking,
+  xhr,
+  chunk,
+  opt_lastDitch
+) {
+  spfDebug.debug('nav.request.handleChunkFromXHR_ ', url, {
+    extra: chunking.extra,
+    chunk: chunk
+  })
   // Processing chunks as they arrive requires multipart responses.
   if (!chunking.multipart) {
     spfDebug.debug('    skipping non-multipart response')
@@ -317,7 +361,7 @@ spfNavRequest.handleChunkFromXHR_ = function (url, options, timing, chunking,
     return
   }
   if (options.onPart) {
-    spfArray.each(parsed.parts, function (part) {
+    spfArray.each(parsed.parts, function(part) {
       spfDebug.debug('    parsed part', part)
       if (!part['timing']) {
         part['timing'] = {}
@@ -342,13 +386,20 @@ spfNavRequest.handleChunkFromXHR_ = function (url, options, timing, chunking,
  * @param {XMLHttpRequest} xhr The XHR of the current request.
  * @private
  */
-spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing,
-                                                  chunking, xhr) {
+spfNavRequest.handleCompleteFromXHR_ = function(
+  url,
+  options,
+  timing,
+  chunking,
+  xhr
+) {
   if (xhr.responseType == 'json') {
     spfDebug.debug('nav.request.handleCompleteFromXHR_ ', url, xhr.response)
   } else {
-    spfDebug.debug('nav.request.handleCompleteFromXHR_ ', url,
-                    {'extra': chunking.extra, 'complete': xhr.responseText})
+    spfDebug.debug('nav.request.handleCompleteFromXHR_ ', url, {
+      extra: chunking.extra,
+      complete: xhr.responseText
+    })
   }
 
   // Record the timing information from the XHR.
@@ -377,8 +428,12 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing,
       if (startTime >= timing['startTime']) {
         for (var metric in xhr['resourceTiming']) {
           var value = xhr['resourceTiming'][metric]
-          if (value !== undefined && (spfString.endsWith(metric, 'Start') ||
-              spfString.endsWith(metric, 'End') || metric == 'startTime')) {
+          if (
+            value !== undefined &&
+            (spfString.endsWith(metric, 'Start') ||
+              spfString.endsWith(metric, 'End') ||
+              metric == 'startTime')
+          ) {
             timing[metric] = navigationStart + Math.round(value)
           }
         }
@@ -399,8 +454,15 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing,
     chunking.extra = spfString.trim(chunking.extra)
     if (chunking.extra) {
       // If extra content exists, parse it as a last-ditch effort.
-      spfNavRequest.handleChunkFromXHR_(url, options, timing, chunking,
-                                          xhr, '', true)
+      spfNavRequest.handleChunkFromXHR_(
+        url,
+        options,
+        timing,
+        chunking,
+        xhr,
+        '',
+        true
+      )
     }
   }
 
@@ -455,22 +517,22 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing,
   var response
   if (parts.length > 1) {
     var cacheType
-    spfArray.each(parts, function (part) {
+    spfArray.each(parts, function(part) {
       if (part['cacheType']) {
         cacheType = part['cacheType']
       }
     })
     response = /** @type {spfBase.MultipartResponse} */ ({
-      'parts': parts,
-      'type': 'multipart'
+      parts: parts,
+      type: 'multipart'
     })
     if (cacheType) {
       response['cacheType'] = cacheType
     }
   } else if (parts.length == 1) {
-    response = /** @type {spfBase.SingleResponse} */(parts[0])
+    response = /** @type {spfBase.SingleResponse} */ (parts[0])
   } else {
-    response = /** @type {spfBase.SingleResponse} */({})
+    response = /** @type {spfBase.SingleResponse} */ ({})
   }
   spfNavRequest.done_(url, options, timing, response, true)
 }
@@ -487,13 +549,17 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing,
  * @param {boolean} cache Whether to store the response in the cache.
  * @private
  */
-spfNavRequest.done_ = function (url, options, timing, response, cache) {
+spfNavRequest.done_ = function(url, options, timing, response, cache) {
   spfDebug.debug('nav.request.done_', url, options, timing, response, cache)
   if (cache && options.method != 'POST') {
     // Cache the response for future requests.
-    var cacheKey = spfNavRequest.getCacheKey_(url, options.current,
-                                                response['cacheType'],
-                                                options.type, true)
+    var cacheKey = spfNavRequest.getCacheKey_(
+      url,
+      options.current,
+      response['cacheType'],
+      options.type,
+      true
+    )
     if (cacheKey) {
       response['cacheKey'] = cacheKey
       spfNavRequest.setCacheObject_(cacheKey, response, options.type || '')
@@ -518,8 +584,13 @@ spfNavRequest.done_ = function (url, options, timing, response, cache) {
  * @return {string} The cache key for the URL.
  * @private
  */
-spfNavRequest.getCacheKey_ = function (url, opt_current, opt_cacheType,
-                                      opt_requestType, opt_set) {
+spfNavRequest.getCacheKey_ = function(
+  url,
+  opt_current,
+  opt_cacheType,
+  opt_requestType,
+  opt_set
+) {
   // Use the absolute URL without identifier to ensure consistent caching.
   var absoluteUrl = spfUrl.absolute(url)
   var cacheKey
@@ -532,8 +603,10 @@ spfNavRequest.getCacheKey_ = function (url, opt_current, opt_cacheType,
     // Otherwise, caching is split between history and prefetching by using
     // a key prefix.  Regular non-history navigation is only eligible for
     // prefetch-based caching.
-    if (opt_requestType == 'navigate-back' ||
-        opt_requestType == 'navigate-forward') {
+    if (
+      opt_requestType == 'navigate-back' ||
+      opt_requestType == 'navigate-forward'
+    ) {
       // For back/forward, get and set to history cache.
       cacheKey = 'history ' + absoluteUrl
     } else if (opt_requestType == 'navigate') {
@@ -541,7 +614,7 @@ spfNavRequest.getCacheKey_ = function (url, opt_current, opt_cacheType,
       cacheKey = (opt_set ? 'history ' : 'prefetch ') + absoluteUrl
     } else if (opt_requestType == 'prefetch') {
       // For prefetching, never get, only set to prefetch cache.
-      cacheKey = opt_set ? ('prefetch ' + absoluteUrl) : ''
+      cacheKey = opt_set ? 'prefetch ' + absoluteUrl : ''
     }
   }
 
@@ -563,7 +636,7 @@ spfNavRequest.getCacheKey_ = function (url, opt_current, opt_cacheType,
  * @return {Object.<string, *>} The response object if found in the cache.
  * @private
  */
-spfNavRequest.getCacheObject_ = function (cacheKey, opt_current) {
+spfNavRequest.getCacheObject_ = function(cacheKey, opt_current) {
   var keys = []
   if (opt_current) {
     keys.push(cacheKey + ' previous ' + opt_current)
@@ -574,7 +647,7 @@ spfNavRequest.getCacheObject_ = function (cacheKey, opt_current) {
   var cacheValue = null
 
   // Find the first cached object and break loop early when found.
-  spfArray.some(keys, function (key) {
+  spfArray.some(keys, function(key) {
     var obj = spfCache.get(key)
     if (obj) {
       cacheValue = {
@@ -598,13 +671,16 @@ spfNavRequest.getCacheObject_ = function (cacheKey, opt_current) {
  * @param {string} type The type of request this cache entry was set with.
  * @private
  */
-spfNavRequest.setCacheObject_ = function (cacheKey, response, type) {
+spfNavRequest.setCacheObject_ = function(cacheKey, response, type) {
   var cacheValue = {
-    'response': response,
-    'type': type
+    response: response,
+    type: type
   }
-  spfCache.set(cacheKey, cacheValue,  /** @type {number} */ (
-      spfConfig.get('cache-lifetime')))
+  spfCache.set(
+    cacheKey,
+    cacheValue,
+    /** @type {number} */ (spfConfig.get('cache-lifetime'))
+  )
 }
 
 /**
@@ -614,7 +690,7 @@ spfNavRequest.setCacheObject_ = function (cacheKey, response, type) {
  * @struct
  * @private
  */
-spfNavRequest.Chunking_ = function () {
+spfNavRequest.Chunking_ = function() {
   /**
    * Whether the request is multipart.
    * @type {boolean}

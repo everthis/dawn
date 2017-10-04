@@ -275,7 +275,7 @@ function renderList(arr) {
   var res = [];
   maskEle.classList.remove('c-hide');
   arr.forEach(function (el) {
-    res.push('\n      <div class="instagram_user c-border c-center c-padding">\n        <div class="avatar" style="background-image: url(\'' + el.profile_pic_url + '\'); background-size: cover;"></div>\n        <div class="user_name">' + el.user_name + '</div>\n        <div class="type">\n        </div>\n        <div class="media_count">user_id: ' + el.user_id + '</div>\n      </div>\n    ');
+    res.push('\n      <div class="instagram_user c-border c-center c-padding" data-id="' + el.user_id + '">\n        <div class="avatar" style="background-image: url(\'' + el.profile_pic_url + '\'); background-size: cover;"></div>\n        <div class="user_name">' + el.user_name + '</div>\n        <div class="type">\n        </div>\n        <div class="media_count">user_id: ' + el.user_id + '</div>\n      </div>\n    ');
   });
   resEle.innerHTML = res.join('');
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_toggleScroll__["a" /* disableScroll */])();
@@ -285,22 +285,44 @@ function hideMask(ev) {
   maskEle.classList.add('c-hide');
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_toggleScroll__["b" /* enableScroll */])();
 }
+function delegateClick(ev) {
+  var evt = ev.target;
+  var te = void 0;
+  if (evt.classList.contains('instagram_user')) {
+    te = evt;
+  } else {
+    te = evt.closest('.instagram_user');
+  }
+  if (!te) return;
+  var ins_user_id = +te.dataset.id;
+  A.spf.navigate(window.location.origin + '/instagram_images?owner_id=' + ins_user_id);
+}
+
 var ele = void 0;
 var resEle = void 0;
 var maskEle = void 0;
 var searchEle = void 0;
+var insWrap = void 0;
 var debouncedQueryId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__common_utilities__["a" /* debounce */])(queryId, 100, false);
 function initInstagramUser() {
   ele = document.getElementById('ins_user_q');
   resEle = document.getElementsByClassName('ins-search-result')[0];
   searchEle = document.getElementsByClassName('ins-search')[0];
   maskEle = document.getElementsByClassName('ins-mask')[0];
+  insWrap = document.getElementsByClassName('instagram_users_wrap')[0];
   ele.addEventListener('keyup', debouncedQueryId);
+  ele.addEventListener('focus', debouncedQueryId);
   maskEle.addEventListener('click', hideMask);
+  resEle.addEventListener('click', delegateClick);
+  insWrap.addEventListener('click', delegateClick);
 }
 function disposeInstagramUser() {
   ele.removeEventListener('keyup', debouncedQueryId);
+  ele.removeEventListener('focus', debouncedQueryId);
   maskEle.removeEventListener('click', hideMask);
+  resEle.removeEventListener('click', delegateClick);
+  insWrap.removeEventListener('click', delegateClick);
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_toggleScroll__["b" /* enableScroll */])();
 }
 
 /***/ }),

@@ -1,0 +1,14 @@
+<%= form_tag '', :method => :get, :class => 'instagram-filter-form' do %>
+  <%= field_set_tag 'user_id', class: 'user_id_field_set' do %>
+    <%= text_field_tag :user_id, nil, class: 'c-input' %>
+  <% end %>
+  <%= field_set_tag 'task_type', class: 'task_type_field_set' do %>
+    <%= select_tag :task_type, options_for_select(@task_types, @current_task_type), class: 'c-input' %>
+  <% end %>
+  <%= field_set_tag 'status', class: 'status_field_set' do %>
+    <%= select_tag :status, options_for_select(@task_status, @current_status), class: 'c-input' %>
+  <% end %>
+  <%= field_set_tag 'submit', class: 'submit_field_set' do %>
+    <%= submit_tag 'Filter', class: 'submit c-btn' %>
+  <% end %>
+<% end %>
