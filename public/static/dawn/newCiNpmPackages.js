@@ -63,20 +63,21 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 78);
+/******/ 	return __webpack_require__(__webpack_require__.s = 150);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 33:
+/***/ 105:
 /* exports provided: default */
-/* exports used: default */
+/* all exports used */
 /*!***************************************!*\
   !*** ./~/vue/dist/vue.runtime.esm.js ***!
   \***************************************/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * Vue.js v2.4.2
  * (c) 2014-2017 Evan You
@@ -7503,13 +7504,13 @@ setTimeout(function () {
 
 /*  */
 
-/* harmony default export */ __webpack_exports__["a"] = (Vue$3);
+/* harmony default export */ __webpack_exports__["default"] = (Vue$3);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 34)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 106)))
 
 /***/ }),
 
-/***/ 34:
+/***/ 106:
 /* no static exports found */
 /* all exports used */
 /*!***********************************!*\
@@ -7542,21 +7543,31 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 52:
-/* exports provided: initNewCiNpmPackages, exitNewCiNpmPackages */
-/* exports used: initNewCiNpmPackages, exitNewCiNpmPackages */
+/***/ 124:
+/* no static exports found */
+/* all exports used */
 /*!**********************************************************!*\
   !*** ./app/javascript/packs/modules/newCiNpmPackages.js ***!
   \**********************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = initNewCiNpmPackages;
-/* harmony export (immutable) */ __webpack_exports__["b"] = exitNewCiNpmPackages;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(/*! vue */ 33);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initNewCiNpmPackages = initNewCiNpmPackages;
+exports.exitNewCiNpmPackages = exitNewCiNpmPackages;
+
+var _vue = __webpack_require__(/*! vue */ 105);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var vueApp = void 0;
-__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].component('new-packages', {
+_vue2.default.component('new-packages', {
   props: ['textareaInput'],
   data: function data() {
     return {
@@ -7710,7 +7721,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].component('new-packages', {
 
 });
 function initNewCiNpmPackages() {
-  vueApp = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
+  vueApp = new _vue2.default({
     el: '#app'
   });
 }
@@ -7721,21 +7732,22 @@ function exitNewCiNpmPackages() {
 
 /***/ }),
 
-/***/ 78:
+/***/ 150:
 /* no static exports found */
 /* all exports used */
 /*!**********************************************************!*\
   !*** ./app/javascript/packs/entries/newCiNpmPackages.js ***!
   \**********************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_newCiNpmPackages__ = __webpack_require__(/*! ../modules/newCiNpmPackages */ 52);
+
+
+var _newCiNpmPackages = __webpack_require__(/*! ../modules/newCiNpmPackages */ 124);
 
 (function () {
-  A.init[A.gc.currentName] = __WEBPACK_IMPORTED_MODULE_0__modules_newCiNpmPackages__["a" /* initNewCiNpmPackages */];
-  A.destroy[A.gc.currentName] = __WEBPACK_IMPORTED_MODULE_0__modules_newCiNpmPackages__["b" /* exitNewCiNpmPackages */];
+  A.init[A.gc.currentName] = _newCiNpmPackages.initNewCiNpmPackages;
+  A.destroy[A.gc.currentName] = _newCiNpmPackages.exitNewCiNpmPackages;
 })();
 
 /***/ })

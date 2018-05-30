@@ -63,22 +63,54 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 73);
+/******/ 	return __webpack_require__(__webpack_require__.s = 145);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 3:
-/* exports provided: rorParams */
-/* exports used: rorParams */
+/***/ 145:
+/* no static exports found */
+/* all exports used */
+/*!*******************************************************!*\
+  !*** ./app/javascript/packs/entries/documentation.js ***!
+  \*******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 47);
+
+(function () {
+  var cname = A.gc.currentName;
+
+  function documentation() {}
+  function exitDocumentation() {}
+  function detachDocumentation() {
+    A.spf.script.unload(cname);
+  }
+  A.init[cname] = documentation;
+  A.destroy[cname] = exitDocumentation;
+  // A.detach[cname] = detachDocumentation;
+})();
+
+/***/ }),
+
+/***/ 30:
+/* no static exports found */
+/* all exports used */
 /*!*********************************************!*\
   !*** ./app/javascript/packs/common/csrf.js ***!
   \*********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return rorParams; });
-var rorParams = {
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var rorParams = exports.rorParams = {
   // Up-to-date Cross-Site Request Forgery token
   csrfToken: function csrfToken() {
     return document.querySelector('meta[name=csrf-token]').getAttribute('content');
@@ -113,44 +145,23 @@ var rorParams = {
 
 /***/ }),
 
-/***/ 73:
+/***/ 47:
 /* no static exports found */
 /* all exports used */
-/*!*******************************************************!*\
-  !*** ./app/javascript/packs/entries/documentation.js ***!
-  \*******************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_handleMethod2__ = __webpack_require__(/*! ../common/handleMethod2 */ 9);
-
-(function () {
-  var cname = A.gc.currentName;
-
-  function documentation() {}
-  function exitDocumentation() {}
-  function detachDocumentation() {
-    A.spf.script.unload(cname);
-  }
-  A.init[cname] = documentation;
-  A.destroy[cname] = exitDocumentation;
-  // A.detach[cname] = detachDocumentation;
-})();
-
-/***/ }),
-
-/***/ 9:
-/* exports provided: handleMethod */
-/* exports used: handleMethod */
 /*!******************************************************!*\
   !*** ./app/javascript/packs/common/handleMethod2.js ***!
   \******************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = handleMethod;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_csrf__ = __webpack_require__(/*! ../common/csrf */ 3);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleMethod = handleMethod;
+
+var _csrf = __webpack_require__(/*! ../common/csrf */ 30);
 
 /**
  * [handleMethod description]
@@ -165,8 +176,8 @@ function handleMethod(link, linkMethod) {
   var href = link.getAttribute('href'),
       method = linkMethod,
       target = link.getAttribute('target'),
-      csrfToken = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfToken(),
-      csrfParam = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfParam();
+      csrfToken = _csrf.rorParams.csrfToken(),
+      csrfParam = _csrf.rorParams.csrfParam();
   var paramsObj = {
     href: href,
     method: method,
@@ -194,7 +205,7 @@ function createForm(params, obj) {
   i.setAttribute('value', params.method);
 
   var s;
-  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !__WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].isCrossDomain(params.href)) {
+  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !_csrf.rorParams.isCrossDomain(params.href)) {
     s = document.createElement('input');
     s.setAttribute('type', 'hidden');
     s.setAttribute('name', params.csrfParam);

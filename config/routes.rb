@@ -73,11 +73,16 @@ Rails.application.routes.draw do
   get 'instagram_profile_pics', to: 'instagram_users#profile_pics'
   get 'imagesByOwnerId', to: 'instagram_images#imagesByOwnerId'
   get 'all_instagram_users_id', to: 'instagram_users#all_instagram_users_id'
+  get 'all_instagram_users_info', to: 'instagram_users#all_instagram_users_info'
+  patch 'update_instagram_users_info', to: 'instagram_users#update_users_info'
   get 'today_success_ids', to: 'instagram_tasks#today_success_ids'
   get 'instagram_download_failure', to: 'instagram_tasks#download_failure'
   get 'instagram_user_images_codes', to: 'instagram_images#userImagesCodes'
+  get 'instagram_user_most_recent_image_in_db', to: 'instagram_images#userMostRecentImage'
   get 'instagram_not_downloaded_images', to: 'instagram_images#notDownloadedImages'
+  patch 'update_instagram_img_status', to: 'instagram_images#updateImgStatus'
 
+  post 'instagram_images_urls', to: 'instagram_images#imagesUrl'
   # scope '(:locale)' do
   #   resources :orders
   #   resources :line_items

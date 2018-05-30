@@ -8,7 +8,7 @@ gem 'simple_command'
 gem 'faker'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog'
+# gem 'fog'
 gem 'will_paginate'
 gem 'uglifier'
 gem 'sass'
@@ -19,6 +19,7 @@ gem 'pg'
 gem 'regexp-examples'
 # gem 'structured_warnings'
 gem 'addressable'
+gem 'rack'
 gem 'rack-proxy'
 gem 'puma'
 gem 'redis'
@@ -45,11 +46,11 @@ group :development do
   gem 'bullet'
   gem 'web-console'
   gem 'spring'
-  gem 'capistrano',               require: false
+  gem 'capistrano', '~>3.7.2',    require: false
   gem 'capistrano-rvm',           require: false
   gem 'capistrano-rails',         require: false
   gem 'capistrano-bundler',       require: false
-  gem 'capistrano-sidekiq',       require: false
+  gem 'capistrano-sidekiq', '~>0.10.0',      require: false
   gem 'capistrano3-puma',         require: false
   gem 'capistrano-rails-console', require: false
 end

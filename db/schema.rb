@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20171003035154) do
     t.datetime "updated_at", null: false
     t.boolean "downloaded", default: false
     t.datetime "timestamp"
+    t.integer "raw_timestamp"
     t.text "caption"
   end
 

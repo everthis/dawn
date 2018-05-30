@@ -63,67 +63,27 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 76);
+/******/ 	return __webpack_require__(__webpack_require__.s = 148);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 3:
-/* exports provided: rorParams */
-/* exports used: rorParams */
-/*!*********************************************!*\
-  !*** ./app/javascript/packs/common/csrf.js ***!
-  \*********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return rorParams; });
-var rorParams = {
-  // Up-to-date Cross-Site Request Forgery token
-  csrfToken: function csrfToken() {
-    return document.querySelector('meta[name=csrf-token]').getAttribute('content');
-  },
-  // URL param that must contain the CSRF token
-  csrfParam: function csrfParam() {
-    return document.querySelector('meta[name=csrf-param]').getAttribute('content');
-  },
-  // Determines if the request is a cross domain request.
-  isCrossDomain: function isCrossDomain(url) {
-    var originAnchor = document.createElement('a');
-    originAnchor.href = location.href;
-    var urlAnchor = document.createElement('a');
-
-    try {
-      urlAnchor.href = url;
-      // This is a workaround to a IE bug.
-      urlAnchor.href = urlAnchor.href;
-
-      // If URL protocol is false or is a string containing a single colon
-      // *and* host are false, assume it is not a cross-domain request
-      // (should only be the case for IE7 and IE compatibility mode).
-      // Otherwise, evaluate protocol and host of the URL against the origin
-      // protocol and host.
-      return !((!urlAnchor.protocol || urlAnchor.protocol === ':') && !urlAnchor.host || originAnchor.protocol + '//' + originAnchor.host === urlAnchor.protocol + '//' + urlAnchor.host);
-    } catch (e) {
-      // If there is an error parsing the URL, assume it is crossDomain.
-      return true;
-    }
-  }
-};
-
-/***/ }),
-
-/***/ 54:
-/* exports provided: tweetBox, exitTweetBox */
-/* exports used: tweetBox, exitTweetBox */
+/***/ 126:
+/* no static exports found */
+/* all exports used */
 /*!**************************************************!*\
   !*** ./app/javascript/packs/modules/tweetBox.js ***!
   \**************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = tweetBox;
-/* harmony export (immutable) */ __webpack_exports__["b"] = exitTweetBox;
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.tweetBox = tweetBox;
+exports.exitTweetBox = exitTweetBox;
 var f = void 0,
     fa = void 0,
     fd = void 0,
@@ -261,20 +221,20 @@ function exitTweetBox() {
 
 /***/ }),
 
-/***/ 76:
+/***/ 148:
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
   !*** ./app/javascript/packs/entries/homepage.js ***!
   \**************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_tweetBox__ = __webpack_require__(/*! ../modules/tweetBox */ 54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_handleMethod2__ = __webpack_require__(/*! ../common/handleMethod2 */ 9);
 
 
+var _tweetBox = __webpack_require__(/*! ../modules/tweetBox */ 126);
+
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 47);
 
 var cname = A.gc.currentName;
 var hmInstance = void 0;
@@ -288,7 +248,7 @@ function processDataLink(ev) {
 
   if (e.target.dataset.method === 'fnpu_delete') {
     e.preventDefault();
-    hmInstance = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_handleMethod2__["a" /* handleMethod */])(e.target, 'delete');
+    hmInstance = (0, _handleMethod.handleMethod)(e.target, 'delete');
     fa = e.target.getAttribute('href');
     fd = new FormData(hmInstance);
     window.A.spf.load(fa, {
@@ -312,12 +272,12 @@ function removeBindClick() {
 
 function initHomepage() {
   // bindClick();
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__modules_tweetBox__["a" /* tweetBox */])();
+  (0, _tweetBox.tweetBox)();
 }
 
 function disposeHomepage() {
   // removeBindClick();
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__modules_tweetBox__["b" /* exitTweetBox */])();
+  (0, _tweetBox.exitTweetBox)();
 }
 
 (function () {
@@ -331,17 +291,72 @@ function disposeHomepage() {
 
 /***/ }),
 
-/***/ 9:
-/* exports provided: handleMethod */
-/* exports used: handleMethod */
+/***/ 30:
+/* no static exports found */
+/* all exports used */
+/*!*********************************************!*\
+  !*** ./app/javascript/packs/common/csrf.js ***!
+  \*********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var rorParams = exports.rorParams = {
+  // Up-to-date Cross-Site Request Forgery token
+  csrfToken: function csrfToken() {
+    return document.querySelector('meta[name=csrf-token]').getAttribute('content');
+  },
+  // URL param that must contain the CSRF token
+  csrfParam: function csrfParam() {
+    return document.querySelector('meta[name=csrf-param]').getAttribute('content');
+  },
+  // Determines if the request is a cross domain request.
+  isCrossDomain: function isCrossDomain(url) {
+    var originAnchor = document.createElement('a');
+    originAnchor.href = location.href;
+    var urlAnchor = document.createElement('a');
+
+    try {
+      urlAnchor.href = url;
+      // This is a workaround to a IE bug.
+      urlAnchor.href = urlAnchor.href;
+
+      // If URL protocol is false or is a string containing a single colon
+      // *and* host are false, assume it is not a cross-domain request
+      // (should only be the case for IE7 and IE compatibility mode).
+      // Otherwise, evaluate protocol and host of the URL against the origin
+      // protocol and host.
+      return !((!urlAnchor.protocol || urlAnchor.protocol === ':') && !urlAnchor.host || originAnchor.protocol + '//' + originAnchor.host === urlAnchor.protocol + '//' + urlAnchor.host);
+    } catch (e) {
+      // If there is an error parsing the URL, assume it is crossDomain.
+      return true;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ 47:
+/* no static exports found */
+/* all exports used */
 /*!******************************************************!*\
   !*** ./app/javascript/packs/common/handleMethod2.js ***!
   \******************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = handleMethod;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_csrf__ = __webpack_require__(/*! ../common/csrf */ 3);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleMethod = handleMethod;
+
+var _csrf = __webpack_require__(/*! ../common/csrf */ 30);
 
 /**
  * [handleMethod description]
@@ -356,8 +371,8 @@ function handleMethod(link, linkMethod) {
   var href = link.getAttribute('href'),
       method = linkMethod,
       target = link.getAttribute('target'),
-      csrfToken = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfToken(),
-      csrfParam = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfParam();
+      csrfToken = _csrf.rorParams.csrfToken(),
+      csrfParam = _csrf.rorParams.csrfParam();
   var paramsObj = {
     href: href,
     method: method,
@@ -385,7 +400,7 @@ function createForm(params, obj) {
   i.setAttribute('value', params.method);
 
   var s;
-  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !__WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].isCrossDomain(params.href)) {
+  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !_csrf.rorParams.isCrossDomain(params.href)) {
     s = document.createElement('input');
     s.setAttribute('type', 'hidden');
     s.setAttribute('name', params.csrfParam);

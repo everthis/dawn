@@ -63,23 +63,201 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 75);
+/******/ 	return __webpack_require__(__webpack_require__.s = 147);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/* exports provided: SPF_DEBUG, SPF_BOOTLOADER, SPF_TRACING, spfBase */
-/* exports used: SPF_BOOTLOADER, spfBase, SPF_DEBUG */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_global.js ***!
+  \**********************************************/
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 1 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_descriptors.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(/*! ./_fails */ 9)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 2 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_object-dp.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(/*! ./_an-object */ 11);
+var IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 34);
+var toPrimitive = __webpack_require__(/*! ./_to-primitive */ 17);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(/*! ./_descriptors */ 1) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 3 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/core-js/library/modules/_wks.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var store = __webpack_require__(/*! ./_shared */ 26)('wks');
+var uid = __webpack_require__(/*! ./_uid */ 15);
+var Symbol = __webpack_require__(/*! ./_global */ 0).Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+
+/***/ }),
+/* 4 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/core-js/library/modules/_has.js ***!
+  \*******************************************/
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+
+/***/ }),
+/* 5 */
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/modules/_hide.js ***!
+  \********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(/*! ./_object-dp */ 2);
+var createDesc = __webpack_require__(/*! ./_property-desc */ 12);
+module.exports = __webpack_require__(/*! ./_descriptors */ 1) ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+
+/***/ }),
+/* 6 */
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/modules/_core.js ***!
+  \********************************************/
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.1' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 7 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_to-iobject.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(/*! ./_iobject */ 63);
+var defined = __webpack_require__(/*! ./_defined */ 19);
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+
+/***/ }),
+/* 8 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_is-object.js ***!
+  \*************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+/* 9 */
+/* no static exports found */
+/* all exports used */
+/*!*********************************************!*\
+  !*** ./~/core-js/library/modules/_fails.js ***!
+  \*********************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 10 */
+/* no static exports found */
+/* all exports used */
 /*!******************************************!*\
   !*** ./app/javascript/packs/spf/base.js ***!
   \******************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SPF_DEBUG; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SPF_BOOTLOADER; });
-/* unused harmony export SPF_TRACING */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return spfBase; });
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 // Copyright 2012 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -415,22 +593,360 @@ spfBase.EventDetail;
  */
 spfBase.TaskScheduler;
 
+exports.SPF_DEBUG = SPF_DEBUG;
+exports.SPF_BOOTLOADER = SPF_BOOTLOADER;
+exports.SPF_TRACING = SPF_TRACING;
+exports.spfBase = spfBase;
+
+/***/ }),
+/* 11 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_an-object.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
 
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */
-/* exports provided: rorParams */
-/* exports used: rorParams */
+/* 12 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_property-desc.js ***!
+  \*****************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+
+/***/ }),
+/* 13 */,
+/* 14 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_export.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ 0);
+var core = __webpack_require__(/*! ./_core */ 6);
+var ctx = __webpack_require__(/*! ./_ctx */ 39);
+var hide = __webpack_require__(/*! ./_hide */ 5);
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if (own && key in exports) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if (IS_PROTO) {
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+
+/***/ }),
+/* 15 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/core-js/library/modules/_uid.js ***!
+  \*******************************************/
+/***/ (function(module, exports) {
+
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+
+/***/ }),
+/* 16 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_iterators.js ***!
+  \*************************************************/
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+
+/***/ }),
+/* 17 */
+/* no static exports found */
+/* all exports used */
+/*!****************************************************!*\
+  !*** ./~/core-js/library/modules/_to-primitive.js ***!
+  \****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+
+/***/ }),
+/* 18 */,
+/* 19 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/core-js/library/modules/_defined.js ***!
+  \***********************************************/
+/***/ (function(module, exports) {
+
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+
+/***/ }),
+/* 20 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_enum-bug-keys.js ***!
+  \*****************************************************/
+/***/ (function(module, exports) {
+
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+
+/***/ }),
+/* 21 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/core-js/library/modules/_library.js ***!
+  \***********************************************/
+/***/ (function(module, exports) {
+
+module.exports = true;
+
+
+/***/ }),
+/* 22 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_object-keys.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = __webpack_require__(/*! ./_object-keys-internal */ 44);
+var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20);
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+
+/***/ }),
+/* 23 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_object-pie.js ***!
+  \**************************************************/
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
+
+
+/***/ }),
+/* 24 */
+/* no static exports found */
+/* all exports used */
+/*!*********************************************************!*\
+  !*** ./~/core-js/library/modules/_set-to-string-tag.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var def = __webpack_require__(/*! ./_object-dp */ 2).f;
+var has = __webpack_require__(/*! ./_has */ 4);
+var TAG = __webpack_require__(/*! ./_wks */ 3)('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+
+/***/ }),
+/* 25 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_shared-key.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var shared = __webpack_require__(/*! ./_shared */ 26)('keys');
+var uid = __webpack_require__(/*! ./_uid */ 15);
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+
+/***/ }),
+/* 26 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_shared.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ 0);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+module.exports = function (key) {
+  return store[key] || (store[key] = {});
+};
+
+
+/***/ }),
+/* 27 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_to-integer.js ***!
+  \**************************************************/
+/***/ (function(module, exports) {
+
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+
+/***/ }),
+/* 28 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_wks-define.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ 0);
+var core = __webpack_require__(/*! ./_core */ 6);
+var LIBRARY = __webpack_require__(/*! ./_library */ 21);
+var wksExt = __webpack_require__(/*! ./_wks-ext */ 29);
+var defineProperty = __webpack_require__(/*! ./_object-dp */ 2).f;
+module.exports = function (name) {
+  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
+  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
+};
+
+
+/***/ }),
+/* 29 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/core-js/library/modules/_wks-ext.js ***!
+  \***********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.f = __webpack_require__(/*! ./_wks */ 3);
+
+
+/***/ }),
+/* 30 */
+/* no static exports found */
+/* all exports used */
 /*!*********************************************!*\
   !*** ./app/javascript/packs/common/csrf.js ***!
   \*********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return rorParams; });
-var rorParams = {
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var rorParams = exports.rorParams = {
   // Up-to-date Cross-Site Request Forgery token
   csrfToken: function csrfToken() {
     return document.querySelector('meta[name=csrf-token]').getAttribute('content');
@@ -464,16 +980,28 @@ var rorParams = {
 };
 
 /***/ }),
-/* 4 */
-/* exports provided: default */
-/* exports used: default */
+/* 31 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/array/array.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var spfArray = {};
+
+/**
+ * @typedef {Array|NodeList|Arguments|{length: number}}
+ */
 /**
  * @fileoverview Array manipulation functions.
  *
@@ -481,12 +1009,6 @@ var rorParams = {
 
 // goog.provide('spfArray');
 
-
-var spfArray = {};
-
-/**
- * @typedef {Array|NodeList|Arguments|{length: number}}
- */
 spfArray.ArrayLike;
 
 /**
@@ -501,7 +1023,7 @@ spfArray.ArrayLike;
  */
 spfArray.each = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */] && arr.forEach) {
+  if (!_base.SPF_BOOTLOADER && arr.forEach) {
     arr.forEach(fn, opt_obj);
     return;
   }
@@ -526,7 +1048,7 @@ spfArray.each = function (arr, fn, opt_obj) {
  */
 spfArray.every = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */] && arr.every) {
+  if (!_base.SPF_BOOTLOADER && arr.every) {
     return arr.every(fn, opt_obj);
   }
   for (var i = 0, l = arr.length; i < l; i++) {
@@ -551,7 +1073,7 @@ spfArray.every = function (arr, fn, opt_obj) {
  */
 spfArray.some = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */] && arr.some) {
+  if (!_base.SPF_BOOTLOADER && arr.some) {
     return arr.some(fn, opt_obj);
   }
   for (var i = 0, l = arr.length; i < l; i++) {
@@ -576,7 +1098,7 @@ spfArray.some = function (arr, fn, opt_obj) {
  */
 spfArray.filter = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */] && arr.filter) {
+  if (!_base.SPF_BOOTLOADER && arr.filter) {
     return arr.filter(fn, opt_obj);
   }
   var res = [];
@@ -598,7 +1120,7 @@ spfArray.filter = function (arr, fn, opt_obj) {
  * @template ITEM
  */
 spfArray.indexOf = function (arr, val, opt_fromIndex) {
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */] && arr.indexOf) {
+  if (!_base.SPF_BOOTLOADER && arr.indexOf) {
     return arr.indexOf(val, opt_fromIndex);
   }
   var start = opt_fromIndex || 0;
@@ -624,7 +1146,7 @@ spfArray.indexOf = function (arr, val, opt_fromIndex) {
  */
 spfArray.map = function (arr, fn, opt_obj) {
   // When built for the bootloader, optimize for size over speed.
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */] && arr.map) {
+  if (!_base.SPF_BOOTLOADER && arr.map) {
     return arr.map(fn, opt_obj);
   }
   var res = [];
@@ -653,7 +1175,7 @@ spfArray.toArray = function (val) {
  */
 spfArray.isArray = function (val) {
   // When built for the bootloader, optimize for size over complete accuracy.
-  if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
+  if (_base.SPF_BOOTLOADER) {
     // This test will fail if a fake object like "{push: 1}" is passed in, but
     // for the bootloader, this is an acceptable trade off.
     return !!(val && val.push);
@@ -661,18 +1183,23 @@ spfArray.isArray = function (val) {
   return Object.prototype.toString.call(val) == '[object Array]';
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfArray);
+exports.default = spfArray;
 
 /***/ }),
-/* 5 */
-/* exports provided: default */
-/* exports used: default */
+/* 32 */
+/* no static exports found */
+/* all exports used */
 /*!*******************************************!*\
   !*** ./app/javascript/packs/spf/state.js ***!
   \*******************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 // Copyright 2014 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -767,30 +1294,61 @@ spfState.Key = {
 };spfState.values_ = {};
 spfState['_spf_state'] = spfState.values_;
 
-/* harmony default export */ __webpack_exports__["a"] = (spfState);
+exports.default = spfState;
 
 /***/ }),
-/* 6 */
-/* exports provided: default */
-/* exports used: default */
+/* 33 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_dom-create.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+var document = __webpack_require__(/*! ./_global */ 0).document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+
+/***/ }),
+/* 34 */
+/* no static exports found */
+/* all exports used */
+/*!******************************************************!*\
+  !*** ./~/core-js/library/modules/_ie8-dom-define.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(/*! ./_descriptors */ 1) && !__webpack_require__(/*! ./_fails */ 9)(function () {
+  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 33)('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 35 */
+/* no static exports found */
+/* all exports used */
 /*!********************************************!*\
   !*** ./app/javascript/packs/spf/config.js ***!
   \********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(/*! ./state */ 5);
-// Copyright 2014 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
 
-/**
- * @fileoverview Functions for handling the SPF config.
- *
- * @author nicksay@google.com (Alex Nicksay)
- */
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _state = __webpack_require__(/*! ./state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfConfig = {};
 
@@ -802,6 +1360,17 @@ var spfConfig = {};
  *
  * @typedef {string|number|boolean|Function|null}
  */
+// Copyright 2014 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview Functions for handling the SPF config.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ */
+
 spfConfig.Value;
 
 /**
@@ -891,35 +1460,30 @@ spfConfig.clear = function () {
 spfConfig.values = {};
 
 // Automatic initialization for spfConfig.values.
-if (!__WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */].Key.CONFIG_VALUES)) {
-  __WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */].Key.CONFIG_VALUES, spfConfig.values);
+if (!_state2.default.has(_state2.default.Key.CONFIG_VALUES)) {
+  _state2.default.set(_state2.default.Key.CONFIG_VALUES, spfConfig.values);
 }
-spfConfig.values = /** @type {!Object.<spfConfig.Value>} */__WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */].Key.CONFIG_VALUES);
+spfConfig.values = /** @type {!Object.<spfConfig.Value>} */_state2.default.get(_state2.default.Key.CONFIG_VALUES);
 
-/* harmony default export */ __webpack_exports__["a"] = (spfConfig);
+exports.default = spfConfig;
 
 /***/ }),
-/* 7 */
-/* exports provided: default */
-/* exports used: default */
+/* 36 */
+/* no static exports found */
+/* all exports used */
 /*!***************************************************!*\
   !*** ./app/javascript/packs/spf/string/string.js ***!
   \***************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-// Copyright 2012 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
 
-/**
- * @fileoverview String manipulation functions.
- *
- * @author nicksay@google.com (Alex Nicksay)
- */
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
 
 var spfString = {};
 
@@ -934,6 +1498,17 @@ var spfString = {};
  * @param {string} substr The substring to test for.
  * @return {boolean} True if `str` contains `substr`.
  */
+// Copyright 2012 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview String manipulation functions.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ */
+
 spfString.contains = function (str, substr) {
   return str.indexOf(substr) != -1;
 };
@@ -971,7 +1546,7 @@ spfString.endsWith = function (str, suffix) {
  */
 spfString.isString = function (val) {
   // When built for the bootloader, optimize for size over complete accuracy.
-  if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
+  if (_base.SPF_BOOTLOADER) {
     // The return value for typeof will be one of the following:
     // * number
     // * string
@@ -1056,19 +1631,49 @@ spfString.toSelectorCase = function (str) {
   return String(str).replace(/([A-Z])/g, '-$1').toLowerCase();
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfString);
+exports.default = spfString;
 
 /***/ }),
-/* 8 */
-/* exports provided: default */
-/* exports used: default */
+/* 37 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/core-js/library/modules/_cof.js ***!
+  \*******************************************/
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+
+/***/ }),
+/* 38 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/debug/debug.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var spfDebug = {};
+
+/**
+ * Log to the browser console using "debug", the low priority method.
+ *
+ * @param {...*} var_args Items to log.
+ */
 // Copyright 2012 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -1084,15 +1689,6 @@ spfString.toSelectorCase = function (str) {
 
 // goog.provide('spfDebug');
 
-
-
-var spfDebug = {};
-
-/**
- * Log to the browser console using "debug", the low priority method.
- *
- * @param {...*} var_args Items to log.
- */
 spfDebug.debug = function (var_args) {
   if (spfDebug.isLevelEnabled(spfDebug.Level.DEBUG)) {
     spfDebug.log(spfDebug.Level.DEBUG, 'spf', arguments);
@@ -1143,11 +1739,11 @@ spfDebug.error = function (var_args) {
  * @param {{length: number}} args List of items to log.
  */
 spfDebug.log = function (method, prefix, args) {
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] || !window.console) {
+  if (!_base.SPF_DEBUG || !window.console) {
     return;
   }
   args = Array.prototype.slice.call(args);
-  var current = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+  var current = _base.spfBase.now();
   var overall = spfDebug.formatDuration(spfDebug.start_, current);
   if (spfDebug.split_) {
     var split = spfDebug.formatDuration(spfDebug.split_, current);
@@ -1170,7 +1766,7 @@ spfDebug.log = function (method, prefix, args) {
  * since last reset in addition to overall duration.
  */
 spfDebug.reset = function () {
-  spfDebug.split_ = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+  spfDebug.split_ = _base.spfBase.now();
 };
 
 /**
@@ -1203,7 +1799,7 @@ spfDebug.isLevelEnabled = function (level) {
  * The timestamp of when debugging was initialized, for overall duration.
  * @private {number}
  */
-spfDebug.start_ = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+spfDebug.start_ = _base.spfBase.now();
 
 /**
  * The timestamp of when debugging was reset, for split durations.
@@ -1250,20 +1846,276 @@ spfDebug.levels_ = {
    */
 };spfDebug.OUTPUT = 'debug';
 
-/* harmony default export */ __webpack_exports__["a"] = (spfDebug);
+exports.default = spfDebug;
 
 /***/ }),
-/* 9 */
-/* exports provided: handleMethod */
-/* exports used: handleMethod */
+/* 39 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/core-js/library/modules/_ctx.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// optional / simple context binding
+var aFunction = __webpack_require__(/*! ./_a-function */ 46);
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+
+/***/ }),
+/* 40 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_iter-define.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY = __webpack_require__(/*! ./_library */ 21);
+var $export = __webpack_require__(/*! ./_export */ 14);
+var redefine = __webpack_require__(/*! ./_redefine */ 45);
+var hide = __webpack_require__(/*! ./_hide */ 5);
+var has = __webpack_require__(/*! ./_has */ 4);
+var Iterators = __webpack_require__(/*! ./_iterators */ 16);
+var $iterCreate = __webpack_require__(/*! ./_iter-create */ 65);
+var setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 24);
+var getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 69);
+var ITERATOR = __webpack_require__(/*! ./_wks */ 3)('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = $native || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+
+/***/ }),
+/* 41 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_object-create.js ***!
+  \*****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = __webpack_require__(/*! ./_an-object */ 11);
+var dPs = __webpack_require__(/*! ./_object-dps */ 50);
+var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20);
+var IE_PROTO = __webpack_require__(/*! ./_shared-key */ 25)('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__(/*! ./_dom-create */ 33)('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__(/*! ./_html */ 62).appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+
+/***/ }),
+/* 42 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_object-gopn.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys = __webpack_require__(/*! ./_object-keys-internal */ 44);
+var hiddenKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20).concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return $keys(O, hiddenKeys);
+};
+
+
+/***/ }),
+/* 43 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_object-gops.js ***!
+  \***************************************************/
+/***/ (function(module, exports) {
+
+exports.f = Object.getOwnPropertySymbols;
+
+
+/***/ }),
+/* 44 */
+/* no static exports found */
+/* all exports used */
+/*!************************************************************!*\
+  !*** ./~/core-js/library/modules/_object-keys-internal.js ***!
+  \************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__(/*! ./_has */ 4);
+var toIObject = __webpack_require__(/*! ./_to-iobject */ 7);
+var arrayIndexOf = __webpack_require__(/*! ./_array-includes */ 60)(false);
+var IE_PROTO = __webpack_require__(/*! ./_shared-key */ 25)('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+
+/***/ }),
+/* 45 */
+/* no static exports found */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./~/core-js/library/modules/_redefine.js ***!
+  \************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./_hide */ 5);
+
+
+/***/ }),
+/* 46 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_a-function.js ***!
+  \**************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+
+/***/ }),
+/* 47 */
+/* no static exports found */
+/* all exports used */
 /*!******************************************************!*\
   !*** ./app/javascript/packs/common/handleMethod2.js ***!
   \******************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = handleMethod;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_csrf__ = __webpack_require__(/*! ../common/csrf */ 3);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleMethod = handleMethod;
+
+var _csrf = __webpack_require__(/*! ../common/csrf */ 30);
 
 /**
  * [handleMethod description]
@@ -1278,8 +2130,8 @@ function handleMethod(link, linkMethod) {
   var href = link.getAttribute('href'),
       method = linkMethod,
       target = link.getAttribute('target'),
-      csrfToken = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfToken(),
-      csrfParam = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfParam();
+      csrfToken = _csrf.rorParams.csrfToken(),
+      csrfParam = _csrf.rorParams.csrfParam();
   var paramsObj = {
     href: href,
     method: method,
@@ -1307,7 +2159,7 @@ function createForm(params, obj) {
   i.setAttribute('value', params.method);
 
   var s;
-  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !__WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].isCrossDomain(params.href)) {
+  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !_csrf.rorParams.isCrossDomain(params.href)) {
     s = document.createElement('input');
     s.setAttribute('type', 'hidden');
     s.setAttribute('name', params.csrfParam);
@@ -1339,25 +2191,899 @@ function submitForm(form) {
 }
 
 /***/ }),
-/* 10 */,
-/* 11 */,
-/* 12 */
-/* exports provided: default */
-/* exports used: default */
+/* 48 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/babel-runtime/helpers/typeof.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _iterator = __webpack_require__(/*! ../core-js/symbol/iterator */ 56);
+
+var _iterator2 = _interopRequireDefault(_iterator);
+
+var _symbol = __webpack_require__(/*! ../core-js/symbol */ 55);
+
+var _symbol2 = _interopRequireDefault(_symbol);
+
+var _typeof = typeof _symbol2.default === "function" && typeof _iterator2.default === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj; };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
+} : function (obj) {
+  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
+};
+
+/***/ }),
+/* 49 */
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/modules/_meta.js ***!
+  \********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var META = __webpack_require__(/*! ./_uid */ 15)('meta');
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+var has = __webpack_require__(/*! ./_has */ 4);
+var setDesc = __webpack_require__(/*! ./_object-dp */ 2).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(/*! ./_fails */ 9)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+
+/***/ }),
+/* 50 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_object-dps.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(/*! ./_object-dp */ 2);
+var anObject = __webpack_require__(/*! ./_an-object */ 11);
+var getKeys = __webpack_require__(/*! ./_object-keys */ 22);
+
+module.exports = __webpack_require__(/*! ./_descriptors */ 1) ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+
+/***/ }),
+/* 51 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_to-length.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.15 ToLength
+var toInteger = __webpack_require__(/*! ./_to-integer */ 27);
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+
+/***/ }),
+/* 52 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_to-object.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.13 ToObject(argument)
+var defined = __webpack_require__(/*! ./_defined */ 19);
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+
+/***/ }),
+/* 53 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************************!*\
+  !*** ./~/core-js/library/modules/es6.string.iterator.js ***!
+  \**********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $at = __webpack_require__(/*! ./_string-at */ 70)(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+__webpack_require__(/*! ./_iter-define */ 40)(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
+
+/***/ }),
+/* 54 */,
+/* 55 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/babel-runtime/core-js/symbol.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol */ 57), __esModule: true };
+
+/***/ }),
+/* 56 */
+/* no static exports found */
+/* all exports used */
+/*!****************************************************!*\
+  !*** ./~/babel-runtime/core-js/symbol/iterator.js ***!
+  \****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol/iterator */ 58), __esModule: true };
+
+/***/ }),
+/* 57 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/fn/symbol/index.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../../modules/es6.symbol */ 74);
+__webpack_require__(/*! ../../modules/es6.object.to-string */ 73);
+__webpack_require__(/*! ../../modules/es7.symbol.async-iterator */ 75);
+__webpack_require__(/*! ../../modules/es7.symbol.observable */ 76);
+module.exports = __webpack_require__(/*! ../../modules/_core */ 6).Symbol;
+
+
+/***/ }),
+/* 58 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/fn/symbol/iterator.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../../modules/es6.string.iterator */ 53);
+__webpack_require__(/*! ../../modules/web.dom.iterable */ 77);
+module.exports = __webpack_require__(/*! ../../modules/_wks-ext */ 29).f('iterator');
+
+
+/***/ }),
+/* 59 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************************!*\
+  !*** ./~/core-js/library/modules/_add-to-unscopables.js ***!
+  \**********************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function () { /* empty */ };
+
+
+/***/ }),
+/* 60 */
+/* no static exports found */
+/* all exports used */
+/*!******************************************************!*\
+  !*** ./~/core-js/library/modules/_array-includes.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = __webpack_require__(/*! ./_to-iobject */ 7);
+var toLength = __webpack_require__(/*! ./_to-length */ 51);
+var toAbsoluteIndex = __webpack_require__(/*! ./_to-absolute-index */ 71);
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+
+/***/ }),
+/* 61 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_enum-keys.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// all enumerable object keys, includes symbols
+var getKeys = __webpack_require__(/*! ./_object-keys */ 22);
+var gOPS = __webpack_require__(/*! ./_object-gops */ 43);
+var pIE = __webpack_require__(/*! ./_object-pie */ 23);
+module.exports = function (it) {
+  var result = getKeys(it);
+  var getSymbols = gOPS.f;
+  if (getSymbols) {
+    var symbols = getSymbols(it);
+    var isEnum = pIE.f;
+    var i = 0;
+    var key;
+    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
+  } return result;
+};
+
+
+/***/ }),
+/* 62 */
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/modules/_html.js ***!
+  \********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var document = __webpack_require__(/*! ./_global */ 0).document;
+module.exports = document && document.documentElement;
+
+
+/***/ }),
+/* 63 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/core-js/library/modules/_iobject.js ***!
+  \***********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(/*! ./_cof */ 37);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+
+/***/ }),
+/* 64 */
+/* no static exports found */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./~/core-js/library/modules/_is-array.js ***!
+  \************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.2.2 IsArray(argument)
+var cof = __webpack_require__(/*! ./_cof */ 37);
+module.exports = Array.isArray || function isArray(arg) {
+  return cof(arg) == 'Array';
+};
+
+
+/***/ }),
+/* 65 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_iter-create.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var create = __webpack_require__(/*! ./_object-create */ 41);
+var descriptor = __webpack_require__(/*! ./_property-desc */ 12);
+var setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 24);
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+__webpack_require__(/*! ./_hide */ 5)(IteratorPrototype, __webpack_require__(/*! ./_wks */ 3)('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+
+/***/ }),
+/* 66 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_iter-step.js ***!
+  \*************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (done, value) {
+  return { value: value, done: !!done };
+};
+
+
+/***/ }),
+/* 67 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_object-gopd.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var pIE = __webpack_require__(/*! ./_object-pie */ 23);
+var createDesc = __webpack_require__(/*! ./_property-desc */ 12);
+var toIObject = __webpack_require__(/*! ./_to-iobject */ 7);
+var toPrimitive = __webpack_require__(/*! ./_to-primitive */ 17);
+var has = __webpack_require__(/*! ./_has */ 4);
+var IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 34);
+var gOPD = Object.getOwnPropertyDescriptor;
+
+exports.f = __webpack_require__(/*! ./_descriptors */ 1) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return gOPD(O, P);
+  } catch (e) { /* empty */ }
+  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+
+/***/ }),
+/* 68 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************************!*\
+  !*** ./~/core-js/library/modules/_object-gopn-ext.js ***!
+  \*******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = __webpack_require__(/*! ./_to-iobject */ 7);
+var gOPN = __webpack_require__(/*! ./_object-gopn */ 42).f;
+var toString = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function (it) {
+  try {
+    return gOPN(it);
+  } catch (e) {
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it) {
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+
+/***/ }),
+/* 69 */
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_object-gpo.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = __webpack_require__(/*! ./_has */ 4);
+var toObject = __webpack_require__(/*! ./_to-object */ 52);
+var IE_PROTO = __webpack_require__(/*! ./_shared-key */ 25)('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+
+/***/ }),
+/* 70 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_string-at.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(/*! ./_to-integer */ 27);
+var defined = __webpack_require__(/*! ./_defined */ 19);
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+
+/***/ }),
+/* 71 */
+/* no static exports found */
+/* all exports used */
+/*!*********************************************************!*\
+  !*** ./~/core-js/library/modules/_to-absolute-index.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(/*! ./_to-integer */ 27);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+
+/***/ }),
+/* 72 */
+/* no static exports found */
+/* all exports used */
+/*!*********************************************************!*\
+  !*** ./~/core-js/library/modules/es6.array.iterator.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var addToUnscopables = __webpack_require__(/*! ./_add-to-unscopables */ 59);
+var step = __webpack_require__(/*! ./_iter-step */ 66);
+var Iterators = __webpack_require__(/*! ./_iterators */ 16);
+var toIObject = __webpack_require__(/*! ./_to-iobject */ 7);
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = __webpack_require__(/*! ./_iter-define */ 40)(Array, 'Array', function (iterated, kind) {
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var kind = this._k;
+  var index = this._i++;
+  if (!O || index >= O.length) {
+    this._t = undefined;
+    return step(1);
+  }
+  if (kind == 'keys') return step(0, index);
+  if (kind == 'values') return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+
+/***/ }),
+/* 73 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************************!*\
+  !*** ./~/core-js/library/modules/es6.object.to-string.js ***!
+  \***********************************************************/
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+/* 74 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/es6.symbol.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// ECMAScript 6 symbols shim
+var global = __webpack_require__(/*! ./_global */ 0);
+var has = __webpack_require__(/*! ./_has */ 4);
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ 1);
+var $export = __webpack_require__(/*! ./_export */ 14);
+var redefine = __webpack_require__(/*! ./_redefine */ 45);
+var META = __webpack_require__(/*! ./_meta */ 49).KEY;
+var $fails = __webpack_require__(/*! ./_fails */ 9);
+var shared = __webpack_require__(/*! ./_shared */ 26);
+var setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 24);
+var uid = __webpack_require__(/*! ./_uid */ 15);
+var wks = __webpack_require__(/*! ./_wks */ 3);
+var wksExt = __webpack_require__(/*! ./_wks-ext */ 29);
+var wksDefine = __webpack_require__(/*! ./_wks-define */ 28);
+var enumKeys = __webpack_require__(/*! ./_enum-keys */ 61);
+var isArray = __webpack_require__(/*! ./_is-array */ 64);
+var anObject = __webpack_require__(/*! ./_an-object */ 11);
+var toIObject = __webpack_require__(/*! ./_to-iobject */ 7);
+var toPrimitive = __webpack_require__(/*! ./_to-primitive */ 17);
+var createDesc = __webpack_require__(/*! ./_property-desc */ 12);
+var _create = __webpack_require__(/*! ./_object-create */ 41);
+var gOPNExt = __webpack_require__(/*! ./_object-gopn-ext */ 68);
+var $GOPD = __webpack_require__(/*! ./_object-gopd */ 67);
+var $DP = __webpack_require__(/*! ./_object-dp */ 2);
+var $keys = __webpack_require__(/*! ./_object-keys */ 22);
+var gOPD = $GOPD.f;
+var dP = $DP.f;
+var gOPN = gOPNExt.f;
+var $Symbol = global.Symbol;
+var $JSON = global.JSON;
+var _stringify = $JSON && $JSON.stringify;
+var PROTOTYPE = 'prototype';
+var HIDDEN = wks('_hidden');
+var TO_PRIMITIVE = wks('toPrimitive');
+var isEnum = {}.propertyIsEnumerable;
+var SymbolRegistry = shared('symbol-registry');
+var AllSymbols = shared('symbols');
+var OPSymbols = shared('op-symbols');
+var ObjectProto = Object[PROTOTYPE];
+var USE_NATIVE = typeof $Symbol == 'function';
+var QObject = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function () {
+  return _create(dP({}, 'a', {
+    get: function () { return dP(this, 'a', { value: 7 }).a; }
+  })).a != 7;
+}) ? function (it, key, D) {
+  var protoDesc = gOPD(ObjectProto, key);
+  if (protoDesc) delete ObjectProto[key];
+  dP(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function (tag) {
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
+  return typeof it == 'symbol';
+} : function (it) {
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D) {
+  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if (has(AllSymbols, key)) {
+    if (!D.enumerable) {
+      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
+      D = _create(D, { enumerable: createDesc(0, false) });
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P) {
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P));
+  var i = 0;
+  var l = keys.length;
+  var key;
+  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P) {
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key) {
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
+  it = toIObject(it);
+  key = toPrimitive(key, true);
+  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
+  var D = gOPD(it, key);
+  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it) {
+  var names = gOPN(toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
+  var IS_OP = it === ObjectProto;
+  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if (!USE_NATIVE) {
+  $Symbol = function Symbol() {
+    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function (value) {
+      if (this === ObjectProto) $set.call(OPSymbols, value);
+      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f = $defineProperty;
+  __webpack_require__(/*! ./_object-gopn */ 42).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(/*! ./_object-pie */ 23).f = $propertyIsEnumerable;
+  __webpack_require__(/*! ./_object-gops */ 43).f = $getOwnPropertySymbols;
+
+  if (DESCRIPTORS && !__webpack_require__(/*! ./_library */ 21)) {
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function (name) {
+    return wrap(wks(name));
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
+
+for (var es6Symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
+
+for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function (key) {
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
+  },
+  useSetter: function () { setter = true; },
+  useSimple: function () { setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it) {
+    if (it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    var args = [it];
+    var i = 1;
+    var replacer, $replacer;
+    while (arguments.length > i) args.push(arguments[i++]);
+    replacer = args[1];
+    if (typeof replacer == 'function') $replacer = replacer;
+    if ($replacer || !isArray(replacer)) replacer = function (key, value) {
+      if ($replacer) value = $replacer.call(this, key, value);
+      if (!isSymbol(value)) return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(/*! ./_hide */ 5)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+
+/***/ }),
+/* 75 */
+/* no static exports found */
+/* all exports used */
+/*!****************************************************************!*\
+  !*** ./~/core-js/library/modules/es7.symbol.async-iterator.js ***!
+  \****************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./_wks-define */ 28)('asyncIterator');
+
+
+/***/ }),
+/* 76 */
+/* no static exports found */
+/* all exports used */
+/*!************************************************************!*\
+  !*** ./~/core-js/library/modules/es7.symbol.observable.js ***!
+  \************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./_wks-define */ 28)('observable');
+
+
+/***/ }),
+/* 77 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************************!*\
+  !*** ./~/core-js/library/modules/web.dom.iterable.js ***!
+  \*******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./es6.array.iterator */ 72);
+var global = __webpack_require__(/*! ./_global */ 0);
+var hide = __webpack_require__(/*! ./_hide */ 5);
+var Iterators = __webpack_require__(/*! ./_iterators */ 16);
+var TO_STRING_TAG = __webpack_require__(/*! ./_wks */ 3)('toStringTag');
+
+var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
+  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
+  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
+  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
+  'TextTrackList,TouchList').split(',');
+
+for (var i = 0; i < DOMIterables.length; i++) {
+  var NAME = DOMIterables[i];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+  Iterators[NAME] = Iterators.Array;
+}
+
+
+/***/ }),
+/* 78 */,
+/* 79 */
+/* no static exports found */
+/* all exports used */
 /*!*********************************************!*\
   !*** ./app/javascript/packs/spf/dom/dom.js ***!
   \*********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/**
- * @fileoverview Basic DOM manipulation functions.
- *
- */
 
-// goog.provide('spfDom');
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
 
 var spfDom = {};
 
@@ -1371,6 +3097,13 @@ var spfDom = {};
  * @param {(Document|Element)=} opt_root Optional document or element to query.
  * @return {Array.<Node>|NodeList} nodes Matching nodes.
  */
+/**
+ * @fileoverview Basic DOM manipulation functions.
+ *
+ */
+
+// goog.provide('spfDom');
+
 spfDom.query = function (selector, opt_root) {
   var root = opt_root || document;
   if (root.querySelectorAll) {
@@ -1527,30 +3260,64 @@ spfDom.createIframe = function (opt_id, opt_document, opt_callback) {
   iframeEl.src = 'javascript:""';
   iframeEl.style.display = 'none';
   if (opt_callback) {
-    iframeEl.onload = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(opt_callback, null, iframeEl);
+    iframeEl.onload = _base.spfBase.bind(opt_callback, null, iframeEl);
   }
   doc.body.appendChild(iframeEl);
   return (/** @type {!HTMLIFrameElement} */iframeEl
   );
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfDom);
+exports.default = spfDom;
 
 /***/ }),
-/* 13 */
-/* exports provided: default */
-/* exports used: default */
+/* 80 */
+/* no static exports found */
+/* all exports used */
 /*!*****************************************************!*\
   !*** ./app/javascript/packs/spf/history/history.js ***!
   \*****************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(/*! ../config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__debug_debug__ = __webpack_require__(/*! ../debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dom_dom__ = __webpack_require__(/*! ../dom/dom */ 12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state__ = __webpack_require__(/*! ../state */ 5);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var _config = __webpack_require__(/*! ../config */ 35);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _debug = __webpack_require__(/*! ../debug/debug */ 38);
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _dom = __webpack_require__(/*! ../dom/dom */ 79);
+
+var _dom2 = _interopRequireDefault(_dom);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var spfHistory = {};
+
+/**
+ * Initialize pushstate-based HTML5 History management.
+ *
+ * @param {function(string, Object=)} callback The function to handle
+ *     a history event. The first parameter will be the URL
+ *     the user is browsing to.  The second parameter will be an optional
+ *     state object associated with that URL.
+ * @param {function(string, Error)} errorCallback The function to handle
+ *     errors. The first parameter will be the URL with the error.  The
+ *     second parameter will be the error object.
+ */
 // Copyright 2012 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -1568,43 +3335,24 @@ spfDom.createIframe = function (opt_id, opt_document, opt_callback) {
 
 // goog.provide('spfHistory');
 
-
-
-
-
-
-
-var spfHistory = {};
-
-/**
- * Initialize pushstate-based HTML5 History management.
- *
- * @param {function(string, Object=)} callback The function to handle
- *     a history event. The first parameter will be the URL
- *     the user is browsing to.  The second parameter will be an optional
- *     state object associated with that URL.
- * @param {function(string, Error)} errorCallback The function to handle
- *     errors. The first parameter will be the URL with the error.  The
- *     second parameter will be the error object.
- */
 spfHistory.init = function (callback, errorCallback) {
-  if (!__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_INIT) && window.addEventListener) {
+  if (!_state2.default.get(_state2.default.Key.HISTORY_INIT) && window.addEventListener) {
     var url = spfHistory.getCurrentUrl_();
     window.addEventListener('popstate', spfHistory.pop_, false);
     // Whether history is initialized.
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_INIT, true);
+    _state2.default.set(_state2.default.Key.HISTORY_INIT, true);
     // A callback to handle history events.
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_CALLBACK, callback);
+    _state2.default.set(_state2.default.Key.HISTORY_CALLBACK, callback);
     // A callback to handle errors.
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_ERROR_CALLBACK, errorCallback);
+    _state2.default.set(_state2.default.Key.HISTORY_ERROR_CALLBACK, errorCallback);
     // The event listener.
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_LISTENER, spfHistory.pop_);
+    _state2.default.set(_state2.default.Key.HISTORY_LISTENER, spfHistory.pop_);
     // The URL of the current history entry, used to detect returning to the
     // the first state.
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_URL, url);
+    _state2.default.set(_state2.default.Key.HISTORY_URL, url);
     // The timestamp of the current history entry, used to distinguish
     // between backward and forward state changes.
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_TIMESTAMP, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now());
+    _state2.default.set(_state2.default.Key.HISTORY_TIMESTAMP, _base.spfBase.now());
     // Set the initial referer to properly send referer on back button.
     var historyState = { 'spf-referer': document.referrer };
     try {
@@ -1622,16 +3370,16 @@ spfHistory.init = function (callback, errorCallback) {
  * Dispose pushstate-based HTML5 History management.
  */
 spfHistory.dispose = function () {
-  if (__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_INIT)) {
+  if (_state2.default.get(_state2.default.Key.HISTORY_INIT)) {
     if (window.removeEventListener) {
-      window.removeEventListener('popstate', /** @type {function(Event)} */__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_LISTENER), false);
+      window.removeEventListener('popstate', /** @type {function(Event)} */_state2.default.get(_state2.default.Key.HISTORY_LISTENER), false);
     }
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_INIT, false);
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_CALLBACK, null);
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_ERROR_CALLBACK, null);
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_LISTENER, null);
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_URL, null);
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_TIMESTAMP, 0);
+    _state2.default.set(_state2.default.Key.HISTORY_INIT, false);
+    _state2.default.set(_state2.default.Key.HISTORY_CALLBACK, null);
+    _state2.default.set(_state2.default.Key.HISTORY_ERROR_CALLBACK, null);
+    _state2.default.set(_state2.default.Key.HISTORY_LISTENER, null);
+    _state2.default.set(_state2.default.Key.HISTORY_URL, null);
+    _state2.default.set(_state2.default.Key.HISTORY_TIMESTAMP, 0);
   }
 };
 
@@ -1652,7 +3400,7 @@ spfHistory.dispose = function () {
  * @throws {Error} If window.history.pushState is not a function.
  */
 spfHistory.add = function (opt_url, opt_state, opt_doCallback) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].info('history.add ', opt_url);
+  _debug2.default.info('history.add ', opt_url);
   spfHistory.push_(false, opt_url, opt_state, opt_doCallback);
 };
 
@@ -1690,7 +3438,7 @@ spfHistory.replace = function (opt_url, opt_state, opt_doCallback) {
       state[key] = opt_state[key];
     }
   }
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].info('history.replace ', opt_url);
+  _debug2.default.info('history.replace ', opt_url);
   spfHistory.push_(true, opt_url, state, opt_doCallback);
 };
 
@@ -1700,7 +3448,7 @@ spfHistory.replace = function (opt_url, opt_state, opt_doCallback) {
  * a back action to the last page. Use with care.
  */
 spfHistory.removeCurrentEntry = function () {
-  __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_IGNORE_POP, true);
+  _state2.default.set(_state2.default.Key.HISTORY_IGNORE_POP, true);
   window.history.back();
 };
 
@@ -1719,19 +3467,19 @@ spfHistory.push_ = function (replace, opt_url, opt_state, opt_doCallback) {
   }
   var url = opt_url || spfHistory.getCurrentUrl_();
   var state = opt_state || {};
-  var timestamp = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
-  __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_TIMESTAMP, timestamp);
+  var timestamp = _base.spfBase.now();
+  _state2.default.set(_state2.default.Key.HISTORY_TIMESTAMP, timestamp);
   state['spf-timestamp'] = timestamp;
   if (replace) {
     spfHistory.doReplaceState_(state, '', url);
-    __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('    replaceState:  ', 'url=', url, 'state=', state);
+    _debug2.default.debug('    replaceState:  ', 'url=', url, 'state=', state);
   } else {
     spfHistory.doPushState_(state, '', url);
-    __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('    pushState:  ', 'url=', url, 'state=', state);
+    _debug2.default.debug('    pushState:  ', 'url=', url, 'state=', state);
   }
-  __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_URL, url);
+  _state2.default.set(_state2.default.Key.HISTORY_URL, url);
   if (opt_doCallback) {
-    var callback = /** @type {function(string, Object=)} */__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_CALLBACK);
+    var callback = /** @type {function(string, Object=)} */_state2.default.get(_state2.default.Key.HISTORY_CALLBACK);
     if (callback) {
       callback(url, state);
     }
@@ -1746,10 +3494,10 @@ spfHistory.push_ = function (replace, opt_url, opt_state, opt_doCallback) {
  */
 spfHistory.pop_ = function (evt) {
   var url = spfHistory.getCurrentUrl_();
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].info('history.pop ', 'url=', url, 'evt=', evt);
+  _debug2.default.info('history.pop ', 'url=', url, 'evt=', evt);
   // Skip a pop event and reset flag if the ignore state is set.
-  if (__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_IGNORE_POP)) {
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_IGNORE_POP, false);
+  if (_state2.default.get(_state2.default.Key.HISTORY_IGNORE_POP)) {
+    _state2.default.set(_state2.default.Key.HISTORY_IGNORE_POP, false);
     return;
   }
   // Avoid the initial event on first load, and ignore events for history
@@ -1763,17 +3511,17 @@ spfHistory.pop_ = function (evt) {
   // If the URL is the same and a state is present, the browser has left
   // and returned to first load via back/forward.  In this case, reset
   // the state to the original.
-  if (url == __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_URL)) {
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_TIMESTAMP, timestamp);
+  if (url == _state2.default.get(_state2.default.Key.HISTORY_URL)) {
+    _state2.default.set(_state2.default.Key.HISTORY_TIMESTAMP, timestamp);
     spfHistory.doReplaceState_(state, '', url);
-    __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('    replaceState:  ', 'url=', url, 'state=', state);
+    _debug2.default.debug('    replaceState:  ', 'url=', url, 'state=', state);
   } else {
-    var current = parseInt(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_TIMESTAMP), 10);
+    var current = parseInt(_state2.default.get(_state2.default.Key.HISTORY_TIMESTAMP), 10);
     state['spf-back'] = timestamp < current;
-    state['spf-current'] = __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_URL);
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_TIMESTAMP, timestamp);
-    __WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_URL, url);
-    var callback = /** @type {function(string, Object=)} */__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_4__state__["a" /* default */].Key.HISTORY_CALLBACK);
+    state['spf-current'] = _state2.default.get(_state2.default.Key.HISTORY_URL);
+    _state2.default.set(_state2.default.Key.HISTORY_TIMESTAMP, timestamp);
+    _state2.default.set(_state2.default.Key.HISTORY_URL, url);
+    var callback = /** @type {function(string, Object=)} */_state2.default.get(_state2.default.Key.HISTORY_CALLBACK);
     if (callback) {
       callback(url, state);
     }
@@ -1838,42 +3586,43 @@ spfHistory.doReplaceState_ = function (data, title, opt_url) {
 spfHistory.getIframe = function () {
   var frame = document.getElementById('history-iframe');
   if (!frame) {
-    frame = __WEBPACK_IMPORTED_MODULE_3__dom_dom__["a" /* default */].createIframe('history-iframe');
+    frame = _dom2.default.createIframe('history-iframe');
   }
   return (/** @type {!HTMLIFrameElement} */frame
   );
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfHistory);
+exports.default = spfHistory;
 
 /***/ }),
-/* 14 */
-/* exports provided: default */
-/* exports used: default */
+/* 81 */
+/* no static exports found */
+/* all exports used */
 /*!*********************************************!*\
   !*** ./app/javascript/packs/spf/url/url.js ***!
   \*********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(/*! ../config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__string_string__ = __webpack_require__(/*! ../string/string */ 7);
-// Copyright 2013 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
-/**
- * @fileoverview URL manipulation functions.
- *
- * @author nicksay@google.com (Alex Nicksay)
- * @suppress {missingProperties}
- */
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _array = __webpack_require__(/*! ../array/array */ 31);
 
+var _array2 = _interopRequireDefault(_array);
+
+var _config = __webpack_require__(/*! ../config */ 35);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfUrl = {};
 // goog.provide('spfUrl');
@@ -1899,6 +3648,18 @@ var spfUrl = {};
  *   origin: string
  * }}
  */
+// Copyright 2013 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview URL manipulation functions.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ * @suppress {missingProperties}
+ */
+
 spfUrl.URLUtils;
 
 /**
@@ -1980,14 +3741,14 @@ spfUrl.origin = function (url) {
  * @return {string} An identified URL.
  */
 spfUrl.identify = function (url, opt_type) {
-  var ident = /** @type {string} */__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].get('url-identifier') || '';
+  var ident = /** @type {string} */_config2.default.get('url-identifier') || '';
   if (ident) {
     var type = opt_type || '';
     ident = ident.replace('__type__', type);
 
     // Split the URL.
-    var hashParts = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].partition(url, '#');
-    var queryParts = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].partition(hashParts[0], '?');
+    var hashParts = _string2.default.partition(url, '#');
+    var queryParts = _string2.default.partition(hashParts[0], '?');
     var path = queryParts[0];
     var querySep = queryParts[1];
     var queryVal = queryParts[2];
@@ -1995,7 +3756,7 @@ spfUrl.identify = function (url, opt_type) {
     var hashVal = hashParts[2];
 
     // Inject the identifier.
-    if (__WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].startsWith(ident, '?')) {
+    if (_string2.default.startsWith(ident, '?')) {
       // If using a query-based identifier, append the identifier to the
       // existing query string.
       // For "?ident":
@@ -2005,7 +3766,7 @@ spfUrl.identify = function (url, opt_type) {
         ident = ident.replace('?', '&');
       }
       queryVal += ident;
-    } else if (__WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].startsWith(ident, '.')) {
+    } else if (_string2.default.startsWith(ident, '.')) {
       // If using an extension-based identifier, replace the existing
       // extension with the identifier.  If no extension exists, the
       // identifier is appended.  However, if the URL specifies a directory
@@ -2014,7 +3775,7 @@ spfUrl.identify = function (url, opt_type) {
       //     /path -> /path.ident
       //     /path.ext -> /path.ident
       //     /path/ -> /path/index.ident
-      if (__WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].endsWith(path, '/')) {
+      if (_string2.default.endsWith(path, '/')) {
         ident = 'index' + ident;
       } else {
         var ext = path.lastIndexOf('.');
@@ -2032,7 +3793,7 @@ spfUrl.identify = function (url, opt_type) {
       // For "_ident":
       //     /path -> /path_ident
       //     /path/ -> /path/_ident
-      if (__WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].endsWith(path, '/') && __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].startsWith(ident, '/')) {
+      if (_string2.default.endsWith(path, '/') && _string2.default.startsWith(ident, '/')) {
         ident = ident.substring(1);
       }
       path += ident;
@@ -2054,9 +3815,9 @@ spfUrl.identify = function (url, opt_type) {
  * @return {string} A new URL with the parameters included.
  */
 spfUrl.appendParameters = function (url, parameters) {
-  var result = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].partition(url, '#');
+  var result = _string2.default.partition(url, '#');
   url = result[0];
-  var delim = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].contains(url, '?') ? '&' : '?';
+  var delim = _string2.default.contains(url, '?') ? '&' : '?';
   for (var key in parameters) {
     url += delim + key;
     if (parameters[key]) {
@@ -2076,9 +3837,9 @@ spfUrl.appendParameters = function (url, parameters) {
  * @return {string} A new URL with the parameters removed.
  */
 spfUrl.removeParameters = function (url, parameters) {
-  var result = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].partition(url, '#');
+  var result = _string2.default.partition(url, '#');
   url = result[0];
-  __WEBPACK_IMPORTED_MODULE_0__array_array__["a" /* default */].each(parameters, function (param) {
+  _array2.default.each(parameters, function (param) {
     // Strip all parameters matching the param key.
     var regex = new RegExp('([?&])' + param + '(?:=[^&]*)?(?:(?=[&])|$)', 'g');
     url = url.replace(regex, function (_, delim) {
@@ -2086,7 +3847,7 @@ spfUrl.removeParameters = function (url, parameters) {
     });
   });
   // Remove an unecessary trailing question marks.
-  if (__WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].endsWith(url, '?')) {
+  if (_string2.default.endsWith(url, '?')) {
     url = url.slice(0, -1);
   }
   // Reattach the hash.
@@ -2101,10 +3862,10 @@ spfUrl.removeParameters = function (url, parameters) {
  */
 spfUrl.appendPersistentParameters = function (url) {
   // Get the param config of the form "abc=def&foo=bar"
-  var parameterConfig = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].get('advanced-persistent-parameters') || '';
-  var result = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].partition(url, '#');
+  var parameterConfig = _config2.default.get('advanced-persistent-parameters') || '';
+  var result = _string2.default.partition(url, '#');
   url = result[0];
-  var delim = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].contains(url, '?') ? '&' : '?';
+  var delim = _string2.default.contains(url, '?') ? '&' : '?';
   // Append the persistent parameters to the URL.
   url += parameterConfig ? delim + parameterConfig : '';
   // Reattach the hash.
@@ -2129,44 +3890,42 @@ spfUrl.unprotocol = function (url) {
  * @return {string}  A URL without a hash, if possible.
  */
 spfUrl.unhash = function (url) {
-  var res = __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].partition(url, '#');
+  var res = _string2.default.partition(url, '#');
   return res[0];
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfUrl);
+exports.default = spfUrl;
 
 /***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */
-/* exports provided: default */
-/* exports used: default */
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/cache/cache.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(/*! ../config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state__ = __webpack_require__(/*! ../state */ 5);
-// Copyright 2012 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
-/**
- * @fileoverview Data caching functions.
- *
- * @author nicksay@google.com (Alex Nicksay)
- */
-
-// goog.provide('spfCache');
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _base = __webpack_require__(/*! ../base */ 10);
 
+var _config = __webpack_require__(/*! ../config */ 35);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfCache = {};
 
@@ -2180,6 +3939,19 @@ var spfCache = {};
  * @param {string} key Key for the data object.
  * @return {*} The data, if it exists.
  */
+// Copyright 2012 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview Data caching functions.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ */
+
+// goog.provide('spfCache');
+
 spfCache.get = function (key) {
   var storage = spfCache.storage_();
   if (!(key in storage)) {
@@ -2207,7 +3979,7 @@ spfCache.get = function (key) {
  */
 spfCache.set = function (key, data, opt_lifetime) {
   var lifetime = parseInt(opt_lifetime, 10);
-  var max = parseInt(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].get('cache-max'), 10);
+  var max = parseInt(_config2.default.get('cache-max'), 10);
   if (lifetime <= 0 || max <= 0) {
     return;
   }
@@ -2287,7 +4059,7 @@ spfCache.valid_ = function (unit) {
   var lifetime = unit['life'];
   lifetime = isNaN(lifetime) ? Infinity : lifetime;
   var timestamp = unit['time'];
-  var age = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now() - timestamp;
+  var age = _base.spfBase.now() - timestamp;
   return age < lifetime;
 };
 
@@ -2299,7 +4071,7 @@ spfCache.valid_ = function (unit) {
  */
 spfCache.trim_ = function () {
   var storage = spfCache.storage_();
-  var max = parseInt(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].get('cache-max'), 10);
+  var max = parseInt(_config2.default.get('cache-max'), 10);
   max = isNaN(max) ? Infinity : max;
   var extra = Object.keys(storage).length - max;
   // If the current cache is smaller than the max, no trimming is needed.
@@ -2328,7 +4100,7 @@ spfCache.trim_ = function () {
  * @private
  */
 spfCache.create_ = function (key, data, lifetime) {
-  var unit = { 'data': data, 'life': lifetime, 'time': __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now(), 'count': 0 };
+  var unit = { 'data': data, 'life': lifetime, 'time': _base.spfBase.now(), 'count': 0 };
   spfCache.updateCount_(unit);
   return unit;
 };
@@ -2340,9 +4112,9 @@ spfCache.create_ = function (key, data, lifetime) {
  * @private
  */
 spfCache.updateCount_ = function (unit) {
-  var count = parseInt(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.CACHE_COUNTER), 10) || 0;
+  var count = parseInt(_state2.default.get(_state2.default.Key.CACHE_COUNTER), 10) || 0;
   count++;
-  __WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.CACHE_COUNTER, count);
+  _state2.default.set(_state2.default.Key.CACHE_COUNTER, count);
 
   unit.count = count;
 };
@@ -2354,35 +4126,37 @@ spfCache.updateCount_ = function (unit) {
  * @private
  */
 spfCache.storage_ = function (opt_storage) {
-  if (opt_storage || !__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.CACHE_STORAGE)) {
-    return (/** @type {!Object.<string, spfCache.Unit>} */__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.CACHE_STORAGE, opt_storage || {})
+  if (opt_storage || !_state2.default.has(_state2.default.Key.CACHE_STORAGE)) {
+    return (/** @type {!Object.<string, spfCache.Unit>} */_state2.default.set(_state2.default.Key.CACHE_STORAGE, opt_storage || {})
     );
   }
-  return (/** @type {!Object.<string, spfCache.Unit>} */__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.CACHE_STORAGE)
+  return (/** @type {!Object.<string, spfCache.Unit>} */_state2.default.get(_state2.default.Key.CACHE_STORAGE)
   );
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfCache);
+exports.default = spfCache;
 
 /***/ }),
-/* 19 */
-/* exports provided: default */
-/* exports used: default */
+/* 86 */
+/* no static exports found */
+/* all exports used */
 /*!***************************************************!*\
   !*** ./app/javascript/packs/spf/dom/classlist.js ***!
   \***************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/**
- * @fileoverview Element class manipulation functions.
- * See {@link http://www.w3.org/TR/html5/dom.html#classes}.
- *
- */
 
-// goog.provide('spfDomClasslist');
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _array = __webpack_require__(/*! ../array/array */ 31);
+
+var _array2 = _interopRequireDefault(_array);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfDomClasslist = {};
 
@@ -2392,6 +4166,14 @@ var spfDomClasslist = {};
  * @param {Node|EventTarget} node DOM node to evaluate.
  * @return {{length: number}} Array-like object of class names on the node.
  */
+/**
+ * @fileoverview Element class manipulation functions.
+ * See {@link http://www.w3.org/TR/html5/dom.html#classes}.
+ *
+ */
+
+// goog.provide('spfDomClasslist');
+
 spfDomClasslist.get = function (node) {
   if (node.classList) {
     return node.classList;
@@ -2414,7 +4196,7 @@ spfDomClasslist.contains = function (node, cls) {
     return node.classList.contains(cls);
   } else {
     var classes = spfDomClasslist.get(node);
-    return __WEBPACK_IMPORTED_MODULE_0__array_array__["a" /* default */].some(classes, function (item) {
+    return _array2.default.some(classes, function (item) {
       return item == cls;
     });
   }
@@ -2448,7 +4230,7 @@ spfDomClasslist.remove = function (node, cls) {
       node.classList.remove(cls);
     } else {
       var classes = spfDomClasslist.get(node);
-      var newClasses = __WEBPACK_IMPORTED_MODULE_0__array_array__["a" /* default */].filter(classes, function (item) {
+      var newClasses = _array2.default.filter(classes, function (item) {
         return item != cls;
       });
       node.className = newClasses.join(' ');
@@ -2456,28 +4238,64 @@ spfDomClasslist.remove = function (node, cls) {
   }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfDomClasslist);
+exports.default = spfDomClasslist;
 
 /***/ }),
-/* 20 */
-/* exports provided: default */
-/* exports used: default */
+/* 87 */
+/* no static exports found */
+/* all exports used */
 /*!**************************************************!*\
   !*** ./app/javascript/packs/spf/net/resource.js ***!
   \**************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__debug_debug__ = __webpack_require__(/*! ../debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dom_dom__ = __webpack_require__(/*! ../dom/dom */ 12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dom_classlist__ = __webpack_require__(/*! ../dom/classlist */ 19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pubsub_pubsub__ = __webpack_require__(/*! ../pubsub/pubsub */ 41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__state__ = __webpack_require__(/*! ../state */ 5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__string_string__ = __webpack_require__(/*! ../string/string */ 7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tasks_tasks__ = __webpack_require__(/*! ../tasks/tasks */ 23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__url_url__ = __webpack_require__(/*! ../url/url */ 14);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var _array = __webpack_require__(/*! ../array/array */ 31);
+
+var _array2 = _interopRequireDefault(_array);
+
+var _debug = __webpack_require__(/*! ../debug/debug */ 38);
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _dom = __webpack_require__(/*! ../dom/dom */ 79);
+
+var _dom2 = _interopRequireDefault(_dom);
+
+var _classlist = __webpack_require__(/*! ../dom/classlist */ 86);
+
+var _classlist2 = _interopRequireDefault(_classlist);
+
+var _pubsub = __webpack_require__(/*! ../pubsub/pubsub */ 113);
+
+var _pubsub2 = _interopRequireDefault(_pubsub);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+var _tasks = __webpack_require__(/*! ../tasks/tasks */ 90);
+
+var _tasks2 = _interopRequireDefault(_tasks);
+
+var _url = __webpack_require__(/*! ../url/url */ 81);
+
+var _url2 = _interopRequireDefault(_url);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // Copyright 2014 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -2495,17 +4313,6 @@ spfDomClasslist.remove = function (node, cls) {
 // goog.provide('spfNetResource.name');
 // goog.provide('spfNetResource.status');
 // goog.provide('spfNetResource.url');
-
-
-
-
-
-
-
-
-
-
-
 
 var spfNetResource = {};
 spfNetResource.status = spfNetResource.status || {};
@@ -2527,7 +4334,7 @@ spfNetResource.url = spfNetResource.url || {};
  *     resource is loaded.
  */
 spfNetResource.load = function (type, url, name, opt_fn) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('resource.load', type, url, name);
+  _debug2.default.debug('resource.load', type, url, name);
   var isJS = type == spfNetResource.Type.JS;
 
   url = spfNetResource.canonicalize(type, url);
@@ -2546,17 +4353,17 @@ spfNetResource.load = function (type, url, name, opt_fn) {
   // supported.  If someone is attempting to load a new version of a script
   // before loading the main SPF code, then this should be an error.  Automatic
   // unloading of scripts is primarily intended for navigation between versions.
-  if (name && !__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
+  if (name && !_base.SPF_BOOTLOADER) {
     // If loading a new resource for a name, handle unloading the previous one.
     prevUrl = spfNetResource.url.get(type, name);
     if (prevUrl && url != prevUrl) {
-      var evt = isJS ? __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.JS_BEFORE_UNLOAD : __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.CSS_BEFORE_UNLOAD;
-      __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(evt, { 'name': name, 'url': prevUrl });
+      var evt = isJS ? _base.spfBase.EventName.JS_BEFORE_UNLOAD : _base.spfBase.EventName.CSS_BEFORE_UNLOAD;
+      _base.spfBase.dispatch(evt, { 'name': name, 'url': prevUrl });
       spfNetResource.unloadPrepare_(type, name, prevUrl);
       // Wait until the new resource has finished loading before destroying
       // the previous one to avoid flashes of unstyled content w/ CSS.
-      var unloadComplete = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNetResource.unloadComplete_, null, type, name, prevUrl);
-      __WEBPACK_IMPORTED_MODULE_5__pubsub_pubsub__["a" /* default */].subscribe(topic, unloadComplete);
+      var unloadComplete = _base.spfBase.bind(spfNetResource.unloadComplete_, null, type, name, prevUrl);
+      _pubsub2.default.subscribe(topic, unloadComplete);
     }
   }
 
@@ -2570,15 +4377,15 @@ spfNetResource.load = function (type, url, name, opt_fn) {
     spfNetResource.url.clear(type, prevName);
     spfNetResource.name.clear(type, url);
     var prevTopic = spfNetResource.key(type, prevName);
-    __WEBPACK_IMPORTED_MODULE_5__pubsub_pubsub__["a" /* default */].rename(prevTopic, topic);
+    _pubsub2.default.rename(prevTopic, topic);
   }
   spfNetResource.name.set(type, url, pseudonym);
   spfNetResource.url.set(type, pseudonym, url);
 
   // Subscribe the callback to execute when the url is loaded.
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  subscribing callback', topic);
-  __WEBPACK_IMPORTED_MODULE_5__pubsub_pubsub__["a" /* default */].subscribe(topic, opt_fn);
-  var check = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNetResource.check, null, type);
+  _debug2.default.debug('  subscribing callback', topic);
+  _pubsub2.default.subscribe(topic, opt_fn);
+  var check = _base.spfBase.bind(spfNetResource.check, null, type);
 
   // If a status exists, the resource is already loading or loaded.
   // Otherwise, create the resource.
@@ -2610,7 +4417,7 @@ spfNetResource.load = function (type, url, name, opt_fn) {
  * @param {string} name The dependency name.
  */
 spfNetResource.unload = function (type, name) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].warn('resource.unload', type, name);
+  _debug2.default.warn('resource.unload', type, name);
   var url = spfNetResource.url.get(type, name);
   spfNetResource.unloadPrepare_(type, name, url);
   spfNetResource.unloadComplete_(type, name, url);
@@ -2625,7 +4432,7 @@ spfNetResource.unload = function (type, name) {
  * @private
  */
 spfNetResource.unloadPrepare_ = function (type, name, url) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  > resource.unloadPrepare_', type, url);
+  _debug2.default.debug('  > resource.unloadPrepare_', type, url);
   // Clear the dependency name to URL mapping.
   spfNetResource.url.clear(type, name);
   // Clear the URL to dependency name mapping.
@@ -2633,9 +4440,9 @@ spfNetResource.unloadPrepare_ = function (type, name, url) {
     spfNetResource.name.clear(type, url);
   }
   var topic = spfNetResource.key(type, name);
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  clearing callbacks for', topic);
+  _debug2.default.debug('  clearing callbacks for', topic);
   // Clear any pending callbacks for the dependency name.
-  __WEBPACK_IMPORTED_MODULE_5__pubsub_pubsub__["a" /* default */].clear(topic);
+  _pubsub2.default.clear(topic);
 };
 
 /**
@@ -2649,9 +4456,9 @@ spfNetResource.unloadPrepare_ = function (type, name, url) {
 spfNetResource.unloadComplete_ = function (type, name, url) {
   var isJS = type == spfNetResource.Type.JS;
   if (url) {
-    __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  > resource.unloadComplete_', type, url);
-    var evt = isJS ? __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.JS_UNLOAD : __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.CSS_UNLOAD;
-    __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(evt, { 'name': name, 'url': url });
+    _debug2.default.debug('  > resource.unloadComplete_', type, url);
+    var evt = isJS ? _base.spfBase.EventName.JS_UNLOAD : _base.spfBase.EventName.CSS_UNLOAD;
+    _base.spfBase.dispatch(evt, { 'name': name, 'url': url });
     spfNetResource.destroy(type, url);
   }
 };
@@ -2663,16 +4470,16 @@ spfNetResource.unloadComplete_ = function (type, name, url) {
  * @param {spfNetResource.Type} type Type of the resource.
  */
 spfNetResource.check = function (type) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('resource.check', type);
+  _debug2.default.debug('resource.check', type);
   var prefix = spfNetResource.key(type, '');
-  for (var topic in __WEBPACK_IMPORTED_MODULE_5__pubsub_pubsub__["a" /* default */].subscriptions) {
+  for (var topic in _pubsub2.default.subscriptions) {
     if (topic.indexOf(prefix) == 0) {
       var names = topic.substring(prefix.length).split('|');
-      var loaded = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNetResource.url.loaded, null, type);
-      var ready = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].every(names, loaded);
-      __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug(' ', topic, '->', names, '=', ready);
+      var loaded = _base.spfBase.bind(spfNetResource.url.loaded, null, type);
+      var ready = _array2.default.every(names, loaded);
+      _debug2.default.debug(' ', topic, '->', names, '=', ready);
       if (ready) {
-        __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  publishing', topic);
+        _debug2.default.debug('  publishing', topic);
         // Because check evaluates the pubsub.subscriptions array to determine
         // if urls for names are loaded, there is a potential subscribe/publish
         // infinite loop:
@@ -2681,7 +4488,7 @@ spfNetResource.check = function (type) {
         // To avoid this, use flush instead of publish + clear to ensure that
         // previously subscribed functions are removed before execution:
         //     require_ -> load (subscribe) -> check (flush) -> <no loop>
-        __WEBPACK_IMPORTED_MODULE_5__pubsub_pubsub__["a" /* default */].flush(topic);
+        _pubsub2.default.flush(topic);
       }
     }
   }
@@ -2702,22 +4509,22 @@ spfNetResource.check = function (type) {
  * @return {Element} The dynamically created element.
  */
 spfNetResource.create = function (type, url, opt_callback, opt_document, opt_statusGroup, opt_prevUrl) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('resource.create', type, url, 'loading');
+  _debug2.default.debug('resource.create', type, url, 'loading');
   // When built for the bootloader, always assume JS is being loaded.
-  var isJS = __WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */] || type == spfNetResource.Type.JS;
+  var isJS = _base.SPF_BOOTLOADER || type == spfNetResource.Type.JS;
   url = spfNetResource.canonicalize(type, url);
   spfNetResource.status.set(spfNetResource.State.LOADING, type, url, opt_statusGroup);
   var tag = isJS ? 'script' : 'link';
   var doc = opt_document || document;
   var el = doc.createElement(tag);
   var next = function next() {
-    __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('resource.create', type, url, 'done');
+    _debug2.default.debug('resource.create', type, url, 'done');
     // Only update status if the resource has not been removed in the interim.
     if (spfNetResource.status.get(type, url, opt_statusGroup)) {
-      __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('resource.create', type, url, 'loaded');
+      _debug2.default.debug('resource.create', type, url, 'loaded');
       spfNetResource.status.set(spfNetResource.State.LOADED, type, url, opt_statusGroup);
     }
-    if (isJS && el && el.parentNode && doc == document && !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */]) {
+    if (isJS && el && el.parentNode && doc == document && !_base.SPF_DEBUG) {
       // Remove scripts afterwards to avoid unnecessary increased DOM size.
       el.parentNode.removeChild(el);
     }
@@ -2811,7 +4618,7 @@ spfNetResource.find = function (type, url, opt_root) {
   var label = spfNetResource.label(url);
   var cls = spfNetResource.key(type, label);
   var selector = '.' + cls;
-  var els = __WEBPACK_IMPORTED_MODULE_3__dom_dom__["a" /* default */].query(selector, opt_root);
+  var els = _dom2.default.query(selector, opt_root);
   return els[0];
 };
 
@@ -2822,11 +4629,11 @@ spfNetResource.find = function (type, url, opt_root) {
  * @return {Array.<Node>|NodeList} The newly found elements.
  */
 spfNetResource.discover = function (type) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('resource.discover', type);
+  _debug2.default.debug('resource.discover', type);
   var isJS = type == spfNetResource.Type.JS;
   var selector = isJS ? 'script[src]' : 'link[rel~="stylesheet"]';
   var els = [];
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(__WEBPACK_IMPORTED_MODULE_3__dom_dom__["a" /* default */].query(selector), function (el) {
+  _array2.default.each(_dom2.default.query(selector), function (el) {
     var url = isJS ? el.src : el.href;
     url = spfNetResource.canonicalize(type, url);
     // Ignore if already loading or loaded.
@@ -2834,14 +4641,14 @@ spfNetResource.discover = function (type) {
       spfNetResource.status.set(spfNetResource.State.LOADED, type, url);
       var label = spfNetResource.label(url);
       var cls = spfNetResource.key(type, label);
-      __WEBPACK_IMPORTED_MODULE_4__dom_classlist__["a" /* default */].add(el, cls);
+      _classlist2.default.add(el, cls);
       var name = el.getAttribute('name');
       if (name) {
         spfNetResource.name.set(type, url, name);
         spfNetResource.url.set(type, name, url);
       }
       els.push(el);
-      __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  found', url, cls, name);
+      _debug2.default.debug('  found', url, cls, name);
     }
   });
 
@@ -2851,13 +4658,13 @@ spfNetResource.discover = function (type) {
   var name = '';
   var label = '';
   var cls = '';
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(__WEBPACK_IMPORTED_MODULE_3__dom_dom__["a" /* default */].query(contentSelector), function (el) {
+  _array2.default.each(_dom2.default.query(contentSelector), function (el) {
     name = el.getAttribute('name');
     if (name) {
       str = el.innerText.replace(/(\r\n|\n|\r)/gm, '');
 
       // Use a hashcode to identify the resource instead of a URL.
-      id = 'hash-' + __WEBPACK_IMPORTED_MODULE_7__string_string__["a" /* default */].hashcode(str.replace(/\s/g, ''));
+      id = 'hash-' + _string2.default.hashcode(str.replace(/\s/g, ''));
 
       // Ignore if already loading or loaded.
       if (!spfNetResource.status.get(type, id)) {
@@ -2912,10 +4719,10 @@ spfNetResource.prefetch = function (type, url, opt_force) {
   var key = spfNetResource.key(type, 'prefetch');
   var el = /** @type {HTMLIFrameElement} */document.getElementById(key);
   if (!el) {
-    el = __WEBPACK_IMPORTED_MODULE_3__dom_dom__["a" /* default */].createIframe(key, null, function (el) {
+    el = _dom2.default.createIframe(key, null, function (el) {
       // Use the title attribute as the iframe's loaded flag.
       el.title = key;
-      __WEBPACK_IMPORTED_MODULE_8__tasks_tasks__["a" /* default */].run(key, true);
+      _tasks2.default.run(key, true);
     });
   } else {
     // Return if the resource is already prefetched, unless opt_force is
@@ -2926,9 +4733,9 @@ spfNetResource.prefetch = function (type, url, opt_force) {
   }
   // Firefox needs the iframe to be fully created in the DOM before continuing.
   // So delay adding elements to the iframe until onload.
-  var next = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNetResource.prefetch_, null, el, type, url, id, key);
+  var next = _base.spfBase.bind(spfNetResource.prefetch_, null, el, type, url, id, key);
   if (!el.title) {
-    __WEBPACK_IMPORTED_MODULE_8__tasks_tasks__["a" /* default */].add(key, next);
+    _tasks2.default.add(key, next);
   } else {
     next();
   }
@@ -2982,7 +4789,7 @@ spfNetResource.prefetch_ = function (el, type, url, id, group) {
     if (spfNetResource.IS_IE) {
       // IE needs page-level cache busting to properly re-request images, but
       // not network-level.  Use URL hashes to trick it into re-sending.
-      url = url + '#' + __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+      url = url + '#' + _base.spfBase.now();
     }
     fetchEl.src = url;
     fetchEl.id = id;
@@ -3003,7 +4810,7 @@ spfNetResource.preconnect_ = function (url) {
   if (spfNetResource.IS_IE) {
     // IE needs page-level cache busting to properly re-request images, but
     // not network-level.  Use URL hashes to trick it into re-sending.
-    url = url + '#' + __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+    url = url + '#' + _base.spfBase.now();
   }
   img.src = url;
 };
@@ -3019,7 +4826,7 @@ spfNetResource.eval = function (type, text, name) {
   var isJS = type == spfNetResource.Type.JS;
   var previous = spfNetResource.url.get(type, name);
   // Use a hashcode to identify the resource instead of a URL.
-  var id = 'hash-' + __WEBPACK_IMPORTED_MODULE_7__string_string__["a" /* default */].hashcode(text.replace(/\s/g, ''));
+  var id = 'hash-' + _string2.default.hashcode(text.replace(/\s/g, ''));
   spfNetResource.url.set(type, name, id);
   var complete = spfNetResource.status.loaded(type, id);
   if (complete) {
@@ -3030,7 +4837,7 @@ spfNetResource.eval = function (type, text, name) {
     return;
   }
   spfNetResource.status.set(spfNetResource.State.LOADED, type, id);
-  if (el && (!isJS || __WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */])) {
+  if (el && (!isJS || _base.SPF_DEBUG)) {
     // Script elements are removed after execution, so only modify attributes
     // if a style or in debug mode.
     var label = spfNetResource.label(id);
@@ -3053,7 +4860,7 @@ spfNetResource.eval = function (type, text, name) {
  * @return {Element} The dynamically created element.
  */
 spfNetResource.exec = function (type, text) {
-  text = __WEBPACK_IMPORTED_MODULE_7__string_string__["a" /* default */].trim(text);
+  text = _string2.default.trim(text);
   if (!text) {
     return null;
   }
@@ -3066,7 +4873,7 @@ spfNetResource.exec = function (type, text) {
     // Place the scripts in the head instead of the body to avoid errors
     // when called from the head in the first place.
     targetEl.appendChild(el);
-    if (!__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */]) {
+    if (!_base.SPF_DEBUG) {
       // Remove scripts afterwards to avoid unnecessary increased DOM size.
       targetEl.removeChild(el);
     }
@@ -3094,8 +4901,8 @@ spfNetResource.exec = function (type, text) {
  * @param {string|Object.<string>} paths The paths.
  */
 spfNetResource.path = function (type, paths) {
-  var key = /** @type {spfState.Key} */__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_PATHS_PREFIX + type;
-  __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].set(key, paths);
+  var key = /** @type {spfState.Key} */_state2.default.Key.RESOURCE_PATHS_PREFIX + type;
+  _state2.default.set(key, paths);
 };
 
 /**
@@ -3112,17 +4919,17 @@ spfNetResource.path = function (type, paths) {
  * @return {string} The adjusted url.
  */
 spfNetResource.canonicalize = function (type, url) {
-  var key = /** @type {spfState.Key} */__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_PATHS_PREFIX + type;
+  var key = /** @type {spfState.Key} */_state2.default.Key.RESOURCE_PATHS_PREFIX + type;
   if (url) {
     var index = url.indexOf('//');
     if (index < 0) {
       // Relative URL: "//" not found.
-      if (__WEBPACK_IMPORTED_MODULE_7__string_string__["a" /* default */].startsWith(url, 'hash-')) {
+      if (_string2.default.startsWith(url, 'hash-')) {
         // Ignore hashcode IDs.
         return url;
       }
-      var paths = __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].get(key) || '';
-      if (__WEBPACK_IMPORTED_MODULE_7__string_string__["a" /* default */].isString(paths)) {
+      var paths = _state2.default.get(key) || '';
+      if (_string2.default.isString(paths)) {
         url = paths + url;
       } else {
         for (var p in paths) {
@@ -3133,10 +4940,10 @@ spfNetResource.canonicalize = function (type, url) {
       if (type != spfNetResource.Type.IMG) {
         url = url.indexOf('.' + type) < 0 ? url + '.' + type : url;
       }
-      url = __WEBPACK_IMPORTED_MODULE_9__url_url__["a" /* default */].absolute(url);
+      url = _url2.default.absolute(url);
     } else if (index == 0) {
       // Protocol-Relative URL: "//" found at start.
-      url = __WEBPACK_IMPORTED_MODULE_9__url_url__["a" /* default */].absolute(url);
+      url = _url2.default.absolute(url);
     }
   }
   return url;
@@ -3324,7 +5131,7 @@ spfNetResource.url_ = {};
  * @type {boolean}
  * @const
  */
-spfNetResource.IS_IE = __WEBPACK_IMPORTED_MODULE_7__string_string__["a" /* default */].contains(navigator.userAgent, ' Trident/');
+spfNetResource.IS_IE = _string2.default.contains(navigator.userAgent, ' Trident/');
 
 /**
  * The loading state of a resource.
@@ -3345,57 +5152,110 @@ spfNetResource.State = {
 
   // Automatic initiazation for spfNetResource.status_.
   // When built for the bootloader, unconditionally set in state.
-};if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
-  __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_STATUS, spfNetResource.status_);
+};if (_base.SPF_BOOTLOADER) {
+  _state2.default.set(_state2.default.Key.RESOURCE_STATUS, spfNetResource.status_);
 } else {
-  if (!__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_STATUS)) {
-    __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_STATUS, spfNetResource.status_);
+  if (!_state2.default.has(_state2.default.Key.RESOURCE_STATUS)) {
+    _state2.default.set(_state2.default.Key.RESOURCE_STATUS, spfNetResource.status_);
   }
   spfNetResource.status_ =
-  /** @type {!Object.<spfNetResource.State>} */__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_STATUS);
+  /** @type {!Object.<spfNetResource.State>} */_state2.default.get(_state2.default.Key.RESOURCE_STATUS);
 }
 
 // Automatic initiazation for spfNetResource.name_.
 // When built for the bootloader, unconditionally set the map in state.
-if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
-  __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_NAME, spfNetResource.name_);
+if (_base.SPF_BOOTLOADER) {
+  _state2.default.set(_state2.default.Key.RESOURCE_NAME, spfNetResource.name_);
 } else {
-  if (!__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_NAME)) {
-    __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_NAME, spfNetResource.name_);
+  if (!_state2.default.has(_state2.default.Key.RESOURCE_NAME)) {
+    _state2.default.set(_state2.default.Key.RESOURCE_NAME, spfNetResource.name_);
   }
-  spfNetResource.name_ = /** @type {!Object.<string>} */__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_NAME);
+  spfNetResource.name_ = /** @type {!Object.<string>} */_state2.default.get(_state2.default.Key.RESOURCE_NAME);
 }
 
 // Automatic initiazation for spfNetResource.url_.
 // When built for the bootloader, unconditionally set the map in state.
-if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
-  __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_URL, spfNetResource.url_);
+if (_base.SPF_BOOTLOADER) {
+  _state2.default.set(_state2.default.Key.RESOURCE_URL, spfNetResource.url_);
 } else {
-  if (!__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_URL)) {
-    __WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_URL, spfNetResource.url_);
+  if (!_state2.default.has(_state2.default.Key.RESOURCE_URL)) {
+    _state2.default.set(_state2.default.Key.RESOURCE_URL, spfNetResource.url_);
   }
-  spfNetResource.url_ = /** @type {!Object.<string>} */__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_6__state__["a" /* default */].Key.RESOURCE_URL);
+  spfNetResource.url_ = /** @type {!Object.<string>} */_state2.default.get(_state2.default.Key.RESOURCE_URL);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (spfNetResource);
+exports.default = spfNetResource;
 
 /***/ }),
-/* 21 */
-/* exports provided: default */
-/* exports used: default */
+/* 88 */
+/* no static exports found */
+/* all exports used */
 /*!************************************************!*\
   !*** ./app/javascript/packs/spf/net/script.js ***!
   \************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__debug_debug__ = __webpack_require__(/*! ../debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__net_resource__ = __webpack_require__(/*! ../net/resource */ 20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pubsub_pubsub__ = __webpack_require__(/*! ../pubsub/pubsub */ 41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__state__ = __webpack_require__(/*! ../state */ 5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__string_string__ = __webpack_require__(/*! ../string/string */ 7);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var _array = __webpack_require__(/*! ../array/array */ 31);
+
+var _array2 = _interopRequireDefault(_array);
+
+var _debug = __webpack_require__(/*! ../debug/debug */ 38);
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _resource = __webpack_require__(/*! ../net/resource */ 87);
+
+var _resource2 = _interopRequireDefault(_resource);
+
+var _pubsub = __webpack_require__(/*! ../pubsub/pubsub */ 113);
+
+var _pubsub2 = _interopRequireDefault(_pubsub);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// goog.provide('spfNetScript');
+var spfNetScript = {};
+
+/**
+ * Loads a script asynchronously and defines a name to use for dependency
+ * management and unloading.  See {@link #ready} to wait for named scripts to
+ * be loaded and {@link #unload} to remove previously loaded scripts.
+ *
+ * - Subsequent calls to load the same URL will not reload the script.  To
+ *   reload a script, unload it first with {@link #unload}.  To unconditionally
+ *   load a script, see {@link #get}.
+ *
+ * - A name must be specified to identify the same script at different URLs.
+ *   (For example, "main-A.js" and "main-B.js" are both "main".)  When a name
+ *   is specified, all other scripts with the same name will be unloaded
+ *   before the callback is executed.  This allows switching between
+ *   versions of the same script at different URLs.
+ *
+ * - A callback can be specified to execute once the script has loaded.  The
+ *   callback will be executed each time, even if the script is not reloaded.
+ *
+ * @param {string} url URL of the script to load.
+ * @param {string} name Name to identify the script.
+ * @param {Function=} opt_fn Optional callback function to execute when the
+ *     script is loaded.
+ */
 // Copyright 2014 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -3428,43 +5288,9 @@ if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
  *
  * @author nicksay@google.com (Alex Nicksay)
  */
-
-
-
-
-
-
-
-
-// goog.provide('spfNetScript');
-var spfNetScript = {};
-
-/**
- * Loads a script asynchronously and defines a name to use for dependency
- * management and unloading.  See {@link #ready} to wait for named scripts to
- * be loaded and {@link #unload} to remove previously loaded scripts.
- *
- * - Subsequent calls to load the same URL will not reload the script.  To
- *   reload a script, unload it first with {@link #unload}.  To unconditionally
- *   load a script, see {@link #get}.
- *
- * - A name must be specified to identify the same script at different URLs.
- *   (For example, "main-A.js" and "main-B.js" are both "main".)  When a name
- *   is specified, all other scripts with the same name will be unloaded
- *   before the callback is executed.  This allows switching between
- *   versions of the same script at different URLs.
- *
- * - A callback can be specified to execute once the script has loaded.  The
- *   callback will be executed each time, even if the script is not reloaded.
- *
- * @param {string} url URL of the script to load.
- * @param {string} name Name to identify the script.
- * @param {Function=} opt_fn Optional callback function to execute when the
- *     script is loaded.
- */
 spfNetScript.load = function (url, name, opt_fn) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].load(type, url, name, opt_fn);
+  var type = _resource2.default.Type.JS;
+  _resource2.default.load(type, url, name, opt_fn);
 };
 
 /**
@@ -3476,16 +5302,16 @@ spfNetScript.load = function (url, name, opt_fn) {
  * @param {string} name The name.
  */
 spfNetScript.unload = function (name) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].unload(type, name);
+  var type = _resource2.default.Type.JS;
+  _resource2.default.unload(type, name);
 };
 
 /**
  * Discovers existing scripts in the document and registers them as loaded.
  */
 spfNetScript.discover = function () {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].discover(type);
+  var type = _resource2.default.Type.JS;
+  _resource2.default.discover(type);
 };
 
 /**
@@ -3498,8 +5324,8 @@ spfNetScript.discover = function () {
  * @param {Function=} opt_fn Function to execute when loaded.
  */
 spfNetScript.get = function (url, opt_fn) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].create(type, url, opt_fn);
+  var type = _resource2.default.Type.JS;
+  _resource2.default.create(type, url, opt_fn);
 };
 
 /**
@@ -3510,11 +5336,11 @@ spfNetScript.get = function (url, opt_fn) {
  * @param {string|Array.<string>} urls One or more URLs of scripts to prefetch.
  */
 spfNetScript.prefetch = function (urls) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
+  var type = _resource2.default.Type.JS;
   // Convert to an array if needed.
-  urls = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].toArray(urls);
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(urls, function (url) {
-    __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].prefetch(type, url);
+  urls = _array2.default.toArray(urls);
+  _array2.default.each(urls, function (url) {
+    _resource2.default.prefetch(type, url);
   });
 };
 
@@ -3530,21 +5356,21 @@ spfNetScript.prefetch = function (urls) {
  *     are specified that have not yet been defined/loaded.
  */
 spfNetScript.ready = function (names, opt_fn, opt_require) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
+  var type = _resource2.default.Type.JS;
 
   // Convert to an array if needed.
-  names = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].toArray(names);
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('script.ready', names);
+  names = _array2.default.toArray(names);
+  _debug2.default.debug('script.ready', names);
 
   // Filter out empty names.
-  names = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].filter(names, function (name) {
+  names = _array2.default.filter(names, function (name) {
     return !!name;
   });
 
   // Find unknown names.
   var unknown = [];
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(names, function (name) {
-    if (__WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].url.get(type, name) == undefined) {
+  _array2.default.each(names, function (name) {
+    if (_resource2.default.url.get(type, name) == undefined) {
       unknown.push(name);
     }
   });
@@ -3552,16 +5378,16 @@ spfNetScript.ready = function (names, opt_fn, opt_require) {
   // Check if all urls for the names are loaded.
   var known = !unknown.length;
   if (opt_fn) {
-    var loaded = spf.bind(__WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].url.loaded, null, type);
-    var ready = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].every(names, loaded);
+    var loaded = spf.bind(_resource2.default.url.loaded, null, type);
+    var ready = _array2.default.every(names, loaded);
     if (known && ready) {
       // If ready, execute the callback.
       opt_fn();
     } else {
       // Otherwise, wait for them to be loaded.
-      var topic = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].key(type, names.sort().join('|'));
-      __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  subscribing', topic);
-      __WEBPACK_IMPORTED_MODULE_4__pubsub_pubsub__["a" /* default */].subscribe(topic, opt_fn);
+      var topic = _resource2.default.key(type, names.sort().join('|'));
+      _debug2.default.debug('  subscribing', topic);
+      _pubsub2.default.subscribe(topic, opt_fn);
     }
   }
   // If provided, call the require function to allow lazy-loading.
@@ -3577,9 +5403,9 @@ spfNetScript.ready = function (names, opt_fn, opt_require) {
  * @param {string} name The ready name.
  */
 spfNetScript.done = function (name) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].url.set(type, name, ''); // No associated URL.
-  __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].check(type);
+  var type = _resource2.default.Type.JS;
+  _resource2.default.url.set(type, name, ''); // No associated URL.
+  _resource2.default.check(type);
 };
 
 /**
@@ -3595,13 +5421,13 @@ spfNetScript.done = function (name) {
  * @param {Function} fn Callback function to cancel.
  */
 spfNetScript.ignore = function (names, fn) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
+  var type = _resource2.default.Type.JS;
   // Convert to an array if needed.
-  names = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].toArray(names);
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('script.ignore', names);
-  var topic = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].key(type, names.sort().join('|'));
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('  unsubscribing', topic);
-  __WEBPACK_IMPORTED_MODULE_4__pubsub_pubsub__["a" /* default */].unsubscribe(topic, fn);
+  names = _array2.default.toArray(names);
+  _debug2.default.debug('script.ignore', names);
+  var topic = _resource2.default.key(type, names.sort().join('|'));
+  _debug2.default.debug('  unsubscribing', topic);
+  _pubsub2.default.unsubscribe(topic, fn);
 };
 
 /**
@@ -3613,21 +5439,21 @@ spfNetScript.ignore = function (names, fn) {
  *     scripts have loaded.
  */
 spfNetScript.require = function (names, opt_fn) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('script.require', names);
+  var type = _resource2.default.Type.JS;
+  _debug2.default.debug('script.require', names);
 
   // When built for the bootloader, automatic unloading of scripts is not
   // supported.  If someone is attempting to load a new version of a script
   // before loading the main SPF code, then this should be an error.  Automatic
   // unloading of scripts is primarily intended for navigation between versions.
-  if (!__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
+  if (!_base.SPF_BOOTLOADER) {
     // Convert to an array if needed.
-    names = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].toArray(names);
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(names, function (name) {
+    names = _array2.default.toArray(names);
+    _array2.default.each(names, function (name) {
       if (name) {
         var url = spfNetScript.url_[name] || name;
-        url = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].canonicalize(type, url);
-        var previous = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].url.get(type, name);
+        url = _resource2.default.canonicalize(type, url);
+        var previous = _resource2.default.url.get(type, name);
         if (previous && url != previous) {
           spfNetScript.unrequire(name);
         }
@@ -3648,7 +5474,7 @@ spfNetScript.require_ = function (names) {
   // Iterate and check if there are declared dependencies.
   // If so, check if the deps are ready and if not recurse.
   // If not, load the scripts for that name.
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(names, function (name) {
+  _array2.default.each(names, function (name) {
     var deps = spfNetScript.deps_[name];
     var url = spfNetScript.url_[name] || name;
     var next = function next() {
@@ -3669,21 +5495,21 @@ spfNetScript.require_ = function (names) {
  * @param {string|Array.<string>} names One or more names.
  */
 spfNetScript.unrequire = function (names) {
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].debug('script.unrequire', names);
+  _debug2.default.debug('script.unrequire', names);
   // Convert to an array if needed.
-  names = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].toArray(names);
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(names, function (name) {
+  names = _array2.default.toArray(names);
+  _array2.default.each(names, function (name) {
     var descendants = [];
     for (var dep in spfNetScript.deps_) {
       var list = spfNetScript.deps_[dep];
-      list = __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].toArray(list);
-      __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(list, function (l) {
+      list = _array2.default.toArray(list);
+      _array2.default.each(list, function (l) {
         if (l == name) {
           descendants.push(dep);
         }
       });
     }
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(descendants, function (descend) {
+    _array2.default.each(descendants, function (descend) {
       spfNetScript.unrequire(descend);
     });
     spfNetScript.unload(name);
@@ -3701,8 +5527,8 @@ spfNetScript.unrequire = function (names) {
  * @return {undefined}
  */
 spfNetScript.eval = function (text, name) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  var el = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].eval(type, text, name);
+  var type = _resource2.default.Type.JS;
+  var el = _resource2.default.eval(type, text, name);
 };
 
 /**
@@ -3711,8 +5537,8 @@ spfNetScript.eval = function (text, name) {
  * @param {string} text The text of the script.
  */
 spfNetScript.exec = function (text) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  var el = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].exec(type, text);
+  var type = _resource2.default.Type.JS;
+  var el = _resource2.default.exec(type, text);
 };
 
 /**
@@ -3743,8 +5569,8 @@ spfNetScript.declare = function (deps, opt_urls) {
  * @param {string|Object.<string>} paths The paths.
  */
 spfNetScript.path = function (paths) {
-  var type = __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].Type.JS;
-  __WEBPACK_IMPORTED_MODULE_3__net_resource__["a" /* default */].path(type, paths);
+  var type = _resource2.default.Type.JS;
+  _resource2.default.path(type, paths);
 };
 
 /**
@@ -3754,13 +5580,13 @@ spfNetScript.path = function (paths) {
  */
 spfNetScript.deps_ = {};
 // When built for the bootloader, unconditionally set the map in state.
-if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
-  __WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_DEPS, spfNetScript.deps_);
+if (_base.SPF_BOOTLOADER) {
+  _state2.default.set(_state2.default.Key.SCRIPT_DEPS, spfNetScript.deps_);
 } else {
-  if (!__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_DEPS)) {
-    __WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_DEPS, spfNetScript.deps_);
+  if (!_state2.default.has(_state2.default.Key.SCRIPT_DEPS)) {
+    _state2.default.set(_state2.default.Key.SCRIPT_DEPS, spfNetScript.deps_);
   }
-  spfNetScript.deps_ = /** @type {!Object.<(string|Array.<string>)>} */__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_DEPS);
+  spfNetScript.deps_ = /** @type {!Object.<(string|Array.<string>)>} */_state2.default.get(_state2.default.Key.SCRIPT_DEPS);
 }
 
 /**
@@ -3771,46 +5597,46 @@ if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
  */
 spfNetScript.url_ = {};
 // When built for the bootloader, unconditionally set the map in state.
-if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
-  __WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_URL, spfNetScript.url_);
+if (_base.SPF_BOOTLOADER) {
+  _state2.default.set(_state2.default.Key.SCRIPT_URL, spfNetScript.url_);
 } else {
-  if (!__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_URL)) {
-    __WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_URL, spfNetScript.url_);
+  if (!_state2.default.has(_state2.default.Key.SCRIPT_URL)) {
+    _state2.default.set(_state2.default.Key.SCRIPT_URL, spfNetScript.url_);
   }
-  spfNetScript.url_ = /** @type {!Object.<string>} */__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_5__state__["a" /* default */].Key.SCRIPT_URL);
+  spfNetScript.url_ = /** @type {!Object.<string>} */_state2.default.get(_state2.default.Key.SCRIPT_URL);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (spfNetScript);
+exports.default = spfNetScript;
 
 /***/ }),
-/* 22 */
-/* exports provided: default */
-/* exports used: default */
+/* 89 */
+/* no static exports found */
+/* all exports used */
 /*!***********************************************!*\
   !*** ./app/javascript/packs/spf/net/style.js ***!
   \***********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__net_resource__ = __webpack_require__(/*! ../net/resource */ 20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__string_string__ = __webpack_require__(/*! ../string/string */ 7);
-// Copyright 2014 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
-/**
- * @fileoverview Functions for dynamically loading stylesheets.
- *
- * @author nicksay@google.com (Alex Nicksay)
- */
-
-// goog.provide('spfNetStyle');
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _array = __webpack_require__(/*! ../array/array */ 31);
 
+var _array2 = _interopRequireDefault(_array);
+
+var _resource = __webpack_require__(/*! ../net/resource */ 87);
+
+var _resource2 = _interopRequireDefault(_resource);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfNetStyle = {};
 
@@ -3840,9 +5666,22 @@ var spfNetStyle = {};
  * @param {Function=} opt_fn Optional callback function to execute when the
  *     stylesheet is loaded.
  */
+// Copyright 2014 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview Functions for dynamically loading stylesheets.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ */
+
+// goog.provide('spfNetStyle');
+
 spfNetStyle.load = function (url, name, opt_fn) {
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
-  __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].load(type, url, name, opt_fn);
+  var type = _resource2.default.Type.CSS;
+  _resource2.default.load(type, url, name, opt_fn);
 };
 
 /**
@@ -3851,16 +5690,16 @@ spfNetStyle.load = function (url, name, opt_fn) {
  * @param {string} name The dependency name.
  */
 spfNetStyle.unload = function (name) {
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
-  __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].unload(type, name);
+  var type = _resource2.default.Type.CSS;
+  _resource2.default.unload(type, name);
 };
 
 /**
  * Discovers existing stylesheets in the document and registers them as loaded.
  */
 spfNetStyle.discover = function () {
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
-  __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].discover(type);
+  var type = _resource2.default.Type.CSS;
+  _resource2.default.discover(type);
 };
 
 /**
@@ -3875,8 +5714,8 @@ spfNetStyle.discover = function () {
 spfNetStyle.get = function (url, opt_fn) {
   // NOTE: Callback execution depends on onload support and is best effort.
   // Chrome 19, Safari 6, Firefox 9, Opera and IE 5.5 support stylesheet onload.
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
-  __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].create(type, url, opt_fn);
+  var type = _resource2.default.Type.CSS;
+  _resource2.default.create(type, url, opt_fn);
 };
 
 /**
@@ -3887,11 +5726,11 @@ spfNetStyle.get = function (url, opt_fn) {
  * @param {string|Array.<string>} urls One or more stylesheet URLs to prefetch.
  */
 spfNetStyle.prefetch = function (urls) {
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
+  var type = _resource2.default.Type.CSS;
   // Convert to an array if needed.
-  urls = __WEBPACK_IMPORTED_MODULE_0__array_array__["a" /* default */].toArray(urls);
-  __WEBPACK_IMPORTED_MODULE_0__array_array__["a" /* default */].each(urls, function (url) {
-    __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].prefetch(type, url);
+  urls = _array2.default.toArray(urls);
+  _array2.default.each(urls, function (url) {
+    _resource2.default.prefetch(type, url);
   });
 };
 
@@ -3906,8 +5745,8 @@ spfNetStyle.prefetch = function (urls) {
  * @return {undefined}
  */
 spfNetStyle.eval = function (text, name) {
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
-  __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].eval(type, text, name);
+  var type = _resource2.default.Type.CSS;
+  _resource2.default.eval(type, text, name);
 };
 
 /**
@@ -3916,8 +5755,8 @@ spfNetStyle.eval = function (text, name) {
  * @param {string} text The text of the style.
  */
 spfNetStyle.exec = function (text) {
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
-  __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].exec(type, text);
+  var type = _resource2.default.Type.CSS;
+  _resource2.default.exec(type, text);
 };
 
 /**
@@ -3928,26 +5767,44 @@ spfNetStyle.exec = function (text) {
  * @param {string|Object.<string>} paths The paths.
  */
 spfNetStyle.path = function (paths) {
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.CSS;
-  __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].path(type, paths);
+  var type = _resource2.default.Type.CSS;
+  _resource2.default.path(type, paths);
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfNetStyle);
+exports.default = spfNetStyle;
 
 /***/ }),
-/* 23 */
-/* exports provided: default */
-/* exports used: default */
+/* 90 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/tasks/tasks.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(/*! ../config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state__ = __webpack_require__(/*! ../state */ 5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__string_string__ = __webpack_require__(/*! ../string/string */ 7);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var _config = __webpack_require__(/*! ../config */ 35);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // Copyright 2013 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -3958,10 +5815,6 @@ spfNetStyle.path = function (paths) {
  *
  * @author nicksay@google.com (Alex Nicksay)
  */
-
-
-
-
 
 var spfTasks = {};
 
@@ -4078,7 +5931,7 @@ spfTasks.cancel = function (key) {
 spfTasks.cancelAllExcept = function (opt_keyPrefix, opt_skipKey) {
   var keyPrefix = opt_keyPrefix || '';
   for (var key in spfTasks.queues_) {
-    if (opt_skipKey != key && __WEBPACK_IMPORTED_MODULE_3__string_string__["a" /* default */].startsWith(key, keyPrefix)) {
+    if (opt_skipKey != key && _string2.default.startsWith(key, keyPrefix)) {
       spfTasks.cancel(key);
     }
   }
@@ -4092,9 +5945,9 @@ spfTasks.cancelAllExcept = function (opt_keyPrefix, opt_skipKey) {
  * @return {string} The unique key.
  */
 spfTasks.key = function (obj) {
-  var uid = parseInt(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.TASKS_UID), 10) || 0;
+  var uid = parseInt(_state2.default.get(_state2.default.Key.TASKS_UID), 10) || 0;
   uid++;
-  return obj['spf-key'] || (obj['spf-key'] = '' + __WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.TASKS_UID, uid));
+  return obj['spf-key'] || (obj['spf-key'] = '' + _state2.default.set(_state2.default.Key.TASKS_UID, uid));
 };
 
 /**
@@ -4110,8 +5963,8 @@ spfTasks.do_ = function (key, opt_sync) {
     if (queue.semaphore > 0 && queue.items.length) {
       var task = queue.items[0];
       if (task) {
-        var next = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfTasks.do_, null, key, opt_sync);
-        var step = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (nextFn, taskFn) {
+        var next = _base.spfBase.bind(spfTasks.do_, null, key, opt_sync);
+        var step = _base.spfBase.bind(function (nextFn, taskFn) {
           taskFn();
           nextFn();
         }, null, next);
@@ -4137,15 +5990,15 @@ spfTasks.scheduleTask_ = function (queue, task, step) {
   if (task.delay) {
     // For a delay an empty step is run, and the task's functionality is saved
     // for the next step.
-    var fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(step, null, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].nullFunction);
+    var fn = _base.spfBase.bind(step, null, _base.spfBase.nullFunction);
     queue.timeoutKey = setTimeout(fn, task.delay);
     // Instead of removing the task from the queue, set it's delay to 0 so it
     // will be processed traditionally on the next step.
     task.delay = 0;
   } else {
     queue.items.shift();
-    var fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(step, null, task.fn);
-    var scheduler = /** @type {spfBase.TaskScheduler} */__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].get('advanced-task-scheduler');
+    var fn = _base.spfBase.bind(step, null, task.fn);
+    var scheduler = /** @type {spfBase.TaskScheduler} */_config2.default.get('advanced-task-scheduler');
     var addTask = scheduler && scheduler['addTask'];
     if (addTask) {
       queue.scheduledKey = addTask(fn);
@@ -4162,7 +6015,7 @@ spfTasks.scheduleTask_ = function (queue, task, step) {
  */
 spfTasks.clearAsyncTasks_ = function (queue) {
   if (queue.scheduledKey) {
-    var scheduler = /** @type {spfBase.TaskScheduler} */__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].get('advanced-task-scheduler');
+    var scheduler = /** @type {spfBase.TaskScheduler} */_config2.default.get('advanced-task-scheduler');
     var cancelTask = scheduler && scheduler['cancelTask'];
     if (cancelTask) {
       cancelTask(queue.scheduledKey);
@@ -4229,32 +6082,136 @@ spfTasks.createTask_ = function (fn, delay) {
  */
 spfTasks.queues_ = {};
 
-/* harmony default export */ __webpack_exports__["a"] = (spfTasks);
+exports.default = spfTasks;
 
 /***/ }),
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */
-/* exports provided: default */
-/* exports used: default */
+/* 91 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************************!*\
+  !*** ./~/babel-runtime/core-js/object/define-property.js ***!
+  \***********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 98), __esModule: true };
+
+/***/ }),
+/* 92 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/babel-runtime/helpers/classCallCheck.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+exports.default = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+/***/ }),
+/* 93 */
+/* no static exports found */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./~/babel-runtime/helpers/createClass.js ***!
+  \************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 91);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/***/ }),
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */
+/* no static exports found */
+/* all exports used */
+/*!********************************************************!*\
+  !*** ./~/core-js/library/fn/object/define-property.js ***!
+  \********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../../modules/es6.object.define-property */ 99);
+var $Object = __webpack_require__(/*! ../../modules/_core */ 6).Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+
+/***/ }),
+/* 99 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************************!*\
+  !*** ./~/core-js/library/modules/es6.object.define-property.js ***!
+  \*****************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(/*! ./_export */ 14);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(/*! ./_descriptors */ 1), 'Object', { defineProperty: __webpack_require__(/*! ./_object-dp */ 2).f });
+
+
+/***/ }),
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/dom/dataset.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * @fileoverview Element dataset manipulation functions.
  * See {@link http://www.w3.org/TR/html5/Overview.html#dom-dataset}.
@@ -4297,33 +6254,90 @@ spfDomDataset.set = function (node, key, val) {
   }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfDomDataset);
+exports.default = spfDomDataset;
 
 /***/ }),
-/* 39 */
-/* exports provided: default */
-/* exports used: default */
+/* 111 */
+/* no static exports found */
+/* all exports used */
 /*!*********************************************!*\
   !*** ./app/javascript/packs/spf/nav/nav.js ***!
   \*********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cache_cache__ = __webpack_require__(/*! ../cache/cache */ 18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(/*! ../config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__debug_debug__ = __webpack_require__(/*! ../debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dom_dom__ = __webpack_require__(/*! ../dom/dom */ 12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dom_classlist__ = __webpack_require__(/*! ../dom/classlist */ 19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dom_dataset__ = __webpack_require__(/*! ../dom/dataset */ 38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__history_history__ = __webpack_require__(/*! ../history/history */ 13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__nav_request__ = __webpack_require__(/*! ../nav/request */ 81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__nav_response__ = __webpack_require__(/*! ../nav/response */ 40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__state__ = __webpack_require__(/*! ../state */ 5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__string_string__ = __webpack_require__(/*! ../string/string */ 7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__ = __webpack_require__(/*! ../tasks/tasks */ 23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__url_url__ = __webpack_require__(/*! ../url/url */ 14);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var _array = __webpack_require__(/*! ../array/array */ 31);
+
+var _array2 = _interopRequireDefault(_array);
+
+var _cache = __webpack_require__(/*! ../cache/cache */ 85);
+
+var _cache2 = _interopRequireDefault(_cache);
+
+var _config = __webpack_require__(/*! ../config */ 35);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _debug = __webpack_require__(/*! ../debug/debug */ 38);
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _dom = __webpack_require__(/*! ../dom/dom */ 79);
+
+var _dom2 = _interopRequireDefault(_dom);
+
+var _classlist = __webpack_require__(/*! ../dom/classlist */ 86);
+
+var _classlist2 = _interopRequireDefault(_classlist);
+
+var _dataset = __webpack_require__(/*! ../dom/dataset */ 110);
+
+var _dataset2 = _interopRequireDefault(_dataset);
+
+var _history = __webpack_require__(/*! ../history/history */ 80);
+
+var _history2 = _interopRequireDefault(_history);
+
+var _request = __webpack_require__(/*! ../nav/request */ 153);
+
+var _request2 = _interopRequireDefault(_request);
+
+var _response = __webpack_require__(/*! ../nav/response */ 112);
+
+var _response2 = _interopRequireDefault(_response);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+var _tasks = __webpack_require__(/*! ../tasks/tasks */ 90);
+
+var _tasks2 = _interopRequireDefault(_tasks);
+
+var _url = __webpack_require__(/*! ../url/url */ 81);
+
+var _url2 = _interopRequireDefault(_url);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var spfNav = {};
+// goog.provide('spfNav');
+
+/**
+ * Initializes (enables) pushState navigation.
+ */
 // Copyright 2012 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -4335,50 +6349,28 @@ spfDomDataset.set = function (node, key, val) {
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var spfNav = {};
-// goog.provide('spfNav');
-
-/**
- * Initializes (enables) pushState navigation.
- */
 spfNav.init = function () {
   // Initialize history management.
-  __WEBPACK_IMPORTED_MODULE_8__history_history__["a" /* default */].init(spfNav.handleHistory_, spfNav.dispatchError_);
+  _history2.default.init(spfNav.handleHistory_, spfNav.dispatchError_);
   // If already initialized, or running in an unsupported environment, return.
-  if (__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT) || !document.addEventListener) {
+  if (_state2.default.get(_state2.default.Key.NAV_INIT) || !document.addEventListener) {
     return;
   }
   // Set some basic state.
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT, true);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT_TIME, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now());
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_COUNTER, 0);
+  _state2.default.set(_state2.default.Key.NAV_INIT, true);
+  _state2.default.set(_state2.default.Key.NAV_INIT_TIME, _base.spfBase.now());
+  _state2.default.set(_state2.default.Key.NAV_COUNTER, 0);
   // Handle clicks for navigating when a spf-link element click happens.
   document.addEventListener('click', spfNav.handleClick_, false);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_CLICK_LISTENER, spfNav.handleClick_);
+  _state2.default.set(_state2.default.Key.NAV_CLICK_LISTENER, spfNav.handleClick_);
   // Handle mousedowns for prefetching when a spf-link element click starts.
-  if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('experimental-prefetch-mousedown') && !spfNav.isTouchCapablePlatform_()) {
+  if (_config2.default.get('experimental-prefetch-mousedown') && !spfNav.isTouchCapablePlatform_()) {
     document.addEventListener('mousedown', spfNav.handleMouseDown_, false);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_MOUSEDOWN_LISTENER, spfNav.handleMouseDown_);
+    _state2.default.set(_state2.default.Key.NAV_MOUSEDOWN_LISTENER, spfNav.handleMouseDown_);
   }
   // Handle scrolls for preventing early scrolling during history changes.
   document.addEventListener('scroll', spfNav.handleScroll_, false);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_LISTENER, spfNav.handleScroll_);
+  _state2.default.set(_state2.default.Key.NAV_SCROLL_LISTENER, spfNav.handleScroll_);
 };
 
 /**
@@ -4386,25 +6378,25 @@ spfNav.init = function () {
  */
 spfNav.dispose = function () {
   spfNav.cancel();
-  if (__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT)) {
+  if (_state2.default.get(_state2.default.Key.NAV_INIT)) {
     if (document.removeEventListener) {
-      var handleClick = /** @type {function(Event)} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_CLICK_LISTENER);
+      var handleClick = /** @type {function(Event)} */_state2.default.get(_state2.default.Key.NAV_CLICK_LISTENER);
       document.removeEventListener('click', handleClick, false);
-      var handleMouseDown = /** @type {function(Event)} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_MOUSEDOWN_LISTENER);
+      var handleMouseDown = /** @type {function(Event)} */_state2.default.get(_state2.default.Key.NAV_MOUSEDOWN_LISTENER);
       document.removeEventListener('mousedown', handleMouseDown, false);
-      var handleScroll = /** @type {function(Event)} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_LISTENER);
+      var handleScroll = /** @type {function(Event)} */_state2.default.get(_state2.default.Key.NAV_SCROLL_LISTENER);
       document.removeEventListener('scroll', handleScroll, false);
     }
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_CLICK_LISTENER, null);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_MOUSEDOWN_LISTENER, null);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_LISTENER, null);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_POSITION, null);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_URL, null);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT, false);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT_TIME, null);
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_COUNTER, null);
+    _state2.default.set(_state2.default.Key.NAV_CLICK_LISTENER, null);
+    _state2.default.set(_state2.default.Key.NAV_MOUSEDOWN_LISTENER, null);
+    _state2.default.set(_state2.default.Key.NAV_SCROLL_LISTENER, null);
+    _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_POSITION, null);
+    _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_URL, null);
+    _state2.default.set(_state2.default.Key.NAV_INIT, false);
+    _state2.default.set(_state2.default.Key.NAV_INIT_TIME, null);
+    _state2.default.set(_state2.default.Key.NAV_COUNTER, null);
   }
-  __WEBPACK_IMPORTED_MODULE_8__history_history__["a" /* default */].dispose();
+  _history2.default.dispose();
 };
 
 /**
@@ -4416,8 +6408,8 @@ spfNav.dispose = function () {
  * @private
  */
 spfNav.getAncestorWithLinkClass_ = function (element) {
-  return __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].getAncestor(element, function (node) {
-    return __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].contains(node, /** @type {string} */__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('link-class'));
+  return _dom2.default.getAncestor(element, function (node) {
+    return _classlist2.default.contains(node, /** @type {string} */_config2.default.get('link-class'));
   });
 };
 
@@ -4430,8 +6422,8 @@ spfNav.getAncestorWithLinkClass_ = function (element) {
  * @private
  */
 spfNav.getAncestorWithNoLinkClass_ = function (element) {
-  return __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].getAncestor(element, function (node) {
-    return __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].contains(node, /** @type {string} */__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('nolink-class'));
+  return _dom2.default.getAncestor(element, function (node) {
+    return _classlist2.default.contains(node, /** @type {string} */_config2.default.get('nolink-class'));
   });
 };
 
@@ -4444,7 +6436,7 @@ spfNav.getAncestorWithNoLinkClass_ = function (element) {
  * @private
  */
 spfNav.getAncestorWithHref_ = function (element, parent) {
-  return __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].getAncestor(element, function (node) {
+  return _dom2.default.getAncestor(element, function (node) {
     // Images in IE10 can have an href.
     return node.href && node.tagName.toLowerCase() != 'img';
   }, parent);
@@ -4460,34 +6452,34 @@ spfNav.getAncestorWithHref_ = function (element, parent) {
 spfNav.getEventURL_ = function (evt) {
   // Ignore clicks with modifier keys.
   if (evt.metaKey || evt.altKey || evt.ctrlKey || evt.shiftKey) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    ignoring click with modifier key');
+    _debug2.default.debug('    ignoring click with modifier key');
     return null;
   }
   // Ignore clicks with alternate buttons (left = 0, middle = 1, right = 2).
   if (evt.button > 0) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    ignoring click with alternate button');
+    _debug2.default.debug('    ignoring click with alternate button');
     return null;
   }
   // Ignore clicks on targets without the link class or not within
   // a container with the link class.
   var linkEl = spfNav.getAncestorWithLinkClass_(evt.target);
   if (!linkEl) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    ignoring click without link class');
+    _debug2.default.debug('    ignoring click without link class');
     return null;
   }
   // Ignore clicks on targets with the nolink class or within
   // a container with the nolink class.
-  if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('nolink-class')) {
+  if (_config2.default.get('nolink-class')) {
     var nolinkEl = spfNav.getAncestorWithNoLinkClass_(evt.target);
     if (nolinkEl) {
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    ignoring click with nolink class');
+      _debug2.default.debug('    ignoring click with nolink class');
       return null;
     }
   }
   var target = spfNav.getAncestorWithHref_(evt.target, linkEl);
   // Ignore clicks on targets without an href.
   if (!target) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    ignoring click without href parent');
+    _debug2.default.debug('    ignoring click without href parent');
     return null;
   }
   return target.href;
@@ -4504,9 +6496,9 @@ spfNav.getEventURL_ = function (evt) {
 spfNav.isAllowed_ = function (url) {
   // If the destination is not same-origin, cancel.
   // TODO(nicksay): Add CORS origin whitelist.
-  var destination = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].origin(url);
-  if (destination != __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].origin(window.location.href)) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn('destination not same-origin');
+  var destination = _url2.default.origin(url);
+  if (destination != _url2.default.origin(window.location.href)) {
+    _debug2.default.warn('destination not same-origin');
     return false;
   }
   return true;
@@ -4522,27 +6514,27 @@ spfNav.isAllowed_ = function (url) {
  */
 spfNav.isEligible_ = function (url) {
   // If navigation is requested but SPF is not initialized, cancel.
-  if (!__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT)) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn('navigation not initialized');
+  if (!_state2.default.get(_state2.default.Key.NAV_INIT)) {
+    _debug2.default.warn('navigation not initialized');
     return false;
   }
   // If a session limit has been set and reached, cancel.
-  var count = parseInt(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_COUNTER), 10) || 0;
+  var count = parseInt(_state2.default.get(_state2.default.Key.NAV_COUNTER), 10) || 0;
   count++;
-  var limit = parseInt(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('navigate-limit'), 10);
+  var limit = parseInt(_config2.default.get('navigate-limit'), 10);
   limit = isNaN(limit) ? Infinity : limit;
   if (count > limit) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn('navigation limit reached');
+    _debug2.default.warn('navigation limit reached');
     return false;
   }
   // If a session lifetime has been set and reached, cancel.
-  var timestamp = parseInt(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_INIT_TIME), 10);
+  var timestamp = parseInt(_state2.default.get(_state2.default.Key.NAV_INIT_TIME), 10);
   timestamp--;
-  var age = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now() - timestamp;
-  var lifetime = parseInt(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('navigate-lifetime'), 10);
+  var age = _base.spfBase.now() - timestamp;
+  var lifetime = parseInt(_config2.default.get('navigate-lifetime'), 10);
   lifetime = isNaN(lifetime) ? Infinity : lifetime;
   if (age > lifetime) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn('navigation lifetime reached');
+    _debug2.default.warn('navigation lifetime reached');
     return false;
   }
   return true;
@@ -4562,11 +6554,11 @@ spfNav.isNavigable_ = function (url, opt_current) {
   var current = opt_current || window.location.href;
   // Check for transitions between hash URLs.  If the destination
   // contains a hash and the page is the same, navigation is not handled.
-  if (__WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].contains(url, '#')) {
-    var absoluteUrl = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
-    var absoluteCurrent = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(current);
+  if (_string2.default.contains(url, '#')) {
+    var absoluteUrl = _url2.default.absolute(url);
+    var absoluteCurrent = _url2.default.absolute(current);
     if (absoluteUrl == absoluteCurrent) {
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    not handling hash-based navigation');
+      _debug2.default.debug('    not handling hash-based navigation');
       return false;
     }
   }
@@ -4581,7 +6573,7 @@ spfNav.isNavigable_ = function (url, opt_current) {
  * @private
  */
 spfNav.handleClick_ = function (evt) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.handleClick ', 'evt=', evt);
+  _debug2.default.debug('nav.handleClick ', 'evt=', evt);
   // Allow other click handlers to cancel navigation.
   if (evt.defaultPrevented) {
     return;
@@ -4591,7 +6583,7 @@ spfNav.handleClick_ = function (evt) {
   if (!url) {
     return;
   }
-  url = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].appendPersistentParameters(url);
+  url = _url2.default.appendPersistentParameters(url);
   // Ignore clicks if the URL is not allowed (e.g. cross-domain).
   if (!spfNav.isAllowed_(url)) {
     return;
@@ -4620,7 +6612,7 @@ spfNav.handleClick_ = function (evt) {
  * @private
  */
 spfNav.handleMouseDown_ = function (evt) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.handleMouseDown ', 'evt=', evt);
+  _debug2.default.debug('nav.handleMouseDown ', 'evt=', evt);
   var url = spfNav.getEventURL_(evt);
   // Ignore clicks without a URL.
   if (!url) {
@@ -4643,7 +6635,7 @@ spfNav.handleScroll_ = function (evt) {
   var position = spfNav.getScrollTempPosition_();
   spfNav.clearScrollTempPosition_();
   if (position) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    returning to saved scroll temp position', position);
+    _debug2.default.debug('    returning to saved scroll temp position', position);
     window.scroll.apply(null, position);
   }
 };
@@ -4656,7 +6648,7 @@ spfNav.handleScroll_ = function (evt) {
  * @private
  */
 spfNav.handleHistory_ = function (url, opt_state) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.handleHistory ', '(url=', url, 'state=', opt_state, ')');
+  _debug2.default.debug('nav.handleHistory ', '(url=', url, 'state=', opt_state, ')');
   var info = new spfNav.Info({
     current: opt_state && opt_state['spf-current'],
     history: true,
@@ -4665,9 +6657,9 @@ spfNav.handleHistory_ = function (url, opt_state) {
     reverse: !!(opt_state && opt_state['spf-back'])
   });
   // If the reload-identifier is present, remove it to prevent confusing data.
-  var reloadId = /** @type {?string} */__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('reload-identifier');
+  var reloadId = /** @type {?string} */_config2.default.get('reload-identifier');
   if (reloadId) {
-    url = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].removeParameters(url, [reloadId]);
+    url = _url2.default.removeParameters(url, [reloadId]);
   }
   // Reload if the URL is not allowed (e.g. cross-domain).
   if (!spfNav.isAllowed_(url)) {
@@ -4717,12 +6709,12 @@ spfNav.handleHistory_ = function (url, opt_state) {
  * @param {spfBase.RequestOptions=} opt_options Optional request options object.
  */
 spfNav.navigate = function (url, opt_options) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.navigate ', '(url=', url, 'options=', opt_options, ')');
+  _debug2.default.debug('nav.navigate ', '(url=', url, 'options=', opt_options, ')');
   // Ignore navigation to an empty URL.
   if (!url) {
     return;
   }
-  url = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].appendPersistentParameters(url);
+  url = _url2.default.appendPersistentParameters(url);
   // Reload if the URL is not allowed (e.g. cross-domain).
   if (!spfNav.isAllowed_(url)) {
     spfNav.reload(url, spfNav.ReloadReason.FORBIDDEN);
@@ -4749,17 +6741,17 @@ spfNav.navigate = function (url, opt_options) {
  * @private.
  */
 spfNav.navigate_ = function (url, options, info) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].info('nav.navigate_ ', url, options, info);
+  _debug2.default.info('nav.navigate_ ', url, options, info);
 
   // Abort previous navigation, if needed.
   spfNav.cancel();
 
   // If the URL is not navigable, attempt to scroll to support hash navigation.
   if (!spfNav.isNavigable_(url, info.current)) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('non-navigable, just scroll');
+    _debug2.default.debug('non-navigable, just scroll');
     // Add a history entry beforehand to save current position, if needed.
     if (!info.history) {
-      var handleError = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleNavigateError_, null, options);
+      var handleError = _base.spfBase.bind(spfNav.handleNavigateError_, null, options);
       spfNav.navigateAddHistory_(url, info.referer, handleError);
     }
     // Then attempt to scroll.
@@ -4774,8 +6766,8 @@ spfNav.navigate_ = function (url, options, info) {
   }
 
   // Set the navigation counter.
-  var count = (parseInt(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_COUNTER), 10) || 0) + 1;
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_COUNTER, count);
+  var count = (parseInt(_state2.default.get(_state2.default.Key.NAV_COUNTER), 10) || 0) + 1;
+  _state2.default.set(_state2.default.Key.NAV_COUNTER, count);
 
   // Abort all ongoing prefetch requests, except for the navigation one if it
   // exists.  This will reduce network contention for the navigation request
@@ -4786,17 +6778,17 @@ spfNav.navigate_ = function (url, options, info) {
   // If the navigation one is a completed single response, the task will be
   // canceled in spfNav.navigatePromotePrefetch_.  If it is an ongoing
   // multipart response, allow it to continue processing until the completed.
-  var absoluteUrl = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
+  var absoluteUrl = _url2.default.absolute(url);
   var preprocessKey = spfNav.preprocessKey(absoluteUrl);
-  __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].cancelAllExcept('preprocess', preprocessKey);
+  _tasks2.default.cancelAllExcept('preprocess', preprocessKey);
 
   // Set the current nav request to be the prefetch, if it exists.
   var prefetches = spfNav.prefetches_();
   var prefetchXhr = prefetches[absoluteUrl];
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_REQUEST, prefetchXhr);
+  _state2.default.set(_state2.default.Key.NAV_REQUEST, prefetchXhr);
   // Make sure there is no current nav promotion set.
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE, null);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE_TIME, null);
+  _state2.default.set(_state2.default.Key.NAV_PROMOTE, null);
+  _state2.default.set(_state2.default.Key.NAV_PROMOTE_TIME, null);
 
   // Check the prefetch XHR.  If it is not done, promote the prefetch
   // to navigate.  Otherwise, navigate immediately.
@@ -4818,18 +6810,18 @@ spfNav.navigate_ = function (url, options, info) {
  * @private
  */
 spfNav.navigatePromotePrefetch_ = function (url, options, info) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.navigatePromotePrefetch_ ', url);
+  _debug2.default.debug('nav.navigatePromotePrefetch_ ', url);
   var preprocessKey = spfNav.preprocessKey(url);
   var promoteKey = spfNav.promoteKey(url);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE, url);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE_TIME, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now());
-  __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].cancel(preprocessKey);
-  __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].run(promoteKey, true);
+  _state2.default.set(_state2.default.Key.NAV_PROMOTE, url);
+  _state2.default.set(_state2.default.Key.NAV_PROMOTE_TIME, _base.spfBase.now());
+  _tasks2.default.cancel(preprocessKey);
+  _tasks2.default.run(promoteKey, true);
 
   // After starting the promote tasks, check for new navigation that needs
   // a history entry added.
   if (!info.history) {
-    var handleError = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleNavigateError_, null, options);
+    var handleError = _base.spfBase.bind(spfNav.handleNavigateError_, null, options);
     spfNav.navigateAddHistory_(url, info.referer, handleError);
   }
 };
@@ -4844,9 +6836,9 @@ spfNav.navigatePromotePrefetch_ = function (url, options, info) {
  * @private
  */
 spfNav.navigateSendRequest_ = function (url, options, info) {
-  var handleError = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleNavigateError_, null, options);
-  var handlePart = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleNavigatePart_, null, options, info);
-  var handleSuccess = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleNavigateSuccess_, null, options, info);
+  var handleError = _base.spfBase.bind(spfNav.handleNavigateError_, null, options);
+  var handlePart = _base.spfBase.bind(spfNav.handleNavigatePart_, null, options, info);
+  var handleSuccess = _base.spfBase.bind(spfNav.handleNavigateSuccess_, null, options, info);
 
   // Before sending a new navigation request, clear previous resource timings
   // to avoid (1) hitting buffer size limits or (2) accidentally getting timings
@@ -4855,7 +6847,7 @@ spfNav.navigateSendRequest_ = function (url, options, info) {
   // Only do this for navigations to avoid removing unrelated resource timings
   // during prefetch or load calls.
   // As an advanced option, allow timings to persist if desired.
-  if (!__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('advanced-navigate-persist-timing')) {
+  if (!_config2.default.get('advanced-navigate-persist-timing')) {
     spfNav.clearResourceTimings_();
   }
 
@@ -4864,7 +6856,7 @@ spfNav.navigateSendRequest_ = function (url, options, info) {
     info.type += info.reverse ? '-back' : '-forward';
   }
 
-  var xhr = __WEBPACK_IMPORTED_MODULE_9__nav_request__["a" /* default */].send(url, {
+  var xhr = _request2.default.send(url, {
     method: options['method'],
     headers: options['headers'],
     onPart: handlePart,
@@ -4875,7 +6867,7 @@ spfNav.navigateSendRequest_ = function (url, options, info) {
     current: info.current,
     referer: info.referer
   });
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_REQUEST, xhr);
+  _state2.default.set(_state2.default.Key.NAV_REQUEST, xhr);
 
   // After the request has been sent, check for new navigation that needs
   // a history entry added.  Do this after sending the XHR to have the
@@ -4897,29 +6889,29 @@ spfNav.navigateSendRequest_ = function (url, options, info) {
 spfNav.navigateScroll_ = function (url, info) {
   // If a position is defined, scroll to it.
   if (info.position) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    clearing scroll temp position');
+    _debug2.default.debug('    clearing scroll temp position');
     spfNav.clearScrollTempPosition_();
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    scrolling to position', info.position);
+    _debug2.default.debug('    scrolling to position', info.position);
     window.scroll.apply(null, info.position);
     info.scrolled = true;
     return;
   }
-  var result = __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].partition(url, '#');
+  var result = _string2.default.partition(url, '#');
   // If a non-empty hash is found, attempt to scroll the element into view.
   // Otherwise, scroll to the top of the page.
   if (result[2]) {
     var el = document.getElementById(result[2]);
     if (el) {
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    clearing scroll temp position');
+      _debug2.default.debug('    clearing scroll temp position');
       spfNav.clearScrollTempPosition_();
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    scrolling into view', result[2]);
+      _debug2.default.debug('    scrolling into view', result[2]);
       el.scrollIntoView();
       info.scrolled = true;
     }
   } else if (!info.scrolled) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    clearing scroll temp position');
+    _debug2.default.debug('    clearing scroll temp position');
     spfNav.clearScrollTempPosition_();
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    scrolling to top');
+    _debug2.default.debug('    scrolling to top');
     window.scroll(0, 0);
     info.scrolled = true;
   }
@@ -4939,20 +6931,20 @@ spfNav.navigateAddHistory_ = function (url, referer, handleError) {
     // current scroll position (and timestamp, always done automatically).
     var position = [window.pageXOffset, window.pageYOffset];
     var updateState = { 'spf-position': position };
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    updating history to scroll position', position);
-    __WEBPACK_IMPORTED_MODULE_8__history_history__["a" /* default */].replace(null, updateState);
+    _debug2.default.debug('    updating history to scroll position', position);
+    _history2.default.replace(null, updateState);
     // Add the new history entry, unless the URL is the same as the current.
     // (This can happen when clicking a hash-based target multiple times.)
-    if (__WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url, true) != window.location.href) {
+    if (_url2.default.absolute(url, true) != window.location.href) {
       var newState = { 'spf-referer': referer };
-      __WEBPACK_IMPORTED_MODULE_8__history_history__["a" /* default */].add(url, newState);
+      _history2.default.add(url, newState);
     }
   } catch (err) {
     // Abort the navigation.
     spfNav.cancel();
     // An error is thrown if the state object is too large or if the
     // URL is not in the same domain.
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].error('error caught, redirecting ', '(url=', url, 'err=', err, ')');
+    _debug2.default.error('error caught, redirecting ', '(url=', url, 'err=', err, ')');
     handleError(url, err);
   }
 };
@@ -4968,8 +6960,8 @@ spfNav.navigateAddHistory_ = function (url, referer, handleError) {
  * @private
  */
 spfNav.handleNavigateError_ = function (options, url, err, opt_xhr) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn('navigate error', '(url=', url, ')');
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_REQUEST, null);
+  _debug2.default.warn('navigate error', '(url=', url, ')');
+  _state2.default.set(_state2.default.Key.NAV_REQUEST, null);
   // Ignore the error if the "error" event is canceled, but otherwise,
   // reload the page.
   if (!spfNav.dispatchError_(url, err, options, undefined, opt_xhr)) {
@@ -5008,13 +7000,13 @@ spfNav.handleNavigatePart_ = function (options, info, url, partial) {
   }
 
   try {
-    __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].process(url, partial, info, function () {
+    _response2.default.process(url, partial, info, function () {
       spfNav.dispatchPartDone_(url, partial, options);
     });
   } catch (err) {
     // If an exception is caught during processing, log, execute the error
     // handler, and bail.
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    failed to process part', partial);
+    _debug2.default.debug('    failed to process part', partial);
     spfNav.handleNavigateError_(options, url, err);
   }
 };
@@ -5031,13 +7023,13 @@ spfNav.handleNavigatePart_ = function (options, info, url, partial) {
  * @private
  */
 spfNav.handleNavigateSuccess_ = function (options, info, url, response) {
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_REQUEST, null);
+  _state2.default.set(_state2.default.Key.NAV_REQUEST, null);
 
   // If this is a navigation from a promotion, manually set the
   // navigation start time.
-  if (__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE) == info.original) {
+  if (_state2.default.get(_state2.default.Key.NAV_PROMOTE) == info.original) {
     var timing = response['timing'] || {};
-    timing['navigationStart'] = __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE_TIME);
+    timing['navigationStart'] = _state2.default.get(_state2.default.Key.NAV_PROMOTE_TIME);
     timing['spfPrefetched'] = true;
   }
 
@@ -5070,16 +7062,16 @@ spfNav.handleNavigateSuccess_ = function (options, info, url, response) {
     // so an empty object is used to ensure events/callbacks are properly
     // queued after existing ones from any ongoing part prcoessing.
     var r = /** @type {spfBase.SingleResponse} */multipart ? {} : response;
-    __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].process(url, r, info, function () {
+    _response2.default.process(url, r, info, function () {
       // After processing is complete, save the name for future use.
       var name = response['name'] || '';
       if (multipart) {
         var parts = response['parts'];
-        __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(parts, function (part) {
+        _array2.default.each(parts, function (part) {
           name = part['name'] || name;
         });
       }
-      __WEBPACK_IMPORTED_MODULE_7__dom_dataset__["a" /* default */].set(document.body, 'spfName', name);
+      _dataset2.default.set(document.body, 'spfName', name);
       // If this navigation was from history, attempt to scroll to the previous
       // position after all processing is complete.  This should not be done
       // earlier because the prevous position might rely on page width/height
@@ -5093,7 +7085,7 @@ spfNav.handleNavigateSuccess_ = function (options, info, url, response) {
   } catch (err) {
     // If an exception is caught during processing, log, execute the error
     // handler and bail.
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    failed to process response', response);
+    _debug2.default.debug('    failed to process response', response);
     spfNav.handleNavigateError_(options, url, err);
   }
 };
@@ -5114,10 +7106,10 @@ spfNav.handleNavigateRedirect_ = function (options, redirectUrl) {
   try {
     // Persist the url hash to mirror browser redirects.
     redirectUrl = redirectUrl + window.location.hash;
-    __WEBPACK_IMPORTED_MODULE_8__history_history__["a" /* default */].replace(redirectUrl, null, true);
+    _history2.default.replace(redirectUrl, null, true);
   } catch (err) {
     spfNav.cancel();
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].error('error caught, reloading ', '(url=', redirectUrl, 'err=', err, ')');
+    _debug2.default.error('error caught, reloading ', '(url=', redirectUrl, 'err=', err, ')');
     spfNav.handleNavigateError_(options, redirectUrl, err);
   }
 };
@@ -5126,11 +7118,11 @@ spfNav.handleNavigateRedirect_ = function (options, redirectUrl) {
  * Cancels the current navigation request, if any.
  */
 spfNav.cancel = function () {
-  var xhr = /** @type {XMLHttpRequest} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_REQUEST);
+  var xhr = /** @type {XMLHttpRequest} */_state2.default.get(_state2.default.Key.NAV_REQUEST);
   if (xhr) {
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn('aborting previous navigate ', 'xhr=', xhr);
+    _debug2.default.warn('aborting previous navigate ', 'xhr=', xhr);
     xhr.abort();
-    __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_REQUEST, null);
+    _state2.default.set(_state2.default.Key.NAV_REQUEST, null);
   }
 };
 
@@ -5148,9 +7140,9 @@ spfNav.callback = function (fn, var_args) {
   if (fn) {
     var args = Array.prototype.slice.call(arguments);
     args[0] = fn;
-    val = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].execute.apply(null, args);
+    val = _base.spfBase.execute.apply(null, args);
     if (val instanceof Error) {
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].error('error in callback (url=', window.location.href, 'err=', val, ')');
+      _debug2.default.error('error in callback (url=', window.location.href, 'err=', val, ')');
     }
   }
   return val !== false;
@@ -5166,7 +7158,7 @@ spfNav.callback = function (fn, var_args) {
  */
 spfNav.reload = function (url, reason, opt_err) {
   var err = opt_err ? opt_err.message : '';
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn('reloading (', 'url=', url, 'reason=', reason, 'error=', err, ')');
+  _debug2.default.warn('reloading (', 'url=', url, 'reason=', reason, 'error=', err, ')');
   spfNav.cancel();
   spfNav.cancelAllPrefetchesExcept();
   // Dispatch the reload event to notify the app that a reload is required.
@@ -5181,16 +7173,16 @@ spfNav.reload = function (url, reason, opt_err) {
   // will identify that the starting url was the same, and replace the current
   // history state, whereas Firefox will set a new state with the post 301
   // value.
-  if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('experimental-remove-history') && current == url) {
-    __WEBPACK_IMPORTED_MODULE_8__history_history__["a" /* default */].removeCurrentEntry();
+  if (_config2.default.get('experimental-remove-history') && current == url) {
+    _history2.default.removeCurrentEntry();
   }
   // Delay the reload until after the history state has had time to clear.
   setTimeout(function () {
-    var reloadId = /** @type {?string} */__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('reload-identifier');
+    var reloadId = /** @type {?string} */_config2.default.get('reload-identifier');
     if (reloadId) {
       var params = {};
       params[reloadId] = encodeURIComponent(reason);
-      url = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].appendParameters(url, params);
+      url = _url2.default.appendParameters(url, params);
     }
     window.location.href = url;
     // If the new url only differs by a hash then just assigning to
@@ -5217,7 +7209,7 @@ spfNav.reload = function (url, reason, opt_err) {
  * @param {spfBase.RequestOptions=} opt_options Optional request options object.
  */
 spfNav.load = function (url, opt_options) {
-  url = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].appendPersistentParameters(url);
+  url = _url2.default.appendPersistentParameters(url);
   var options = spfNav.createOptions_(opt_options);
   var info = new spfNav.Info();
   spfNav.load_(url, options, info);
@@ -5233,7 +7225,7 @@ spfNav.load = function (url, opt_options) {
  * @private
  */
 spfNav.load_ = function (url, options, info) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].info('nav.load ', url, options, info);
+  _debug2.default.info('nav.load ', url, options, info);
 
   info.original = info.original || url;
 
@@ -5243,13 +7235,13 @@ spfNav.load_ = function (url, options, info) {
     return;
   }
 
-  var handleError = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleLoadError_, null, false, options, info);
-  var handlePart = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleLoadPart_, null, false, options, info);
-  var handleSuccess = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleLoadSuccess_, null, false, options, info);
+  var handleError = _base.spfBase.bind(spfNav.handleLoadError_, null, false, options, info);
+  var handlePart = _base.spfBase.bind(spfNav.handleLoadPart_, null, false, options, info);
+  var handleSuccess = _base.spfBase.bind(spfNav.handleLoadSuccess_, null, false, options, info);
 
   info.type = 'load';
 
-  __WEBPACK_IMPORTED_MODULE_9__nav_request__["a" /* default */].send(url, {
+  _request2.default.send(url, {
     method: options['method'],
     headers: options['headers'],
     onPart: handlePart,
@@ -5272,7 +7264,7 @@ spfNav.load_ = function (url, options, info) {
  * @param {spfBase.RequestOptions=} opt_options Optional request options object.
  */
 spfNav.prefetch = function (url, opt_options) {
-  url = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].appendPersistentParameters(url);
+  url = _url2.default.appendPersistentParameters(url);
   var options = spfNav.createOptions_(opt_options);
   var info = new spfNav.Info();
   spfNav.prefetch_(url, options, info);
@@ -5288,7 +7280,7 @@ spfNav.prefetch = function (url, opt_options) {
  * @private
  */
 spfNav.prefetch_ = function (url, options, info) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].info('nav.prefetch ', url, options, info);
+  _debug2.default.info('nav.prefetch ', url, options, info);
   info.original = info.original || url;
 
   // Abort the prefetch if the "request" callback is canceled.
@@ -5297,13 +7289,13 @@ spfNav.prefetch_ = function (url, options, info) {
     return;
   }
 
-  var handleError = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleLoadError_, null, true, options, info);
-  var handlePart = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleLoadPart_, null, true, options, info);
-  var handleSuccess = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleLoadSuccess_, null, true, options, info);
+  var handleError = _base.spfBase.bind(spfNav.handleLoadError_, null, true, options, info);
+  var handlePart = _base.spfBase.bind(spfNav.handleLoadPart_, null, true, options, info);
+  var handleSuccess = _base.spfBase.bind(spfNav.handleLoadSuccess_, null, true, options, info);
 
   info.type = 'prefetch';
 
-  var xhr = __WEBPACK_IMPORTED_MODULE_9__nav_request__["a" /* default */].send(url, {
+  var xhr = _request2.default.send(url, {
     method: options['method'],
     headers: options['headers'],
     onPart: handlePart,
@@ -5328,7 +7320,7 @@ spfNav.prefetch_ = function (url, options, info) {
  * @private
  */
 spfNav.handleLoadError_ = function (isPrefetch, options, info, url, err) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].warn(isPrefetch ? 'prefetch' : 'load', 'error', '(url=', url, ')');
+  _debug2.default.warn(isPrefetch ? 'prefetch' : 'load', 'error', '(url=', url, ')');
 
   if (isPrefetch) {
     spfNav.removePrefetch(url);
@@ -5336,7 +7328,7 @@ spfNav.handleLoadError_ = function (isPrefetch, options, info, url, err) {
 
   // If a prefetch has been promoted to a navigate, use the navigate error
   // handler.  Otherwise, execute the "error" callback.
-  if (isPrefetch && __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE) == info.original) {
+  if (isPrefetch && _state2.default.get(_state2.default.Key.NAV_PROMOTE) == info.original) {
     spfNav.handleNavigateError_(options, url, err);
   } else {
     // Note: pass "true" to only execute callbacks and not dispatch events.
@@ -5369,7 +7361,7 @@ spfNav.handleLoadPart_ = function (isPrefetch, options, info, url, partial) {
     if (!isPrefetch) {
       return;
     }
-    if (__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE) == info.original) {
+    if (_state2.default.get(_state2.default.Key.NAV_PROMOTE) == info.original) {
       spfNav.reload(url, spfNav.ReloadReason.RESPONSE_RECEIVED);
       return;
     }
@@ -5386,18 +7378,18 @@ spfNav.handleLoadPart_ = function (isPrefetch, options, info, url, partial) {
     // prefetch promotion.
     // TODO(nicksay): Honor history/reverse/position during promotion in
     // reponse to a popState. (This is an edge case.)
-    var fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleNavigatePart_, null, options, info, url, partial);
+    var fn = _base.spfBase.bind(spfNav.handleNavigatePart_, null, options, info, url, partial);
     var promoteKey = spfNav.promoteKey(info.original);
-    __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(promoteKey, fn);
+    _tasks2.default.add(promoteKey, fn);
     // If the prefetch has been promoted, run the promotion task after
     // adding it and do not perform any preprocessing.
-    if (__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE) == info.original) {
-      __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].run(promoteKey, true);
+    if (_state2.default.get(_state2.default.Key.NAV_PROMOTE) == info.original) {
+      _tasks2.default.run(promoteKey, true);
       return;
     }
   }
 
-  var processFn = isPrefetch ? __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].preprocess : __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].process;
+  var processFn = isPrefetch ? _response2.default.preprocess : _response2.default.process;
   processFn(url, partial, info, function () {
     // Note: pass "true" to only execute callbacks and not dispatch events.
     spfNav.dispatchPartDone_(url, partial, options, true);
@@ -5435,7 +7427,7 @@ spfNav.handleLoadSuccess_ = function (isPrefetch, options, info, url, response) 
       if (!isPrefetch) {
         return;
       }
-      if (__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE) == info.original) {
+      if (_state2.default.get(_state2.default.Key.NAV_PROMOTE) == info.original) {
         spfNav.reload(url, spfNav.ReloadReason.RESPONSE_RECEIVED);
         return;
       }
@@ -5457,20 +7449,20 @@ spfNav.handleLoadSuccess_ = function (isPrefetch, options, info, url, response) 
     // adding it and do not perform any preprocessing. If it has not
     // been promoted, remove the task queues becuase a subsequent
     // request will hit the cache.
-    if (__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PROMOTE) == info.original) {
+    if (_state2.default.get(_state2.default.Key.NAV_PROMOTE) == info.original) {
       // TODO(nicksay): Honor history/reverse/position during promotion in
       // reponse to a popState. (This is an edge case.)
-      var fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNav.handleNavigateSuccess_, null, options, info, url, response);
-      __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(promoteKey, fn);
-      __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].run(promoteKey, true);
+      var fn = _base.spfBase.bind(spfNav.handleNavigateSuccess_, null, options, info, url, response);
+      _tasks2.default.add(promoteKey, fn);
+      _tasks2.default.run(promoteKey, true);
       return;
     } else {
-      __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].cancel(promoteKey);
+      _tasks2.default.cancel(promoteKey);
     }
   }
 
   // Process the requested response.
-  var processFn = isPrefetch ? __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].preprocess : __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].process;
+  var processFn = isPrefetch ? _response2.default.preprocess : _response2.default.process;
   try {
     // If a multipart response was received, all processing is already done,
     // so an empty object is used to ensure the callback is properly
@@ -5483,7 +7475,7 @@ spfNav.handleLoadSuccess_ = function (isPrefetch, options, info, url, response) 
   } catch (err) {
     // If an exception is caught during processing, log, execute the error
     // handler and bail.
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    failed to process response', response);
+    _debug2.default.debug('    failed to process response', response);
     spfNav.handleLoadError_(isPrefetch, options, info, url, err);
   }
 };
@@ -5503,7 +7495,7 @@ spfNav.handleLoadRedirect_ = function (isPrefetch, options, info, redirectUrl) {
   // Only copy callback keys to into a new object to enforce this.
   var keys = [spfNav.Callback.ERROR, spfNav.Callback.REQUEST, spfNav.Callback.PART_PROCESS, spfNav.Callback.PART_DONE, spfNav.Callback.PROCESS, spfNav.Callback.DONE];
   var redirectOpts = /** @type {spfBase.RequestOptions} */{};
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(keys, function (key) {
+  _array2.default.each(keys, function (key) {
     redirectOpts[key] = options[key];
   });
   redirectFn(redirectUrl, redirectOpts, info);
@@ -5529,14 +7521,14 @@ spfNav.process = function (response, opt_callback) {
   if (multipart) {
     var parts = response['parts'];
     var max = parts.length - 1;
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(parts, function (part, index) {
-      var fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(done, null, index, max);
-      __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].process(url, part, null, fn);
+    _array2.default.each(parts, function (part, index) {
+      var fn = _base.spfBase.bind(done, null, index, max);
+      _response2.default.process(url, part, null, fn);
     });
   } else {
     response = /** @type {spfBase.SingleResponse} */response;
-    var fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(done, null, 0, 0);
-    __WEBPACK_IMPORTED_MODULE_10__nav_response__["a" /* default */].process(url, response, null, fn);
+    var fn = _base.spfBase.bind(done, null, 0, 0);
+    _response2.default.process(url, response, null, fn);
   }
 };
 
@@ -5563,7 +7555,7 @@ spfNav.dispatchError_ = function (url, err, opt_options, opt_noEvents, opt_xhr) 
   var fn = options[spfNav.Callback.ERROR];
   var proceed = spfNav.callback(fn, detail);
   if (proceed && !opt_noEvents) {
-    proceed = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.ERROR, detail);
+    proceed = _base.spfBase.dispatch(_base.spfBase.EventName.ERROR, detail);
   }
   return proceed;
 };
@@ -5579,7 +7571,7 @@ spfNav.dispatchError_ = function (url, err, opt_options, opt_noEvents, opt_xhr) 
  */
 spfNav.dispatchReload_ = function (url, reason) {
   var detail = { 'url': url, 'reason': reason };
-  __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.RELOAD, detail);
+  _base.spfBase.dispatch(_base.spfBase.EventName.RELOAD, detail);
 };
 
 /**
@@ -5594,7 +7586,7 @@ spfNav.dispatchReload_ = function (url, reason) {
  */
 spfNav.dispatchClick_ = function (url, target) {
   var detail = { 'url': url, 'target': target };
-  return __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.CLICK, detail);
+  return _base.spfBase.dispatch(_base.spfBase.EventName.CLICK, detail);
 };
 
 /**
@@ -5611,7 +7603,7 @@ spfNav.dispatchClick_ = function (url, target) {
  */
 spfNav.dispatchHistory_ = function (url, opt_referer, opt_previous) {
   var detail = { 'url': url, 'referer': opt_referer, 'previous': opt_previous };
-  return __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.HISTORY, detail);
+  return _base.spfBase.dispatch(_base.spfBase.EventName.HISTORY, detail);
 };
 
 /**
@@ -5638,7 +7630,7 @@ spfNav.dispatchRequest_ = function (url, referer, previous, opt_options, opt_noE
   var fn = options[spfNav.Callback.REQUEST];
   var proceed = spfNav.callback(fn, detail);
   if (proceed && !opt_noEvents) {
-    proceed = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.REQUEST, detail);
+    proceed = _base.spfBase.dispatch(_base.spfBase.EventName.REQUEST, detail);
   }
   return proceed;
 };
@@ -5666,7 +7658,7 @@ spfNav.dispatchPartProcess_ = function (url, partial, opt_options, opt_noEvents)
   var fn = options[spfNav.Callback.PART_PROCESS];
   var proceed = spfNav.callback(fn, detail);
   if (proceed && !opt_noEvents) {
-    proceed = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.PART_PROCESS, detail);
+    proceed = _base.spfBase.dispatch(_base.spfBase.EventName.PART_PROCESS, detail);
   }
   return proceed;
 };
@@ -5694,7 +7686,7 @@ spfNav.dispatchPartDone_ = function (url, partial, opt_options, opt_noEvents) {
   var fn = options[spfNav.Callback.PART_DONE];
   var proceed = spfNav.callback(fn, detail);
   if (proceed && !opt_noEvents) {
-    proceed = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.PART_DONE, detail);
+    proceed = _base.spfBase.dispatch(_base.spfBase.EventName.PART_DONE, detail);
   }
   return proceed;
 };
@@ -5722,7 +7714,7 @@ spfNav.dispatchProcess_ = function (url, response, opt_options, opt_noEvents) {
   var fn = options[spfNav.Callback.PROCESS];
   var proceed = spfNav.callback(fn, detail);
   if (proceed && !opt_noEvents) {
-    proceed = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.PROCESS, detail);
+    proceed = _base.spfBase.dispatch(_base.spfBase.EventName.PROCESS, detail);
   }
   return proceed;
 };
@@ -5750,7 +7742,7 @@ spfNav.dispatchDone_ = function (url, response, opt_options, opt_noEvents) {
   var fn = options[spfNav.Callback.DONE];
   var proceed = spfNav.callback(fn, detail);
   if (proceed && !opt_noEvents) {
-    proceed = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.DONE, detail);
+    proceed = _base.spfBase.dispatch(_base.spfBase.EventName.DONE, detail);
   }
   return proceed;
 };
@@ -5762,7 +7754,7 @@ spfNav.dispatchDone_ = function (url, response, opt_options, opt_noEvents) {
  * @return {string} The promote key.
  */
 spfNav.promoteKey = function (url) {
-  return 'promote ' + __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
+  return 'promote ' + _url2.default.absolute(url);
 };
 
 /**
@@ -5772,7 +7764,7 @@ spfNav.promoteKey = function (url) {
  * @return {string} The preprocess key.
  */
 spfNav.preprocessKey = function (url) {
-  return 'preprocess ' + __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
+  return 'preprocess ' + _url2.default.absolute(url);
 };
 
 /**
@@ -5782,8 +7774,8 @@ spfNav.preprocessKey = function (url) {
  * @param {XMLHttpRequest} xhr The prefetch request object.
  */
 spfNav.addPrefetch = function (url, xhr) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.addPrefetch ', url, xhr);
-  var absoluteUrl = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
+  _debug2.default.debug('nav.addPrefetch ', url, xhr);
+  var absoluteUrl = _url2.default.absolute(url);
   var prefetches = spfNav.prefetches_();
   prefetches[absoluteUrl] = xhr;
 };
@@ -5794,8 +7786,8 @@ spfNav.addPrefetch = function (url, xhr) {
  * @param {string} url The url of the prefetch to be aborted.
  */
 spfNav.removePrefetch = function (url) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.removePrefetch ', url);
-  var absoluteUrl = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
+  _debug2.default.debug('nav.removePrefetch ', url);
+  var absoluteUrl = _url2.default.absolute(url);
   var prefetches = spfNav.prefetches_();
   var prefetchXhr = prefetches[absoluteUrl];
   if (prefetchXhr) {
@@ -5811,9 +7803,9 @@ spfNav.removePrefetch = function (url) {
  *     be canceled.
  */
 spfNav.cancelAllPrefetchesExcept = function (opt_skipUrl) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('nav.cancelAllPrefetchesExcept', opt_skipUrl);
+  _debug2.default.debug('nav.cancelAllPrefetchesExcept', opt_skipUrl);
   var prefetches = spfNav.prefetches_();
-  var absoluteUrl = opt_skipUrl && __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(opt_skipUrl);
+  var absoluteUrl = opt_skipUrl && _url2.default.absolute(opt_skipUrl);
   for (var key in prefetches) {
     if (absoluteUrl != key) {
       spfNav.removePrefetch(key);
@@ -5829,9 +7821,9 @@ spfNav.cancelAllPrefetchesExcept = function (opt_skipUrl) {
 spfNav.clearResourceTimings_ = function () {
   var clearResourceTimings = window.performance && (window.performance.clearResourceTimings || window.performance['webkitClearResourceTimings'] || window.performance['mozClearResourceTimings'] || window.performance['msClearResourceTimings'] || window.performance['oClearResourceTimings']);
   if (clearResourceTimings) {
-    return __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(clearResourceTimings, window.performance);
+    return _base.spfBase.bind(clearResourceTimings, window.performance);
   }
-  return __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].nullFunction;
+  return _base.spfBase.nullFunction;
 }();
 
 /**
@@ -5842,11 +7834,11 @@ spfNav.clearResourceTimings_ = function () {
  * @private
  */
 spfNav.prefetches_ = function (opt_reqs) {
-  if (opt_reqs || !__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PREFETCHES)) {
-    return (/** @type {!Object.<string, XMLHttpRequest>} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PREFETCHES, opt_reqs || {})
+  if (opt_reqs || !_state2.default.has(_state2.default.Key.NAV_PREFETCHES)) {
+    return (/** @type {!Object.<string, XMLHttpRequest>} */_state2.default.set(_state2.default.Key.NAV_PREFETCHES, opt_reqs || {})
     );
   }
-  return (/** @type {!Object.<string, XMLHttpRequest>} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_PREFETCHES)
+  return (/** @type {!Object.<string, XMLHttpRequest>} */_state2.default.get(_state2.default.Key.NAV_PREFETCHES)
   );
 };
 
@@ -5855,8 +7847,8 @@ spfNav.prefetches_ = function (opt_reqs) {
  * @private
  */
 spfNav.getScrollTempPosition_ = function () {
-  var position = /** @type {?Array.<number>} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_POSITION) || null;
-  var url = /** @type {?string} */__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_URL) || '';
+  var position = /** @type {?Array.<number>} */_state2.default.get(_state2.default.Key.NAV_SCROLL_TEMP_POSITION) || null;
+  var url = /** @type {?string} */_state2.default.get(_state2.default.Key.NAV_SCROLL_TEMP_URL) || '';
   if (position && url == window.location.href) {
     return position;
   }
@@ -5868,17 +7860,17 @@ spfNav.getScrollTempPosition_ = function () {
  */
 spfNav.setScrollTempPosition_ = function () {
   var position = [window.pageXOffset, window.pageYOffset];
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    saving scroll temp position', position);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_POSITION, position);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_URL, window.location.href);
+  _debug2.default.debug('    saving scroll temp position', position);
+  _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_POSITION, position);
+  _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_URL, window.location.href);
 };
 
 /**
  * @private
  */
 spfNav.clearScrollTempPosition_ = function () {
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_POSITION, null);
-  __WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_11__state__["a" /* default */].Key.NAV_SCROLL_TEMP_URL, null);
+  _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_POSITION, null);
+  _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_URL, null);
 };
 
 /**
@@ -5998,68 +7990,92 @@ spfNav.Callback = {
    * @enum {string}
    */
 };spfNav.ReloadReason = {
-  INELIGIBLE: !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] ? '1' : '1: Navigation not initialized or limit reached.',
-  REQUEST_CANCELED: !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] ? '2' : '2: Navigation canceled by the request event.',
-  PART_PROCESS_CANCELED: !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] ? '3' : '3: Navigation canceled by the partprocess event.',
-  PROCESS_CANCELED: !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] ? '4' : '4: Navigation canceled by the process event.',
-  RESPONSE_RECEIVED: !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] ? '5' : '5: Reload response received.',
-  FORBIDDEN: !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] ? '9' : '9: Destination forbidden by same-origin security.',
-  ERROR: !__WEBPACK_IMPORTED_MODULE_0__base__["c" /* SPF_DEBUG */] ? '10' : '10: An uncaught error occurred processing.'
+  INELIGIBLE: !_base.SPF_DEBUG ? '1' : '1: Navigation not initialized or limit reached.',
+  REQUEST_CANCELED: !_base.SPF_DEBUG ? '2' : '2: Navigation canceled by the request event.',
+  PART_PROCESS_CANCELED: !_base.SPF_DEBUG ? '3' : '3: Navigation canceled by the partprocess event.',
+  PROCESS_CANCELED: !_base.SPF_DEBUG ? '4' : '4: Navigation canceled by the process event.',
+  RESPONSE_RECEIVED: !_base.SPF_DEBUG ? '5' : '5: Reload response received.',
+  FORBIDDEN: !_base.SPF_DEBUG ? '9' : '9: Destination forbidden by same-origin security.',
+  ERROR: !_base.SPF_DEBUG ? '10' : '10: An uncaught error occurred processing.'
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfNav);
+exports.default = spfNav;
 
 /***/ }),
-/* 40 */
-/* exports provided: default */
-/* exports used: default */
+/* 112 */
+/* no static exports found */
+/* all exports used */
 /*!**************************************************!*\
   !*** ./app/javascript/packs/spf/nav/response.js ***!
   \**************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state__ = __webpack_require__(/*! ../state */ 5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(/*! ../config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__debug_debug__ = __webpack_require__(/*! ../debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dom_dom__ = __webpack_require__(/*! ../dom/dom */ 12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dom_classlist__ = __webpack_require__(/*! ../dom/classlist */ 19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dom_dataset__ = __webpack_require__(/*! ../dom/dataset */ 38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__history_history__ = __webpack_require__(/*! ../history/history */ 13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__net_connect__ = __webpack_require__(/*! ../net/connect */ 82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__net_script__ = __webpack_require__(/*! ../net/script */ 21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__net_style__ = __webpack_require__(/*! ../net/style */ 22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__string_string__ = __webpack_require__(/*! ../string/string */ 7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__ = __webpack_require__(/*! ../tasks/tasks */ 23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__url_url__ = __webpack_require__(/*! ../url/url */ 14);
-// Copyright 2013 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
-/**
- * @fileoverview Navigation-related response functions.
- *
- * @author nicksay@google.com (Alex Nicksay)
- */
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _base = __webpack_require__(/*! ../base */ 10);
 
+var _state = __webpack_require__(/*! ../state */ 32);
 
+var _state2 = _interopRequireDefault(_state);
 
+var _array = __webpack_require__(/*! ../array/array */ 31);
 
+var _array2 = _interopRequireDefault(_array);
 
+var _config = __webpack_require__(/*! ../config */ 35);
 
+var _config2 = _interopRequireDefault(_config);
 
+var _debug = __webpack_require__(/*! ../debug/debug */ 38);
 
+var _debug2 = _interopRequireDefault(_debug);
 
+var _dom = __webpack_require__(/*! ../dom/dom */ 79);
 
+var _dom2 = _interopRequireDefault(_dom);
 
+var _classlist = __webpack_require__(/*! ../dom/classlist */ 86);
 
+var _classlist2 = _interopRequireDefault(_classlist);
 
+var _dataset = __webpack_require__(/*! ../dom/dataset */ 110);
+
+var _dataset2 = _interopRequireDefault(_dataset);
+
+var _history = __webpack_require__(/*! ../history/history */ 80);
+
+var _history2 = _interopRequireDefault(_history);
+
+var _connect = __webpack_require__(/*! ../net/connect */ 154);
+
+var _connect2 = _interopRequireDefault(_connect);
+
+var _script = __webpack_require__(/*! ../net/script */ 88);
+
+var _script2 = _interopRequireDefault(_script);
+
+var _style = __webpack_require__(/*! ../net/style */ 89);
+
+var _style2 = _interopRequireDefault(_style);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+var _tasks = __webpack_require__(/*! ../tasks/tasks */ 90);
+
+var _tasks2 = _interopRequireDefault(_tasks);
+
+var _url = __webpack_require__(/*! ../url/url */ 81);
+
+var _url2 = _interopRequireDefault(_url);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfNavResponse = {};
 // goog.provide('spfNavResponse');
@@ -6079,6 +8095,17 @@ var spfNavResponse = {};
  *     contains invalid JSON.
  * @return {{parts: Array.<spfBase.SingleResponse>, extra: string}}
  */
+// Copyright 2013 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview Navigation-related response functions.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ */
+
 spfNavResponse.parse = function (text, opt_multipart, opt_lastDitch) {
   if (opt_multipart) {
     var beginToken = spfNavResponse.Token.BEGIN;
@@ -6103,7 +8130,7 @@ spfNavResponse.parse = function (text, opt_multipart, opt_lastDitch) {
       start = finish + beginToken.length;
     }
     while ((finish = text.indexOf(delimToken, start)) > -1) {
-      chunk = __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].trim(text.substring(start, finish));
+      chunk = _string2.default.trim(text.substring(start, finish));
       start = finish + delimToken.length;
       if (chunk) {
         parts.push(JSON.parse(chunk));
@@ -6111,7 +8138,7 @@ spfNavResponse.parse = function (text, opt_multipart, opt_lastDitch) {
     }
     finish = text.indexOf(endToken, start);
     if (finish > -1) {
-      chunk = __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].trim(text.substring(start, finish));
+      chunk = _string2.default.trim(text.substring(start, finish));
       start = finish + endToken.length;
       if (chunk) {
         parts.push(JSON.parse(chunk));
@@ -6120,7 +8147,7 @@ spfNavResponse.parse = function (text, opt_multipart, opt_lastDitch) {
     var extra = '';
     if (text.length > start) {
       extra = text.substring(start);
-      if (opt_lastDitch && __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].endsWith(extra, lastDitchHalfToken)) {
+      if (opt_lastDitch && _string2.default.endsWith(extra, lastDitchHalfToken)) {
         extra = extra.substring(0, extra.length - lastDitchHalfToken.length);
       }
     }
@@ -6131,7 +8158,7 @@ spfNavResponse.parse = function (text, opt_multipart, opt_lastDitch) {
     };
   } else {
     var response = JSON.parse(text);
-    var parts = spfNavResponse.extract(__WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].toArray(response));
+    var parts = spfNavResponse.extract(_array2.default.toArray(response));
     return {
       parts: /** @type {Array.<spfBase.SingleResponse>} */parts,
       extra: ''
@@ -6150,9 +8177,9 @@ spfNavResponse.parse = function (text, opt_multipart, opt_lastDitch) {
  *     the second argument is `response`.
  */
 spfNavResponse.process = function (url, response, opt_info, opt_callback) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].info('nav.response.process ', response, opt_info);
+  _debug2.default.info('nav.response.process ', response, opt_info);
 
-  var isNavigate = opt_info && __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].startsWith(opt_info.type, 'navigate');
+  var isNavigate = opt_info && _string2.default.startsWith(opt_info.type, 'navigate');
   var isReverse = opt_info && opt_info.reverse;
   var hasPosition = opt_info && !!opt_info.position;
   var hasScrolled = opt_info && opt_info.scrolled;
@@ -6160,8 +8187,8 @@ spfNavResponse.process = function (url, response, opt_info, opt_callback) {
   var name = response['name'] || '';
 
   // Convert the URL to absolute, to be used for finding the task queue.
-  var key = 'process ' + __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
-  var sync = !__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('experimental-process-async');
+  var key = 'process ' + _url2.default.absolute(url);
+  var sync = !_config2.default.get('experimental-process-async');
 
   // NOTE: when adding tasks to a queue, use bind to avoid name/scope errors.
   var fn;
@@ -6180,63 +8207,63 @@ spfNavResponse.process = function (url, response, opt_info, opt_callback) {
   // Add the new history state (immediate), if needed.
   // Only navigation requests should process URL changes.
   if (isNavigate && response['url']) {
-    var fullUrl = __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(response['url']);
+    var fullUrl = _url2.default.absolute(response['url']);
     // Update the history state if the url doesn't match.
     if (fullUrl != spfNavResponse.getCurrentUrl_()) {
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  update history with response url');
+      _debug2.default.debug('  update history with response url');
       // Add the URL to the history stack, including hash.
-      __WEBPACK_IMPORTED_MODULE_8__history_history__["a" /* default */].replace(response['url'] + window.location.hash);
+      _history2.default.replace(response['url'] + window.location.hash);
     }
   }
 
   // Install head scripts and styles (single task), if needed.
   if (response['head']) {
-    fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (head, timing) {
+    fn = _base.spfBase.bind(function (head, timing) {
       // Extract scripts and styles from the fragment.
       var extracted = spfNavResponse.extract_(head);
       // Install links.
       spfNavResponse.installLinks_(extracted);
       // Install styles.
       spfNavResponse.installStyles_(extracted);
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    head css');
+      _debug2.default.debug('    head css');
       // Install scripts.
       // Suspend main queue to allow JS execution to occur sequentially.
       // TODO(nicksay): Consider using a sub-queue for JS execution.
-      __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].suspend(key);
+      _tasks2.default.suspend(key);
       spfNavResponse.installScripts_(extracted, function () {
-        timing['spfProcessHead'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
-        __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    head js');
+        timing['spfProcessHead'] = _base.spfBase.now();
+        _debug2.default.debug('    head js');
         // Resume main queue after JS.
-        __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].resume(key, sync);
-        __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task done: head');
+        _tasks2.default.resume(key, sync);
+        _debug2.default.debug('  process task done: head');
       });
     }, null, response['head'], response['timing']);
-    num = __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task queued: head', num);
+    num = _tasks2.default.add(key, fn);
+    _debug2.default.debug('  process task queued: head', num);
   }
 
   // Update attributes (single task), if needed.
   if (response['attr']) {
-    fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (attrs, timing) {
+    fn = _base.spfBase.bind(function (attrs, timing) {
       for (var id in attrs) {
         var el = document.getElementById(id);
         if (el) {
-          __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].setAttributes(el, attrs[id]);
-          __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    attr set', id);
+          _dom2.default.setAttributes(el, attrs[id]);
+          _debug2.default.debug('    attr set', id);
         }
       }
-      timing['spfProcessAttr'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task done: attr');
+      timing['spfProcessAttr'] = _base.spfBase.now();
+      _debug2.default.debug('  process task done: attr');
     }, null, response['attr'], response['timing']);
-    num = __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task queued: attr', num);
+    num = _tasks2.default.add(key, fn);
+    _debug2.default.debug('  process task queued: attr', num);
   }
 
   // Update content (one task per fragment or three tasks if animated).
   var fragments = response['body'] || {};
   var numBeforeFragments = num;
   for (var id in fragments) {
-    fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (id, body, timing) {
+    fn = _base.spfBase.bind(function (id, body, timing) {
       var el = document.getElementById(id);
       if (el) {
         // Scroll to the top before the first content update, if needed.
@@ -6245,9 +8272,9 @@ spfNavResponse.process = function (url, response, opt_info, opt_callback) {
         // processing is done to avoid jumping to the top and back down to the
         // saved position afterwards.
         if (isNavigate && !hasPosition && !hasScrolled) {
-          __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.NAV_SCROLL_TEMP_POSITION, null);
-          __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.NAV_SCROLL_TEMP_URL, null);
-          __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    scrolling to top');
+          _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_POSITION, null);
+          _state2.default.set(_state2.default.Key.NAV_SCROLL_TEMP_URL, null);
+          _debug2.default.debug('    scrolling to top');
           window.scroll(0, 0);
           hasScrolled = true;
           if (opt_info) {
@@ -6263,107 +8290,107 @@ spfNavResponse.process = function (url, response, opt_info, opt_callback) {
           // Install scripts.
           // Suspend main queue to allow JS execution to occur sequentially.
           // TODO(nicksay): Consider using a sub-queue for JS execution.
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].suspend(key);
+          _tasks2.default.suspend(key);
           spfNavResponse.installScripts_(extracted, function () {
             // Resume main queue after JS.
-            __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].resume(key, sync);
-            __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task done: body', id);
+            _tasks2.default.resume(key, sync);
+            _debug2.default.debug('  process task done: body', id);
           });
         };
 
-        var animationClass = /** @type {string} */__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('animation-class');
-        var noAnimation = !spfNavResponse.CAN_ANIMATE_ || !__WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].contains(el, animationClass);
+        var animationClass = /** @type {string} */_config2.default.get('animation-class');
+        var noAnimation = !spfNavResponse.CAN_ANIMATE_ || !_classlist2.default.contains(el, animationClass);
         if (noAnimation) {
-          var htmlHandler = /** @type {Function} */__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('experimental-html-handler');
+          var htmlHandler = /** @type {Function} */_config2.default.get('experimental-html-handler');
           if (htmlHandler) {
             // Suspend main queue for the experimental HTML handler.
-            __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].suspend(key);
+            _tasks2.default.suspend(key);
             htmlHandler(extracted['html'], el, function () {
               installScripts();
               // Resume main queue after the experimental HTML handler.
-              __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].resume(key, sync);
+              _tasks2.default.resume(key, sync);
             });
           } else {
             el.innerHTML = extracted['html'];
             installScripts();
           }
         } else {
-          var animation = new spfNavResponse.Animation_(el, extracted['html'], animationClass, name, parseInt(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].get('animation-duration'), 10), !!isReverse);
+          var animation = new spfNavResponse.Animation_(el, extracted['html'], animationClass, name, parseInt(_config2.default.get('animation-duration'), 10), !!isReverse);
           // Suspend main queue while the animation is running.
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].suspend(key);
+          _tasks2.default.suspend(key);
           // Finish a previous animation on this sub-queue, if needed.
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].run(animation.key, true);
+          _tasks2.default.run(animation.key, true);
           // Animation task 1: insert new, delay = 0.
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(animation.key, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavResponse.prepareAnimation_, null, animation), 0);
-          __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process queued prepare animation', id);
+          _tasks2.default.add(animation.key, _base.spfBase.bind(spfNavResponse.prepareAnimation_, null, animation), 0);
+          _debug2.default.debug('  process queued prepare animation', id);
           // Animation task 2: switch, delay = 17ms = 1 frame @ 60fps.
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(animation.key, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavResponse.runAnimation_, null, animation), 17);
-          __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process queued run animation', id);
+          _tasks2.default.add(animation.key, _base.spfBase.bind(spfNavResponse.runAnimation_, null, animation), 17);
+          _debug2.default.debug('  process queued run animation', id);
           // Animation task 3: remove old, delay = config.
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(animation.key, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavResponse.completeAnimation_, null, animation), animation.duration);
-          __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process queued complete animation', id);
+          _tasks2.default.add(animation.key, _base.spfBase.bind(spfNavResponse.completeAnimation_, null, animation), animation.duration);
+          _debug2.default.debug('  process queued complete animation', id);
           // Resume main queue after animation is done.
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(animation.key, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function () {
+          _tasks2.default.add(animation.key, _base.spfBase.bind(function () {
             installScripts();
-            __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].resume(key, sync);
+            _tasks2.default.resume(key, sync);
           }, null), 0);
-          __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].run(animation.key);
+          _tasks2.default.run(animation.key);
         }
       }
     }, null, id, fragments[id], response['timing']);
-    num = __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task queued: body', id, num);
+    num = _tasks2.default.add(key, fn);
+    _debug2.default.debug('  process task queued: body', id, num);
   }
   var numAfterFragments = num;
   var numFragments = numAfterFragments - numBeforeFragments;
 
   // Install foot scripts and styles (single task), if needed.
   if (response['foot']) {
-    fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (foot, timing, numFragments) {
+    fn = _base.spfBase.bind(function (foot, timing, numFragments) {
       // Use the page scripts task as a signal that the content is updated,
       // only recording the content completion time if fragments were processed.
       if (numFragments) {
-        timing['spfProcessBody'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+        timing['spfProcessBody'] = _base.spfBase.now();
       }
       // Extract scripts and styles from the fragment.
       var extracted = spfNavResponse.extract_(foot);
       // Install styles.
       spfNavResponse.installStyles_(extracted);
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    foot css');
+      _debug2.default.debug('    foot css');
       // Install scripts.
       // Suspend main queue to allow JS execution to occur sequentially.
       // TODO(nicksay): Consider using a sub-queue for JS execution.
-      __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].suspend(key);
+      _tasks2.default.suspend(key);
       spfNavResponse.installScripts_(extracted, function () {
-        timing['spfProcessFoot'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
-        __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    foot js');
-        __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].resume(key, sync); // Resume main queue after JS.
-        __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task done: foot');
+        timing['spfProcessFoot'] = _base.spfBase.now();
+        _debug2.default.debug('    foot js');
+        _tasks2.default.resume(key, sync); // Resume main queue after JS.
+        _debug2.default.debug('  process task done: foot');
       });
     }, null, response['foot'], response['timing'], numFragments);
-    num = __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task queued: foot', num);
+    num = _tasks2.default.add(key, fn);
+    _debug2.default.debug('  process task queued: foot', num);
   } else if (numFragments) {
     // If a page scripts task is unnecessary and fragments were processed,
     // add a task to record the completion time.  Doing this only if page
     // scripts won't be installed prevents unnecessary task execution and
     // potential delays.
-    fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (timing) {
-      timing['spfProcessBody'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task done: timing-for-body');
+    fn = _base.spfBase.bind(function (timing) {
+      timing['spfProcessBody'] = _base.spfBase.now();
+      _debug2.default.debug('  process task done: timing-for-body');
     }, null, response['timing']);
-    num = __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task queued: timing-for-body', num);
+    num = _tasks2.default.add(key, fn);
+    _debug2.default.debug('  process task queued: timing-for-body', num);
   }
 
   // Execute callback.
   if (opt_callback) {
-    num = __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(opt_callback, null, url, response));
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process task queued: callback', num);
+    num = _tasks2.default.add(key, _base.spfBase.bind(opt_callback, null, url, response));
+    _debug2.default.debug('  process task queued: callback', num);
   }
 
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process run', key, sync);
-  __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].run(key, sync);
+  _debug2.default.debug('  process run', key, sync);
+  _tasks2.default.run(key, sync);
 };
 
 /**
@@ -6380,62 +8407,62 @@ spfNavResponse.process = function (url, response, opt_info, opt_callback) {
  *     the second argument is `response`.
  */
 spfNavResponse.preprocess = function (url, response, opt_info, opt_callback) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].info('nav.response.preprocess ', response);
+  _debug2.default.info('nav.response.preprocess ', response);
   // Convert the URL to absolute, to be used for finding the task queue.
-  var key = 'preprocess ' + __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(url);
+  var key = 'preprocess ' + _url2.default.absolute(url);
 
   // NOTE: when adding tasks to a queue, use bind to avoid name/scope errors.
   var fn;
 
   // Preinstall page styles (single task), if needed.
   if (response['head']) {
-    fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (head) {
+    fn = _base.spfBase.bind(function (head) {
       var extracted = spfNavResponse.extract_(head);
       spfNavResponse.preinstallLinks_(extracted);
       spfNavResponse.preinstallStyles_(extracted);
       spfNavResponse.preinstallScripts_(extracted);
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  preprocess task done: head');
+      _debug2.default.debug('  preprocess task done: head');
     }, null, response['head']);
-    __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  preprocess task queued: head');
+    _tasks2.default.add(key, fn);
+    _debug2.default.debug('  preprocess task queued: head');
   }
 
   // Preinstall fragment scripts and styles (one task per fragment).
   var fragments = response['body'] || {};
   for (var id in fragments) {
     if (fragments[id]) {
-      fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (id, body) {
+      fn = _base.spfBase.bind(function (id, body) {
         var extracted = spfNavResponse.extract_(body);
         spfNavResponse.preinstallStyles_(extracted);
         spfNavResponse.preinstallScripts_(extracted);
-        __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('    body js', id);
-        __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  preprocess task done: body', id);
+        _debug2.default.debug('    body js', id);
+        _debug2.default.debug('  preprocess task done: body', id);
       }, null, id, fragments[id]);
-      __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  preprocess task queued: body', id);
+      _tasks2.default.add(key, fn);
+      _debug2.default.debug('  preprocess task queued: body', id);
     }
   }
 
   // Preinstall page scripts (single task).
   if (response['foot']) {
-    fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(function (foot) {
+    fn = _base.spfBase.bind(function (foot) {
       var extracted = spfNavResponse.extract_(foot);
       spfNavResponse.preinstallStyles_(extracted);
       spfNavResponse.preinstallScripts_(extracted);
-      __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  preprocess task done: foot');
+      _debug2.default.debug('  preprocess task done: foot');
     }, null, response['foot']);
-    __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, fn);
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  preprocess task queued: foot');
+    _tasks2.default.add(key, fn);
+    _debug2.default.debug('  preprocess task queued: foot');
   }
 
   // Execute callback.
   if (opt_callback) {
-    __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].add(key, __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(opt_callback, null, url, response));
-    __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  preprocess task queued: callback');
+    _tasks2.default.add(key, _base.spfBase.bind(opt_callback, null, url, response));
+    _debug2.default.debug('  preprocess task queued: callback');
   }
 
   // The preprocessing queue is always run async.
-  __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].run(key);
+  _tasks2.default.run(key);
 };
 
 /**
@@ -6444,25 +8471,25 @@ spfNavResponse.preprocess = function (url, response, opt_info, opt_callback) {
  */
 spfNavResponse.prepareAnimation_ = function (data) {
   // Add the start class to put elements in their beginning states.
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].add(data.element, data.dirClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].add(data.element, data.fromClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].add(data.element, data.toClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].add(data.element, data.startClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].add(data.element, data.startClassDeprecated);
+  _classlist2.default.add(data.element, data.dirClass);
+  _classlist2.default.add(data.element, data.fromClass);
+  _classlist2.default.add(data.element, data.toClass);
+  _classlist2.default.add(data.element, data.startClass);
+  _classlist2.default.add(data.element, data.startClassDeprecated);
   // Pack the existing content into a temporary container.
   data.oldEl = document.createElement('div');
   data.oldEl.className = data.oldClass;
-  __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].packElement(data.element, data.oldEl);
+  _dom2.default.packElement(data.element, data.oldEl);
   // Place the new content into a temporary container as a sibling.
   data.newEl = document.createElement('div');
   data.newEl.className = data.newClass;
   data.newEl.innerHTML = data.html;
   if (data.reverse) {
-    __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].insertSiblingBefore(data.newEl, data.oldEl);
+    _dom2.default.insertSiblingBefore(data.newEl, data.oldEl);
   } else {
-    __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].insertSiblingAfter(data.newEl, data.oldEl);
+    _dom2.default.insertSiblingAfter(data.newEl, data.oldEl);
   }
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process done prepare animation', data.element.id);
+  _debug2.default.debug('  process done prepare animation', data.element.id);
 };
 
 /**
@@ -6470,11 +8497,11 @@ spfNavResponse.prepareAnimation_ = function (data) {
  * @private
  */
 spfNavResponse.runAnimation_ = function (data) {
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].remove(data.element, data.startClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].remove(data.element, data.startClassDeprecated);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].add(data.element, data.endClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].add(data.element, data.endClassDeprecated);
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process done run animation', data.element.id);
+  _classlist2.default.remove(data.element, data.startClass);
+  _classlist2.default.remove(data.element, data.startClassDeprecated);
+  _classlist2.default.add(data.element, data.endClass);
+  _classlist2.default.add(data.element, data.endClassDeprecated);
+  _debug2.default.debug('  process done run animation', data.element.id);
 };
 
 /**
@@ -6485,14 +8512,14 @@ spfNavResponse.completeAnimation_ = function (data) {
   // Remove the old content.
   data.element.removeChild(data.oldEl);
   // Unpack the new content from the temporary container.
-  __WEBPACK_IMPORTED_MODULE_5__dom_dom__["a" /* default */].unpackElement(data.newEl);
+  _dom2.default.unpackElement(data.newEl);
   // Remove the end class to put elements back in normal state.
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].remove(data.element, data.endClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].remove(data.element, data.endClassDeprecated);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].remove(data.element, data.fromClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].remove(data.element, data.toClass);
-  __WEBPACK_IMPORTED_MODULE_6__dom_classlist__["a" /* default */].remove(data.element, data.dirClass);
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('  process done complete animation', data.element.id);
+  _classlist2.default.remove(data.element, data.endClass);
+  _classlist2.default.remove(data.element, data.endClassDeprecated);
+  _classlist2.default.remove(data.element, data.fromClass);
+  _classlist2.default.remove(data.element, data.toClass);
+  _classlist2.default.remove(data.element, data.dirClass);
+  _debug2.default.debug('  process done complete animation', data.element.id);
 };
 
 /**
@@ -6505,9 +8532,9 @@ spfNavResponse.completeAnimation_ = function (data) {
  * @template T
  */
 spfNavResponse.extract = function (response) {
-  __WEBPACK_IMPORTED_MODULE_4__debug_debug__["a" /* default */].debug('spfNavResponse.extract', response);
-  var parts = __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].toArray(response);
-  __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].each(parts, function (part) {
+  _debug2.default.debug('spfNavResponse.extract', response);
+  var parts = _array2.default.toArray(response);
+  _array2.default.each(parts, function (part) {
     if (part) {
       if (part['head']) {
         part['head'] = spfNavResponse.extract_(part['head']);
@@ -6544,10 +8571,10 @@ spfNavResponse.extract_ = function (frag) {
 
   // If the fragment isn't a string, it's a pre-parsed object.  Use the
   // provided values to populate the result instead.
-  if (!__WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].isString(frag)) {
+  if (!_string2.default.isString(frag)) {
     // Add the parsed scripts to the result.
     if (frag['scripts']) {
-      __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].each(frag['scripts'], function (script) {
+      _array2.default.each(frag['scripts'], function (script) {
         result['scripts'].push({ url: script['url'] || '',
           text: script['text'] || '',
           name: script['name'] || '',
@@ -6556,7 +8583,7 @@ spfNavResponse.extract_ = function (frag) {
     }
     // Add the parsed styles to the result.
     if (frag['styles']) {
-      __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].each(frag['styles'], function (style) {
+      _array2.default.each(frag['styles'], function (style) {
         result['styles'].push({ url: style['url'] || '',
           text: style['text'] || '',
           name: style['name'] || '' });
@@ -6564,7 +8591,7 @@ spfNavResponse.extract_ = function (frag) {
     }
     // Add the parsed links to the result.
     if (frag['links']) {
-      __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].each(frag['links'], function (link) {
+      _array2.default.each(frag['links'], function (link) {
         if (link['rel'] == 'spf-preconnect') {
           result['links'].push({ url: link['url'] || '',
             rel: link['rel'] || '' });
@@ -6589,7 +8616,7 @@ spfNavResponse.extract_ = function (frag) {
       url = url ? url[1] : '';
       var async = spfNavResponse.AttributeRegEx.ASYNC.test(attr);
       var type = spfNavResponse.AttributeRegEx.TYPE.exec(attr);
-      var inject = !type || __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].contains(type[1], '/javascript') || __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].contains(type[1], '/x-javascript') || __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].contains(type[1], '/ecmascript');
+      var inject = !type || _string2.default.contains(type[1], '/javascript') || _string2.default.contains(type[1], '/x-javascript') || _string2.default.contains(type[1], '/ecmascript');
       if (inject) {
         result['scripts'].push({ url: url, text: text, name: name, async: async });
         return '';
@@ -6602,7 +8629,7 @@ spfNavResponse.extract_ = function (frag) {
       var name = attr.match(spfNavResponse.AttributeRegEx.NAME);
       name = name ? name[1] : '';
       var type = spfNavResponse.AttributeRegEx.TYPE.exec(attr);
-      var inject = !type || __WEBPACK_IMPORTED_MODULE_12__string_string__["a" /* default */].contains(type[1], 'text/css');
+      var inject = !type || _string2.default.contains(type[1], 'text/css');
       if (inject) {
         result['styles'].push({ url: '', text: text, name: name });
         return '';
@@ -6670,15 +8697,15 @@ spfNavResponse.installScripts_ = function (result, opt_callback) {
       var fn = function fn() {};
       if (item.url) {
         if (item.name) {
-          fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(__WEBPACK_IMPORTED_MODULE_10__net_script__["a" /* default */].load, null, item.url, item.name);
+          fn = _base.spfBase.bind(_script2.default.load, null, item.url, item.name);
         } else {
-          fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(__WEBPACK_IMPORTED_MODULE_10__net_script__["a" /* default */].get, null, item.url);
+          fn = _base.spfBase.bind(_script2.default.get, null, item.url);
         }
       } else if (item.text) {
         if (item.name) {
-          fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(__WEBPACK_IMPORTED_MODULE_10__net_script__["a" /* default */].eval, null, item.text, item.name);
+          fn = _base.spfBase.bind(_script2.default.eval, null, item.text, item.name);
         } else {
-          fn = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(__WEBPACK_IMPORTED_MODULE_10__net_script__["a" /* default */].exec, null, item.text);
+          fn = _base.spfBase.bind(_script2.default.exec, null, item.text);
         }
       }
       if (item.url && !item.async) {
@@ -6706,10 +8733,10 @@ spfNavResponse.preinstallScripts_ = function (result) {
     return;
   }
   // Prefetch the scripts.
-  var urls = __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].map(result['scripts'], function (item) {
+  var urls = _array2.default.map(result['scripts'], function (item) {
     return item.url;
   });
-  __WEBPACK_IMPORTED_MODULE_10__net_script__["a" /* default */].prefetch(urls);
+  _script2.default.prefetch(urls);
 };
 
 /**
@@ -6725,18 +8752,18 @@ spfNavResponse.installStyles_ = function (result) {
     return;
   }
   // Install the styles.
-  __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].each(result['styles'], function (item) {
+  _array2.default.each(result['styles'], function (item) {
     if (item.url) {
       if (item.name) {
-        __WEBPACK_IMPORTED_MODULE_11__net_style__["a" /* default */].load(item.url, item.name);
+        _style2.default.load(item.url, item.name);
       } else {
-        __WEBPACK_IMPORTED_MODULE_11__net_style__["a" /* default */].get(item.url);
+        _style2.default.get(item.url);
       }
     } else if (item.text) {
       if (item.name) {
-        __WEBPACK_IMPORTED_MODULE_11__net_style__["a" /* default */].eval(item.text, item.name);
+        _style2.default.eval(item.text, item.name);
       } else {
-        __WEBPACK_IMPORTED_MODULE_11__net_style__["a" /* default */].exec(item.text);
+        _style2.default.exec(item.text);
       }
     }
   });
@@ -6754,10 +8781,10 @@ spfNavResponse.preinstallStyles_ = function (result) {
     return;
   }
   // Prefetch the styles.
-  var urls = __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].map(result['styles'], function (item) {
+  var urls = _array2.default.map(result['styles'], function (item) {
     return item.url;
   });
-  __WEBPACK_IMPORTED_MODULE_11__net_style__["a" /* default */].prefetch(urls);
+  _style2.default.prefetch(urls);
 };
 
 /**
@@ -6784,10 +8811,10 @@ spfNavResponse.preinstallLinks_ = function (result) {
     return;
   }
   // Preconnect.
-  var urls = __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].map(result['links'], function (item) {
+  var urls = _array2.default.map(result['links'], function (item) {
     return item.rel == 'spf-preconnect' ? item.url : '';
   });
-  __WEBPACK_IMPORTED_MODULE_9__net_connect__["a" /* default */].preconnect(urls);
+  _connect2.default.preconnect(urls);
 };
 
 /**
@@ -6796,7 +8823,7 @@ spfNavResponse.preinstallLinks_ = function (result) {
  * @private
  */
 spfNavResponse.getCurrentUrl_ = function () {
-  return __WEBPACK_IMPORTED_MODULE_14__url_url__["a" /* default */].absolute(window.location.href);
+  return _url2.default.absolute(window.location.href);
 };
 
 /**
@@ -6823,10 +8850,10 @@ spfNavResponse.Animation_ = function (el, html, cls, name, duration, reverse) {
   /** @type {boolean} */
   this.reverse = reverse;
 
-  var prevName = __WEBPACK_IMPORTED_MODULE_7__dom_dataset__["a" /* default */].get(document.body, 'spfName') || '';
+  var prevName = _dataset2.default.get(document.body, 'spfName') || '';
 
   /** @type {string} */
-  this.key = __WEBPACK_IMPORTED_MODULE_13__tasks_tasks__["a" /* default */].key(el);
+  this.key = _tasks2.default.key(el);
   /** @type {string} */
   this.fromClass = prevName && cls + '-from-' + prevName;
   /** @type {string} */
@@ -6886,7 +8913,7 @@ spfNavResponse.CAN_ANIMATE_ = function () {
     return true;
   }
   var prefixes = ['webkit', 'Moz', 'Ms', 'O', 'Khtml'];
-  return __WEBPACK_IMPORTED_MODULE_2__array_array__["a" /* default */].some(prefixes, function (prefix) {
+  return _array2.default.some(prefixes, function (prefix) {
     return prefix + 'Transition' in testEl.style;
   });
 }();
@@ -6922,36 +8949,35 @@ spfNavResponse.ElementRegEx = {
   END: ']\r\n'
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfNavResponse);
+exports.default = spfNavResponse;
 
 /***/ }),
-/* 41 */
-/* exports provided: default */
-/* exports used: default */
+/* 113 */
+/* no static exports found */
+/* all exports used */
 /*!***************************************************!*\
   !*** ./app/javascript/packs/spf/pubsub/pubsub.js ***!
   \***************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state__ = __webpack_require__(/*! ../state */ 5);
-// Copyright 2012 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
-
-/**
- * @fileoverview Simple publish/subscribe instance used as a "dispatch"
- * for centralized notifications.
- *
- * @author nicksay@google.com (Alex Nicksay)
- */
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _base = __webpack_require__(/*! ../base */ 10);
 
+var _array = __webpack_require__(/*! ../array/array */ 31);
+
+var _array2 = _interopRequireDefault(_array);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfPubsub = {};
 // goog.provide('spfPubsub');
@@ -6971,6 +8997,18 @@ var spfPubsub = {};
  *     published to the given topic. Passing `null` or `undefined`
  *     does nothing.
  */
+// Copyright 2012 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview Simple publish/subscribe instance used as a "dispatch"
+ * for centralized notifications.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ */
+
 spfPubsub.subscribe = function (topic, fn) {
   if (topic && fn) {
     if (!(topic in spfPubsub.subscriptions)) {
@@ -6990,7 +9028,7 @@ spfPubsub.subscribe = function (topic, fn) {
  */
 spfPubsub.unsubscribe = function (topic, fn) {
   if (topic in spfPubsub.subscriptions && fn) {
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].every(spfPubsub.subscriptions[topic], function (subFn, i, arr) {
+    _array2.default.every(spfPubsub.subscriptions[topic], function (subFn, i, arr) {
       if (subFn == fn) {
         arr[i] = null;
         return false;
@@ -7034,7 +9072,7 @@ spfPubsub.flush = function (topic) {
  */
 spfPubsub.publish_ = function (topic, opt_unsub) {
   if (topic in spfPubsub.subscriptions) {
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(spfPubsub.subscriptions[topic], function (subFn, i, arr) {
+    _array2.default.each(spfPubsub.subscriptions[topic], function (subFn, i, arr) {
       if (opt_unsub) {
         arr[i] = null;
       }
@@ -7079,27 +9117,35 @@ spfPubsub.subscriptions = {};
 
 // Automatic initialization for spfPubsub.subscriptions.
 // When built for the bootloader, unconditionally set in state.
-if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
-  __WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.PUBSUB_SUBS, spfPubsub.subscriptions);
+if (_base.SPF_BOOTLOADER) {
+  _state2.default.set(_state2.default.Key.PUBSUB_SUBS, spfPubsub.subscriptions);
 } else {
-  if (!__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.PUBSUB_SUBS)) {
-    __WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.PUBSUB_SUBS, spfPubsub.subscriptions);
+  if (!_state2.default.has(_state2.default.Key.PUBSUB_SUBS)) {
+    _state2.default.set(_state2.default.Key.PUBSUB_SUBS, spfPubsub.subscriptions);
   }
-  spfPubsub.subscriptions = /** @type {!Object.<Array>} */__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */].Key.PUBSUB_SUBS);
+  spfPubsub.subscriptions = /** @type {!Object.<Array>} */_state2.default.get(_state2.default.Key.PUBSUB_SUBS);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (spfPubsub);
+exports.default = spfPubsub;
 
 /***/ }),
-/* 42 */,
-/* 43 */
+/* 114 */,
+/* 115 */
 /* no static exports found */
+/* all exports used */
 /*!****************************************************!*\
   !*** ./app/javascript/packs/common/ActionCable.js ***!
   \****************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ 48);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (function () {
   var slice = [].slice;
@@ -7502,7 +9548,7 @@ if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
     Subscriptions.prototype.create = function (channelName, mixin) {
       var channel, params, subscription;
       channel = channelName;
-      params = (typeof channel === 'undefined' ? 'undefined' : _typeof(channel)) === 'object' ? channel : {
+      params = (typeof channel === 'undefined' ? 'undefined' : (0, _typeof3.default)(channel)) === 'object' ? channel : {
         channel: channel
       };
       subscription = new ActionCable.Subscription(this.consumer, params, mixin);
@@ -7697,25 +9743,37 @@ if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
     return Consumer;
   }();
 }).call(window);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../~/webpack/buildin/module.js */ 87)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../~/webpack/buildin/module.js */ 177)(module)))
 
 /***/ }),
-/* 44 */
-/* exports provided: default */
-/* exports used: default */
+/* 116 */
+/* no static exports found */
+/* all exports used */
 /*!***************************************************!*\
   !*** ./app/javascript/packs/common/loadingBar.js ***!
   \***************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 92);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 93);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var LoadingBar = function () {
   function LoadingBar(options) {
-    _classCallCheck(this, LoadingBar);
+    (0, _classCallCheck3.default)(this, LoadingBar);
 
     options = options || {};
     this.height = options.height;
@@ -7727,7 +9785,7 @@ var LoadingBar = function () {
     this.loadingEle = null;
   }
 
-  _createClass(LoadingBar, [{
+  (0, _createClass3.default)(LoadingBar, [{
     key: 'init',
     value: function init(options) {
       var container = document.getElementById('loadingBar-container');
@@ -7798,29 +9856,33 @@ var LoadingBar = function () {
       loadingBarEle.parentElement.removeChild(loadingBarEle);
     }
   }]);
-
   return LoadingBar;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (LoadingBar);
+exports.default = LoadingBar;
 
 /***/ }),
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */
-/* exports provided: dataLinks */
-/* exports used: dataLinks */
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */
+/* no static exports found */
+/* all exports used */
 /*!***************************************************!*\
   !*** ./app/javascript/packs/modules/dataLinks.js ***!
   \***************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = dataLinks;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_handleMethod__ = __webpack_require__(/*! ../common/handleMethod */ 63);
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.dataLinks = dataLinks;
+
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod */ 135);
 
 function dataLinks() {
   document.addEventListener('click', processDataLink, false);
@@ -7835,33 +9897,44 @@ function processDataLink(ev) {
     if (e.target.getAttribute('href') === '/logout') {
       if (A.destroy[A.gc.currentName]) A.destroy[A.gc.currentName].apply(null);
     };
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__common_handleMethod__["a" /* handleMethod */])(e.target);
+    (0, _handleMethod.handleMethod)(e.target);
   }
   if (e.target.dataset.method === 'PATCH') {
     e.preventDefault();
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__common_handleMethod__["a" /* handleMethod */])(e.target);
+    (0, _handleMethod.handleMethod)(e.target);
   }
 }
 
 /***/ }),
-/* 50 */
-/* exports provided: processFormSubmit, formSubmit */
-/* exports used: formSubmit */
+/* 122 */
+/* no static exports found */
+/* all exports used */
 /*!****************************************************!*\
   !*** ./app/javascript/packs/modules/formSubmit.js ***!
   \****************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* unused harmony export processFormSubmit */
-/* harmony export (immutable) */ __webpack_exports__["a"] = formSubmit;
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ 160);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+exports.processFormSubmit = processFormSubmit;
+exports.formSubmit = formSubmit;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var hmInstance = void 0;
 var fd = void 0,
     fa = void 0;
 function formDataToQuerystring(fd) {
-  return [].concat(_toConsumableArray(fd.entries())).map(function (e) {
+  return [].concat((0, _toConsumableArray3.default)(fd.entries())).map(function (e) {
     return encodeURIComponent(e[0]) + '=' + encodeURIComponent(e[1]);
   }).join('&');
 }
@@ -7905,21 +9978,26 @@ function exitProcessPostLink() {
 }
 
 /***/ }),
-/* 51 */,
-/* 52 */,
-/* 53 */
-/* exports provided: processDataLink, processPostLink */
-/* exports used: processPostLink */
+/* 123 */,
+/* 124 */,
+/* 125 */
+/* no static exports found */
+/* all exports used */
 /*!*****************************************************!*\
   !*** ./app/javascript/packs/modules/postHandler.js ***!
   \*****************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* unused harmony export processDataLink */
-/* harmony export (immutable) */ __webpack_exports__["a"] = processPostLink;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_handleMethod2__ = __webpack_require__(/*! ../common/handleMethod2 */ 9);
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.processDataLink = processDataLink;
+exports.processPostLink = processPostLink;
+
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 47);
 
 var hmInstance = void 0;
 var fd = void 0,
@@ -7932,7 +10010,7 @@ function processDataLink(ev) {
 
   if (e.target.dataset.method === 'fnpu_delete') {
     e.preventDefault();
-    hmInstance = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__common_handleMethod2__["a" /* handleMethod */])(e.target, 'delete');
+    hmInstance = (0, _handleMethod.handleMethod)(e.target, 'delete');
     fa = e.target.getAttribute('href');
     fd = new FormData(hmInstance);
     window.A.spf.load(fa, {
@@ -7961,34 +10039,57 @@ function exitProcessPostLink() {
 }
 
 /***/ }),
-/* 54 */,
-/* 55 */
-/* exports provided: default */
-/* exports used: default */
+/* 126 */,
+/* 127 */
+/* no static exports found */
+/* all exports used */
 /*!*******************************************!*\
   !*** ./app/javascript/packs/spf/entry.js ***!
   \*******************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ./base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__(/*! ./main */ 80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(/*! ./config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_cache__ = __webpack_require__(/*! ./cache/cache */ 18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__debug_debug__ = __webpack_require__(/*! ./debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__history_history__ = __webpack_require__(/*! ./history/history */ 13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nav_nav__ = __webpack_require__(/*! ./nav/nav */ 39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__net_style__ = __webpack_require__(/*! ./net/style */ 22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__net_script__ = __webpack_require__(/*! ./net/script */ 21);
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _base = __webpack_require__(/*! ./base */ 10);
 
+var _main = __webpack_require__(/*! ./main */ 152);
 
+var _main2 = _interopRequireDefault(_main);
 
+var _config = __webpack_require__(/*! ./config */ 35);
 
+var _config2 = _interopRequireDefault(_config);
 
+var _cache = __webpack_require__(/*! ./cache/cache */ 85);
 
+var _cache2 = _interopRequireDefault(_cache);
+
+var _debug = __webpack_require__(/*! ./debug/debug */ 38);
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _history = __webpack_require__(/*! ./history/history */ 80);
+
+var _history2 = _interopRequireDefault(_history);
+
+var _nav = __webpack_require__(/*! ./nav/nav */ 111);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _style = __webpack_require__(/*! ./net/style */ 89);
+
+var _style2 = _interopRequireDefault(_style);
+
+var _script = __webpack_require__(/*! ./net/script */ 88);
+
+var _script2 = _interopRequireDefault(_script);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var spfEntry = {};
 // Create the API by exporting aliased functions.
@@ -7996,55 +10097,55 @@ var spfEntry = {};
 // Extra API functions are available on second-level namespaces.
 /** @private {!Object} */
 spfEntry.api_ = {
-  'init': __WEBPACK_IMPORTED_MODULE_1__main__["a" /* default */].init,
-  'dispose': __WEBPACK_IMPORTED_MODULE_1__main__["a" /* default */].dispose,
-  'navigate': __WEBPACK_IMPORTED_MODULE_6__nav_nav__["a" /* default */].navigate,
-  'load': __WEBPACK_IMPORTED_MODULE_6__nav_nav__["a" /* default */].load,
-  'prefetch': __WEBPACK_IMPORTED_MODULE_6__nav_nav__["a" /* default */].prefetch,
-  'process': __WEBPACK_IMPORTED_MODULE_6__nav_nav__["a" /* default */].process
+  'init': _main2.default.init,
+  'dispose': _main2.default.dispose,
+  'navigate': _nav2.default.navigate,
+  'load': _nav2.default.load,
+  'prefetch': _nav2.default.prefetch,
+  'process': _nav2.default.process
   /** @private {!Object} */
 };spfEntry.extra_ = {
   'cache': {
     // Cache API.
     // * Remove one entry.
-    'remove': __WEBPACK_IMPORTED_MODULE_3__cache_cache__["a" /* default */].remove,
+    'remove': _cache2.default.remove,
     // * Clear all entries.
-    'clear': __WEBPACK_IMPORTED_MODULE_3__cache_cache__["a" /* default */].clear
+    'clear': _cache2.default.clear
   },
   'script': {
     // The bootloader API.
     // * Load scripts.
-    'load': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].load,
-    'get': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].get,
+    'load': _script2.default.load,
+    'get': _script2.default.get,
     // * Wait until ready.
-    'ready': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].ready,
-    'done': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].done,
+    'ready': _script2.default.ready,
+    'done': _script2.default.done,
     // * Load in depedency order.
-    'require': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].require,
+    'require': _script2.default.require,
     // * Set dependencies and paths.
-    'declare': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].declare,
-    'path': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].path,
+    'declare': _script2.default.declare,
+    'path': _script2.default.path,
     // Extended script loading API.
     // * Unload scripts.
-    'unload': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].unload,
+    'unload': _script2.default.unload,
     // * Ignore ready.
-    'ignore': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].ignore,
+    'ignore': _script2.default.ignore,
     // * Unload in depedency order.
-    'unrequire': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].unrequire,
+    'unrequire': _script2.default.unrequire,
     // * Prefetch.
-    'prefetch': __WEBPACK_IMPORTED_MODULE_8__net_script__["a" /* default */].prefetch
+    'prefetch': _script2.default.prefetch
   },
   'style': {
     // Style loading API.
     // * Load styles.
-    'load': __WEBPACK_IMPORTED_MODULE_7__net_style__["a" /* default */].load,
-    'get': __WEBPACK_IMPORTED_MODULE_7__net_style__["a" /* default */].get,
+    'load': _style2.default.load,
+    'get': _style2.default.get,
     // * Unload styles.
-    'unload': __WEBPACK_IMPORTED_MODULE_7__net_style__["a" /* default */].unload,
+    'unload': _style2.default.unload,
     // * Set paths.
-    'path': __WEBPACK_IMPORTED_MODULE_7__net_style__["a" /* default */].path,
+    'path': _style2.default.path,
     // * Prefetch.
-    'prefetch': __WEBPACK_IMPORTED_MODULE_7__net_style__["a" /* default */].prefetch
+    'prefetch': _style2.default.prefetch
   }
   // For a production/debug build, isolate access to the API.
   // For a development build, mixin the API to the existing namespace.
@@ -8062,11 +10163,12 @@ for (var ns in spfEntry.extra_) {
   }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (spfEs);
+exports.default = spfEs;
 
 /***/ }),
-/* 56 */
+/* 128 */
 /* no static exports found */
+/* all exports used */
 /*!*************************************!*\
   !*** ./app/stylesheet/globalA.scss ***!
   \*************************************/
@@ -8075,23 +10177,29 @@ for (var ns in spfEntry.extra_) {
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */
-/* exports provided: handleMethod */
-/* exports used: handleMethod */
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */
+/* no static exports found */
+/* all exports used */
 /*!*****************************************************!*\
   !*** ./app/javascript/packs/common/handleMethod.js ***!
   \*****************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = handleMethod;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_csrf__ = __webpack_require__(/*! ../common/csrf */ 3);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleMethod = handleMethod;
+
+var _csrf = __webpack_require__(/*! ../common/csrf */ 30);
 
 /**
  * [handleMethod description]
@@ -8106,8 +10214,8 @@ function handleMethod(link) {
   var href = link.getAttribute('href'),
       method = link.dataset.method,
       target = link.getAttribute('target'),
-      csrfToken = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfToken(),
-      csrfParam = __WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].csrfParam();
+      csrfToken = _csrf.rorParams.csrfToken(),
+      csrfParam = _csrf.rorParams.csrfParam();
   var paramsObj = {
     href: href,
     method: method,
@@ -8134,7 +10242,7 @@ function createForm(params, obj) {
   i.setAttribute('value', params.method);
 
   var s;
-  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !__WEBPACK_IMPORTED_MODULE_0__common_csrf__["a" /* rorParams */].isCrossDomain(params.href)) {
+  if (params.csrfParam !== undefined && params.csrfToken !== undefined && !_csrf.rorParams.isCrossDomain(params.href)) {
     s = document.createElement('input');
     s.setAttribute('type', 'hidden');
     s.setAttribute('name', params.csrfParam);
@@ -8166,56 +10274,58 @@ function submitForm(form) {
 }
 
 /***/ }),
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */
 /* no static exports found */
 /* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/entries/globalA.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stylesheet_globalA_scss__ = __webpack_require__(/*! ../../../stylesheet/globalA.scss */ 56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stylesheet_globalA_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__stylesheet_globalA_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_ActionCable__ = __webpack_require__(/*! ../common/ActionCable */ 43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_ActionCable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_ActionCable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__spf_entry__ = __webpack_require__(/*! ../spf/entry */ 55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_dataLinks__ = __webpack_require__(/*! ../modules/dataLinks */ 49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_formSubmit__ = __webpack_require__(/*! ../modules/formSubmit */ 50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_postHandler__ = __webpack_require__(/*! ../modules/postHandler */ 53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_loadingBar__ = __webpack_require__(/*! ../common/loadingBar */ 44);
 
 
+var _globalA = __webpack_require__(/*! ../../../stylesheet/globalA.scss */ 128);
 
+var _globalA2 = _interopRequireDefault(_globalA);
 
+var _ActionCable = __webpack_require__(/*! ../common/ActionCable */ 115);
 
+var _entry = __webpack_require__(/*! ../spf/entry */ 127);
 
+var _entry2 = _interopRequireDefault(_entry);
 
+var _dataLinks = __webpack_require__(/*! ../modules/dataLinks */ 121);
 
+var _formSubmit = __webpack_require__(/*! ../modules/formSubmit */ 122);
 
+var _postHandler = __webpack_require__(/*! ../modules/postHandler */ 125);
 
+var _loadingBar = __webpack_require__(/*! ../common/loadingBar */ 116);
 
+var _loadingBar2 = _interopRequireDefault(_loadingBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var A = window.A || {};
 window.A = A;
-A.spf = __WEBPACK_IMPORTED_MODULE_2__spf_entry__["a" /* default */];
+A.spf = _entry2.default;
 var app = window.A.app || {};
 
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__modules_dataLinks__["a" /* dataLinks */])();
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__modules_formSubmit__["a" /* formSubmit */])();
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__modules_postHandler__["a" /* processPostLink */])();
+(0, _dataLinks.dataLinks)();
+(0, _formSubmit.formSubmit)();
+(0, _postHandler.processPostLink)();
 
 /**
  * Initialize the app.
@@ -8295,7 +10405,7 @@ app.onHistory = function (evt) {
  */
 app.onRequest = function (evt) {
   if (!app.ins) {
-    app.ins = new __WEBPACK_IMPORTED_MODULE_6__common_loadingBar__["a" /* default */]();
+    app.ins = new _loadingBar2.default();
     app.ins.start();
   }
   app.log('globalA--navigate request ' + evt.detail.url);
@@ -8433,21 +10543,45 @@ app.timer_ = 0;
 A.app = app;
 
 /***/ }),
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */
-/* exports provided: default */
-/* exports used: default */
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/async/async.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state__ = __webpack_require__(/*! ../state */ 5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__string_string__ = __webpack_require__(/*! ../string/string */ 7);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var _state = __webpack_require__(/*! ../state */ 32);
+
+var _state2 = _interopRequireDefault(_state);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// goog.provide('spfAsync');
+
+var spfAsync = {};
+
+/**
+ * Defers execution of a function to the next slot on the main thread.
+ *
+ * @param {!Function} fn The function to defer.
+ */
 /**
  * @fileoverview Fast asynchronous function execution.
  *
@@ -8462,26 +10596,13 @@ A.app = app;
  *
  */
 
-
-
-
-
-// goog.provide('spfAsync');
-
-var spfAsync = {};
-
-/**
- * Defers execution of a function to the next slot on the main thread.
- *
- * @param {!Function} fn The function to defer.
- */
 spfAsync.defer = function (fn) {
-  var uid = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].uid();
+  var uid = _base.spfBase.uid();
   spfAsync.defers_[uid] = fn;
   if (spfAsync.POSTMESSAGE_SUPPORTED_) {
     window.postMessage(spfAsync.PREFIX_ + uid, '*');
   } else {
-    window.setTimeout(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfAsync.run_, null, uid), 0);
+    window.setTimeout(_base.spfBase.bind(spfAsync.run_, null, uid), 0);
   }
 };
 
@@ -8492,7 +10613,7 @@ spfAsync.defer = function (fn) {
  * @private
  */
 spfAsync.handleMessage_ = function (evt) {
-  if (evt.data && __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].isString(evt.data) && __WEBPACK_IMPORTED_MODULE_2__string_string__["a" /* default */].startsWith(evt.data, spfAsync.PREFIX_)) {
+  if (evt.data && _string2.default.isString(evt.data) && _string2.default.startsWith(evt.data, spfAsync.PREFIX_)) {
     var uid = evt.data.substring(spfAsync.PREFIX_.length);
     spfAsync.run_(uid);
   }
@@ -8583,51 +10704,87 @@ spfAsync.defers_ = {};
 
 // Automatic initialization for spfAsync.defers_.
 // When built for the bootloader, unconditionally set in state.
-if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
-  __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_DEFERS, spfAsync.defers_);
+if (_base.SPF_BOOTLOADER) {
+  _state2.default.set(_state2.default.Key.ASYNC_DEFERS, spfAsync.defers_);
 } else {
-  if (!__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_DEFERS)) {
-    __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_DEFERS, spfAsync.defers_);
+  if (!_state2.default.has(_state2.default.Key.ASYNC_DEFERS)) {
+    _state2.default.set(_state2.default.Key.ASYNC_DEFERS, spfAsync.defers_);
   }
-  spfAsync.defers_ = /** @type {!Object.<!Function>} */__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_DEFERS);
+  spfAsync.defers_ = /** @type {!Object.<!Function>} */_state2.default.get(_state2.default.Key.ASYNC_DEFERS);
 }
 
 // Automatic initialization for spfState.Key.ASYNC_LISTENER.
 // When built for the bootloader, unconditionally set in state.
-if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
+if (_base.SPF_BOOTLOADER) {
   if (spfAsync.POSTMESSAGE_SUPPORTED_) {
     spfAsync.addListener_(spfAsync.handleMessage_);
-    __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_LISTENER, spfAsync.handleMessage_);
+    _state2.default.set(_state2.default.Key.ASYNC_LISTENER, spfAsync.handleMessage_);
   }
 } else {
   if (spfAsync.POSTMESSAGE_SUPPORTED_) {
-    if (__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].has(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_LISTENER)) {
-      spfAsync.removeListener_( /** @type {function(Event)} */__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_LISTENER));
+    if (_state2.default.has(_state2.default.Key.ASYNC_LISTENER)) {
+      spfAsync.removeListener_( /** @type {function(Event)} */_state2.default.get(_state2.default.Key.ASYNC_LISTENER));
     }
     spfAsync.addListener_(spfAsync.handleMessage_);
-    __WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].set(__WEBPACK_IMPORTED_MODULE_1__state__["a" /* default */].Key.ASYNC_LISTENER, spfAsync.handleMessage_);
+    _state2.default.set(_state2.default.Key.ASYNC_LISTENER, spfAsync.handleMessage_);
   }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (spfAsync);
+exports.default = spfAsync;
 
 /***/ }),
-/* 80 */
-/* exports provided: default */
-/* exports used: default */
+/* 152 */
+/* no static exports found */
+/* all exports used */
 /*!******************************************!*\
   !*** ./app/javascript/packs/spf/main.js ***!
   \******************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ./base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(/*! ./config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__debug_debug__ = __webpack_require__(/*! ./debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__history_history__ = __webpack_require__(/*! ./history/history */ 13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__nav_nav__ = __webpack_require__(/*! ./nav/nav */ 39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__net_style__ = __webpack_require__(/*! ./net/style */ 22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__net_script__ = __webpack_require__(/*! ./net/script */ 21);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ./base */ 10);
+
+var _config = __webpack_require__(/*! ./config */ 35);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _debug = __webpack_require__(/*! ./debug/debug */ 38);
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _history = __webpack_require__(/*! ./history/history */ 80);
+
+var _history2 = _interopRequireDefault(_history);
+
+var _nav = __webpack_require__(/*! ./nav/nav */ 111);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _style = __webpack_require__(/*! ./net/style */ 89);
+
+var _style2 = _interopRequireDefault(_style);
+
+var _script = __webpack_require__(/*! ./net/script */ 88);
+
+var _script2 = _interopRequireDefault(_script);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var spfMain = {};
+
+/**
+ * Initializes SPF.
+ *
+ * @param {Object=} opt_config Optional global configuration object.
+ * @return {boolean} Whether SPF was successfully initialized.  If the HTML5
+ *     history modification API is not supported, returns false.
+ */
 // Copyright 2012 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -8639,32 +10796,15 @@ if (__WEBPACK_IMPORTED_MODULE_0__base__["a" /* SPF_BOOTLOADER */]) {
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-
-
-
-
-
-
-
-
-var spfMain = {};
-
-/**
- * Initializes SPF.
- *
- * @param {Object=} opt_config Optional global configuration object.
- * @return {boolean} Whether SPF was successfully initialized.  If the HTML5
- *     history modification API is not supported, returns false.
- */
 spfMain.init = function (opt_config) {
   var enable = spfMain.canInit_();
-  __WEBPACK_IMPORTED_MODULE_2__debug_debug__["a" /* default */].info('main.init ', 'enable=', enable);
-  __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].init(opt_config);
+  _debug2.default.info('main.init ', 'enable=', enable);
+  _config2.default.init(opt_config);
   if (enable) {
-    __WEBPACK_IMPORTED_MODULE_4__nav_nav__["a" /* default */].init();
+    _nav2.default.init();
   }
   // Signal that the API is ready with custom event.  Only supported in IE 9+.
-  __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].dispatch(__WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].EventName.READY);
+  _base.spfBase.dispatch(_base.spfBase.EventName.READY);
 
   return enable;
 };
@@ -8676,7 +10816,7 @@ spfMain.init = function (opt_config) {
  * @private
  */
 spfMain.canInit_ = function () {
-  return !!(typeof window.history.pushState === 'function' || __WEBPACK_IMPORTED_MODULE_3__history_history__["a" /* default */].getIframe().contentWindow.history.pushState);
+  return !!(typeof window.history.pushState === 'function' || _history2.default.getIframe().contentWindow.history.pushState);
 };
 
 /**
@@ -8685,9 +10825,9 @@ spfMain.canInit_ = function () {
 spfMain.dispose = function () {
   var enable = !!(typeof History !== 'undefined' && History.prototype.pushState);
   if (enable) {
-    __WEBPACK_IMPORTED_MODULE_4__nav_nav__["a" /* default */].dispose();
+    _nav2.default.dispose();
   }
-  __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].clear();
+  _config2.default.clear();
 };
 
 /**
@@ -8697,8 +10837,8 @@ spfMain.dispose = function () {
  * @private
  */
 spfMain.discover_ = function () {
-  __WEBPACK_IMPORTED_MODULE_6__net_script__["a" /* default */].discover();
-  __WEBPACK_IMPORTED_MODULE_5__net_style__["a" /* default */].discover();
+  _script2.default.discover();
+  _style2.default.discover();
   if (document.readyState == 'complete') {
     // Since IE 8+ is supported for common library functions such as script
     // and style loading, use both standard and legacy event handlers to
@@ -8717,28 +10857,64 @@ if (document.addEventListener) {
 }
 spfMain.discover_();
 
-/* harmony default export */ __webpack_exports__["a"] = (spfMain);
+exports.default = spfMain;
 
 /***/ }),
-/* 81 */
-/* exports provided: default */
-/* exports used: default */
+/* 153 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/nav/request.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__async_async__ = __webpack_require__(/*! ../async/async */ 79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cache_cache__ = __webpack_require__(/*! ../cache/cache */ 18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(/*! ../config */ 6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__debug_debug__ = __webpack_require__(/*! ../debug/debug */ 8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nav_response__ = __webpack_require__(/*! ../nav/response */ 40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__net_xhr__ = __webpack_require__(/*! ../net/xhr */ 83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__string_string__ = __webpack_require__(/*! ../string/string */ 7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__url_url__ = __webpack_require__(/*! ../url/url */ 14);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _base = __webpack_require__(/*! ../base */ 10);
+
+var _array = __webpack_require__(/*! ../array/array */ 31);
+
+var _array2 = _interopRequireDefault(_array);
+
+var _async = __webpack_require__(/*! ../async/async */ 151);
+
+var _async2 = _interopRequireDefault(_async);
+
+var _cache = __webpack_require__(/*! ../cache/cache */ 85);
+
+var _cache2 = _interopRequireDefault(_cache);
+
+var _config = __webpack_require__(/*! ../config */ 35);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _debug = __webpack_require__(/*! ../debug/debug */ 38);
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _response = __webpack_require__(/*! ../nav/response */ 112);
+
+var _response2 = _interopRequireDefault(_response);
+
+var _xhr = __webpack_require__(/*! ../net/xhr */ 155);
+
+var _xhr2 = _interopRequireDefault(_xhr);
+
+var _string = __webpack_require__(/*! ../string/string */ 36);
+
+var _string2 = _interopRequireDefault(_string);
+
+var _url = __webpack_require__(/*! ../url/url */ 81);
+
+var _url2 = _interopRequireDefault(_url);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // Copyright 2013 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -8749,17 +10925,6 @@ spfMain.discover_();
  *
  * @author nicksay@google.com (Alex Nicksay)
  */
-
-
-
-
-
-
-
-
-
-
-
 
 var spfNavRequest = {};
 // goog.provide('spfNavRequest');
@@ -8825,19 +10990,19 @@ spfNavRequest.Options;
  * @return {XMLHttpRequest} The XHR of the current request.
  */
 spfNavRequest.send = function (url, opt_options) {
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.send ', url, opt_options);
+  _debug2.default.debug('nav.request.send ', url, opt_options);
   var options = opt_options || /** @type {spfNavRequest.Options} */{};
   options.method = ((options.method || 'GET') + '').toUpperCase();
   options.type = options.type || 'request';
   // Add the SPF identifier, to be used for sending the request.
-  var requestUrl = __WEBPACK_IMPORTED_MODULE_9__url_url__["a" /* default */].absolute(__WEBPACK_IMPORTED_MODULE_9__url_url__["a" /* default */].identify(url, options.type));
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    request url ', requestUrl);
+  var requestUrl = _url2.default.absolute(_url2.default.identify(url, options.type));
+  _debug2.default.debug('    request url ', requestUrl);
   // Record a the time before sending the request or loading from cache.
   // The startTime is consistent with W3C PerformanceResourceTiming for XHRs.
   var timing = {};
   // Keep actual absolute SPF request url info.
   timing['spfUrl'] = requestUrl;
-  timing['startTime'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+  timing['startTime'] = _base.spfBase.now();
   // Try to find a cached response for the request before sending a new XHR.
   // Record fetchStart time before loading from cache. If no cached response
   // is found, this value will be replaced with the one provided by the XHR.
@@ -8853,18 +11018,18 @@ spfNavRequest.send = function (url, opt_options) {
     /** @type {spfBase.SingleResponse|spfBase.MultipartResponse} */cached.response;
     // To ensure a similar execution pattern as an XHR, ensure the
     // cache response is returned asynchronously.
-    var handleCache = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavRequest.handleResponseFromCache_, null, url, options, timing, cached.key, response);
+    var handleCache = _base.spfBase.bind(spfNavRequest.handleResponseFromCache_, null, url, options, timing, cached.key, response);
     // When WebKit browsers are in a background tab, setTimeout calls are
     // deprioritized to execute with a 1s delay.  Avoid this by using
     // postMessage to schedule execution; see spfAsync.delay for details.
-    __WEBPACK_IMPORTED_MODULE_2__async_async__["a" /* default */].defer(handleCache);
+    _async2.default.defer(handleCache);
     // Return null because no XHR is made.
     return null;
   } else {
-    __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    sending XHR');
+    _debug2.default.debug('    sending XHR');
     var headers = {};
     // Set headers provided by global config first.
-    var configHeaders = /** @type {Object.<string>} */__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('request-headers');
+    var configHeaders = /** @type {Object.<string>} */_config2.default.get('request-headers');
     if (configHeaders) {
       for (var key in configHeaders) {
         var value = configHeaders[key];
@@ -8911,18 +11076,18 @@ spfNavRequest.send = function (url, opt_options) {
     // (2) The server MUST use SPF-based redirection, as custom headers (i.e.
     // the `X-SPF-Request` header) are typically not propgated by browsers
     // during 30X HTTP redirection.
-    var headerId = /** @type {?string} */__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('advanced-header-identifier');
+    var headerId = /** @type {?string} */_config2.default.get('advanced-header-identifier');
     if (headerId) {
       headers['X-SPF-Request'] = headerId.replace('__type__', options.type);
       headers['Accept'] = 'application/json';
     }
     var chunking = new spfNavRequest.Chunking_();
-    var handleHeaders = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavRequest.handleHeadersFromXHR_, null, url, chunking);
-    var handleChunk = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavRequest.handleChunkFromXHR_, null, url, options, timing, chunking);
-    var handleComplete = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].bind(spfNavRequest.handleCompleteFromXHR_, null, url, options, timing, chunking);
+    var handleHeaders = _base.spfBase.bind(spfNavRequest.handleHeadersFromXHR_, null, url, chunking);
+    var handleChunk = _base.spfBase.bind(spfNavRequest.handleChunkFromXHR_, null, url, options, timing, chunking);
+    var handleComplete = _base.spfBase.bind(spfNavRequest.handleCompleteFromXHR_, null, url, options, timing, chunking);
     var xhrOpts = {
       headers: headers,
-      timeoutMs: /** @type {number} */__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('request-timeout'),
+      timeoutMs: /** @type {number} */_config2.default.get('request-timeout'),
       onHeaders: handleHeaders,
       onChunk: handleChunk,
       onDone: handleComplete,
@@ -8938,14 +11103,14 @@ spfNavRequest.send = function (url, opt_options) {
     // the main thread (especially for very large responses), but as a
     // side-effect, it removes the ability to parse chunked multipart responses
     // on-the-fly.
-    if (__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('advanced-response-type-json')) {
+    if (_config2.default.get('advanced-response-type-json')) {
       xhrOpts.responseType = 'json';
     }
     var xhr;
     if (options.method == 'POST') {
-      xhr = __WEBPACK_IMPORTED_MODULE_7__net_xhr__["a" /* default */].post(requestUrl, options.postData, xhrOpts);
+      xhr = _xhr2.default.post(requestUrl, options.postData, xhrOpts);
     } else {
-      xhr = __WEBPACK_IMPORTED_MODULE_7__net_xhr__["a" /* default */].get(requestUrl, xhrOpts);
+      xhr = _xhr2.default.get(requestUrl, xhrOpts);
     }
     // Return the XHR being made.
     return xhr;
@@ -8965,27 +11130,27 @@ spfNavRequest.send = function (url, opt_options) {
  * @private
  */
 spfNavRequest.handleResponseFromCache_ = function (url, options, timing, cacheKey, response) {
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleResponseFromCache_ ', url, response);
+  _debug2.default.debug('nav.request.handleResponseFromCache_ ', url, response);
   var updateCache = false;
   // Record the timing information.
   // Record responseStart and responseEnd times after loading from cache.
-  timing['responseStart'] = timing['responseEnd'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+  timing['responseStart'] = timing['responseEnd'] = _base.spfBase.now();
   // Also record navigationStart for navigate requests, consistent with
   // W3C PerformanceTiming for page loads.
-  if (options.type && __WEBPACK_IMPORTED_MODULE_8__string_string__["a" /* default */].startsWith(options.type, 'navigate')) {
+  if (options.type && _string2.default.startsWith(options.type, 'navigate')) {
     timing['navigationStart'] = timing['startTime'];
     // If this cached response was a navigate and a unified cache is not being
     // used, then it was from prefetch-based caching and is only eligible to
     // be used once.
-    if (!__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('cache-unified')) {
-      __WEBPACK_IMPORTED_MODULE_3__cache_cache__["a" /* default */].remove(cacheKey);
+    if (!_config2.default.get('cache-unified')) {
+      _cache2.default.remove(cacheKey);
       // Ensure the response will be stored in the history-based caching.
       updateCache = true;
     }
   }
   if (options.onPart && response['type'] == 'multipart') {
     var parts = response['parts'];
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(parts, function (part) {
+    _array2.default.each(parts, function (part) {
       if (!part['timing']) {
         part['timing'] = {};
       }
@@ -9007,10 +11172,10 @@ spfNavRequest.handleResponseFromCache_ = function (url, options, timing, cacheKe
  * @private
  */
 spfNavRequest.handleHeadersFromXHR_ = function (url, chunking, xhr) {
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleHeadersFromXHR_ ', url, xhr);
+  _debug2.default.debug('nav.request.handleHeadersFromXHR_ ', url, xhr);
   var responseType = xhr.getResponseHeader('X-SPF-Response-Type') || '';
-  var multipart = __WEBPACK_IMPORTED_MODULE_8__string_string__["a" /* default */].contains(responseType.toLowerCase(), 'multipart');
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    response is', (multipart ? '' : 'non-') + 'multipart');
+  var multipart = _string2.default.contains(responseType.toLowerCase(), 'multipart');
+  _debug2.default.debug('    response is', (multipart ? '' : 'non-') + 'multipart');
   chunking.multipart = multipart;
 };
 
@@ -9029,21 +11194,21 @@ spfNavRequest.handleHeadersFromXHR_ = function (url, chunking, xhr) {
  * @private
  */
 spfNavRequest.handleChunkFromXHR_ = function (url, options, timing, chunking, xhr, chunk, opt_lastDitch) {
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleChunkFromXHR_ ', url, {
+  _debug2.default.debug('nav.request.handleChunkFromXHR_ ', url, {
     extra: chunking.extra,
     chunk: chunk
   });
   // Processing chunks as they arrive requires multipart responses.
   if (!chunking.multipart) {
-    __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    skipping non-multipart response');
+    _debug2.default.debug('    skipping non-multipart response');
     return;
   }
   var text = chunking.extra + chunk;
   var parsed;
   try {
-    parsed = __WEBPACK_IMPORTED_MODULE_6__nav_response__["a" /* default */].parse(text, true, opt_lastDitch);
+    parsed = _response2.default.parse(text, true, opt_lastDitch);
   } catch (err) {
-    __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    JSON parse failed', text);
+    _debug2.default.debug('    JSON parse failed', text);
     xhr.abort();
     if (options.onError) {
       options.onError(url, err, xhr);
@@ -9051,8 +11216,8 @@ spfNavRequest.handleChunkFromXHR_ = function (url, options, timing, chunking, xh
     return;
   }
   if (options.onPart) {
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(parsed.parts, function (part) {
-      __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    parsed part', part);
+    _array2.default.each(parsed.parts, function (part) {
+      _debug2.default.debug('    parsed part', part);
       if (!part['timing']) {
         part['timing'] = {};
       }
@@ -9078,9 +11243,9 @@ spfNavRequest.handleChunkFromXHR_ = function (url, options, timing, chunking, xh
  */
 spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking, xhr) {
   if (xhr.responseType == 'json') {
-    __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleCompleteFromXHR_ ', url, xhr.response);
+    _debug2.default.debug('nav.request.handleCompleteFromXHR_ ', url, xhr.response);
   } else {
-    __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.handleCompleteFromXHR_ ', url, {
+    _debug2.default.debug('nav.request.handleCompleteFromXHR_ ', url, {
       extra: chunking.extra,
       complete: xhr.responseText
     });
@@ -9112,7 +11277,7 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
       if (startTime >= timing['startTime']) {
         for (var metric in xhr['resourceTiming']) {
           var value = xhr['resourceTiming'][metric];
-          if (value !== undefined && (__WEBPACK_IMPORTED_MODULE_8__string_string__["a" /* default */].endsWith(metric, 'Start') || __WEBPACK_IMPORTED_MODULE_8__string_string__["a" /* default */].endsWith(metric, 'End') || metric == 'startTime')) {
+          if (value !== undefined && (_string2.default.endsWith(metric, 'Start') || _string2.default.endsWith(metric, 'End') || metric == 'startTime')) {
             timing[metric] = navigationStart + Math.round(value);
           }
         }
@@ -9130,7 +11295,7 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
     // If a multipart response was parsed on-the-fly via chunking, it should be
     // done.  However, check to see if there is any extra content, which could
     // occur if the server failed to end a reponse with a token.
-    chunking.extra = __WEBPACK_IMPORTED_MODULE_8__string_string__["a" /* default */].trim(chunking.extra);
+    chunking.extra = _string2.default.trim(chunking.extra);
     if (chunking.extra) {
       // If extra content exists, parse it as a last-ditch effort.
       spfNavRequest.handleChunkFromXHR_(url, options, timing, chunking, xhr, '', true);
@@ -9142,13 +11307,13 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
     // If using the JSON `responseType`, parsing is complete and no chunking
     // has been handled on-the-fly.
     if (!xhr.response) {
-      __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    JSON parse failed');
+      _debug2.default.debug('    JSON parse failed');
       if (options.onError) {
         options.onError(url, new Error('JSON response parsing failed'), xhr);
       }
       return;
     }
-    parts = __WEBPACK_IMPORTED_MODULE_6__nav_response__["a" /* default */].extract(__WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].toArray(xhr.response));
+    parts = _response2.default.extract(_array2.default.toArray(xhr.response));
   } else {
     // Otherwise, parsing may need to be done.  Always attempt a full parse with
     // error handling. A multipart response parsed on-the-fly via chunking may
@@ -9157,10 +11322,10 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
     // chunk parsing will be done, but the overall response will stil be
     // invalid.)
     try {
-      var parsed = __WEBPACK_IMPORTED_MODULE_6__nav_response__["a" /* default */].parse(xhr.responseText);
+      var parsed = _response2.default.parse(xhr.responseText);
       parts = parsed.parts;
     } catch (err) {
-      __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    JSON parse failed');
+      _debug2.default.debug('    JSON parse failed');
       if (options.onError) {
         options.onError(url, err, xhr);
       }
@@ -9175,7 +11340,7 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
     // the chunk processing left off.  This is mostly a safety measure and
     // the number of chunks processed here should be 0.
     for (var i = chunking.complete.length; i < parts.length; i++) {
-      __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('    parsed part', parts[i]);
+      _debug2.default.debug('    parsed part', parts[i]);
       var part = parts[i];
       if (!part['timing']) {
         part['timing'] = {};
@@ -9188,7 +11353,7 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
   var response;
   if (parts.length > 1) {
     var cacheType;
-    __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].each(parts, function (part) {
+    _array2.default.each(parts, function (part) {
       if (part['cacheType']) {
         cacheType = part['cacheType'];
       }
@@ -9221,7 +11386,7 @@ spfNavRequest.handleCompleteFromXHR_ = function (url, options, timing, chunking,
  * @private
  */
 spfNavRequest.done_ = function (url, options, timing, response, cache) {
-  __WEBPACK_IMPORTED_MODULE_5__debug_debug__["a" /* default */].debug('nav.request.done_', url, options, timing, response, cache);
+  _debug2.default.debug('nav.request.done_', url, options, timing, response, cache);
   if (cache && options.method != 'POST') {
     // Cache the response for future requests.
     var cacheKey = spfNavRequest.getCacheKey_(url, options.current, response['cacheType'], options.type, true);
@@ -9251,9 +11416,9 @@ spfNavRequest.done_ = function (url, options, timing, response, cache) {
  */
 spfNavRequest.getCacheKey_ = function (url, opt_current, opt_cacheType, opt_requestType, opt_set) {
   // Use the absolute URL without identifier to ensure consistent caching.
-  var absoluteUrl = __WEBPACK_IMPORTED_MODULE_9__url_url__["a" /* default */].absolute(url);
+  var absoluteUrl = _url2.default.absolute(url);
   var cacheKey;
-  if (__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('cache-unified')) {
+  if (_config2.default.get('cache-unified')) {
     // If using a unified cache, the key is just the URL to allow cached
     // responses from prefetching to apply to navigation, etc.  This also
     // means that load requests are cached unless they are sent via POST.
@@ -9277,7 +11442,7 @@ spfNavRequest.getCacheKey_ = function (url, opt_current, opt_cacheType, opt_requ
   if (opt_current && opt_cacheType == 'url') {
     cacheKey += ' previous ' + opt_current;
   } else if (opt_current && opt_cacheType == 'path') {
-    cacheKey += ' previous ' + __WEBPACK_IMPORTED_MODULE_9__url_url__["a" /* default */].path(opt_current);
+    cacheKey += ' previous ' + _url2.default.path(opt_current);
   }
 
   return cacheKey || '';
@@ -9296,15 +11461,15 @@ spfNavRequest.getCacheObject_ = function (cacheKey, opt_current) {
   var keys = [];
   if (opt_current) {
     keys.push(cacheKey + ' previous ' + opt_current);
-    keys.push(cacheKey + ' previous ' + __WEBPACK_IMPORTED_MODULE_9__url_url__["a" /* default */].path(opt_current));
+    keys.push(cacheKey + ' previous ' + _url2.default.path(opt_current));
   }
   keys.push(cacheKey);
 
   var cacheValue = null;
 
   // Find the first cached object and break loop early when found.
-  __WEBPACK_IMPORTED_MODULE_1__array_array__["a" /* default */].some(keys, function (key) {
-    var obj = __WEBPACK_IMPORTED_MODULE_3__cache_cache__["a" /* default */].get(key);
+  _array2.default.some(keys, function (key) {
+    var obj = _cache2.default.get(key);
     if (obj) {
       cacheValue = {
         key: key,
@@ -9332,8 +11497,8 @@ spfNavRequest.setCacheObject_ = function (cacheKey, response, type) {
     response: response,
     type: type
   };
-  __WEBPACK_IMPORTED_MODULE_3__cache_cache__["a" /* default */].set(cacheKey, cacheValue,
-  /** @type {number} */__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].get('cache-lifetime'));
+  _cache2.default.set(cacheKey, cacheValue,
+  /** @type {number} */_config2.default.get('cache-lifetime'));
 };
 
 /**
@@ -9363,20 +11528,34 @@ spfNavRequest.Chunking_ = function () {
   this.complete = [];
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfNavRequest);
+exports.default = spfNavRequest;
 
 /***/ }),
-/* 82 */
-/* exports provided: default */
-/* exports used: default */
+/* 154 */
+/* no static exports found */
+/* all exports used */
 /*!*************************************************!*\
   !*** ./app/javascript/packs/spf/net/connect.js ***!
   \*************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array_array__ = __webpack_require__(/*! ../array/array */ 4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__net_resource__ = __webpack_require__(/*! ../net/resource */ 20);
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _array = __webpack_require__(/*! ../array/array */ 31);
+
+var _array2 = _interopRequireDefault(_array);
+
+var _resource = __webpack_require__(/*! ../net/resource */ 87);
+
+var _resource2 = _interopRequireDefault(_resource);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // Copyright 2014 Google Inc. All rights reserved.
 //
 // Use of this source code is governed by The MIT License.
@@ -9389,9 +11568,6 @@ spfNavRequest.Chunking_ = function () {
  * @author nicksay@google.com (Alex Nicksay)
  */
 
-
-
-
 var spfNetConnect = {};
 // goog.provide('spfNetConnect');
 
@@ -9403,44 +11579,37 @@ var spfNetConnect = {};
  */
 spfNetConnect.preconnect = function (urls) {
   // Use an <img> tag to handle the preconnect in a compatible manner.
-  var type = __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].Type.IMG;
+  var type = _resource2.default.Type.IMG;
   // Convert to an array if needed.
-  urls = __WEBPACK_IMPORTED_MODULE_0__array_array__["a" /* default */].toArray(urls);
-  __WEBPACK_IMPORTED_MODULE_0__array_array__["a" /* default */].each(urls, function (url) {
+  urls = _array2.default.toArray(urls);
+  _array2.default.each(urls, function (url) {
     // When preconnecting, always fetch the image and make the request.
     // This is necessary to consistenly establish connections to repeat
     // URLs when the keep-alive time is shorter than the interval between
     // attempts.
-    __WEBPACK_IMPORTED_MODULE_1__net_resource__["a" /* default */].prefetch(type, url, true); // Force repeat fetching.
+    _resource2.default.prefetch(type, url, true); // Force repeat fetching.
   });
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (spfNetConnect);
+exports.default = spfNetConnect;
 
 /***/ }),
-/* 83 */
-/* exports provided: default */
-/* exports used: default */
+/* 155 */
+/* no static exports found */
+/* all exports used */
 /*!*********************************************!*\
   !*** ./app/javascript/packs/spf/net/xhr.js ***!
   \*********************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base__ = __webpack_require__(/*! ../base */ 0);
-// Copyright 2012 Google Inc. All rights reserved.
-//
-// Use of this source code is governed by The MIT License.
-// See the LICENSE file for details.
 
-/**
- * @fileoverview Streamlined XMLHttpRequest handling functions.
- *
- * @author nicksay@google.com (Alex Nicksay)
- */
 
-// goog.provide('spfNetXhr');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _base = __webpack_require__(/*! ../base */ 10);
 
 var spfNetXhr = {};
 
@@ -9475,6 +11644,19 @@ var spfNetXhr = {};
  *   withCredentials: (boolean|undefined)
  * }}
  */
+// Copyright 2012 Google Inc. All rights reserved.
+//
+// Use of this source code is governed by The MIT License.
+// See the LICENSE file for details.
+
+/**
+ * @fileoverview Streamlined XMLHttpRequest handling functions.
+ *
+ * @author nicksay@google.com (Alex Nicksay)
+ */
+
+// goog.provide('spfNetXhr');
+
 spfNetXhr.Options;
 
 /**
@@ -9537,7 +11719,7 @@ spfNetXhr.send = function (method, url, data, opt_options) {
     var timing = xhr['timing'];
     if (xhr.readyState == spfNetXhr.State.HEADERS_RECEIVED) {
       // Record responseStart time when first byte is received.
-      timing['responseStart'] = timing['responseStart'] || __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+      timing['responseStart'] = timing['responseStart'] || _base.spfBase.now();
       // Determine whether to process chunks as they arrive.
       chunked = spfNetXhr.isChunked_(xhr);
       if (options.onHeaders) {
@@ -9551,7 +11733,7 @@ spfNetXhr.send = function (method, url, data, opt_options) {
       }
     } else if (xhr.readyState == spfNetXhr.State.DONE) {
       // Record responseEnd time when full response is received.
-      timing['responseEnd'] = timing['responseEnd'] || __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+      timing['responseEnd'] = timing['responseEnd'] || _base.spfBase.now();
       // Record Resource Timing relative timings (where available) to later be
       // converted into Navigation Timing absolute timings.
       if (window.performance && window.performance.getEntriesByName) {
@@ -9612,7 +11794,7 @@ spfNetXhr.send = function (method, url, data, opt_options) {
   }
 
   // Record fetchStart time when request is sent.
-  xhr['timing']['fetchStart'] = __WEBPACK_IMPORTED_MODULE_0__base__["b" /* spfBase */].now();
+  xhr['timing']['fetchStart'] = _base.spfBase.now();
   xhr.send(data);
 
   return xhr;
@@ -9661,13 +11843,275 @@ spfNetXhr.State = {
   LOADING: 3,
   DONE: 4
 };
-/* harmony default export */ __webpack_exports__["a"] = (spfNetXhr);
+exports.default = spfNetXhr;
 
 /***/ }),
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */
+/* 156 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/babel-runtime/core-js/array/from.js ***!
+  \***********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/array/from */ 164), __esModule: true };
+
+/***/ }),
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */
+/* no static exports found */
+/* all exports used */
+/*!******************************************************!*\
+  !*** ./~/babel-runtime/helpers/toConsumableArray.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _from = __webpack_require__(/*! ../core-js/array/from */ 156);
+
+var _from2 = _interopRequireDefault(_from);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return (0, _from2.default)(arr);
+  }
+};
+
+/***/ }),
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/fn/array/from.js ***!
+  \********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../../modules/es6.string.iterator */ 53);
+__webpack_require__(/*! ../../modules/es6.array.from */ 174);
+module.exports = __webpack_require__(/*! ../../modules/_core */ 6).Array.from;
+
+
+/***/ }),
+/* 165 */,
+/* 166 */,
+/* 167 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/core-js/library/modules/_classof.js ***!
+  \***********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(/*! ./_cof */ 37);
+var TAG = __webpack_require__(/*! ./_wks */ 3)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+
+/***/ }),
+/* 168 */
+/* no static exports found */
+/* all exports used */
+/*!*******************************************************!*\
+  !*** ./~/core-js/library/modules/_create-property.js ***!
+  \*******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $defineProperty = __webpack_require__(/*! ./_object-dp */ 2);
+var createDesc = __webpack_require__(/*! ./_property-desc */ 12);
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
+
+
+/***/ }),
+/* 169 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_is-array-iter.js ***!
+  \*****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// check on default Array iterator
+var Iterators = __webpack_require__(/*! ./_iterators */ 16);
+var ITERATOR = __webpack_require__(/*! ./_wks */ 3)('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+
+/***/ }),
+/* 170 */
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_iter-call.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// call something on iterator step with safe closing on error
+var anObject = __webpack_require__(/*! ./_an-object */ 11);
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+
+/***/ }),
+/* 171 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_iter-detect.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var ITERATOR = __webpack_require__(/*! ./_wks */ 3)('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+
+/***/ }),
+/* 172 */,
+/* 173 */
+/* no static exports found */
+/* all exports used */
+/*!***************************************************************!*\
+  !*** ./~/core-js/library/modules/core.get-iterator-method.js ***!
+  \***************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(/*! ./_classof */ 167);
+var ITERATOR = __webpack_require__(/*! ./_wks */ 3)('iterator');
+var Iterators = __webpack_require__(/*! ./_iterators */ 16);
+module.exports = __webpack_require__(/*! ./_core */ 6).getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+
+/***/ }),
+/* 174 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/es6.array.from.js ***!
+  \*****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ctx = __webpack_require__(/*! ./_ctx */ 39);
+var $export = __webpack_require__(/*! ./_export */ 14);
+var toObject = __webpack_require__(/*! ./_to-object */ 52);
+var call = __webpack_require__(/*! ./_iter-call */ 170);
+var isArrayIter = __webpack_require__(/*! ./_is-array-iter */ 169);
+var toLength = __webpack_require__(/*! ./_to-length */ 51);
+var createProperty = __webpack_require__(/*! ./_create-property */ 168);
+var getIterFn = __webpack_require__(/*! ./core.get-iterator-method */ 173);
+
+$export($export.S + $export.F * !__webpack_require__(/*! ./_iter-detect */ 171)(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+
+/***/ }),
+/* 175 */,
+/* 176 */,
+/* 177 */
 /* no static exports found */
 /* all exports used */
 /*!***********************************!*\

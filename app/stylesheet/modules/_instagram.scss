@@ -8,7 +8,7 @@
     display: grid;
     cursor: pointer;
     grid: 'avatar avatar avatar' 160px 'type name name' 1.2em 'type count count'
-      1.2em / 2em auto auto;
+      1.2em 'uid uid uid' auto / 2em auto auto;
     .type {
       grid-area: type;
     }
@@ -21,6 +21,9 @@
     }
     .media_count {
       grid-area: count;
+    }
+    .user_id {
+      grid-area: uid;
     }
   }
 }

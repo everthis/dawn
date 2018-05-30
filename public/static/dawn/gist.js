@@ -63,18 +63,21 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 74);
+/******/ 	return __webpack_require__(__webpack_require__.s = 146);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 74:
+/***/ 146:
 /* no static exports found */
 /* all exports used */
 /*!**********************************************!*\
   !*** ./app/javascript/packs/entries/gist.js ***!
   \**********************************************/
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
   var el = document.getElementsByClassName('collapse-trigger')[0];

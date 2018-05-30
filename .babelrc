@@ -1,5 +1,6 @@
 {
   "presets": [
+    "es2015", "stage-0",
     ["env", {
       "modules": false,
       "targets": {
@@ -12,6 +13,10 @@
 
   "plugins": [
     "syntax-dynamic-import",
-    ["transform-class-properties", { "spec": true }]
+    ["transform-class-properties", { "spec": true }],
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
   ]
 }

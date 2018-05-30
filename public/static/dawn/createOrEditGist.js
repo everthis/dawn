@@ -63,12 +63,1587 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 72);
+/******/ 	return __webpack_require__(__webpack_require__.s = 144);
 /******/ })
 /************************************************************************/
 /******/ ({
 
+/***/ 0:
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_global.js ***!
+  \**********************************************/
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+
+/***/ }),
+
 /***/ 1:
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_descriptors.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(/*! ./_fails */ 9)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+
+/***/ 100:
+/* no static exports found */
+/* all exports used */
+/*!***************************************************************************!*\
+  !*** ./~/css-loader?{"minimize":false}!./~/codemirror/lib/codemirror.css ***!
+  \***************************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 101)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "/* BASICS */\n\n.CodeMirror {\n  /* Set height, width, borders, and global font properties here */\n  font-family: monospace;\n  height: 300px;\n  color: black;\n  direction: ltr;\n}\n\n/* PADDING */\n\n.CodeMirror-lines {\n  padding: 4px 0; /* Vertical padding around content */\n}\n.CodeMirror pre {\n  padding: 0 4px; /* Horizontal padding of content */\n}\n\n.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  background-color: white; /* The little square between H and V scrollbars */\n}\n\n/* GUTTER */\n\n.CodeMirror-gutters {\n  border-right: 1px solid #ddd;\n  background-color: #f7f7f7;\n  white-space: nowrap;\n}\n.CodeMirror-linenumbers {}\n.CodeMirror-linenumber {\n  padding: 0 3px 0 5px;\n  min-width: 20px;\n  text-align: right;\n  color: #999;\n  white-space: nowrap;\n}\n\n.CodeMirror-guttermarker { color: black; }\n.CodeMirror-guttermarker-subtle { color: #999; }\n\n/* CURSOR */\n\n.CodeMirror-cursor {\n  border-left: 1px solid black;\n  border-right: none;\n  width: 0;\n}\n/* Shown when moving in bi-directional text */\n.CodeMirror div.CodeMirror-secondarycursor {\n  border-left: 1px solid silver;\n}\n.cm-fat-cursor .CodeMirror-cursor {\n  width: auto;\n  border: 0 !important;\n  background: #7e7;\n}\n.cm-fat-cursor div.CodeMirror-cursors {\n  z-index: 1;\n}\n\n.cm-animate-fat-cursor {\n  width: auto;\n  border: 0;\n  -webkit-animation: blink 1.06s steps(1) infinite;\n  -moz-animation: blink 1.06s steps(1) infinite;\n  animation: blink 1.06s steps(1) infinite;\n  background-color: #7e7;\n}\n@-moz-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@-webkit-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n\n/* Can style cursor different in overwrite (non-insert) mode */\n.CodeMirror-overwrite .CodeMirror-cursor {}\n\n.cm-tab { display: inline-block; text-decoration: inherit; }\n\n.CodeMirror-rulers {\n  position: absolute;\n  left: 0; right: 0; top: -50px; bottom: -20px;\n  overflow: hidden;\n}\n.CodeMirror-ruler {\n  border-left: 1px solid #ccc;\n  top: 0; bottom: 0;\n  position: absolute;\n}\n\n/* DEFAULT THEME */\n\n.cm-s-default .cm-header {color: blue;}\n.cm-s-default .cm-quote {color: #090;}\n.cm-negative {color: #d44;}\n.cm-positive {color: #292;}\n.cm-header, .cm-strong {font-weight: bold;}\n.cm-em {font-style: italic;}\n.cm-link {text-decoration: underline;}\n.cm-strikethrough {text-decoration: line-through;}\n\n.cm-s-default .cm-keyword {color: #708;}\n.cm-s-default .cm-atom {color: #219;}\n.cm-s-default .cm-number {color: #164;}\n.cm-s-default .cm-def {color: #00f;}\n.cm-s-default .cm-variable,\n.cm-s-default .cm-punctuation,\n.cm-s-default .cm-property,\n.cm-s-default .cm-operator {}\n.cm-s-default .cm-variable-2 {color: #05a;}\n.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}\n.cm-s-default .cm-comment {color: #a50;}\n.cm-s-default .cm-string {color: #a11;}\n.cm-s-default .cm-string-2 {color: #f50;}\n.cm-s-default .cm-meta {color: #555;}\n.cm-s-default .cm-qualifier {color: #555;}\n.cm-s-default .cm-builtin {color: #30a;}\n.cm-s-default .cm-bracket {color: #997;}\n.cm-s-default .cm-tag {color: #170;}\n.cm-s-default .cm-attribute {color: #00c;}\n.cm-s-default .cm-hr {color: #999;}\n.cm-s-default .cm-link {color: #00c;}\n\n.cm-s-default .cm-error {color: #f00;}\n.cm-invalidchar {color: #f00;}\n\n.CodeMirror-composing { border-bottom: 2px solid; }\n\n/* Default styles for common addons */\n\ndiv.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}\ndiv.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}\n.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }\n.CodeMirror-activeline-background {background: #e8f2ff;}\n\n/* STOP */\n\n/* The rest of this file contains styles related to the mechanics of\n   the editor. You probably shouldn't touch them. */\n\n.CodeMirror {\n  position: relative;\n  overflow: hidden;\n  background: white;\n}\n\n.CodeMirror-scroll {\n  overflow: scroll !important; /* Things will break if this is overridden */\n  /* 30px is the magic margin used to hide the element's real scrollbars */\n  /* See overflow: hidden in .CodeMirror */\n  margin-bottom: -30px; margin-right: -30px;\n  padding-bottom: 30px;\n  height: 100%;\n  outline: none; /* Prevent dragging from highlighting the element */\n  position: relative;\n}\n.CodeMirror-sizer {\n  position: relative;\n  border-right: 30px solid transparent;\n}\n\n/* The fake, visible scrollbars. Used to force redraw during scrolling\n   before actual scrolling happens, thus preventing shaking and\n   flickering artifacts. */\n.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  position: absolute;\n  z-index: 6;\n  display: none;\n}\n.CodeMirror-vscrollbar {\n  right: 0; top: 0;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.CodeMirror-hscrollbar {\n  bottom: 0; left: 0;\n  overflow-y: hidden;\n  overflow-x: scroll;\n}\n.CodeMirror-scrollbar-filler {\n  right: 0; bottom: 0;\n}\n.CodeMirror-gutter-filler {\n  left: 0; bottom: 0;\n}\n\n.CodeMirror-gutters {\n  position: absolute; left: 0; top: 0;\n  min-height: 100%;\n  z-index: 3;\n}\n.CodeMirror-gutter {\n  white-space: normal;\n  height: 100%;\n  display: inline-block;\n  vertical-align: top;\n  margin-bottom: -30px;\n}\n.CodeMirror-gutter-wrapper {\n  position: absolute;\n  z-index: 4;\n  background: none !important;\n  border: none !important;\n}\n.CodeMirror-gutter-background {\n  position: absolute;\n  top: 0; bottom: 0;\n  z-index: 4;\n}\n.CodeMirror-gutter-elt {\n  position: absolute;\n  cursor: default;\n  z-index: 4;\n}\n.CodeMirror-gutter-wrapper ::selection { background-color: transparent }\n.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }\n\n.CodeMirror-lines {\n  cursor: text;\n  min-height: 1px; /* prevents collapsing before first draw */\n}\n.CodeMirror pre {\n  /* Reset some styles that the rest of the page might have set */\n  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;\n  border-width: 0;\n  background: transparent;\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n  white-space: pre;\n  word-wrap: normal;\n  line-height: inherit;\n  color: inherit;\n  z-index: 2;\n  position: relative;\n  overflow: visible;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-font-variant-ligatures: contextual;\n  font-variant-ligatures: contextual;\n}\n.CodeMirror-wrap pre {\n  word-wrap: break-word;\n  white-space: pre-wrap;\n  word-break: normal;\n}\n\n.CodeMirror-linebackground {\n  position: absolute;\n  left: 0; right: 0; top: 0; bottom: 0;\n  z-index: 0;\n}\n\n.CodeMirror-linewidget {\n  position: relative;\n  z-index: 2;\n  overflow: auto;\n}\n\n.CodeMirror-widget {}\n\n.CodeMirror-rtl pre { direction: rtl; }\n\n.CodeMirror-code {\n  outline: none;\n}\n\n/* Force content-box sizing for the elements where we expect it */\n.CodeMirror-scroll,\n.CodeMirror-sizer,\n.CodeMirror-gutter,\n.CodeMirror-gutters,\n.CodeMirror-linenumber {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n}\n\n.CodeMirror-measure {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  visibility: hidden;\n}\n\n.CodeMirror-cursor {\n  position: absolute;\n  pointer-events: none;\n}\n.CodeMirror-measure pre { position: static; }\n\ndiv.CodeMirror-cursors {\n  visibility: hidden;\n  position: relative;\n  z-index: 3;\n}\ndiv.CodeMirror-dragcursors {\n  visibility: visible;\n}\n\n.CodeMirror-focused div.CodeMirror-cursors {\n  visibility: visible;\n}\n\n.CodeMirror-selected { background: #d9d9d9; }\n.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }\n.CodeMirror-crosshair { cursor: crosshair; }\n.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }\n.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }\n\n.cm-searching {\n  background-color: #ffa;\n  background-color: rgba(255, 255, 0, .4);\n}\n\n/* Used to force a border model for a node */\n.cm-force-border { padding-right: .1px; }\n\n@media print {\n  /* Hide the cursor when printing */\n  .CodeMirror div.CodeMirror-cursors {\n    visibility: hidden;\n  }\n}\n\n/* See issue #2901 */\n.cm-tab-wrap-hack:after { content: ''; }\n\n/* Help users use markselection to safely style text background */\nspan.CodeMirror-selectedtext { background: none; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 101:
+/* no static exports found */
+/* all exports used */
+/*!**************************************!*\
+  !*** ./~/css-loader/lib/css-base.js ***!
+  \**************************************/
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ 102:
+/* no static exports found */
+/* all exports used */
+/*!*****************************************!*\
+  !*** ./~/codemirror/lib/codemirror.css ***!
+  \*****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 100);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 103)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../css-loader/index.js??ref--6-1!./codemirror.css", function() {
+			var newContent = require("!!../../css-loader/index.js??ref--6-1!./codemirror.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 103:
+/* no static exports found */
+/* all exports used */
+/*!*****************************************!*\
+  !*** ./~/style-loader/lib/addStyles.js ***!
+  \*****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(selector) {
+		if (typeof memo[selector] === "undefined") {
+			memo[selector] = fn.call(this, selector);
+		}
+
+		return memo[selector]
+	};
+})(function (target) {
+	return document.querySelector(target)
+});
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ 104);
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton) options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+	if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	options.attrs.type = "text/css";
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	options.attrs.type = "text/css";
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = options.transform(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ 104:
+/* no static exports found */
+/* all exports used */
+/*!************************************!*\
+  !*** ./~/style-loader/lib/urls.js ***!
+  \************************************/
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
+/***/ 11:
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_an-object.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+
+/***/ }),
+
+/***/ 114:
+/* no static exports found */
+/* all exports used */
+/*!**************************************!*\
+  !*** ./~/codemirror/mode/css/css.js ***!
+  \**************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+(function(mod) {
+  if (true) // CommonJS
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
+"use strict";
+
+CodeMirror.defineMode("css", function(config, parserConfig) {
+  var inline = parserConfig.inline
+  if (!parserConfig.propertyKeywords) parserConfig = CodeMirror.resolveMode("text/css");
+
+  var indentUnit = config.indentUnit,
+      tokenHooks = parserConfig.tokenHooks,
+      documentTypes = parserConfig.documentTypes || {},
+      mediaTypes = parserConfig.mediaTypes || {},
+      mediaFeatures = parserConfig.mediaFeatures || {},
+      mediaValueKeywords = parserConfig.mediaValueKeywords || {},
+      propertyKeywords = parserConfig.propertyKeywords || {},
+      nonStandardPropertyKeywords = parserConfig.nonStandardPropertyKeywords || {},
+      fontProperties = parserConfig.fontProperties || {},
+      counterDescriptors = parserConfig.counterDescriptors || {},
+      colorKeywords = parserConfig.colorKeywords || {},
+      valueKeywords = parserConfig.valueKeywords || {},
+      allowNested = parserConfig.allowNested,
+      lineComment = parserConfig.lineComment,
+      supportsAtComponent = parserConfig.supportsAtComponent === true;
+
+  var type, override;
+  function ret(style, tp) { type = tp; return style; }
+
+  // Tokenizers
+
+  function tokenBase(stream, state) {
+    var ch = stream.next();
+    if (tokenHooks[ch]) {
+      var result = tokenHooks[ch](stream, state);
+      if (result !== false) return result;
+    }
+    if (ch == "@") {
+      stream.eatWhile(/[\w\\\-]/);
+      return ret("def", stream.current());
+    } else if (ch == "=" || (ch == "~" || ch == "|") && stream.eat("=")) {
+      return ret(null, "compare");
+    } else if (ch == "\"" || ch == "'") {
+      state.tokenize = tokenString(ch);
+      return state.tokenize(stream, state);
+    } else if (ch == "#") {
+      stream.eatWhile(/[\w\\\-]/);
+      return ret("atom", "hash");
+    } else if (ch == "!") {
+      stream.match(/^\s*\w*/);
+      return ret("keyword", "important");
+    } else if (/\d/.test(ch) || ch == "." && stream.eat(/\d/)) {
+      stream.eatWhile(/[\w.%]/);
+      return ret("number", "unit");
+    } else if (ch === "-") {
+      if (/[\d.]/.test(stream.peek())) {
+        stream.eatWhile(/[\w.%]/);
+        return ret("number", "unit");
+      } else if (stream.match(/^-[\w\\\-]+/)) {
+        stream.eatWhile(/[\w\\\-]/);
+        if (stream.match(/^\s*:/, false))
+          return ret("variable-2", "variable-definition");
+        return ret("variable-2", "variable");
+      } else if (stream.match(/^\w+-/)) {
+        return ret("meta", "meta");
+      }
+    } else if (/[,+>*\/]/.test(ch)) {
+      return ret(null, "select-op");
+    } else if (ch == "." && stream.match(/^-?[_a-z][_a-z0-9-]*/i)) {
+      return ret("qualifier", "qualifier");
+    } else if (/[:;{}\[\]\(\)]/.test(ch)) {
+      return ret(null, ch);
+    } else if ((ch == "u" && stream.match(/rl(-prefix)?\(/)) ||
+               (ch == "d" && stream.match("omain(")) ||
+               (ch == "r" && stream.match("egexp("))) {
+      stream.backUp(1);
+      state.tokenize = tokenParenthesized;
+      return ret("property", "word");
+    } else if (/[\w\\\-]/.test(ch)) {
+      stream.eatWhile(/[\w\\\-]/);
+      return ret("property", "word");
+    } else {
+      return ret(null, null);
+    }
+  }
+
+  function tokenString(quote) {
+    return function(stream, state) {
+      var escaped = false, ch;
+      while ((ch = stream.next()) != null) {
+        if (ch == quote && !escaped) {
+          if (quote == ")") stream.backUp(1);
+          break;
+        }
+        escaped = !escaped && ch == "\\";
+      }
+      if (ch == quote || !escaped && quote != ")") state.tokenize = null;
+      return ret("string", "string");
+    };
+  }
+
+  function tokenParenthesized(stream, state) {
+    stream.next(); // Must be '('
+    if (!stream.match(/\s*[\"\')]/, false))
+      state.tokenize = tokenString(")");
+    else
+      state.tokenize = null;
+    return ret(null, "(");
+  }
+
+  // Context management
+
+  function Context(type, indent, prev) {
+    this.type = type;
+    this.indent = indent;
+    this.prev = prev;
+  }
+
+  function pushContext(state, stream, type, indent) {
+    state.context = new Context(type, stream.indentation() + (indent === false ? 0 : indentUnit), state.context);
+    return type;
+  }
+
+  function popContext(state) {
+    if (state.context.prev)
+      state.context = state.context.prev;
+    return state.context.type;
+  }
+
+  function pass(type, stream, state) {
+    return states[state.context.type](type, stream, state);
+  }
+  function popAndPass(type, stream, state, n) {
+    for (var i = n || 1; i > 0; i--)
+      state.context = state.context.prev;
+    return pass(type, stream, state);
+  }
+
+  // Parser
+
+  function wordAsValue(stream) {
+    var word = stream.current().toLowerCase();
+    if (valueKeywords.hasOwnProperty(word))
+      override = "atom";
+    else if (colorKeywords.hasOwnProperty(word))
+      override = "keyword";
+    else
+      override = "variable";
+  }
+
+  var states = {};
+
+  states.top = function(type, stream, state) {
+    if (type == "{") {
+      return pushContext(state, stream, "block");
+    } else if (type == "}" && state.context.prev) {
+      return popContext(state);
+    } else if (supportsAtComponent && /@component/.test(type)) {
+      return pushContext(state, stream, "atComponentBlock");
+    } else if (/^@(-moz-)?document$/.test(type)) {
+      return pushContext(state, stream, "documentTypes");
+    } else if (/^@(media|supports|(-moz-)?document|import)$/.test(type)) {
+      return pushContext(state, stream, "atBlock");
+    } else if (/^@(font-face|counter-style)/.test(type)) {
+      state.stateArg = type;
+      return "restricted_atBlock_before";
+    } else if (/^@(-(moz|ms|o|webkit)-)?keyframes$/.test(type)) {
+      return "keyframes";
+    } else if (type && type.charAt(0) == "@") {
+      return pushContext(state, stream, "at");
+    } else if (type == "hash") {
+      override = "builtin";
+    } else if (type == "word") {
+      override = "tag";
+    } else if (type == "variable-definition") {
+      return "maybeprop";
+    } else if (type == "interpolation") {
+      return pushContext(state, stream, "interpolation");
+    } else if (type == ":") {
+      return "pseudo";
+    } else if (allowNested && type == "(") {
+      return pushContext(state, stream, "parens");
+    }
+    return state.context.type;
+  };
+
+  states.block = function(type, stream, state) {
+    if (type == "word") {
+      var word = stream.current().toLowerCase();
+      if (propertyKeywords.hasOwnProperty(word)) {
+        override = "property";
+        return "maybeprop";
+      } else if (nonStandardPropertyKeywords.hasOwnProperty(word)) {
+        override = "string-2";
+        return "maybeprop";
+      } else if (allowNested) {
+        override = stream.match(/^\s*:(?:\s|$)/, false) ? "property" : "tag";
+        return "block";
+      } else {
+        override += " error";
+        return "maybeprop";
+      }
+    } else if (type == "meta") {
+      return "block";
+    } else if (!allowNested && (type == "hash" || type == "qualifier")) {
+      override = "error";
+      return "block";
+    } else {
+      return states.top(type, stream, state);
+    }
+  };
+
+  states.maybeprop = function(type, stream, state) {
+    if (type == ":") return pushContext(state, stream, "prop");
+    return pass(type, stream, state);
+  };
+
+  states.prop = function(type, stream, state) {
+    if (type == ";") return popContext(state);
+    if (type == "{" && allowNested) return pushContext(state, stream, "propBlock");
+    if (type == "}" || type == "{") return popAndPass(type, stream, state);
+    if (type == "(") return pushContext(state, stream, "parens");
+
+    if (type == "hash" && !/^#([0-9a-fA-f]{3,4}|[0-9a-fA-f]{6}|[0-9a-fA-f]{8})$/.test(stream.current())) {
+      override += " error";
+    } else if (type == "word") {
+      wordAsValue(stream);
+    } else if (type == "interpolation") {
+      return pushContext(state, stream, "interpolation");
+    }
+    return "prop";
+  };
+
+  states.propBlock = function(type, _stream, state) {
+    if (type == "}") return popContext(state);
+    if (type == "word") { override = "property"; return "maybeprop"; }
+    return state.context.type;
+  };
+
+  states.parens = function(type, stream, state) {
+    if (type == "{" || type == "}") return popAndPass(type, stream, state);
+    if (type == ")") return popContext(state);
+    if (type == "(") return pushContext(state, stream, "parens");
+    if (type == "interpolation") return pushContext(state, stream, "interpolation");
+    if (type == "word") wordAsValue(stream);
+    return "parens";
+  };
+
+  states.pseudo = function(type, stream, state) {
+    if (type == "meta") return "pseudo";
+
+    if (type == "word") {
+      override = "variable-3";
+      return state.context.type;
+    }
+    return pass(type, stream, state);
+  };
+
+  states.documentTypes = function(type, stream, state) {
+    if (type == "word" && documentTypes.hasOwnProperty(stream.current())) {
+      override = "tag";
+      return state.context.type;
+    } else {
+      return states.atBlock(type, stream, state);
+    }
+  };
+
+  states.atBlock = function(type, stream, state) {
+    if (type == "(") return pushContext(state, stream, "atBlock_parens");
+    if (type == "}" || type == ";") return popAndPass(type, stream, state);
+    if (type == "{") return popContext(state) && pushContext(state, stream, allowNested ? "block" : "top");
+
+    if (type == "interpolation") return pushContext(state, stream, "interpolation");
+
+    if (type == "word") {
+      var word = stream.current().toLowerCase();
+      if (word == "only" || word == "not" || word == "and" || word == "or")
+        override = "keyword";
+      else if (mediaTypes.hasOwnProperty(word))
+        override = "attribute";
+      else if (mediaFeatures.hasOwnProperty(word))
+        override = "property";
+      else if (mediaValueKeywords.hasOwnProperty(word))
+        override = "keyword";
+      else if (propertyKeywords.hasOwnProperty(word))
+        override = "property";
+      else if (nonStandardPropertyKeywords.hasOwnProperty(word))
+        override = "string-2";
+      else if (valueKeywords.hasOwnProperty(word))
+        override = "atom";
+      else if (colorKeywords.hasOwnProperty(word))
+        override = "keyword";
+      else
+        override = "error";
+    }
+    return state.context.type;
+  };
+
+  states.atComponentBlock = function(type, stream, state) {
+    if (type == "}")
+      return popAndPass(type, stream, state);
+    if (type == "{")
+      return popContext(state) && pushContext(state, stream, allowNested ? "block" : "top", false);
+    if (type == "word")
+      override = "error";
+    return state.context.type;
+  };
+
+  states.atBlock_parens = function(type, stream, state) {
+    if (type == ")") return popContext(state);
+    if (type == "{" || type == "}") return popAndPass(type, stream, state, 2);
+    return states.atBlock(type, stream, state);
+  };
+
+  states.restricted_atBlock_before = function(type, stream, state) {
+    if (type == "{")
+      return pushContext(state, stream, "restricted_atBlock");
+    if (type == "word" && state.stateArg == "@counter-style") {
+      override = "variable";
+      return "restricted_atBlock_before";
+    }
+    return pass(type, stream, state);
+  };
+
+  states.restricted_atBlock = function(type, stream, state) {
+    if (type == "}") {
+      state.stateArg = null;
+      return popContext(state);
+    }
+    if (type == "word") {
+      if ((state.stateArg == "@font-face" && !fontProperties.hasOwnProperty(stream.current().toLowerCase())) ||
+          (state.stateArg == "@counter-style" && !counterDescriptors.hasOwnProperty(stream.current().toLowerCase())))
+        override = "error";
+      else
+        override = "property";
+      return "maybeprop";
+    }
+    return "restricted_atBlock";
+  };
+
+  states.keyframes = function(type, stream, state) {
+    if (type == "word") { override = "variable"; return "keyframes"; }
+    if (type == "{") return pushContext(state, stream, "top");
+    return pass(type, stream, state);
+  };
+
+  states.at = function(type, stream, state) {
+    if (type == ";") return popContext(state);
+    if (type == "{" || type == "}") return popAndPass(type, stream, state);
+    if (type == "word") override = "tag";
+    else if (type == "hash") override = "builtin";
+    return "at";
+  };
+
+  states.interpolation = function(type, stream, state) {
+    if (type == "}") return popContext(state);
+    if (type == "{" || type == ";") return popAndPass(type, stream, state);
+    if (type == "word") override = "variable";
+    else if (type != "variable" && type != "(" && type != ")") override = "error";
+    return "interpolation";
+  };
+
+  return {
+    startState: function(base) {
+      return {tokenize: null,
+              state: inline ? "block" : "top",
+              stateArg: null,
+              context: new Context(inline ? "block" : "top", base || 0, null)};
+    },
+
+    token: function(stream, state) {
+      if (!state.tokenize && stream.eatSpace()) return null;
+      var style = (state.tokenize || tokenBase)(stream, state);
+      if (style && typeof style == "object") {
+        type = style[1];
+        style = style[0];
+      }
+      override = style;
+      if (type != "comment")
+        state.state = states[state.state](type, stream, state);
+      return override;
+    },
+
+    indent: function(state, textAfter) {
+      var cx = state.context, ch = textAfter && textAfter.charAt(0);
+      var indent = cx.indent;
+      if (cx.type == "prop" && (ch == "}" || ch == ")")) cx = cx.prev;
+      if (cx.prev) {
+        if (ch == "}" && (cx.type == "block" || cx.type == "top" ||
+                          cx.type == "interpolation" || cx.type == "restricted_atBlock")) {
+          // Resume indentation from parent context.
+          cx = cx.prev;
+          indent = cx.indent;
+        } else if (ch == ")" && (cx.type == "parens" || cx.type == "atBlock_parens") ||
+            ch == "{" && (cx.type == "at" || cx.type == "atBlock")) {
+          // Dedent relative to current context.
+          indent = Math.max(0, cx.indent - indentUnit);
+        }
+      }
+      return indent;
+    },
+
+    electricChars: "}",
+    blockCommentStart: "/*",
+    blockCommentEnd: "*/",
+    lineComment: lineComment,
+    fold: "brace"
+  };
+});
+
+  function keySet(array) {
+    var keys = {};
+    for (var i = 0; i < array.length; ++i) {
+      keys[array[i].toLowerCase()] = true;
+    }
+    return keys;
+  }
+
+  var documentTypes_ = [
+    "domain", "regexp", "url", "url-prefix"
+  ], documentTypes = keySet(documentTypes_);
+
+  var mediaTypes_ = [
+    "all", "aural", "braille", "handheld", "print", "projection", "screen",
+    "tty", "tv", "embossed"
+  ], mediaTypes = keySet(mediaTypes_);
+
+  var mediaFeatures_ = [
+    "width", "min-width", "max-width", "height", "min-height", "max-height",
+    "device-width", "min-device-width", "max-device-width", "device-height",
+    "min-device-height", "max-device-height", "aspect-ratio",
+    "min-aspect-ratio", "max-aspect-ratio", "device-aspect-ratio",
+    "min-device-aspect-ratio", "max-device-aspect-ratio", "color", "min-color",
+    "max-color", "color-index", "min-color-index", "max-color-index",
+    "monochrome", "min-monochrome", "max-monochrome", "resolution",
+    "min-resolution", "max-resolution", "scan", "grid", "orientation",
+    "device-pixel-ratio", "min-device-pixel-ratio", "max-device-pixel-ratio",
+    "pointer", "any-pointer", "hover", "any-hover"
+  ], mediaFeatures = keySet(mediaFeatures_);
+
+  var mediaValueKeywords_ = [
+    "landscape", "portrait", "none", "coarse", "fine", "on-demand", "hover",
+    "interlace", "progressive"
+  ], mediaValueKeywords = keySet(mediaValueKeywords_);
+
+  var propertyKeywords_ = [
+    "align-content", "align-items", "align-self", "alignment-adjust",
+    "alignment-baseline", "anchor-point", "animation", "animation-delay",
+    "animation-direction", "animation-duration", "animation-fill-mode",
+    "animation-iteration-count", "animation-name", "animation-play-state",
+    "animation-timing-function", "appearance", "azimuth", "backface-visibility",
+    "background", "background-attachment", "background-blend-mode", "background-clip",
+    "background-color", "background-image", "background-origin", "background-position",
+    "background-repeat", "background-size", "baseline-shift", "binding",
+    "bleed", "bookmark-label", "bookmark-level", "bookmark-state",
+    "bookmark-target", "border", "border-bottom", "border-bottom-color",
+    "border-bottom-left-radius", "border-bottom-right-radius",
+    "border-bottom-style", "border-bottom-width", "border-collapse",
+    "border-color", "border-image", "border-image-outset",
+    "border-image-repeat", "border-image-slice", "border-image-source",
+    "border-image-width", "border-left", "border-left-color",
+    "border-left-style", "border-left-width", "border-radius", "border-right",
+    "border-right-color", "border-right-style", "border-right-width",
+    "border-spacing", "border-style", "border-top", "border-top-color",
+    "border-top-left-radius", "border-top-right-radius", "border-top-style",
+    "border-top-width", "border-width", "bottom", "box-decoration-break",
+    "box-shadow", "box-sizing", "break-after", "break-before", "break-inside",
+    "caption-side", "caret-color", "clear", "clip", "color", "color-profile", "column-count",
+    "column-fill", "column-gap", "column-rule", "column-rule-color",
+    "column-rule-style", "column-rule-width", "column-span", "column-width",
+    "columns", "content", "counter-increment", "counter-reset", "crop", "cue",
+    "cue-after", "cue-before", "cursor", "direction", "display",
+    "dominant-baseline", "drop-initial-after-adjust",
+    "drop-initial-after-align", "drop-initial-before-adjust",
+    "drop-initial-before-align", "drop-initial-size", "drop-initial-value",
+    "elevation", "empty-cells", "fit", "fit-position", "flex", "flex-basis",
+    "flex-direction", "flex-flow", "flex-grow", "flex-shrink", "flex-wrap",
+    "float", "float-offset", "flow-from", "flow-into", "font", "font-feature-settings",
+    "font-family", "font-kerning", "font-language-override", "font-size", "font-size-adjust",
+    "font-stretch", "font-style", "font-synthesis", "font-variant",
+    "font-variant-alternates", "font-variant-caps", "font-variant-east-asian",
+    "font-variant-ligatures", "font-variant-numeric", "font-variant-position",
+    "font-weight", "grid", "grid-area", "grid-auto-columns", "grid-auto-flow",
+    "grid-auto-rows", "grid-column", "grid-column-end", "grid-column-gap",
+    "grid-column-start", "grid-gap", "grid-row", "grid-row-end", "grid-row-gap",
+    "grid-row-start", "grid-template", "grid-template-areas", "grid-template-columns",
+    "grid-template-rows", "hanging-punctuation", "height", "hyphens",
+    "icon", "image-orientation", "image-rendering", "image-resolution",
+    "inline-box-align", "justify-content", "justify-items", "justify-self", "left", "letter-spacing",
+    "line-break", "line-height", "line-stacking", "line-stacking-ruby",
+    "line-stacking-shift", "line-stacking-strategy", "list-style",
+    "list-style-image", "list-style-position", "list-style-type", "margin",
+    "margin-bottom", "margin-left", "margin-right", "margin-top",
+    "marks", "marquee-direction", "marquee-loop",
+    "marquee-play-count", "marquee-speed", "marquee-style", "max-height",
+    "max-width", "min-height", "min-width", "move-to", "nav-down", "nav-index",
+    "nav-left", "nav-right", "nav-up", "object-fit", "object-position",
+    "opacity", "order", "orphans", "outline",
+    "outline-color", "outline-offset", "outline-style", "outline-width",
+    "overflow", "overflow-style", "overflow-wrap", "overflow-x", "overflow-y",
+    "padding", "padding-bottom", "padding-left", "padding-right", "padding-top",
+    "page", "page-break-after", "page-break-before", "page-break-inside",
+    "page-policy", "pause", "pause-after", "pause-before", "perspective",
+    "perspective-origin", "pitch", "pitch-range", "place-content", "place-items", "place-self", "play-during", "position",
+    "presentation-level", "punctuation-trim", "quotes", "region-break-after",
+    "region-break-before", "region-break-inside", "region-fragment",
+    "rendering-intent", "resize", "rest", "rest-after", "rest-before", "richness",
+    "right", "rotation", "rotation-point", "ruby-align", "ruby-overhang",
+    "ruby-position", "ruby-span", "shape-image-threshold", "shape-inside", "shape-margin",
+    "shape-outside", "size", "speak", "speak-as", "speak-header",
+    "speak-numeral", "speak-punctuation", "speech-rate", "stress", "string-set",
+    "tab-size", "table-layout", "target", "target-name", "target-new",
+    "target-position", "text-align", "text-align-last", "text-decoration",
+    "text-decoration-color", "text-decoration-line", "text-decoration-skip",
+    "text-decoration-style", "text-emphasis", "text-emphasis-color",
+    "text-emphasis-position", "text-emphasis-style", "text-height",
+    "text-indent", "text-justify", "text-outline", "text-overflow", "text-shadow",
+    "text-size-adjust", "text-space-collapse", "text-transform", "text-underline-position",
+    "text-wrap", "top", "transform", "transform-origin", "transform-style",
+    "transition", "transition-delay", "transition-duration",
+    "transition-property", "transition-timing-function", "unicode-bidi",
+    "user-select", "vertical-align", "visibility", "voice-balance", "voice-duration",
+    "voice-family", "voice-pitch", "voice-range", "voice-rate", "voice-stress",
+    "voice-volume", "volume", "white-space", "widows", "width", "will-change", "word-break",
+    "word-spacing", "word-wrap", "z-index",
+    // SVG-specific
+    "clip-path", "clip-rule", "mask", "enable-background", "filter", "flood-color",
+    "flood-opacity", "lighting-color", "stop-color", "stop-opacity", "pointer-events",
+    "color-interpolation", "color-interpolation-filters",
+    "color-rendering", "fill", "fill-opacity", "fill-rule", "image-rendering",
+    "marker", "marker-end", "marker-mid", "marker-start", "shape-rendering", "stroke",
+    "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
+    "stroke-miterlimit", "stroke-opacity", "stroke-width", "text-rendering",
+    "baseline-shift", "dominant-baseline", "glyph-orientation-horizontal",
+    "glyph-orientation-vertical", "text-anchor", "writing-mode"
+  ], propertyKeywords = keySet(propertyKeywords_);
+
+  var nonStandardPropertyKeywords_ = [
+    "scrollbar-arrow-color", "scrollbar-base-color", "scrollbar-dark-shadow-color",
+    "scrollbar-face-color", "scrollbar-highlight-color", "scrollbar-shadow-color",
+    "scrollbar-3d-light-color", "scrollbar-track-color", "shape-inside",
+    "searchfield-cancel-button", "searchfield-decoration", "searchfield-results-button",
+    "searchfield-results-decoration", "zoom"
+  ], nonStandardPropertyKeywords = keySet(nonStandardPropertyKeywords_);
+
+  var fontProperties_ = [
+    "font-family", "src", "unicode-range", "font-variant", "font-feature-settings",
+    "font-stretch", "font-weight", "font-style"
+  ], fontProperties = keySet(fontProperties_);
+
+  var counterDescriptors_ = [
+    "additive-symbols", "fallback", "negative", "pad", "prefix", "range",
+    "speak-as", "suffix", "symbols", "system"
+  ], counterDescriptors = keySet(counterDescriptors_);
+
+  var colorKeywords_ = [
+    "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige",
+    "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown",
+    "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue",
+    "cornsilk", "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod",
+    "darkgray", "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
+    "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
+    "darkslateblue", "darkslategray", "darkturquoise", "darkviolet",
+    "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick",
+    "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite",
+    "gold", "goldenrod", "gray", "grey", "green", "greenyellow", "honeydew",
+    "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
+    "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
+    "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightpink",
+    "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray",
+    "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta",
+    "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple",
+    "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise",
+    "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin",
+    "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered",
+    "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred",
+    "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue",
+    "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown",
+    "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue",
+    "slateblue", "slategray", "snow", "springgreen", "steelblue", "tan",
+    "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white",
+    "whitesmoke", "yellow", "yellowgreen"
+  ], colorKeywords = keySet(colorKeywords_);
+
+  var valueKeywords_ = [
+    "above", "absolute", "activeborder", "additive", "activecaption", "afar",
+    "after-white-space", "ahead", "alias", "all", "all-scroll", "alphabetic", "alternate",
+    "always", "amharic", "amharic-abegede", "antialiased", "appworkspace",
+    "arabic-indic", "armenian", "asterisks", "attr", "auto", "auto-flow", "avoid", "avoid-column", "avoid-page",
+    "avoid-region", "background", "backwards", "baseline", "below", "bidi-override", "binary",
+    "bengali", "blink", "block", "block-axis", "bold", "bolder", "border", "border-box",
+    "both", "bottom", "break", "break-all", "break-word", "bullets", "button", "button-bevel",
+    "buttonface", "buttonhighlight", "buttonshadow", "buttontext", "calc", "cambodian",
+    "capitalize", "caps-lock-indicator", "caption", "captiontext", "caret",
+    "cell", "center", "checkbox", "circle", "cjk-decimal", "cjk-earthly-branch",
+    "cjk-heavenly-stem", "cjk-ideographic", "clear", "clip", "close-quote",
+    "col-resize", "collapse", "color", "color-burn", "color-dodge", "column", "column-reverse",
+    "compact", "condensed", "contain", "content", "contents",
+    "content-box", "context-menu", "continuous", "copy", "counter", "counters", "cover", "crop",
+    "cross", "crosshair", "currentcolor", "cursive", "cyclic", "darken", "dashed", "decimal",
+    "decimal-leading-zero", "default", "default-button", "dense", "destination-atop",
+    "destination-in", "destination-out", "destination-over", "devanagari", "difference",
+    "disc", "discard", "disclosure-closed", "disclosure-open", "document",
+    "dot-dash", "dot-dot-dash",
+    "dotted", "double", "down", "e-resize", "ease", "ease-in", "ease-in-out", "ease-out",
+    "element", "ellipse", "ellipsis", "embed", "end", "ethiopic", "ethiopic-abegede",
+    "ethiopic-abegede-am-et", "ethiopic-abegede-gez", "ethiopic-abegede-ti-er",
+    "ethiopic-abegede-ti-et", "ethiopic-halehame-aa-er",
+    "ethiopic-halehame-aa-et", "ethiopic-halehame-am-et",
+    "ethiopic-halehame-gez", "ethiopic-halehame-om-et",
+    "ethiopic-halehame-sid-et", "ethiopic-halehame-so-et",
+    "ethiopic-halehame-ti-er", "ethiopic-halehame-ti-et", "ethiopic-halehame-tig",
+    "ethiopic-numeric", "ew-resize", "exclusion", "expanded", "extends", "extra-condensed",
+    "extra-expanded", "fantasy", "fast", "fill", "fixed", "flat", "flex", "flex-end", "flex-start", "footnotes",
+    "forwards", "from", "geometricPrecision", "georgian", "graytext", "grid", "groove",
+    "gujarati", "gurmukhi", "hand", "hangul", "hangul-consonant", "hard-light", "hebrew",
+    "help", "hidden", "hide", "higher", "highlight", "highlighttext",
+    "hiragana", "hiragana-iroha", "horizontal", "hsl", "hsla", "hue", "icon", "ignore",
+    "inactiveborder", "inactivecaption", "inactivecaptiontext", "infinite",
+    "infobackground", "infotext", "inherit", "initial", "inline", "inline-axis",
+    "inline-block", "inline-flex", "inline-grid", "inline-table", "inset", "inside", "intrinsic", "invert",
+    "italic", "japanese-formal", "japanese-informal", "justify", "kannada",
+    "katakana", "katakana-iroha", "keep-all", "khmer",
+    "korean-hangul-formal", "korean-hanja-formal", "korean-hanja-informal",
+    "landscape", "lao", "large", "larger", "left", "level", "lighter", "lighten",
+    "line-through", "linear", "linear-gradient", "lines", "list-item", "listbox", "listitem",
+    "local", "logical", "loud", "lower", "lower-alpha", "lower-armenian",
+    "lower-greek", "lower-hexadecimal", "lower-latin", "lower-norwegian",
+    "lower-roman", "lowercase", "ltr", "luminosity", "malayalam", "match", "matrix", "matrix3d",
+    "media-controls-background", "media-current-time-display",
+    "media-fullscreen-button", "media-mute-button", "media-play-button",
+    "media-return-to-realtime-button", "media-rewind-button",
+    "media-seek-back-button", "media-seek-forward-button", "media-slider",
+    "media-sliderthumb", "media-time-remaining-display", "media-volume-slider",
+    "media-volume-slider-container", "media-volume-sliderthumb", "medium",
+    "menu", "menulist", "menulist-button", "menulist-text",
+    "menulist-textfield", "menutext", "message-box", "middle", "min-intrinsic",
+    "mix", "mongolian", "monospace", "move", "multiple", "multiply", "myanmar", "n-resize",
+    "narrower", "ne-resize", "nesw-resize", "no-close-quote", "no-drop",
+    "no-open-quote", "no-repeat", "none", "normal", "not-allowed", "nowrap",
+    "ns-resize", "numbers", "numeric", "nw-resize", "nwse-resize", "oblique", "octal", "opacity", "open-quote",
+    "optimizeLegibility", "optimizeSpeed", "oriya", "oromo", "outset",
+    "outside", "outside-shape", "overlay", "overline", "padding", "padding-box",
+    "painted", "page", "paused", "persian", "perspective", "plus-darker", "plus-lighter",
+    "pointer", "polygon", "portrait", "pre", "pre-line", "pre-wrap", "preserve-3d",
+    "progress", "push-button", "radial-gradient", "radio", "read-only",
+    "read-write", "read-write-plaintext-only", "rectangle", "region",
+    "relative", "repeat", "repeating-linear-gradient",
+    "repeating-radial-gradient", "repeat-x", "repeat-y", "reset", "reverse",
+    "rgb", "rgba", "ridge", "right", "rotate", "rotate3d", "rotateX", "rotateY",
+    "rotateZ", "round", "row", "row-resize", "row-reverse", "rtl", "run-in", "running",
+    "s-resize", "sans-serif", "saturation", "scale", "scale3d", "scaleX", "scaleY", "scaleZ", "screen",
+    "scroll", "scrollbar", "scroll-position", "se-resize", "searchfield",
+    "searchfield-cancel-button", "searchfield-decoration",
+    "searchfield-results-button", "searchfield-results-decoration", "self-start", "self-end",
+    "semi-condensed", "semi-expanded", "separate", "serif", "show", "sidama",
+    "simp-chinese-formal", "simp-chinese-informal", "single",
+    "skew", "skewX", "skewY", "skip-white-space", "slide", "slider-horizontal",
+    "slider-vertical", "sliderthumb-horizontal", "sliderthumb-vertical", "slow",
+    "small", "small-caps", "small-caption", "smaller", "soft-light", "solid", "somali",
+    "source-atop", "source-in", "source-out", "source-over", "space", "space-around", "space-between", "space-evenly", "spell-out", "square",
+    "square-button", "start", "static", "status-bar", "stretch", "stroke", "sub",
+    "subpixel-antialiased", "super", "sw-resize", "symbolic", "symbols", "system-ui", "table",
+    "table-caption", "table-cell", "table-column", "table-column-group",
+    "table-footer-group", "table-header-group", "table-row", "table-row-group",
+    "tamil",
+    "telugu", "text", "text-bottom", "text-top", "textarea", "textfield", "thai",
+    "thick", "thin", "threeddarkshadow", "threedface", "threedhighlight",
+    "threedlightshadow", "threedshadow", "tibetan", "tigre", "tigrinya-er",
+    "tigrinya-er-abegede", "tigrinya-et", "tigrinya-et-abegede", "to", "top",
+    "trad-chinese-formal", "trad-chinese-informal", "transform",
+    "translate", "translate3d", "translateX", "translateY", "translateZ",
+    "transparent", "ultra-condensed", "ultra-expanded", "underline", "unset", "up",
+    "upper-alpha", "upper-armenian", "upper-greek", "upper-hexadecimal",
+    "upper-latin", "upper-norwegian", "upper-roman", "uppercase", "urdu", "url",
+    "var", "vertical", "vertical-text", "visible", "visibleFill", "visiblePainted",
+    "visibleStroke", "visual", "w-resize", "wait", "wave", "wider",
+    "window", "windowframe", "windowtext", "words", "wrap", "wrap-reverse", "x-large", "x-small", "xor",
+    "xx-large", "xx-small"
+  ], valueKeywords = keySet(valueKeywords_);
+
+  var allWords = documentTypes_.concat(mediaTypes_).concat(mediaFeatures_).concat(mediaValueKeywords_)
+    .concat(propertyKeywords_).concat(nonStandardPropertyKeywords_).concat(colorKeywords_)
+    .concat(valueKeywords_);
+  CodeMirror.registerHelper("hintWords", "css", allWords);
+
+  function tokenCComment(stream, state) {
+    var maybeEnd = false, ch;
+    while ((ch = stream.next()) != null) {
+      if (maybeEnd && ch == "/") {
+        state.tokenize = null;
+        break;
+      }
+      maybeEnd = (ch == "*");
+    }
+    return ["comment", "comment"];
+  }
+
+  CodeMirror.defineMIME("text/css", {
+    documentTypes: documentTypes,
+    mediaTypes: mediaTypes,
+    mediaFeatures: mediaFeatures,
+    mediaValueKeywords: mediaValueKeywords,
+    propertyKeywords: propertyKeywords,
+    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
+    fontProperties: fontProperties,
+    counterDescriptors: counterDescriptors,
+    colorKeywords: colorKeywords,
+    valueKeywords: valueKeywords,
+    tokenHooks: {
+      "/": function(stream, state) {
+        if (!stream.eat("*")) return false;
+        state.tokenize = tokenCComment;
+        return tokenCComment(stream, state);
+      }
+    },
+    name: "css"
+  });
+
+  CodeMirror.defineMIME("text/x-scss", {
+    mediaTypes: mediaTypes,
+    mediaFeatures: mediaFeatures,
+    mediaValueKeywords: mediaValueKeywords,
+    propertyKeywords: propertyKeywords,
+    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
+    colorKeywords: colorKeywords,
+    valueKeywords: valueKeywords,
+    fontProperties: fontProperties,
+    allowNested: true,
+    lineComment: "//",
+    tokenHooks: {
+      "/": function(stream, state) {
+        if (stream.eat("/")) {
+          stream.skipToEnd();
+          return ["comment", "comment"];
+        } else if (stream.eat("*")) {
+          state.tokenize = tokenCComment;
+          return tokenCComment(stream, state);
+        } else {
+          return ["operator", "operator"];
+        }
+      },
+      ":": function(stream) {
+        if (stream.match(/\s*\{/, false))
+          return [null, null]
+        return false;
+      },
+      "$": function(stream) {
+        stream.match(/^[\w-]+/);
+        if (stream.match(/^\s*:/, false))
+          return ["variable-2", "variable-definition"];
+        return ["variable-2", "variable"];
+      },
+      "#": function(stream) {
+        if (!stream.eat("{")) return false;
+        return [null, "interpolation"];
+      }
+    },
+    name: "css",
+    helperType: "scss"
+  });
+
+  CodeMirror.defineMIME("text/x-less", {
+    mediaTypes: mediaTypes,
+    mediaFeatures: mediaFeatures,
+    mediaValueKeywords: mediaValueKeywords,
+    propertyKeywords: propertyKeywords,
+    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
+    colorKeywords: colorKeywords,
+    valueKeywords: valueKeywords,
+    fontProperties: fontProperties,
+    allowNested: true,
+    lineComment: "//",
+    tokenHooks: {
+      "/": function(stream, state) {
+        if (stream.eat("/")) {
+          stream.skipToEnd();
+          return ["comment", "comment"];
+        } else if (stream.eat("*")) {
+          state.tokenize = tokenCComment;
+          return tokenCComment(stream, state);
+        } else {
+          return ["operator", "operator"];
+        }
+      },
+      "@": function(stream) {
+        if (stream.eat("{")) return [null, "interpolation"];
+        if (stream.match(/^(charset|document|font-face|import|(-(moz|ms|o|webkit)-)?keyframes|media|namespace|page|supports)\b/, false)) return false;
+        stream.eatWhile(/[\w\\\-]/);
+        if (stream.match(/^\s*:/, false))
+          return ["variable-2", "variable-definition"];
+        return ["variable-2", "variable"];
+      },
+      "&": function() {
+        return ["atom", "atom"];
+      }
+    },
+    name: "css",
+    helperType: "less"
+  });
+
+  CodeMirror.defineMIME("text/x-gss", {
+    documentTypes: documentTypes,
+    mediaTypes: mediaTypes,
+    mediaFeatures: mediaFeatures,
+    propertyKeywords: propertyKeywords,
+    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
+    fontProperties: fontProperties,
+    counterDescriptors: counterDescriptors,
+    colorKeywords: colorKeywords,
+    valueKeywords: valueKeywords,
+    supportsAtComponent: true,
+    tokenHooks: {
+      "/": function(stream, state) {
+        if (!stream.eat("*")) return false;
+        state.tokenize = tokenCComment;
+        return tokenCComment(stream, state);
+      }
+    },
+    name: "css",
+    helperType: "gss"
+  });
+
+});
+
+
+/***/ }),
+
+/***/ 12:
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_property-desc.js ***!
+  \*****************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+
+/***/ }),
+
+/***/ 120:
+/* no static exports found */
+/* all exports used */
+/*!**********************************************************!*\
+  !*** ./app/javascript/packs/modules/createOrEditGist.js ***!
+  \**********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.cn = cn;
+exports.en = en;
+
+var _markdownTextArea = __webpack_require__(/*! ../common/markdownTextArea */ 137);
+
+var _markdownTextArea2 = _interopRequireDefault(_markdownTextArea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mdIns = void 0;
+var gistExtensionEle = void 0;
+
+function changeOption(ev) {
+  mdIns.changeOption('mode', ev.target.value);
+}
+
+function cn() {
+  mdIns = new _markdownTextArea2.default({
+    formEle: document.getElementsByClassName('gist_form')[0],
+    textAreas: [document.getElementById('gist_content'), document.getElementById('gist_answer')],
+    submitEle: document.getElementsByClassName('c-form-submit')[0],
+    formContainer: document.getElementsByClassName('gist-container')[0]
+  });
+  gistExtensionEle = document.getElementById('gist_extension');
+  console.log(gistExtensionEle.value);
+  mdIns.init({ language: gistExtensionEle.value });
+  gistExtensionEle.addEventListener('change', changeOption);
+}
+
+function en() {
+  mdIns.destroy();
+  gistExtensionEle.removeEventListener('change', changeOption);
+}
+
+/***/ }),
+
+/***/ 13:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -9571,8 +11146,2157 @@ return CodeMirror$1;
 
 /***/ }),
 
-/***/ 24:
+/***/ 137:
 /* no static exports found */
+/* all exports used */
+/*!*********************************************************!*\
+  !*** ./app/javascript/packs/common/markdownTextArea.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 92);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 93);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _codemirror = __webpack_require__(/*! codemirror/lib/codemirror.css */ 102);
+
+var _codemirror2 = _interopRequireDefault(_codemirror);
+
+var _codemirror3 = __webpack_require__(/*! codemirror */ 13);
+
+var _codemirror4 = _interopRequireDefault(_codemirror3);
+
+var _markdown = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 95);
+
+var _markdown2 = _interopRequireDefault(_markdown);
+
+var _css = __webpack_require__(/*! codemirror/mode/css/css */ 114);
+
+var _css2 = _interopRequireDefault(_css);
+
+var _sass = __webpack_require__(/*! codemirror/mode/sass/sass */ 163);
+
+var _sass2 = _interopRequireDefault(_sass);
+
+var _ruby = __webpack_require__(/*! codemirror/mode/ruby/ruby */ 162);
+
+var _ruby2 = _interopRequireDefault(_ruby);
+
+var _javascript = __webpack_require__(/*! codemirror/mode/javascript/javascript */ 161);
+
+var _javascript2 = _interopRequireDefault(_javascript);
+
+var _activeLine = __webpack_require__(/*! codemirror/addon/selection/active-line */ 94);
+
+var _activeLine2 = _interopRequireDefault(_activeLine);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * todo: add support for multiple textarea
+ */
+var _class = function () {
+  function _class() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0, _classCallCheck3.default)(this, _class);
+
+    this.formEle = options.formEle;
+    this.textAreas = options.textAreas;
+    this.submitEle = options.submitEle;
+    this.formContainer = options.formContainer;
+    this.cmInstances = [];
+    this.fd = null;
+    this.fa = '';
+    this.cb = null;
+  }
+
+  (0, _createClass3.default)(_class, [{
+    key: 'clickBind',
+    value: function clickBind(ev) {
+      ev.preventDefault();
+      for (var i = 0; i < this.cmInstances.length; i++) {
+        this.cmInstances[i].textAreaEle.value = this.cmInstances[i].cmInstance.getValue();
+      }
+      // this.fa = this.formEle.action;
+      // this.fd = new FormData(this.formEle);
+      // console.log(this)
+      // window.A.spf.load(this.fa, {
+      //   method: "POST",
+      //   postData: this.fd,
+      //   onProcess: function(evt) {
+      //   },
+      //   onDone: function(evt) {
+      //     if(evt.response.status && evt.response.status === 'success') {
+      //       if (evt.response.url) A.spf.navigate(evt.response.url);
+      //     }
+      //   }
+      // });
+    }
+  }, {
+    key: 'createCMInstance',
+    value: function createCMInstance(ta) {
+      var language = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'markdown';
+
+      var cmIns = _codemirror4.default.fromTextArea(ta, {
+        lineWrapping: true,
+        lineNumbers: true,
+        mode: language,
+        styleActiveLine: true,
+        lineSeparator: '\n',
+        matchBrackets: true,
+        viewportMargin: Infinity,
+        scrollbarStyle: 'null',
+        extraKeys: {
+          'Tab': function Tab() {
+            return cmIns.execCommand('insertSoftTab');
+          }
+        }
+      });
+      // cmIns.setSize('100%', '50%');
+      // cmIns.refresh()
+      return cmIns;
+    }
+  }, {
+    key: 'init',
+    value: function init(opts) {
+      for (var i = 0; i < this.textAreas.length; i++) {
+        this.cmInstances.push({
+          cmInstance: this.createCMInstance(this.textAreas[i], opts.language),
+          textAreaEle: this.textAreas[i]
+        });
+      }
+      this.cb = this.clickBind.bind(this);
+      this.submitEle.addEventListener('click', this.cb);
+    }
+  }, {
+    key: 'changeOption',
+    value: function changeOption(field, val) {
+      for (var i = 0; i < this.cmInstances.length; i++) {
+        this.cmInstances[i].cmInstance.setOption(field, val);
+      }
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      this.formContainer.classList.add('c-hidden');
+      for (var i = 0; i < this.cmInstances.length; i++) {
+        this.cmInstances[i].cmInstance.toTextArea();
+        this.cmInstances[i].cmInstance = null;
+      }
+      this.submitEle.removeEventListener('click', this.cb);
+    }
+  }]);
+  return _class;
+}();
+
+exports.default = _class;
+
+/***/ }),
+
+/***/ 14:
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_export.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ 0);
+var core = __webpack_require__(/*! ./_core */ 6);
+var ctx = __webpack_require__(/*! ./_ctx */ 39);
+var hide = __webpack_require__(/*! ./_hide */ 5);
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if (own && key in exports) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if (IS_PROTO) {
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+
+/***/ }),
+
+/***/ 144:
+/* no static exports found */
+/* all exports used */
+/*!**********************************************************!*\
+  !*** ./app/javascript/packs/entries/createOrEditGist.js ***!
+  \**********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 120);
+
+(function () {
+  A.init[A.gc.currentName] = _createOrEditGist.cn;
+  A.destroy[A.gc.currentName] = _createOrEditGist.en;
+})();
+
+/***/ }),
+
+/***/ 161:
+/* no static exports found */
+/* all exports used */
+/*!****************************************************!*\
+  !*** ./~/codemirror/mode/javascript/javascript.js ***!
+  \****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+(function(mod) {
+  if (true) // CommonJS
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
+"use strict";
+
+CodeMirror.defineMode("javascript", function(config, parserConfig) {
+  var indentUnit = config.indentUnit;
+  var statementIndent = parserConfig.statementIndent;
+  var jsonldMode = parserConfig.jsonld;
+  var jsonMode = parserConfig.json || jsonldMode;
+  var isTS = parserConfig.typescript;
+  var wordRE = parserConfig.wordCharacters || /[\w$\xa1-\uffff]/;
+
+  // Tokenizer
+
+  var keywords = function(){
+    function kw(type) {return {type: type, style: "keyword"};}
+    var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c");
+    var operator = kw("operator"), atom = {type: "atom", style: "atom"};
+
+    var jsKeywords = {
+      "if": kw("if"), "while": A, "with": A, "else": B, "do": B, "try": B, "finally": B,
+      "return": C, "break": C, "continue": C, "new": kw("new"), "delete": C, "throw": C, "debugger": C,
+      "var": kw("var"), "const": kw("var"), "let": kw("var"),
+      "function": kw("function"), "catch": kw("catch"),
+      "for": kw("for"), "switch": kw("switch"), "case": kw("case"), "default": kw("default"),
+      "in": operator, "typeof": operator, "instanceof": operator,
+      "true": atom, "false": atom, "null": atom, "undefined": atom, "NaN": atom, "Infinity": atom,
+      "this": kw("this"), "class": kw("class"), "super": kw("atom"),
+      "yield": C, "export": kw("export"), "import": kw("import"), "extends": C,
+      "await": C
+    };
+
+    // Extend the 'normal' keywords with the TypeScript language extensions
+    if (isTS) {
+      var type = {type: "variable", style: "type"};
+      var tsKeywords = {
+        // object-like things
+        "interface": kw("class"),
+        "implements": C,
+        "namespace": C,
+        "module": kw("module"),
+        "enum": kw("module"),
+
+        // scope modifiers
+        "public": kw("modifier"),
+        "private": kw("modifier"),
+        "protected": kw("modifier"),
+        "abstract": kw("modifier"),
+        "readonly": kw("modifier"),
+
+        // types
+        "string": type, "number": type, "boolean": type, "any": type
+      };
+
+      for (var attr in tsKeywords) {
+        jsKeywords[attr] = tsKeywords[attr];
+      }
+    }
+
+    return jsKeywords;
+  }();
+
+  var isOperatorChar = /[+\-*&%=<>!?|~^@]/;
+  var isJsonldKeyword = /^@(context|id|value|language|type|container|list|set|reverse|index|base|vocab|graph)"/;
+
+  function readRegexp(stream) {
+    var escaped = false, next, inSet = false;
+    while ((next = stream.next()) != null) {
+      if (!escaped) {
+        if (next == "/" && !inSet) return;
+        if (next == "[") inSet = true;
+        else if (inSet && next == "]") inSet = false;
+      }
+      escaped = !escaped && next == "\\";
+    }
+  }
+
+  // Used as scratch variables to communicate multiple values without
+  // consing up tons of objects.
+  var type, content;
+  function ret(tp, style, cont) {
+    type = tp; content = cont;
+    return style;
+  }
+  function tokenBase(stream, state) {
+    var ch = stream.next();
+    if (ch == '"' || ch == "'") {
+      state.tokenize = tokenString(ch);
+      return state.tokenize(stream, state);
+    } else if (ch == "." && stream.match(/^\d+(?:[eE][+\-]?\d+)?/)) {
+      return ret("number", "number");
+    } else if (ch == "." && stream.match("..")) {
+      return ret("spread", "meta");
+    } else if (/[\[\]{}\(\),;\:\.]/.test(ch)) {
+      return ret(ch);
+    } else if (ch == "=" && stream.eat(">")) {
+      return ret("=>", "operator");
+    } else if (ch == "0" && stream.eat(/x/i)) {
+      stream.eatWhile(/[\da-f]/i);
+      return ret("number", "number");
+    } else if (ch == "0" && stream.eat(/o/i)) {
+      stream.eatWhile(/[0-7]/i);
+      return ret("number", "number");
+    } else if (ch == "0" && stream.eat(/b/i)) {
+      stream.eatWhile(/[01]/i);
+      return ret("number", "number");
+    } else if (/\d/.test(ch)) {
+      stream.match(/^\d*(?:\.\d*)?(?:[eE][+\-]?\d+)?/);
+      return ret("number", "number");
+    } else if (ch == "/") {
+      if (stream.eat("*")) {
+        state.tokenize = tokenComment;
+        return tokenComment(stream, state);
+      } else if (stream.eat("/")) {
+        stream.skipToEnd();
+        return ret("comment", "comment");
+      } else if (expressionAllowed(stream, state, 1)) {
+        readRegexp(stream);
+        stream.match(/^\b(([gimyu])(?![gimyu]*\2))+\b/);
+        return ret("regexp", "string-2");
+      } else {
+        stream.eatWhile(isOperatorChar);
+        return ret("operator", "operator", stream.current());
+      }
+    } else if (ch == "`") {
+      state.tokenize = tokenQuasi;
+      return tokenQuasi(stream, state);
+    } else if (ch == "#") {
+      stream.skipToEnd();
+      return ret("error", "error");
+    } else if (isOperatorChar.test(ch)) {
+      if (ch != ">" || !state.lexical || state.lexical.type != ">")
+        stream.eatWhile(isOperatorChar);
+      return ret("operator", "operator", stream.current());
+    } else if (wordRE.test(ch)) {
+      stream.eatWhile(wordRE);
+      var word = stream.current()
+      if (state.lastType != ".") {
+        if (keywords.propertyIsEnumerable(word)) {
+          var kw = keywords[word]
+          return ret(kw.type, kw.style, word)
+        }
+        if (word == "async" && stream.match(/^\s*[\(\w]/, false))
+          return ret("async", "keyword", word)
+      }
+      return ret("variable", "variable", word)
+    }
+  }
+
+  function tokenString(quote) {
+    return function(stream, state) {
+      var escaped = false, next;
+      if (jsonldMode && stream.peek() == "@" && stream.match(isJsonldKeyword)){
+        state.tokenize = tokenBase;
+        return ret("jsonld-keyword", "meta");
+      }
+      while ((next = stream.next()) != null) {
+        if (next == quote && !escaped) break;
+        escaped = !escaped && next == "\\";
+      }
+      if (!escaped) state.tokenize = tokenBase;
+      return ret("string", "string");
+    };
+  }
+
+  function tokenComment(stream, state) {
+    var maybeEnd = false, ch;
+    while (ch = stream.next()) {
+      if (ch == "/" && maybeEnd) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      maybeEnd = (ch == "*");
+    }
+    return ret("comment", "comment");
+  }
+
+  function tokenQuasi(stream, state) {
+    var escaped = false, next;
+    while ((next = stream.next()) != null) {
+      if (!escaped && (next == "`" || next == "$" && stream.eat("{"))) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      escaped = !escaped && next == "\\";
+    }
+    return ret("quasi", "string-2", stream.current());
+  }
+
+  var brackets = "([{}])";
+  // This is a crude lookahead trick to try and notice that we're
+  // parsing the argument patterns for a fat-arrow function before we
+  // actually hit the arrow token. It only works if the arrow is on
+  // the same line as the arguments and there's no strange noise
+  // (comments) in between. Fallback is to only notice when we hit the
+  // arrow, and not declare the arguments as locals for the arrow
+  // body.
+  function findFatArrow(stream, state) {
+    if (state.fatArrowAt) state.fatArrowAt = null;
+    var arrow = stream.string.indexOf("=>", stream.start);
+    if (arrow < 0) return;
+
+    if (isTS) { // Try to skip TypeScript return type declarations after the arguments
+      var m = /:\s*(?:\w+(?:<[^>]*>|\[\])?|\{[^}]*\})\s*$/.exec(stream.string.slice(stream.start, arrow))
+      if (m) arrow = m.index
+    }
+
+    var depth = 0, sawSomething = false;
+    for (var pos = arrow - 1; pos >= 0; --pos) {
+      var ch = stream.string.charAt(pos);
+      var bracket = brackets.indexOf(ch);
+      if (bracket >= 0 && bracket < 3) {
+        if (!depth) { ++pos; break; }
+        if (--depth == 0) { if (ch == "(") sawSomething = true; break; }
+      } else if (bracket >= 3 && bracket < 6) {
+        ++depth;
+      } else if (wordRE.test(ch)) {
+        sawSomething = true;
+      } else if (/["'\/]/.test(ch)) {
+        return;
+      } else if (sawSomething && !depth) {
+        ++pos;
+        break;
+      }
+    }
+    if (sawSomething && !depth) state.fatArrowAt = pos;
+  }
+
+  // Parser
+
+  var atomicTypes = {"atom": true, "number": true, "variable": true, "string": true, "regexp": true, "this": true, "jsonld-keyword": true};
+
+  function JSLexical(indented, column, type, align, prev, info) {
+    this.indented = indented;
+    this.column = column;
+    this.type = type;
+    this.prev = prev;
+    this.info = info;
+    if (align != null) this.align = align;
+  }
+
+  function inScope(state, varname) {
+    for (var v = state.localVars; v; v = v.next)
+      if (v.name == varname) return true;
+    for (var cx = state.context; cx; cx = cx.prev) {
+      for (var v = cx.vars; v; v = v.next)
+        if (v.name == varname) return true;
+    }
+  }
+
+  function parseJS(state, style, type, content, stream) {
+    var cc = state.cc;
+    // Communicate our context to the combinators.
+    // (Less wasteful than consing up a hundred closures on every call.)
+    cx.state = state; cx.stream = stream; cx.marked = null, cx.cc = cc; cx.style = style;
+
+    if (!state.lexical.hasOwnProperty("align"))
+      state.lexical.align = true;
+
+    while(true) {
+      var combinator = cc.length ? cc.pop() : jsonMode ? expression : statement;
+      if (combinator(type, content)) {
+        while(cc.length && cc[cc.length - 1].lex)
+          cc.pop()();
+        if (cx.marked) return cx.marked;
+        if (type == "variable" && inScope(state, content)) return "variable-2";
+        return style;
+      }
+    }
+  }
+
+  // Combinator utils
+
+  var cx = {state: null, column: null, marked: null, cc: null};
+  function pass() {
+    for (var i = arguments.length - 1; i >= 0; i--) cx.cc.push(arguments[i]);
+  }
+  function cont() {
+    pass.apply(null, arguments);
+    return true;
+  }
+  function register(varname) {
+    function inList(list) {
+      for (var v = list; v; v = v.next)
+        if (v.name == varname) return true;
+      return false;
+    }
+    var state = cx.state;
+    cx.marked = "def";
+    if (state.context) {
+      if (inList(state.localVars)) return;
+      state.localVars = {name: varname, next: state.localVars};
+    } else {
+      if (inList(state.globalVars)) return;
+      if (parserConfig.globalVars)
+        state.globalVars = {name: varname, next: state.globalVars};
+    }
+  }
+
+  // Combinators
+
+  var defaultVars = {name: "this", next: {name: "arguments"}};
+  function pushcontext() {
+    cx.state.context = {prev: cx.state.context, vars: cx.state.localVars};
+    cx.state.localVars = defaultVars;
+  }
+  function popcontext() {
+    cx.state.localVars = cx.state.context.vars;
+    cx.state.context = cx.state.context.prev;
+  }
+  function pushlex(type, info) {
+    var result = function() {
+      var state = cx.state, indent = state.indented;
+      if (state.lexical.type == "stat") indent = state.lexical.indented;
+      else for (var outer = state.lexical; outer && outer.type == ")" && outer.align; outer = outer.prev)
+        indent = outer.indented;
+      state.lexical = new JSLexical(indent, cx.stream.column(), type, null, state.lexical, info);
+    };
+    result.lex = true;
+    return result;
+  }
+  function poplex() {
+    var state = cx.state;
+    if (state.lexical.prev) {
+      if (state.lexical.type == ")")
+        state.indented = state.lexical.indented;
+      state.lexical = state.lexical.prev;
+    }
+  }
+  poplex.lex = true;
+
+  function expect(wanted) {
+    function exp(type) {
+      if (type == wanted) return cont();
+      else if (wanted == ";") return pass();
+      else return cont(exp);
+    };
+    return exp;
+  }
+
+  function statement(type, value) {
+    if (type == "var") return cont(pushlex("vardef", value.length), vardef, expect(";"), poplex);
+    if (type == "keyword a") return cont(pushlex("form"), parenExpr, statement, poplex);
+    if (type == "keyword b") return cont(pushlex("form"), statement, poplex);
+    if (type == "{") return cont(pushlex("}"), block, poplex);
+    if (type == ";") return cont();
+    if (type == "if") {
+      if (cx.state.lexical.info == "else" && cx.state.cc[cx.state.cc.length - 1] == poplex)
+        cx.state.cc.pop()();
+      return cont(pushlex("form"), parenExpr, statement, poplex, maybeelse);
+    }
+    if (type == "function") return cont(functiondef);
+    if (type == "for") return cont(pushlex("form"), forspec, statement, poplex);
+    if (type == "variable") {
+      if (isTS && value == "type") {
+        cx.marked = "keyword"
+        return cont(typeexpr, expect("operator"), typeexpr, expect(";"));
+      } if (isTS && value == "declare") {
+        cx.marked = "keyword"
+        return cont(statement)
+      } else {
+        return cont(pushlex("stat"), maybelabel);
+      }
+    }
+    if (type == "switch") return cont(pushlex("form"), parenExpr, expect("{"), pushlex("}", "switch"),
+                                      block, poplex, poplex);
+    if (type == "case") return cont(expression, expect(":"));
+    if (type == "default") return cont(expect(":"));
+    if (type == "catch") return cont(pushlex("form"), pushcontext, expect("("), funarg, expect(")"),
+                                     statement, poplex, popcontext);
+    if (type == "class") return cont(pushlex("form"), className, poplex);
+    if (type == "export") return cont(pushlex("stat"), afterExport, poplex);
+    if (type == "import") return cont(pushlex("stat"), afterImport, poplex);
+    if (type == "module") return cont(pushlex("form"), pattern, expect("{"), pushlex("}"), block, poplex, poplex)
+    if (type == "async") return cont(statement)
+    if (value == "@") return cont(expression, statement)
+    return pass(pushlex("stat"), expression, expect(";"), poplex);
+  }
+  function expression(type) {
+    return expressionInner(type, false);
+  }
+  function expressionNoComma(type) {
+    return expressionInner(type, true);
+  }
+  function parenExpr(type) {
+    if (type != "(") return pass()
+    return cont(pushlex(")"), expression, expect(")"), poplex)
+  }
+  function expressionInner(type, noComma) {
+    if (cx.state.fatArrowAt == cx.stream.start) {
+      var body = noComma ? arrowBodyNoComma : arrowBody;
+      if (type == "(") return cont(pushcontext, pushlex(")"), commasep(pattern, ")"), poplex, expect("=>"), body, popcontext);
+      else if (type == "variable") return pass(pushcontext, pattern, expect("=>"), body, popcontext);
+    }
+
+    var maybeop = noComma ? maybeoperatorNoComma : maybeoperatorComma;
+    if (atomicTypes.hasOwnProperty(type)) return cont(maybeop);
+    if (type == "function") return cont(functiondef, maybeop);
+    if (type == "class") return cont(pushlex("form"), classExpression, poplex);
+    if (type == "keyword c" || type == "async") return cont(noComma ? maybeexpressionNoComma : maybeexpression);
+    if (type == "(") return cont(pushlex(")"), maybeexpression, expect(")"), poplex, maybeop);
+    if (type == "operator" || type == "spread") return cont(noComma ? expressionNoComma : expression);
+    if (type == "[") return cont(pushlex("]"), arrayLiteral, poplex, maybeop);
+    if (type == "{") return contCommasep(objprop, "}", null, maybeop);
+    if (type == "quasi") return pass(quasi, maybeop);
+    if (type == "new") return cont(maybeTarget(noComma));
+    return cont();
+  }
+  function maybeexpression(type) {
+    if (type.match(/[;\}\)\],]/)) return pass();
+    return pass(expression);
+  }
+  function maybeexpressionNoComma(type) {
+    if (type.match(/[;\}\)\],]/)) return pass();
+    return pass(expressionNoComma);
+  }
+
+  function maybeoperatorComma(type, value) {
+    if (type == ",") return cont(expression);
+    return maybeoperatorNoComma(type, value, false);
+  }
+  function maybeoperatorNoComma(type, value, noComma) {
+    var me = noComma == false ? maybeoperatorComma : maybeoperatorNoComma;
+    var expr = noComma == false ? expression : expressionNoComma;
+    if (type == "=>") return cont(pushcontext, noComma ? arrowBodyNoComma : arrowBody, popcontext);
+    if (type == "operator") {
+      if (/\+\+|--/.test(value) || isTS && value == "!") return cont(me);
+      if (value == "?") return cont(expression, expect(":"), expr);
+      return cont(expr);
+    }
+    if (type == "quasi") { return pass(quasi, me); }
+    if (type == ";") return;
+    if (type == "(") return contCommasep(expressionNoComma, ")", "call", me);
+    if (type == ".") return cont(property, me);
+    if (type == "[") return cont(pushlex("]"), maybeexpression, expect("]"), poplex, me);
+    if (isTS && value == "as") { cx.marked = "keyword"; return cont(typeexpr, me) }
+  }
+  function quasi(type, value) {
+    if (type != "quasi") return pass();
+    if (value.slice(value.length - 2) != "${") return cont(quasi);
+    return cont(expression, continueQuasi);
+  }
+  function continueQuasi(type) {
+    if (type == "}") {
+      cx.marked = "string-2";
+      cx.state.tokenize = tokenQuasi;
+      return cont(quasi);
+    }
+  }
+  function arrowBody(type) {
+    findFatArrow(cx.stream, cx.state);
+    return pass(type == "{" ? statement : expression);
+  }
+  function arrowBodyNoComma(type) {
+    findFatArrow(cx.stream, cx.state);
+    return pass(type == "{" ? statement : expressionNoComma);
+  }
+  function maybeTarget(noComma) {
+    return function(type) {
+      if (type == ".") return cont(noComma ? targetNoComma : target);
+      else if (type == "variable" && isTS) return cont(maybeTypeArgs, noComma ? maybeoperatorNoComma : maybeoperatorComma)
+      else return pass(noComma ? expressionNoComma : expression);
+    };
+  }
+  function target(_, value) {
+    if (value == "target") { cx.marked = "keyword"; return cont(maybeoperatorComma); }
+  }
+  function targetNoComma(_, value) {
+    if (value == "target") { cx.marked = "keyword"; return cont(maybeoperatorNoComma); }
+  }
+  function maybelabel(type) {
+    if (type == ":") return cont(poplex, statement);
+    return pass(maybeoperatorComma, expect(";"), poplex);
+  }
+  function property(type) {
+    if (type == "variable") {cx.marked = "property"; return cont();}
+  }
+  function objprop(type, value) {
+    if (type == "async") {
+      cx.marked = "property";
+      return cont(objprop);
+    } else if (type == "variable" || cx.style == "keyword") {
+      cx.marked = "property";
+      if (value == "get" || value == "set") return cont(getterSetter);
+      return cont(afterprop);
+    } else if (type == "number" || type == "string") {
+      cx.marked = jsonldMode ? "property" : (cx.style + " property");
+      return cont(afterprop);
+    } else if (type == "jsonld-keyword") {
+      return cont(afterprop);
+    } else if (type == "modifier") {
+      return cont(objprop)
+    } else if (type == "[") {
+      return cont(expression, expect("]"), afterprop);
+    } else if (type == "spread") {
+      return cont(expression, afterprop);
+    } else if (type == ":") {
+      return pass(afterprop)
+    }
+  }
+  function getterSetter(type) {
+    if (type != "variable") return pass(afterprop);
+    cx.marked = "property";
+    return cont(functiondef);
+  }
+  function afterprop(type) {
+    if (type == ":") return cont(expressionNoComma);
+    if (type == "(") return pass(functiondef);
+  }
+  function commasep(what, end, sep) {
+    function proceed(type, value) {
+      if (sep ? sep.indexOf(type) > -1 : type == ",") {
+        var lex = cx.state.lexical;
+        if (lex.info == "call") lex.pos = (lex.pos || 0) + 1;
+        return cont(function(type, value) {
+          if (type == end || value == end) return pass()
+          return pass(what)
+        }, proceed);
+      }
+      if (type == end || value == end) return cont();
+      return cont(expect(end));
+    }
+    return function(type, value) {
+      if (type == end || value == end) return cont();
+      return pass(what, proceed);
+    };
+  }
+  function contCommasep(what, end, info) {
+    for (var i = 3; i < arguments.length; i++)
+      cx.cc.push(arguments[i]);
+    return cont(pushlex(end, info), commasep(what, end), poplex);
+  }
+  function block(type) {
+    if (type == "}") return cont();
+    return pass(statement, block);
+  }
+  function maybetype(type, value) {
+    if (isTS) {
+      if (type == ":") return cont(typeexpr);
+      if (value == "?") return cont(maybetype);
+    }
+  }
+  function typeexpr(type, value) {
+    if (type == "variable") {
+      if (value == "keyof") {
+        cx.marked = "keyword"
+        return cont(typeexpr)
+      } else {
+        cx.marked = "type"
+        return cont(afterType)
+      }
+    }
+    if (type == "string" || type == "number" || type == "atom") return cont(afterType);
+    if (type == "[") return cont(pushlex("]"), commasep(typeexpr, "]", ","), poplex, afterType)
+    if (type == "{") return cont(pushlex("}"), commasep(typeprop, "}", ",;"), poplex, afterType)
+    if (type == "(") return cont(commasep(typearg, ")"), maybeReturnType)
+  }
+  function maybeReturnType(type) {
+    if (type == "=>") return cont(typeexpr)
+  }
+  function typeprop(type, value) {
+    if (type == "variable" || cx.style == "keyword") {
+      cx.marked = "property"
+      return cont(typeprop)
+    } else if (value == "?") {
+      return cont(typeprop)
+    } else if (type == ":") {
+      return cont(typeexpr)
+    } else if (type == "[") {
+      return cont(expression, maybetype, expect("]"), typeprop)
+    }
+  }
+  function typearg(type) {
+    if (type == "variable") return cont(typearg)
+    else if (type == ":") return cont(typeexpr)
+  }
+  function afterType(type, value) {
+    if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType)
+    if (value == "|" || type == ".") return cont(typeexpr)
+    if (type == "[") return cont(expect("]"), afterType)
+    if (value == "extends") return cont(typeexpr)
+  }
+  function maybeTypeArgs(_, value) {
+    if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType)
+  }
+  function vardef() {
+    return pass(pattern, maybetype, maybeAssign, vardefCont);
+  }
+  function pattern(type, value) {
+    if (type == "modifier") return cont(pattern)
+    if (type == "variable") { register(value); return cont(); }
+    if (type == "spread") return cont(pattern);
+    if (type == "[") return contCommasep(pattern, "]");
+    if (type == "{") return contCommasep(proppattern, "}");
+  }
+  function proppattern(type, value) {
+    if (type == "variable" && !cx.stream.match(/^\s*:/, false)) {
+      register(value);
+      return cont(maybeAssign);
+    }
+    if (type == "variable") cx.marked = "property";
+    if (type == "spread") return cont(pattern);
+    if (type == "}") return pass();
+    return cont(expect(":"), pattern, maybeAssign);
+  }
+  function maybeAssign(_type, value) {
+    if (value == "=") return cont(expressionNoComma);
+  }
+  function vardefCont(type) {
+    if (type == ",") return cont(vardef);
+  }
+  function maybeelse(type, value) {
+    if (type == "keyword b" && value == "else") return cont(pushlex("form", "else"), statement, poplex);
+  }
+  function forspec(type) {
+    if (type == "(") return cont(pushlex(")"), forspec1, expect(")"), poplex);
+  }
+  function forspec1(type) {
+    if (type == "var") return cont(vardef, expect(";"), forspec2);
+    if (type == ";") return cont(forspec2);
+    if (type == "variable") return cont(formaybeinof);
+    return pass(expression, expect(";"), forspec2);
+  }
+  function formaybeinof(_type, value) {
+    if (value == "in" || value == "of") { cx.marked = "keyword"; return cont(expression); }
+    return cont(maybeoperatorComma, forspec2);
+  }
+  function forspec2(type, value) {
+    if (type == ";") return cont(forspec3);
+    if (value == "in" || value == "of") { cx.marked = "keyword"; return cont(expression); }
+    return pass(expression, expect(";"), forspec3);
+  }
+  function forspec3(type) {
+    if (type != ")") cont(expression);
+  }
+  function functiondef(type, value) {
+    if (value == "*") {cx.marked = "keyword"; return cont(functiondef);}
+    if (type == "variable") {register(value); return cont(functiondef);}
+    if (type == "(") return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, maybetype, statement, popcontext);
+    if (isTS && value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, functiondef)
+  }
+  function funarg(type) {
+    if (type == "spread" || type == "modifier") return cont(funarg);
+    return pass(pattern, maybetype, maybeAssign);
+  }
+  function classExpression(type, value) {
+    // Class expressions may have an optional name.
+    if (type == "variable") return className(type, value);
+    return classNameAfter(type, value);
+  }
+  function className(type, value) {
+    if (type == "variable") {register(value); return cont(classNameAfter);}
+  }
+  function classNameAfter(type, value) {
+    if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, classNameAfter)
+    if (value == "extends" || value == "implements" || (isTS && type == ","))
+      return cont(isTS ? typeexpr : expression, classNameAfter);
+    if (type == "{") return cont(pushlex("}"), classBody, poplex);
+  }
+  function classBody(type, value) {
+    if (type == "modifier" || type == "async" ||
+        (type == "variable" &&
+         (value == "static" || value == "get" || value == "set") &&
+         cx.stream.match(/^\s+[\w$\xa1-\uffff]/, false))) {
+      cx.marked = "keyword";
+      return cont(classBody);
+    }
+    if (type == "variable") {
+      cx.marked = "property";
+      return cont(isTS ? classfield : functiondef, classBody);
+    }
+    if (type == "[")
+      return cont(expression, expect("]"), isTS ? classfield : functiondef, classBody)
+    if (value == "*") {
+      cx.marked = "keyword";
+      return cont(classBody);
+    }
+    if (type == ";") return cont(classBody);
+    if (type == "}") return cont();
+    if (value == "@") return cont(expression, classBody)
+  }
+  function classfield(type, value) {
+    if (value == "?") return cont(classfield)
+    if (type == ":") return cont(typeexpr, maybeAssign)
+    if (value == "=") return cont(expressionNoComma)
+    return pass(functiondef)
+  }
+  function afterExport(type, value) {
+    if (value == "*") { cx.marked = "keyword"; return cont(maybeFrom, expect(";")); }
+    if (value == "default") { cx.marked = "keyword"; return cont(expression, expect(";")); }
+    if (type == "{") return cont(commasep(exportField, "}"), maybeFrom, expect(";"));
+    return pass(statement);
+  }
+  function exportField(type, value) {
+    if (value == "as") { cx.marked = "keyword"; return cont(expect("variable")); }
+    if (type == "variable") return pass(expressionNoComma, exportField);
+  }
+  function afterImport(type) {
+    if (type == "string") return cont();
+    return pass(importSpec, maybeMoreImports, maybeFrom);
+  }
+  function importSpec(type, value) {
+    if (type == "{") return contCommasep(importSpec, "}");
+    if (type == "variable") register(value);
+    if (value == "*") cx.marked = "keyword";
+    return cont(maybeAs);
+  }
+  function maybeMoreImports(type) {
+    if (type == ",") return cont(importSpec, maybeMoreImports)
+  }
+  function maybeAs(_type, value) {
+    if (value == "as") { cx.marked = "keyword"; return cont(importSpec); }
+  }
+  function maybeFrom(_type, value) {
+    if (value == "from") { cx.marked = "keyword"; return cont(expression); }
+  }
+  function arrayLiteral(type) {
+    if (type == "]") return cont();
+    return pass(commasep(expressionNoComma, "]"));
+  }
+
+  function isContinuedStatement(state, textAfter) {
+    return state.lastType == "operator" || state.lastType == "," ||
+      isOperatorChar.test(textAfter.charAt(0)) ||
+      /[,.]/.test(textAfter.charAt(0));
+  }
+
+  function expressionAllowed(stream, state, backUp) {
+    return state.tokenize == tokenBase &&
+      /^(?:operator|sof|keyword c|case|new|export|default|[\[{}\(,;:]|=>)$/.test(state.lastType) ||
+      (state.lastType == "quasi" && /\{\s*$/.test(stream.string.slice(0, stream.pos - (backUp || 0))))
+  }
+
+  // Interface
+
+  return {
+    startState: function(basecolumn) {
+      var state = {
+        tokenize: tokenBase,
+        lastType: "sof",
+        cc: [],
+        lexical: new JSLexical((basecolumn || 0) - indentUnit, 0, "block", false),
+        localVars: parserConfig.localVars,
+        context: parserConfig.localVars && {vars: parserConfig.localVars},
+        indented: basecolumn || 0
+      };
+      if (parserConfig.globalVars && typeof parserConfig.globalVars == "object")
+        state.globalVars = parserConfig.globalVars;
+      return state;
+    },
+
+    token: function(stream, state) {
+      if (stream.sol()) {
+        if (!state.lexical.hasOwnProperty("align"))
+          state.lexical.align = false;
+        state.indented = stream.indentation();
+        findFatArrow(stream, state);
+      }
+      if (state.tokenize != tokenComment && stream.eatSpace()) return null;
+      var style = state.tokenize(stream, state);
+      if (type == "comment") return style;
+      state.lastType = type == "operator" && (content == "++" || content == "--") ? "incdec" : type;
+      return parseJS(state, style, type, content, stream);
+    },
+
+    indent: function(state, textAfter) {
+      if (state.tokenize == tokenComment) return CodeMirror.Pass;
+      if (state.tokenize != tokenBase) return 0;
+      var firstChar = textAfter && textAfter.charAt(0), lexical = state.lexical, top
+      // Kludge to prevent 'maybelse' from blocking lexical scope pops
+      if (!/^\s*else\b/.test(textAfter)) for (var i = state.cc.length - 1; i >= 0; --i) {
+        var c = state.cc[i];
+        if (c == poplex) lexical = lexical.prev;
+        else if (c != maybeelse) break;
+      }
+      while ((lexical.type == "stat" || lexical.type == "form") &&
+             (firstChar == "}" || ((top = state.cc[state.cc.length - 1]) &&
+                                   (top == maybeoperatorComma || top == maybeoperatorNoComma) &&
+                                   !/^[,\.=+\-*:?[\(]/.test(textAfter))))
+        lexical = lexical.prev;
+      if (statementIndent && lexical.type == ")" && lexical.prev.type == "stat")
+        lexical = lexical.prev;
+      var type = lexical.type, closing = firstChar == type;
+
+      if (type == "vardef") return lexical.indented + (state.lastType == "operator" || state.lastType == "," ? lexical.info + 1 : 0);
+      else if (type == "form" && firstChar == "{") return lexical.indented;
+      else if (type == "form") return lexical.indented + indentUnit;
+      else if (type == "stat")
+        return lexical.indented + (isContinuedStatement(state, textAfter) ? statementIndent || indentUnit : 0);
+      else if (lexical.info == "switch" && !closing && parserConfig.doubleIndentSwitch != false)
+        return lexical.indented + (/^(?:case|default)\b/.test(textAfter) ? indentUnit : 2 * indentUnit);
+      else if (lexical.align) return lexical.column + (closing ? 0 : 1);
+      else return lexical.indented + (closing ? 0 : indentUnit);
+    },
+
+    electricInput: /^\s*(?:case .*?:|default:|\{|\})$/,
+    blockCommentStart: jsonMode ? null : "/*",
+    blockCommentEnd: jsonMode ? null : "*/",
+    lineComment: jsonMode ? null : "//",
+    fold: "brace",
+    closeBrackets: "()[]{}''\"\"``",
+
+    helperType: jsonMode ? "json" : "javascript",
+    jsonldMode: jsonldMode,
+    jsonMode: jsonMode,
+
+    expressionAllowed: expressionAllowed,
+
+    skipExpression: function(state) {
+      var top = state.cc[state.cc.length - 1]
+      if (top == expression || top == expressionNoComma) state.cc.pop()
+    }
+  };
+});
+
+CodeMirror.registerHelper("wordChars", "javascript", /[\w$]/);
+
+CodeMirror.defineMIME("text/javascript", "javascript");
+CodeMirror.defineMIME("text/ecmascript", "javascript");
+CodeMirror.defineMIME("application/javascript", "javascript");
+CodeMirror.defineMIME("application/x-javascript", "javascript");
+CodeMirror.defineMIME("application/ecmascript", "javascript");
+CodeMirror.defineMIME("application/json", {name: "javascript", json: true});
+CodeMirror.defineMIME("application/x-json", {name: "javascript", json: true});
+CodeMirror.defineMIME("application/ld+json", {name: "javascript", jsonld: true});
+CodeMirror.defineMIME("text/typescript", { name: "javascript", typescript: true });
+CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript: true });
+
+});
+
+
+/***/ }),
+
+/***/ 162:
+/* no static exports found */
+/* all exports used */
+/*!****************************************!*\
+  !*** ./~/codemirror/mode/ruby/ruby.js ***!
+  \****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+(function(mod) {
+  if (true) // CommonJS
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
+"use strict";
+
+CodeMirror.defineMode("ruby", function(config) {
+  function wordObj(words) {
+    var o = {};
+    for (var i = 0, e = words.length; i < e; ++i) o[words[i]] = true;
+    return o;
+  }
+  var keywords = wordObj([
+    "alias", "and", "BEGIN", "begin", "break", "case", "class", "def", "defined?", "do", "else",
+    "elsif", "END", "end", "ensure", "false", "for", "if", "in", "module", "next", "not", "or",
+    "redo", "rescue", "retry", "return", "self", "super", "then", "true", "undef", "unless",
+    "until", "when", "while", "yield", "nil", "raise", "throw", "catch", "fail", "loop", "callcc",
+    "caller", "lambda", "proc", "public", "protected", "private", "require", "load",
+    "require_relative", "extend", "autoload", "__END__", "__FILE__", "__LINE__", "__dir__"
+  ]);
+  var indentWords = wordObj(["def", "class", "case", "for", "while", "until", "module", "then",
+                             "catch", "loop", "proc", "begin"]);
+  var dedentWords = wordObj(["end", "until"]);
+  var matching = {"[": "]", "{": "}", "(": ")"};
+  var curPunc;
+
+  function chain(newtok, stream, state) {
+    state.tokenize.push(newtok);
+    return newtok(stream, state);
+  }
+
+  function tokenBase(stream, state) {
+    if (stream.sol() && stream.match("=begin") && stream.eol()) {
+      state.tokenize.push(readBlockComment);
+      return "comment";
+    }
+    if (stream.eatSpace()) return null;
+    var ch = stream.next(), m;
+    if (ch == "`" || ch == "'" || ch == '"') {
+      return chain(readQuoted(ch, "string", ch == '"' || ch == "`"), stream, state);
+    } else if (ch == "/") {
+      if (regexpAhead(stream))
+        return chain(readQuoted(ch, "string-2", true), stream, state);
+      else
+        return "operator";
+    } else if (ch == "%") {
+      var style = "string", embed = true;
+      if (stream.eat("s")) style = "atom";
+      else if (stream.eat(/[WQ]/)) style = "string";
+      else if (stream.eat(/[r]/)) style = "string-2";
+      else if (stream.eat(/[wxq]/)) { style = "string"; embed = false; }
+      var delim = stream.eat(/[^\w\s=]/);
+      if (!delim) return "operator";
+      if (matching.propertyIsEnumerable(delim)) delim = matching[delim];
+      return chain(readQuoted(delim, style, embed, true), stream, state);
+    } else if (ch == "#") {
+      stream.skipToEnd();
+      return "comment";
+    } else if (ch == "<" && (m = stream.match(/^<-?[\`\"\']?([a-zA-Z_?]\w*)[\`\"\']?(?:;|$)/))) {
+      return chain(readHereDoc(m[1]), stream, state);
+    } else if (ch == "0") {
+      if (stream.eat("x")) stream.eatWhile(/[\da-fA-F]/);
+      else if (stream.eat("b")) stream.eatWhile(/[01]/);
+      else stream.eatWhile(/[0-7]/);
+      return "number";
+    } else if (/\d/.test(ch)) {
+      stream.match(/^[\d_]*(?:\.[\d_]+)?(?:[eE][+\-]?[\d_]+)?/);
+      return "number";
+    } else if (ch == "?") {
+      while (stream.match(/^\\[CM]-/)) {}
+      if (stream.eat("\\")) stream.eatWhile(/\w/);
+      else stream.next();
+      return "string";
+    } else if (ch == ":") {
+      if (stream.eat("'")) return chain(readQuoted("'", "atom", false), stream, state);
+      if (stream.eat('"')) return chain(readQuoted('"', "atom", true), stream, state);
+
+      // :> :>> :< :<< are valid symbols
+      if (stream.eat(/[\<\>]/)) {
+        stream.eat(/[\<\>]/);
+        return "atom";
+      }
+
+      // :+ :- :/ :* :| :& :! are valid symbols
+      if (stream.eat(/[\+\-\*\/\&\|\:\!]/)) {
+        return "atom";
+      }
+
+      // Symbols can't start by a digit
+      if (stream.eat(/[a-zA-Z$@_\xa1-\uffff]/)) {
+        stream.eatWhile(/[\w$\xa1-\uffff]/);
+        // Only one ? ! = is allowed and only as the last character
+        stream.eat(/[\?\!\=]/);
+        return "atom";
+      }
+      return "operator";
+    } else if (ch == "@" && stream.match(/^@?[a-zA-Z_\xa1-\uffff]/)) {
+      stream.eat("@");
+      stream.eatWhile(/[\w\xa1-\uffff]/);
+      return "variable-2";
+    } else if (ch == "$") {
+      if (stream.eat(/[a-zA-Z_]/)) {
+        stream.eatWhile(/[\w]/);
+      } else if (stream.eat(/\d/)) {
+        stream.eat(/\d/);
+      } else {
+        stream.next(); // Must be a special global like $: or $!
+      }
+      return "variable-3";
+    } else if (/[a-zA-Z_\xa1-\uffff]/.test(ch)) {
+      stream.eatWhile(/[\w\xa1-\uffff]/);
+      stream.eat(/[\?\!]/);
+      if (stream.eat(":")) return "atom";
+      return "ident";
+    } else if (ch == "|" && (state.varList || state.lastTok == "{" || state.lastTok == "do")) {
+      curPunc = "|";
+      return null;
+    } else if (/[\(\)\[\]{}\\;]/.test(ch)) {
+      curPunc = ch;
+      return null;
+    } else if (ch == "-" && stream.eat(">")) {
+      return "arrow";
+    } else if (/[=+\-\/*:\.^%<>~|]/.test(ch)) {
+      var more = stream.eatWhile(/[=+\-\/*:\.^%<>~|]/);
+      if (ch == "." && !more) curPunc = ".";
+      return "operator";
+    } else {
+      return null;
+    }
+  }
+
+  function regexpAhead(stream) {
+    var start = stream.pos, depth = 0, next, found = false, escaped = false
+    while ((next = stream.next()) != null) {
+      if (!escaped) {
+        if ("[{(".indexOf(next) > -1) {
+          depth++
+        } else if ("]})".indexOf(next) > -1) {
+          depth--
+          if (depth < 0) break
+        } else if (next == "/" && depth == 0) {
+          found = true
+          break
+        }
+        escaped = next == "\\"
+      } else {
+        escaped = false
+      }
+    }
+    stream.backUp(stream.pos - start)
+    return found
+  }
+
+  function tokenBaseUntilBrace(depth) {
+    if (!depth) depth = 1;
+    return function(stream, state) {
+      if (stream.peek() == "}") {
+        if (depth == 1) {
+          state.tokenize.pop();
+          return state.tokenize[state.tokenize.length-1](stream, state);
+        } else {
+          state.tokenize[state.tokenize.length - 1] = tokenBaseUntilBrace(depth - 1);
+        }
+      } else if (stream.peek() == "{") {
+        state.tokenize[state.tokenize.length - 1] = tokenBaseUntilBrace(depth + 1);
+      }
+      return tokenBase(stream, state);
+    };
+  }
+  function tokenBaseOnce() {
+    var alreadyCalled = false;
+    return function(stream, state) {
+      if (alreadyCalled) {
+        state.tokenize.pop();
+        return state.tokenize[state.tokenize.length-1](stream, state);
+      }
+      alreadyCalled = true;
+      return tokenBase(stream, state);
+    };
+  }
+  function readQuoted(quote, style, embed, unescaped) {
+    return function(stream, state) {
+      var escaped = false, ch;
+
+      if (state.context.type === 'read-quoted-paused') {
+        state.context = state.context.prev;
+        stream.eat("}");
+      }
+
+      while ((ch = stream.next()) != null) {
+        if (ch == quote && (unescaped || !escaped)) {
+          state.tokenize.pop();
+          break;
+        }
+        if (embed && ch == "#" && !escaped) {
+          if (stream.eat("{")) {
+            if (quote == "}") {
+              state.context = {prev: state.context, type: 'read-quoted-paused'};
+            }
+            state.tokenize.push(tokenBaseUntilBrace());
+            break;
+          } else if (/[@\$]/.test(stream.peek())) {
+            state.tokenize.push(tokenBaseOnce());
+            break;
+          }
+        }
+        escaped = !escaped && ch == "\\";
+      }
+      return style;
+    };
+  }
+  function readHereDoc(phrase) {
+    return function(stream, state) {
+      if (stream.match(phrase)) state.tokenize.pop();
+      else stream.skipToEnd();
+      return "string";
+    };
+  }
+  function readBlockComment(stream, state) {
+    if (stream.sol() && stream.match("=end") && stream.eol())
+      state.tokenize.pop();
+    stream.skipToEnd();
+    return "comment";
+  }
+
+  return {
+    startState: function() {
+      return {tokenize: [tokenBase],
+              indented: 0,
+              context: {type: "top", indented: -config.indentUnit},
+              continuedLine: false,
+              lastTok: null,
+              varList: false};
+    },
+
+    token: function(stream, state) {
+      curPunc = null;
+      if (stream.sol()) state.indented = stream.indentation();
+      var style = state.tokenize[state.tokenize.length-1](stream, state), kwtype;
+      var thisTok = curPunc;
+      if (style == "ident") {
+        var word = stream.current();
+        style = state.lastTok == "." ? "property"
+          : keywords.propertyIsEnumerable(stream.current()) ? "keyword"
+          : /^[A-Z]/.test(word) ? "tag"
+          : (state.lastTok == "def" || state.lastTok == "class" || state.varList) ? "def"
+          : "variable";
+        if (style == "keyword") {
+          thisTok = word;
+          if (indentWords.propertyIsEnumerable(word)) kwtype = "indent";
+          else if (dedentWords.propertyIsEnumerable(word)) kwtype = "dedent";
+          else if ((word == "if" || word == "unless") && stream.column() == stream.indentation())
+            kwtype = "indent";
+          else if (word == "do" && state.context.indented < state.indented)
+            kwtype = "indent";
+        }
+      }
+      if (curPunc || (style && style != "comment")) state.lastTok = thisTok;
+      if (curPunc == "|") state.varList = !state.varList;
+
+      if (kwtype == "indent" || /[\(\[\{]/.test(curPunc))
+        state.context = {prev: state.context, type: curPunc || style, indented: state.indented};
+      else if ((kwtype == "dedent" || /[\)\]\}]/.test(curPunc)) && state.context.prev)
+        state.context = state.context.prev;
+
+      if (stream.eol())
+        state.continuedLine = (curPunc == "\\" || style == "operator");
+      return style;
+    },
+
+    indent: function(state, textAfter) {
+      if (state.tokenize[state.tokenize.length-1] != tokenBase) return 0;
+      var firstChar = textAfter && textAfter.charAt(0);
+      var ct = state.context;
+      var closing = ct.type == matching[firstChar] ||
+        ct.type == "keyword" && /^(?:end|until|else|elsif|when|rescue)\b/.test(textAfter);
+      return ct.indented + (closing ? 0 : config.indentUnit) +
+        (state.continuedLine ? config.indentUnit : 0);
+    },
+
+    electricInput: /^\s*(?:end|rescue|elsif|else|\})$/,
+    lineComment: "#"
+  };
+});
+
+CodeMirror.defineMIME("text/x-ruby", "ruby");
+
+});
+
+
+/***/ }),
+
+/***/ 163:
+/* no static exports found */
+/* all exports used */
+/*!****************************************!*\
+  !*** ./~/codemirror/mode/sass/sass.js ***!
+  \****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+(function(mod) {
+  if (true) // CommonJS
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 13), __webpack_require__(/*! ../css/css */ 114));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror", "../css/css"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
+"use strict";
+
+CodeMirror.defineMode("sass", function(config) {
+  var cssMode = CodeMirror.mimeModes["text/css"];
+  var propertyKeywords = cssMode.propertyKeywords || {},
+      colorKeywords = cssMode.colorKeywords || {},
+      valueKeywords = cssMode.valueKeywords || {},
+      fontProperties = cssMode.fontProperties || {};
+
+  function tokenRegexp(words) {
+    return new RegExp("^" + words.join("|"));
+  }
+
+  var keywords = ["true", "false", "null", "auto"];
+  var keywordsRegexp = new RegExp("^" + keywords.join("|"));
+
+  var operators = ["\\(", "\\)", "=", ">", "<", "==", ">=", "<=", "\\+", "-",
+                   "\\!=", "/", "\\*", "%", "and", "or", "not", ";","\\{","\\}",":"];
+  var opRegexp = tokenRegexp(operators);
+
+  var pseudoElementsRegexp = /^::?[a-zA-Z_][\w\-]*/;
+
+  var word;
+
+  function isEndLine(stream) {
+    return !stream.peek() || stream.match(/\s+$/, false);
+  }
+
+  function urlTokens(stream, state) {
+    var ch = stream.peek();
+
+    if (ch === ")") {
+      stream.next();
+      state.tokenizer = tokenBase;
+      return "operator";
+    } else if (ch === "(") {
+      stream.next();
+      stream.eatSpace();
+
+      return "operator";
+    } else if (ch === "'" || ch === '"') {
+      state.tokenizer = buildStringTokenizer(stream.next());
+      return "string";
+    } else {
+      state.tokenizer = buildStringTokenizer(")", false);
+      return "string";
+    }
+  }
+  function comment(indentation, multiLine) {
+    return function(stream, state) {
+      if (stream.sol() && stream.indentation() <= indentation) {
+        state.tokenizer = tokenBase;
+        return tokenBase(stream, state);
+      }
+
+      if (multiLine && stream.skipTo("*/")) {
+        stream.next();
+        stream.next();
+        state.tokenizer = tokenBase;
+      } else {
+        stream.skipToEnd();
+      }
+
+      return "comment";
+    };
+  }
+
+  function buildStringTokenizer(quote, greedy) {
+    if (greedy == null) { greedy = true; }
+
+    function stringTokenizer(stream, state) {
+      var nextChar = stream.next();
+      var peekChar = stream.peek();
+      var previousChar = stream.string.charAt(stream.pos-2);
+
+      var endingString = ((nextChar !== "\\" && peekChar === quote) || (nextChar === quote && previousChar !== "\\"));
+
+      if (endingString) {
+        if (nextChar !== quote && greedy) { stream.next(); }
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        state.tokenizer = tokenBase;
+        return "string";
+      } else if (nextChar === "#" && peekChar === "{") {
+        state.tokenizer = buildInterpolationTokenizer(stringTokenizer);
+        stream.next();
+        return "operator";
+      } else {
+        return "string";
+      }
+    }
+
+    return stringTokenizer;
+  }
+
+  function buildInterpolationTokenizer(currentTokenizer) {
+    return function(stream, state) {
+      if (stream.peek() === "}") {
+        stream.next();
+        state.tokenizer = currentTokenizer;
+        return "operator";
+      } else {
+        return tokenBase(stream, state);
+      }
+    };
+  }
+
+  function indent(state) {
+    if (state.indentCount == 0) {
+      state.indentCount++;
+      var lastScopeOffset = state.scopes[0].offset;
+      var currentOffset = lastScopeOffset + config.indentUnit;
+      state.scopes.unshift({ offset:currentOffset });
+    }
+  }
+
+  function dedent(state) {
+    if (state.scopes.length == 1) return;
+
+    state.scopes.shift();
+  }
+
+  function tokenBase(stream, state) {
+    var ch = stream.peek();
+
+    // Comment
+    if (stream.match("/*")) {
+      state.tokenizer = comment(stream.indentation(), true);
+      return state.tokenizer(stream, state);
+    }
+    if (stream.match("//")) {
+      state.tokenizer = comment(stream.indentation(), false);
+      return state.tokenizer(stream, state);
+    }
+
+    // Interpolation
+    if (stream.match("#{")) {
+      state.tokenizer = buildInterpolationTokenizer(tokenBase);
+      return "operator";
+    }
+
+    // Strings
+    if (ch === '"' || ch === "'") {
+      stream.next();
+      state.tokenizer = buildStringTokenizer(ch);
+      return "string";
+    }
+
+    if(!state.cursorHalf){// state.cursorHalf === 0
+    // first half i.e. before : for key-value pairs
+    // including selectors
+
+      if (ch === "-") {
+        if (stream.match(/^-\w+-/)) {
+          return "meta";
+        }
+      }
+
+      if (ch === ".") {
+        stream.next();
+        if (stream.match(/^[\w-]+/)) {
+          indent(state);
+          return "qualifier";
+        } else if (stream.peek() === "#") {
+          indent(state);
+          return "tag";
+        }
+      }
+
+      if (ch === "#") {
+        stream.next();
+        // ID selectors
+        if (stream.match(/^[\w-]+/)) {
+          indent(state);
+          return "builtin";
+        }
+        if (stream.peek() === "#") {
+          indent(state);
+          return "tag";
+        }
+      }
+
+      // Variables
+      if (ch === "$") {
+        stream.next();
+        stream.eatWhile(/[\w-]/);
+        return "variable-2";
+      }
+
+      // Numbers
+      if (stream.match(/^-?[0-9\.]+/))
+        return "number";
+
+      // Units
+      if (stream.match(/^(px|em|in)\b/))
+        return "unit";
+
+      if (stream.match(keywordsRegexp))
+        return "keyword";
+
+      if (stream.match(/^url/) && stream.peek() === "(") {
+        state.tokenizer = urlTokens;
+        return "atom";
+      }
+
+      if (ch === "=") {
+        // Match shortcut mixin definition
+        if (stream.match(/^=[\w-]+/)) {
+          indent(state);
+          return "meta";
+        }
+      }
+
+      if (ch === "+") {
+        // Match shortcut mixin definition
+        if (stream.match(/^\+[\w-]+/)){
+          return "variable-3";
+        }
+      }
+
+      if(ch === "@"){
+        if(stream.match(/@extend/)){
+          if(!stream.match(/\s*[\w]/))
+            dedent(state);
+        }
+      }
+
+
+      // Indent Directives
+      if (stream.match(/^@(else if|if|media|else|for|each|while|mixin|function)/)) {
+        indent(state);
+        return "def";
+      }
+
+      // Other Directives
+      if (ch === "@") {
+        stream.next();
+        stream.eatWhile(/[\w-]/);
+        return "def";
+      }
+
+      if (stream.eatWhile(/[\w-]/)){
+        if(stream.match(/ *: *[\w-\+\$#!\("']/,false)){
+          word = stream.current().toLowerCase();
+          var prop = state.prevProp + "-" + word;
+          if (propertyKeywords.hasOwnProperty(prop)) {
+            return "property";
+          } else if (propertyKeywords.hasOwnProperty(word)) {
+            state.prevProp = word;
+            return "property";
+          } else if (fontProperties.hasOwnProperty(word)) {
+            return "property";
+          }
+          return "tag";
+        }
+        else if(stream.match(/ *:/,false)){
+          indent(state);
+          state.cursorHalf = 1;
+          state.prevProp = stream.current().toLowerCase();
+          return "property";
+        }
+        else if(stream.match(/ *,/,false)){
+          return "tag";
+        }
+        else{
+          indent(state);
+          return "tag";
+        }
+      }
+
+      if(ch === ":"){
+        if (stream.match(pseudoElementsRegexp)){ // could be a pseudo-element
+          return "variable-3";
+        }
+        stream.next();
+        state.cursorHalf=1;
+        return "operator";
+      }
+
+    } // cursorHalf===0 ends here
+    else{
+
+      if (ch === "#") {
+        stream.next();
+        // Hex numbers
+        if (stream.match(/[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/)){
+          if (isEndLine(stream)) {
+            state.cursorHalf = 0;
+          }
+          return "number";
+        }
+      }
+
+      // Numbers
+      if (stream.match(/^-?[0-9\.]+/)){
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        return "number";
+      }
+
+      // Units
+      if (stream.match(/^(px|em|in)\b/)){
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        return "unit";
+      }
+
+      if (stream.match(keywordsRegexp)){
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        return "keyword";
+      }
+
+      if (stream.match(/^url/) && stream.peek() === "(") {
+        state.tokenizer = urlTokens;
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        return "atom";
+      }
+
+      // Variables
+      if (ch === "$") {
+        stream.next();
+        stream.eatWhile(/[\w-]/);
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        return "variable-2";
+      }
+
+      // bang character for !important, !default, etc.
+      if (ch === "!") {
+        stream.next();
+        state.cursorHalf = 0;
+        return stream.match(/^[\w]+/) ? "keyword": "operator";
+      }
+
+      if (stream.match(opRegexp)){
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        return "operator";
+      }
+
+      // attributes
+      if (stream.eatWhile(/[\w-]/)) {
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        word = stream.current().toLowerCase();
+        if (valueKeywords.hasOwnProperty(word)) {
+          return "atom";
+        } else if (colorKeywords.hasOwnProperty(word)) {
+          return "keyword";
+        } else if (propertyKeywords.hasOwnProperty(word)) {
+          state.prevProp = stream.current().toLowerCase();
+          return "property";
+        } else {
+          return "tag";
+        }
+      }
+
+      //stream.eatSpace();
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+        return null;
+      }
+
+    } // else ends here
+
+    if (stream.match(opRegexp))
+      return "operator";
+
+    // If we haven't returned by now, we move 1 character
+    // and return an error
+    stream.next();
+    return null;
+  }
+
+  function tokenLexer(stream, state) {
+    if (stream.sol()) state.indentCount = 0;
+    var style = state.tokenizer(stream, state);
+    var current = stream.current();
+
+    if (current === "@return" || current === "}"){
+      dedent(state);
+    }
+
+    if (style !== null) {
+      var startOfToken = stream.pos - current.length;
+
+      var withCurrentIndent = startOfToken + (config.indentUnit * state.indentCount);
+
+      var newScopes = [];
+
+      for (var i = 0; i < state.scopes.length; i++) {
+        var scope = state.scopes[i];
+
+        if (scope.offset <= withCurrentIndent)
+          newScopes.push(scope);
+      }
+
+      state.scopes = newScopes;
+    }
+
+
+    return style;
+  }
+
+  return {
+    startState: function() {
+      return {
+        tokenizer: tokenBase,
+        scopes: [{offset: 0, type: "sass"}],
+        indentCount: 0,
+        cursorHalf: 0,  // cursor half tells us if cursor lies after (1)
+                        // or before (0) colon (well... more or less)
+        definedVars: [],
+        definedMixins: []
+      };
+    },
+    token: function(stream, state) {
+      var style = tokenLexer(stream, state);
+
+      state.lastToken = { style: style, content: stream.current() };
+
+      return style;
+    },
+
+    indent: function(state) {
+      return state.scopes[0].offset;
+    }
+  };
+}, "css");
+
+CodeMirror.defineMIME("text/x-sass", "sass");
+
+});
+
+
+/***/ }),
+
+/***/ 17:
+/* no static exports found */
+/* all exports used */
+/*!****************************************************!*\
+  !*** ./~/core-js/library/modules/_to-primitive.js ***!
+  \****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+
+/***/ }),
+
+/***/ 2:
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_object-dp.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(/*! ./_an-object */ 11);
+var IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 34);
+var toPrimitive = __webpack_require__(/*! ./_to-primitive */ 17);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(/*! ./_descriptors */ 1) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+
+/***/ 33:
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_dom-create.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+var document = __webpack_require__(/*! ./_global */ 0).document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+
+/***/ }),
+
+/***/ 34:
+/* no static exports found */
+/* all exports used */
+/*!******************************************************!*\
+  !*** ./~/core-js/library/modules/_ie8-dom-define.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(/*! ./_descriptors */ 1) && !__webpack_require__(/*! ./_fails */ 9)(function () {
+  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 33)('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+
+/***/ 39:
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/core-js/library/modules/_ctx.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// optional / simple context binding
+var aFunction = __webpack_require__(/*! ./_a-function */ 46);
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+
+/***/ }),
+
+/***/ 46:
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_a-function.js ***!
+  \**************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+
+/***/ }),
+
+/***/ 5:
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/modules/_hide.js ***!
+  \********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(/*! ./_object-dp */ 2);
+var createDesc = __webpack_require__(/*! ./_property-desc */ 12);
+module.exports = __webpack_require__(/*! ./_descriptors */ 1) ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+
+/***/ }),
+
+/***/ 6:
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/modules/_core.js ***!
+  \********************************************/
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.1' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+
+/***/ 8:
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_is-object.js ***!
+  \*************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+
+/***/ 9:
+/* no static exports found */
+/* all exports used */
+/*!*********************************************!*\
+  !*** ./~/core-js/library/modules/_fails.js ***!
+  \*********************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+
+/***/ 91:
+/* no static exports found */
+/* all exports used */
+/*!***********************************************************!*\
+  !*** ./~/babel-runtime/core-js/object/define-property.js ***!
+  \***********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 98), __esModule: true };
+
+/***/ }),
+
+/***/ 92:
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/babel-runtime/helpers/classCallCheck.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+exports.default = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+/***/ }),
+
+/***/ 93:
+/* no static exports found */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./~/babel-runtime/helpers/createClass.js ***!
+  \************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 91);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/***/ }),
+
+/***/ 94:
+/* no static exports found */
+/* all exports used */
 /*!*****************************************************!*\
   !*** ./~/codemirror/addon/selection/active-line.js ***!
   \*****************************************************/
@@ -9583,7 +13307,7 @@ return CodeMirror$1;
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 1));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -9654,8 +13378,9 @@ return CodeMirror$1;
 
 /***/ }),
 
-/***/ 25:
+/***/ 95:
 /* no static exports found */
+/* all exports used */
 /*!************************************************!*\
   !*** ./~/codemirror/mode/markdown/markdown.js ***!
   \************************************************/
@@ -9666,7 +13391,7 @@ return CodeMirror$1;
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 1), __webpack_require__(/*! ../xml/xml */ 27), __webpack_require__(/*! ../meta */ 26));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 13), __webpack_require__(/*! ../xml/xml */ 97), __webpack_require__(/*! ../meta */ 96));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
   else // Plain browser env
@@ -10524,7 +14249,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 /***/ }),
 
-/***/ 26:
+/***/ 96:
 /* no static exports found */
 /* all exports used */
 /*!***********************************!*\
@@ -10537,7 +14262,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../lib/codemirror */ 1));
+    mod(__webpack_require__(/*! ../lib/codemirror */ 13));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../lib/codemirror"], mod);
   else // Plain browser env
@@ -10751,7 +14476,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 /***/ }),
 
-/***/ 27:
+/***/ 97:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -10764,7 +14489,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 1));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -11157,3277 +14882,34 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 /***/ }),
 
-/***/ 28:
+/***/ 98:
 /* no static exports found */
 /* all exports used */
-/*!***************************************************************************!*\
-  !*** ./~/css-loader?{"minimize":false}!./~/codemirror/lib/codemirror.css ***!
-  \***************************************************************************/
+/*!********************************************************!*\
+  !*** ./~/core-js/library/fn/object/define-property.js ***!
+  \********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 29)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "/* BASICS */\n\n.CodeMirror {\n  /* Set height, width, borders, and global font properties here */\n  font-family: monospace;\n  height: 300px;\n  color: black;\n  direction: ltr;\n}\n\n/* PADDING */\n\n.CodeMirror-lines {\n  padding: 4px 0; /* Vertical padding around content */\n}\n.CodeMirror pre {\n  padding: 0 4px; /* Horizontal padding of content */\n}\n\n.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  background-color: white; /* The little square between H and V scrollbars */\n}\n\n/* GUTTER */\n\n.CodeMirror-gutters {\n  border-right: 1px solid #ddd;\n  background-color: #f7f7f7;\n  white-space: nowrap;\n}\n.CodeMirror-linenumbers {}\n.CodeMirror-linenumber {\n  padding: 0 3px 0 5px;\n  min-width: 20px;\n  text-align: right;\n  color: #999;\n  white-space: nowrap;\n}\n\n.CodeMirror-guttermarker { color: black; }\n.CodeMirror-guttermarker-subtle { color: #999; }\n\n/* CURSOR */\n\n.CodeMirror-cursor {\n  border-left: 1px solid black;\n  border-right: none;\n  width: 0;\n}\n/* Shown when moving in bi-directional text */\n.CodeMirror div.CodeMirror-secondarycursor {\n  border-left: 1px solid silver;\n}\n.cm-fat-cursor .CodeMirror-cursor {\n  width: auto;\n  border: 0 !important;\n  background: #7e7;\n}\n.cm-fat-cursor div.CodeMirror-cursors {\n  z-index: 1;\n}\n\n.cm-animate-fat-cursor {\n  width: auto;\n  border: 0;\n  -webkit-animation: blink 1.06s steps(1) infinite;\n  -moz-animation: blink 1.06s steps(1) infinite;\n  animation: blink 1.06s steps(1) infinite;\n  background-color: #7e7;\n}\n@-moz-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@-webkit-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n\n/* Can style cursor different in overwrite (non-insert) mode */\n.CodeMirror-overwrite .CodeMirror-cursor {}\n\n.cm-tab { display: inline-block; text-decoration: inherit; }\n\n.CodeMirror-rulers {\n  position: absolute;\n  left: 0; right: 0; top: -50px; bottom: -20px;\n  overflow: hidden;\n}\n.CodeMirror-ruler {\n  border-left: 1px solid #ccc;\n  top: 0; bottom: 0;\n  position: absolute;\n}\n\n/* DEFAULT THEME */\n\n.cm-s-default .cm-header {color: blue;}\n.cm-s-default .cm-quote {color: #090;}\n.cm-negative {color: #d44;}\n.cm-positive {color: #292;}\n.cm-header, .cm-strong {font-weight: bold;}\n.cm-em {font-style: italic;}\n.cm-link {text-decoration: underline;}\n.cm-strikethrough {text-decoration: line-through;}\n\n.cm-s-default .cm-keyword {color: #708;}\n.cm-s-default .cm-atom {color: #219;}\n.cm-s-default .cm-number {color: #164;}\n.cm-s-default .cm-def {color: #00f;}\n.cm-s-default .cm-variable,\n.cm-s-default .cm-punctuation,\n.cm-s-default .cm-property,\n.cm-s-default .cm-operator {}\n.cm-s-default .cm-variable-2 {color: #05a;}\n.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}\n.cm-s-default .cm-comment {color: #a50;}\n.cm-s-default .cm-string {color: #a11;}\n.cm-s-default .cm-string-2 {color: #f50;}\n.cm-s-default .cm-meta {color: #555;}\n.cm-s-default .cm-qualifier {color: #555;}\n.cm-s-default .cm-builtin {color: #30a;}\n.cm-s-default .cm-bracket {color: #997;}\n.cm-s-default .cm-tag {color: #170;}\n.cm-s-default .cm-attribute {color: #00c;}\n.cm-s-default .cm-hr {color: #999;}\n.cm-s-default .cm-link {color: #00c;}\n\n.cm-s-default .cm-error {color: #f00;}\n.cm-invalidchar {color: #f00;}\n\n.CodeMirror-composing { border-bottom: 2px solid; }\n\n/* Default styles for common addons */\n\ndiv.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}\ndiv.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}\n.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }\n.CodeMirror-activeline-background {background: #e8f2ff;}\n\n/* STOP */\n\n/* The rest of this file contains styles related to the mechanics of\n   the editor. You probably shouldn't touch them. */\n\n.CodeMirror {\n  position: relative;\n  overflow: hidden;\n  background: white;\n}\n\n.CodeMirror-scroll {\n  overflow: scroll !important; /* Things will break if this is overridden */\n  /* 30px is the magic margin used to hide the element's real scrollbars */\n  /* See overflow: hidden in .CodeMirror */\n  margin-bottom: -30px; margin-right: -30px;\n  padding-bottom: 30px;\n  height: 100%;\n  outline: none; /* Prevent dragging from highlighting the element */\n  position: relative;\n}\n.CodeMirror-sizer {\n  position: relative;\n  border-right: 30px solid transparent;\n}\n\n/* The fake, visible scrollbars. Used to force redraw during scrolling\n   before actual scrolling happens, thus preventing shaking and\n   flickering artifacts. */\n.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  position: absolute;\n  z-index: 6;\n  display: none;\n}\n.CodeMirror-vscrollbar {\n  right: 0; top: 0;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.CodeMirror-hscrollbar {\n  bottom: 0; left: 0;\n  overflow-y: hidden;\n  overflow-x: scroll;\n}\n.CodeMirror-scrollbar-filler {\n  right: 0; bottom: 0;\n}\n.CodeMirror-gutter-filler {\n  left: 0; bottom: 0;\n}\n\n.CodeMirror-gutters {\n  position: absolute; left: 0; top: 0;\n  min-height: 100%;\n  z-index: 3;\n}\n.CodeMirror-gutter {\n  white-space: normal;\n  height: 100%;\n  display: inline-block;\n  vertical-align: top;\n  margin-bottom: -30px;\n}\n.CodeMirror-gutter-wrapper {\n  position: absolute;\n  z-index: 4;\n  background: none !important;\n  border: none !important;\n}\n.CodeMirror-gutter-background {\n  position: absolute;\n  top: 0; bottom: 0;\n  z-index: 4;\n}\n.CodeMirror-gutter-elt {\n  position: absolute;\n  cursor: default;\n  z-index: 4;\n}\n.CodeMirror-gutter-wrapper ::selection { background-color: transparent }\n.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }\n\n.CodeMirror-lines {\n  cursor: text;\n  min-height: 1px; /* prevents collapsing before first draw */\n}\n.CodeMirror pre {\n  /* Reset some styles that the rest of the page might have set */\n  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;\n  border-width: 0;\n  background: transparent;\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n  white-space: pre;\n  word-wrap: normal;\n  line-height: inherit;\n  color: inherit;\n  z-index: 2;\n  position: relative;\n  overflow: visible;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-font-variant-ligatures: contextual;\n  font-variant-ligatures: contextual;\n}\n.CodeMirror-wrap pre {\n  word-wrap: break-word;\n  white-space: pre-wrap;\n  word-break: normal;\n}\n\n.CodeMirror-linebackground {\n  position: absolute;\n  left: 0; right: 0; top: 0; bottom: 0;\n  z-index: 0;\n}\n\n.CodeMirror-linewidget {\n  position: relative;\n  z-index: 2;\n  overflow: auto;\n}\n\n.CodeMirror-widget {}\n\n.CodeMirror-rtl pre { direction: rtl; }\n\n.CodeMirror-code {\n  outline: none;\n}\n\n/* Force content-box sizing for the elements where we expect it */\n.CodeMirror-scroll,\n.CodeMirror-sizer,\n.CodeMirror-gutter,\n.CodeMirror-gutters,\n.CodeMirror-linenumber {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n}\n\n.CodeMirror-measure {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  visibility: hidden;\n}\n\n.CodeMirror-cursor {\n  position: absolute;\n  pointer-events: none;\n}\n.CodeMirror-measure pre { position: static; }\n\ndiv.CodeMirror-cursors {\n  visibility: hidden;\n  position: relative;\n  z-index: 3;\n}\ndiv.CodeMirror-dragcursors {\n  visibility: visible;\n}\n\n.CodeMirror-focused div.CodeMirror-cursors {\n  visibility: visible;\n}\n\n.CodeMirror-selected { background: #d9d9d9; }\n.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }\n.CodeMirror-crosshair { cursor: crosshair; }\n.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }\n.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }\n\n.cm-searching {\n  background-color: #ffa;\n  background-color: rgba(255, 255, 0, .4);\n}\n\n/* Used to force a border model for a node */\n.cm-force-border { padding-right: .1px; }\n\n@media print {\n  /* Hide the cursor when printing */\n  .CodeMirror div.CodeMirror-cursors {\n    visibility: hidden;\n  }\n}\n\n/* See issue #2901 */\n.cm-tab-wrap-hack:after { content: ''; }\n\n/* Help users use markselection to safely style text background */\nspan.CodeMirror-selectedtext { background: none; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 29:
-/* no static exports found */
-/* all exports used */
-/*!**************************************!*\
-  !*** ./~/css-loader/lib/css-base.js ***!
-  \**************************************/
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-
-/***/ 30:
-/* no static exports found */
-/*!*****************************************!*\
-  !*** ./~/codemirror/lib/codemirror.css ***!
-  \*****************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 28);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 31)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../css-loader/index.js??ref--6-1!./codemirror.css", function() {
-			var newContent = require("!!../../css-loader/index.js??ref--6-1!./codemirror.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 31:
-/* no static exports found */
-/* all exports used */
-/*!*****************************************!*\
-  !*** ./~/style-loader/lib/addStyles.js ***!
-  \*****************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-
-var stylesInDom = {};
-
-var	memoize = function (fn) {
-	var memo;
-
-	return function () {
-		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-		return memo;
-	};
-};
-
-var isOldIE = memoize(function () {
-	// Test for IE <= 9 as proposed by Browserhacks
-	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-	// Tests for existence of standard globals is to allow style-loader
-	// to operate correctly into non-standard environments
-	// @see https://github.com/webpack-contrib/style-loader/issues/177
-	return window && document && document.all && !window.atob;
-});
-
-var getElement = (function (fn) {
-	var memo = {};
-
-	return function(selector) {
-		if (typeof memo[selector] === "undefined") {
-			memo[selector] = fn.call(this, selector);
-		}
-
-		return memo[selector]
-	};
-})(function (target) {
-	return document.querySelector(target)
-});
-
-var singleton = null;
-var	singletonCounter = 0;
-var	stylesInsertedAtTop = [];
-
-var	fixUrls = __webpack_require__(/*! ./urls */ 32);
-
-module.exports = function(list, options) {
-	if (typeof DEBUG !== "undefined" && DEBUG) {
-		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
-
-	options = options || {};
-
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
-
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (!options.singleton) options.singleton = isOldIE();
-
-	// By default, add <style> tags to the <head> element
-	if (!options.insertInto) options.insertInto = "head";
-
-	// By default, add <style> tags to the bottom of the target
-	if (!options.insertAt) options.insertAt = "bottom";
-
-	var styles = listToStyles(list, options);
-
-	addStylesToDom(styles, options);
-
-	return function update (newList) {
-		var mayRemove = [];
-
-		for (var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
-
-		if(newList) {
-			var newStyles = listToStyles(newList, options);
-			addStylesToDom(newStyles, options);
-		}
-
-		for (var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-
-			if(domStyle.refs === 0) {
-				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
-};
-
-function addStylesToDom (styles, options) {
-	for (var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-
-		if(domStyle) {
-			domStyle.refs++;
-
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-
-			for(var j = 0; j < item.parts.length; j++) {
-				parts.push(addStyle(item.parts[j], options));
-			}
-
-			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-		}
-	}
-}
-
-function listToStyles (list, options) {
-	var styles = [];
-	var newStyles = {};
-
-	for (var i = 0; i < list.length; i++) {
-		var item = list[i];
-		var id = options.base ? item[0] + options.base : item[0];
-		var css = item[1];
-		var media = item[2];
-		var sourceMap = item[3];
-		var part = {css: css, media: media, sourceMap: sourceMap};
-
-		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
-		else newStyles[id].parts.push(part);
-	}
-
-	return styles;
-}
-
-function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
-
-	if (!target) {
-		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-	}
-
-	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
-
-	if (options.insertAt === "top") {
-		if (!lastStyleElementInsertedAtTop) {
-			target.insertBefore(style, target.firstChild);
-		} else if (lastStyleElementInsertedAtTop.nextSibling) {
-			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
-		} else {
-			target.appendChild(style);
-		}
-		stylesInsertedAtTop.push(style);
-	} else if (options.insertAt === "bottom") {
-		target.appendChild(style);
-	} else {
-		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-	}
-}
-
-function removeStyleElement (style) {
-	if (style.parentNode === null) return false;
-	style.parentNode.removeChild(style);
-
-	var idx = stylesInsertedAtTop.indexOf(style);
-	if(idx >= 0) {
-		stylesInsertedAtTop.splice(idx, 1);
-	}
-}
-
-function createStyleElement (options) {
-	var style = document.createElement("style");
-
-	options.attrs.type = "text/css";
-
-	addAttrs(style, options.attrs);
-	insertStyleElement(options, style);
-
-	return style;
-}
-
-function createLinkElement (options) {
-	var link = document.createElement("link");
-
-	options.attrs.type = "text/css";
-	options.attrs.rel = "stylesheet";
-
-	addAttrs(link, options.attrs);
-	insertStyleElement(options, link);
-
-	return link;
-}
-
-function addAttrs (el, attrs) {
-	Object.keys(attrs).forEach(function (key) {
-		el.setAttribute(key, attrs[key]);
-	});
-}
-
-function addStyle (obj, options) {
-	var style, update, remove, result;
-
-	// If a transform function was defined, run it on the css
-	if (options.transform && obj.css) {
-	    result = options.transform(obj.css);
-
-	    if (result) {
-	    	// If transform returns a value, use that instead of the original css.
-	    	// This allows running runtime transformations on the css.
-	    	obj.css = result;
-	    } else {
-	    	// If the transform function returns a falsy value, don't add this css.
-	    	// This allows conditional loading of css
-	    	return function() {
-	    		// noop
-	    	};
-	    }
-	}
-
-	if (options.singleton) {
-		var styleIndex = singletonCounter++;
-
-		style = singleton || (singleton = createStyleElement(options));
-
-		update = applyToSingletonTag.bind(null, style, styleIndex, false);
-		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-
-	} else if (
-		obj.sourceMap &&
-		typeof URL === "function" &&
-		typeof URL.createObjectURL === "function" &&
-		typeof URL.revokeObjectURL === "function" &&
-		typeof Blob === "function" &&
-		typeof btoa === "function"
-	) {
-		style = createLinkElement(options);
-		update = updateLink.bind(null, style, options);
-		remove = function () {
-			removeStyleElement(style);
-
-			if(style.href) URL.revokeObjectURL(style.href);
-		};
-	} else {
-		style = createStyleElement(options);
-		update = applyToTag.bind(null, style);
-		remove = function () {
-			removeStyleElement(style);
-		};
-	}
-
-	update(obj);
-
-	return function updateStyle (newObj) {
-		if (newObj) {
-			if (
-				newObj.css === obj.css &&
-				newObj.media === obj.media &&
-				newObj.sourceMap === obj.sourceMap
-			) {
-				return;
-			}
-
-			update(obj = newObj);
-		} else {
-			remove();
-		}
-	};
-}
-
-var replaceText = (function () {
-	var textStore = [];
-
-	return function (index, replacement) {
-		textStore[index] = replacement;
-
-		return textStore.filter(Boolean).join('\n');
-	};
-})();
-
-function applyToSingletonTag (style, index, remove, obj) {
-	var css = remove ? "" : obj.css;
-
-	if (style.styleSheet) {
-		style.styleSheet.cssText = replaceText(index, css);
-	} else {
-		var cssNode = document.createTextNode(css);
-		var childNodes = style.childNodes;
-
-		if (childNodes[index]) style.removeChild(childNodes[index]);
-
-		if (childNodes.length) {
-			style.insertBefore(cssNode, childNodes[index]);
-		} else {
-			style.appendChild(cssNode);
-		}
-	}
-}
-
-function applyToTag (style, obj) {
-	var css = obj.css;
-	var media = obj.media;
-
-	if(media) {
-		style.setAttribute("media", media)
-	}
-
-	if(style.styleSheet) {
-		style.styleSheet.cssText = css;
-	} else {
-		while(style.firstChild) {
-			style.removeChild(style.firstChild);
-		}
-
-		style.appendChild(document.createTextNode(css));
-	}
-}
-
-function updateLink (link, options, obj) {
-	var css = obj.css;
-	var sourceMap = obj.sourceMap;
-
-	/*
-		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-		and there is no publicPath defined then lets turn convertToAbsoluteUrls
-		on by default.  Otherwise default to the convertToAbsoluteUrls option
-		directly
-	*/
-	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
-
-	if (options.convertToAbsoluteUrls || autoFixUrls) {
-		css = fixUrls(css);
-	}
-
-	if (sourceMap) {
-		// http://stackoverflow.com/a/26603875
-		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-	}
-
-	var blob = new Blob([css], { type: "text/css" });
-
-	var oldSrc = link.href;
-
-	link.href = URL.createObjectURL(blob);
-
-	if(oldSrc) URL.revokeObjectURL(oldSrc);
-}
-
-
-/***/ }),
-
-/***/ 32:
-/* no static exports found */
-/* all exports used */
-/*!************************************!*\
-  !*** ./~/style-loader/lib/urls.js ***!
-  \************************************/
-/***/ (function(module, exports) {
-
-
-/**
- * When source maps are enabled, `style-loader` uses a link element with a data-uri to
- * embed the css on the page. This breaks all relative urls because now they are relative to a
- * bundle instead of the current page.
- *
- * One solution is to only use full urls, but that may be impossible.
- *
- * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
- *
- * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
- *
- */
-
-module.exports = function (css) {
-  // get current location
-  var location = typeof window !== "undefined" && window.location;
-
-  if (!location) {
-    throw new Error("fixUrls requires window.location");
-  }
-
-	// blank or null?
-	if (!css || typeof css !== "string") {
-	  return css;
-  }
-
-  var baseUrl = location.protocol + "//" + location.host;
-  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
-
-	// convert each url(...)
-	/*
-	This regular expression is just a way to recursively match brackets within
-	a string.
-
-	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-	   (  = Start a capturing group
-	     (?:  = Start a non-capturing group
-	         [^)(]  = Match anything that isn't a parentheses
-	         |  = OR
-	         \(  = Match a start parentheses
-	             (?:  = Start another non-capturing groups
-	                 [^)(]+  = Match anything that isn't a parentheses
-	                 |  = OR
-	                 \(  = Match a start parentheses
-	                     [^)(]*  = Match anything that isn't a parentheses
-	                 \)  = Match a end parentheses
-	             )  = End Group
-              *\) = Match anything and then a close parens
-          )  = Close non-capturing group
-          *  = Match anything
-       )  = Close capturing group
-	 \)  = Match a close parens
-
-	 /gi  = Get all matches, not the first.  Be case insensitive.
-	 */
-	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
-		// strip quotes (if they exist)
-		var unquotedOrigUrl = origUrl
-			.trim()
-			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
-			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
-
-		// already a full url? no change
-		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
-		  return fullMatch;
-		}
-
-		// convert the url to a full url
-		var newUrl;
-
-		if (unquotedOrigUrl.indexOf("//") === 0) {
-		  	//TODO: should we add protocol?
-			newUrl = unquotedOrigUrl;
-		} else if (unquotedOrigUrl.indexOf("/") === 0) {
-			// path should be relative to the base url
-			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-		} else {
-			// path should be relative to current directory
-			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-		}
-
-		// send back the fixed url(...)
-		return "url(" + JSON.stringify(newUrl) + ")";
-	});
-
-	// send back the fixed css
-	return fixedCss;
+__webpack_require__(/*! ../../modules/es6.object.define-property */ 99);
+var $Object = __webpack_require__(/*! ../../modules/_core */ 6).Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
 };
 
 
 /***/ }),
 
-/***/ 42:
+/***/ 99:
 /* no static exports found */
 /* all exports used */
-/*!**************************************!*\
-  !*** ./~/codemirror/mode/css/css.js ***!
-  \**************************************/
+/*!*****************************************************************!*\
+  !*** ./~/core-js/library/modules/es6.object.define-property.js ***!
+  \*****************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
-
-(function(mod) {
-  if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 1));
-  else if (typeof define == "function" && define.amd) // AMD
-    define(["../../lib/codemirror"], mod);
-  else // Plain browser env
-    mod(CodeMirror);
-})(function(CodeMirror) {
-"use strict";
-
-CodeMirror.defineMode("css", function(config, parserConfig) {
-  var inline = parserConfig.inline
-  if (!parserConfig.propertyKeywords) parserConfig = CodeMirror.resolveMode("text/css");
-
-  var indentUnit = config.indentUnit,
-      tokenHooks = parserConfig.tokenHooks,
-      documentTypes = parserConfig.documentTypes || {},
-      mediaTypes = parserConfig.mediaTypes || {},
-      mediaFeatures = parserConfig.mediaFeatures || {},
-      mediaValueKeywords = parserConfig.mediaValueKeywords || {},
-      propertyKeywords = parserConfig.propertyKeywords || {},
-      nonStandardPropertyKeywords = parserConfig.nonStandardPropertyKeywords || {},
-      fontProperties = parserConfig.fontProperties || {},
-      counterDescriptors = parserConfig.counterDescriptors || {},
-      colorKeywords = parserConfig.colorKeywords || {},
-      valueKeywords = parserConfig.valueKeywords || {},
-      allowNested = parserConfig.allowNested,
-      lineComment = parserConfig.lineComment,
-      supportsAtComponent = parserConfig.supportsAtComponent === true;
-
-  var type, override;
-  function ret(style, tp) { type = tp; return style; }
-
-  // Tokenizers
-
-  function tokenBase(stream, state) {
-    var ch = stream.next();
-    if (tokenHooks[ch]) {
-      var result = tokenHooks[ch](stream, state);
-      if (result !== false) return result;
-    }
-    if (ch == "@") {
-      stream.eatWhile(/[\w\\\-]/);
-      return ret("def", stream.current());
-    } else if (ch == "=" || (ch == "~" || ch == "|") && stream.eat("=")) {
-      return ret(null, "compare");
-    } else if (ch == "\"" || ch == "'") {
-      state.tokenize = tokenString(ch);
-      return state.tokenize(stream, state);
-    } else if (ch == "#") {
-      stream.eatWhile(/[\w\\\-]/);
-      return ret("atom", "hash");
-    } else if (ch == "!") {
-      stream.match(/^\s*\w*/);
-      return ret("keyword", "important");
-    } else if (/\d/.test(ch) || ch == "." && stream.eat(/\d/)) {
-      stream.eatWhile(/[\w.%]/);
-      return ret("number", "unit");
-    } else if (ch === "-") {
-      if (/[\d.]/.test(stream.peek())) {
-        stream.eatWhile(/[\w.%]/);
-        return ret("number", "unit");
-      } else if (stream.match(/^-[\w\\\-]+/)) {
-        stream.eatWhile(/[\w\\\-]/);
-        if (stream.match(/^\s*:/, false))
-          return ret("variable-2", "variable-definition");
-        return ret("variable-2", "variable");
-      } else if (stream.match(/^\w+-/)) {
-        return ret("meta", "meta");
-      }
-    } else if (/[,+>*\/]/.test(ch)) {
-      return ret(null, "select-op");
-    } else if (ch == "." && stream.match(/^-?[_a-z][_a-z0-9-]*/i)) {
-      return ret("qualifier", "qualifier");
-    } else if (/[:;{}\[\]\(\)]/.test(ch)) {
-      return ret(null, ch);
-    } else if ((ch == "u" && stream.match(/rl(-prefix)?\(/)) ||
-               (ch == "d" && stream.match("omain(")) ||
-               (ch == "r" && stream.match("egexp("))) {
-      stream.backUp(1);
-      state.tokenize = tokenParenthesized;
-      return ret("property", "word");
-    } else if (/[\w\\\-]/.test(ch)) {
-      stream.eatWhile(/[\w\\\-]/);
-      return ret("property", "word");
-    } else {
-      return ret(null, null);
-    }
-  }
-
-  function tokenString(quote) {
-    return function(stream, state) {
-      var escaped = false, ch;
-      while ((ch = stream.next()) != null) {
-        if (ch == quote && !escaped) {
-          if (quote == ")") stream.backUp(1);
-          break;
-        }
-        escaped = !escaped && ch == "\\";
-      }
-      if (ch == quote || !escaped && quote != ")") state.tokenize = null;
-      return ret("string", "string");
-    };
-  }
-
-  function tokenParenthesized(stream, state) {
-    stream.next(); // Must be '('
-    if (!stream.match(/\s*[\"\')]/, false))
-      state.tokenize = tokenString(")");
-    else
-      state.tokenize = null;
-    return ret(null, "(");
-  }
-
-  // Context management
-
-  function Context(type, indent, prev) {
-    this.type = type;
-    this.indent = indent;
-    this.prev = prev;
-  }
-
-  function pushContext(state, stream, type, indent) {
-    state.context = new Context(type, stream.indentation() + (indent === false ? 0 : indentUnit), state.context);
-    return type;
-  }
-
-  function popContext(state) {
-    if (state.context.prev)
-      state.context = state.context.prev;
-    return state.context.type;
-  }
-
-  function pass(type, stream, state) {
-    return states[state.context.type](type, stream, state);
-  }
-  function popAndPass(type, stream, state, n) {
-    for (var i = n || 1; i > 0; i--)
-      state.context = state.context.prev;
-    return pass(type, stream, state);
-  }
-
-  // Parser
-
-  function wordAsValue(stream) {
-    var word = stream.current().toLowerCase();
-    if (valueKeywords.hasOwnProperty(word))
-      override = "atom";
-    else if (colorKeywords.hasOwnProperty(word))
-      override = "keyword";
-    else
-      override = "variable";
-  }
-
-  var states = {};
-
-  states.top = function(type, stream, state) {
-    if (type == "{") {
-      return pushContext(state, stream, "block");
-    } else if (type == "}" && state.context.prev) {
-      return popContext(state);
-    } else if (supportsAtComponent && /@component/.test(type)) {
-      return pushContext(state, stream, "atComponentBlock");
-    } else if (/^@(-moz-)?document$/.test(type)) {
-      return pushContext(state, stream, "documentTypes");
-    } else if (/^@(media|supports|(-moz-)?document|import)$/.test(type)) {
-      return pushContext(state, stream, "atBlock");
-    } else if (/^@(font-face|counter-style)/.test(type)) {
-      state.stateArg = type;
-      return "restricted_atBlock_before";
-    } else if (/^@(-(moz|ms|o|webkit)-)?keyframes$/.test(type)) {
-      return "keyframes";
-    } else if (type && type.charAt(0) == "@") {
-      return pushContext(state, stream, "at");
-    } else if (type == "hash") {
-      override = "builtin";
-    } else if (type == "word") {
-      override = "tag";
-    } else if (type == "variable-definition") {
-      return "maybeprop";
-    } else if (type == "interpolation") {
-      return pushContext(state, stream, "interpolation");
-    } else if (type == ":") {
-      return "pseudo";
-    } else if (allowNested && type == "(") {
-      return pushContext(state, stream, "parens");
-    }
-    return state.context.type;
-  };
-
-  states.block = function(type, stream, state) {
-    if (type == "word") {
-      var word = stream.current().toLowerCase();
-      if (propertyKeywords.hasOwnProperty(word)) {
-        override = "property";
-        return "maybeprop";
-      } else if (nonStandardPropertyKeywords.hasOwnProperty(word)) {
-        override = "string-2";
-        return "maybeprop";
-      } else if (allowNested) {
-        override = stream.match(/^\s*:(?:\s|$)/, false) ? "property" : "tag";
-        return "block";
-      } else {
-        override += " error";
-        return "maybeprop";
-      }
-    } else if (type == "meta") {
-      return "block";
-    } else if (!allowNested && (type == "hash" || type == "qualifier")) {
-      override = "error";
-      return "block";
-    } else {
-      return states.top(type, stream, state);
-    }
-  };
-
-  states.maybeprop = function(type, stream, state) {
-    if (type == ":") return pushContext(state, stream, "prop");
-    return pass(type, stream, state);
-  };
-
-  states.prop = function(type, stream, state) {
-    if (type == ";") return popContext(state);
-    if (type == "{" && allowNested) return pushContext(state, stream, "propBlock");
-    if (type == "}" || type == "{") return popAndPass(type, stream, state);
-    if (type == "(") return pushContext(state, stream, "parens");
-
-    if (type == "hash" && !/^#([0-9a-fA-f]{3,4}|[0-9a-fA-f]{6}|[0-9a-fA-f]{8})$/.test(stream.current())) {
-      override += " error";
-    } else if (type == "word") {
-      wordAsValue(stream);
-    } else if (type == "interpolation") {
-      return pushContext(state, stream, "interpolation");
-    }
-    return "prop";
-  };
-
-  states.propBlock = function(type, _stream, state) {
-    if (type == "}") return popContext(state);
-    if (type == "word") { override = "property"; return "maybeprop"; }
-    return state.context.type;
-  };
-
-  states.parens = function(type, stream, state) {
-    if (type == "{" || type == "}") return popAndPass(type, stream, state);
-    if (type == ")") return popContext(state);
-    if (type == "(") return pushContext(state, stream, "parens");
-    if (type == "interpolation") return pushContext(state, stream, "interpolation");
-    if (type == "word") wordAsValue(stream);
-    return "parens";
-  };
-
-  states.pseudo = function(type, stream, state) {
-    if (type == "meta") return "pseudo";
-
-    if (type == "word") {
-      override = "variable-3";
-      return state.context.type;
-    }
-    return pass(type, stream, state);
-  };
-
-  states.documentTypes = function(type, stream, state) {
-    if (type == "word" && documentTypes.hasOwnProperty(stream.current())) {
-      override = "tag";
-      return state.context.type;
-    } else {
-      return states.atBlock(type, stream, state);
-    }
-  };
-
-  states.atBlock = function(type, stream, state) {
-    if (type == "(") return pushContext(state, stream, "atBlock_parens");
-    if (type == "}" || type == ";") return popAndPass(type, stream, state);
-    if (type == "{") return popContext(state) && pushContext(state, stream, allowNested ? "block" : "top");
-
-    if (type == "interpolation") return pushContext(state, stream, "interpolation");
-
-    if (type == "word") {
-      var word = stream.current().toLowerCase();
-      if (word == "only" || word == "not" || word == "and" || word == "or")
-        override = "keyword";
-      else if (mediaTypes.hasOwnProperty(word))
-        override = "attribute";
-      else if (mediaFeatures.hasOwnProperty(word))
-        override = "property";
-      else if (mediaValueKeywords.hasOwnProperty(word))
-        override = "keyword";
-      else if (propertyKeywords.hasOwnProperty(word))
-        override = "property";
-      else if (nonStandardPropertyKeywords.hasOwnProperty(word))
-        override = "string-2";
-      else if (valueKeywords.hasOwnProperty(word))
-        override = "atom";
-      else if (colorKeywords.hasOwnProperty(word))
-        override = "keyword";
-      else
-        override = "error";
-    }
-    return state.context.type;
-  };
-
-  states.atComponentBlock = function(type, stream, state) {
-    if (type == "}")
-      return popAndPass(type, stream, state);
-    if (type == "{")
-      return popContext(state) && pushContext(state, stream, allowNested ? "block" : "top", false);
-    if (type == "word")
-      override = "error";
-    return state.context.type;
-  };
-
-  states.atBlock_parens = function(type, stream, state) {
-    if (type == ")") return popContext(state);
-    if (type == "{" || type == "}") return popAndPass(type, stream, state, 2);
-    return states.atBlock(type, stream, state);
-  };
-
-  states.restricted_atBlock_before = function(type, stream, state) {
-    if (type == "{")
-      return pushContext(state, stream, "restricted_atBlock");
-    if (type == "word" && state.stateArg == "@counter-style") {
-      override = "variable";
-      return "restricted_atBlock_before";
-    }
-    return pass(type, stream, state);
-  };
-
-  states.restricted_atBlock = function(type, stream, state) {
-    if (type == "}") {
-      state.stateArg = null;
-      return popContext(state);
-    }
-    if (type == "word") {
-      if ((state.stateArg == "@font-face" && !fontProperties.hasOwnProperty(stream.current().toLowerCase())) ||
-          (state.stateArg == "@counter-style" && !counterDescriptors.hasOwnProperty(stream.current().toLowerCase())))
-        override = "error";
-      else
-        override = "property";
-      return "maybeprop";
-    }
-    return "restricted_atBlock";
-  };
-
-  states.keyframes = function(type, stream, state) {
-    if (type == "word") { override = "variable"; return "keyframes"; }
-    if (type == "{") return pushContext(state, stream, "top");
-    return pass(type, stream, state);
-  };
-
-  states.at = function(type, stream, state) {
-    if (type == ";") return popContext(state);
-    if (type == "{" || type == "}") return popAndPass(type, stream, state);
-    if (type == "word") override = "tag";
-    else if (type == "hash") override = "builtin";
-    return "at";
-  };
-
-  states.interpolation = function(type, stream, state) {
-    if (type == "}") return popContext(state);
-    if (type == "{" || type == ";") return popAndPass(type, stream, state);
-    if (type == "word") override = "variable";
-    else if (type != "variable" && type != "(" && type != ")") override = "error";
-    return "interpolation";
-  };
-
-  return {
-    startState: function(base) {
-      return {tokenize: null,
-              state: inline ? "block" : "top",
-              stateArg: null,
-              context: new Context(inline ? "block" : "top", base || 0, null)};
-    },
-
-    token: function(stream, state) {
-      if (!state.tokenize && stream.eatSpace()) return null;
-      var style = (state.tokenize || tokenBase)(stream, state);
-      if (style && typeof style == "object") {
-        type = style[1];
-        style = style[0];
-      }
-      override = style;
-      if (type != "comment")
-        state.state = states[state.state](type, stream, state);
-      return override;
-    },
-
-    indent: function(state, textAfter) {
-      var cx = state.context, ch = textAfter && textAfter.charAt(0);
-      var indent = cx.indent;
-      if (cx.type == "prop" && (ch == "}" || ch == ")")) cx = cx.prev;
-      if (cx.prev) {
-        if (ch == "}" && (cx.type == "block" || cx.type == "top" ||
-                          cx.type == "interpolation" || cx.type == "restricted_atBlock")) {
-          // Resume indentation from parent context.
-          cx = cx.prev;
-          indent = cx.indent;
-        } else if (ch == ")" && (cx.type == "parens" || cx.type == "atBlock_parens") ||
-            ch == "{" && (cx.type == "at" || cx.type == "atBlock")) {
-          // Dedent relative to current context.
-          indent = Math.max(0, cx.indent - indentUnit);
-        }
-      }
-      return indent;
-    },
-
-    electricChars: "}",
-    blockCommentStart: "/*",
-    blockCommentEnd: "*/",
-    lineComment: lineComment,
-    fold: "brace"
-  };
-});
-
-  function keySet(array) {
-    var keys = {};
-    for (var i = 0; i < array.length; ++i) {
-      keys[array[i].toLowerCase()] = true;
-    }
-    return keys;
-  }
-
-  var documentTypes_ = [
-    "domain", "regexp", "url", "url-prefix"
-  ], documentTypes = keySet(documentTypes_);
-
-  var mediaTypes_ = [
-    "all", "aural", "braille", "handheld", "print", "projection", "screen",
-    "tty", "tv", "embossed"
-  ], mediaTypes = keySet(mediaTypes_);
-
-  var mediaFeatures_ = [
-    "width", "min-width", "max-width", "height", "min-height", "max-height",
-    "device-width", "min-device-width", "max-device-width", "device-height",
-    "min-device-height", "max-device-height", "aspect-ratio",
-    "min-aspect-ratio", "max-aspect-ratio", "device-aspect-ratio",
-    "min-device-aspect-ratio", "max-device-aspect-ratio", "color", "min-color",
-    "max-color", "color-index", "min-color-index", "max-color-index",
-    "monochrome", "min-monochrome", "max-monochrome", "resolution",
-    "min-resolution", "max-resolution", "scan", "grid", "orientation",
-    "device-pixel-ratio", "min-device-pixel-ratio", "max-device-pixel-ratio",
-    "pointer", "any-pointer", "hover", "any-hover"
-  ], mediaFeatures = keySet(mediaFeatures_);
-
-  var mediaValueKeywords_ = [
-    "landscape", "portrait", "none", "coarse", "fine", "on-demand", "hover",
-    "interlace", "progressive"
-  ], mediaValueKeywords = keySet(mediaValueKeywords_);
-
-  var propertyKeywords_ = [
-    "align-content", "align-items", "align-self", "alignment-adjust",
-    "alignment-baseline", "anchor-point", "animation", "animation-delay",
-    "animation-direction", "animation-duration", "animation-fill-mode",
-    "animation-iteration-count", "animation-name", "animation-play-state",
-    "animation-timing-function", "appearance", "azimuth", "backface-visibility",
-    "background", "background-attachment", "background-blend-mode", "background-clip",
-    "background-color", "background-image", "background-origin", "background-position",
-    "background-repeat", "background-size", "baseline-shift", "binding",
-    "bleed", "bookmark-label", "bookmark-level", "bookmark-state",
-    "bookmark-target", "border", "border-bottom", "border-bottom-color",
-    "border-bottom-left-radius", "border-bottom-right-radius",
-    "border-bottom-style", "border-bottom-width", "border-collapse",
-    "border-color", "border-image", "border-image-outset",
-    "border-image-repeat", "border-image-slice", "border-image-source",
-    "border-image-width", "border-left", "border-left-color",
-    "border-left-style", "border-left-width", "border-radius", "border-right",
-    "border-right-color", "border-right-style", "border-right-width",
-    "border-spacing", "border-style", "border-top", "border-top-color",
-    "border-top-left-radius", "border-top-right-radius", "border-top-style",
-    "border-top-width", "border-width", "bottom", "box-decoration-break",
-    "box-shadow", "box-sizing", "break-after", "break-before", "break-inside",
-    "caption-side", "caret-color", "clear", "clip", "color", "color-profile", "column-count",
-    "column-fill", "column-gap", "column-rule", "column-rule-color",
-    "column-rule-style", "column-rule-width", "column-span", "column-width",
-    "columns", "content", "counter-increment", "counter-reset", "crop", "cue",
-    "cue-after", "cue-before", "cursor", "direction", "display",
-    "dominant-baseline", "drop-initial-after-adjust",
-    "drop-initial-after-align", "drop-initial-before-adjust",
-    "drop-initial-before-align", "drop-initial-size", "drop-initial-value",
-    "elevation", "empty-cells", "fit", "fit-position", "flex", "flex-basis",
-    "flex-direction", "flex-flow", "flex-grow", "flex-shrink", "flex-wrap",
-    "float", "float-offset", "flow-from", "flow-into", "font", "font-feature-settings",
-    "font-family", "font-kerning", "font-language-override", "font-size", "font-size-adjust",
-    "font-stretch", "font-style", "font-synthesis", "font-variant",
-    "font-variant-alternates", "font-variant-caps", "font-variant-east-asian",
-    "font-variant-ligatures", "font-variant-numeric", "font-variant-position",
-    "font-weight", "grid", "grid-area", "grid-auto-columns", "grid-auto-flow",
-    "grid-auto-rows", "grid-column", "grid-column-end", "grid-column-gap",
-    "grid-column-start", "grid-gap", "grid-row", "grid-row-end", "grid-row-gap",
-    "grid-row-start", "grid-template", "grid-template-areas", "grid-template-columns",
-    "grid-template-rows", "hanging-punctuation", "height", "hyphens",
-    "icon", "image-orientation", "image-rendering", "image-resolution",
-    "inline-box-align", "justify-content", "justify-items", "justify-self", "left", "letter-spacing",
-    "line-break", "line-height", "line-stacking", "line-stacking-ruby",
-    "line-stacking-shift", "line-stacking-strategy", "list-style",
-    "list-style-image", "list-style-position", "list-style-type", "margin",
-    "margin-bottom", "margin-left", "margin-right", "margin-top",
-    "marks", "marquee-direction", "marquee-loop",
-    "marquee-play-count", "marquee-speed", "marquee-style", "max-height",
-    "max-width", "min-height", "min-width", "move-to", "nav-down", "nav-index",
-    "nav-left", "nav-right", "nav-up", "object-fit", "object-position",
-    "opacity", "order", "orphans", "outline",
-    "outline-color", "outline-offset", "outline-style", "outline-width",
-    "overflow", "overflow-style", "overflow-wrap", "overflow-x", "overflow-y",
-    "padding", "padding-bottom", "padding-left", "padding-right", "padding-top",
-    "page", "page-break-after", "page-break-before", "page-break-inside",
-    "page-policy", "pause", "pause-after", "pause-before", "perspective",
-    "perspective-origin", "pitch", "pitch-range", "place-content", "place-items", "place-self", "play-during", "position",
-    "presentation-level", "punctuation-trim", "quotes", "region-break-after",
-    "region-break-before", "region-break-inside", "region-fragment",
-    "rendering-intent", "resize", "rest", "rest-after", "rest-before", "richness",
-    "right", "rotation", "rotation-point", "ruby-align", "ruby-overhang",
-    "ruby-position", "ruby-span", "shape-image-threshold", "shape-inside", "shape-margin",
-    "shape-outside", "size", "speak", "speak-as", "speak-header",
-    "speak-numeral", "speak-punctuation", "speech-rate", "stress", "string-set",
-    "tab-size", "table-layout", "target", "target-name", "target-new",
-    "target-position", "text-align", "text-align-last", "text-decoration",
-    "text-decoration-color", "text-decoration-line", "text-decoration-skip",
-    "text-decoration-style", "text-emphasis", "text-emphasis-color",
-    "text-emphasis-position", "text-emphasis-style", "text-height",
-    "text-indent", "text-justify", "text-outline", "text-overflow", "text-shadow",
-    "text-size-adjust", "text-space-collapse", "text-transform", "text-underline-position",
-    "text-wrap", "top", "transform", "transform-origin", "transform-style",
-    "transition", "transition-delay", "transition-duration",
-    "transition-property", "transition-timing-function", "unicode-bidi",
-    "user-select", "vertical-align", "visibility", "voice-balance", "voice-duration",
-    "voice-family", "voice-pitch", "voice-range", "voice-rate", "voice-stress",
-    "voice-volume", "volume", "white-space", "widows", "width", "will-change", "word-break",
-    "word-spacing", "word-wrap", "z-index",
-    // SVG-specific
-    "clip-path", "clip-rule", "mask", "enable-background", "filter", "flood-color",
-    "flood-opacity", "lighting-color", "stop-color", "stop-opacity", "pointer-events",
-    "color-interpolation", "color-interpolation-filters",
-    "color-rendering", "fill", "fill-opacity", "fill-rule", "image-rendering",
-    "marker", "marker-end", "marker-mid", "marker-start", "shape-rendering", "stroke",
-    "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
-    "stroke-miterlimit", "stroke-opacity", "stroke-width", "text-rendering",
-    "baseline-shift", "dominant-baseline", "glyph-orientation-horizontal",
-    "glyph-orientation-vertical", "text-anchor", "writing-mode"
-  ], propertyKeywords = keySet(propertyKeywords_);
-
-  var nonStandardPropertyKeywords_ = [
-    "scrollbar-arrow-color", "scrollbar-base-color", "scrollbar-dark-shadow-color",
-    "scrollbar-face-color", "scrollbar-highlight-color", "scrollbar-shadow-color",
-    "scrollbar-3d-light-color", "scrollbar-track-color", "shape-inside",
-    "searchfield-cancel-button", "searchfield-decoration", "searchfield-results-button",
-    "searchfield-results-decoration", "zoom"
-  ], nonStandardPropertyKeywords = keySet(nonStandardPropertyKeywords_);
-
-  var fontProperties_ = [
-    "font-family", "src", "unicode-range", "font-variant", "font-feature-settings",
-    "font-stretch", "font-weight", "font-style"
-  ], fontProperties = keySet(fontProperties_);
-
-  var counterDescriptors_ = [
-    "additive-symbols", "fallback", "negative", "pad", "prefix", "range",
-    "speak-as", "suffix", "symbols", "system"
-  ], counterDescriptors = keySet(counterDescriptors_);
-
-  var colorKeywords_ = [
-    "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige",
-    "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown",
-    "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue",
-    "cornsilk", "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod",
-    "darkgray", "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
-    "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
-    "darkslateblue", "darkslategray", "darkturquoise", "darkviolet",
-    "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick",
-    "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite",
-    "gold", "goldenrod", "gray", "grey", "green", "greenyellow", "honeydew",
-    "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
-    "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
-    "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightpink",
-    "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray",
-    "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta",
-    "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple",
-    "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise",
-    "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin",
-    "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered",
-    "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred",
-    "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue",
-    "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown",
-    "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue",
-    "slateblue", "slategray", "snow", "springgreen", "steelblue", "tan",
-    "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white",
-    "whitesmoke", "yellow", "yellowgreen"
-  ], colorKeywords = keySet(colorKeywords_);
-
-  var valueKeywords_ = [
-    "above", "absolute", "activeborder", "additive", "activecaption", "afar",
-    "after-white-space", "ahead", "alias", "all", "all-scroll", "alphabetic", "alternate",
-    "always", "amharic", "amharic-abegede", "antialiased", "appworkspace",
-    "arabic-indic", "armenian", "asterisks", "attr", "auto", "auto-flow", "avoid", "avoid-column", "avoid-page",
-    "avoid-region", "background", "backwards", "baseline", "below", "bidi-override", "binary",
-    "bengali", "blink", "block", "block-axis", "bold", "bolder", "border", "border-box",
-    "both", "bottom", "break", "break-all", "break-word", "bullets", "button", "button-bevel",
-    "buttonface", "buttonhighlight", "buttonshadow", "buttontext", "calc", "cambodian",
-    "capitalize", "caps-lock-indicator", "caption", "captiontext", "caret",
-    "cell", "center", "checkbox", "circle", "cjk-decimal", "cjk-earthly-branch",
-    "cjk-heavenly-stem", "cjk-ideographic", "clear", "clip", "close-quote",
-    "col-resize", "collapse", "color", "color-burn", "color-dodge", "column", "column-reverse",
-    "compact", "condensed", "contain", "content", "contents",
-    "content-box", "context-menu", "continuous", "copy", "counter", "counters", "cover", "crop",
-    "cross", "crosshair", "currentcolor", "cursive", "cyclic", "darken", "dashed", "decimal",
-    "decimal-leading-zero", "default", "default-button", "dense", "destination-atop",
-    "destination-in", "destination-out", "destination-over", "devanagari", "difference",
-    "disc", "discard", "disclosure-closed", "disclosure-open", "document",
-    "dot-dash", "dot-dot-dash",
-    "dotted", "double", "down", "e-resize", "ease", "ease-in", "ease-in-out", "ease-out",
-    "element", "ellipse", "ellipsis", "embed", "end", "ethiopic", "ethiopic-abegede",
-    "ethiopic-abegede-am-et", "ethiopic-abegede-gez", "ethiopic-abegede-ti-er",
-    "ethiopic-abegede-ti-et", "ethiopic-halehame-aa-er",
-    "ethiopic-halehame-aa-et", "ethiopic-halehame-am-et",
-    "ethiopic-halehame-gez", "ethiopic-halehame-om-et",
-    "ethiopic-halehame-sid-et", "ethiopic-halehame-so-et",
-    "ethiopic-halehame-ti-er", "ethiopic-halehame-ti-et", "ethiopic-halehame-tig",
-    "ethiopic-numeric", "ew-resize", "exclusion", "expanded", "extends", "extra-condensed",
-    "extra-expanded", "fantasy", "fast", "fill", "fixed", "flat", "flex", "flex-end", "flex-start", "footnotes",
-    "forwards", "from", "geometricPrecision", "georgian", "graytext", "grid", "groove",
-    "gujarati", "gurmukhi", "hand", "hangul", "hangul-consonant", "hard-light", "hebrew",
-    "help", "hidden", "hide", "higher", "highlight", "highlighttext",
-    "hiragana", "hiragana-iroha", "horizontal", "hsl", "hsla", "hue", "icon", "ignore",
-    "inactiveborder", "inactivecaption", "inactivecaptiontext", "infinite",
-    "infobackground", "infotext", "inherit", "initial", "inline", "inline-axis",
-    "inline-block", "inline-flex", "inline-grid", "inline-table", "inset", "inside", "intrinsic", "invert",
-    "italic", "japanese-formal", "japanese-informal", "justify", "kannada",
-    "katakana", "katakana-iroha", "keep-all", "khmer",
-    "korean-hangul-formal", "korean-hanja-formal", "korean-hanja-informal",
-    "landscape", "lao", "large", "larger", "left", "level", "lighter", "lighten",
-    "line-through", "linear", "linear-gradient", "lines", "list-item", "listbox", "listitem",
-    "local", "logical", "loud", "lower", "lower-alpha", "lower-armenian",
-    "lower-greek", "lower-hexadecimal", "lower-latin", "lower-norwegian",
-    "lower-roman", "lowercase", "ltr", "luminosity", "malayalam", "match", "matrix", "matrix3d",
-    "media-controls-background", "media-current-time-display",
-    "media-fullscreen-button", "media-mute-button", "media-play-button",
-    "media-return-to-realtime-button", "media-rewind-button",
-    "media-seek-back-button", "media-seek-forward-button", "media-slider",
-    "media-sliderthumb", "media-time-remaining-display", "media-volume-slider",
-    "media-volume-slider-container", "media-volume-sliderthumb", "medium",
-    "menu", "menulist", "menulist-button", "menulist-text",
-    "menulist-textfield", "menutext", "message-box", "middle", "min-intrinsic",
-    "mix", "mongolian", "monospace", "move", "multiple", "multiply", "myanmar", "n-resize",
-    "narrower", "ne-resize", "nesw-resize", "no-close-quote", "no-drop",
-    "no-open-quote", "no-repeat", "none", "normal", "not-allowed", "nowrap",
-    "ns-resize", "numbers", "numeric", "nw-resize", "nwse-resize", "oblique", "octal", "opacity", "open-quote",
-    "optimizeLegibility", "optimizeSpeed", "oriya", "oromo", "outset",
-    "outside", "outside-shape", "overlay", "overline", "padding", "padding-box",
-    "painted", "page", "paused", "persian", "perspective", "plus-darker", "plus-lighter",
-    "pointer", "polygon", "portrait", "pre", "pre-line", "pre-wrap", "preserve-3d",
-    "progress", "push-button", "radial-gradient", "radio", "read-only",
-    "read-write", "read-write-plaintext-only", "rectangle", "region",
-    "relative", "repeat", "repeating-linear-gradient",
-    "repeating-radial-gradient", "repeat-x", "repeat-y", "reset", "reverse",
-    "rgb", "rgba", "ridge", "right", "rotate", "rotate3d", "rotateX", "rotateY",
-    "rotateZ", "round", "row", "row-resize", "row-reverse", "rtl", "run-in", "running",
-    "s-resize", "sans-serif", "saturation", "scale", "scale3d", "scaleX", "scaleY", "scaleZ", "screen",
-    "scroll", "scrollbar", "scroll-position", "se-resize", "searchfield",
-    "searchfield-cancel-button", "searchfield-decoration",
-    "searchfield-results-button", "searchfield-results-decoration", "self-start", "self-end",
-    "semi-condensed", "semi-expanded", "separate", "serif", "show", "sidama",
-    "simp-chinese-formal", "simp-chinese-informal", "single",
-    "skew", "skewX", "skewY", "skip-white-space", "slide", "slider-horizontal",
-    "slider-vertical", "sliderthumb-horizontal", "sliderthumb-vertical", "slow",
-    "small", "small-caps", "small-caption", "smaller", "soft-light", "solid", "somali",
-    "source-atop", "source-in", "source-out", "source-over", "space", "space-around", "space-between", "space-evenly", "spell-out", "square",
-    "square-button", "start", "static", "status-bar", "stretch", "stroke", "sub",
-    "subpixel-antialiased", "super", "sw-resize", "symbolic", "symbols", "system-ui", "table",
-    "table-caption", "table-cell", "table-column", "table-column-group",
-    "table-footer-group", "table-header-group", "table-row", "table-row-group",
-    "tamil",
-    "telugu", "text", "text-bottom", "text-top", "textarea", "textfield", "thai",
-    "thick", "thin", "threeddarkshadow", "threedface", "threedhighlight",
-    "threedlightshadow", "threedshadow", "tibetan", "tigre", "tigrinya-er",
-    "tigrinya-er-abegede", "tigrinya-et", "tigrinya-et-abegede", "to", "top",
-    "trad-chinese-formal", "trad-chinese-informal", "transform",
-    "translate", "translate3d", "translateX", "translateY", "translateZ",
-    "transparent", "ultra-condensed", "ultra-expanded", "underline", "unset", "up",
-    "upper-alpha", "upper-armenian", "upper-greek", "upper-hexadecimal",
-    "upper-latin", "upper-norwegian", "upper-roman", "uppercase", "urdu", "url",
-    "var", "vertical", "vertical-text", "visible", "visibleFill", "visiblePainted",
-    "visibleStroke", "visual", "w-resize", "wait", "wave", "wider",
-    "window", "windowframe", "windowtext", "words", "wrap", "wrap-reverse", "x-large", "x-small", "xor",
-    "xx-large", "xx-small"
-  ], valueKeywords = keySet(valueKeywords_);
-
-  var allWords = documentTypes_.concat(mediaTypes_).concat(mediaFeatures_).concat(mediaValueKeywords_)
-    .concat(propertyKeywords_).concat(nonStandardPropertyKeywords_).concat(colorKeywords_)
-    .concat(valueKeywords_);
-  CodeMirror.registerHelper("hintWords", "css", allWords);
-
-  function tokenCComment(stream, state) {
-    var maybeEnd = false, ch;
-    while ((ch = stream.next()) != null) {
-      if (maybeEnd && ch == "/") {
-        state.tokenize = null;
-        break;
-      }
-      maybeEnd = (ch == "*");
-    }
-    return ["comment", "comment"];
-  }
-
-  CodeMirror.defineMIME("text/css", {
-    documentTypes: documentTypes,
-    mediaTypes: mediaTypes,
-    mediaFeatures: mediaFeatures,
-    mediaValueKeywords: mediaValueKeywords,
-    propertyKeywords: propertyKeywords,
-    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
-    fontProperties: fontProperties,
-    counterDescriptors: counterDescriptors,
-    colorKeywords: colorKeywords,
-    valueKeywords: valueKeywords,
-    tokenHooks: {
-      "/": function(stream, state) {
-        if (!stream.eat("*")) return false;
-        state.tokenize = tokenCComment;
-        return tokenCComment(stream, state);
-      }
-    },
-    name: "css"
-  });
-
-  CodeMirror.defineMIME("text/x-scss", {
-    mediaTypes: mediaTypes,
-    mediaFeatures: mediaFeatures,
-    mediaValueKeywords: mediaValueKeywords,
-    propertyKeywords: propertyKeywords,
-    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
-    colorKeywords: colorKeywords,
-    valueKeywords: valueKeywords,
-    fontProperties: fontProperties,
-    allowNested: true,
-    lineComment: "//",
-    tokenHooks: {
-      "/": function(stream, state) {
-        if (stream.eat("/")) {
-          stream.skipToEnd();
-          return ["comment", "comment"];
-        } else if (stream.eat("*")) {
-          state.tokenize = tokenCComment;
-          return tokenCComment(stream, state);
-        } else {
-          return ["operator", "operator"];
-        }
-      },
-      ":": function(stream) {
-        if (stream.match(/\s*\{/, false))
-          return [null, null]
-        return false;
-      },
-      "$": function(stream) {
-        stream.match(/^[\w-]+/);
-        if (stream.match(/^\s*:/, false))
-          return ["variable-2", "variable-definition"];
-        return ["variable-2", "variable"];
-      },
-      "#": function(stream) {
-        if (!stream.eat("{")) return false;
-        return [null, "interpolation"];
-      }
-    },
-    name: "css",
-    helperType: "scss"
-  });
-
-  CodeMirror.defineMIME("text/x-less", {
-    mediaTypes: mediaTypes,
-    mediaFeatures: mediaFeatures,
-    mediaValueKeywords: mediaValueKeywords,
-    propertyKeywords: propertyKeywords,
-    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
-    colorKeywords: colorKeywords,
-    valueKeywords: valueKeywords,
-    fontProperties: fontProperties,
-    allowNested: true,
-    lineComment: "//",
-    tokenHooks: {
-      "/": function(stream, state) {
-        if (stream.eat("/")) {
-          stream.skipToEnd();
-          return ["comment", "comment"];
-        } else if (stream.eat("*")) {
-          state.tokenize = tokenCComment;
-          return tokenCComment(stream, state);
-        } else {
-          return ["operator", "operator"];
-        }
-      },
-      "@": function(stream) {
-        if (stream.eat("{")) return [null, "interpolation"];
-        if (stream.match(/^(charset|document|font-face|import|(-(moz|ms|o|webkit)-)?keyframes|media|namespace|page|supports)\b/, false)) return false;
-        stream.eatWhile(/[\w\\\-]/);
-        if (stream.match(/^\s*:/, false))
-          return ["variable-2", "variable-definition"];
-        return ["variable-2", "variable"];
-      },
-      "&": function() {
-        return ["atom", "atom"];
-      }
-    },
-    name: "css",
-    helperType: "less"
-  });
-
-  CodeMirror.defineMIME("text/x-gss", {
-    documentTypes: documentTypes,
-    mediaTypes: mediaTypes,
-    mediaFeatures: mediaFeatures,
-    propertyKeywords: propertyKeywords,
-    nonStandardPropertyKeywords: nonStandardPropertyKeywords,
-    fontProperties: fontProperties,
-    counterDescriptors: counterDescriptors,
-    colorKeywords: colorKeywords,
-    valueKeywords: valueKeywords,
-    supportsAtComponent: true,
-    tokenHooks: {
-      "/": function(stream, state) {
-        if (!stream.eat("*")) return false;
-        state.tokenize = tokenCComment;
-        return tokenCComment(stream, state);
-      }
-    },
-    name: "css",
-    helperType: "gss"
-  });
-
-});
-
-
-/***/ }),
-
-/***/ 48:
-/* exports provided: cn, en */
-/* exports used: cn, en */
-/*!**********************************************************!*\
-  !*** ./app/javascript/packs/modules/createOrEditGist.js ***!
-  \**********************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = cn;
-/* harmony export (immutable) */ __webpack_exports__["b"] = en;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_markdownTextArea__ = __webpack_require__(/*! ../common/markdownTextArea */ 65);
-
-
-var mdIns = void 0;
-var gistExtensionEle = void 0;
-
-function changeOption(ev) {
-  mdIns.changeOption('mode', ev.target.value);
-}
-
-function cn() {
-  mdIns = new __WEBPACK_IMPORTED_MODULE_0__common_markdownTextArea__["a" /* default */]({
-    formEle: document.getElementsByClassName('gist_form')[0],
-    textAreas: [document.getElementById('gist_content'), document.getElementById('gist_answer')],
-    submitEle: document.getElementsByClassName('c-form-submit')[0],
-    formContainer: document.getElementsByClassName('gist-container')[0]
-  });
-  gistExtensionEle = document.getElementById('gist_extension');
-  console.log(gistExtensionEle.value);
-  mdIns.init({ language: gistExtensionEle.value });
-  gistExtensionEle.addEventListener('change', changeOption);
-}
-
-function en() {
-  mdIns.destroy();
-  gistExtensionEle.removeEventListener('change', changeOption);
-}
-
-/***/ }),
-
-/***/ 65:
-/* exports provided: default */
-/* exports used: default */
-/*!*********************************************************!*\
-  !*** ./app/javascript/packs/common/markdownTextArea.js ***!
-  \*********************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_codemirror_lib_codemirror_css__ = __webpack_require__(/*! codemirror/lib/codemirror.css */ 30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_codemirror_lib_codemirror_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_codemirror_lib_codemirror_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_codemirror__ = __webpack_require__(/*! codemirror */ 1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_codemirror___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_codemirror__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_codemirror_mode_markdown_markdown__ = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_codemirror_mode_markdown_markdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_codemirror_mode_markdown_markdown__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_codemirror_mode_css_css__ = __webpack_require__(/*! codemirror/mode/css/css */ 42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_codemirror_mode_css_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_codemirror_mode_css_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_codemirror_mode_sass_sass__ = __webpack_require__(/*! codemirror/mode/sass/sass */ 86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_codemirror_mode_sass_sass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_codemirror_mode_sass_sass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_codemirror_mode_ruby_ruby__ = __webpack_require__(/*! codemirror/mode/ruby/ruby */ 85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_codemirror_mode_ruby_ruby___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_codemirror_mode_ruby_ruby__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_codemirror_mode_javascript_javascript__ = __webpack_require__(/*! codemirror/mode/javascript/javascript */ 84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_codemirror_mode_javascript_javascript___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_codemirror_mode_javascript_javascript__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_codemirror_addon_selection_active_line__ = __webpack_require__(/*! codemirror/addon/selection/active-line */ 24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_codemirror_addon_selection_active_line___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_codemirror_addon_selection_active_line__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-
-
-
-
-
-
-/*
- * todo: add support for multiple textarea
- */
-
-var _class = function () {
-  function _class() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    _classCallCheck(this, _class);
-
-    this.formEle = options.formEle;
-    this.textAreas = options.textAreas;
-    this.submitEle = options.submitEle;
-    this.formContainer = options.formContainer;
-    this.cmInstances = [];
-    this.fd = null;
-    this.fa = '';
-    this.cb = null;
-  }
-
-  _createClass(_class, [{
-    key: 'clickBind',
-    value: function clickBind(ev) {
-      ev.preventDefault();
-      for (var i = 0; i < this.cmInstances.length; i++) {
-        this.cmInstances[i].textAreaEle.value = this.cmInstances[i].cmInstance.getValue();
-      }
-      // this.fa = this.formEle.action;
-      // this.fd = new FormData(this.formEle);
-      // console.log(this)
-      // window.A.spf.load(this.fa, {
-      //   method: "POST",
-      //   postData: this.fd,
-      //   onProcess: function(evt) {
-      //   },
-      //   onDone: function(evt) {
-      //     if(evt.response.status && evt.response.status === 'success') {
-      //       if (evt.response.url) A.spf.navigate(evt.response.url);
-      //     }
-      //   }
-      // });
-    }
-  }, {
-    key: 'createCMInstance',
-    value: function createCMInstance(ta) {
-      var language = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'markdown';
-
-      var cmIns = __WEBPACK_IMPORTED_MODULE_1_codemirror___default.a.fromTextArea(ta, {
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: language,
-        styleActiveLine: true,
-        lineSeparator: '\n',
-        matchBrackets: true,
-        viewportMargin: Infinity,
-        scrollbarStyle: 'null',
-        extraKeys: {
-          'Tab': function Tab() {
-            return cmIns.execCommand('insertSoftTab');
-          }
-        }
-      });
-      // cmIns.setSize('100%', '50%');
-      // cmIns.refresh()
-      return cmIns;
-    }
-  }, {
-    key: 'init',
-    value: function init(opts) {
-      for (var i = 0; i < this.textAreas.length; i++) {
-        this.cmInstances.push({
-          cmInstance: this.createCMInstance(this.textAreas[i], opts.language),
-          textAreaEle: this.textAreas[i]
-        });
-      }
-      this.cb = this.clickBind.bind(this);
-      this.submitEle.addEventListener('click', this.cb);
-    }
-  }, {
-    key: 'changeOption',
-    value: function changeOption(field, val) {
-      for (var i = 0; i < this.cmInstances.length; i++) {
-        this.cmInstances[i].cmInstance.setOption(field, val);
-      }
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this.formContainer.classList.add('c-hidden');
-      for (var i = 0; i < this.cmInstances.length; i++) {
-        this.cmInstances[i].cmInstance.toTextArea();
-        this.cmInstances[i].cmInstance = null;
-      }
-      this.submitEle.removeEventListener('click', this.cb);
-    }
-  }]);
-
-  return _class;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (_class);
-
-/***/ }),
-
-/***/ 72:
-/* no static exports found */
-/* all exports used */
-/*!**********************************************************!*\
-  !*** ./app/javascript/packs/entries/createOrEditGist.js ***!
-  \**********************************************************/
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_createOrEditGist__ = __webpack_require__(/*! ../modules/createOrEditGist */ 48);
-
-(function () {
-  A.init[A.gc.currentName] = __WEBPACK_IMPORTED_MODULE_0__modules_createOrEditGist__["a" /* cn */];
-  A.destroy[A.gc.currentName] = __WEBPACK_IMPORTED_MODULE_0__modules_createOrEditGist__["b" /* en */];
-})();
-
-/***/ }),
-
-/***/ 84:
-/* no static exports found */
-/*!****************************************************!*\
-  !*** ./~/codemirror/mode/javascript/javascript.js ***!
-  \****************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
-
-(function(mod) {
-  if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 1));
-  else if (typeof define == "function" && define.amd) // AMD
-    define(["../../lib/codemirror"], mod);
-  else // Plain browser env
-    mod(CodeMirror);
-})(function(CodeMirror) {
-"use strict";
-
-CodeMirror.defineMode("javascript", function(config, parserConfig) {
-  var indentUnit = config.indentUnit;
-  var statementIndent = parserConfig.statementIndent;
-  var jsonldMode = parserConfig.jsonld;
-  var jsonMode = parserConfig.json || jsonldMode;
-  var isTS = parserConfig.typescript;
-  var wordRE = parserConfig.wordCharacters || /[\w$\xa1-\uffff]/;
-
-  // Tokenizer
-
-  var keywords = function(){
-    function kw(type) {return {type: type, style: "keyword"};}
-    var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c");
-    var operator = kw("operator"), atom = {type: "atom", style: "atom"};
-
-    var jsKeywords = {
-      "if": kw("if"), "while": A, "with": A, "else": B, "do": B, "try": B, "finally": B,
-      "return": C, "break": C, "continue": C, "new": kw("new"), "delete": C, "throw": C, "debugger": C,
-      "var": kw("var"), "const": kw("var"), "let": kw("var"),
-      "function": kw("function"), "catch": kw("catch"),
-      "for": kw("for"), "switch": kw("switch"), "case": kw("case"), "default": kw("default"),
-      "in": operator, "typeof": operator, "instanceof": operator,
-      "true": atom, "false": atom, "null": atom, "undefined": atom, "NaN": atom, "Infinity": atom,
-      "this": kw("this"), "class": kw("class"), "super": kw("atom"),
-      "yield": C, "export": kw("export"), "import": kw("import"), "extends": C,
-      "await": C
-    };
-
-    // Extend the 'normal' keywords with the TypeScript language extensions
-    if (isTS) {
-      var type = {type: "variable", style: "type"};
-      var tsKeywords = {
-        // object-like things
-        "interface": kw("class"),
-        "implements": C,
-        "namespace": C,
-        "module": kw("module"),
-        "enum": kw("module"),
-
-        // scope modifiers
-        "public": kw("modifier"),
-        "private": kw("modifier"),
-        "protected": kw("modifier"),
-        "abstract": kw("modifier"),
-        "readonly": kw("modifier"),
-
-        // types
-        "string": type, "number": type, "boolean": type, "any": type
-      };
-
-      for (var attr in tsKeywords) {
-        jsKeywords[attr] = tsKeywords[attr];
-      }
-    }
-
-    return jsKeywords;
-  }();
-
-  var isOperatorChar = /[+\-*&%=<>!?|~^@]/;
-  var isJsonldKeyword = /^@(context|id|value|language|type|container|list|set|reverse|index|base|vocab|graph)"/;
-
-  function readRegexp(stream) {
-    var escaped = false, next, inSet = false;
-    while ((next = stream.next()) != null) {
-      if (!escaped) {
-        if (next == "/" && !inSet) return;
-        if (next == "[") inSet = true;
-        else if (inSet && next == "]") inSet = false;
-      }
-      escaped = !escaped && next == "\\";
-    }
-  }
-
-  // Used as scratch variables to communicate multiple values without
-  // consing up tons of objects.
-  var type, content;
-  function ret(tp, style, cont) {
-    type = tp; content = cont;
-    return style;
-  }
-  function tokenBase(stream, state) {
-    var ch = stream.next();
-    if (ch == '"' || ch == "'") {
-      state.tokenize = tokenString(ch);
-      return state.tokenize(stream, state);
-    } else if (ch == "." && stream.match(/^\d+(?:[eE][+\-]?\d+)?/)) {
-      return ret("number", "number");
-    } else if (ch == "." && stream.match("..")) {
-      return ret("spread", "meta");
-    } else if (/[\[\]{}\(\),;\:\.]/.test(ch)) {
-      return ret(ch);
-    } else if (ch == "=" && stream.eat(">")) {
-      return ret("=>", "operator");
-    } else if (ch == "0" && stream.eat(/x/i)) {
-      stream.eatWhile(/[\da-f]/i);
-      return ret("number", "number");
-    } else if (ch == "0" && stream.eat(/o/i)) {
-      stream.eatWhile(/[0-7]/i);
-      return ret("number", "number");
-    } else if (ch == "0" && stream.eat(/b/i)) {
-      stream.eatWhile(/[01]/i);
-      return ret("number", "number");
-    } else if (/\d/.test(ch)) {
-      stream.match(/^\d*(?:\.\d*)?(?:[eE][+\-]?\d+)?/);
-      return ret("number", "number");
-    } else if (ch == "/") {
-      if (stream.eat("*")) {
-        state.tokenize = tokenComment;
-        return tokenComment(stream, state);
-      } else if (stream.eat("/")) {
-        stream.skipToEnd();
-        return ret("comment", "comment");
-      } else if (expressionAllowed(stream, state, 1)) {
-        readRegexp(stream);
-        stream.match(/^\b(([gimyu])(?![gimyu]*\2))+\b/);
-        return ret("regexp", "string-2");
-      } else {
-        stream.eatWhile(isOperatorChar);
-        return ret("operator", "operator", stream.current());
-      }
-    } else if (ch == "`") {
-      state.tokenize = tokenQuasi;
-      return tokenQuasi(stream, state);
-    } else if (ch == "#") {
-      stream.skipToEnd();
-      return ret("error", "error");
-    } else if (isOperatorChar.test(ch)) {
-      if (ch != ">" || !state.lexical || state.lexical.type != ">")
-        stream.eatWhile(isOperatorChar);
-      return ret("operator", "operator", stream.current());
-    } else if (wordRE.test(ch)) {
-      stream.eatWhile(wordRE);
-      var word = stream.current()
-      if (state.lastType != ".") {
-        if (keywords.propertyIsEnumerable(word)) {
-          var kw = keywords[word]
-          return ret(kw.type, kw.style, word)
-        }
-        if (word == "async" && stream.match(/^\s*[\(\w]/, false))
-          return ret("async", "keyword", word)
-      }
-      return ret("variable", "variable", word)
-    }
-  }
-
-  function tokenString(quote) {
-    return function(stream, state) {
-      var escaped = false, next;
-      if (jsonldMode && stream.peek() == "@" && stream.match(isJsonldKeyword)){
-        state.tokenize = tokenBase;
-        return ret("jsonld-keyword", "meta");
-      }
-      while ((next = stream.next()) != null) {
-        if (next == quote && !escaped) break;
-        escaped = !escaped && next == "\\";
-      }
-      if (!escaped) state.tokenize = tokenBase;
-      return ret("string", "string");
-    };
-  }
-
-  function tokenComment(stream, state) {
-    var maybeEnd = false, ch;
-    while (ch = stream.next()) {
-      if (ch == "/" && maybeEnd) {
-        state.tokenize = tokenBase;
-        break;
-      }
-      maybeEnd = (ch == "*");
-    }
-    return ret("comment", "comment");
-  }
-
-  function tokenQuasi(stream, state) {
-    var escaped = false, next;
-    while ((next = stream.next()) != null) {
-      if (!escaped && (next == "`" || next == "$" && stream.eat("{"))) {
-        state.tokenize = tokenBase;
-        break;
-      }
-      escaped = !escaped && next == "\\";
-    }
-    return ret("quasi", "string-2", stream.current());
-  }
-
-  var brackets = "([{}])";
-  // This is a crude lookahead trick to try and notice that we're
-  // parsing the argument patterns for a fat-arrow function before we
-  // actually hit the arrow token. It only works if the arrow is on
-  // the same line as the arguments and there's no strange noise
-  // (comments) in between. Fallback is to only notice when we hit the
-  // arrow, and not declare the arguments as locals for the arrow
-  // body.
-  function findFatArrow(stream, state) {
-    if (state.fatArrowAt) state.fatArrowAt = null;
-    var arrow = stream.string.indexOf("=>", stream.start);
-    if (arrow < 0) return;
-
-    if (isTS) { // Try to skip TypeScript return type declarations after the arguments
-      var m = /:\s*(?:\w+(?:<[^>]*>|\[\])?|\{[^}]*\})\s*$/.exec(stream.string.slice(stream.start, arrow))
-      if (m) arrow = m.index
-    }
-
-    var depth = 0, sawSomething = false;
-    for (var pos = arrow - 1; pos >= 0; --pos) {
-      var ch = stream.string.charAt(pos);
-      var bracket = brackets.indexOf(ch);
-      if (bracket >= 0 && bracket < 3) {
-        if (!depth) { ++pos; break; }
-        if (--depth == 0) { if (ch == "(") sawSomething = true; break; }
-      } else if (bracket >= 3 && bracket < 6) {
-        ++depth;
-      } else if (wordRE.test(ch)) {
-        sawSomething = true;
-      } else if (/["'\/]/.test(ch)) {
-        return;
-      } else if (sawSomething && !depth) {
-        ++pos;
-        break;
-      }
-    }
-    if (sawSomething && !depth) state.fatArrowAt = pos;
-  }
-
-  // Parser
-
-  var atomicTypes = {"atom": true, "number": true, "variable": true, "string": true, "regexp": true, "this": true, "jsonld-keyword": true};
-
-  function JSLexical(indented, column, type, align, prev, info) {
-    this.indented = indented;
-    this.column = column;
-    this.type = type;
-    this.prev = prev;
-    this.info = info;
-    if (align != null) this.align = align;
-  }
-
-  function inScope(state, varname) {
-    for (var v = state.localVars; v; v = v.next)
-      if (v.name == varname) return true;
-    for (var cx = state.context; cx; cx = cx.prev) {
-      for (var v = cx.vars; v; v = v.next)
-        if (v.name == varname) return true;
-    }
-  }
-
-  function parseJS(state, style, type, content, stream) {
-    var cc = state.cc;
-    // Communicate our context to the combinators.
-    // (Less wasteful than consing up a hundred closures on every call.)
-    cx.state = state; cx.stream = stream; cx.marked = null, cx.cc = cc; cx.style = style;
-
-    if (!state.lexical.hasOwnProperty("align"))
-      state.lexical.align = true;
-
-    while(true) {
-      var combinator = cc.length ? cc.pop() : jsonMode ? expression : statement;
-      if (combinator(type, content)) {
-        while(cc.length && cc[cc.length - 1].lex)
-          cc.pop()();
-        if (cx.marked) return cx.marked;
-        if (type == "variable" && inScope(state, content)) return "variable-2";
-        return style;
-      }
-    }
-  }
-
-  // Combinator utils
-
-  var cx = {state: null, column: null, marked: null, cc: null};
-  function pass() {
-    for (var i = arguments.length - 1; i >= 0; i--) cx.cc.push(arguments[i]);
-  }
-  function cont() {
-    pass.apply(null, arguments);
-    return true;
-  }
-  function register(varname) {
-    function inList(list) {
-      for (var v = list; v; v = v.next)
-        if (v.name == varname) return true;
-      return false;
-    }
-    var state = cx.state;
-    cx.marked = "def";
-    if (state.context) {
-      if (inList(state.localVars)) return;
-      state.localVars = {name: varname, next: state.localVars};
-    } else {
-      if (inList(state.globalVars)) return;
-      if (parserConfig.globalVars)
-        state.globalVars = {name: varname, next: state.globalVars};
-    }
-  }
-
-  // Combinators
-
-  var defaultVars = {name: "this", next: {name: "arguments"}};
-  function pushcontext() {
-    cx.state.context = {prev: cx.state.context, vars: cx.state.localVars};
-    cx.state.localVars = defaultVars;
-  }
-  function popcontext() {
-    cx.state.localVars = cx.state.context.vars;
-    cx.state.context = cx.state.context.prev;
-  }
-  function pushlex(type, info) {
-    var result = function() {
-      var state = cx.state, indent = state.indented;
-      if (state.lexical.type == "stat") indent = state.lexical.indented;
-      else for (var outer = state.lexical; outer && outer.type == ")" && outer.align; outer = outer.prev)
-        indent = outer.indented;
-      state.lexical = new JSLexical(indent, cx.stream.column(), type, null, state.lexical, info);
-    };
-    result.lex = true;
-    return result;
-  }
-  function poplex() {
-    var state = cx.state;
-    if (state.lexical.prev) {
-      if (state.lexical.type == ")")
-        state.indented = state.lexical.indented;
-      state.lexical = state.lexical.prev;
-    }
-  }
-  poplex.lex = true;
-
-  function expect(wanted) {
-    function exp(type) {
-      if (type == wanted) return cont();
-      else if (wanted == ";") return pass();
-      else return cont(exp);
-    };
-    return exp;
-  }
-
-  function statement(type, value) {
-    if (type == "var") return cont(pushlex("vardef", value.length), vardef, expect(";"), poplex);
-    if (type == "keyword a") return cont(pushlex("form"), parenExpr, statement, poplex);
-    if (type == "keyword b") return cont(pushlex("form"), statement, poplex);
-    if (type == "{") return cont(pushlex("}"), block, poplex);
-    if (type == ";") return cont();
-    if (type == "if") {
-      if (cx.state.lexical.info == "else" && cx.state.cc[cx.state.cc.length - 1] == poplex)
-        cx.state.cc.pop()();
-      return cont(pushlex("form"), parenExpr, statement, poplex, maybeelse);
-    }
-    if (type == "function") return cont(functiondef);
-    if (type == "for") return cont(pushlex("form"), forspec, statement, poplex);
-    if (type == "variable") {
-      if (isTS && value == "type") {
-        cx.marked = "keyword"
-        return cont(typeexpr, expect("operator"), typeexpr, expect(";"));
-      } if (isTS && value == "declare") {
-        cx.marked = "keyword"
-        return cont(statement)
-      } else {
-        return cont(pushlex("stat"), maybelabel);
-      }
-    }
-    if (type == "switch") return cont(pushlex("form"), parenExpr, expect("{"), pushlex("}", "switch"),
-                                      block, poplex, poplex);
-    if (type == "case") return cont(expression, expect(":"));
-    if (type == "default") return cont(expect(":"));
-    if (type == "catch") return cont(pushlex("form"), pushcontext, expect("("), funarg, expect(")"),
-                                     statement, poplex, popcontext);
-    if (type == "class") return cont(pushlex("form"), className, poplex);
-    if (type == "export") return cont(pushlex("stat"), afterExport, poplex);
-    if (type == "import") return cont(pushlex("stat"), afterImport, poplex);
-    if (type == "module") return cont(pushlex("form"), pattern, expect("{"), pushlex("}"), block, poplex, poplex)
-    if (type == "async") return cont(statement)
-    if (value == "@") return cont(expression, statement)
-    return pass(pushlex("stat"), expression, expect(";"), poplex);
-  }
-  function expression(type) {
-    return expressionInner(type, false);
-  }
-  function expressionNoComma(type) {
-    return expressionInner(type, true);
-  }
-  function parenExpr(type) {
-    if (type != "(") return pass()
-    return cont(pushlex(")"), expression, expect(")"), poplex)
-  }
-  function expressionInner(type, noComma) {
-    if (cx.state.fatArrowAt == cx.stream.start) {
-      var body = noComma ? arrowBodyNoComma : arrowBody;
-      if (type == "(") return cont(pushcontext, pushlex(")"), commasep(pattern, ")"), poplex, expect("=>"), body, popcontext);
-      else if (type == "variable") return pass(pushcontext, pattern, expect("=>"), body, popcontext);
-    }
-
-    var maybeop = noComma ? maybeoperatorNoComma : maybeoperatorComma;
-    if (atomicTypes.hasOwnProperty(type)) return cont(maybeop);
-    if (type == "function") return cont(functiondef, maybeop);
-    if (type == "class") return cont(pushlex("form"), classExpression, poplex);
-    if (type == "keyword c" || type == "async") return cont(noComma ? maybeexpressionNoComma : maybeexpression);
-    if (type == "(") return cont(pushlex(")"), maybeexpression, expect(")"), poplex, maybeop);
-    if (type == "operator" || type == "spread") return cont(noComma ? expressionNoComma : expression);
-    if (type == "[") return cont(pushlex("]"), arrayLiteral, poplex, maybeop);
-    if (type == "{") return contCommasep(objprop, "}", null, maybeop);
-    if (type == "quasi") return pass(quasi, maybeop);
-    if (type == "new") return cont(maybeTarget(noComma));
-    return cont();
-  }
-  function maybeexpression(type) {
-    if (type.match(/[;\}\)\],]/)) return pass();
-    return pass(expression);
-  }
-  function maybeexpressionNoComma(type) {
-    if (type.match(/[;\}\)\],]/)) return pass();
-    return pass(expressionNoComma);
-  }
-
-  function maybeoperatorComma(type, value) {
-    if (type == ",") return cont(expression);
-    return maybeoperatorNoComma(type, value, false);
-  }
-  function maybeoperatorNoComma(type, value, noComma) {
-    var me = noComma == false ? maybeoperatorComma : maybeoperatorNoComma;
-    var expr = noComma == false ? expression : expressionNoComma;
-    if (type == "=>") return cont(pushcontext, noComma ? arrowBodyNoComma : arrowBody, popcontext);
-    if (type == "operator") {
-      if (/\+\+|--/.test(value) || isTS && value == "!") return cont(me);
-      if (value == "?") return cont(expression, expect(":"), expr);
-      return cont(expr);
-    }
-    if (type == "quasi") { return pass(quasi, me); }
-    if (type == ";") return;
-    if (type == "(") return contCommasep(expressionNoComma, ")", "call", me);
-    if (type == ".") return cont(property, me);
-    if (type == "[") return cont(pushlex("]"), maybeexpression, expect("]"), poplex, me);
-    if (isTS && value == "as") { cx.marked = "keyword"; return cont(typeexpr, me) }
-  }
-  function quasi(type, value) {
-    if (type != "quasi") return pass();
-    if (value.slice(value.length - 2) != "${") return cont(quasi);
-    return cont(expression, continueQuasi);
-  }
-  function continueQuasi(type) {
-    if (type == "}") {
-      cx.marked = "string-2";
-      cx.state.tokenize = tokenQuasi;
-      return cont(quasi);
-    }
-  }
-  function arrowBody(type) {
-    findFatArrow(cx.stream, cx.state);
-    return pass(type == "{" ? statement : expression);
-  }
-  function arrowBodyNoComma(type) {
-    findFatArrow(cx.stream, cx.state);
-    return pass(type == "{" ? statement : expressionNoComma);
-  }
-  function maybeTarget(noComma) {
-    return function(type) {
-      if (type == ".") return cont(noComma ? targetNoComma : target);
-      else if (type == "variable" && isTS) return cont(maybeTypeArgs, noComma ? maybeoperatorNoComma : maybeoperatorComma)
-      else return pass(noComma ? expressionNoComma : expression);
-    };
-  }
-  function target(_, value) {
-    if (value == "target") { cx.marked = "keyword"; return cont(maybeoperatorComma); }
-  }
-  function targetNoComma(_, value) {
-    if (value == "target") { cx.marked = "keyword"; return cont(maybeoperatorNoComma); }
-  }
-  function maybelabel(type) {
-    if (type == ":") return cont(poplex, statement);
-    return pass(maybeoperatorComma, expect(";"), poplex);
-  }
-  function property(type) {
-    if (type == "variable") {cx.marked = "property"; return cont();}
-  }
-  function objprop(type, value) {
-    if (type == "async") {
-      cx.marked = "property";
-      return cont(objprop);
-    } else if (type == "variable" || cx.style == "keyword") {
-      cx.marked = "property";
-      if (value == "get" || value == "set") return cont(getterSetter);
-      return cont(afterprop);
-    } else if (type == "number" || type == "string") {
-      cx.marked = jsonldMode ? "property" : (cx.style + " property");
-      return cont(afterprop);
-    } else if (type == "jsonld-keyword") {
-      return cont(afterprop);
-    } else if (type == "modifier") {
-      return cont(objprop)
-    } else if (type == "[") {
-      return cont(expression, expect("]"), afterprop);
-    } else if (type == "spread") {
-      return cont(expression, afterprop);
-    } else if (type == ":") {
-      return pass(afterprop)
-    }
-  }
-  function getterSetter(type) {
-    if (type != "variable") return pass(afterprop);
-    cx.marked = "property";
-    return cont(functiondef);
-  }
-  function afterprop(type) {
-    if (type == ":") return cont(expressionNoComma);
-    if (type == "(") return pass(functiondef);
-  }
-  function commasep(what, end, sep) {
-    function proceed(type, value) {
-      if (sep ? sep.indexOf(type) > -1 : type == ",") {
-        var lex = cx.state.lexical;
-        if (lex.info == "call") lex.pos = (lex.pos || 0) + 1;
-        return cont(function(type, value) {
-          if (type == end || value == end) return pass()
-          return pass(what)
-        }, proceed);
-      }
-      if (type == end || value == end) return cont();
-      return cont(expect(end));
-    }
-    return function(type, value) {
-      if (type == end || value == end) return cont();
-      return pass(what, proceed);
-    };
-  }
-  function contCommasep(what, end, info) {
-    for (var i = 3; i < arguments.length; i++)
-      cx.cc.push(arguments[i]);
-    return cont(pushlex(end, info), commasep(what, end), poplex);
-  }
-  function block(type) {
-    if (type == "}") return cont();
-    return pass(statement, block);
-  }
-  function maybetype(type, value) {
-    if (isTS) {
-      if (type == ":") return cont(typeexpr);
-      if (value == "?") return cont(maybetype);
-    }
-  }
-  function typeexpr(type, value) {
-    if (type == "variable") {
-      if (value == "keyof") {
-        cx.marked = "keyword"
-        return cont(typeexpr)
-      } else {
-        cx.marked = "type"
-        return cont(afterType)
-      }
-    }
-    if (type == "string" || type == "number" || type == "atom") return cont(afterType);
-    if (type == "[") return cont(pushlex("]"), commasep(typeexpr, "]", ","), poplex, afterType)
-    if (type == "{") return cont(pushlex("}"), commasep(typeprop, "}", ",;"), poplex, afterType)
-    if (type == "(") return cont(commasep(typearg, ")"), maybeReturnType)
-  }
-  function maybeReturnType(type) {
-    if (type == "=>") return cont(typeexpr)
-  }
-  function typeprop(type, value) {
-    if (type == "variable" || cx.style == "keyword") {
-      cx.marked = "property"
-      return cont(typeprop)
-    } else if (value == "?") {
-      return cont(typeprop)
-    } else if (type == ":") {
-      return cont(typeexpr)
-    } else if (type == "[") {
-      return cont(expression, maybetype, expect("]"), typeprop)
-    }
-  }
-  function typearg(type) {
-    if (type == "variable") return cont(typearg)
-    else if (type == ":") return cont(typeexpr)
-  }
-  function afterType(type, value) {
-    if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType)
-    if (value == "|" || type == ".") return cont(typeexpr)
-    if (type == "[") return cont(expect("]"), afterType)
-    if (value == "extends") return cont(typeexpr)
-  }
-  function maybeTypeArgs(_, value) {
-    if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType)
-  }
-  function vardef() {
-    return pass(pattern, maybetype, maybeAssign, vardefCont);
-  }
-  function pattern(type, value) {
-    if (type == "modifier") return cont(pattern)
-    if (type == "variable") { register(value); return cont(); }
-    if (type == "spread") return cont(pattern);
-    if (type == "[") return contCommasep(pattern, "]");
-    if (type == "{") return contCommasep(proppattern, "}");
-  }
-  function proppattern(type, value) {
-    if (type == "variable" && !cx.stream.match(/^\s*:/, false)) {
-      register(value);
-      return cont(maybeAssign);
-    }
-    if (type == "variable") cx.marked = "property";
-    if (type == "spread") return cont(pattern);
-    if (type == "}") return pass();
-    return cont(expect(":"), pattern, maybeAssign);
-  }
-  function maybeAssign(_type, value) {
-    if (value == "=") return cont(expressionNoComma);
-  }
-  function vardefCont(type) {
-    if (type == ",") return cont(vardef);
-  }
-  function maybeelse(type, value) {
-    if (type == "keyword b" && value == "else") return cont(pushlex("form", "else"), statement, poplex);
-  }
-  function forspec(type) {
-    if (type == "(") return cont(pushlex(")"), forspec1, expect(")"), poplex);
-  }
-  function forspec1(type) {
-    if (type == "var") return cont(vardef, expect(";"), forspec2);
-    if (type == ";") return cont(forspec2);
-    if (type == "variable") return cont(formaybeinof);
-    return pass(expression, expect(";"), forspec2);
-  }
-  function formaybeinof(_type, value) {
-    if (value == "in" || value == "of") { cx.marked = "keyword"; return cont(expression); }
-    return cont(maybeoperatorComma, forspec2);
-  }
-  function forspec2(type, value) {
-    if (type == ";") return cont(forspec3);
-    if (value == "in" || value == "of") { cx.marked = "keyword"; return cont(expression); }
-    return pass(expression, expect(";"), forspec3);
-  }
-  function forspec3(type) {
-    if (type != ")") cont(expression);
-  }
-  function functiondef(type, value) {
-    if (value == "*") {cx.marked = "keyword"; return cont(functiondef);}
-    if (type == "variable") {register(value); return cont(functiondef);}
-    if (type == "(") return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, maybetype, statement, popcontext);
-    if (isTS && value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, functiondef)
-  }
-  function funarg(type) {
-    if (type == "spread" || type == "modifier") return cont(funarg);
-    return pass(pattern, maybetype, maybeAssign);
-  }
-  function classExpression(type, value) {
-    // Class expressions may have an optional name.
-    if (type == "variable") return className(type, value);
-    return classNameAfter(type, value);
-  }
-  function className(type, value) {
-    if (type == "variable") {register(value); return cont(classNameAfter);}
-  }
-  function classNameAfter(type, value) {
-    if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, classNameAfter)
-    if (value == "extends" || value == "implements" || (isTS && type == ","))
-      return cont(isTS ? typeexpr : expression, classNameAfter);
-    if (type == "{") return cont(pushlex("}"), classBody, poplex);
-  }
-  function classBody(type, value) {
-    if (type == "modifier" || type == "async" ||
-        (type == "variable" &&
-         (value == "static" || value == "get" || value == "set") &&
-         cx.stream.match(/^\s+[\w$\xa1-\uffff]/, false))) {
-      cx.marked = "keyword";
-      return cont(classBody);
-    }
-    if (type == "variable") {
-      cx.marked = "property";
-      return cont(isTS ? classfield : functiondef, classBody);
-    }
-    if (type == "[")
-      return cont(expression, expect("]"), isTS ? classfield : functiondef, classBody)
-    if (value == "*") {
-      cx.marked = "keyword";
-      return cont(classBody);
-    }
-    if (type == ";") return cont(classBody);
-    if (type == "}") return cont();
-    if (value == "@") return cont(expression, classBody)
-  }
-  function classfield(type, value) {
-    if (value == "?") return cont(classfield)
-    if (type == ":") return cont(typeexpr, maybeAssign)
-    if (value == "=") return cont(expressionNoComma)
-    return pass(functiondef)
-  }
-  function afterExport(type, value) {
-    if (value == "*") { cx.marked = "keyword"; return cont(maybeFrom, expect(";")); }
-    if (value == "default") { cx.marked = "keyword"; return cont(expression, expect(";")); }
-    if (type == "{") return cont(commasep(exportField, "}"), maybeFrom, expect(";"));
-    return pass(statement);
-  }
-  function exportField(type, value) {
-    if (value == "as") { cx.marked = "keyword"; return cont(expect("variable")); }
-    if (type == "variable") return pass(expressionNoComma, exportField);
-  }
-  function afterImport(type) {
-    if (type == "string") return cont();
-    return pass(importSpec, maybeMoreImports, maybeFrom);
-  }
-  function importSpec(type, value) {
-    if (type == "{") return contCommasep(importSpec, "}");
-    if (type == "variable") register(value);
-    if (value == "*") cx.marked = "keyword";
-    return cont(maybeAs);
-  }
-  function maybeMoreImports(type) {
-    if (type == ",") return cont(importSpec, maybeMoreImports)
-  }
-  function maybeAs(_type, value) {
-    if (value == "as") { cx.marked = "keyword"; return cont(importSpec); }
-  }
-  function maybeFrom(_type, value) {
-    if (value == "from") { cx.marked = "keyword"; return cont(expression); }
-  }
-  function arrayLiteral(type) {
-    if (type == "]") return cont();
-    return pass(commasep(expressionNoComma, "]"));
-  }
-
-  function isContinuedStatement(state, textAfter) {
-    return state.lastType == "operator" || state.lastType == "," ||
-      isOperatorChar.test(textAfter.charAt(0)) ||
-      /[,.]/.test(textAfter.charAt(0));
-  }
-
-  function expressionAllowed(stream, state, backUp) {
-    return state.tokenize == tokenBase &&
-      /^(?:operator|sof|keyword c|case|new|export|default|[\[{}\(,;:]|=>)$/.test(state.lastType) ||
-      (state.lastType == "quasi" && /\{\s*$/.test(stream.string.slice(0, stream.pos - (backUp || 0))))
-  }
-
-  // Interface
-
-  return {
-    startState: function(basecolumn) {
-      var state = {
-        tokenize: tokenBase,
-        lastType: "sof",
-        cc: [],
-        lexical: new JSLexical((basecolumn || 0) - indentUnit, 0, "block", false),
-        localVars: parserConfig.localVars,
-        context: parserConfig.localVars && {vars: parserConfig.localVars},
-        indented: basecolumn || 0
-      };
-      if (parserConfig.globalVars && typeof parserConfig.globalVars == "object")
-        state.globalVars = parserConfig.globalVars;
-      return state;
-    },
-
-    token: function(stream, state) {
-      if (stream.sol()) {
-        if (!state.lexical.hasOwnProperty("align"))
-          state.lexical.align = false;
-        state.indented = stream.indentation();
-        findFatArrow(stream, state);
-      }
-      if (state.tokenize != tokenComment && stream.eatSpace()) return null;
-      var style = state.tokenize(stream, state);
-      if (type == "comment") return style;
-      state.lastType = type == "operator" && (content == "++" || content == "--") ? "incdec" : type;
-      return parseJS(state, style, type, content, stream);
-    },
-
-    indent: function(state, textAfter) {
-      if (state.tokenize == tokenComment) return CodeMirror.Pass;
-      if (state.tokenize != tokenBase) return 0;
-      var firstChar = textAfter && textAfter.charAt(0), lexical = state.lexical, top
-      // Kludge to prevent 'maybelse' from blocking lexical scope pops
-      if (!/^\s*else\b/.test(textAfter)) for (var i = state.cc.length - 1; i >= 0; --i) {
-        var c = state.cc[i];
-        if (c == poplex) lexical = lexical.prev;
-        else if (c != maybeelse) break;
-      }
-      while ((lexical.type == "stat" || lexical.type == "form") &&
-             (firstChar == "}" || ((top = state.cc[state.cc.length - 1]) &&
-                                   (top == maybeoperatorComma || top == maybeoperatorNoComma) &&
-                                   !/^[,\.=+\-*:?[\(]/.test(textAfter))))
-        lexical = lexical.prev;
-      if (statementIndent && lexical.type == ")" && lexical.prev.type == "stat")
-        lexical = lexical.prev;
-      var type = lexical.type, closing = firstChar == type;
-
-      if (type == "vardef") return lexical.indented + (state.lastType == "operator" || state.lastType == "," ? lexical.info + 1 : 0);
-      else if (type == "form" && firstChar == "{") return lexical.indented;
-      else if (type == "form") return lexical.indented + indentUnit;
-      else if (type == "stat")
-        return lexical.indented + (isContinuedStatement(state, textAfter) ? statementIndent || indentUnit : 0);
-      else if (lexical.info == "switch" && !closing && parserConfig.doubleIndentSwitch != false)
-        return lexical.indented + (/^(?:case|default)\b/.test(textAfter) ? indentUnit : 2 * indentUnit);
-      else if (lexical.align) return lexical.column + (closing ? 0 : 1);
-      else return lexical.indented + (closing ? 0 : indentUnit);
-    },
-
-    electricInput: /^\s*(?:case .*?:|default:|\{|\})$/,
-    blockCommentStart: jsonMode ? null : "/*",
-    blockCommentEnd: jsonMode ? null : "*/",
-    lineComment: jsonMode ? null : "//",
-    fold: "brace",
-    closeBrackets: "()[]{}''\"\"``",
-
-    helperType: jsonMode ? "json" : "javascript",
-    jsonldMode: jsonldMode,
-    jsonMode: jsonMode,
-
-    expressionAllowed: expressionAllowed,
-
-    skipExpression: function(state) {
-      var top = state.cc[state.cc.length - 1]
-      if (top == expression || top == expressionNoComma) state.cc.pop()
-    }
-  };
-});
-
-CodeMirror.registerHelper("wordChars", "javascript", /[\w$]/);
-
-CodeMirror.defineMIME("text/javascript", "javascript");
-CodeMirror.defineMIME("text/ecmascript", "javascript");
-CodeMirror.defineMIME("application/javascript", "javascript");
-CodeMirror.defineMIME("application/x-javascript", "javascript");
-CodeMirror.defineMIME("application/ecmascript", "javascript");
-CodeMirror.defineMIME("application/json", {name: "javascript", json: true});
-CodeMirror.defineMIME("application/x-json", {name: "javascript", json: true});
-CodeMirror.defineMIME("application/ld+json", {name: "javascript", jsonld: true});
-CodeMirror.defineMIME("text/typescript", { name: "javascript", typescript: true });
-CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript: true });
-
-});
-
-
-/***/ }),
-
-/***/ 85:
-/* no static exports found */
-/*!****************************************!*\
-  !*** ./~/codemirror/mode/ruby/ruby.js ***!
-  \****************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
-
-(function(mod) {
-  if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 1));
-  else if (typeof define == "function" && define.amd) // AMD
-    define(["../../lib/codemirror"], mod);
-  else // Plain browser env
-    mod(CodeMirror);
-})(function(CodeMirror) {
-"use strict";
-
-CodeMirror.defineMode("ruby", function(config) {
-  function wordObj(words) {
-    var o = {};
-    for (var i = 0, e = words.length; i < e; ++i) o[words[i]] = true;
-    return o;
-  }
-  var keywords = wordObj([
-    "alias", "and", "BEGIN", "begin", "break", "case", "class", "def", "defined?", "do", "else",
-    "elsif", "END", "end", "ensure", "false", "for", "if", "in", "module", "next", "not", "or",
-    "redo", "rescue", "retry", "return", "self", "super", "then", "true", "undef", "unless",
-    "until", "when", "while", "yield", "nil", "raise", "throw", "catch", "fail", "loop", "callcc",
-    "caller", "lambda", "proc", "public", "protected", "private", "require", "load",
-    "require_relative", "extend", "autoload", "__END__", "__FILE__", "__LINE__", "__dir__"
-  ]);
-  var indentWords = wordObj(["def", "class", "case", "for", "while", "until", "module", "then",
-                             "catch", "loop", "proc", "begin"]);
-  var dedentWords = wordObj(["end", "until"]);
-  var matching = {"[": "]", "{": "}", "(": ")"};
-  var curPunc;
-
-  function chain(newtok, stream, state) {
-    state.tokenize.push(newtok);
-    return newtok(stream, state);
-  }
-
-  function tokenBase(stream, state) {
-    if (stream.sol() && stream.match("=begin") && stream.eol()) {
-      state.tokenize.push(readBlockComment);
-      return "comment";
-    }
-    if (stream.eatSpace()) return null;
-    var ch = stream.next(), m;
-    if (ch == "`" || ch == "'" || ch == '"') {
-      return chain(readQuoted(ch, "string", ch == '"' || ch == "`"), stream, state);
-    } else if (ch == "/") {
-      if (regexpAhead(stream))
-        return chain(readQuoted(ch, "string-2", true), stream, state);
-      else
-        return "operator";
-    } else if (ch == "%") {
-      var style = "string", embed = true;
-      if (stream.eat("s")) style = "atom";
-      else if (stream.eat(/[WQ]/)) style = "string";
-      else if (stream.eat(/[r]/)) style = "string-2";
-      else if (stream.eat(/[wxq]/)) { style = "string"; embed = false; }
-      var delim = stream.eat(/[^\w\s=]/);
-      if (!delim) return "operator";
-      if (matching.propertyIsEnumerable(delim)) delim = matching[delim];
-      return chain(readQuoted(delim, style, embed, true), stream, state);
-    } else if (ch == "#") {
-      stream.skipToEnd();
-      return "comment";
-    } else if (ch == "<" && (m = stream.match(/^<-?[\`\"\']?([a-zA-Z_?]\w*)[\`\"\']?(?:;|$)/))) {
-      return chain(readHereDoc(m[1]), stream, state);
-    } else if (ch == "0") {
-      if (stream.eat("x")) stream.eatWhile(/[\da-fA-F]/);
-      else if (stream.eat("b")) stream.eatWhile(/[01]/);
-      else stream.eatWhile(/[0-7]/);
-      return "number";
-    } else if (/\d/.test(ch)) {
-      stream.match(/^[\d_]*(?:\.[\d_]+)?(?:[eE][+\-]?[\d_]+)?/);
-      return "number";
-    } else if (ch == "?") {
-      while (stream.match(/^\\[CM]-/)) {}
-      if (stream.eat("\\")) stream.eatWhile(/\w/);
-      else stream.next();
-      return "string";
-    } else if (ch == ":") {
-      if (stream.eat("'")) return chain(readQuoted("'", "atom", false), stream, state);
-      if (stream.eat('"')) return chain(readQuoted('"', "atom", true), stream, state);
-
-      // :> :>> :< :<< are valid symbols
-      if (stream.eat(/[\<\>]/)) {
-        stream.eat(/[\<\>]/);
-        return "atom";
-      }
-
-      // :+ :- :/ :* :| :& :! are valid symbols
-      if (stream.eat(/[\+\-\*\/\&\|\:\!]/)) {
-        return "atom";
-      }
-
-      // Symbols can't start by a digit
-      if (stream.eat(/[a-zA-Z$@_\xa1-\uffff]/)) {
-        stream.eatWhile(/[\w$\xa1-\uffff]/);
-        // Only one ? ! = is allowed and only as the last character
-        stream.eat(/[\?\!\=]/);
-        return "atom";
-      }
-      return "operator";
-    } else if (ch == "@" && stream.match(/^@?[a-zA-Z_\xa1-\uffff]/)) {
-      stream.eat("@");
-      stream.eatWhile(/[\w\xa1-\uffff]/);
-      return "variable-2";
-    } else if (ch == "$") {
-      if (stream.eat(/[a-zA-Z_]/)) {
-        stream.eatWhile(/[\w]/);
-      } else if (stream.eat(/\d/)) {
-        stream.eat(/\d/);
-      } else {
-        stream.next(); // Must be a special global like $: or $!
-      }
-      return "variable-3";
-    } else if (/[a-zA-Z_\xa1-\uffff]/.test(ch)) {
-      stream.eatWhile(/[\w\xa1-\uffff]/);
-      stream.eat(/[\?\!]/);
-      if (stream.eat(":")) return "atom";
-      return "ident";
-    } else if (ch == "|" && (state.varList || state.lastTok == "{" || state.lastTok == "do")) {
-      curPunc = "|";
-      return null;
-    } else if (/[\(\)\[\]{}\\;]/.test(ch)) {
-      curPunc = ch;
-      return null;
-    } else if (ch == "-" && stream.eat(">")) {
-      return "arrow";
-    } else if (/[=+\-\/*:\.^%<>~|]/.test(ch)) {
-      var more = stream.eatWhile(/[=+\-\/*:\.^%<>~|]/);
-      if (ch == "." && !more) curPunc = ".";
-      return "operator";
-    } else {
-      return null;
-    }
-  }
-
-  function regexpAhead(stream) {
-    var start = stream.pos, depth = 0, next, found = false, escaped = false
-    while ((next = stream.next()) != null) {
-      if (!escaped) {
-        if ("[{(".indexOf(next) > -1) {
-          depth++
-        } else if ("]})".indexOf(next) > -1) {
-          depth--
-          if (depth < 0) break
-        } else if (next == "/" && depth == 0) {
-          found = true
-          break
-        }
-        escaped = next == "\\"
-      } else {
-        escaped = false
-      }
-    }
-    stream.backUp(stream.pos - start)
-    return found
-  }
-
-  function tokenBaseUntilBrace(depth) {
-    if (!depth) depth = 1;
-    return function(stream, state) {
-      if (stream.peek() == "}") {
-        if (depth == 1) {
-          state.tokenize.pop();
-          return state.tokenize[state.tokenize.length-1](stream, state);
-        } else {
-          state.tokenize[state.tokenize.length - 1] = tokenBaseUntilBrace(depth - 1);
-        }
-      } else if (stream.peek() == "{") {
-        state.tokenize[state.tokenize.length - 1] = tokenBaseUntilBrace(depth + 1);
-      }
-      return tokenBase(stream, state);
-    };
-  }
-  function tokenBaseOnce() {
-    var alreadyCalled = false;
-    return function(stream, state) {
-      if (alreadyCalled) {
-        state.tokenize.pop();
-        return state.tokenize[state.tokenize.length-1](stream, state);
-      }
-      alreadyCalled = true;
-      return tokenBase(stream, state);
-    };
-  }
-  function readQuoted(quote, style, embed, unescaped) {
-    return function(stream, state) {
-      var escaped = false, ch;
-
-      if (state.context.type === 'read-quoted-paused') {
-        state.context = state.context.prev;
-        stream.eat("}");
-      }
-
-      while ((ch = stream.next()) != null) {
-        if (ch == quote && (unescaped || !escaped)) {
-          state.tokenize.pop();
-          break;
-        }
-        if (embed && ch == "#" && !escaped) {
-          if (stream.eat("{")) {
-            if (quote == "}") {
-              state.context = {prev: state.context, type: 'read-quoted-paused'};
-            }
-            state.tokenize.push(tokenBaseUntilBrace());
-            break;
-          } else if (/[@\$]/.test(stream.peek())) {
-            state.tokenize.push(tokenBaseOnce());
-            break;
-          }
-        }
-        escaped = !escaped && ch == "\\";
-      }
-      return style;
-    };
-  }
-  function readHereDoc(phrase) {
-    return function(stream, state) {
-      if (stream.match(phrase)) state.tokenize.pop();
-      else stream.skipToEnd();
-      return "string";
-    };
-  }
-  function readBlockComment(stream, state) {
-    if (stream.sol() && stream.match("=end") && stream.eol())
-      state.tokenize.pop();
-    stream.skipToEnd();
-    return "comment";
-  }
-
-  return {
-    startState: function() {
-      return {tokenize: [tokenBase],
-              indented: 0,
-              context: {type: "top", indented: -config.indentUnit},
-              continuedLine: false,
-              lastTok: null,
-              varList: false};
-    },
-
-    token: function(stream, state) {
-      curPunc = null;
-      if (stream.sol()) state.indented = stream.indentation();
-      var style = state.tokenize[state.tokenize.length-1](stream, state), kwtype;
-      var thisTok = curPunc;
-      if (style == "ident") {
-        var word = stream.current();
-        style = state.lastTok == "." ? "property"
-          : keywords.propertyIsEnumerable(stream.current()) ? "keyword"
-          : /^[A-Z]/.test(word) ? "tag"
-          : (state.lastTok == "def" || state.lastTok == "class" || state.varList) ? "def"
-          : "variable";
-        if (style == "keyword") {
-          thisTok = word;
-          if (indentWords.propertyIsEnumerable(word)) kwtype = "indent";
-          else if (dedentWords.propertyIsEnumerable(word)) kwtype = "dedent";
-          else if ((word == "if" || word == "unless") && stream.column() == stream.indentation())
-            kwtype = "indent";
-          else if (word == "do" && state.context.indented < state.indented)
-            kwtype = "indent";
-        }
-      }
-      if (curPunc || (style && style != "comment")) state.lastTok = thisTok;
-      if (curPunc == "|") state.varList = !state.varList;
-
-      if (kwtype == "indent" || /[\(\[\{]/.test(curPunc))
-        state.context = {prev: state.context, type: curPunc || style, indented: state.indented};
-      else if ((kwtype == "dedent" || /[\)\]\}]/.test(curPunc)) && state.context.prev)
-        state.context = state.context.prev;
-
-      if (stream.eol())
-        state.continuedLine = (curPunc == "\\" || style == "operator");
-      return style;
-    },
-
-    indent: function(state, textAfter) {
-      if (state.tokenize[state.tokenize.length-1] != tokenBase) return 0;
-      var firstChar = textAfter && textAfter.charAt(0);
-      var ct = state.context;
-      var closing = ct.type == matching[firstChar] ||
-        ct.type == "keyword" && /^(?:end|until|else|elsif|when|rescue)\b/.test(textAfter);
-      return ct.indented + (closing ? 0 : config.indentUnit) +
-        (state.continuedLine ? config.indentUnit : 0);
-    },
-
-    electricInput: /^\s*(?:end|rescue|elsif|else|\})$/,
-    lineComment: "#"
-  };
-});
-
-CodeMirror.defineMIME("text/x-ruby", "ruby");
-
-});
-
-
-/***/ }),
-
-/***/ 86:
-/* no static exports found */
-/*!****************************************!*\
-  !*** ./~/codemirror/mode/sass/sass.js ***!
-  \****************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
-
-(function(mod) {
-  if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 1), __webpack_require__(/*! ../css/css */ 42));
-  else if (typeof define == "function" && define.amd) // AMD
-    define(["../../lib/codemirror", "../css/css"], mod);
-  else // Plain browser env
-    mod(CodeMirror);
-})(function(CodeMirror) {
-"use strict";
-
-CodeMirror.defineMode("sass", function(config) {
-  var cssMode = CodeMirror.mimeModes["text/css"];
-  var propertyKeywords = cssMode.propertyKeywords || {},
-      colorKeywords = cssMode.colorKeywords || {},
-      valueKeywords = cssMode.valueKeywords || {},
-      fontProperties = cssMode.fontProperties || {};
-
-  function tokenRegexp(words) {
-    return new RegExp("^" + words.join("|"));
-  }
-
-  var keywords = ["true", "false", "null", "auto"];
-  var keywordsRegexp = new RegExp("^" + keywords.join("|"));
-
-  var operators = ["\\(", "\\)", "=", ">", "<", "==", ">=", "<=", "\\+", "-",
-                   "\\!=", "/", "\\*", "%", "and", "or", "not", ";","\\{","\\}",":"];
-  var opRegexp = tokenRegexp(operators);
-
-  var pseudoElementsRegexp = /^::?[a-zA-Z_][\w\-]*/;
-
-  var word;
-
-  function isEndLine(stream) {
-    return !stream.peek() || stream.match(/\s+$/, false);
-  }
-
-  function urlTokens(stream, state) {
-    var ch = stream.peek();
-
-    if (ch === ")") {
-      stream.next();
-      state.tokenizer = tokenBase;
-      return "operator";
-    } else if (ch === "(") {
-      stream.next();
-      stream.eatSpace();
-
-      return "operator";
-    } else if (ch === "'" || ch === '"') {
-      state.tokenizer = buildStringTokenizer(stream.next());
-      return "string";
-    } else {
-      state.tokenizer = buildStringTokenizer(")", false);
-      return "string";
-    }
-  }
-  function comment(indentation, multiLine) {
-    return function(stream, state) {
-      if (stream.sol() && stream.indentation() <= indentation) {
-        state.tokenizer = tokenBase;
-        return tokenBase(stream, state);
-      }
-
-      if (multiLine && stream.skipTo("*/")) {
-        stream.next();
-        stream.next();
-        state.tokenizer = tokenBase;
-      } else {
-        stream.skipToEnd();
-      }
-
-      return "comment";
-    };
-  }
-
-  function buildStringTokenizer(quote, greedy) {
-    if (greedy == null) { greedy = true; }
-
-    function stringTokenizer(stream, state) {
-      var nextChar = stream.next();
-      var peekChar = stream.peek();
-      var previousChar = stream.string.charAt(stream.pos-2);
-
-      var endingString = ((nextChar !== "\\" && peekChar === quote) || (nextChar === quote && previousChar !== "\\"));
-
-      if (endingString) {
-        if (nextChar !== quote && greedy) { stream.next(); }
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        state.tokenizer = tokenBase;
-        return "string";
-      } else if (nextChar === "#" && peekChar === "{") {
-        state.tokenizer = buildInterpolationTokenizer(stringTokenizer);
-        stream.next();
-        return "operator";
-      } else {
-        return "string";
-      }
-    }
-
-    return stringTokenizer;
-  }
-
-  function buildInterpolationTokenizer(currentTokenizer) {
-    return function(stream, state) {
-      if (stream.peek() === "}") {
-        stream.next();
-        state.tokenizer = currentTokenizer;
-        return "operator";
-      } else {
-        return tokenBase(stream, state);
-      }
-    };
-  }
-
-  function indent(state) {
-    if (state.indentCount == 0) {
-      state.indentCount++;
-      var lastScopeOffset = state.scopes[0].offset;
-      var currentOffset = lastScopeOffset + config.indentUnit;
-      state.scopes.unshift({ offset:currentOffset });
-    }
-  }
-
-  function dedent(state) {
-    if (state.scopes.length == 1) return;
-
-    state.scopes.shift();
-  }
-
-  function tokenBase(stream, state) {
-    var ch = stream.peek();
-
-    // Comment
-    if (stream.match("/*")) {
-      state.tokenizer = comment(stream.indentation(), true);
-      return state.tokenizer(stream, state);
-    }
-    if (stream.match("//")) {
-      state.tokenizer = comment(stream.indentation(), false);
-      return state.tokenizer(stream, state);
-    }
-
-    // Interpolation
-    if (stream.match("#{")) {
-      state.tokenizer = buildInterpolationTokenizer(tokenBase);
-      return "operator";
-    }
-
-    // Strings
-    if (ch === '"' || ch === "'") {
-      stream.next();
-      state.tokenizer = buildStringTokenizer(ch);
-      return "string";
-    }
-
-    if(!state.cursorHalf){// state.cursorHalf === 0
-    // first half i.e. before : for key-value pairs
-    // including selectors
-
-      if (ch === "-") {
-        if (stream.match(/^-\w+-/)) {
-          return "meta";
-        }
-      }
-
-      if (ch === ".") {
-        stream.next();
-        if (stream.match(/^[\w-]+/)) {
-          indent(state);
-          return "qualifier";
-        } else if (stream.peek() === "#") {
-          indent(state);
-          return "tag";
-        }
-      }
-
-      if (ch === "#") {
-        stream.next();
-        // ID selectors
-        if (stream.match(/^[\w-]+/)) {
-          indent(state);
-          return "builtin";
-        }
-        if (stream.peek() === "#") {
-          indent(state);
-          return "tag";
-        }
-      }
-
-      // Variables
-      if (ch === "$") {
-        stream.next();
-        stream.eatWhile(/[\w-]/);
-        return "variable-2";
-      }
-
-      // Numbers
-      if (stream.match(/^-?[0-9\.]+/))
-        return "number";
-
-      // Units
-      if (stream.match(/^(px|em|in)\b/))
-        return "unit";
-
-      if (stream.match(keywordsRegexp))
-        return "keyword";
-
-      if (stream.match(/^url/) && stream.peek() === "(") {
-        state.tokenizer = urlTokens;
-        return "atom";
-      }
-
-      if (ch === "=") {
-        // Match shortcut mixin definition
-        if (stream.match(/^=[\w-]+/)) {
-          indent(state);
-          return "meta";
-        }
-      }
-
-      if (ch === "+") {
-        // Match shortcut mixin definition
-        if (stream.match(/^\+[\w-]+/)){
-          return "variable-3";
-        }
-      }
-
-      if(ch === "@"){
-        if(stream.match(/@extend/)){
-          if(!stream.match(/\s*[\w]/))
-            dedent(state);
-        }
-      }
-
-
-      // Indent Directives
-      if (stream.match(/^@(else if|if|media|else|for|each|while|mixin|function)/)) {
-        indent(state);
-        return "def";
-      }
-
-      // Other Directives
-      if (ch === "@") {
-        stream.next();
-        stream.eatWhile(/[\w-]/);
-        return "def";
-      }
-
-      if (stream.eatWhile(/[\w-]/)){
-        if(stream.match(/ *: *[\w-\+\$#!\("']/,false)){
-          word = stream.current().toLowerCase();
-          var prop = state.prevProp + "-" + word;
-          if (propertyKeywords.hasOwnProperty(prop)) {
-            return "property";
-          } else if (propertyKeywords.hasOwnProperty(word)) {
-            state.prevProp = word;
-            return "property";
-          } else if (fontProperties.hasOwnProperty(word)) {
-            return "property";
-          }
-          return "tag";
-        }
-        else if(stream.match(/ *:/,false)){
-          indent(state);
-          state.cursorHalf = 1;
-          state.prevProp = stream.current().toLowerCase();
-          return "property";
-        }
-        else if(stream.match(/ *,/,false)){
-          return "tag";
-        }
-        else{
-          indent(state);
-          return "tag";
-        }
-      }
-
-      if(ch === ":"){
-        if (stream.match(pseudoElementsRegexp)){ // could be a pseudo-element
-          return "variable-3";
-        }
-        stream.next();
-        state.cursorHalf=1;
-        return "operator";
-      }
-
-    } // cursorHalf===0 ends here
-    else{
-
-      if (ch === "#") {
-        stream.next();
-        // Hex numbers
-        if (stream.match(/[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/)){
-          if (isEndLine(stream)) {
-            state.cursorHalf = 0;
-          }
-          return "number";
-        }
-      }
-
-      // Numbers
-      if (stream.match(/^-?[0-9\.]+/)){
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        return "number";
-      }
-
-      // Units
-      if (stream.match(/^(px|em|in)\b/)){
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        return "unit";
-      }
-
-      if (stream.match(keywordsRegexp)){
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        return "keyword";
-      }
-
-      if (stream.match(/^url/) && stream.peek() === "(") {
-        state.tokenizer = urlTokens;
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        return "atom";
-      }
-
-      // Variables
-      if (ch === "$") {
-        stream.next();
-        stream.eatWhile(/[\w-]/);
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        return "variable-2";
-      }
-
-      // bang character for !important, !default, etc.
-      if (ch === "!") {
-        stream.next();
-        state.cursorHalf = 0;
-        return stream.match(/^[\w]+/) ? "keyword": "operator";
-      }
-
-      if (stream.match(opRegexp)){
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        return "operator";
-      }
-
-      // attributes
-      if (stream.eatWhile(/[\w-]/)) {
-        if (isEndLine(stream)) {
-          state.cursorHalf = 0;
-        }
-        word = stream.current().toLowerCase();
-        if (valueKeywords.hasOwnProperty(word)) {
-          return "atom";
-        } else if (colorKeywords.hasOwnProperty(word)) {
-          return "keyword";
-        } else if (propertyKeywords.hasOwnProperty(word)) {
-          state.prevProp = stream.current().toLowerCase();
-          return "property";
-        } else {
-          return "tag";
-        }
-      }
-
-      //stream.eatSpace();
-      if (isEndLine(stream)) {
-        state.cursorHalf = 0;
-        return null;
-      }
-
-    } // else ends here
-
-    if (stream.match(opRegexp))
-      return "operator";
-
-    // If we haven't returned by now, we move 1 character
-    // and return an error
-    stream.next();
-    return null;
-  }
-
-  function tokenLexer(stream, state) {
-    if (stream.sol()) state.indentCount = 0;
-    var style = state.tokenizer(stream, state);
-    var current = stream.current();
-
-    if (current === "@return" || current === "}"){
-      dedent(state);
-    }
-
-    if (style !== null) {
-      var startOfToken = stream.pos - current.length;
-
-      var withCurrentIndent = startOfToken + (config.indentUnit * state.indentCount);
-
-      var newScopes = [];
-
-      for (var i = 0; i < state.scopes.length; i++) {
-        var scope = state.scopes[i];
-
-        if (scope.offset <= withCurrentIndent)
-          newScopes.push(scope);
-      }
-
-      state.scopes = newScopes;
-    }
-
-
-    return style;
-  }
-
-  return {
-    startState: function() {
-      return {
-        tokenizer: tokenBase,
-        scopes: [{offset: 0, type: "sass"}],
-        indentCount: 0,
-        cursorHalf: 0,  // cursor half tells us if cursor lies after (1)
-                        // or before (0) colon (well... more or less)
-        definedVars: [],
-        definedMixins: []
-      };
-    },
-    token: function(stream, state) {
-      var style = tokenLexer(stream, state);
-
-      state.lastToken = { style: style, content: stream.current() };
-
-      return style;
-    },
-
-    indent: function(state) {
-      return state.scopes[0].offset;
-    }
-  };
-}, "css");
-
-CodeMirror.defineMIME("text/x-sass", "sass");
-
-});
+var $export = __webpack_require__(/*! ./_export */ 14);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(/*! ./_descriptors */ 1), 'Object', { defineProperty: __webpack_require__(/*! ./_object-dp */ 2).f });
 
 
 /***/ })

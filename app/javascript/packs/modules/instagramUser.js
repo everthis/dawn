@@ -23,9 +23,10 @@ function renderList(arr) {
       <div class="instagram_user c-border c-center c-padding" data-id="${el.user_id}">
         <div class="avatar" style="background-image: url('${el.profile_pic_url}'); background-size: cover;"></div>
         <div class="user_name">${el.user_name}</div>
+        <div class="media_count">media_count: ${el.media_count}</div>
         <div class="type">
         </div>
-        <div class="media_count">user_id: ${el.user_id}</div>
+        <div class="user_id">user_id: ${el.user_id}</div>
       </div>
     `)
   })
@@ -58,6 +59,7 @@ let maskEle
 let searchEle
 let insWrap
 const debouncedQueryId = debounce(queryId, 100, false)
+
 export function initInstagramUser() {
   ele = document.getElementById('ins_user_q')
   resEle = document.getElementsByClassName('ins-search-result')[0]

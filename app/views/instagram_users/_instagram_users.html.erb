@@ -2,7 +2,7 @@
 
 <div class="instagram_users_container instagram_users_wrap">
   <% @instagram_users.each do |user| %>
-  <div class="instagram_user c-border c-center c-padding" data-id="<%= user.user_id %>">
+  <div class="instagram_user c-border c-center c-padding" data-id="<%= user.user_id %>" data-dawn-id="<%= user.id %>">
     <div class="avatar"><%= image_tag("#{local_instagram_path(user.profile_pic_url, user.user_id+'/profile')}", size: '160x160', :class => "avatar_img") %></div>
     <div class="user_name"><%= user.user_name %></div>
     <div class="type">
@@ -11,6 +11,7 @@
       <% end %>
     </div>
     <div class="media_count">media_count: <%= user.media_count %></div>
+    <div class="user_id">user_id: <%= user.user_id %></div>
   </div>
   <% end %>
 </div>
