@@ -1,67 +1,67 @@
 zh-CN:
-
   hello: "你好，世界"
 
   number:
     currency:
       format:
-        unit:      "$"
+        unit: "$"
         precision: 2
         separator: "."
         delimiter: ","
-        format:    "%u%n"
+        format: "%u%n"
 
   errors:
     template:
-      body:        "There were problems with the following fields:"
+      body: "There were problems with the following fields:"
       header:
-        one:       "1 error prohibited this %{model} from being saved"
-        other:     "%{count} errors prohibited this %{model} from being saved"
+        one: "1 error prohibited this %{model} from being saved"
+        other: "%{count} errors prohibited this %{model} from being saved"
 
   layouts:
     application:
-      title:       "Dawn"
-      home:        "首页"
-      questions:   "Questions"
-      news:        "News"
-      contact:     "Contact"
+      title: "Dawn"
+      home: "首页"
+      questions: "Questions"
+      news: "News"
+      contact: "Contact"
     header:
-      home:                 "首页"
-      dev:                  "API 配置"
-      third-paty-accounts:  "第三方账户"
-      email-whitelist:      "邮件白名单"
-      documentation:        "文档"
-      users:                "用户列表"
-      profile:              "档案"
-      settings:             "设置"
-      logout:               "注销"
-      ci-npm-packages:      "CI_npm包"
-      npm-registries:       "npm源"
-      uuap-login-logs:      "UUAP登录日志"
-      test:                 "测试"
-      about:                "关于"
-      gists:                "gist"
-      instagram:            "Instagram"
+      home: "首页"
+      dev: "API 配置"
+      third-paty-accounts: "第三方账户"
+      email-whitelist: "邮件白名单"
+      documentation: "文档"
+      users: "用户列表"
+      profile: "档案"
+      settings: "设置"
+      logout: "注销"
+      ci-npm-packages: "CI_npm包"
+      npm-registries: "npm源"
+      uuap-login-logs: "UUAP登录日志"
+      test: "测试"
+      about: "关于"
+      gists: "gist"
+      instagram: "Instagram"
+      films: "电影"
       front-end-job-interview-questions: "前端面试题"
 
   users:
     settings:
-      language:    "语言"
-      profile:     "档案"
-      token-text:  "当前使用的token:"
+      language: "语言"
+      profile: "档案"
+      token-text: "当前使用的token:"
 
   will_paginate:
-    previous_label:   "上一页"
-    next_label:       "下一页"
-    page_gap:         "..."
+    previous_label: "上一页"
+    next_label: "下一页"
+    page_gap: "..."
   ci_packages:
     index:
-      search:                  "搜索"
-      new_ci_packages_link:    "添加CI_npm包"
+      search: "搜索"
+      new_ci_packages_link: "添加CI_npm包"
     new:
-      install_new_ci_npm_packages:   "安装新的CI_npm包"
-      format:                        "格式"
-      back:                          "返回列表"
+      install_new_ci_npm_packages: "安装新的CI_npm包"
+      format: "格式"
+      back: "返回列表"
 
   datetime:
     distance_in_words:
@@ -105,69 +105,69 @@ zh-CN:
 
   microposts:
     micropost:
-      ago:      "以前"
-      delete:   "删除"
+      ago: "以前"
+      delete: "删除"
   shared:
     img_upload:
       choose_an_img: "选择图片上传"
     micropost_form:
-      post:          "发布"
+      post: "发布"
       what_is_happening: "有什么新鲜事？"
     stats:
-      following:     "正在关注"
-      followers:     "关注者"
+      following: "正在关注"
+      followers: "关注者"
 
   docs:
     new:
-      new_doc:       "新建文档"
-      back:          "返回列表"
+      new_doc: "新建文档"
+      back: "返回列表"
     show:
-      edit:          "编辑"
-      back:          "返回列表"
+      edit: "编辑"
+      back: "返回列表"
     edit:
-      title:         "编辑文档"
-      show:          "查看"
-      back:          "返回列表"
+      title: "编辑文档"
+      show: "查看"
+      back: "返回列表"
     form:
-      title:              "标题"
-      new_submit_btn:     "新建文档"
-      edit_submit_btn:    "编辑文档"
-      content:            "内容"
+      title: "标题"
+      new_submit_btn: "新建文档"
+      edit_submit_btn: "编辑文档"
+      content: "内容"
     docs:
       new_documentation: "新建文档"
-      show:              "显示"
-      edit:              "编辑"
-      destroy:           "删除"
+      show: "显示"
+      edit: "编辑"
+      destroy: "删除"
 
   gists:
     edit:
-      show:              "显示"
-      back:              "返回"
-      title:             "编辑Gist"
+      show: "显示"
+      back: "返回"
+      title: "编辑Gist"
     form:
-      description:       "描述"
-      extension:         "类型"
-      content:           "内容"
-      hasAnswer:         "是否有答案"
-      answer:            "答案"
+      description: "描述"
+      extension: "类型"
+      content: "内容"
+      hasAnswer: "是否有答案"
+      answer: "答案"
     index:
-      new:               "新建Gist"
-      title:             "Gist列表"
-      show:              "显示"
-      edit:              "编辑"
-      destroy:           "删除"
-      hasAnswer:         "有答案"
+      new: "新建Gist"
+      title: "Gist列表"
+      show: "显示"
+      edit: "编辑"
+      destroy: "删除"
+      hasAnswer: "有答案"
     new:
-      title:             "新建Gist"
-      back:              "返回列表"
+      title: "新建Gist"
+      back: "返回列表"
     show:
-      edit:              "编辑"
-      back:              "返回列表"
-      description:       "描述"
-      extension:         "类型"
-      content:           "内容"
-      hasAnswer:         "有答案"
-      answer:            "答案"
-      externalId:        "标记"
-      expand:            "展开"
-      collapse:          "收起"
+      edit: "编辑"
+      back: "返回列表"
+      description: "描述"
+      extension: "类型"
+      content: "内容"
+      hasAnswer: "有答案"
+      answer: "答案"
+      externalId: "标记"
+      expand: "展开"
+      collapse: "收起"

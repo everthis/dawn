@@ -8,9 +8,10 @@
 ![dawn screenshot](https://github.com/everthis/dawn-ror/raw/master/screenshot.png "dawn screenshot")
 
 ## Prerequisites
-* PostgreSQL
-* Redis
-* Nginx
+
+- PostgreSQL
+- Redis
+- Nginx
 
 ## Installation
 
@@ -20,8 +21,8 @@ since PostgreSQL is used,
 apt-get install libpq-dev
 ```
 
+login to postgres on debian
 
-login to postgres on debian 
 ```bash
 sudo -u postgres psql
 ```
@@ -38,15 +39,19 @@ install imagemagick
 sudo apt-get update
 sudo apt-get install imagemagick --fix-missing
 ```
+
 disable tiff and dps on iDev machines
+
 ```bash
 --without-diff --without-dps
 ```
 
-install browserify 
+install browserify
+
 ```bash
 npm install -g browserify
 ```
+
 launch web server, rails livereload, front-end build system
 
 ```bash
@@ -64,6 +69,7 @@ generate secret
  bundle exec rake secret
  export SECRET_KEY_BASE=result-of-previous-step
 ```
+
 database migration
 
 ```bash
@@ -74,32 +80,39 @@ bundle exec rake db:migrate RAILS_ENV=production
 bundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:precompile
 bundle exec puma -p 3000 -e production # OR 'rails s -e production'
 ```
+
 possible problems
 
 ```bash
 cc1plus: error: unrecognized command line option "-std=c++0x"
 ```
+
 fix:
+
 ```bash
 echo 'export CXX=/usr/bin/gcc-5.3' >> ~/.bashrc
 ```
 
-imagemagick installation failure on iDev, 
+imagemagick installation failure on iDev,
+
 ```bash
 --without-tiff --without-dps
 ```
 
-run redis-server 
+run redis-server
+
 ```bash
 redis-server ~/redis-stable/redis.conf
 ```
 
 rails console production
+
 ```bash
 rails console production
 ```
 
 ### start rails with UNIX sockets in development
+
 ```
 bundle exec puma -C config/puma.rb
 ```
@@ -111,6 +124,7 @@ foreman start -f Procfile.dev
 ```
 
 ### nginx config
+
 ```
 # www to non-www redirect -- duplicate content is BAD:
 # https://github.com/h5bp/html5-boilerplate/blob/5370479476dceae7cc3ea105946536d6bc0ee468/.htaccess#L362
@@ -164,6 +178,7 @@ server {
   location / {
     proxy_pass http://app;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header Host $http_host;
     proxy_redirect off;
   }
@@ -201,13 +216,11 @@ server {
   }
 
 }
-
-
 ```
 
 ### nginx websocket support
 
-```
+````
 # enables WS support
 location /cable {
 	proxy_pass http://backend;
@@ -219,25 +232,29 @@ location /cable {
 run sidekiq in development
 ```bash
 bundle exec sidekiq -e development -C config/sidekiq.yml
-```
+````
+
 run sidekiq in production
+
 ```bash
 bundle exec sidekiq -e production -q default -q mailers
 ```
 
-
 deploy to production
+
 ```
 cap production deploy
 ```
 
 ### PostgreSQL setup
+
 ```
 ./configure
 make && sudo make install
 ```
 
 configure systemd
+
 ```
 sudo vim /etc/systemd/system/postgresql.service
 ```
@@ -259,6 +276,7 @@ WantedBy=multi-user.target
 ```
 
 initdb
+
 ```
 su postgres
 /usr/local/pgsql/bin/initdb -E UTF8 -D /usr/local/pgsql/data
@@ -266,28 +284,32 @@ exit
 ```
 
 start postgresql.service
+
 ```
 sudo systemctl daemon-reload
 sudo systemctl start postgresql.service
 ```
 
 make postgresql.service start with system boot
+
 ```
 sudo systemctl enable postgresql.service
 ```
 
 create role and database
+
 ```bash
 sudo -u postgres createuser -d -P dawn_pg
 sudo -u postgres createdb -O dawn_pg -E UTF8 dawn_development
 ```
 
 migrate development database
+
 ```
 bin/rails db:migrate RAILS_ENV=development
 ```
 
-### Chrome HTTP2 
+### Chrome HTTP2
 
 Chrome is dropping NPN support and only allows ALPN after 15.5.2016. ALPN is extension, which requires openssl 1.0.2 installed.
 Go to `chrome://net-internals/#http2` to see details.
@@ -295,17 +317,20 @@ Go to `chrome://net-internals/#http2` to see details.
 ### SSH agent forwarding
 
 `~/.bash_profile`
+
 ```bash
 alias vultr='ssh vultr'
 ```
 
 `~/.ssh/config`, watch out for `xxx` of alias `ssh xxx` and Host in `~/.ssh/config` must be the same, or `Permission denied (publickey).` error will raise when `ssh -T git@github.com`
+
 ```bash
 Host vultr
   HostName everthis.com
   User everthis
   ForwardAgent yes
 ```
+
 Please make sure that `ssh-agent` is running on your dev machine. Especially for Windows users.
 
 Highly recommend using `ssh-copy-id` for moving public keys around.
@@ -319,24 +344,28 @@ Please feel free to use a different markup language if you do not plan to run
 
 Execute `rake tmp:cache:clear` and restart server if `LoadError: cannot load such file -- coffee_script` happens.
 
-`Peer authentication failed for user "xxxxx"` , this error occurs when you installed postresql on your server, but host is missing in database.yml. Just set host: localhost to database.yml,  otherwise if it's not localhost definitely tell that app where to find its database.
-
+`Peer authentication failed for user "xxxxx"` , this error occurs when you installed postresql on your server, but host is missing in database.yml. Just set host: localhost to database.yml, otherwise if it's not localhost definitely tell that app where to find its database.
 
 ### Caveats
-`bundle exec guard -P livereload -p` if you are on iDev machines. This `-p` force `Force usage of the Listen polling listener` 
+
+`bundle exec guard -P livereload -p` if you are on iDev machines. This `-p` force `Force usage of the Listen polling listener`
 
 execute postgresql command but get the following error while postgresql is running
+
 ```
 psql: could not connect to server: No such file or directory
     Is the server running locally and accepting
     connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5432"?
 ```
+
 OR
+
 ```
 psql: could not connect to server: No such file or directory
     Is the server running locally and accepting
     connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
 ```
+
 method one: edit `postgresql.conf` and modify `unix_socket_directory`
 
 method two: export `PGHOST`
@@ -348,18 +377,19 @@ method four: execute like this `PGHOST=localhost; psql`, which sets the variable
 method five: execute command with `-h` parameter, for example `psql -h /tmp/`
 
 Since `Rails needs superuser privileges to disable referential integrity.`, you need to create a superuser role for `rails test`
+
 ```
 sudo -u postgres createuser -d -s -P dawn_pg_test
 ```
+
 then modify `.env.test` file with username and password.
 
 ```
-uninitialized constant 
+uninitialized constant
 ```
 
 solution: [rails-lib-files](https://github.com/radar/guides/blob/master/rails-lib-files.md)
-For Class defined in `lib` directory, with Rails 5 and it appeared in production but not in development. 
-
+For Class defined in `lib` directory, with Rails 5 and it appeared in production but not in development.
 
 > We can place any Ruby file in the lib directory and require it anywhere in our application, because Rails adds this directory to the $LOAD_PATH variable. Let's say we had a file in our application at lib/wildcard_search.rb which defined some additional functionality to any model it was included in. Note that this file isn't a model itself, it simply provides extensions to models. Therefore it's best to place it in the lib directory. Inside this file, the WildcardSearch module is defined.
 
@@ -368,14 +398,15 @@ For Class defined in `lib` directory, with Rails 5 and it appeared in production
 > ```
 > require 'wildcard_search'
 > ```
+>
 > Then we've got access to the WildcardSearch module where and when we need it.
-
 
 ### change java version on idev machines
 
 ```
 source ${JUMBO_ROOT}/opt/sun-java8/sun-java8.sh
 ```
+
 OR
 
 ```
@@ -390,7 +421,7 @@ cat /proc/cpuinfo
 grep ^model\ name /proc/cpuinfo
 ```
 
-
 ### TODO
+
 [optional] decode/encode URL , short link route to page directly.
 [MUST] sync/async same content render, terminate duplicate code.

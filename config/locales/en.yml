@@ -20,133 +20,133 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-
   hello: "Hello world"
 
   number:
     currency:
       format:
-        unit:      "$"
+        unit: "$"
         precision: 2
         separator: "."
         delimiter: ","
-        format:    "%u%n"
+        format: "%u%n"
 
   errors:
     template:
-      body:        "There were problems with the following fields:"
+      body: "There were problems with the following fields:"
       header:
-        one:       "1 error prohibited this %{model} from being saved"
-        other:     "%{count} errors prohibited this %{model} from being saved"
+        one: "1 error prohibited this %{model} from being saved"
+        other: "%{count} errors prohibited this %{model} from being saved"
 
   layouts:
     application:
-      title:       "The Pragmatic Bookshelf"
-      home:        "Home"
-      questions:   "Questions"
-      news:        "News"
-      contact:     "Contact"
+      title: "The Pragmatic Bookshelf"
+      home: "Home"
+      questions: "Questions"
+      news: "News"
+      contact: "Contact"
     header:
-      home:                 "Homepage"
-      dev:                  "API"
-      third-paty-accounts:  "Third-party-accounts"
-      email-whitelist:      "Email-whitelist"
-      documentation:        "Documentation"
-      users:                "Users"
-      profile:              "Profile"
-      logout:               "Log out"
-      settings:             "Settings"
-      ci-npm-packages:      "CI-npm-packages"
-      npm-registries:       "npm-registries"
-      uuap-login-logs:      "UUAP-login-logs"
-      test:                 "Test"
-      about:                "About"
-      gists:                "Gist"
-      instagram:            "Instagram"
+      home: "Homepage"
+      dev: "API"
+      third-paty-accounts: "Third-party-accounts"
+      email-whitelist: "Email-whitelist"
+      documentation: "Documentation"
+      users: "Users"
+      profile: "Profile"
+      logout: "Log out"
+      settings: "Settings"
+      ci-npm-packages: "CI-npm-packages"
+      npm-registries: "npm-registries"
+      uuap-login-logs: "UUAP-login-logs"
+      test: "Test"
+      about: "About"
+      gists: "Gist"
+      instagram: "Instagram"
+      films: "Films"
       front-end-job-interview-questions: "front-end-job-interview-questions"
 
   will_paginate:
-    previous_label:   "previous_page"
-    next_label:       "next_page"
-    page_gap:         "..."
+    previous_label: "previous_page"
+    next_label: "next_page"
+    page_gap: "..."
 
   users:
     settings:
-      language:    "Language"
-      profile:     "Profile"
-      token-text:  "The token that is currently being used :"
+      language: "Language"
+      profile: "Profile"
+      token-text: "The token that is currently being used :"
 
-  thanks:          "Thanks"
+  thanks: "Thanks"
 
   ci_packages:
     index:
-      search:                  "Search"
-      new_ci_packages_link:    "Add new CI npm packages"
+      search: "Search"
+      new_ci_packages_link: "Add new CI npm packages"
     new:
-      install_new_ci_npm_packages:   "Install New CI npm Packages"
-      format:                        "Format"
+      install_new_ci_npm_packages: "Install New CI npm Packages"
+      format: "Format"
   microposts:
     micropost:
-      ago:     "ago"
+      ago: "ago"
       delete: "delete"
 
   shared:
     img_upload:
       choose_an_img: "choose an image"
     micropost_form:
-      post:              "Post"
+      post: "Post"
       what_is_happening: "What's happening?"
     stats:
-      following:     "following"
-      followers:     "followers"
+      following: "following"
+      followers: "followers"
 
   docs:
     new:
-      new_doc:       "New documentation"
-      back:          "Back"
+      new_doc: "New documentation"
+      back: "Back"
     show:
-      edit:          "Edit"
-      back:          "Back"
+      edit: "Edit"
+      back: "Back"
     edit:
-      edit:          "Edit"
-      back:          "Back"
+      edit: "Edit"
+      back: "Back"
     form:
-      title:         "Title"
-      content:       "Content"
-      submit_btn:    "Create new documentation"
+      title: "Title"
+      content: "Content"
+      submit_btn: "Create new documentation"
     docs:
       new_documentation: "New documentation"
-      show:              "Show"
-      edit:              "Edit"
-      destroy:           "destroy"
+      show: "Show"
+      edit: "Edit"
+      destroy: "destroy"
 
   gists:
     edit:
-      show:              "show"
-      back:              "back"
-      title:             "title"
+      show: "show"
+      back: "back"
+      title: "title"
     form:
-      description:       "description"
-      extension:         "extension"
-      content:           "content"
-      hasAnswer:         "hasAnswer"
-      answer:            "answer"
+      description: "description"
+      extension: "extension"
+      content: "content"
+      hasAnswer: "hasAnswer"
+      answer: "answer"
     index:
-      new:               "new"
-      title:             "title"
-      show:              "show"
-      edit:              "edit"
-      destroy:           "destroy"
-      hasAnswer:         "hasAnswer"
+      new: "new"
+      title: "title"
+      show: "show"
+      edit: "edit"
+      destroy: "destroy"
+      hasAnswer: "hasAnswer"
     new:
-      title:             "title"
-      back:              "back"
+      title: "title"
+      back: "back"
     show:
-      edit:              "edit"
-      back:              "back"
-      description:       "description"
-      extension:         "extension"
-      content:           "content"
-      hasAnswer:         "hasAnswer"
-      answer:            "answer"
-      externalId:        "externalId"
+      edit: "edit"
+      back: "back"
+      description: "description"
+      extension: "extension"
+      content: "content"
+      hasAnswer: "hasAnswer"
+      answer: "answer"
+      externalId: "externalId"

@@ -2,8 +2,9 @@
     <nav class="nav">
       <ul class="static-links">
         <li class="first-layer"><%= link_to t('.home'), root_path, id: "logo", class: "#{logged_in? ? 'fnpu-link' : ''}" %></li>
-        <li class="first-layer"><%= link_to t('.front-end-job-interview-questions'), front_end_job_interview_questions_path, class: 'fnpu-link' %></li>
+        <li class="first-layer"><%= link_to t('.films'), films_path, class: 'fnpu-link' %></li>
         <% if logged_in? %>
+        <li class="first-layer"><%= link_to t('.front-end-job-interview-questions'), front_end_job_interview_questions_path, class: 'fnpu-link' %></li>
         <li class="first-layer"><%= link_to t('.dev'), api_path, class: 'fnpu-link' %></li>
         <li class="first-layer"><%= link_to t('.third-paty-accounts'), third_party_accounts_path, class: 'fnpu-link' %></li>
         <li class="first-layer"><%= link_to t('.email-whitelist'), email_whitelists_path, class: 'fnpu-link' %></li>
@@ -30,3 +31,4 @@
       </ul>
     </nav>
 </header>
+  
