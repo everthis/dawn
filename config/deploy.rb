@@ -180,8 +180,17 @@ namespace :deploy do
     end
   end
 
+  desc 'Run rake npm:install'
+  task :npm_install do
+    on roles(:web) do
+      within release_path do
+        execute("cd #{release_path} && npm install")
+      end
+    end
+  end
 
 
+  before "deploy:assets:precompile", "deploy:npm_install"
   before 'check:linked_files', :check_env
   before 'assets:precompile', :compile_fe
   before :starting,     :check_revision
@@ -196,7 +205,7 @@ namespace :assets do
       with rails_env: fetch(:stage) do
         execute 'rm -rf public/assets'
         execute :bundle, 'exec rake assets:precompile'
-        execute :bundle, 'exec rake webpack:compile'
+        execute :bundle, 'exec rake webpacker:compile'
       end
     end
   end
