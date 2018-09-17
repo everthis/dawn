@@ -34,7 +34,7 @@ class GistsController < ApplicationController
     if @gist.save
       @c_status = 'success'
       @c_override_url = url_for(@gist)
-      render :show
+      render :show, :formats => [:html]
     else
       @c_status = 'error'
       @c_override_url = new_gist_url
