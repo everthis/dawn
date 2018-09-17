@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get 'get_ci_package_current_log' => 'ci_package_logs#query_current_log'
   get 'front_end_job_interview_questions' => 'static_pages#front_end_job_interview_questions'
   get 'films' => 'static_pages#films'
+  get 'film/:name' => 'static_pages#film', :as => :per_film
   # get 'print_c' => 'static_pages#print_c'
   # post 'print_c' => 'static_pages#print_c'
 

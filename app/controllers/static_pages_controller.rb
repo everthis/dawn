@@ -42,6 +42,11 @@ class StaticPagesController < CBaseController
   def films
   end
 
+  def film
+    name = params[:name]
+    @film = JSON.parse(File.read("app/assets/json/#{name}.json"))
+  end
+
   def instagram
   end
 

@@ -4,12 +4,24 @@
 <% content_for :head do %>
 
 <style rel="stylesheet" name="films">
-
+  .film-entry {
+    cursor: pointer;
+    display: inline-block;
+    width: 15em;
+    height: 15em;
+    text-align: center;
+    line-height: 15em;
+    border-radius: 50%;
+    background-color: #73b2dc;
+  }
 </style>
 <% end %>
 
 <% content_for :content do %>
-  <div>films</div>
+  <div class="films-container c-card-box c-center">
+    <%= link_to "gattaca(1997)", per_film_path("gattaca_(1997)"), class: 'fnpu-link film-entry' %>
+    <%= link_to "It's a wonderful life (1946)", per_film_path("It's_a_wonderful_life_(1946)"), class: 'fnpu-link film-entry' %>
+  </div>
 <% end %>
 
 <% content_for :foot do %>

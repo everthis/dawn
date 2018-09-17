@@ -1,0 +1,49 @@
+$light-blue: #edf5fc;
+.film-title-area {
+  text-align: center;
+  padding: 0 0 0.5em 0;
+  h1 {
+    display: inline-block;
+  }
+}
+.screenshot {
+  text-align: center;
+}
+.film-single-item {
+  .screenshot + .film-quote {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+  }
+  .film-quote:last-of-type {
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
+  }
+}
+.film-quote {
+  border-left: 3px solid #ddd;
+  background-color: $light-blue;
+  .character {
+    float: left;
+    width: 110px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+  .lines {
+    margin-left: 120px;
+    line-height: 1.3;
+    text-align: left;
+    &:before {
+      display: table;
+      content: " ";
+    }
+    &:after {
+      clear: both;
+      display: table;
+      content: " ";
+    }
+  }
+}
