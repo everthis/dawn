@@ -8,6 +8,9 @@ $light-blue: #edf5fc;
 }
 .screenshot {
   text-align: center;
+  img {
+    background: #ddd;
+  }
 }
 .film-single-item {
   .screenshot + .film-quote {

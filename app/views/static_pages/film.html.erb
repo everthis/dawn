@@ -17,7 +17,7 @@
         <div class="film-single-item">
             <% content["images"].each do |image| %>
                 <div class="screenshot">
-                    <%= image_tag("#{@film["filmImagesLocation"]}#{image}") %>
+                    <%= image_tag("#{@film["filmImagesLocation"]}#{image}", size: "#{@film["imageDimensions"]}") %>
                 </div>
             <% end %>
             <% content["quotes"].each do |quote| %>
