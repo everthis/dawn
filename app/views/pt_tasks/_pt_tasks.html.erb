@@ -1,0 +1,12 @@
+<%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>
+
+<div class="pt-tasks-container pt-tasks-wrap">
+  <% @pt_tasks.each do |user| %>
+  <div class="per-pt-task c-border c-center c-padding" data-id="<%= user.user_id %>" data-dawn-id="<%= user.id %>">
+
+  </div>
+  <% end %>
+</div>
+
+
+<%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>

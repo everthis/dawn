@@ -63,6 +63,7 @@ en:
       gists: "Gist"
       instagram: "Instagram"
       films: "Films"
+      pt-task: "PT-task"
       front-end-job-interview-questions: "front-end-job-interview-questions"
 
   will_paginate:

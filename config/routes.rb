@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pt_tasks
   resources :instagram_tasks
   resources :instagram_users
   resources :instagram_images
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
   resources :apis
   get 'returnreqcookie' => 'utility#return_req_cookie'
   get 'instantsearch' => 'apis#query'
+  get 'pt_task_search' => 'pt_tasks#query'
   get 'api_response' => 'apis#token_generate_data'
   get 'apiresponse' => 'apis#generate_data'
   post 'apiresponse' => 'apis#generate_data'

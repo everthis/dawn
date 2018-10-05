@@ -15,6 +15,8 @@
   "globalA.css.map": "/static/dawn/globalA.css.map",
   "globalA.js": "/static/dawn/globalA.js",
   "globalA.js.map": "/static/dawn/globalA.js.map",
+  "ptTask.js": "/static/dawn/ptTask.js",
+  "ptTask.js.map": "/static/dawn/ptTask.js.map",
   "homepage.js": "/static/dawn/homepage.js",
   "homepage.js.map": "/static/dawn/homepage.js.map",
   "instagramUser.js": "/static/dawn/instagramUser.js",
