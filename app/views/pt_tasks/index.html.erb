@@ -6,9 +6,17 @@
 <div class="c-normal-card-box">
 <p id="notice"><%= notice %></p>
 <div class="pt-tasks-search-container">
-  <div class="pt-tasks-mask c-hide"></div>
   <div class="pt-tasks-search">
-    <input type="text" id="pt-tasks-q" class="c-input">
+    <div class="search-row">
+      <span class="search-pt-wrap">
+        <input type="text" id="pt-tasks-q" class="c-input">
+        <button type="button">Search</button>
+      </span> 
+      <span class="extra-link-area">
+        <%= link_to t('.pending-pt-task'), pending_pt_task_path, class: 'fnpu-link' %>
+        <%= link_to t('.completed-pt-task'), completed_pt_task_path, class: 'fnpu-link' %>
+      </span>
+    </div>
     <div class="pt-tasks-search-result pt-tasks-container c-pad-top"></div>
   </div>
 </div>

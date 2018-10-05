@@ -172,3 +172,8 @@ zh-CN:
       externalId: "标记"
       expand: "展开"
       collapse: "收起"
+  
+  pt_tasks:
+    index:
+      pending-pt-task: "正在处理的PT任务"
+      completed-pt-task: "已完成的PT任务"

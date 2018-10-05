@@ -68,6 +68,12 @@ class PtTasksController < CBaseController
     render json: res, status: :ok
   end
 
+  def pending
+  end
+
+  def completed
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pt_task

@@ -22,6 +22,12 @@
 .c-padding {
   padding: $padding;
 }
+.c-pad-sm {
+  padding: $padding-sm;
+}
+.c-pad {
+  @extend .c-padding;
+}
 .c-pad-left {
   padding-left: $pad-left;
 }
@@ -192,7 +198,9 @@
   word-break: break-all;
   line-height: 1.8rem;
 }
-
+.c-pointer {
+  cursor: pointer;
+}
 .c-btn {
   border: 2px solid #0e83cd;
   color: #0e83cd;

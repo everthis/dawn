@@ -151,3 +151,8 @@ en:
       hasAnswer: "hasAnswer"
       answer: "answer"
       externalId: "externalId"
+
+  pt_tasks:
+    index:
+      pending-pt-task: "pending PT task"
+      completed-pt-task: "completed PT task"

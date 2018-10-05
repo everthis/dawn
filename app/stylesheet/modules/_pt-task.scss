@@ -1,11 +1,64 @@
 .per-pt-task {
-    display: flex;
+  position: relative;
+  display: flex;
+  text-align: left;
+  & + & {
+    margin-top: $gap-top;
+  }
+  &.not-available {
+    filter: grayscale(1);
+  }
+}
+.pt-source-op {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: $white;
+}
+.pt-source {
+  display: inline-block;
+  background-color: $yellow;
+}
+.search-row {
+  display: flex;
+  justify-content: space-between;
+}
+.torrent-status-info {
+  color: $white;
+  > span {
+      display: inline-block;
+      width: 11rem;
+  }
+}
+#pt-tasks-q {
+  min-width: 20rem;
+}
+.pt-task-info {
+  padding: 0 0 0 $pad-left;
+}
+.add-pt-task {
+    background-color: $blue;
+}
+.search-pt-wrap button {
+  -webkit-appearance: none;
+}
+.torrent-category {
+  background-color: $yellow;
+}
+.torrent-size {
+  background-color: $blue;
+}
+.torrent-seeders {
+  background-color: $green;
+}
+.torrent-downloading {
+  background-color: $cyan;
 }
 .pt-task-cover {
-    width: 100%;
+  width: 100%;
 }
 .pt-task-cover {
-    background-size: contain;
-    background-repeat: no-repeat;
-    flex-basis: 8rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-basis: 8rem;
 }
