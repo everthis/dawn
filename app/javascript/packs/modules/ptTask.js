@@ -54,7 +54,7 @@ function renderList(arr) {
             </div>
         </div>
         <div class="pt-source-op">
-          <span class="pt-source c-pad">种子来源: ${el.torrentSource}</span>
+          <span class="pt-source c-pad-sm">种子来源: ${el.torrentSource}</span>
           ${checkAvailability(el) ? addTaskHtml(el) : ""}
         </div>
       </div>

@@ -10,9 +10,6 @@
   }
 }
 .pt-source-op {
-  position: absolute;
-  top: 0;
-  right: 0;
   color: $white;
 }
 .pt-source {
@@ -35,6 +32,7 @@
 }
 .pt-task-info {
   padding: 0 0 0 $pad-left;
+  flex: 1;
 }
 .add-pt-task {
     background-color: $blue;
