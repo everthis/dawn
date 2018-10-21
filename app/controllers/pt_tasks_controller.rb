@@ -68,6 +68,16 @@ class PtTasksController < CBaseController
     render json: res, status: :ok
   end
 
+  def torrentDetail
+    res = cfetch('http://localhost:3000/torrentDetail?id=' + params[:id] + '&source=' + params[:source])
+    render json: res, status: :ok
+  end
+
+  def ttgCover
+    res = cfetch('http://localhost:3000/ttgCover?id=' + params[:id] + '&source=' + params[:source])
+    render json: res, status: :ok
+  end
+
   def pending
   end
 
@@ -86,16 +96,17 @@ class PtTasksController < CBaseController
     end
 
     def cfetch(str)
-      url = URI(str)
-      
+      # url = URI(str)
+      url = URI.parse(URI.escape(str))
+
       http = Net::HTTP.new(url.host, url.port)
       # http.use_ssl = true
       # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      
+
       request = Net::HTTP::Get.new(url)
       # request["x-api-key"] = ENV["SYGIC_API_KEY"]
       request["cache-control"] = 'no-cache'
-      
+
       response = http.request(request)
       response.read_body
 

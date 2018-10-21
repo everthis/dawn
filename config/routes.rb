@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   get 'returnreqcookie' => 'utility#return_req_cookie'
   get 'instantsearch' => 'apis#query'
   get 'pt_task_search' => 'pt_tasks#query'
+  get 'pt_task_torrent_detail' => 'pt_tasks#torrentDetail'
+  get 'pt_task_ttg_cover' => 'pt_tasks#ttgCover'
   get 'pending_pt_task' => 'pt_tasks#pending'
   get 'completed_pt_task' => 'pt_tasks#completed'
   get 'api_response' => 'apis#token_generate_data'

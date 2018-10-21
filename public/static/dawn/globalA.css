@@ -730,8 +730,12 @@ textarea[type="hidden"] {
   margin: 0.5rem;
 }
 
-.c-padding {
+.c-padding, .c-pad {
   padding: 0.5rem;
+}
+
+.c-pad-sm {
+  padding: 0.3rem;
 }
 
 .c-pad-left {
@@ -744,6 +748,10 @@ textarea[type="hidden"] {
 
 .c-pad-top {
   padding-top: 0.5rem;
+}
+
+.c-pad-bottom {
+  padding-bottom: 0.5rem;
 }
 
 .c-pad-top-m {
@@ -916,7 +924,7 @@ textarea[type="hidden"] {
 }
 
 .c-simulate-table .current_active {
-  margin: -.5rem -0.5rem 0 -0.5rem;
+  margin: -0.5rem -0.5rem 0 -0.5rem;
   padding: 0.5rem;
   background-color: #7fff00;
 }
@@ -933,6 +941,10 @@ textarea[type="hidden"] {
   overflow: hidden;
   word-break: break-all;
   line-height: 1.8rem;
+}
+
+.c-pointer {
+  cursor: pointer;
 }
 
 .c-btn, .c-button {
@@ -4441,6 +4453,230 @@ table.CodeRay {
   .logo {
     font-size: 4px;
   }
+}
+
+.film-title-area {
+  text-align: center;
+  padding: 0 0 0.5em 0;
+}
+
+.film-title-area h1 {
+  display: inline-block;
+}
+
+.screenshot {
+  text-align: center;
+}
+
+.screenshot img {
+  background: #ddd;
+}
+
+.film-single-item .screenshot + .film-quote {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+}
+
+.film-single-item .film-quote:last-of-type {
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.film-quote {
+  border-left: 3px solid #ddd;
+  background-color: #edf5fc;
+}
+
+.film-quote .character {
+  float: left;
+  width: 110px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.film-quote .lines {
+  margin-left: 120px;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.film-quote .lines:before {
+  display: table;
+  content: " ";
+}
+
+.film-quote .lines:after {
+  clear: both;
+  display: table;
+  content: " ";
+}
+
+.per-pt-task {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: left;
+}
+
+.per-pt-task + .per-pt-task {
+  margin-top: 0.8rem;
+}
+
+.per-pt-task.not-available {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
+.pt-source-op {
+  color: #fff;
+  -ms-flex-preferred-size: 10em;
+      flex-basis: 10em;
+}
+
+.pt-source {
+  display: block;
+  background-color: #f90;
+}
+
+.pt-task-hints {
+  background-color: #fffaf0;
+}
+
+.pt-torrent-detail {
+  display: block;
+  background-color: #19be6b;
+}
+
+.torrent-detail-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.torrent-detail-bg {
+  background-color: #000;
+  opacity: 0.6;
+  width: 100%;
+  height: 100%;
+}
+
+.torrent-detail-popup-inner-wrap {
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.torrent-detail-popup-wrap {
+  position: absolute;
+  top: 3em;
+  bottom: 3em;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+  background-color: #fff;
+  width: 100em;
+}
+
+.torrent-detail-popup-wrap img {
+  max-width: 100%;
+}
+
+.torrent-detail-popup-close {
+  position: absolute;
+  display: inline-block;
+  right: -7em;
+  top: 0.5em;
+  width: 6em;
+  line-height: 2;
+  background: #000;
+  color: #fff;
+}
+
+.torrent-detail-popup {
+  padding: 1em;
+}
+
+.torrent-detail-popup .quoted {
+  border: 1px #000 dotted;
+  padding: 10px;
+  width: 98%;
+  margin: 10px auto;
+  font-family: "Courier New";
+  background-color: #ebeeff;
+}
+
+.search-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.torrent-status-info {
+  color: #fff;
+}
+
+.torrent-status-info > span {
+  display: inline-block;
+  width: 11rem;
+}
+
+#pt-tasks-q {
+  min-width: 20rem;
+}
+
+.pt-task-info {
+  padding: 0 0 0 0.5rem;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.add-pt-task {
+  background-color: #2d8cf0;
+}
+
+.search-pt-wrap button {
+  -webkit-appearance: none;
+}
+
+.torrent-category {
+  background-color: #f90;
+}
+
+.torrent-size {
+  background-color: #2d8cf0;
+}
+
+.torrent-seeders {
+  background-color: #19be6b;
+}
+
+.torrent-downloading {
+  background-color: #0cc;
+}
+
+.pt-task-cover {
+  width: 100%;
+}
+
+.pt-task-cover {
+  background-size: contain;
+  background-repeat: no-repeat;
+  -ms-flex-preferred-size: 8rem;
+      flex-basis: 8rem;
 }
 
 /* import all pages */

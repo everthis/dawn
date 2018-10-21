@@ -1,5 +1,5 @@
-$chinese-font: 'Courier New', Courier, monospace;
-$english-font: 12px/1.54 Arial, 'Helvetica Neue', Helvetica, sans-serif;
+$chinese-font: "Courier New", Courier, monospace;
+$english-font: 12px/1.54 Arial, "Helvetica Neue", Helvetica, sans-serif;
 $font-size: 12px;
 $success-color: #fff;
 $success-bg-color: #7fffd4;
@@ -23,9 +23,10 @@ $blue: #2d8cf0;
 $green: #19be6b;
 $red: #ed3f14;
 $yellow: #f90;
+$letter-bg: #fffaf0;
 
 /* used for math */
-$default-threshold: pi()/180/20 !default;
+$default-threshold: pi() / 180/20 !default;
 
 /* user */
 $user-following-link-padding: 0 0.5rem;
@@ -39,7 +40,7 @@ $container-width: 50rem;
 $input-line-height: 1.5;
 $input-height: 2rem;
 
-$padding-sm: .3rem;
+$padding-sm: 0.3rem;
 $padding: 0.5rem;
 $c-border: 1px solid #999;
 $gap-top: 0.8rem;
