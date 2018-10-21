@@ -4527,7 +4527,7 @@ table.CodeRay {
   margin-top: 0.8rem;
 }
 
-.per-pt-task.not-available {
+.per-pt-task.not-available .pt-task-cover, .per-pt-task.not-available .pt-task-info, .per-pt-task.not-available .pt-source {
   -webkit-filter: grayscale(1);
           filter: grayscale(1);
 }

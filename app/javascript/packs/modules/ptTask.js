@@ -161,7 +161,7 @@ function delegateClick(ev) {
     apt = evt.closest(".add-pt-task");
   }
   if (apt) {
-    goToTaskDetail(apt);
+    addPtTask(apt);
     return;
   }
 
@@ -207,6 +207,16 @@ function closePopup(el) {
 function showTorrentDetail(el) {
   const { id, source } = el.dataset;
   getTorrentDetail({ id, source });
+}
+
+function addPtTask(el) {
+  const { source, id } = el.dataset;
+  return fetch(`/pt_task_add?sourceId=${source}_${id}`, {
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
 }
 
 function goToTaskDetail(task_id) {

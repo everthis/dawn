@@ -78,6 +78,11 @@ class PtTasksController < CBaseController
     render json: res, status: :ok
   end
 
+  def addTask
+    res = cfetch('http://localhost:3000/addTorrent?sourceId=' + params[:sourceId])
+    render json: res, status: :ok
+  end
+
   def pending
   end
 

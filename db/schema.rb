@@ -139,11 +139,15 @@ ActiveRecord::Schema.define(version: 2018_10_04_114032) do
   end
 
   create_table "pt_tasks", force: :cascade do |t|
-    t.string "title_cn"
-    t.string "title_en"
-    t.json "api_response"
+    t.bigint "user_id"
+    t.string "source_id"
+    t.string "transmission_id"
+    t.string "cdn_url"
+    t.json "torrent_base_info"
+    t.text "torrent_detail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pt_tasks_on_user_id"
   end
 
   create_table "relationships", id: :serial, force: :cascade do |t|
@@ -207,6 +211,7 @@ ActiveRecord::Schema.define(version: 2018_10_04_114032) do
   add_foreign_key "ci_packages", "users"
   add_foreign_key "docs", "users"
   add_foreign_key "gists", "users"
+  add_foreign_key "pt_tasks", "users"
   add_foreign_key "third_party_accounts", "users"
   add_foreign_key "user_preferences", "users"
 end
