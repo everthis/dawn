@@ -270,7 +270,7 @@ function addPtTask(el) {
       source = _el$dataset2.source,
       id = _el$dataset2.id;
 
-  return fetch("/pt_task_add?sourceId=" + source + "_" + id, {
+  return fetch("/pt_task_add?source_id=" + source + "_" + id, {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json"

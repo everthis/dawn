@@ -211,7 +211,7 @@ function showTorrentDetail(el) {
 
 function addPtTask(el) {
   const { source, id } = el.dataset;
-  return fetch(`/pt_task_add?sourceId=${source}_${id}`, {
+  return fetch(`/pt_task_add?source_id=${source}_${id}`, {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json"

@@ -79,8 +79,24 @@ class PtTasksController < CBaseController
   end
 
   def addTask
-    res = cfetch('http://localhost:3000/addTorrent?sourceId=' + params[:sourceId])
-    render json: res, status: :ok
+    @pt_task = PtTask.find_by(source_id: params[:source_id])
+    if @pt_task.nil?
+      new_pt_task = current_user.pt_tasks.build(pt_task_params(params))
+      begin
+        new_pt_task.save
+      rescue => ex
+        logger.error ex.message
+        render :json => {:status => 'error'}
+      end
+      res = cfetch('http://localhost:3000/addTorrent?sourceId=' + params[:source_id])
+      obj = JSON.parse(res)
+      unless obj['id'].nil?
+        new_pt_task.update_attribute(:transmission_id, "#{obj['id']}")
+      end
+      render json: res, status: :ok
+    else
+      render json: @pt_task, status: :ok
+    end
   end
 
   def pending
@@ -98,6 +114,10 @@ class PtTasksController < CBaseController
     # Never trust parameters from the scary internet, only allow the white list through.
     def pt_task_params
       params.require(:pt_task).permit(:title_cn, :title_en, :api_response)
+    end
+
+    def pt_task_params(param)
+      param.permit(:source_id, :torrent_base_info, :torrent_detail)
     end
 
     def cfetch(str)
