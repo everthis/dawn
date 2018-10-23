@@ -9,5 +9,6 @@
   "globalA.js": "globalA.js",
   "homepage.js": "homepage.js",
   "instagramUser.js": "instagramUser.js",
-  "newCiNpmPackages.js": "newCiNpmPackages.js"
+  "newCiNpmPackages.js": "newCiNpmPackages.js",
+  "ptTask.js": "ptTask.js"
 }

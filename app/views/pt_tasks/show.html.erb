@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title cn:</strong>
+  <%= @pt_task.title_cn %>
+</p>
+
+<p>
+  <strong>Title en:</strong>
+  <%= @pt_task.title_en %>
+</p>
+
+<p>
+  <strong>Api response:</strong>
+  <%= @pt_task.api_response %>
+</p>
+
+<%= link_to 'Edit', edit_pt_task_path(@pt_task) %> |
+<%= link_to 'Back', pt_tasks_path %>

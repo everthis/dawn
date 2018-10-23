@@ -20,5 +20,7 @@
   "instagramUser.js": "/static/dawn/instagramUser.js",
   "instagramUser.js.map": "/static/dawn/instagramUser.js.map",
   "newCiNpmPackages.js": "/static/dawn/newCiNpmPackages.js",
-  "newCiNpmPackages.js.map": "/static/dawn/newCiNpmPackages.js.map"
+  "newCiNpmPackages.js.map": "/static/dawn/newCiNpmPackages.js.map",
+  "ptTask.js": "/static/dawn/ptTask.js",
+  "ptTask.js.map": "/static/dawn/ptTask.js.map"
 }

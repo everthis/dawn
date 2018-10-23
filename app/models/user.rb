@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :apis, dependent: :destroy
   has_many :gists, dependent: :destroy
   has_many :ci_packages
+  has_many :pt_tasks
   has_many :third_party_accounts, dependent: :destroy
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name:  "Relationship",

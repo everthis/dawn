@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003035154) do
+ActiveRecord::Schema.define(version: 2018_10_04_114032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,18 @@ ActiveRecord::Schema.define(version: 20171003035154) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pt_tasks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "source_id"
+    t.string "transmission_id"
+    t.string "cdn_url"
+    t.json "torrent_base_info"
+    t.text "torrent_detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pt_tasks_on_user_id"
+  end
+
   create_table "relationships", id: :serial, force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
@@ -199,6 +211,7 @@ ActiveRecord::Schema.define(version: 20171003035154) do
   add_foreign_key "ci_packages", "users"
   add_foreign_key "docs", "users"
   add_foreign_key "gists", "users"
+  add_foreign_key "pt_tasks", "users"
   add_foreign_key "third_party_accounts", "users"
   add_foreign_key "user_preferences", "users"
 end

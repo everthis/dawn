@@ -1,4 +1,4 @@
-class AddNameToApis < ActiveRecord::Migration
+class AddNameToApis < ActiveRecord::Migration[4.2]
   def change
     add_column :apis, :name, :string
   end

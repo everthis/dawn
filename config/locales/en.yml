@@ -63,6 +63,7 @@ en:
       gists: "Gist"
       instagram: "Instagram"
       films: "Films"
+      pt-task: "PT-task"
       front-end-job-interview-questions: "front-end-job-interview-questions"
 
   will_paginate:
@@ -150,3 +151,8 @@ en:
       hasAnswer: "hasAnswer"
       answer: "answer"
       externalId: "externalId"
+
+  pt_tasks:
+    index:
+      pending-pt-task: "pending PT task"
+      completed-pt-task: "completed PT task"

@@ -1,0 +1,45 @@
+<% provide(:title, 'PT tasks') %>
+<% provide(:name, 'PT_tasks') %>
+
+<% content_for :content do %>
+
+<div class="c-normal-card-box">
+  <p id="notice"><%= notice %></p>
+  <div class="pt-tasks-search-container">
+    <div class="pt-tasks-search">
+      <div class="search-row">
+        <span class="search-pt-wrap">
+          <input type="text" id="pt-tasks-q" class="c-input">
+          <button type="button" id="pt-task-search-btn">Search</button>
+        </span>
+        <span class="extra-link-area">
+          <%= link_to t('.pending-pt-task'), pending_pt_task_path, class: 'fnpu-link' %>
+          <%= link_to t('.completed-pt-task'), completed_pt_task_path, class: 'fnpu-link' %>
+        </span>
+      </div>
+      <div class="pt-task-hints c-pad-top c-pad-bottom c-gap-top">
+        <ul>
+          <li>资源来源于TTG(种子总容量2.4PB), HDR(种子容量未知), HDC(种子总容量1.04PB)</li>
+          <li>做种数量为0的种子默认不能被加入任务</li>
+          <li>由于服务器资源限制，大小超过10GB的单个种子不能被加入任务</li>
+        </ul>
+      </div>
+      <div class="pt-tasks-search-result pt-tasks-container c-pad-top"></div>
+      <div class="torrent-detail-wrap c-hide">
+        <div class="torrent-detail-bg"></div>
+        <div class="torrent-detail-popup-wrap">
+          <div class="torrent-detail-popup-inner-wrap">
+            <div class="torrent-detail-popup"></div>
+          </div>
+          <span class="torrent-detail-popup-close c-center c-pointer">close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% end %>
+<% content_for :foot do%>
+  <%= javascript_pack_tag 'ptTask', name: "ptTask" %>
+<% end %>

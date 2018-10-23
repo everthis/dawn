@@ -1,4 +1,4 @@
-class CreateThirdPartyAccounts < ActiveRecord::Migration
+class CreateThirdPartyAccounts < ActiveRecord::Migration[4.2]
   def change
     create_table :third_party_accounts do |t|
       t.string :account
