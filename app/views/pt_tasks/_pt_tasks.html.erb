@@ -1,9 +1,12 @@
 <%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>
 
 <div class="pt-tasks-container pt-tasks-wrap">
-  <% @pt_tasks.each do |user| %>
-  <div class="per-pt-task c-border c-center c-padding" data-id="<%= user.user_id %>" data-dawn-id="<%= user.id %>">
-
+  <% @pt_tasks.each do |task| %>
+  <div class="per-pt-task c-border c-center c-padding"
+  data-user-id="<%= task.user_id %>"
+  data-source-id="<%= task.source_id %>"
+  data-transmission-id="<%= task.transmission_id %>">
+    <%= task.torrent_base_info %>
   </div>
   <% end %>
 </div>

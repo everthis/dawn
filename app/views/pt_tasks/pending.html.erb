@@ -1,0 +1,17 @@
+<% provide(:title, 'pending PT tasks') %>
+<% provide(:name, 'pending_PT_tasks') %>
+
+<% content_for :content do %>
+
+<div class="c-normal-card-box">
+  <p id="notice"><%= notice %></p>
+  <div class="pt-tasks-container">
+
+  </div>
+  <%= render 'pt_tasks' %>
+</div>
+
+
+<% end %>
+<% content_for :foot do%>
+<% end %>

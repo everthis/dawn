@@ -10,6 +10,7 @@ const torrentDetailWrapEl = document.getElementsByClassName(
 )[0];
 const searchInputEl = document.getElementById("pt-tasks-q");
 
+let listData = [];
 let ptTasks = [];
 function queryId(ev) {
   const q = searchInputEl.value;
@@ -30,21 +31,23 @@ function queryId(ev) {
     });
 }
 
-function getTorrentDetail({ id, source }) {
+function getDetailContent({ id, source }) {
   if (id == null || source == null) {
     return;
   }
-  fetch(`/pt_task_torrent_detail?id=${id}&source=${source}`, {
+  return fetch(`/pt_task_torrent_detail?id=${id}&source=${source}`, {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json"
     }
-  })
-    .then(res => res.text())
-    .then(data => {
-      torrentDetailEl.innerHTML = data;
-      torrentDetailWrapEl.classList.remove("c-hide");
-    });
+  }).then(res => res.text());
+}
+
+function getTorrentDetail({ id, source }) {
+  getDetailContent({ id, source }).then(data => {
+    torrentDetailEl.innerHTML = data;
+    torrentDetailWrapEl.classList.remove("c-hide");
+  });
 }
 
 function getTtgCover(el) {
@@ -72,6 +75,7 @@ function getTtgCover(el) {
 }
 function shouldContinue(data, q) {
   if (stack.length > 0 && q === stack[stack.length - 1]) {
+    listData = data;
     renderList(data);
   }
 }
@@ -209,13 +213,24 @@ function showTorrentDetail(el) {
   getTorrentDetail({ id, source });
 }
 
-function addPtTask(el) {
+async function addPtTask(el) {
   const { source, id } = el.dataset;
-  return fetch(`/pt_task_add?source_id=${source}_${id}`, {
+  const c = await getDetailContent({ id, source });
+  return fetch(`/pt_task_add`, {
+    method: "post",
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json"
-    }
+    },
+    body: JSON.stringify({
+      source_id: `${source}_${id}`,
+      torrent_detail: c,
+      torrent_base_info: JSON.stringify(
+        listData.filter(
+          el => +el.torrentId === +id && el.torrentSource === source
+        )[0]
+      )
+    })
   });
 }
 

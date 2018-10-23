@@ -1,6 +1,7 @@
 require 'uri'
 require 'net/http'
 class PtTasksController < CBaseController
+  skip_before_action :verify_authenticity_token
   before_action :set_pt_task, only: [:show, :edit, :update, :destroy]
 
   # GET /pt_tasks
@@ -100,20 +101,17 @@ class PtTasksController < CBaseController
   end
 
   def pending
+    @pt_tasks = PtTask.where(cdn_url: nil).paginate(page: params[:page]).order("created_at ASC")
   end
 
   def completed
+    @pt_tasks = PtTask.where.not(cdn_url: nil).paginate(page: params[:page]).order("created_at ASC")
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pt_task
       @pt_task = PtTask.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def pt_task_params
-      params.require(:pt_task).permit(:title_cn, :title_en, :api_response)
     end
 
     def pt_task_params(param)

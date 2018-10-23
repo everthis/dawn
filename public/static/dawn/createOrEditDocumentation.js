@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 145);
+/******/ 	return __webpack_require__(__webpack_require__.s = 155);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 100:
+/***/ 106:
 /* no static exports found */
 /* all exports used */
 /*!***************************************************************************!*\
@@ -76,7 +76,7 @@
   \***************************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 101)(undefined);
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 107)(undefined);
 // imports
 
 
@@ -88,7 +88,7 @@ exports.push([module.i, "/* BASICS */\n\n.CodeMirror {\n  /* Set height, width, 
 
 /***/ }),
 
-/***/ 101:
+/***/ 107:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -176,7 +176,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 102:
+/***/ 108:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************!*\
@@ -187,7 +187,7 @@ function toComment(sourceMap) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 100);
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 106);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -195,7 +195,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 103)(content, options);
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 109)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -213,7 +213,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 103:
+/***/ 109:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************!*\
@@ -264,7 +264,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(/*! ./urls */ 104);
+var	fixUrls = __webpack_require__(/*! ./urls */ 110);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -578,7 +578,7 @@ function updateLink (link, options, obj) {
 
 /***/ }),
 
-/***/ 104:
+/***/ 110:
 /* no static exports found */
 /* all exports used */
 /*!************************************!*\
@@ -679,7 +679,7 @@ module.exports = function (css) {
 
 /***/ }),
 
-/***/ 119:
+/***/ 129:
 /* no static exports found */
 /* all exports used */
 /*!*******************************************************************!*\
@@ -696,19 +696,19 @@ Object.defineProperty(exports, "__esModule", {
 exports.newDocumentation = newDocumentation;
 exports.exitNewDocumentation = exitNewDocumentation;
 
-var _codemirror = __webpack_require__(/*! codemirror/lib/codemirror.css */ 102);
+var _codemirror = __webpack_require__(/*! codemirror/lib/codemirror.css */ 108);
 
 var _codemirror2 = _interopRequireDefault(_codemirror);
 
-var _codemirror3 = __webpack_require__(/*! codemirror */ 13);
+var _codemirror3 = __webpack_require__(/*! codemirror */ 16);
 
 var _codemirror4 = _interopRequireDefault(_codemirror3);
 
-var _markdown = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 95);
+var _markdown = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 96);
 
 var _markdown2 = _interopRequireDefault(_markdown);
 
-var _activeLine = __webpack_require__(/*! codemirror/addon/selection/active-line */ 94);
+var _activeLine = __webpack_require__(/*! codemirror/addon/selection/active-line */ 95);
 
 var _activeLine2 = _interopRequireDefault(_activeLine);
 
@@ -797,7 +797,27 @@ function exitNewDocumentation() {
 
 /***/ }),
 
-/***/ 13:
+/***/ 155:
+/* no static exports found */
+/* all exports used */
+/*!*******************************************************************!*\
+  !*** ./app/javascript/packs/entries/createOrEditDocumentation.js ***!
+  \*******************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createOrEditDocumentation = __webpack_require__(/*! ../modules/createOrEditDocumentation */ 129);
+
+(function () {
+  A.init[A.gc.currentName] = _createOrEditDocumentation.newDocumentation;
+  A.destroy[A.gc.currentName] = _createOrEditDocumentation.exitNewDocumentation;
+})();
+
+/***/ }),
+
+/***/ 16:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -10300,27 +10320,7 @@ return CodeMirror$1;
 
 /***/ }),
 
-/***/ 145:
-/* no static exports found */
-/* all exports used */
-/*!*******************************************************************!*\
-  !*** ./app/javascript/packs/entries/createOrEditDocumentation.js ***!
-  \*******************************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createOrEditDocumentation = __webpack_require__(/*! ../modules/createOrEditDocumentation */ 119);
-
-(function () {
-  A.init[A.gc.currentName] = _createOrEditDocumentation.newDocumentation;
-  A.destroy[A.gc.currentName] = _createOrEditDocumentation.exitNewDocumentation;
-})();
-
-/***/ }),
-
-/***/ 94:
+/***/ 95:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************************!*\
@@ -10333,7 +10333,7 @@ var _createOrEditDocumentation = __webpack_require__(/*! ../modules/createOrEdit
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -10404,7 +10404,7 @@ var _createOrEditDocumentation = __webpack_require__(/*! ../modules/createOrEdit
 
 /***/ }),
 
-/***/ 95:
+/***/ 96:
 /* no static exports found */
 /* all exports used */
 /*!************************************************!*\
@@ -10417,7 +10417,7 @@ var _createOrEditDocumentation = __webpack_require__(/*! ../modules/createOrEdit
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13), __webpack_require__(/*! ../xml/xml */ 97), __webpack_require__(/*! ../meta */ 96));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16), __webpack_require__(/*! ../xml/xml */ 98), __webpack_require__(/*! ../meta */ 97));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
   else // Plain browser env
@@ -11275,7 +11275,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 /***/ }),
 
-/***/ 96:
+/***/ 97:
 /* no static exports found */
 /* all exports used */
 /*!***********************************!*\
@@ -11288,7 +11288,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../lib/codemirror"], mod);
   else // Plain browser env
@@ -11502,7 +11502,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 /***/ }),
 
-/***/ 97:
+/***/ 98:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -11515,7 +11515,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env

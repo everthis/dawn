@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 146);
+/******/ 	return __webpack_require__(__webpack_require__.s = 156);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -86,23 +86,41 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 /***/ }),
 
-/***/ 1:
+/***/ 10:
 /* no static exports found */
 /* all exports used */
-/*!***************************************************!*\
-  !*** ./~/core-js/library/modules/_descriptors.js ***!
-  \***************************************************/
-/***/ (function(module, exports, __webpack_require__) {
+/*!*********************************************!*\
+  !*** ./~/core-js/library/modules/_fails.js ***!
+  \*********************************************/
+/***/ (function(module, exports) {
 
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(/*! ./_fails */ 9)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
 
 
 /***/ }),
 
-/***/ 100:
+/***/ 105:
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************************!*\
+  !*** ./~/core-js/library/modules/es6.object.define-property.js ***!
+  \*****************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(/*! ./_export */ 12);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(/*! ./_descriptors */ 2), 'Object', { defineProperty: __webpack_require__(/*! ./_object-dp */ 3).f });
+
+
+/***/ }),
+
+/***/ 106:
 /* no static exports found */
 /* all exports used */
 /*!***************************************************************************!*\
@@ -110,7 +128,7 @@ module.exports = !__webpack_require__(/*! ./_fails */ 9)(function () {
   \***************************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 101)(undefined);
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 107)(undefined);
 // imports
 
 
@@ -122,7 +140,7 @@ exports.push([module.i, "/* BASICS */\n\n.CodeMirror {\n  /* Set height, width, 
 
 /***/ }),
 
-/***/ 101:
+/***/ 107:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -210,7 +228,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 102:
+/***/ 108:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************!*\
@@ -221,7 +239,7 @@ function toComment(sourceMap) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 100);
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 106);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -229,7 +247,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 103)(content, options);
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 109)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -247,7 +265,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 103:
+/***/ 109:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************!*\
@@ -298,7 +316,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(/*! ./urls */ 104);
+var	fixUrls = __webpack_require__(/*! ./urls */ 110);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -612,7 +630,27 @@ function updateLink (link, options, obj) {
 
 /***/ }),
 
-/***/ 104:
+/***/ 11:
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_property-desc.js ***!
+  \*****************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+
+/***/ }),
+
+/***/ 110:
 /* no static exports found */
 /* all exports used */
 /*!************************************!*\
@@ -713,24 +751,80 @@ module.exports = function (css) {
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /* no static exports found */
 /* all exports used */
-/*!*************************************************!*\
-  !*** ./~/core-js/library/modules/_an-object.js ***!
-  \*************************************************/
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_export.js ***!
+  \**********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(/*! ./_is-object */ 8);
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
+var global = __webpack_require__(/*! ./_global */ 0);
+var core = __webpack_require__(/*! ./_core */ 6);
+var ctx = __webpack_require__(/*! ./_ctx */ 28);
+var hide = __webpack_require__(/*! ./_hide */ 4);
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if (own && key in exports) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if (IS_PROTO) {
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+    }
+  }
 };
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
 
 
 /***/ }),
 
-/***/ 114:
+/***/ 120:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -743,7 +837,7 @@ module.exports = function (it) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -1573,27 +1667,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
 /***/ }),
 
-/***/ 12:
-/* no static exports found */
-/* all exports used */
-/*!*****************************************************!*\
-  !*** ./~/core-js/library/modules/_property-desc.js ***!
-  \*****************************************************/
-/***/ (function(module, exports) {
-
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-
-/***/ }),
-
-/***/ 120:
+/***/ 130:
 /* no static exports found */
 /* all exports used */
 /*!**********************************************************!*\
@@ -1610,7 +1684,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.cn = cn;
 exports.en = en;
 
-var _markdownTextArea = __webpack_require__(/*! ../common/markdownTextArea */ 139);
+var _markdownTextArea = __webpack_require__(/*! ../common/markdownTextArea */ 149);
 
 var _markdownTextArea2 = _interopRequireDefault(_markdownTextArea);
 
@@ -1643,7 +1717,185 @@ function en() {
 
 /***/ }),
 
-/***/ 13:
+/***/ 149:
+/* no static exports found */
+/* all exports used */
+/*!*********************************************************!*\
+  !*** ./app/javascript/packs/common/markdownTextArea.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 93);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 94);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _codemirror = __webpack_require__(/*! codemirror/lib/codemirror.css */ 108);
+
+var _codemirror2 = _interopRequireDefault(_codemirror);
+
+var _codemirror3 = __webpack_require__(/*! codemirror */ 16);
+
+var _codemirror4 = _interopRequireDefault(_codemirror3);
+
+var _markdown = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 96);
+
+var _markdown2 = _interopRequireDefault(_markdown);
+
+var _css = __webpack_require__(/*! codemirror/mode/css/css */ 120);
+
+var _css2 = _interopRequireDefault(_css);
+
+var _sass = __webpack_require__(/*! codemirror/mode/sass/sass */ 179);
+
+var _sass2 = _interopRequireDefault(_sass);
+
+var _ruby = __webpack_require__(/*! codemirror/mode/ruby/ruby */ 178);
+
+var _ruby2 = _interopRequireDefault(_ruby);
+
+var _javascript = __webpack_require__(/*! codemirror/mode/javascript/javascript */ 177);
+
+var _javascript2 = _interopRequireDefault(_javascript);
+
+var _activeLine = __webpack_require__(/*! codemirror/addon/selection/active-line */ 95);
+
+var _activeLine2 = _interopRequireDefault(_activeLine);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * todo: add support for multiple textarea
+ */
+var _class = function () {
+  function _class() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0, _classCallCheck3.default)(this, _class);
+
+    this.formEle = options.formEle;
+    this.textAreas = options.textAreas;
+    this.submitEle = options.submitEle;
+    this.formContainer = options.formContainer;
+    this.cmInstances = [];
+    this.fd = null;
+    this.fa = '';
+    this.cb = null;
+  }
+
+  (0, _createClass3.default)(_class, [{
+    key: 'clickBind',
+    value: function clickBind(ev) {
+      ev.preventDefault();
+      for (var i = 0; i < this.cmInstances.length; i++) {
+        this.cmInstances[i].textAreaEle.value = this.cmInstances[i].cmInstance.getValue();
+      }
+      // this.fa = this.formEle.action;
+      // this.fd = new FormData(this.formEle);
+      // console.log(this)
+      // window.A.spf.load(this.fa, {
+      //   method: "POST",
+      //   postData: this.fd,
+      //   onProcess: function(evt) {
+      //   },
+      //   onDone: function(evt) {
+      //     if(evt.response.status && evt.response.status === 'success') {
+      //       if (evt.response.url) A.spf.navigate(evt.response.url);
+      //     }
+      //   }
+      // });
+    }
+  }, {
+    key: 'createCMInstance',
+    value: function createCMInstance(ta) {
+      var language = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'markdown';
+
+      var cmIns = _codemirror4.default.fromTextArea(ta, {
+        lineWrapping: true,
+        lineNumbers: true,
+        mode: language,
+        styleActiveLine: true,
+        lineSeparator: '\n',
+        matchBrackets: true,
+        viewportMargin: Infinity,
+        scrollbarStyle: 'null',
+        extraKeys: {
+          'Tab': function Tab() {
+            return cmIns.execCommand('insertSoftTab');
+          }
+        }
+      });
+      // cmIns.setSize('100%', '50%');
+      // cmIns.refresh()
+      return cmIns;
+    }
+  }, {
+    key: 'init',
+    value: function init(opts) {
+      for (var i = 0; i < this.textAreas.length; i++) {
+        this.cmInstances.push({
+          cmInstance: this.createCMInstance(this.textAreas[i], opts.language),
+          textAreaEle: this.textAreas[i]
+        });
+      }
+      this.cb = this.clickBind.bind(this);
+      this.submitEle.addEventListener('click', this.cb);
+    }
+  }, {
+    key: 'changeOption',
+    value: function changeOption(field, val) {
+      for (var i = 0; i < this.cmInstances.length; i++) {
+        this.cmInstances[i].cmInstance.setOption(field, val);
+      }
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      this.formContainer.classList.add('c-hidden');
+      for (var i = 0; i < this.cmInstances.length; i++) {
+        this.cmInstances[i].cmInstance.toTextArea();
+        this.cmInstances[i].cmInstance = null;
+      }
+      this.submitEle.removeEventListener('click', this.cb);
+    }
+  }]);
+  return _class;
+}();
+
+exports.default = _class;
+
+/***/ }),
+
+/***/ 156:
+/* no static exports found */
+/* all exports used */
+/*!**********************************************************!*\
+  !*** ./app/javascript/packs/entries/createOrEditGist.js ***!
+  \**********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 130);
+
+(function () {
+  A.init[A.gc.currentName] = _createOrEditGist.cn;
+  A.destroy[A.gc.currentName] = _createOrEditGist.en;
+})();
+
+/***/ }),
+
+/***/ 16:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -11146,258 +11398,7 @@ return CodeMirror$1;
 
 /***/ }),
 
-/***/ 139:
-/* no static exports found */
-/* all exports used */
-/*!*********************************************************!*\
-  !*** ./app/javascript/packs/common/markdownTextArea.js ***!
-  \*********************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 92);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 93);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _codemirror = __webpack_require__(/*! codemirror/lib/codemirror.css */ 102);
-
-var _codemirror2 = _interopRequireDefault(_codemirror);
-
-var _codemirror3 = __webpack_require__(/*! codemirror */ 13);
-
-var _codemirror4 = _interopRequireDefault(_codemirror3);
-
-var _markdown = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 95);
-
-var _markdown2 = _interopRequireDefault(_markdown);
-
-var _css = __webpack_require__(/*! codemirror/mode/css/css */ 114);
-
-var _css2 = _interopRequireDefault(_css);
-
-var _sass = __webpack_require__(/*! codemirror/mode/sass/sass */ 166);
-
-var _sass2 = _interopRequireDefault(_sass);
-
-var _ruby = __webpack_require__(/*! codemirror/mode/ruby/ruby */ 165);
-
-var _ruby2 = _interopRequireDefault(_ruby);
-
-var _javascript = __webpack_require__(/*! codemirror/mode/javascript/javascript */ 164);
-
-var _javascript2 = _interopRequireDefault(_javascript);
-
-var _activeLine = __webpack_require__(/*! codemirror/addon/selection/active-line */ 94);
-
-var _activeLine2 = _interopRequireDefault(_activeLine);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
- * todo: add support for multiple textarea
- */
-var _class = function () {
-  function _class() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    (0, _classCallCheck3.default)(this, _class);
-
-    this.formEle = options.formEle;
-    this.textAreas = options.textAreas;
-    this.submitEle = options.submitEle;
-    this.formContainer = options.formContainer;
-    this.cmInstances = [];
-    this.fd = null;
-    this.fa = '';
-    this.cb = null;
-  }
-
-  (0, _createClass3.default)(_class, [{
-    key: 'clickBind',
-    value: function clickBind(ev) {
-      ev.preventDefault();
-      for (var i = 0; i < this.cmInstances.length; i++) {
-        this.cmInstances[i].textAreaEle.value = this.cmInstances[i].cmInstance.getValue();
-      }
-      // this.fa = this.formEle.action;
-      // this.fd = new FormData(this.formEle);
-      // console.log(this)
-      // window.A.spf.load(this.fa, {
-      //   method: "POST",
-      //   postData: this.fd,
-      //   onProcess: function(evt) {
-      //   },
-      //   onDone: function(evt) {
-      //     if(evt.response.status && evt.response.status === 'success') {
-      //       if (evt.response.url) A.spf.navigate(evt.response.url);
-      //     }
-      //   }
-      // });
-    }
-  }, {
-    key: 'createCMInstance',
-    value: function createCMInstance(ta) {
-      var language = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'markdown';
-
-      var cmIns = _codemirror4.default.fromTextArea(ta, {
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: language,
-        styleActiveLine: true,
-        lineSeparator: '\n',
-        matchBrackets: true,
-        viewportMargin: Infinity,
-        scrollbarStyle: 'null',
-        extraKeys: {
-          'Tab': function Tab() {
-            return cmIns.execCommand('insertSoftTab');
-          }
-        }
-      });
-      // cmIns.setSize('100%', '50%');
-      // cmIns.refresh()
-      return cmIns;
-    }
-  }, {
-    key: 'init',
-    value: function init(opts) {
-      for (var i = 0; i < this.textAreas.length; i++) {
-        this.cmInstances.push({
-          cmInstance: this.createCMInstance(this.textAreas[i], opts.language),
-          textAreaEle: this.textAreas[i]
-        });
-      }
-      this.cb = this.clickBind.bind(this);
-      this.submitEle.addEventListener('click', this.cb);
-    }
-  }, {
-    key: 'changeOption',
-    value: function changeOption(field, val) {
-      for (var i = 0; i < this.cmInstances.length; i++) {
-        this.cmInstances[i].cmInstance.setOption(field, val);
-      }
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this.formContainer.classList.add('c-hidden');
-      for (var i = 0; i < this.cmInstances.length; i++) {
-        this.cmInstances[i].cmInstance.toTextArea();
-        this.cmInstances[i].cmInstance = null;
-      }
-      this.submitEle.removeEventListener('click', this.cb);
-    }
-  }]);
-  return _class;
-}();
-
-exports.default = _class;
-
-/***/ }),
-
-/***/ 14:
-/* no static exports found */
-/* all exports used */
-/*!**********************************************!*\
-  !*** ./~/core-js/library/modules/_export.js ***!
-  \**********************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(/*! ./_global */ 0);
-var core = __webpack_require__(/*! ./_core */ 6);
-var ctx = __webpack_require__(/*! ./_ctx */ 39);
-var hide = __webpack_require__(/*! ./_hide */ 5);
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var IS_WRAP = type & $export.W;
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE];
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
-  var key, own, out;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && key in exports) continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function (C) {
-      var F = function (a, b, c) {
-        if (this instanceof C) {
-          switch (arguments.length) {
-            case 0: return new C();
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
-    }
-  }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-
-/***/ }),
-
-/***/ 146:
-/* no static exports found */
-/* all exports used */
-/*!**********************************************************!*\
-  !*** ./app/javascript/packs/entries/createOrEditGist.js ***!
-  \**********************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 120);
-
-(function () {
-  A.init[A.gc.currentName] = _createOrEditGist.cn;
-  A.destroy[A.gc.currentName] = _createOrEditGist.en;
-})();
-
-/***/ }),
-
-/***/ 164:
+/***/ 177:
 /* no static exports found */
 /* all exports used */
 /*!****************************************************!*\
@@ -11410,7 +11411,7 @@ var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 1
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -12247,7 +12248,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 /***/ }),
 
-/***/ 165:
+/***/ 178:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -12260,7 +12261,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -12554,7 +12555,7 @@ CodeMirror.defineMIME("text/x-ruby", "ruby");
 
 /***/ }),
 
-/***/ 166:
+/***/ 179:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -12567,7 +12568,7 @@ CodeMirror.defineMIME("text/x-ruby", "ruby");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13), __webpack_require__(/*! ../css/css */ 114));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16), __webpack_require__(/*! ../css/css */ 120));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../css/css"], mod);
   else // Plain browser env
@@ -13020,7 +13021,23 @@ CodeMirror.defineMIME("text/x-sass", "sass");
 
 /***/ }),
 
-/***/ 18:
+/***/ 2:
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./~/core-js/library/modules/_descriptors.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(/*! ./_fails */ 10)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+
+/***/ 21:
 /* no static exports found */
 /* all exports used */
 /*!****************************************************!*\
@@ -13044,35 +13061,7 @@ module.exports = function (it, S) {
 
 /***/ }),
 
-/***/ 2:
-/* no static exports found */
-/* all exports used */
-/*!*************************************************!*\
-  !*** ./~/core-js/library/modules/_object-dp.js ***!
-  \*************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(/*! ./_an-object */ 11);
-var IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 34);
-var toPrimitive = __webpack_require__(/*! ./_to-primitive */ 18);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(/*! ./_descriptors */ 1) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-
-/***/ 33:
+/***/ 23:
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -13091,22 +13080,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 34:
-/* no static exports found */
-/* all exports used */
-/*!******************************************************!*\
-  !*** ./~/core-js/library/modules/_ie8-dom-define.js ***!
-  \******************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = !__webpack_require__(/*! ./_descriptors */ 1) && !__webpack_require__(/*! ./_fails */ 9)(function () {
-  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 33)('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-
-/***/ 39:
+/***/ 28:
 /* no static exports found */
 /* all exports used */
 /*!*******************************************!*\
@@ -13115,7 +13089,7 @@ module.exports = !__webpack_require__(/*! ./_descriptors */ 1) && !__webpack_req
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(/*! ./_a-function */ 47);
+var aFunction = __webpack_require__(/*! ./_a-function */ 30);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -13138,7 +13112,35 @@ module.exports = function (fn, that, length) {
 
 /***/ }),
 
-/***/ 47:
+/***/ 3:
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_object-dp.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(/*! ./_an-object */ 7);
+var IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 31);
+var toPrimitive = __webpack_require__(/*! ./_to-primitive */ 21);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(/*! ./_descriptors */ 2) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+
+/***/ 30:
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -13154,7 +13156,22 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 5:
+/***/ 31:
+/* no static exports found */
+/* all exports used */
+/*!******************************************************!*\
+  !*** ./~/core-js/library/modules/_ie8-dom-define.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(/*! ./_descriptors */ 2) && !__webpack_require__(/*! ./_fails */ 10)(function () {
+  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 23)('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+
+/***/ 4:
 /* no static exports found */
 /* all exports used */
 /*!********************************************!*\
@@ -13162,9 +13179,9 @@ module.exports = function (it) {
   \********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(/*! ./_object-dp */ 2);
-var createDesc = __webpack_require__(/*! ./_property-desc */ 12);
-module.exports = __webpack_require__(/*! ./_descriptors */ 1) ? function (object, key, value) {
+var dP = __webpack_require__(/*! ./_object-dp */ 3);
+var createDesc = __webpack_require__(/*! ./_property-desc */ 11);
+module.exports = __webpack_require__(/*! ./_descriptors */ 2) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -13188,6 +13205,23 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
 
+/***/ 7:
+/* no static exports found */
+/* all exports used */
+/*!*************************************************!*\
+  !*** ./~/core-js/library/modules/_an-object.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./_is-object */ 8);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+
+/***/ }),
+
 /***/ 8:
 /* no static exports found */
 /* all exports used */
@@ -13203,26 +13237,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 9:
-/* no static exports found */
-/* all exports used */
-/*!*********************************************!*\
-  !*** ./~/core-js/library/modules/_fails.js ***!
-  \*********************************************/
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-
-/***/ 91:
+/***/ 92:
 /* no static exports found */
 /* all exports used */
 /*!***********************************************************!*\
@@ -13230,11 +13245,11 @@ module.exports = function (exec) {
   \***********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 98), __esModule: true };
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 99), __esModule: true };
 
 /***/ }),
 
-/***/ 92:
+/***/ 93:
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\
@@ -13255,7 +13270,7 @@ exports.default = function (instance, Constructor) {
 
 /***/ }),
 
-/***/ 93:
+/***/ 94:
 /* no static exports found */
 /* all exports used */
 /*!************************************************!*\
@@ -13268,7 +13283,7 @@ exports.default = function (instance, Constructor) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 91);
+var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 92);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -13294,7 +13309,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 94:
+/***/ 95:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************************!*\
@@ -13307,7 +13322,7 @@ exports.default = function () {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -13378,7 +13393,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 95:
+/***/ 96:
 /* no static exports found */
 /* all exports used */
 /*!************************************************!*\
@@ -13391,7 +13406,7 @@ exports.default = function () {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13), __webpack_require__(/*! ../xml/xml */ 97), __webpack_require__(/*! ../meta */ 96));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16), __webpack_require__(/*! ../xml/xml */ 98), __webpack_require__(/*! ../meta */ 97));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
   else // Plain browser env
@@ -14249,7 +14264,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 /***/ }),
 
-/***/ 96:
+/***/ 97:
 /* no static exports found */
 /* all exports used */
 /*!***********************************!*\
@@ -14262,7 +14277,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../lib/codemirror"], mod);
   else // Plain browser env
@@ -14476,7 +14491,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 /***/ }),
 
-/***/ 97:
+/***/ 98:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -14489,7 +14504,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 13));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 16));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -14882,7 +14897,7 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 /***/ }),
 
-/***/ 98:
+/***/ 99:
 /* no static exports found */
 /* all exports used */
 /*!********************************************************!*\
@@ -14890,26 +14905,11 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
   \********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ../../modules/es6.object.define-property */ 99);
+__webpack_require__(/*! ../../modules/es6.object.define-property */ 105);
 var $Object = __webpack_require__(/*! ../../modules/_core */ 6).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
-
-
-/***/ }),
-
-/***/ 99:
-/* no static exports found */
-/* all exports used */
-/*!*****************************************************************!*\
-  !*** ./~/core-js/library/modules/es6.object.define-property.js ***!
-  \*****************************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(/*! ./_export */ 14);
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(/*! ./_descriptors */ 1), 'Object', { defineProperty: __webpack_require__(/*! ./_object-dp */ 2).f });
 
 
 /***/ })
