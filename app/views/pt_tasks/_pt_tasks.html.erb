@@ -1,13 +1,34 @@
 <%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>
 
 <div class="pt-tasks-container pt-tasks-wrap">
-  <% @pt_tasks.each do |task| %>
-  <div class="per-pt-task c-border c-center c-padding"
-  data-user-id="<%= task.user_id %>"
-  data-source-id="<%= task.source_id %>"
-  data-transmission-id="<%= task.transmission_id %>">
-    <%= task.torrent_base_info %>
-  </div>
+  <% @pt_tasks.each do |pt_task| %>
+    <% task = JSON.parse pt_task['torrent_base_info']%>
+    <div class="per-pt-task c-border c-center c-padding <%= task['torrentSource'] ? task['torrentSource'] : '' %>"
+    data-id="<%= task['torrentId'] %>"
+    data-source="<%= task['torrentSource'] %>"
+    data-user-id="<%= pt_task.user_id %>"
+    data-source-id="<%= pt_task.source_id %>"
+    data-transmission-id="<%= pt_task.transmission_hash %>"
+    >
+      <div class="pt-task-cover" style="background-image: url(<%= task['coverPic'] %>); ">
+      </div>
+      <div class="pt-task-info">
+        <h3><%= task['chsTitle'] %></h3>
+        <h3><%= task['engTitle'] %></h3>
+        <div class="torrent-status-info">
+          <span class="torrent-category c-pad-sm">种子类型: <%= task['torrentCategory'] %></span>
+          <span class="torrent-size c-pad-sm">文件大小: <b><%= task['torrentSize'] %></b></span>
+          <span class="torrent-seeders c-pad-sm">做种数量: <b><%= task['peersCount'] %></b></span>
+          <span class="torrent-downloading c-pad-sm">正在下载数量: <b><%= task['downloadingCount'] %></b></span>
+        </div>
+      </div>
+      <div class="pt-source-op">
+        <span class="pt-source c-pad-sm c-center">种子来源: <%= task['torrentSource'] %></span>
+        <span class="c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer"
+        data-source="<%= task['torrentSource'] %>"
+        data-id="<%= task['torrentId'] %>">种子详情</span>
+      </div>
+    </div>
   <% end %>
 </div>
 

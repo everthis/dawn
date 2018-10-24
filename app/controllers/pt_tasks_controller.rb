@@ -92,7 +92,7 @@ class PtTasksController < CBaseController
       res = cfetch('http://localhost:3000/addTorrent?sourceId=' + params[:source_id])
       obj = JSON.parse(res)
       unless obj['id'].nil?
-        new_pt_task.update_attribute(:transmission_id, "#{obj['id']}")
+        new_pt_task.update_attribute(:transmission_hash, "#{obj['hashString']}")
       end
       render json: res, status: :ok
     else
