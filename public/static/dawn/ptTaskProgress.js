@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 162);
+/******/ 	return __webpack_require__(__webpack_require__.s = 165);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 134:
+/***/ 138:
 /* no static exports found */
 /* all exports used */
-/*!*******************************************************!*\
-  !*** ./app/javascript/packs/modules/instagramUser.js ***!
-  \*******************************************************/
+/*!********************************************************!*\
+  !*** ./app/javascript/packs/modules/ptTaskProgress.js ***!
+  \********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82,81 +82,123 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.initInstagramUser = initInstagramUser;
-exports.disposeInstagramUser = disposeInstagramUser;
+exports.initPtTaskProgress = initPtTaskProgress;
+exports.disposePtTaskProgress = disposePtTaskProgress;
 
 var _utilities = __webpack_require__(/*! ../common/utilities */ 16);
 
+var _inViewport = __webpack_require__(/*! ../common/inViewport */ 84);
+
+var _inViewport2 = _interopRequireDefault(_inViewport);
+
 var _toggleScroll = __webpack_require__(/*! ../common/toggleScroll */ 42);
 
-function queryId(ev) {
-  var q = ev.target.value;
-  if (!q.length) {
-    renderList([]);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ptTasks = Array.prototype.slice.call(document.querySelectorAll(".per-pt-task.ttg"));
+
+var ptTasksWrapEl = document.getElementsByClassName("pt-tasks-wrap")[0];
+function getTtgCover(el) {
+  var id = el.dataset.id;
+  var source = el.dataset.source;
+  var coverEl = Array.prototype.slice.call(el.children).filter(function (el) {
+    return el.classList.contains("pt-task-cover");
+  })[0];
+  if (coverEl.style.backgroundImage.indexOf("ttg_logo") === -1) {
     return;
   }
-  fetch('/queryInstagramUserId?q=' + q, {
-    credentials: 'same-origin',
+  return fetch("/pt_task_ttg_cover?id=" + id + "&source=" + source, {
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
   }).then(function (res) {
-    return res.json();
-  }).then(renderList);
-}
-function renderList(arr) {
-  var res = [];
-  maskEle.classList.remove('c-hide');
-  arr.forEach(function (el) {
-    res.push('\n      <div class="instagram_user c-border c-center c-padding" data-id="' + el.user_id + '">\n        <div class="avatar" style="background-image: url(\'' + el.profile_pic_url + '\'); background-size: cover;"></div>\n        <div class="user_name">' + el.user_name + '</div>\n        <div class="media_count">media_count: ' + el.media_count + '</div>\n        <div class="type">\n        </div>\n        <div class="user_id">user_id: ' + el.user_id + '</div>\n      </div>\n    ');
+    return res.text();
+  }).then(function (data) {
+    if (data == null || data === "null" || data === "") {
+      return;
+    }
+    coverEl.style.backgroundImage = "url(" + data + ")";
   });
-  resEle.innerHTML = res.join('');
-  (0, _toggleScroll.disableScroll)();
 }
-function hideMask(ev) {
-  renderList([]);
-  maskEle.classList.add('c-hide');
-  (0, _toggleScroll.enableScroll)();
+function checkInViewport(ev) {
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = ptTasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var el = _step.value;
+
+      if ((0, _inViewport2.default)(el)) {
+        getTtgCover(el);
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
 }
 function delegateClick(ev) {
+  console.log("clickclick");
   var evt = ev.target;
-  var te = void 0;
-  if (evt.classList.contains('instagram_user')) {
-    te = evt;
+  var ptp = void 0;
+  // add pt task
+  if (evt.classList.contains("pt-task-progress")) {
+    ptp = evt;
   } else {
-    te = evt.closest('.instagram_user');
+    ptp = evt.closest(".pt-task-progress");
   }
-  if (!te) return;
-  var ins_user_id = +te.dataset.id;
-  A.spf.navigate(window.location.origin + '/instagram_images?owner_id=' + ins_user_id);
+  if (ptp) {
+    checkTaskProgress(ptp.closest(".per-pt-task"));
+    return;
+  }
+
+  // disable link in popup
+  if (evt.tagName === "A" && evt.closest(".torrent-detail-popup")) {
+    forbidExtLink(ev);
+    return;
+  }
 }
 
-var ele = void 0;
-var resEle = void 0;
-var maskEle = void 0;
-var searchEle = void 0;
-var insWrap = void 0;
-var debouncedQueryId = (0, _utilities.debounce)(queryId, 100, false);
+function checkTaskProgress(el) {
+  var _el$dataset = el.dataset,
+      id = _el$dataset.id,
+      source = _el$dataset.source,
+      hash = _el$dataset.transmissionHash;
 
-function initInstagramUser() {
-  ele = document.getElementById('ins_user_q');
-  resEle = document.getElementsByClassName('ins-search-result')[0];
-  searchEle = document.getElementsByClassName('ins-search')[0];
-  maskEle = document.getElementsByClassName('ins-mask')[0];
-  insWrap = document.getElementsByClassName('instagram_users_wrap')[0];
-  ele.addEventListener('keyup', debouncedQueryId);
-  ele.addEventListener('focus', debouncedQueryId);
-  maskEle.addEventListener('click', hideMask);
-  resEle.addEventListener('click', delegateClick);
-  insWrap.addEventListener('click', delegateClick);
+  return fetch("/check_task_progress?id=" + id + "&source=" + source + "&hash=" + hash, {
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(function (res) {
+    return res.text();
+  }).then(function (data) {
+    if (data == null || data === "null" || data === "") {
+      return;
+    }
+  });
 }
-function disposeInstagramUser() {
-  ele.removeEventListener('keyup', debouncedQueryId);
-  ele.removeEventListener('focus', debouncedQueryId);
-  maskEle.removeEventListener('click', hideMask);
-  resEle.removeEventListener('click', delegateClick);
-  insWrap.removeEventListener('click', delegateClick);
-  (0, _toggleScroll.enableScroll)();
+var debouncedCheckInViewport = (0, _utilities.debounce)(checkInViewport, 300, false);
+
+function initPtTaskProgress() {
+  checkInViewport();
+  ptTasksWrapEl.addEventListener("click", delegateClick);
+  window.addEventListener("scroll", debouncedCheckInViewport);
+}
+function disposePtTaskProgress() {
+  window.removeEventListener("scroll", debouncedCheckInViewport);
 }
 
 /***/ }),
@@ -286,22 +328,22 @@ function generateUUID() {
 
 /***/ }),
 
-/***/ 162:
+/***/ 165:
 /* no static exports found */
 /* all exports used */
-/*!*******************************************************!*\
-  !*** ./app/javascript/packs/entries/instagramUser.js ***!
-  \*******************************************************/
+/*!********************************************************!*\
+  !*** ./app/javascript/packs/entries/ptTaskProgress.js ***!
+  \********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _instagramUser = __webpack_require__(/*! ../modules/instagramUser */ 134);
+var _ptTaskProgress = __webpack_require__(/*! ../modules/ptTaskProgress */ 138);
 
 (function () {
-  A.init[A.gc.currentName] = _instagramUser.initInstagramUser;
-  A.destroy[A.gc.currentName] = _instagramUser.disposeInstagramUser;
+  A.init[A.gc.currentName] = _ptTaskProgress.initPtTaskProgress;
+  A.destroy[A.gc.currentName] = _ptTaskProgress.disposePtTaskProgress;
 })();
 
 /***/ }),
@@ -362,7 +404,29 @@ function enableScroll() {
   document.onkeydown = null;
 }
 
+/***/ }),
+
+/***/ 84:
+/* no static exports found */
+/* all exports used */
+/*!***************************************************!*\
+  !*** ./app/javascript/packs/common/inViewport.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = isInViewport;
+function isInViewport(elem) {
+  var bounding = elem.getBoundingClientRect();
+  return bounding.top >= 0 && bounding.left >= 0 && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) && bounding.right <= (window.innerWidth || document.documentElement.clientWidth);
+}
+
 /***/ })
 
 /******/ });
-//# sourceMappingURL=instagramUser.js.map
+//# sourceMappingURL=ptTaskProgress.js.map

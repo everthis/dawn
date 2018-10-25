@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   post 'pt_task_add' => 'pt_tasks#addTask'
   get 'pending_pt_task' => 'pt_tasks#pending'
   get 'completed_pt_task' => 'pt_tasks#completed'
+  get 'check_task_progress' => 'pt_tasks#checkProgress'
   get 'api_response' => 'apis#token_generate_data'
   get 'apiresponse' => 'apis#generate_data'
   post 'apiresponse' => 'apis#generate_data'

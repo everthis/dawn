@@ -108,6 +108,11 @@ class PtTasksController < CBaseController
     @pt_tasks = PtTask.where.not(cdn_url: nil).paginate(page: params[:page]).order("created_at ASC")
   end
 
+  def checkProgress
+    res = cfetch('http://localhost:3000/checkProgress?id=' + params[:id] + '&source=' + params[:source] + '&hash=' + params[:hash])
+    render json: res, status: :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pt_task

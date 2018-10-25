@@ -4552,6 +4552,11 @@ table.CodeRay {
   background-color: #19be6b;
 }
 
+.pt-task-progress {
+  display: block;
+  background-color: #8a098a;
+}
+
 .torrent-detail-wrap {
   position: fixed;
   top: 0;

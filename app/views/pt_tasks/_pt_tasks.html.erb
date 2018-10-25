@@ -8,7 +8,7 @@
     data-source="<%= task['torrentSource'] %>"
     data-user-id="<%= pt_task.user_id %>"
     data-source-id="<%= pt_task.source_id %>"
-    data-transmission-id="<%= pt_task.transmission_hash %>"
+    data-transmission-hash="<%= pt_task.transmission_hash %>"
     >
       <div class="pt-task-cover" style="background-image: url(<%= task['coverPic'] %>); ">
       </div>
@@ -27,6 +27,8 @@
         <span class="c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer"
         data-source="<%= task['torrentSource'] %>"
         data-id="<%= task['torrentId'] %>">种子详情</span>
+
+        <span class="c-center c-gap-top c-pad-sm c-pointer pt-task-progress">任务进度</span>
       </div>
     </div>
   <% end %>
