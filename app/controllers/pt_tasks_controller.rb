@@ -92,7 +92,7 @@ class PtTasksController < CBaseController
       res = cfetch('http://localhost:3000/addTorrent?sourceId=' + params[:source_id])
       obj = JSON.parse(res)
       unless obj['id'].nil?
-        new_pt_task.update_attribute(:transmission_id, "#{obj['id']}")
+        new_pt_task.update_attribute(:transmission_hash, "#{obj['hashString']}")
       end
       render json: res, status: :ok
     else
@@ -106,6 +106,11 @@ class PtTasksController < CBaseController
 
   def completed
     @pt_tasks = PtTask.where.not(cdn_url: nil).paginate(page: params[:page]).order("created_at ASC")
+  end
+
+  def checkProgress
+    res = cfetch('http://localhost:3000/checkProgress?id=' + params[:id] + '&source=' + params[:source] + '&hash=' + params[:hash])
+    render json: res, status: :ok
   end
 
   private

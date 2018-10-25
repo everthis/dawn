@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 2018_10_04_114032) do
   create_table "pt_tasks", force: :cascade do |t|
     t.bigint "user_id"
     t.string "source_id"
-    t.string "transmission_id"
+    t.string "transmission_hash"
     t.string "cdn_url"
     t.json "torrent_base_info"
     t.text "torrent_detail"

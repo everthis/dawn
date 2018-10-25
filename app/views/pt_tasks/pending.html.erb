@@ -5,13 +5,11 @@
 
 <div class="c-normal-card-box">
   <p id="notice"><%= notice %></p>
-  <div class="pt-tasks-container">
-
-  </div>
   <%= render 'pt_tasks' %>
 </div>
 
 
 <% end %>
 <% content_for :foot do%>
+  <%= javascript_pack_tag 'ptTaskProgress', name: "ptTaskProgress" %>
 <% end %>
