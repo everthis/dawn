@@ -5,8 +5,9 @@
 
 <div class="c-normal-card-box">
   <p id="notice"><%= notice %></p>
-  <div class="pt-tasks-container">
-
+  <div class="c-gap-bottom c-text-right link-row">
+    <%= link_to t('.pt-tasks'), pt_tasks_path, class: 'fnpu-link' %>
+    <%= link_to t('.pending-pt-task'), pending_pt_task_path, class: 'fnpu-link' %>
   </div>
   <%= render 'pt_tasks' %>
 </div>
