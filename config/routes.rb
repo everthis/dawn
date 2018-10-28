@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pt_task_logs
   resources :pt_tasks
   resources :instagram_tasks
   resources :instagram_users

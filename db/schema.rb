@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_04_114032) do
+ActiveRecord::Schema.define(version: 2018_10_28_130732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,15 @@ ActiveRecord::Schema.define(version: 2018_10_04_114032) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pt_task_logs", force: :cascade do |t|
+    t.bigint "pt_task_id"
+    t.string "status"
+    t.json "detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pt_task_id"], name: "index_pt_task_logs_on_pt_task_id"
+  end
+
   create_table "pt_tasks", force: :cascade do |t|
     t.bigint "user_id"
     t.string "source_id"
@@ -211,6 +220,7 @@ ActiveRecord::Schema.define(version: 2018_10_04_114032) do
   add_foreign_key "ci_packages", "users"
   add_foreign_key "docs", "users"
   add_foreign_key "gists", "users"
+  add_foreign_key "pt_task_logs", "pt_tasks"
   add_foreign_key "pt_tasks", "users"
   add_foreign_key "third_party_accounts", "users"
   add_foreign_key "user_preferences", "users"
