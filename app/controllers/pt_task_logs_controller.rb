@@ -1,4 +1,5 @@
 class PtTaskLogsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:setLog]
   before_action :set_pt_task_log, only: [:show, :edit, :update, :destroy]
 
   # GET /pt_task_logs
@@ -49,6 +50,18 @@ class PtTaskLogsController < ApplicationController
         format.json { render json: @pt_task_log.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def setLog
+    task_log = PtTask.find_by(transmission_hash: params[:hash]).pt_task_log
+    # task_log = .build(pt_task_log_params(params))
+    task_log.detail = {} if task_log.detail.nil?
+
+    task_log.detail[params[:step]] = params[:log]
+
+    task_log.save!
+    res = {}
+    render json: res, status: :ok
   end
 
   # DELETE /pt_task_logs/1

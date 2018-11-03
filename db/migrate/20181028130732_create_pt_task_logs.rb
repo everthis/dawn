@@ -3,6 +3,7 @@ class CreatePtTaskLogs < ActiveRecord::Migration[5.2]
     create_table :pt_task_logs do |t|
       t.references :pt_task, foreign_key: true
       t.string :status
+      t.string :task_step
       t.json :detail
 
       t.timestamps

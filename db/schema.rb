@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 2018_10_28_130732) do
   create_table "pt_task_logs", force: :cascade do |t|
     t.bigint "pt_task_id"
     t.string "status"
+    t.string "task_step"
     t.json "detail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
