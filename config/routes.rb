@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pt_task_logs
   resources :pt_tasks
   resources :instagram_tasks
   resources :instagram_users
@@ -45,6 +46,7 @@ Rails.application.routes.draw do
   get 'pending_pt_task' => 'pt_tasks#pending'
   get 'completed_pt_task' => 'pt_tasks#completed'
   get 'check_task_progress' => 'pt_tasks#checkProgress'
+  post 'set_pt_task_log' => 'pt_task_logs#setLog'
   get 'api_response' => 'apis#token_generate_data'
   get 'apiresponse' => 'apis#generate_data'
   post 'apiresponse' => 'apis#generate_data'

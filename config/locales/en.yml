@@ -156,3 +156,9 @@ en:
     index:
       pending-pt-task: "pending PT task"
       completed-pt-task: "completed PT task"
+    pending:
+      pt-tasks: "search"
+      completed-pt-task: "completed PT task"
+    completed:
+      pt-tasks: "search"
+      pending-pt-task: "pending PT task"

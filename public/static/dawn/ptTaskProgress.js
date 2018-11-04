@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 165);
+/******/ 	return __webpack_require__(__webpack_require__.s = 167);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 138:
+/***/ 139:
 /* no static exports found */
 /* all exports used */
 /*!********************************************************!*\
@@ -85,13 +85,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.initPtTaskProgress = initPtTaskProgress;
 exports.disposePtTaskProgress = disposePtTaskProgress;
 
-var _utilities = __webpack_require__(/*! ../common/utilities */ 16);
+var _utilities = __webpack_require__(/*! ../common/utilities */ 20);
 
-var _inViewport = __webpack_require__(/*! ../common/inViewport */ 84);
+var _inViewport = __webpack_require__(/*! ../common/inViewport */ 87);
 
 var _inViewport2 = _interopRequireDefault(_inViewport);
 
-var _toggleScroll = __webpack_require__(/*! ../common/toggleScroll */ 42);
+var _toggleScroll = __webpack_require__(/*! ../common/toggleScroll */ 40);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -203,7 +203,27 @@ function disposePtTaskProgress() {
 
 /***/ }),
 
-/***/ 16:
+/***/ 167:
+/* no static exports found */
+/* all exports used */
+/*!********************************************************!*\
+  !*** ./app/javascript/packs/entries/ptTaskProgress.js ***!
+  \********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _ptTaskProgress = __webpack_require__(/*! ../modules/ptTaskProgress */ 139);
+
+(function () {
+  A.init[A.gc.currentName] = _ptTaskProgress.initPtTaskProgress;
+  A.destroy[A.gc.currentName] = _ptTaskProgress.disposePtTaskProgress;
+})();
+
+/***/ }),
+
+/***/ 20:
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -328,27 +348,7 @@ function generateUUID() {
 
 /***/ }),
 
-/***/ 165:
-/* no static exports found */
-/* all exports used */
-/*!********************************************************!*\
-  !*** ./app/javascript/packs/entries/ptTaskProgress.js ***!
-  \********************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _ptTaskProgress = __webpack_require__(/*! ../modules/ptTaskProgress */ 138);
-
-(function () {
-  A.init[A.gc.currentName] = _ptTaskProgress.initPtTaskProgress;
-  A.destroy[A.gc.currentName] = _ptTaskProgress.disposePtTaskProgress;
-})();
-
-/***/ }),
-
-/***/ 42:
+/***/ 40:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************************!*\
@@ -406,7 +406,7 @@ function enableScroll() {
 
 /***/ }),
 
-/***/ 84:
+/***/ 87:
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\

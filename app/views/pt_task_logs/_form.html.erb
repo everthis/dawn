@@ -1,0 +1,27 @@
+<%= form_with(model: pt_task_log, local: true) do |form| %>
+  <% if pt_task_log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pt_task_log.errors.count, "error") %> prohibited this pt_task_log from being saved:</h2>
+
+      <ul>
+      <% pt_task_log.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detail %>
+    <%= form.text_field :detail %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
