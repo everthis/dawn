@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2018_10_28_130732) do
     t.string "source_id"
     t.string "transmission_hash"
     t.string "cdn_url"
+    t.string "status"
     t.json "torrent_base_info"
     t.text "torrent_detail"
     t.datetime "created_at", null: false

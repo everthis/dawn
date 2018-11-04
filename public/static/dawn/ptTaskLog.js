@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 156);
+/******/ 	return __webpack_require__(__webpack_require__.s = 166);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9681,12 +9681,21 @@ module.exports = g;
 /* 126 */,
 /* 127 */,
 /* 128 */,
-/* 129 */
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */
 /* no static exports found */
 /* all exports used */
-/*!*******************************************************!*\
-  !*** ./app/javascript/packs/modules/ciNpmPackages.js ***!
-  \*******************************************************/
+/*!***************************************************!*\
+  !*** ./app/javascript/packs/modules/ptTaskLog.js ***!
+  \***************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9695,8 +9704,8 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ciNpmPackages = ciNpmPackages;
-exports.exitCiNpmPackages = exitCiNpmPackages;
+exports.PtTaskLog = PtTaskLog;
+exports.exitPtTaskLog = exitPtTaskLog;
 
 var _ajax = __webpack_require__(/*! ../common/ajax */ 78);
 
@@ -9715,40 +9724,40 @@ var App = void 0;
 var payload = {};
 var callback = {
   apiQuerySuccess: function apiQuerySuccess(data) {
-    var searchList = document.getElementsByClassName('api-search-result')[0];
+    var searchList = document.getElementsByClassName("api-search-result")[0];
     var dataObj = JSON.parse(data);
-    var contentStr = '';
-    var headStr = '\n    <div class="result-head">\n      <span class="per-result-column per-result-input">input</span>\n      <span class="per-result-column per-result-packageVersion">packageVersion</span>\n      <span class="per-result-column per-result-ciPackageName">ciPackageName</span>\n      <span class="per-result-column per-result-ciPackageVersion">ciPackageVersion</span>\n      <span class="per-result-column per-result-status">status</span>\n    </div>\n    ';
+    var contentStr = "";
+    var headStr = "\n    <div class=\"result-head\">\n      <span class=\"per-result-column per-result-input\">input</span>\n      <span class=\"per-result-column per-result-packageVersion\">packageVersion</span>\n      <span class=\"per-result-column per-result-ciPackageName\">ciPackageName</span>\n      <span class=\"per-result-column per-result-ciPackageVersion\">ciPackageVersion</span>\n      <span class=\"per-result-column per-result-status\">status</span>\n    </div>\n    ";
     contentStr += headStr;
     contentStr += '<div class="result-body">';
     for (var i = 0, Len = dataObj.length; i < Len; i++) {
-      contentStr += '<div class=\'per-search-result\'>\n        <span class="per-result-column per-result-input">' + dataObj[i].input + '</span>\n        <span class="per-result-column per-result-packageVersion">' + dataObj[i].packageVersion + '</span>\n        <span class="per-result-column per-result-ciPackageName">' + dataObj[i].ciPackageName + '</span>\n        <span class="per-result-column per-result-ciPackageVersion">' + dataObj[i].ciPackageVersion + '</span>\n        <span class="per-result-column per-result-status">' + dataObj[i].status + '</span>\n      </div>';
+      contentStr += "<div class='per-search-result'>\n        <span class=\"per-result-column per-result-input\">" + dataObj[i].input + "</span>\n        <span class=\"per-result-column per-result-packageVersion\">" + dataObj[i].packageVersion + "</span>\n        <span class=\"per-result-column per-result-ciPackageName\">" + dataObj[i].ciPackageName + "</span>\n        <span class=\"per-result-column per-result-ciPackageVersion\">" + dataObj[i].ciPackageVersion + "</span>\n        <span class=\"per-result-column per-result-status\">" + dataObj[i].status + "</span>\n      </div>";
     }
-    contentStr += '</div>';
+    contentStr += "</div>";
     searchList.innerHTML = contentStr;
-    dataObj.length > 0 ? searchList.classList.remove('hide') : searchList.classList.add('hide');
+    dataObj.length > 0 ? searchList.classList.remove("hide") : searchList.classList.add("hide");
   }
 };
 
 var debouncedApiQueryInput = (0, _utilities.debounce)(apiQuery, 100, false);
 function listenApiQuery() {
-  var apiQueryInput = document.getElementsByClassName('search-input')[0];
+  var apiQueryInput = document.getElementsByClassName("search-input")[0];
   var inWrapper = false;
-  apiQueryInput.addEventListener('keyup', debouncedApiQueryInput);
-  apiQueryInput.parentElement.addEventListener('mouseleave', function (ev) {
+  apiQueryInput.addEventListener("keyup", debouncedApiQueryInput);
+  apiQueryInput.parentElement.addEventListener("mouseleave", function (ev) {
     if (!checkIfFocus.apply(apiQueryInput, ev)) {
       clearSearchResult();
-    };
+    }
     inWrapper = false;
   });
-  apiQueryInput.parentElement.addEventListener('mouseenter', function (ev) {
+  apiQueryInput.parentElement.addEventListener("mouseenter", function (ev) {
     inWrapper = true;
     (0, _toggleScroll.disableScroll)();
   });
-  apiQueryInput.addEventListener('blur', function (ev) {
+  apiQueryInput.addEventListener("blur", function (ev) {
     if (!inWrapper) clearSearchResult();
   });
-  apiQueryInput.addEventListener('focus', apiQuery);
+  apiQueryInput.addEventListener("focus", apiQuery);
 }
 function checkIfFocus(ev) {
   return this === document.activeElement;
@@ -9759,44 +9768,52 @@ function apiQuery(ev) {
     return;
   }
   payload = { q: ev.target.value };
-  (0, _ajax.$http)(window.location.origin + '/plugins_instantsearch').get(payload).then(callback.apiQuerySuccess.bind(ev)).catch(callback.error);
+  (0, _ajax.$http)(window.location.origin + "/plugins_instantsearch").get(payload).then(callback.apiQuerySuccess.bind(ev)).catch(callback.error);
 }
 function clearSearchResult() {
-  var apiSearchResultEle = document.getElementsByClassName('api-search-result')[0];
-  apiSearchResultEle.innerHTML = '';
-  apiSearchResultEle.classList.add('hide');
+  var apiSearchResultEle = document.getElementsByClassName("api-search-result")[0];
+  apiSearchResultEle.innerHTML = "";
+  apiSearchResultEle.classList.add("hide");
   (0, _toggleScroll.enableScroll)();
 }
 
-_vue2.default.component('packages', {
+_vue2.default.component("ptTaskLog", {
   data: function data() {
     return {
-      pluginsInput: gc,
-      showLogs: false
+      tasksInput: gc.map(function (el) {
+        el.torrent_base_info = JSON.parse(el.torrent_base_info);
+        el.log = {};
+        el.showLogs = false;
+        el.logDetail = {};
+        return el;
+      }),
+      showLogs: false,
+      steps: ["downloadTorrent", "addToTransmission", "downloadFiles", "convert", "upload"]
     };
   },
-  template: '\n    <div class="plugins-wrap">\n      <div class="plugin-wrap" v-for="(perplugin,index) in pluginsInput">\n\n        <div class="per-row-plugin c-grid-row c-gap-top c-pad-left">\n          <span class="c-grid-span10 package-name">{{ perplugin.packageName }}</span>\n          <span class="c-grid-span6 package-version">{{ perplugin.packageVersion }}</span>\n          <span class="c-grid-span10 package-ci-package-name">{{ perplugin.ciPackageName }}</span>\n          <div class="c-grid-span6">{{ perplugin.ciPackageVersion }}</div>\n          <div class="c-grid-span8">{{ perplugin.ciPackageVersionPatch }}</div>\n          <span class="c-grid-span5 package-status">{{ perplugin.status }}</span>\n          <span class="c-grid-span3 package-log c-center"><svg class="icon icon-more" @click="toggleLog(perplugin)"><use xlink:href="#icon-more"></use></svg></span>\n        </div>\n\n        <div class="package-log" v-if="perplugin.showLogs">\n          <div class="loading-placeholder c-center c-pad-top" v-if="!perplugin.log">processing</div>\n          <div class="per-phase-log" v-for="(val, key) in perplugin.log">\n            <p class="package-log-head">{{ key }}</p>\n            <pre class="package-log-pre" v-html=\'val.detail\'></pre>\n          </div>\n        </div>\n\n      </div>\n    </div>',
+  template: "\n    <div class=\"pt-task-log-wrap\">\n      <div class=\"pt-tasks-container pt-tasks-wrap\" v-for=\"(task, idx) in tasksInput\">\n        <div :class=\"['c-border', 'c-center', 'c-padding', task.torrentSource ? task.torrentSource : '']\"\n        :data-id=\"task.torrent_base_info['torrentId']\"\n        :data-source=\"task.torrent_base_info['torrentSource']\"\n        :data-user-id=\"task.user_id\"\n        :data-source-id=\"task.source_id\"\n        :data-transmission-hash=\"task.transmission_hash\"\n        >\n          <div class=\"per-pt-task\">\n            <div class=\"pt-task-cover\" :style=\"{ backgroundImage: 'url(' + task.torrent_base_info['coverPic'] + ')' }\">\n            </div>\n            <div class=\"pt-task-info\">\n              <h3>{{ task.torrent_base_info['chsTitle'] }}</h3>\n              <h3>{{ task.torrent_base_info['engTitle'] }}</h3>\n              <div class=\"torrent-status-info\">\n                <span class=\"torrent-category c-pad-sm\">\u79CD\u5B50\u7C7B\u578B: {{ task.torrent_base_info['torrentCategory'] }}</span>\n                <span class=\"torrent-size c-pad-sm\">\u6587\u4EF6\u5927\u5C0F: <b>{{ task.torrent_base_info['torrentSize'] }}</b></span>\n                <span class=\"torrent-seeders c-pad-sm\">\u505A\u79CD\u6570\u91CF: <b>{{ task.torrent_base_info['peersCount'] }}</b></span>\n                <span class=\"torrent-downloading c-pad-sm\">\u6B63\u5728\u4E0B\u8F7D\u6570\u91CF: <b>{{ task.torrent_base_info['downloadingCount'] }}</b></span>\n              </div>\n            </div>\n            <div class=\"pt-source-op\">\n              <span class=\"pt-source c-pad-sm c-center\">\u79CD\u5B50\u6765\u6E90: {{ task.torrent_base_info['torrentSource'] }}</span>\n              <span class=\"c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer\"\n              :data-source=\"task.torrent_base_info['torrentSource']\"\n              :data-id=\"task.torrent_base_info['torrentId']\">\u79CD\u5B50\u8BE6\u60C5</span>\n\n              <span class=\"c-center c-gap-top c-pad-sm c-pointer pt-task-progress\"\n              @click=\"toggleLog(task)\">\u4EFB\u52A1\u8FDB\u5EA6</span>\n            </div>\n          </div>\n\n          <template v-for=\"(el, idx) in steps\" v-if=\"task.showLogs\">\n            <div v-if=\"task.logDetail && task.logDetail.hasOwnProperty(el)\">\n              <div >{{ el }}: {{ task.logDetail[el].progress }}%</div>\n            </div>\n          </template>\n        </div>\n      </div>\n    </div>",
   methods: {
     toggleLog: function toggleLog(item) {
       if (!item.showLogs) {
         item.gc = App.cable.subscriptions.create({
-          'channel': 'CiPackageLogsChannel',
-          'plugin_id': item.id
+          channel: "PtTaskLogChannel",
+          hash: item.transmission_hash
         }, {
           connected: function connected() {
-            this.perform('send_current_log', {
-              plugin_id: item.id
+            this.perform("send_current_log", {
+              hash: item.transmission_hash
             });
           },
           received: function received(data) {
             item.log = data;
-            if (item.status === 'failed' || item.status === 'success') {
+            item.logDetail = data.detail;
+            if (item.status === "failed" || item.status === "success") {
               item.gc.unsubscribe();
             }
           }
         });
       } else {
-        if (item.status === 'failed' || item.status === 'success') {} else {
+        if (item.status === "failed" || item.status === "success") {} else {
           item.gc.unsubscribe();
         }
       }
@@ -9804,36 +9821,35 @@ _vue2.default.component('packages', {
     },
     subscribe: function subscribe(id) {}
   }
-
 });
 
-function ciNpmPackages() {
+function PtTaskLog() {
   App = {};
 
   App.cable = ActionCable.createConsumer();
 
   vueApp = new _vue2.default({
-    el: '#app'
+    el: "#app"
   });
 
   /* use ActionCable to update status of pending plugin */
 
   if (gc.length > 0) {
     var _loop = function _loop(i, length1) {
-      if (gc[i]['status'] !== 'failed' && gc[i]['status'] !== 'success') {
-        gc[i]['gcp'] = App.cable.subscriptions.create({
-          'channel': 'CiPackageStatusChannel',
-          'plugin_id': gc[i]['id']
+      if (gc[i]["status"] !== "failed" && gc[i]["status"] !== "success") {
+        gc[i]["gcp"] = App.cable.subscriptions.create({
+          channel: "PtTaskStatusChannel",
+          hash: gc[i]["transmission_hash"]
         }, {
           connected: function connected() {
-            this.perform('send_current_status', {
-              plugin_id: gc[i]['id']
+            this.perform("send_current_status", {
+              hash: gc[i]["transmission_hash"]
             });
           },
           received: function received(data) {
-            gc[i]['status'] = data.plugin_status;
-            if (data.plugin_status === 'failed' || data.plugin_status === 'success') {
-              gc[i]['gcp'].unsubscribe();
+            gc[i]["status"] = data.pt_task_status;
+            if (data.pt_task_status === "failed" || data.pt_task_status === "success") {
+              gc[i]["gcp"].unsubscribe();
             }
           }
         });
@@ -9845,84 +9861,15 @@ function ciNpmPackages() {
     }
   }
 
-  listenApiQuery();
-
-  // App.ci_package_logs = App.cable.subscriptions.create("CiPackageLogsChannel", {
-  //   connected: function() {
-  //     // Called when the subscription is ready for use on the server
-  //     let that = this;
-  //     that.perform('follow', {
-  //       'plugin_id':
-  //     })
-  //   },
-
-  //   disconnected: function() {
-  //     // Called when the subscription has been terminated by the server
-  //   },
-
-  //   received: function(data) {
-  //     // Called when there's incoming data on the websocket for this channel
-  //     console.log(data);
-  //   }
-  // });
-
-  // App.comments = App.cable.subscriptions.create("CommentsChannel", {
-  //   collection: function() {
-  //     return $("[data-channel='comments']");
-  //   },
-  //   connected: function() {
-  //     console.log('connected');
-  //     return setTimeout((function(_this) {
-  //       return function() {
-  //         _this.followCurrentMessage();
-  //         return _this.installPageChangeCallback();
-  //       };
-  //     })(this), 1000);
-  //   },
-  //   received: function(data) {
-  //     if (!this.userIsCurrentUser(data.comment)) {
-  //       return this.collection().append(data.comment);
-  //     }
-  //   },
-  //   userIsCurrentUser: function(comment) {
-  //     return $(comment).attr('data-user-id') === $('meta[name=current-user]').attr('id');
-  //   },
-  //   followCurrentMessage: function() {
-  //     var messageId;
-  //     if (messageId = this.collection().data('message-id')) {
-  //       return this.perform('follow', {
-  //         message_id: messageId
-  //       });
-  //     } else {
-  //       return this.perform('unfollow');
-  //     }
-  //   },
-  //   installPageChangeCallback: function() {
-  //     if (!this.installedPageChangeCallback) {
-  //       this.installedPageChangeCallback = true;
-  //       return $(document).on('turbolinks:load', function() {
-  //         return App.comments.followCurrentMessage();
-  //       });
-  //     }
-  //   }
-  // });
+  // listenApiQuery();
 }
 
-function exitCiNpmPackages() {
+function exitPtTaskLog() {
   if (vueApp) vueApp.$destroy();
   App.cable.disconnect();
 }
 
 /***/ }),
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
 /* 139 */,
 /* 140 */,
 /* 141 */,
@@ -9940,24 +9887,34 @@ function exitCiNpmPackages() {
 /* 153 */,
 /* 154 */,
 /* 155 */,
-/* 156 */
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */
 /* no static exports found */
 /* all exports used */
-/*!*******************************************************!*\
-  !*** ./app/javascript/packs/entries/ciNpmPackages.js ***!
-  \*******************************************************/
+/*!***************************************************!*\
+  !*** ./app/javascript/packs/entries/ptTaskLog.js ***!
+  \***************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _ciNpmPackages = __webpack_require__(/*! ../modules/ciNpmPackages */ 129);
+var _ptTaskLog = __webpack_require__(/*! ../modules/ptTaskLog */ 138);
 
 (function () {
-  A.init[A.gc.currentName] = _ciNpmPackages.ciNpmPackages;
-  A.destroy[A.gc.currentName] = _ciNpmPackages.exitCiNpmPackages;
+  A.init[A.gc.currentName] = _ptTaskLog.PtTaskLog;
+  A.destroy[A.gc.currentName] = _ptTaskLog.exitPtTaskLog;
 })();
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=ciNpmPackages.js.map
+//# sourceMappingURL=ptTaskLog.js.map

@@ -706,6 +706,14 @@ textarea[type="hidden"] {
   text-align: center;
 }
 
+.c-text-right {
+  text-align: right;
+}
+
+.c-text-left {
+  text-align: left;
+}
+
 .c-border {
   border: 1px solid #999;
 }

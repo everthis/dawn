@@ -23,6 +23,8 @@
   "newCiNpmPackages.js.map": "/static/dawn/newCiNpmPackages.js.map",
   "ptTask.js": "/static/dawn/ptTask.js",
   "ptTask.js.map": "/static/dawn/ptTask.js.map",
+  "ptTaskLog.js": "/static/dawn/ptTaskLog.js",
+  "ptTaskLog.js.map": "/static/dawn/ptTaskLog.js.map",
   "ptTaskProgress.js": "/static/dawn/ptTaskProgress.js",
   "ptTaskProgress.js.map": "/static/dawn/ptTaskProgress.js.map"
 }
