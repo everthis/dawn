@@ -89,12 +89,7 @@ class PtTasksController < CBaseController
         logger.error ex.message
         render :json => {:status => 'error'}
       end
-      res = cfetch('http://localhost:3000/addTorrent?sourceId=' + params[:source_id])
-      obj = JSON.parse(res)
-      unless obj['id'].nil?
-        new_pt_task.update_attribute(:transmission_hash, "#{obj['hashString']}")
-      end
-      render json: res, status: :ok
+      render json: new_pt_task, status: :ok
     else
       render json: @pt_task, status: :ok
     end
@@ -137,6 +132,5 @@ class PtTasksController < CBaseController
 
       response = http.request(request)
       response.read_body
-
-  end
+    end
 end
