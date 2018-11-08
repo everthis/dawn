@@ -1,3 +1,5 @@
+require 'uri'
+require 'net/http'
 class PtTaskCheckDownloadFilesStatusJob < ApplicationJob
   queue_as :default
 
