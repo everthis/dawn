@@ -15,4 +15,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.password_reset(user)
   end
 
+  def pt_task_notify
+    pt_task = PtTask.last
+    hash = pt_task.transmission_hash
+    UserMailer.pt_task_notify(hash)
+  end
+
 end

@@ -4,10 +4,15 @@ class PtTaskCheckUploadProgressJob < ApplicationJob
   after_perform do |job|
     hash = job.arguments.first
     pt_task = PtTask.find_by(transmission_hash: hash)
-    if pt_task.pt_task_log.detail['upload']['progress'] < 100
+    pt_task.pt_task_log.detail['upload'] = {} if  pt_task.pt_task_log.detail['upload'].nil?
+    if pt_task.pt_task_log.detail['upload']['progress'].nil?
       self.class.set(wait: 5.seconds).perform_later(hash)
     else
-      PtTaskNotifyJob.perform_later(hash)
+      if pt_task.pt_task_log.detail['upload']['progress'] < 100
+        self.class.set(wait: 5.seconds).perform_later(hash)
+      else
+        PtTaskNotifyJob.perform_later(hash)
+      end
     end
 
   end

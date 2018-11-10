@@ -27,6 +27,7 @@ gem 'redcarpet'
 gem 'coderay'
 gem 'sidekiq'
 gem 'nav_lynx'
+gem 'rqrcode'
 gem 'redis-namespace'
 gem 'whenever', :require => false
 gem 'rails-i18n', '~> 5.0.0'

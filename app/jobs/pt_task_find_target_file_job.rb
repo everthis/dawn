@@ -11,7 +11,6 @@ class PtTaskFindTargetFileJob < ApplicationJob
   def perform(*args)
     hash = args[0]
     res = cfetch('http://localhost:3000/findTargetFile?hash=' + hash)
-    obj = JSON.parse(res)
   end
 
   def cfetch(str)

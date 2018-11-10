@@ -114,7 +114,7 @@ Vue.component("ptTaskLog", {
   },
   template: `
     <div class="pt-task-log-wrap">
-      <div class="pt-tasks-container pt-tasks-wrap" v-for="(task, idx) in tasksInput">
+      <div class="pt-tasks-container pt-tasks-wrap c-gap-top" v-for="(task, idx) in tasksInput">
         <div :class="['c-border', 'c-center', 'c-padding', task.torrentSource ? task.torrentSource : '']"
         :data-id="task.torrent_base_info['torrentId']"
         :data-source="task.torrent_base_info['torrentSource']"

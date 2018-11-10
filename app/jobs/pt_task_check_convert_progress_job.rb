@@ -3,11 +3,18 @@ class PtTaskCheckConvertProgressJob < ApplicationJob
 
   after_perform do |job|
     hash = job.arguments.first
-    pt_task = PtTask.find_by(transmission_hash: hash)
-    if pt_task.pt_task_log.detail['convert']['progress'] < 100
+    pt_task_log = PtTask.find_by(transmission_hash: hash).pt_task_log
+    pt_task_log.detail['convert'] = {} if pt_task_log.detail['convert'].nil?
+
+    if pt_task_log.detail['convert']['progress'].nil?
       self.class.set(wait: 5.seconds).perform_later(hash)
     else
-      PtTaskUploadJob.perform_later(hash)
+      if pt_task_log.detail['convert']['progress'] < 100
+        self.class.set(wait: 5.seconds).perform_later(hash)
+      else
+        PtTaskUploadJob.perform_later(hash)
+      end
+
     end
 
   end

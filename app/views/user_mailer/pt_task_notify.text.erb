@@ -1,0 +1,7 @@
+
+Hi <%= @user.name %>,
+<% base_info = JSON.parse @pt_task['torrent_base_info']%>
+<%= base_info['chsTitle'] %>(<%= base_info['engTitle'] %>)
+<%= @signUrl %>
+<%= @qrcode %>
+has alreay been uploaded.
