@@ -20,19 +20,5 @@
 
 <% end %>
 <% content_for :foot do%>
-  <script name="pending_PT_tasks">
-    (function() {
-      window.gc = window.gc || {};
-      gc = <%= raw @pt_tasks.to_json %>;
-    })();
-  (function addShowLogMark() {
-    if (gc.length === 0) return;
-    gc.forEach(function(element, index) {
-      element.showLogs = false;
-      element.log = {};
-      element.gc = null;
-    });
-  })();
-  </script>
-  <%= javascript_pack_tag 'ptTaskLog', name: "ptTaskProgress" %>
+  <%= javascript_pack_tag 'ptTaskLog', name: "pending_PT_tasks" %>
 <% end %>

@@ -8,11 +8,11 @@ const torrentDetailEl = document.getElementsByClassName(
 const torrentDetailWrapEl = document.getElementsByClassName(
   "torrent-detail-wrap"
 )[0];
-const searchInputEl = document.getElementById("pt-tasks-q");
 
 let listData = [];
 let ptTasks = [];
 function queryId(ev) {
+  const searchInputEl = document.getElementById("pt-tasks-q");
   const q = searchInputEl.value;
   if (!q.length) {
     renderList([]);
@@ -45,6 +45,7 @@ function getDetailContent({ id, source }) {
 
 function getTorrentDetail({ id, source }) {
   getDetailContent({ id, source }).then(data => {
+    console.log(data);
     torrentDetailEl.innerHTML = data;
     torrentDetailWrapEl.classList.remove("c-hide");
   });
@@ -137,13 +138,24 @@ function addTaskHtml(el) {
 }
 
 function checkAvailability(el) {
-  if (el.peersCount > 0 && validSize(el.torrentSize)) {
+  if (
+    el.peersCount > 0 &&
+    validSize(el.torrentSize) &&
+    validType(el.torrentCategory)
+  ) {
     return true;
   } else {
     return false;
   }
 }
 
+function validType(str) {
+  if (str.indexOf(720) !== -1 || str.indexOf("1080") !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
 function validSize(str) {
   const regex = /(\d*\.*\d*)(.*)/;
   const res = regex.exec(str);

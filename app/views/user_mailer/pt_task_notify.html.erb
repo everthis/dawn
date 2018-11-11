@@ -1,3 +1,9 @@
+<% base_info = JSON.parse @pt_task['torrent_base_info']%>
+<h3><%= base_info['chsTitle'] %></h3>
+<h3><%= base_info['engTitle'] %></h3>
+<p>
+<img style="display:block;width:480px;height:480px;"
+src="<%= @qrcodeUrl %>" /></p>
 <div>
-  <%= @pt_task.torrent_base_info['chsTitle'] %> has alreay been uploaded.
+   has alreay been uploaded.
 </div>

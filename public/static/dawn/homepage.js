@@ -234,7 +234,7 @@ function exitTweetBox() {
 
 var _tweetBox = __webpack_require__(/*! ../modules/tweetBox */ 140);
 
-var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 77);
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 81);
 
 var cname = A.gc.currentName;
 var hmInstance = void 0;
@@ -340,7 +340,7 @@ var rorParams = exports.rorParams = {
 
 /***/ }),
 
-/***/ 77:
+/***/ 81:
 /* no static exports found */
 /* all exports used */
 /*!******************************************************!*\

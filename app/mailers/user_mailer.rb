@@ -40,10 +40,28 @@ class UserMailer < ApplicationMailer
     else
       fileName = @pt_task_log.detail['upload']['fileName']
     end
-    @signUrl = cfetch('http://localhost:3000/getSignUrl?fpath=' + encodeUri(fileName))
+    @signUrl = cfetch(ENV["PT_TASK_ORIGIN"] + '/getSignUrl?fpath=' + encodeUri(fileName))
     qrcode = RQRCode::QRCode.new(@signUrl)
-
-    @qrcode = qrcode.to_s
+    fileName = hash + '-' + DateTime.now.to_i.to_s + '.png'
+    @imgPath = 'pt-task/' + fileName
+    qrcode_str = qrcode.as_png(
+      resize_gte_to: false,
+      resize_exactly_to: false,
+      fill: 'white',
+      color: 'black',
+      size: 480,
+      border_modules: 2,
+      module_px_size: 6,
+      file: Rails.root.join('public', @imgPath)
+      # file: nil # path to write
+    )
+    if Rails.env.production?
+      hostPath = 'https://www.everthis.com/'
+    else
+      hostPath = 'http://192.168.1.209:8678/'
+    end
+    # @qrcode = Base64.encode64(qrcode_str)
+    @qrcodeUrl = hostPath + 'ext-assets/' + @imgPath
     mail to: @user.email, subject: "Task notification"
   end
 

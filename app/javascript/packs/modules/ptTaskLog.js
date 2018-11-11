@@ -95,20 +95,16 @@ function clearSearchResult() {
 Vue.component("ptTaskLog", {
   data: function() {
     return {
-      tasksInput: gc.map(el => {
-        el.torrent_base_info = JSON.parse(el.torrent_base_info);
-        el.log = {};
-        el.showLogs = false;
-        el.logDetail = {};
-        return el;
-      }),
+      tasksInput: [],
       showLogs: false,
       steps: [
         "downloadTorrent",
         "addToTransmission",
         "downloadFiles",
+        "findTargetFile",
         "convert",
-        "upload"
+        "upload",
+        "removeTorrentAndData"
       ]
     };
   },
@@ -146,17 +142,80 @@ Vue.component("ptTaskLog", {
             </div>
           </div>
 
+          <template v-if="task.qrCode.length > 0 && task.showLogs">
+            <img :src="qrcodeSrc(task)" />
+          </template>
+
+          <div v-if="task.showLogs && task.signUrl.length > 0" class="pt-task-play-online c-gap-bottom">
+            <a href="javascript:;" @click="togglePlay(task)">{{ task.playVideoOnline ? '关闭在线播放' : '在线播放' }}</a>
+          </div>
+          <div v-if="task.signUrl.length > 0 && task.showLogs && task.playVideoOnline" class="pt-task-video c-gap-bottom">
+            <video class="c-full-width" :src="task.signUrl" controls />
+          </div>
+
           <template v-for="(el, idx) in steps" v-if="task.showLogs">
-            <div v-if="task.logDetail && task.logDetail.hasOwnProperty(el)">
-              <div >{{ el }}: {{ task.logDetail[el].progress }}%</div>
+            <div v-if="task.logDetail && task.logDetail.hasOwnProperty(el)" class="pt-task-step-log">
+              <div v-if="el === 'downloadFiles'">
+                <span><b>种子名</b>: {{ task.logDetail[el].name }}</span>
+                <span><b>平均下载速度：</b>{{ task.logDetail[el].avg_speed }}</span>
+                <span><b>体积大小：</b>{{ task.logDetail[el].total_size }}</span>
+                <span><b>下载耗时：</b>{{ task.logDetail[el].time_taken }}</span>
+                <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
+              </div>
+              <div v-else-if="el === 'findTargetFile'">
+                <span><b>目标文件路径：</b>{{ task.logDetail[el].fpath }}</span>
+                <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
+              </div>
+              <div v-else-if="el === 'convert'">
+                <span><b>转码输出文件路径：</b>{{ task.logDetail[el].fpath }}</span>
+                <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
+              </div>
+              <div v-else-if="el === 'upload'">
+                <span><b>上传阿里云OSS文件名：</b>{{ task.logDetail[el].fileName }}</span>
+                <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
+              </div>
+              <div v-else-if="el === 'removeTorrentAndData'">
+                <span><b>上传完成后从transmission移除种子及数据进度：</b>{{ task.logDetail[el].progress }}%</span>
+              </div>
+              <div v-else>
+                <b>{{ el }}:</b> {{ task.logDetail[el].progress }}%
+              </div>
             </div>
           </template>
         </div>
       </div>
     </div>`,
+  computed: {
+    taskType() {
+      const wlp = window.location.pathname;
+      if (wlp.indexOf("pending_pt_task") !== -1) {
+        return "pending";
+      } else if (wlp.indexOf("completed_pt_task") !== -1) {
+        return "completed";
+      }
+    }
+  },
   methods: {
+    togglePlay(el) {
+      el.playVideoOnline = !el.playVideoOnline;
+    },
+    qrcodeSrc(el) {
+      return `data:image/png;base64,${el.qrCode}`;
+    },
     toggleLog: function(item) {
       if (!item.showLogs) {
+        if (this.taskType === "completed") {
+          const payload = {
+            hash: item.transmission_hash
+          };
+          $http(window.location.origin + "/pt_task_sign_url")
+            .get(payload)
+            .then(res => {
+              let obj = JSON.parse(res);
+              item.signUrl = obj.signUrl;
+              item.qrCode = obj.encodeImg;
+            });
+        }
         item.gc = App.cable.subscriptions.create(
           {
             channel: "PtTaskLogChannel",
@@ -186,6 +245,62 @@ Vue.component("ptTaskLog", {
       item.showLogs = !item.showLogs;
     },
     subscribe: function(id) {}
+  },
+  mounted() {
+    const payload = {};
+    const wlp = window.location.pathname;
+    let apiPath = "";
+    if (wlp.indexOf("pending_pt_task") !== -1) {
+      apiPath = "/pending_pt_task_data";
+    } else if (wlp.indexOf("completed_pt_task") !== -1) {
+      apiPath = "/completed_pt_task_data";
+    }
+    $http(window.location.origin + apiPath)
+      .get(payload)
+      .then(res => {
+        const arr = JSON.parse(res);
+        this.tasksInput = arr.map(el => {
+          el.torrent_base_info = JSON.parse(el.torrent_base_info);
+          el.log = {};
+          el.showLogs = false;
+          el.playVideoOnline = false;
+          el.qrCode = "";
+          el.signUrl = "";
+          el.logDetail = {};
+          return el;
+        });
+        /* use ActionCable to update status of pending plugin */
+        let gc = this.tasksInput;
+        if (gc.length > 0) {
+          for (let i = 0, length1 = gc.length; i < length1; i++) {
+            if (gc[i]["status"] !== "failed" && gc[i]["status"] !== "success") {
+              gc[i]["gcp"] = App.cable.subscriptions.create(
+                {
+                  channel: "PtTaskStatusChannel",
+                  hash: gc[i]["transmission_hash"]
+                },
+                {
+                  connected: function() {
+                    this.perform("send_current_status", {
+                      hash: gc[i]["transmission_hash"]
+                    });
+                  },
+                  received: function(data) {
+                    gc[i]["status"] = data.pt_task_status;
+                    if (
+                      data.pt_task_status === "failed" ||
+                      data.pt_task_status === "success"
+                    ) {
+                      gc[i]["gcp"].unsubscribe();
+                    }
+                  }
+                }
+              );
+            }
+          }
+        }
+      })
+      .catch(err => console.log(err));
   }
 });
 
@@ -197,37 +312,6 @@ export function PtTaskLog() {
   vueApp = new Vue({
     el: "#app"
   });
-
-  /* use ActionCable to update status of pending plugin */
-
-  if (gc.length > 0) {
-    for (let i = 0, length1 = gc.length; i < length1; i++) {
-      if (gc[i]["status"] !== "failed" && gc[i]["status"] !== "success") {
-        gc[i]["gcp"] = App.cable.subscriptions.create(
-          {
-            channel: "PtTaskStatusChannel",
-            hash: gc[i]["transmission_hash"]
-          },
-          {
-            connected: function() {
-              this.perform("send_current_status", {
-                hash: gc[i]["transmission_hash"]
-              });
-            },
-            received: function(data) {
-              gc[i]["status"] = data.pt_task_status;
-              if (
-                data.pt_task_status === "failed" ||
-                data.pt_task_status === "success"
-              ) {
-                gc[i]["gcp"].unsubscribe();
-              }
-            }
-          }
-        );
-      }
-    }
-  }
 
   // listenApiQuery();
 }

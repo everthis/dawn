@@ -16,7 +16,7 @@ class PtTaskCheckDownloadFilesStatusJob < ApplicationJob
 
   def perform(*args)
     hash = args[0]
-    res = cfetch('http://localhost:3000/checkProgress?hash=' + hash)
+    res = cfetch(ENV['PT_TASK_ORIGIN'] + '/checkProgress?hash=' + hash)
     obj = JSON.parse(res)
     pt_task_log = PtTask.find_by(transmission_hash: hash).pt_task_log
     pt_task_log.detail = {} if pt_task_log.detail.nil?

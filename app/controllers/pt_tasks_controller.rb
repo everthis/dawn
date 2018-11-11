@@ -1,5 +1,6 @@
 require 'uri'
 require 'net/http'
+require 'rqrcode'
 class PtTasksController < CBaseController
   skip_before_action :verify_authenticity_token
   before_action :set_pt_task, only: [:show, :edit, :update, :destroy]
@@ -83,6 +84,7 @@ class PtTasksController < CBaseController
     @pt_task = PtTask.find_by(source_id: params[:source_id])
     if @pt_task.nil?
       new_pt_task = current_user.pt_tasks.build(pt_task_params(params))
+      new_pt_task.status = 'waiting'
       begin
         new_pt_task.save
       rescue => ex
@@ -96,19 +98,68 @@ class PtTasksController < CBaseController
   end
 
   def pending
-    @pt_tasks = PtTask.where(cdn_url: nil).paginate(page: params[:page]).order("created_at ASC")
+    @pt_tasks = PtTask.where('status IN (?)', ['waiting', 'pending']).paginate(page: params[:page]).order("created_at ASC")
+  end
+
+  def pendingData
+    @pt_tasks = PtTask.where('status IN (?)', ['waiting', 'pending']).paginate(page: params[:page]).order("created_at ASC")
+    render json: @pt_tasks, status: :ok
   end
 
   def completed
-    @pt_tasks = PtTask.where.not(cdn_url: nil).paginate(page: params[:page]).order("created_at ASC")
+    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page]).order("created_at ASC")
+  end
+
+  def completedData
+    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page]).order("created_at ASC")
+    render json: @pt_tasks, status: :ok
   end
 
   def checkProgress
-    res = cfetch('http://localhost:3000/checkProgress?id=' + params[:id] + '&source=' + params[:source] + '&hash=' + params[:hash])
+    res = cfetch(ENV["PT_TASK_ORIGIN"] + '/checkProgress?id=' + params[:id] + '&source=' + params[:source] + '&hash=' + params[:hash])
+    render json: res, status: :ok
+  end
+
+  def getSignUrl
+    @pt_task = PtTask.find_by(transmission_hash: params[:hash])
+    @pt_task_log = @pt_task.pt_task_log
+    if @pt_task_log.detail['upload']['fileName'].nil?
+      fileName = "Butterfly.Sleep.2017.720p.BluRay.x264-WiKi.mp4"
+    else
+      fileName = @pt_task_log.detail['upload']['fileName']
+    end
+    signUrl = cfetch(ENV["PT_TASK_ORIGIN"] + '/getSignUrl?fpath=' + encodeUri(fileName))
+    qrcode = RQRCode::QRCode.new(signUrl)
+    # fileName = hash + '-' + DateTime.now.to_i.to_s + '.png'
+    # @imgPath = 'pt-task/' + fileName
+    qrcode_str = qrcode.as_png(
+      resize_gte_to: false,
+      resize_exactly_to: false,
+      fill: 'white',
+      color: 'black',
+      size: 480,
+      border_modules: 2,
+      module_px_size: 6,
+      # file: Rails.root.join('public', @imgPath)
+      file: nil # path to write
+    ).to_s
+    # if Rails.env.production?
+    #   hostPath = 'https://www.everthis.com/'
+    # else
+    #   hostPath = 'http://192.168.1.209:8678/'
+    # end
+    @qrcode = Base64.encode64(qrcode_str)
+    res = {
+      "encodeImg": @qrcode,
+      "signUrl": signUrl
+    }
     render json: res, status: :ok
   end
 
   private
+    def encodeUri(str)
+      URI.escape(str, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_pt_task
       @pt_task = PtTask.find(params[:id])

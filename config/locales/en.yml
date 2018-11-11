@@ -20,6 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  sessions:
+    new:
+      email: "Email"
+      password: "Password"
+      forget_password: "Forget password?"
+      remember_me_on_this_computer: "Remember me on this computer"
+      log_in: "Log in"
+      new_user: "New user"
+      sign_up_now: "Sign Up now"
+
   hello: "Hello world"
 
   number:
@@ -65,6 +75,8 @@ en:
       films: "Films"
       pt-task: "PT-task"
       front-end-job-interview-questions: "front-end-job-interview-questions"
+      log_in: "Log in"
+      sign_up: "Sign up"
 
   will_paginate:
     previous_label: "previous_page"
@@ -72,6 +84,11 @@ en:
     page_gap: "..."
 
   users:
+    form:
+      name: "Name"
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Password confirmation"
     settings:
       language: "Language"
       profile: "Profile"

@@ -4,26 +4,26 @@
 
 <div class="form-container">
     <%= form_for(:session, url: login_path, html: {class: "signin-form"}) do |f| %>
-      <%= field_set_tag 'email', class: '' do %>
+      <%= field_set_tag t('.email'), class: '' do %>
         <%= f.email_field :email, class: '' %>
       <% end %>
 
-      <%= field_set_tag 'password', class: 'password-set' do %>
+      <%= field_set_tag t('.password'), class: 'password-set' do %>
         <%= f.password_field :password, class: '' %>
-        <%= link_to "(forgot password?)", new_password_reset_path, class: 'forget-pwd-link' %>
+        <%= link_to t('.forget_password'), new_password_reset_path, class: 'forget-pwd-link' %>
       <% end %>
 
       <%= field_set_tag nil, class: '' do %>
           <%= f.label :remember_me, class: "" do %>
             <%= f.check_box :remember_me, class: 'remember-checkbox' %>
-            <span>Remember me on this computer</span>
+            <span><%= t('.remember_me_on_this_computer') %></span>
           <% end %>
       <% end %>
 
       <div class="row">
-          <%= f.submit "Log in", class: "btn btn-submit" %>
+          <%= f.submit t('.log_in'), class: "btn btn-submit" %>
       </div>
     <% end %>
-    <p class="extra">New user? <%= link_to "Sign up now!", signup_path %></p>
+    <p class="extra"><%= t('.new_user') %>? <%= link_to t('.sign_up_now'), signup_path %></p>
 </div>
 <% end %>

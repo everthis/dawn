@@ -10,7 +10,7 @@ class PtTaskFindTargetFileJob < ApplicationJob
 
   def perform(*args)
     hash = args[0]
-    res = cfetch('http://localhost:3000/findTargetFile?hash=' + hash)
+    res = cfetch(ENV['PT_TASK_ORIGIN'] + '/findTargetFile?hash=' + hash)
   end
 
   def cfetch(str)

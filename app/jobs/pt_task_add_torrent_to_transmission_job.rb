@@ -11,8 +11,10 @@ class PtTaskAddTorrentToTransmissionJob < ApplicationJob
 
   def perform(*args)
     source_id = args[0]
+    pt_task_record = PtTask.find_by(source_id: source_id)
+    pt_task_record.update_attribute(:status, 'pending')
 
-    res = cfetch('http://localhost:3000/addTorrent?sourceId=' + source_id)
+    res = cfetch(ENV["PT_TASK_ORIGIN"] + '/addTorrent?sourceId=' + source_id)
     obj = JSON.parse(res)
     unless obj['id'].nil?
       pt_task = PtTask.find_by(source_id: source_id)

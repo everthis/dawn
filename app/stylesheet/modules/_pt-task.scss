@@ -130,3 +130,11 @@
   background-repeat: no-repeat;
   flex-basis: 8rem;
 }
+.pt-task-play-online,
+.pt-task-step-log {
+  text-align: left;
+  padding: 0 2em;
+}
+.pt-task-video {
+  box-shadow: 1px 1px 4px 1px #ddd;
+}

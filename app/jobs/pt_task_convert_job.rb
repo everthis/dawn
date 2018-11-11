@@ -12,7 +12,7 @@ class PtTaskConvertJob < ApplicationJob
     hash = args[0]
     pt_task_log = PtTask.find_by(transmission_hash: hash).pt_task_log
     fpath = pt_task_log.detail['findTargetFile']['fpath']
-    res = cfetch('http://localhost:3000/convert?hash=' + encodeUri(hash) + '&fpath=' + encodeUri(fpath))
+    res = cfetch(ENV['PT_TASK_ORIGIN'] + '/convert?hash=' + encodeUri(hash) + '&fpath=' + encodeUri(fpath))
   end
 
   def encodeUri(str)

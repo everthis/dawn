@@ -11,8 +11,8 @@ class PtTaskLog < ApplicationRecord
   def update_status
 
     if self.detail['upload'] && self.detail['upload']['progress'] == 100
-      def_status = 'success'
-      PtTask.find(self.pt_task_id).update_attribute(:status, def_status)
+      def_status = 'completed'
+      # PtTask.find(self.pt_task_id).update_attribute(:status, def_status)
       ActionCable.server.broadcast("pt_task_status_#{self.pt_task.transmission_hash}", task_status: def_status)
     end
 

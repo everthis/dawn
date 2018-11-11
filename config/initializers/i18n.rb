@@ -7,7 +7,7 @@
 # Visit http://www.pragmaticprogrammer.com/titles/rails5 for more book information.
 #---
 #encoding: utf-8
-I18n.default_locale = :en
+I18n.default_locale = :"zh-CN"
 
 LANGUAGES = [
   ['English',                 'en'],

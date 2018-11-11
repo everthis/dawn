@@ -108,6 +108,877 @@ module.exports = function (exec) {
 /***/ 100:
 /* no static exports found */
 /* all exports used */
+/*!************************************************!*\
+  !*** ./~/codemirror/mode/markdown/markdown.js ***!
+  \************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+(function(mod) {
+  if (true) // CommonJS
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 38), __webpack_require__(/*! ../xml/xml */ 102), __webpack_require__(/*! ../meta */ 101));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
+"use strict";
+
+CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
+
+  var htmlMode = CodeMirror.getMode(cmCfg, "text/html");
+  var htmlModeMissing = htmlMode.name == "null"
+
+  function getMode(name) {
+    if (CodeMirror.findModeByName) {
+      var found = CodeMirror.findModeByName(name);
+      if (found) name = found.mime || found.mimes[0];
+    }
+    var mode = CodeMirror.getMode(cmCfg, name);
+    return mode.name == "null" ? null : mode;
+  }
+
+  // Should characters that affect highlighting be highlighted separate?
+  // Does not include characters that will be output (such as `1.` and `-` for lists)
+  if (modeCfg.highlightFormatting === undefined)
+    modeCfg.highlightFormatting = false;
+
+  // Maximum number of nested blockquotes. Set to 0 for infinite nesting.
+  // Excess `>` will emit `error` token.
+  if (modeCfg.maxBlockquoteDepth === undefined)
+    modeCfg.maxBlockquoteDepth = 0;
+
+  // Turn on task lists? ("- [ ] " and "- [x] ")
+  if (modeCfg.taskLists === undefined) modeCfg.taskLists = false;
+
+  // Turn on strikethrough syntax
+  if (modeCfg.strikethrough === undefined)
+    modeCfg.strikethrough = false;
+
+  if (modeCfg.emoji === undefined)
+    modeCfg.emoji = false;
+
+  if (modeCfg.fencedCodeBlockHighlighting === undefined)
+    modeCfg.fencedCodeBlockHighlighting = true;
+
+  if (modeCfg.xml === undefined)
+    modeCfg.xml = true;
+
+  // Allow token types to be overridden by user-provided token types.
+  if (modeCfg.tokenTypeOverrides === undefined)
+    modeCfg.tokenTypeOverrides = {};
+
+  var tokenTypes = {
+    header: "header",
+    code: "comment",
+    quote: "quote",
+    list1: "variable-2",
+    list2: "variable-3",
+    list3: "keyword",
+    hr: "hr",
+    image: "image",
+    imageAltText: "image-alt-text",
+    imageMarker: "image-marker",
+    formatting: "formatting",
+    linkInline: "link",
+    linkEmail: "link",
+    linkText: "link",
+    linkHref: "string",
+    em: "em",
+    strong: "strong",
+    strikethrough: "strikethrough",
+    emoji: "builtin"
+  };
+
+  for (var tokenType in tokenTypes) {
+    if (tokenTypes.hasOwnProperty(tokenType) && modeCfg.tokenTypeOverrides[tokenType]) {
+      tokenTypes[tokenType] = modeCfg.tokenTypeOverrides[tokenType];
+    }
+  }
+
+  var hrRE = /^([*\-_])(?:\s*\1){2,}\s*$/
+  ,   listRE = /^(?:[*\-+]|^[0-9]+([.)]))\s+/
+  ,   taskListRE = /^\[(x| )\](?=\s)/ // Must follow listRE
+  ,   atxHeaderRE = modeCfg.allowAtxHeaderWithoutSpace ? /^(#+)/ : /^(#+)(?: |$)/
+  ,   setextHeaderRE = /^ *(?:\={1,}|-{1,})\s*$/
+  ,   textRE = /^[^#!\[\]*_\\<>` "'(~:]+/
+  ,   fencedCodeRE = /^(~~~+|```+)[ \t]*([\w+#-]*)[^\n`]*$/
+  ,   linkDefRE = /^\s*\[[^\]]+?\]:\s*\S+(\s*\S*\s*)?$/ // naive link-definition
+  ,   punctuation = /[!\"#$%&\'()*+,\-\.\/:;<=>?@\[\\\]^_`{|}~—]/
+  ,   expandedTab = "    " // CommonMark specifies tab as 4 spaces
+
+  function switchInline(stream, state, f) {
+    state.f = state.inline = f;
+    return f(stream, state);
+  }
+
+  function switchBlock(stream, state, f) {
+    state.f = state.block = f;
+    return f(stream, state);
+  }
+
+  function lineIsEmpty(line) {
+    return !line || !/\S/.test(line.string)
+  }
+
+  // Blocks
+
+  function blankLine(state) {
+    // Reset linkTitle state
+    state.linkTitle = false;
+    // Reset EM state
+    state.em = false;
+    // Reset STRONG state
+    state.strong = false;
+    // Reset strikethrough state
+    state.strikethrough = false;
+    // Reset state.quote
+    state.quote = 0;
+    // Reset state.indentedCode
+    state.indentedCode = false;
+    if (state.f == htmlBlock) {
+      state.f = inlineNormal;
+      state.block = blockNormal;
+    }
+    // Reset state.trailingSpace
+    state.trailingSpace = 0;
+    state.trailingSpaceNewLine = false;
+    // Mark this line as blank
+    state.prevLine = state.thisLine
+    state.thisLine = {stream: null}
+    return null;
+  }
+
+  function blockNormal(stream, state) {
+    var firstTokenOnLine = stream.column() === state.indentation;
+    var prevLineLineIsEmpty = lineIsEmpty(state.prevLine.stream);
+    var prevLineIsIndentedCode = state.indentedCode;
+    var prevLineIsHr = state.prevLine.hr;
+    var prevLineIsList = state.list !== false;
+    var maxNonCodeIndentation = (state.listStack[state.listStack.length - 1] || 0) + 3;
+
+    state.indentedCode = false;
+
+    var lineIndentation = state.indentation;
+    // compute once per line (on first token)
+    if (state.indentationDiff === null) {
+      state.indentationDiff = state.indentation;
+      if (prevLineIsList) {
+        state.list = null;
+        // While this list item's marker's indentation is less than the deepest
+        //  list item's content's indentation,pop the deepest list item
+        //  indentation off the stack, and update block indentation state
+        while (lineIndentation < state.listStack[state.listStack.length - 1]) {
+          state.listStack.pop();
+          if (state.listStack.length) {
+            state.indentation = state.listStack[state.listStack.length - 1];
+          // less than the first list's indent -> the line is no longer a list
+          } else {
+            state.list = false;
+          }
+        }
+        if (state.list !== false) {
+          state.indentationDiff = lineIndentation - state.listStack[state.listStack.length - 1]
+        }
+      }
+    }
+
+    // not comprehensive (currently only for setext detection purposes)
+    var allowsInlineContinuation = (
+        !prevLineLineIsEmpty && !prevLineIsHr && !state.prevLine.header &&
+        (!prevLineIsList || !prevLineIsIndentedCode) &&
+        !state.prevLine.fencedCodeEnd
+    );
+
+    var isHr = (state.list === false || prevLineIsHr || prevLineLineIsEmpty) &&
+      state.indentation <= maxNonCodeIndentation && stream.match(hrRE);
+
+    var match = null;
+    if (state.indentationDiff >= 4 && (prevLineIsIndentedCode || state.prevLine.fencedCodeEnd ||
+         state.prevLine.header || prevLineLineIsEmpty)) {
+      stream.skipToEnd();
+      state.indentedCode = true;
+      return tokenTypes.code;
+    } else if (stream.eatSpace()) {
+      return null;
+    } else if (firstTokenOnLine && state.indentation <= maxNonCodeIndentation && (match = stream.match(atxHeaderRE)) && match[1].length <= 6) {
+      state.quote = 0;
+      state.header = match[1].length;
+      state.thisLine.header = true;
+      if (modeCfg.highlightFormatting) state.formatting = "header";
+      state.f = state.inline;
+      return getType(state);
+    } else if (state.indentation <= maxNonCodeIndentation && stream.eat('>')) {
+      state.quote = firstTokenOnLine ? 1 : state.quote + 1;
+      if (modeCfg.highlightFormatting) state.formatting = "quote";
+      stream.eatSpace();
+      return getType(state);
+    } else if (!isHr && !state.setext && firstTokenOnLine && state.indentation <= maxNonCodeIndentation && (match = stream.match(listRE))) {
+      var listType = match[1] ? "ol" : "ul";
+
+      state.indentation = lineIndentation + stream.current().length;
+      state.list = true;
+      state.quote = 0;
+
+      // Add this list item's content's indentation to the stack
+      state.listStack.push(state.indentation);
+
+      if (modeCfg.taskLists && stream.match(taskListRE, false)) {
+        state.taskList = true;
+      }
+      state.f = state.inline;
+      if (modeCfg.highlightFormatting) state.formatting = ["list", "list-" + listType];
+      return getType(state);
+    } else if (firstTokenOnLine && state.indentation <= maxNonCodeIndentation && (match = stream.match(fencedCodeRE, true))) {
+      state.quote = 0;
+      state.fencedEndRE = new RegExp(match[1] + "+ *$");
+      // try switching mode
+      state.localMode = modeCfg.fencedCodeBlockHighlighting && getMode(match[2]);
+      if (state.localMode) state.localState = CodeMirror.startState(state.localMode);
+      state.f = state.block = local;
+      if (modeCfg.highlightFormatting) state.formatting = "code-block";
+      state.code = -1
+      return getType(state);
+    // SETEXT has lowest block-scope precedence after HR, so check it after
+    //  the others (code, blockquote, list...)
+    } else if (
+      // if setext set, indicates line after ---/===
+      state.setext || (
+        // line before ---/===
+        (!allowsInlineContinuation || !prevLineIsList) && !state.quote && state.list === false &&
+        !state.code && !isHr && !linkDefRE.test(stream.string) &&
+        (match = stream.lookAhead(1)) && (match = match.match(setextHeaderRE))
+      )
+    ) {
+      if ( !state.setext ) {
+        state.header = match[0].charAt(0) == '=' ? 1 : 2;
+        state.setext = state.header;
+      } else {
+        state.header = state.setext;
+        // has no effect on type so we can reset it now
+        state.setext = 0;
+        stream.skipToEnd();
+        if (modeCfg.highlightFormatting) state.formatting = "header";
+      }
+      state.thisLine.header = true;
+      state.f = state.inline;
+      return getType(state);
+    } else if (isHr) {
+      stream.skipToEnd();
+      state.hr = true;
+      state.thisLine.hr = true;
+      return tokenTypes.hr;
+    } else if (stream.peek() === '[') {
+      return switchInline(stream, state, footnoteLink);
+    }
+
+    return switchInline(stream, state, state.inline);
+  }
+
+  function htmlBlock(stream, state) {
+    var style = htmlMode.token(stream, state.htmlState);
+    if (!htmlModeMissing) {
+      var inner = CodeMirror.innerMode(htmlMode, state.htmlState)
+      if ((inner.mode.name == "xml" && inner.state.tagStart === null &&
+           (!inner.state.context && inner.state.tokenize.isInText)) ||
+          (state.md_inside && stream.current().indexOf(">") > -1)) {
+        state.f = inlineNormal;
+        state.block = blockNormal;
+        state.htmlState = null;
+      }
+    }
+    return style;
+  }
+
+  function local(stream, state) {
+    var currListInd = state.listStack[state.listStack.length - 1] || 0;
+    var hasExitedList = state.indentation < currListInd;
+    var maxFencedEndInd = currListInd + 3;
+    if (state.fencedEndRE && state.indentation <= maxFencedEndInd && (hasExitedList || stream.match(state.fencedEndRE))) {
+      if (modeCfg.highlightFormatting) state.formatting = "code-block";
+      var returnType;
+      if (!hasExitedList) returnType = getType(state)
+      state.localMode = state.localState = null;
+      state.block = blockNormal;
+      state.f = inlineNormal;
+      state.fencedEndRE = null;
+      state.code = 0
+      state.thisLine.fencedCodeEnd = true;
+      if (hasExitedList) return switchBlock(stream, state, state.block);
+      return returnType;
+    } else if (state.localMode) {
+      return state.localMode.token(stream, state.localState);
+    } else {
+      stream.skipToEnd();
+      return tokenTypes.code;
+    }
+  }
+
+  // Inline
+  function getType(state) {
+    var styles = [];
+
+    if (state.formatting) {
+      styles.push(tokenTypes.formatting);
+
+      if (typeof state.formatting === "string") state.formatting = [state.formatting];
+
+      for (var i = 0; i < state.formatting.length; i++) {
+        styles.push(tokenTypes.formatting + "-" + state.formatting[i]);
+
+        if (state.formatting[i] === "header") {
+          styles.push(tokenTypes.formatting + "-" + state.formatting[i] + "-" + state.header);
+        }
+
+        // Add `formatting-quote` and `formatting-quote-#` for blockquotes
+        // Add `error` instead if the maximum blockquote nesting depth is passed
+        if (state.formatting[i] === "quote") {
+          if (!modeCfg.maxBlockquoteDepth || modeCfg.maxBlockquoteDepth >= state.quote) {
+            styles.push(tokenTypes.formatting + "-" + state.formatting[i] + "-" + state.quote);
+          } else {
+            styles.push("error");
+          }
+        }
+      }
+    }
+
+    if (state.taskOpen) {
+      styles.push("meta");
+      return styles.length ? styles.join(' ') : null;
+    }
+    if (state.taskClosed) {
+      styles.push("property");
+      return styles.length ? styles.join(' ') : null;
+    }
+
+    if (state.linkHref) {
+      styles.push(tokenTypes.linkHref, "url");
+    } else { // Only apply inline styles to non-url text
+      if (state.strong) { styles.push(tokenTypes.strong); }
+      if (state.em) { styles.push(tokenTypes.em); }
+      if (state.strikethrough) { styles.push(tokenTypes.strikethrough); }
+      if (state.emoji) { styles.push(tokenTypes.emoji); }
+      if (state.linkText) { styles.push(tokenTypes.linkText); }
+      if (state.code) { styles.push(tokenTypes.code); }
+      if (state.image) { styles.push(tokenTypes.image); }
+      if (state.imageAltText) { styles.push(tokenTypes.imageAltText, "link"); }
+      if (state.imageMarker) { styles.push(tokenTypes.imageMarker); }
+    }
+
+    if (state.header) { styles.push(tokenTypes.header, tokenTypes.header + "-" + state.header); }
+
+    if (state.quote) {
+      styles.push(tokenTypes.quote);
+
+      // Add `quote-#` where the maximum for `#` is modeCfg.maxBlockquoteDepth
+      if (!modeCfg.maxBlockquoteDepth || modeCfg.maxBlockquoteDepth >= state.quote) {
+        styles.push(tokenTypes.quote + "-" + state.quote);
+      } else {
+        styles.push(tokenTypes.quote + "-" + modeCfg.maxBlockquoteDepth);
+      }
+    }
+
+    if (state.list !== false) {
+      var listMod = (state.listStack.length - 1) % 3;
+      if (!listMod) {
+        styles.push(tokenTypes.list1);
+      } else if (listMod === 1) {
+        styles.push(tokenTypes.list2);
+      } else {
+        styles.push(tokenTypes.list3);
+      }
+    }
+
+    if (state.trailingSpaceNewLine) {
+      styles.push("trailing-space-new-line");
+    } else if (state.trailingSpace) {
+      styles.push("trailing-space-" + (state.trailingSpace % 2 ? "a" : "b"));
+    }
+
+    return styles.length ? styles.join(' ') : null;
+  }
+
+  function handleText(stream, state) {
+    if (stream.match(textRE, true)) {
+      return getType(state);
+    }
+    return undefined;
+  }
+
+  function inlineNormal(stream, state) {
+    var style = state.text(stream, state);
+    if (typeof style !== 'undefined')
+      return style;
+
+    if (state.list) { // List marker (*, +, -, 1., etc)
+      state.list = null;
+      return getType(state);
+    }
+
+    if (state.taskList) {
+      var taskOpen = stream.match(taskListRE, true)[1] !== "x";
+      if (taskOpen) state.taskOpen = true;
+      else state.taskClosed = true;
+      if (modeCfg.highlightFormatting) state.formatting = "task";
+      state.taskList = false;
+      return getType(state);
+    }
+
+    state.taskOpen = false;
+    state.taskClosed = false;
+
+    if (state.header && stream.match(/^#+$/, true)) {
+      if (modeCfg.highlightFormatting) state.formatting = "header";
+      return getType(state);
+    }
+
+    var ch = stream.next();
+
+    // Matches link titles present on next line
+    if (state.linkTitle) {
+      state.linkTitle = false;
+      var matchCh = ch;
+      if (ch === '(') {
+        matchCh = ')';
+      }
+      matchCh = (matchCh+'').replace(/([.?*+^\[\]\\(){}|-])/g, "\\$1");
+      var regex = '^\\s*(?:[^' + matchCh + '\\\\]+|\\\\\\\\|\\\\.)' + matchCh;
+      if (stream.match(new RegExp(regex), true)) {
+        return tokenTypes.linkHref;
+      }
+    }
+
+    // If this block is changed, it may need to be updated in GFM mode
+    if (ch === '`') {
+      var previousFormatting = state.formatting;
+      if (modeCfg.highlightFormatting) state.formatting = "code";
+      stream.eatWhile('`');
+      var count = stream.current().length
+      if (state.code == 0 && (!state.quote || count == 1)) {
+        state.code = count
+        return getType(state)
+      } else if (count == state.code) { // Must be exact
+        var t = getType(state)
+        state.code = 0
+        return t
+      } else {
+        state.formatting = previousFormatting
+        return getType(state)
+      }
+    } else if (state.code) {
+      return getType(state);
+    }
+
+    if (ch === '\\') {
+      stream.next();
+      if (modeCfg.highlightFormatting) {
+        var type = getType(state);
+        var formattingEscape = tokenTypes.formatting + "-escape";
+        return type ? type + " " + formattingEscape : formattingEscape;
+      }
+    }
+
+    if (ch === '!' && stream.match(/\[[^\]]*\] ?(?:\(|\[)/, false)) {
+      state.imageMarker = true;
+      state.image = true;
+      if (modeCfg.highlightFormatting) state.formatting = "image";
+      return getType(state);
+    }
+
+    if (ch === '[' && state.imageMarker && stream.match(/[^\]]*\](\(.*?\)| ?\[.*?\])/, false)) {
+      state.imageMarker = false;
+      state.imageAltText = true
+      if (modeCfg.highlightFormatting) state.formatting = "image";
+      return getType(state);
+    }
+
+    if (ch === ']' && state.imageAltText) {
+      if (modeCfg.highlightFormatting) state.formatting = "image";
+      var type = getType(state);
+      state.imageAltText = false;
+      state.image = false;
+      state.inline = state.f = linkHref;
+      return type;
+    }
+
+    if (ch === '[' && !state.image) {
+      state.linkText = true;
+      if (modeCfg.highlightFormatting) state.formatting = "link";
+      return getType(state);
+    }
+
+    if (ch === ']' && state.linkText) {
+      if (modeCfg.highlightFormatting) state.formatting = "link";
+      var type = getType(state);
+      state.linkText = false;
+      state.inline = state.f = stream.match(/\(.*?\)| ?\[.*?\]/, false) ? linkHref : inlineNormal
+      return type;
+    }
+
+    if (ch === '<' && stream.match(/^(https?|ftps?):\/\/(?:[^\\>]|\\.)+>/, false)) {
+      state.f = state.inline = linkInline;
+      if (modeCfg.highlightFormatting) state.formatting = "link";
+      var type = getType(state);
+      if (type){
+        type += " ";
+      } else {
+        type = "";
+      }
+      return type + tokenTypes.linkInline;
+    }
+
+    if (ch === '<' && stream.match(/^[^> \\]+@(?:[^\\>]|\\.)+>/, false)) {
+      state.f = state.inline = linkInline;
+      if (modeCfg.highlightFormatting) state.formatting = "link";
+      var type = getType(state);
+      if (type){
+        type += " ";
+      } else {
+        type = "";
+      }
+      return type + tokenTypes.linkEmail;
+    }
+
+    if (modeCfg.xml && ch === '<' && stream.match(/^(!--|[a-z]+(?:\s+[a-z_:.\-]+(?:\s*=\s*[^ >]+)?)*\s*>)/i, false)) {
+      var end = stream.string.indexOf(">", stream.pos);
+      if (end != -1) {
+        var atts = stream.string.substring(stream.start, end);
+        if (/markdown\s*=\s*('|"){0,1}1('|"){0,1}/.test(atts)) state.md_inside = true;
+      }
+      stream.backUp(1);
+      state.htmlState = CodeMirror.startState(htmlMode);
+      return switchBlock(stream, state, htmlBlock);
+    }
+
+    if (modeCfg.xml && ch === '<' && stream.match(/^\/\w*?>/)) {
+      state.md_inside = false;
+      return "tag";
+    } else if (ch === "*" || ch === "_") {
+      var len = 1, before = stream.pos == 1 ? " " : stream.string.charAt(stream.pos - 2)
+      while (len < 3 && stream.eat(ch)) len++
+      var after = stream.peek() || " "
+      // See http://spec.commonmark.org/0.27/#emphasis-and-strong-emphasis
+      var leftFlanking = !/\s/.test(after) && (!punctuation.test(after) || /\s/.test(before) || punctuation.test(before))
+      var rightFlanking = !/\s/.test(before) && (!punctuation.test(before) || /\s/.test(after) || punctuation.test(after))
+      var setEm = null, setStrong = null
+      if (len % 2) { // Em
+        if (!state.em && leftFlanking && (ch === "*" || !rightFlanking || punctuation.test(before)))
+          setEm = true
+        else if (state.em == ch && rightFlanking && (ch === "*" || !leftFlanking || punctuation.test(after)))
+          setEm = false
+      }
+      if (len > 1) { // Strong
+        if (!state.strong && leftFlanking && (ch === "*" || !rightFlanking || punctuation.test(before)))
+          setStrong = true
+        else if (state.strong == ch && rightFlanking && (ch === "*" || !leftFlanking || punctuation.test(after)))
+          setStrong = false
+      }
+      if (setStrong != null || setEm != null) {
+        if (modeCfg.highlightFormatting) state.formatting = setEm == null ? "strong" : setStrong == null ? "em" : "strong em"
+        if (setEm === true) state.em = ch
+        if (setStrong === true) state.strong = ch
+        var t = getType(state)
+        if (setEm === false) state.em = false
+        if (setStrong === false) state.strong = false
+        return t
+      }
+    } else if (ch === ' ') {
+      if (stream.eat('*') || stream.eat('_')) { // Probably surrounded by spaces
+        if (stream.peek() === ' ') { // Surrounded by spaces, ignore
+          return getType(state);
+        } else { // Not surrounded by spaces, back up pointer
+          stream.backUp(1);
+        }
+      }
+    }
+
+    if (modeCfg.strikethrough) {
+      if (ch === '~' && stream.eatWhile(ch)) {
+        if (state.strikethrough) {// Remove strikethrough
+          if (modeCfg.highlightFormatting) state.formatting = "strikethrough";
+          var t = getType(state);
+          state.strikethrough = false;
+          return t;
+        } else if (stream.match(/^[^\s]/, false)) {// Add strikethrough
+          state.strikethrough = true;
+          if (modeCfg.highlightFormatting) state.formatting = "strikethrough";
+          return getType(state);
+        }
+      } else if (ch === ' ') {
+        if (stream.match(/^~~/, true)) { // Probably surrounded by space
+          if (stream.peek() === ' ') { // Surrounded by spaces, ignore
+            return getType(state);
+          } else { // Not surrounded by spaces, back up pointer
+            stream.backUp(2);
+          }
+        }
+      }
+    }
+
+    if (modeCfg.emoji && ch === ":" && stream.match(/^[a-z_\d+-]+:/)) {
+      state.emoji = true;
+      if (modeCfg.highlightFormatting) state.formatting = "emoji";
+      var retType = getType(state);
+      state.emoji = false;
+      return retType;
+    }
+
+    if (ch === ' ') {
+      if (stream.match(/ +$/, false)) {
+        state.trailingSpace++;
+      } else if (state.trailingSpace) {
+        state.trailingSpaceNewLine = true;
+      }
+    }
+
+    return getType(state);
+  }
+
+  function linkInline(stream, state) {
+    var ch = stream.next();
+
+    if (ch === ">") {
+      state.f = state.inline = inlineNormal;
+      if (modeCfg.highlightFormatting) state.formatting = "link";
+      var type = getType(state);
+      if (type){
+        type += " ";
+      } else {
+        type = "";
+      }
+      return type + tokenTypes.linkInline;
+    }
+
+    stream.match(/^[^>]+/, true);
+
+    return tokenTypes.linkInline;
+  }
+
+  function linkHref(stream, state) {
+    // Check if space, and return NULL if so (to avoid marking the space)
+    if(stream.eatSpace()){
+      return null;
+    }
+    var ch = stream.next();
+    if (ch === '(' || ch === '[') {
+      state.f = state.inline = getLinkHrefInside(ch === "(" ? ")" : "]");
+      if (modeCfg.highlightFormatting) state.formatting = "link-string";
+      state.linkHref = true;
+      return getType(state);
+    }
+    return 'error';
+  }
+
+  var linkRE = {
+    ")": /^(?:[^\\\(\)]|\\.|\((?:[^\\\(\)]|\\.)*\))*?(?=\))/,
+    "]": /^(?:[^\\\[\]]|\\.|\[(?:[^\\\[\]]|\\.)*\])*?(?=\])/
+  }
+
+  function getLinkHrefInside(endChar) {
+    return function(stream, state) {
+      var ch = stream.next();
+
+      if (ch === endChar) {
+        state.f = state.inline = inlineNormal;
+        if (modeCfg.highlightFormatting) state.formatting = "link-string";
+        var returnState = getType(state);
+        state.linkHref = false;
+        return returnState;
+      }
+
+      stream.match(linkRE[endChar])
+      state.linkHref = true;
+      return getType(state);
+    };
+  }
+
+  function footnoteLink(stream, state) {
+    if (stream.match(/^([^\]\\]|\\.)*\]:/, false)) {
+      state.f = footnoteLinkInside;
+      stream.next(); // Consume [
+      if (modeCfg.highlightFormatting) state.formatting = "link";
+      state.linkText = true;
+      return getType(state);
+    }
+    return switchInline(stream, state, inlineNormal);
+  }
+
+  function footnoteLinkInside(stream, state) {
+    if (stream.match(/^\]:/, true)) {
+      state.f = state.inline = footnoteUrl;
+      if (modeCfg.highlightFormatting) state.formatting = "link";
+      var returnType = getType(state);
+      state.linkText = false;
+      return returnType;
+    }
+
+    stream.match(/^([^\]\\]|\\.)+/, true);
+
+    return tokenTypes.linkText;
+  }
+
+  function footnoteUrl(stream, state) {
+    // Check if space, and return NULL if so (to avoid marking the space)
+    if(stream.eatSpace()){
+      return null;
+    }
+    // Match URL
+    stream.match(/^[^\s]+/, true);
+    // Check for link title
+    if (stream.peek() === undefined) { // End of line, set flag to check next line
+      state.linkTitle = true;
+    } else { // More content on line, check if link title
+      stream.match(/^(?:\s+(?:"(?:[^"\\]|\\\\|\\.)+"|'(?:[^'\\]|\\\\|\\.)+'|\((?:[^)\\]|\\\\|\\.)+\)))?/, true);
+    }
+    state.f = state.inline = inlineNormal;
+    return tokenTypes.linkHref + " url";
+  }
+
+  var mode = {
+    startState: function() {
+      return {
+        f: blockNormal,
+
+        prevLine: {stream: null},
+        thisLine: {stream: null},
+
+        block: blockNormal,
+        htmlState: null,
+        indentation: 0,
+
+        inline: inlineNormal,
+        text: handleText,
+
+        formatting: false,
+        linkText: false,
+        linkHref: false,
+        linkTitle: false,
+        code: 0,
+        em: false,
+        strong: false,
+        header: 0,
+        setext: 0,
+        hr: false,
+        taskList: false,
+        list: false,
+        listStack: [],
+        quote: 0,
+        trailingSpace: 0,
+        trailingSpaceNewLine: false,
+        strikethrough: false,
+        emoji: false,
+        fencedEndRE: null
+      };
+    },
+
+    copyState: function(s) {
+      return {
+        f: s.f,
+
+        prevLine: s.prevLine,
+        thisLine: s.thisLine,
+
+        block: s.block,
+        htmlState: s.htmlState && CodeMirror.copyState(htmlMode, s.htmlState),
+        indentation: s.indentation,
+
+        localMode: s.localMode,
+        localState: s.localMode ? CodeMirror.copyState(s.localMode, s.localState) : null,
+
+        inline: s.inline,
+        text: s.text,
+        formatting: false,
+        linkText: s.linkText,
+        linkTitle: s.linkTitle,
+        code: s.code,
+        em: s.em,
+        strong: s.strong,
+        strikethrough: s.strikethrough,
+        emoji: s.emoji,
+        header: s.header,
+        setext: s.setext,
+        hr: s.hr,
+        taskList: s.taskList,
+        list: s.list,
+        listStack: s.listStack.slice(0),
+        quote: s.quote,
+        indentedCode: s.indentedCode,
+        trailingSpace: s.trailingSpace,
+        trailingSpaceNewLine: s.trailingSpaceNewLine,
+        md_inside: s.md_inside,
+        fencedEndRE: s.fencedEndRE
+      };
+    },
+
+    token: function(stream, state) {
+
+      // Reset state.formatting
+      state.formatting = false;
+
+      if (stream != state.thisLine.stream) {
+        state.header = 0;
+        state.hr = false;
+
+        if (stream.match(/^\s*$/, true)) {
+          blankLine(state);
+          return null;
+        }
+
+        state.prevLine = state.thisLine
+        state.thisLine = {stream: stream}
+
+        // Reset state.taskList
+        state.taskList = false;
+
+        // Reset state.trailingSpace
+        state.trailingSpace = 0;
+        state.trailingSpaceNewLine = false;
+
+        state.f = state.block;
+        if (state.f != htmlBlock) {
+          var indentation = stream.match(/^\s*/, true)[0].replace(/\t/g, expandedTab).length;
+          state.indentation = indentation;
+          state.indentationDiff = null;
+          if (indentation > 0) return null;
+        }
+      }
+      return state.f(stream, state);
+    },
+
+    innerMode: function(state) {
+      if (state.block == htmlBlock) return {state: state.htmlState, mode: htmlMode};
+      if (state.localState) return {state: state.localState, mode: state.localMode};
+      return {state: state, mode: mode};
+    },
+
+    indent: function(state, textAfter, line) {
+      if (state.block == htmlBlock) return htmlMode.indent(state.htmlState, textAfter, line)
+      if (state.localState) return state.localMode.indent(state.localState, textAfter, line)
+      return CodeMirror.Pass
+    },
+
+    blankLine: blankLine,
+
+    getType: getType,
+
+    closeBrackets: "()[]{}''\"\"``",
+    fold: "markdown"
+  };
+  return mode;
+}, "xml");
+
+CodeMirror.defineMIME("text/x-markdown", "markdown");
+
+});
+
+
+/***/ }),
+
+/***/ 101:
+/* no static exports found */
+/* all exports used */
 /*!***********************************!*\
   !*** ./~/codemirror/mode/meta.js ***!
   \***********************************/
@@ -118,7 +989,7 @@ module.exports = function (exec) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../lib/codemirror */ 28));
+    mod(__webpack_require__(/*! ../lib/codemirror */ 38));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../lib/codemirror"], mod);
   else // Plain browser env
@@ -332,7 +1203,7 @@ module.exports = function (exec) {
 
 /***/ }),
 
-/***/ 101:
+/***/ 102:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -345,7 +1216,7 @@ module.exports = function (exec) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 28));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 38));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -738,7 +1609,7 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 /***/ }),
 
-/***/ 102:
+/***/ 103:
 /* no static exports found */
 /* all exports used */
 /*!********************************************************!*\
@@ -746,8 +1617,8 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
   \********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ../../modules/es6.object.define-property */ 108);
-var $Object = __webpack_require__(/*! ../../modules/_core */ 6).Object;
+__webpack_require__(/*! ../../modules/es6.object.define-property */ 109);
+var $Object = __webpack_require__(/*! ../../modules/_core */ 8).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
@@ -755,7 +1626,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 /***/ }),
 
-/***/ 108:
+/***/ 109:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************************************!*\
@@ -763,29 +1634,9 @@ module.exports = function defineProperty(it, key, desc) {
   \*****************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(/*! ./_export */ 13);
+var $export = __webpack_require__(/*! ./_export */ 14);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(/*! ./_descriptors */ 2), 'Object', { defineProperty: __webpack_require__(/*! ./_object-dp */ 3).f });
-
-
-/***/ }),
-
-/***/ 109:
-/* no static exports found */
-/* all exports used */
-/*!***************************************************************************!*\
-  !*** ./~/css-loader?{"minimize":false}!./~/codemirror/lib/codemirror.css ***!
-  \***************************************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 110)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "/* BASICS */\n\n.CodeMirror {\n  /* Set height, width, borders, and global font properties here */\n  font-family: monospace;\n  height: 300px;\n  color: black;\n  direction: ltr;\n}\n\n/* PADDING */\n\n.CodeMirror-lines {\n  padding: 4px 0; /* Vertical padding around content */\n}\n.CodeMirror pre {\n  padding: 0 4px; /* Horizontal padding of content */\n}\n\n.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  background-color: white; /* The little square between H and V scrollbars */\n}\n\n/* GUTTER */\n\n.CodeMirror-gutters {\n  border-right: 1px solid #ddd;\n  background-color: #f7f7f7;\n  white-space: nowrap;\n}\n.CodeMirror-linenumbers {}\n.CodeMirror-linenumber {\n  padding: 0 3px 0 5px;\n  min-width: 20px;\n  text-align: right;\n  color: #999;\n  white-space: nowrap;\n}\n\n.CodeMirror-guttermarker { color: black; }\n.CodeMirror-guttermarker-subtle { color: #999; }\n\n/* CURSOR */\n\n.CodeMirror-cursor {\n  border-left: 1px solid black;\n  border-right: none;\n  width: 0;\n}\n/* Shown when moving in bi-directional text */\n.CodeMirror div.CodeMirror-secondarycursor {\n  border-left: 1px solid silver;\n}\n.cm-fat-cursor .CodeMirror-cursor {\n  width: auto;\n  border: 0 !important;\n  background: #7e7;\n}\n.cm-fat-cursor div.CodeMirror-cursors {\n  z-index: 1;\n}\n\n.cm-animate-fat-cursor {\n  width: auto;\n  border: 0;\n  -webkit-animation: blink 1.06s steps(1) infinite;\n  -moz-animation: blink 1.06s steps(1) infinite;\n  animation: blink 1.06s steps(1) infinite;\n  background-color: #7e7;\n}\n@-moz-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@-webkit-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n\n/* Can style cursor different in overwrite (non-insert) mode */\n.CodeMirror-overwrite .CodeMirror-cursor {}\n\n.cm-tab { display: inline-block; text-decoration: inherit; }\n\n.CodeMirror-rulers {\n  position: absolute;\n  left: 0; right: 0; top: -50px; bottom: -20px;\n  overflow: hidden;\n}\n.CodeMirror-ruler {\n  border-left: 1px solid #ccc;\n  top: 0; bottom: 0;\n  position: absolute;\n}\n\n/* DEFAULT THEME */\n\n.cm-s-default .cm-header {color: blue;}\n.cm-s-default .cm-quote {color: #090;}\n.cm-negative {color: #d44;}\n.cm-positive {color: #292;}\n.cm-header, .cm-strong {font-weight: bold;}\n.cm-em {font-style: italic;}\n.cm-link {text-decoration: underline;}\n.cm-strikethrough {text-decoration: line-through;}\n\n.cm-s-default .cm-keyword {color: #708;}\n.cm-s-default .cm-atom {color: #219;}\n.cm-s-default .cm-number {color: #164;}\n.cm-s-default .cm-def {color: #00f;}\n.cm-s-default .cm-variable,\n.cm-s-default .cm-punctuation,\n.cm-s-default .cm-property,\n.cm-s-default .cm-operator {}\n.cm-s-default .cm-variable-2 {color: #05a;}\n.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}\n.cm-s-default .cm-comment {color: #a50;}\n.cm-s-default .cm-string {color: #a11;}\n.cm-s-default .cm-string-2 {color: #f50;}\n.cm-s-default .cm-meta {color: #555;}\n.cm-s-default .cm-qualifier {color: #555;}\n.cm-s-default .cm-builtin {color: #30a;}\n.cm-s-default .cm-bracket {color: #997;}\n.cm-s-default .cm-tag {color: #170;}\n.cm-s-default .cm-attribute {color: #00c;}\n.cm-s-default .cm-hr {color: #999;}\n.cm-s-default .cm-link {color: #00c;}\n\n.cm-s-default .cm-error {color: #f00;}\n.cm-invalidchar {color: #f00;}\n\n.CodeMirror-composing { border-bottom: 2px solid; }\n\n/* Default styles for common addons */\n\ndiv.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}\ndiv.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}\n.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }\n.CodeMirror-activeline-background {background: #e8f2ff;}\n\n/* STOP */\n\n/* The rest of this file contains styles related to the mechanics of\n   the editor. You probably shouldn't touch them. */\n\n.CodeMirror {\n  position: relative;\n  overflow: hidden;\n  background: white;\n}\n\n.CodeMirror-scroll {\n  overflow: scroll !important; /* Things will break if this is overridden */\n  /* 30px is the magic margin used to hide the element's real scrollbars */\n  /* See overflow: hidden in .CodeMirror */\n  margin-bottom: -30px; margin-right: -30px;\n  padding-bottom: 30px;\n  height: 100%;\n  outline: none; /* Prevent dragging from highlighting the element */\n  position: relative;\n}\n.CodeMirror-sizer {\n  position: relative;\n  border-right: 30px solid transparent;\n}\n\n/* The fake, visible scrollbars. Used to force redraw during scrolling\n   before actual scrolling happens, thus preventing shaking and\n   flickering artifacts. */\n.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  position: absolute;\n  z-index: 6;\n  display: none;\n}\n.CodeMirror-vscrollbar {\n  right: 0; top: 0;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.CodeMirror-hscrollbar {\n  bottom: 0; left: 0;\n  overflow-y: hidden;\n  overflow-x: scroll;\n}\n.CodeMirror-scrollbar-filler {\n  right: 0; bottom: 0;\n}\n.CodeMirror-gutter-filler {\n  left: 0; bottom: 0;\n}\n\n.CodeMirror-gutters {\n  position: absolute; left: 0; top: 0;\n  min-height: 100%;\n  z-index: 3;\n}\n.CodeMirror-gutter {\n  white-space: normal;\n  height: 100%;\n  display: inline-block;\n  vertical-align: top;\n  margin-bottom: -30px;\n}\n.CodeMirror-gutter-wrapper {\n  position: absolute;\n  z-index: 4;\n  background: none !important;\n  border: none !important;\n}\n.CodeMirror-gutter-background {\n  position: absolute;\n  top: 0; bottom: 0;\n  z-index: 4;\n}\n.CodeMirror-gutter-elt {\n  position: absolute;\n  cursor: default;\n  z-index: 4;\n}\n.CodeMirror-gutter-wrapper ::selection { background-color: transparent }\n.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }\n\n.CodeMirror-lines {\n  cursor: text;\n  min-height: 1px; /* prevents collapsing before first draw */\n}\n.CodeMirror pre {\n  /* Reset some styles that the rest of the page might have set */\n  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;\n  border-width: 0;\n  background: transparent;\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n  white-space: pre;\n  word-wrap: normal;\n  line-height: inherit;\n  color: inherit;\n  z-index: 2;\n  position: relative;\n  overflow: visible;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-font-variant-ligatures: contextual;\n  font-variant-ligatures: contextual;\n}\n.CodeMirror-wrap pre {\n  word-wrap: break-word;\n  white-space: pre-wrap;\n  word-break: normal;\n}\n\n.CodeMirror-linebackground {\n  position: absolute;\n  left: 0; right: 0; top: 0; bottom: 0;\n  z-index: 0;\n}\n\n.CodeMirror-linewidget {\n  position: relative;\n  z-index: 2;\n  overflow: auto;\n}\n\n.CodeMirror-widget {}\n\n.CodeMirror-rtl pre { direction: rtl; }\n\n.CodeMirror-code {\n  outline: none;\n}\n\n/* Force content-box sizing for the elements where we expect it */\n.CodeMirror-scroll,\n.CodeMirror-sizer,\n.CodeMirror-gutter,\n.CodeMirror-gutters,\n.CodeMirror-linenumber {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n}\n\n.CodeMirror-measure {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  visibility: hidden;\n}\n\n.CodeMirror-cursor {\n  position: absolute;\n  pointer-events: none;\n}\n.CodeMirror-measure pre { position: static; }\n\ndiv.CodeMirror-cursors {\n  visibility: hidden;\n  position: relative;\n  z-index: 3;\n}\ndiv.CodeMirror-dragcursors {\n  visibility: visible;\n}\n\n.CodeMirror-focused div.CodeMirror-cursors {\n  visibility: visible;\n}\n\n.CodeMirror-selected { background: #d9d9d9; }\n.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }\n.CodeMirror-crosshair { cursor: crosshair; }\n.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }\n.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }\n\n.cm-searching {\n  background-color: #ffa;\n  background-color: rgba(255, 255, 0, .4);\n}\n\n/* Used to force a border model for a node */\n.cm-force-border { padding-right: .1px; }\n\n@media print {\n  /* Hide the cursor when printing */\n  .CodeMirror div.CodeMirror-cursors {\n    visibility: hidden;\n  }\n}\n\n/* See issue #2901 */\n.cm-tab-wrap-hack:after { content: ''; }\n\n/* Help users use markselection to safely style text background */\nspan.CodeMirror-selectedtext { background: none; }\n", ""]);
-
-// exports
+$export($export.S + $export.F * !__webpack_require__(/*! ./_descriptors */ 2), 'Object', { defineProperty: __webpack_require__(/*! ./_object-dp */ 4).f });
 
 
 /***/ }),
@@ -811,6 +1662,26 @@ module.exports = function (bitmap, value) {
 /***/ }),
 
 /***/ 110:
+/* no static exports found */
+/* all exports used */
+/*!***************************************************************************!*\
+  !*** ./~/css-loader?{"minimize":false}!./~/codemirror/lib/codemirror.css ***!
+  \***************************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ 111)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "/* BASICS */\n\n.CodeMirror {\n  /* Set height, width, borders, and global font properties here */\n  font-family: monospace;\n  height: 300px;\n  color: black;\n  direction: ltr;\n}\n\n/* PADDING */\n\n.CodeMirror-lines {\n  padding: 4px 0; /* Vertical padding around content */\n}\n.CodeMirror pre {\n  padding: 0 4px; /* Horizontal padding of content */\n}\n\n.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  background-color: white; /* The little square between H and V scrollbars */\n}\n\n/* GUTTER */\n\n.CodeMirror-gutters {\n  border-right: 1px solid #ddd;\n  background-color: #f7f7f7;\n  white-space: nowrap;\n}\n.CodeMirror-linenumbers {}\n.CodeMirror-linenumber {\n  padding: 0 3px 0 5px;\n  min-width: 20px;\n  text-align: right;\n  color: #999;\n  white-space: nowrap;\n}\n\n.CodeMirror-guttermarker { color: black; }\n.CodeMirror-guttermarker-subtle { color: #999; }\n\n/* CURSOR */\n\n.CodeMirror-cursor {\n  border-left: 1px solid black;\n  border-right: none;\n  width: 0;\n}\n/* Shown when moving in bi-directional text */\n.CodeMirror div.CodeMirror-secondarycursor {\n  border-left: 1px solid silver;\n}\n.cm-fat-cursor .CodeMirror-cursor {\n  width: auto;\n  border: 0 !important;\n  background: #7e7;\n}\n.cm-fat-cursor div.CodeMirror-cursors {\n  z-index: 1;\n}\n\n.cm-animate-fat-cursor {\n  width: auto;\n  border: 0;\n  -webkit-animation: blink 1.06s steps(1) infinite;\n  -moz-animation: blink 1.06s steps(1) infinite;\n  animation: blink 1.06s steps(1) infinite;\n  background-color: #7e7;\n}\n@-moz-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@-webkit-keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n@keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n\n/* Can style cursor different in overwrite (non-insert) mode */\n.CodeMirror-overwrite .CodeMirror-cursor {}\n\n.cm-tab { display: inline-block; text-decoration: inherit; }\n\n.CodeMirror-rulers {\n  position: absolute;\n  left: 0; right: 0; top: -50px; bottom: -20px;\n  overflow: hidden;\n}\n.CodeMirror-ruler {\n  border-left: 1px solid #ccc;\n  top: 0; bottom: 0;\n  position: absolute;\n}\n\n/* DEFAULT THEME */\n\n.cm-s-default .cm-header {color: blue;}\n.cm-s-default .cm-quote {color: #090;}\n.cm-negative {color: #d44;}\n.cm-positive {color: #292;}\n.cm-header, .cm-strong {font-weight: bold;}\n.cm-em {font-style: italic;}\n.cm-link {text-decoration: underline;}\n.cm-strikethrough {text-decoration: line-through;}\n\n.cm-s-default .cm-keyword {color: #708;}\n.cm-s-default .cm-atom {color: #219;}\n.cm-s-default .cm-number {color: #164;}\n.cm-s-default .cm-def {color: #00f;}\n.cm-s-default .cm-variable,\n.cm-s-default .cm-punctuation,\n.cm-s-default .cm-property,\n.cm-s-default .cm-operator {}\n.cm-s-default .cm-variable-2 {color: #05a;}\n.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}\n.cm-s-default .cm-comment {color: #a50;}\n.cm-s-default .cm-string {color: #a11;}\n.cm-s-default .cm-string-2 {color: #f50;}\n.cm-s-default .cm-meta {color: #555;}\n.cm-s-default .cm-qualifier {color: #555;}\n.cm-s-default .cm-builtin {color: #30a;}\n.cm-s-default .cm-bracket {color: #997;}\n.cm-s-default .cm-tag {color: #170;}\n.cm-s-default .cm-attribute {color: #00c;}\n.cm-s-default .cm-hr {color: #999;}\n.cm-s-default .cm-link {color: #00c;}\n\n.cm-s-default .cm-error {color: #f00;}\n.cm-invalidchar {color: #f00;}\n\n.CodeMirror-composing { border-bottom: 2px solid; }\n\n/* Default styles for common addons */\n\ndiv.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}\ndiv.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}\n.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }\n.CodeMirror-activeline-background {background: #e8f2ff;}\n\n/* STOP */\n\n/* The rest of this file contains styles related to the mechanics of\n   the editor. You probably shouldn't touch them. */\n\n.CodeMirror {\n  position: relative;\n  overflow: hidden;\n  background: white;\n}\n\n.CodeMirror-scroll {\n  overflow: scroll !important; /* Things will break if this is overridden */\n  /* 30px is the magic margin used to hide the element's real scrollbars */\n  /* See overflow: hidden in .CodeMirror */\n  margin-bottom: -30px; margin-right: -30px;\n  padding-bottom: 30px;\n  height: 100%;\n  outline: none; /* Prevent dragging from highlighting the element */\n  position: relative;\n}\n.CodeMirror-sizer {\n  position: relative;\n  border-right: 30px solid transparent;\n}\n\n/* The fake, visible scrollbars. Used to force redraw during scrolling\n   before actual scrolling happens, thus preventing shaking and\n   flickering artifacts. */\n.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  position: absolute;\n  z-index: 6;\n  display: none;\n}\n.CodeMirror-vscrollbar {\n  right: 0; top: 0;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.CodeMirror-hscrollbar {\n  bottom: 0; left: 0;\n  overflow-y: hidden;\n  overflow-x: scroll;\n}\n.CodeMirror-scrollbar-filler {\n  right: 0; bottom: 0;\n}\n.CodeMirror-gutter-filler {\n  left: 0; bottom: 0;\n}\n\n.CodeMirror-gutters {\n  position: absolute; left: 0; top: 0;\n  min-height: 100%;\n  z-index: 3;\n}\n.CodeMirror-gutter {\n  white-space: normal;\n  height: 100%;\n  display: inline-block;\n  vertical-align: top;\n  margin-bottom: -30px;\n}\n.CodeMirror-gutter-wrapper {\n  position: absolute;\n  z-index: 4;\n  background: none !important;\n  border: none !important;\n}\n.CodeMirror-gutter-background {\n  position: absolute;\n  top: 0; bottom: 0;\n  z-index: 4;\n}\n.CodeMirror-gutter-elt {\n  position: absolute;\n  cursor: default;\n  z-index: 4;\n}\n.CodeMirror-gutter-wrapper ::selection { background-color: transparent }\n.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }\n\n.CodeMirror-lines {\n  cursor: text;\n  min-height: 1px; /* prevents collapsing before first draw */\n}\n.CodeMirror pre {\n  /* Reset some styles that the rest of the page might have set */\n  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;\n  border-width: 0;\n  background: transparent;\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n  white-space: pre;\n  word-wrap: normal;\n  line-height: inherit;\n  color: inherit;\n  z-index: 2;\n  position: relative;\n  overflow: visible;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-font-variant-ligatures: contextual;\n  font-variant-ligatures: contextual;\n}\n.CodeMirror-wrap pre {\n  word-wrap: break-word;\n  white-space: pre-wrap;\n  word-break: normal;\n}\n\n.CodeMirror-linebackground {\n  position: absolute;\n  left: 0; right: 0; top: 0; bottom: 0;\n  z-index: 0;\n}\n\n.CodeMirror-linewidget {\n  position: relative;\n  z-index: 2;\n  overflow: auto;\n}\n\n.CodeMirror-widget {}\n\n.CodeMirror-rtl pre { direction: rtl; }\n\n.CodeMirror-code {\n  outline: none;\n}\n\n/* Force content-box sizing for the elements where we expect it */\n.CodeMirror-scroll,\n.CodeMirror-sizer,\n.CodeMirror-gutter,\n.CodeMirror-gutters,\n.CodeMirror-linenumber {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n}\n\n.CodeMirror-measure {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  visibility: hidden;\n}\n\n.CodeMirror-cursor {\n  position: absolute;\n  pointer-events: none;\n}\n.CodeMirror-measure pre { position: static; }\n\ndiv.CodeMirror-cursors {\n  visibility: hidden;\n  position: relative;\n  z-index: 3;\n}\ndiv.CodeMirror-dragcursors {\n  visibility: visible;\n}\n\n.CodeMirror-focused div.CodeMirror-cursors {\n  visibility: visible;\n}\n\n.CodeMirror-selected { background: #d9d9d9; }\n.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }\n.CodeMirror-crosshair { cursor: crosshair; }\n.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }\n.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }\n\n.cm-searching {\n  background-color: #ffa;\n  background-color: rgba(255, 255, 0, .4);\n}\n\n/* Used to force a border model for a node */\n.cm-force-border { padding-right: .1px; }\n\n@media print {\n  /* Hide the cursor when printing */\n  .CodeMirror div.CodeMirror-cursors {\n    visibility: hidden;\n  }\n}\n\n/* See issue #2901 */\n.cm-tab-wrap-hack:after { content: ''; }\n\n/* Help users use markselection to safely style text background */\nspan.CodeMirror-selectedtext { background: none; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 111:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -898,7 +1769,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 111:
+/***/ 112:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************!*\
@@ -909,7 +1780,7 @@ function toComment(sourceMap) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 109);
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!./codemirror.css */ 110);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -917,7 +1788,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 112)(content, options);
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ 113)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -935,7 +1806,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 112:
+/***/ 113:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************!*\
@@ -986,7 +1857,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(/*! ./urls */ 113);
+var	fixUrls = __webpack_require__(/*! ./urls */ 114);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -1300,7 +2171,7 @@ function updateLink (link, options, obj) {
 
 /***/ }),
 
-/***/ 113:
+/***/ 114:
 /* no static exports found */
 /* all exports used */
 /*!************************************!*\
@@ -1401,7 +2272,7 @@ module.exports = function (css) {
 
 /***/ }),
 
-/***/ 121:
+/***/ 122:
 /* no static exports found */
 /* all exports used */
 /*!**************************************!*\
@@ -1414,7 +2285,7 @@ module.exports = function (css) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 28));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 38));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -2244,7 +3115,57 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
 /***/ }),
 
-/***/ 13:
+/***/ 132:
+/* no static exports found */
+/* all exports used */
+/*!**********************************************************!*\
+  !*** ./app/javascript/packs/modules/createOrEditGist.js ***!
+  \**********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.cn = cn;
+exports.en = en;
+
+var _markdownTextArea = __webpack_require__(/*! ../common/markdownTextArea */ 151);
+
+var _markdownTextArea2 = _interopRequireDefault(_markdownTextArea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mdIns = void 0;
+var gistExtensionEle = void 0;
+
+function changeOption(ev) {
+  mdIns.changeOption('mode', ev.target.value);
+}
+
+function cn() {
+  mdIns = new _markdownTextArea2.default({
+    formEle: document.getElementsByClassName('gist_form')[0],
+    textAreas: [document.getElementById('gist_content'), document.getElementById('gist_answer')],
+    submitEle: document.getElementsByClassName('c-form-submit')[0],
+    formContainer: document.getElementsByClassName('gist-container')[0]
+  });
+  gistExtensionEle = document.getElementById('gist_extension');
+  console.log(gistExtensionEle.value);
+  mdIns.init({ language: gistExtensionEle.value });
+  gistExtensionEle.addEventListener('change', changeOption);
+}
+
+function en() {
+  mdIns.destroy();
+  gistExtensionEle.removeEventListener('change', changeOption);
+}
+
+/***/ }),
+
+/***/ 14:
 /* no static exports found */
 /* all exports used */
 /*!**********************************************!*\
@@ -2253,8 +3174,8 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(/*! ./_global */ 0);
-var core = __webpack_require__(/*! ./_core */ 6);
-var ctx = __webpack_require__(/*! ./_ctx */ 29);
+var core = __webpack_require__(/*! ./_core */ 8);
+var ctx = __webpack_require__(/*! ./_ctx */ 32);
 var hide = __webpack_require__(/*! ./_hide */ 5);
 var PROTOTYPE = 'prototype';
 
@@ -2317,56 +3238,6 @@ module.exports = $export;
 
 /***/ }),
 
-/***/ 131:
-/* no static exports found */
-/* all exports used */
-/*!**********************************************************!*\
-  !*** ./app/javascript/packs/modules/createOrEditGist.js ***!
-  \**********************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.cn = cn;
-exports.en = en;
-
-var _markdownTextArea = __webpack_require__(/*! ../common/markdownTextArea */ 151);
-
-var _markdownTextArea2 = _interopRequireDefault(_markdownTextArea);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mdIns = void 0;
-var gistExtensionEle = void 0;
-
-function changeOption(ev) {
-  mdIns.changeOption('mode', ev.target.value);
-}
-
-function cn() {
-  mdIns = new _markdownTextArea2.default({
-    formEle: document.getElementsByClassName('gist_form')[0],
-    textAreas: [document.getElementById('gist_content'), document.getElementById('gist_answer')],
-    submitEle: document.getElementsByClassName('c-form-submit')[0],
-    formContainer: document.getElementsByClassName('gist-container')[0]
-  });
-  gistExtensionEle = document.getElementById('gist_extension');
-  console.log(gistExtensionEle.value);
-  mdIns.init({ language: gistExtensionEle.value });
-  gistExtensionEle.addEventListener('change', changeOption);
-}
-
-function en() {
-  mdIns.destroy();
-  gistExtensionEle.removeEventListener('change', changeOption);
-}
-
-/***/ }),
-
 /***/ 151:
 /* no static exports found */
 /* all exports used */
@@ -2382,43 +3253,43 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 96);
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 97);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 97);
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 98);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _codemirror = __webpack_require__(/*! codemirror/lib/codemirror.css */ 111);
+var _codemirror = __webpack_require__(/*! codemirror/lib/codemirror.css */ 112);
 
 var _codemirror2 = _interopRequireDefault(_codemirror);
 
-var _codemirror3 = __webpack_require__(/*! codemirror */ 28);
+var _codemirror3 = __webpack_require__(/*! codemirror */ 38);
 
 var _codemirror4 = _interopRequireDefault(_codemirror3);
 
-var _markdown = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 99);
+var _markdown = __webpack_require__(/*! codemirror/mode/markdown/markdown */ 100);
 
 var _markdown2 = _interopRequireDefault(_markdown);
 
-var _css = __webpack_require__(/*! codemirror/mode/css/css */ 121);
+var _css = __webpack_require__(/*! codemirror/mode/css/css */ 122);
 
 var _css2 = _interopRequireDefault(_css);
 
-var _sass = __webpack_require__(/*! codemirror/mode/sass/sass */ 183);
+var _sass = __webpack_require__(/*! codemirror/mode/sass/sass */ 184);
 
 var _sass2 = _interopRequireDefault(_sass);
 
-var _ruby = __webpack_require__(/*! codemirror/mode/ruby/ruby */ 182);
+var _ruby = __webpack_require__(/*! codemirror/mode/ruby/ruby */ 183);
 
 var _ruby2 = _interopRequireDefault(_ruby);
 
-var _javascript = __webpack_require__(/*! codemirror/mode/javascript/javascript */ 181);
+var _javascript = __webpack_require__(/*! codemirror/mode/javascript/javascript */ 182);
 
 var _javascript2 = _interopRequireDefault(_javascript);
 
-var _activeLine = __webpack_require__(/*! codemirror/addon/selection/active-line */ 98);
+var _activeLine = __webpack_require__(/*! codemirror/addon/selection/active-line */ 99);
 
 var _activeLine2 = _interopRequireDefault(_activeLine);
 
@@ -2536,7 +3407,7 @@ exports.default = _class;
 "use strict";
 
 
-var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 131);
+var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 132);
 
 (function () {
   A.init[A.gc.currentName] = _createOrEditGist.cn;
@@ -2545,7 +3416,7 @@ var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 1
 
 /***/ }),
 
-/***/ 181:
+/***/ 182:
 /* no static exports found */
 /* all exports used */
 /*!****************************************************!*\
@@ -2558,7 +3429,7 @@ var _createOrEditGist = __webpack_require__(/*! ../modules/createOrEditGist */ 1
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 28));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 38));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -3395,7 +4266,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 /***/ }),
 
-/***/ 182:
+/***/ 183:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -3408,7 +4279,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 28));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 38));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -3702,7 +4573,7 @@ CodeMirror.defineMIME("text/x-ruby", "ruby");
 
 /***/ }),
 
-/***/ 183:
+/***/ 184:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -3715,7 +4586,7 @@ CodeMirror.defineMIME("text/x-ruby", "ruby");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 28), __webpack_require__(/*! ../css/css */ 121));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 38), __webpack_require__(/*! ../css/css */ 122));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../css/css"], mod);
   else // Plain browser env
@@ -4227,7 +5098,70 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 28:
+/***/ 30:
+/* no static exports found */
+/* all exports used */
+/*!******************************************************!*\
+  !*** ./~/core-js/library/modules/_ie8-dom-define.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(/*! ./_descriptors */ 2) && !__webpack_require__(/*! ./_fails */ 10)(function () {
+  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 26)('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+
+/***/ 32:
+/* no static exports found */
+/* all exports used */
+/*!*******************************************!*\
+  !*** ./~/core-js/library/modules/_ctx.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+// optional / simple context binding
+var aFunction = __webpack_require__(/*! ./_a-function */ 34);
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+
+/***/ }),
+
+/***/ 34:
+/* no static exports found */
+/* all exports used */
+/*!**************************************************!*\
+  !*** ./~/core-js/library/modules/_a-function.js ***!
+  \**************************************************/
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+
+/***/ }),
+
+/***/ 38:
 /* no static exports found */
 /* all exports used */
 /*!****************************************!*\
@@ -13730,39 +14664,7 @@ return CodeMirror$1;
 
 /***/ }),
 
-/***/ 29:
-/* no static exports found */
-/* all exports used */
-/*!*******************************************!*\
-  !*** ./~/core-js/library/modules/_ctx.js ***!
-  \*******************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-// optional / simple context binding
-var aFunction = __webpack_require__(/*! ./_a-function */ 34);
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-
-/***/ }),
-
-/***/ 3:
+/***/ 4:
 /* no static exports found */
 /* all exports used */
 /*!*************************************************!*\
@@ -13770,7 +14672,7 @@ module.exports = function (fn, that, length) {
   \*************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(/*! ./_an-object */ 8);
+var anObject = __webpack_require__(/*! ./_an-object */ 7);
 var IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 30);
 var toPrimitive = __webpack_require__(/*! ./_to-primitive */ 19);
 var dP = Object.defineProperty;
@@ -13790,37 +14692,6 @@ exports.f = __webpack_require__(/*! ./_descriptors */ 2) ? Object.defineProperty
 
 /***/ }),
 
-/***/ 30:
-/* no static exports found */
-/* all exports used */
-/*!******************************************************!*\
-  !*** ./~/core-js/library/modules/_ie8-dom-define.js ***!
-  \******************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = !__webpack_require__(/*! ./_descriptors */ 2) && !__webpack_require__(/*! ./_fails */ 10)(function () {
-  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 26)('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-
-/***/ 34:
-/* no static exports found */
-/* all exports used */
-/*!**************************************************!*\
-  !*** ./~/core-js/library/modules/_a-function.js ***!
-  \**************************************************/
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-
-/***/ }),
-
 /***/ 5:
 /* no static exports found */
 /* all exports used */
@@ -13829,7 +14700,7 @@ module.exports = function (it) {
   \********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(/*! ./_object-dp */ 3);
+var dP = __webpack_require__(/*! ./_object-dp */ 4);
 var createDesc = __webpack_require__(/*! ./_property-desc */ 11);
 module.exports = __webpack_require__(/*! ./_descriptors */ 2) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
@@ -13841,21 +14712,7 @@ module.exports = __webpack_require__(/*! ./_descriptors */ 2) ? function (object
 
 /***/ }),
 
-/***/ 6:
-/* no static exports found */
-/* all exports used */
-/*!********************************************!*\
-  !*** ./~/core-js/library/modules/_core.js ***!
-  \********************************************/
-/***/ (function(module, exports) {
-
-var core = module.exports = { version: '2.5.1' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-
-/***/ 8:
+/***/ 7:
 /* no static exports found */
 /* all exports used */
 /*!*************************************************!*\
@@ -13868,6 +14725,20 @@ module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
 };
+
+
+/***/ }),
+
+/***/ 8:
+/* no static exports found */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./~/core-js/library/modules/_core.js ***!
+  \********************************************/
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.1' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
@@ -13887,7 +14758,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 95:
+/***/ 96:
 /* no static exports found */
 /* all exports used */
 /*!***********************************************************!*\
@@ -13895,11 +14766,11 @@ module.exports = function (it) {
   \***********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 102), __esModule: true };
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 103), __esModule: true };
 
 /***/ }),
 
-/***/ 96:
+/***/ 97:
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\
@@ -13920,7 +14791,7 @@ exports.default = function (instance, Constructor) {
 
 /***/ }),
 
-/***/ 97:
+/***/ 98:
 /* no static exports found */
 /* all exports used */
 /*!************************************************!*\
@@ -13933,7 +14804,7 @@ exports.default = function (instance, Constructor) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 95);
+var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 96);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -13959,7 +14830,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 98:
+/***/ 99:
 /* no static exports found */
 /* all exports used */
 /*!*****************************************************!*\
@@ -13972,7 +14843,7 @@ exports.default = function () {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 28));
+    mod(__webpack_require__(/*! ../../lib/codemirror */ 38));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -14038,877 +14909,6 @@ exports.default = function () {
   function selectionChange(cm, sel) {
     updateActiveLines(cm, sel.ranges);
   }
-});
-
-
-/***/ }),
-
-/***/ 99:
-/* no static exports found */
-/* all exports used */
-/*!************************************************!*\
-  !*** ./~/codemirror/mode/markdown/markdown.js ***!
-  \************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
-
-(function(mod) {
-  if (true) // CommonJS
-    mod(__webpack_require__(/*! ../../lib/codemirror */ 28), __webpack_require__(/*! ../xml/xml */ 101), __webpack_require__(/*! ../meta */ 100));
-  else if (typeof define == "function" && define.amd) // AMD
-    define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
-  else // Plain browser env
-    mod(CodeMirror);
-})(function(CodeMirror) {
-"use strict";
-
-CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
-
-  var htmlMode = CodeMirror.getMode(cmCfg, "text/html");
-  var htmlModeMissing = htmlMode.name == "null"
-
-  function getMode(name) {
-    if (CodeMirror.findModeByName) {
-      var found = CodeMirror.findModeByName(name);
-      if (found) name = found.mime || found.mimes[0];
-    }
-    var mode = CodeMirror.getMode(cmCfg, name);
-    return mode.name == "null" ? null : mode;
-  }
-
-  // Should characters that affect highlighting be highlighted separate?
-  // Does not include characters that will be output (such as `1.` and `-` for lists)
-  if (modeCfg.highlightFormatting === undefined)
-    modeCfg.highlightFormatting = false;
-
-  // Maximum number of nested blockquotes. Set to 0 for infinite nesting.
-  // Excess `>` will emit `error` token.
-  if (modeCfg.maxBlockquoteDepth === undefined)
-    modeCfg.maxBlockquoteDepth = 0;
-
-  // Turn on task lists? ("- [ ] " and "- [x] ")
-  if (modeCfg.taskLists === undefined) modeCfg.taskLists = false;
-
-  // Turn on strikethrough syntax
-  if (modeCfg.strikethrough === undefined)
-    modeCfg.strikethrough = false;
-
-  if (modeCfg.emoji === undefined)
-    modeCfg.emoji = false;
-
-  if (modeCfg.fencedCodeBlockHighlighting === undefined)
-    modeCfg.fencedCodeBlockHighlighting = true;
-
-  if (modeCfg.xml === undefined)
-    modeCfg.xml = true;
-
-  // Allow token types to be overridden by user-provided token types.
-  if (modeCfg.tokenTypeOverrides === undefined)
-    modeCfg.tokenTypeOverrides = {};
-
-  var tokenTypes = {
-    header: "header",
-    code: "comment",
-    quote: "quote",
-    list1: "variable-2",
-    list2: "variable-3",
-    list3: "keyword",
-    hr: "hr",
-    image: "image",
-    imageAltText: "image-alt-text",
-    imageMarker: "image-marker",
-    formatting: "formatting",
-    linkInline: "link",
-    linkEmail: "link",
-    linkText: "link",
-    linkHref: "string",
-    em: "em",
-    strong: "strong",
-    strikethrough: "strikethrough",
-    emoji: "builtin"
-  };
-
-  for (var tokenType in tokenTypes) {
-    if (tokenTypes.hasOwnProperty(tokenType) && modeCfg.tokenTypeOverrides[tokenType]) {
-      tokenTypes[tokenType] = modeCfg.tokenTypeOverrides[tokenType];
-    }
-  }
-
-  var hrRE = /^([*\-_])(?:\s*\1){2,}\s*$/
-  ,   listRE = /^(?:[*\-+]|^[0-9]+([.)]))\s+/
-  ,   taskListRE = /^\[(x| )\](?=\s)/ // Must follow listRE
-  ,   atxHeaderRE = modeCfg.allowAtxHeaderWithoutSpace ? /^(#+)/ : /^(#+)(?: |$)/
-  ,   setextHeaderRE = /^ *(?:\={1,}|-{1,})\s*$/
-  ,   textRE = /^[^#!\[\]*_\\<>` "'(~:]+/
-  ,   fencedCodeRE = /^(~~~+|```+)[ \t]*([\w+#-]*)[^\n`]*$/
-  ,   linkDefRE = /^\s*\[[^\]]+?\]:\s*\S+(\s*\S*\s*)?$/ // naive link-definition
-  ,   punctuation = /[!\"#$%&\'()*+,\-\.\/:;<=>?@\[\\\]^_`{|}~—]/
-  ,   expandedTab = "    " // CommonMark specifies tab as 4 spaces
-
-  function switchInline(stream, state, f) {
-    state.f = state.inline = f;
-    return f(stream, state);
-  }
-
-  function switchBlock(stream, state, f) {
-    state.f = state.block = f;
-    return f(stream, state);
-  }
-
-  function lineIsEmpty(line) {
-    return !line || !/\S/.test(line.string)
-  }
-
-  // Blocks
-
-  function blankLine(state) {
-    // Reset linkTitle state
-    state.linkTitle = false;
-    // Reset EM state
-    state.em = false;
-    // Reset STRONG state
-    state.strong = false;
-    // Reset strikethrough state
-    state.strikethrough = false;
-    // Reset state.quote
-    state.quote = 0;
-    // Reset state.indentedCode
-    state.indentedCode = false;
-    if (state.f == htmlBlock) {
-      state.f = inlineNormal;
-      state.block = blockNormal;
-    }
-    // Reset state.trailingSpace
-    state.trailingSpace = 0;
-    state.trailingSpaceNewLine = false;
-    // Mark this line as blank
-    state.prevLine = state.thisLine
-    state.thisLine = {stream: null}
-    return null;
-  }
-
-  function blockNormal(stream, state) {
-    var firstTokenOnLine = stream.column() === state.indentation;
-    var prevLineLineIsEmpty = lineIsEmpty(state.prevLine.stream);
-    var prevLineIsIndentedCode = state.indentedCode;
-    var prevLineIsHr = state.prevLine.hr;
-    var prevLineIsList = state.list !== false;
-    var maxNonCodeIndentation = (state.listStack[state.listStack.length - 1] || 0) + 3;
-
-    state.indentedCode = false;
-
-    var lineIndentation = state.indentation;
-    // compute once per line (on first token)
-    if (state.indentationDiff === null) {
-      state.indentationDiff = state.indentation;
-      if (prevLineIsList) {
-        state.list = null;
-        // While this list item's marker's indentation is less than the deepest
-        //  list item's content's indentation,pop the deepest list item
-        //  indentation off the stack, and update block indentation state
-        while (lineIndentation < state.listStack[state.listStack.length - 1]) {
-          state.listStack.pop();
-          if (state.listStack.length) {
-            state.indentation = state.listStack[state.listStack.length - 1];
-          // less than the first list's indent -> the line is no longer a list
-          } else {
-            state.list = false;
-          }
-        }
-        if (state.list !== false) {
-          state.indentationDiff = lineIndentation - state.listStack[state.listStack.length - 1]
-        }
-      }
-    }
-
-    // not comprehensive (currently only for setext detection purposes)
-    var allowsInlineContinuation = (
-        !prevLineLineIsEmpty && !prevLineIsHr && !state.prevLine.header &&
-        (!prevLineIsList || !prevLineIsIndentedCode) &&
-        !state.prevLine.fencedCodeEnd
-    );
-
-    var isHr = (state.list === false || prevLineIsHr || prevLineLineIsEmpty) &&
-      state.indentation <= maxNonCodeIndentation && stream.match(hrRE);
-
-    var match = null;
-    if (state.indentationDiff >= 4 && (prevLineIsIndentedCode || state.prevLine.fencedCodeEnd ||
-         state.prevLine.header || prevLineLineIsEmpty)) {
-      stream.skipToEnd();
-      state.indentedCode = true;
-      return tokenTypes.code;
-    } else if (stream.eatSpace()) {
-      return null;
-    } else if (firstTokenOnLine && state.indentation <= maxNonCodeIndentation && (match = stream.match(atxHeaderRE)) && match[1].length <= 6) {
-      state.quote = 0;
-      state.header = match[1].length;
-      state.thisLine.header = true;
-      if (modeCfg.highlightFormatting) state.formatting = "header";
-      state.f = state.inline;
-      return getType(state);
-    } else if (state.indentation <= maxNonCodeIndentation && stream.eat('>')) {
-      state.quote = firstTokenOnLine ? 1 : state.quote + 1;
-      if (modeCfg.highlightFormatting) state.formatting = "quote";
-      stream.eatSpace();
-      return getType(state);
-    } else if (!isHr && !state.setext && firstTokenOnLine && state.indentation <= maxNonCodeIndentation && (match = stream.match(listRE))) {
-      var listType = match[1] ? "ol" : "ul";
-
-      state.indentation = lineIndentation + stream.current().length;
-      state.list = true;
-      state.quote = 0;
-
-      // Add this list item's content's indentation to the stack
-      state.listStack.push(state.indentation);
-
-      if (modeCfg.taskLists && stream.match(taskListRE, false)) {
-        state.taskList = true;
-      }
-      state.f = state.inline;
-      if (modeCfg.highlightFormatting) state.formatting = ["list", "list-" + listType];
-      return getType(state);
-    } else if (firstTokenOnLine && state.indentation <= maxNonCodeIndentation && (match = stream.match(fencedCodeRE, true))) {
-      state.quote = 0;
-      state.fencedEndRE = new RegExp(match[1] + "+ *$");
-      // try switching mode
-      state.localMode = modeCfg.fencedCodeBlockHighlighting && getMode(match[2]);
-      if (state.localMode) state.localState = CodeMirror.startState(state.localMode);
-      state.f = state.block = local;
-      if (modeCfg.highlightFormatting) state.formatting = "code-block";
-      state.code = -1
-      return getType(state);
-    // SETEXT has lowest block-scope precedence after HR, so check it after
-    //  the others (code, blockquote, list...)
-    } else if (
-      // if setext set, indicates line after ---/===
-      state.setext || (
-        // line before ---/===
-        (!allowsInlineContinuation || !prevLineIsList) && !state.quote && state.list === false &&
-        !state.code && !isHr && !linkDefRE.test(stream.string) &&
-        (match = stream.lookAhead(1)) && (match = match.match(setextHeaderRE))
-      )
-    ) {
-      if ( !state.setext ) {
-        state.header = match[0].charAt(0) == '=' ? 1 : 2;
-        state.setext = state.header;
-      } else {
-        state.header = state.setext;
-        // has no effect on type so we can reset it now
-        state.setext = 0;
-        stream.skipToEnd();
-        if (modeCfg.highlightFormatting) state.formatting = "header";
-      }
-      state.thisLine.header = true;
-      state.f = state.inline;
-      return getType(state);
-    } else if (isHr) {
-      stream.skipToEnd();
-      state.hr = true;
-      state.thisLine.hr = true;
-      return tokenTypes.hr;
-    } else if (stream.peek() === '[') {
-      return switchInline(stream, state, footnoteLink);
-    }
-
-    return switchInline(stream, state, state.inline);
-  }
-
-  function htmlBlock(stream, state) {
-    var style = htmlMode.token(stream, state.htmlState);
-    if (!htmlModeMissing) {
-      var inner = CodeMirror.innerMode(htmlMode, state.htmlState)
-      if ((inner.mode.name == "xml" && inner.state.tagStart === null &&
-           (!inner.state.context && inner.state.tokenize.isInText)) ||
-          (state.md_inside && stream.current().indexOf(">") > -1)) {
-        state.f = inlineNormal;
-        state.block = blockNormal;
-        state.htmlState = null;
-      }
-    }
-    return style;
-  }
-
-  function local(stream, state) {
-    var currListInd = state.listStack[state.listStack.length - 1] || 0;
-    var hasExitedList = state.indentation < currListInd;
-    var maxFencedEndInd = currListInd + 3;
-    if (state.fencedEndRE && state.indentation <= maxFencedEndInd && (hasExitedList || stream.match(state.fencedEndRE))) {
-      if (modeCfg.highlightFormatting) state.formatting = "code-block";
-      var returnType;
-      if (!hasExitedList) returnType = getType(state)
-      state.localMode = state.localState = null;
-      state.block = blockNormal;
-      state.f = inlineNormal;
-      state.fencedEndRE = null;
-      state.code = 0
-      state.thisLine.fencedCodeEnd = true;
-      if (hasExitedList) return switchBlock(stream, state, state.block);
-      return returnType;
-    } else if (state.localMode) {
-      return state.localMode.token(stream, state.localState);
-    } else {
-      stream.skipToEnd();
-      return tokenTypes.code;
-    }
-  }
-
-  // Inline
-  function getType(state) {
-    var styles = [];
-
-    if (state.formatting) {
-      styles.push(tokenTypes.formatting);
-
-      if (typeof state.formatting === "string") state.formatting = [state.formatting];
-
-      for (var i = 0; i < state.formatting.length; i++) {
-        styles.push(tokenTypes.formatting + "-" + state.formatting[i]);
-
-        if (state.formatting[i] === "header") {
-          styles.push(tokenTypes.formatting + "-" + state.formatting[i] + "-" + state.header);
-        }
-
-        // Add `formatting-quote` and `formatting-quote-#` for blockquotes
-        // Add `error` instead if the maximum blockquote nesting depth is passed
-        if (state.formatting[i] === "quote") {
-          if (!modeCfg.maxBlockquoteDepth || modeCfg.maxBlockquoteDepth >= state.quote) {
-            styles.push(tokenTypes.formatting + "-" + state.formatting[i] + "-" + state.quote);
-          } else {
-            styles.push("error");
-          }
-        }
-      }
-    }
-
-    if (state.taskOpen) {
-      styles.push("meta");
-      return styles.length ? styles.join(' ') : null;
-    }
-    if (state.taskClosed) {
-      styles.push("property");
-      return styles.length ? styles.join(' ') : null;
-    }
-
-    if (state.linkHref) {
-      styles.push(tokenTypes.linkHref, "url");
-    } else { // Only apply inline styles to non-url text
-      if (state.strong) { styles.push(tokenTypes.strong); }
-      if (state.em) { styles.push(tokenTypes.em); }
-      if (state.strikethrough) { styles.push(tokenTypes.strikethrough); }
-      if (state.emoji) { styles.push(tokenTypes.emoji); }
-      if (state.linkText) { styles.push(tokenTypes.linkText); }
-      if (state.code) { styles.push(tokenTypes.code); }
-      if (state.image) { styles.push(tokenTypes.image); }
-      if (state.imageAltText) { styles.push(tokenTypes.imageAltText, "link"); }
-      if (state.imageMarker) { styles.push(tokenTypes.imageMarker); }
-    }
-
-    if (state.header) { styles.push(tokenTypes.header, tokenTypes.header + "-" + state.header); }
-
-    if (state.quote) {
-      styles.push(tokenTypes.quote);
-
-      // Add `quote-#` where the maximum for `#` is modeCfg.maxBlockquoteDepth
-      if (!modeCfg.maxBlockquoteDepth || modeCfg.maxBlockquoteDepth >= state.quote) {
-        styles.push(tokenTypes.quote + "-" + state.quote);
-      } else {
-        styles.push(tokenTypes.quote + "-" + modeCfg.maxBlockquoteDepth);
-      }
-    }
-
-    if (state.list !== false) {
-      var listMod = (state.listStack.length - 1) % 3;
-      if (!listMod) {
-        styles.push(tokenTypes.list1);
-      } else if (listMod === 1) {
-        styles.push(tokenTypes.list2);
-      } else {
-        styles.push(tokenTypes.list3);
-      }
-    }
-
-    if (state.trailingSpaceNewLine) {
-      styles.push("trailing-space-new-line");
-    } else if (state.trailingSpace) {
-      styles.push("trailing-space-" + (state.trailingSpace % 2 ? "a" : "b"));
-    }
-
-    return styles.length ? styles.join(' ') : null;
-  }
-
-  function handleText(stream, state) {
-    if (stream.match(textRE, true)) {
-      return getType(state);
-    }
-    return undefined;
-  }
-
-  function inlineNormal(stream, state) {
-    var style = state.text(stream, state);
-    if (typeof style !== 'undefined')
-      return style;
-
-    if (state.list) { // List marker (*, +, -, 1., etc)
-      state.list = null;
-      return getType(state);
-    }
-
-    if (state.taskList) {
-      var taskOpen = stream.match(taskListRE, true)[1] !== "x";
-      if (taskOpen) state.taskOpen = true;
-      else state.taskClosed = true;
-      if (modeCfg.highlightFormatting) state.formatting = "task";
-      state.taskList = false;
-      return getType(state);
-    }
-
-    state.taskOpen = false;
-    state.taskClosed = false;
-
-    if (state.header && stream.match(/^#+$/, true)) {
-      if (modeCfg.highlightFormatting) state.formatting = "header";
-      return getType(state);
-    }
-
-    var ch = stream.next();
-
-    // Matches link titles present on next line
-    if (state.linkTitle) {
-      state.linkTitle = false;
-      var matchCh = ch;
-      if (ch === '(') {
-        matchCh = ')';
-      }
-      matchCh = (matchCh+'').replace(/([.?*+^\[\]\\(){}|-])/g, "\\$1");
-      var regex = '^\\s*(?:[^' + matchCh + '\\\\]+|\\\\\\\\|\\\\.)' + matchCh;
-      if (stream.match(new RegExp(regex), true)) {
-        return tokenTypes.linkHref;
-      }
-    }
-
-    // If this block is changed, it may need to be updated in GFM mode
-    if (ch === '`') {
-      var previousFormatting = state.formatting;
-      if (modeCfg.highlightFormatting) state.formatting = "code";
-      stream.eatWhile('`');
-      var count = stream.current().length
-      if (state.code == 0 && (!state.quote || count == 1)) {
-        state.code = count
-        return getType(state)
-      } else if (count == state.code) { // Must be exact
-        var t = getType(state)
-        state.code = 0
-        return t
-      } else {
-        state.formatting = previousFormatting
-        return getType(state)
-      }
-    } else if (state.code) {
-      return getType(state);
-    }
-
-    if (ch === '\\') {
-      stream.next();
-      if (modeCfg.highlightFormatting) {
-        var type = getType(state);
-        var formattingEscape = tokenTypes.formatting + "-escape";
-        return type ? type + " " + formattingEscape : formattingEscape;
-      }
-    }
-
-    if (ch === '!' && stream.match(/\[[^\]]*\] ?(?:\(|\[)/, false)) {
-      state.imageMarker = true;
-      state.image = true;
-      if (modeCfg.highlightFormatting) state.formatting = "image";
-      return getType(state);
-    }
-
-    if (ch === '[' && state.imageMarker && stream.match(/[^\]]*\](\(.*?\)| ?\[.*?\])/, false)) {
-      state.imageMarker = false;
-      state.imageAltText = true
-      if (modeCfg.highlightFormatting) state.formatting = "image";
-      return getType(state);
-    }
-
-    if (ch === ']' && state.imageAltText) {
-      if (modeCfg.highlightFormatting) state.formatting = "image";
-      var type = getType(state);
-      state.imageAltText = false;
-      state.image = false;
-      state.inline = state.f = linkHref;
-      return type;
-    }
-
-    if (ch === '[' && !state.image) {
-      state.linkText = true;
-      if (modeCfg.highlightFormatting) state.formatting = "link";
-      return getType(state);
-    }
-
-    if (ch === ']' && state.linkText) {
-      if (modeCfg.highlightFormatting) state.formatting = "link";
-      var type = getType(state);
-      state.linkText = false;
-      state.inline = state.f = stream.match(/\(.*?\)| ?\[.*?\]/, false) ? linkHref : inlineNormal
-      return type;
-    }
-
-    if (ch === '<' && stream.match(/^(https?|ftps?):\/\/(?:[^\\>]|\\.)+>/, false)) {
-      state.f = state.inline = linkInline;
-      if (modeCfg.highlightFormatting) state.formatting = "link";
-      var type = getType(state);
-      if (type){
-        type += " ";
-      } else {
-        type = "";
-      }
-      return type + tokenTypes.linkInline;
-    }
-
-    if (ch === '<' && stream.match(/^[^> \\]+@(?:[^\\>]|\\.)+>/, false)) {
-      state.f = state.inline = linkInline;
-      if (modeCfg.highlightFormatting) state.formatting = "link";
-      var type = getType(state);
-      if (type){
-        type += " ";
-      } else {
-        type = "";
-      }
-      return type + tokenTypes.linkEmail;
-    }
-
-    if (modeCfg.xml && ch === '<' && stream.match(/^(!--|[a-z]+(?:\s+[a-z_:.\-]+(?:\s*=\s*[^ >]+)?)*\s*>)/i, false)) {
-      var end = stream.string.indexOf(">", stream.pos);
-      if (end != -1) {
-        var atts = stream.string.substring(stream.start, end);
-        if (/markdown\s*=\s*('|"){0,1}1('|"){0,1}/.test(atts)) state.md_inside = true;
-      }
-      stream.backUp(1);
-      state.htmlState = CodeMirror.startState(htmlMode);
-      return switchBlock(stream, state, htmlBlock);
-    }
-
-    if (modeCfg.xml && ch === '<' && stream.match(/^\/\w*?>/)) {
-      state.md_inside = false;
-      return "tag";
-    } else if (ch === "*" || ch === "_") {
-      var len = 1, before = stream.pos == 1 ? " " : stream.string.charAt(stream.pos - 2)
-      while (len < 3 && stream.eat(ch)) len++
-      var after = stream.peek() || " "
-      // See http://spec.commonmark.org/0.27/#emphasis-and-strong-emphasis
-      var leftFlanking = !/\s/.test(after) && (!punctuation.test(after) || /\s/.test(before) || punctuation.test(before))
-      var rightFlanking = !/\s/.test(before) && (!punctuation.test(before) || /\s/.test(after) || punctuation.test(after))
-      var setEm = null, setStrong = null
-      if (len % 2) { // Em
-        if (!state.em && leftFlanking && (ch === "*" || !rightFlanking || punctuation.test(before)))
-          setEm = true
-        else if (state.em == ch && rightFlanking && (ch === "*" || !leftFlanking || punctuation.test(after)))
-          setEm = false
-      }
-      if (len > 1) { // Strong
-        if (!state.strong && leftFlanking && (ch === "*" || !rightFlanking || punctuation.test(before)))
-          setStrong = true
-        else if (state.strong == ch && rightFlanking && (ch === "*" || !leftFlanking || punctuation.test(after)))
-          setStrong = false
-      }
-      if (setStrong != null || setEm != null) {
-        if (modeCfg.highlightFormatting) state.formatting = setEm == null ? "strong" : setStrong == null ? "em" : "strong em"
-        if (setEm === true) state.em = ch
-        if (setStrong === true) state.strong = ch
-        var t = getType(state)
-        if (setEm === false) state.em = false
-        if (setStrong === false) state.strong = false
-        return t
-      }
-    } else if (ch === ' ') {
-      if (stream.eat('*') || stream.eat('_')) { // Probably surrounded by spaces
-        if (stream.peek() === ' ') { // Surrounded by spaces, ignore
-          return getType(state);
-        } else { // Not surrounded by spaces, back up pointer
-          stream.backUp(1);
-        }
-      }
-    }
-
-    if (modeCfg.strikethrough) {
-      if (ch === '~' && stream.eatWhile(ch)) {
-        if (state.strikethrough) {// Remove strikethrough
-          if (modeCfg.highlightFormatting) state.formatting = "strikethrough";
-          var t = getType(state);
-          state.strikethrough = false;
-          return t;
-        } else if (stream.match(/^[^\s]/, false)) {// Add strikethrough
-          state.strikethrough = true;
-          if (modeCfg.highlightFormatting) state.formatting = "strikethrough";
-          return getType(state);
-        }
-      } else if (ch === ' ') {
-        if (stream.match(/^~~/, true)) { // Probably surrounded by space
-          if (stream.peek() === ' ') { // Surrounded by spaces, ignore
-            return getType(state);
-          } else { // Not surrounded by spaces, back up pointer
-            stream.backUp(2);
-          }
-        }
-      }
-    }
-
-    if (modeCfg.emoji && ch === ":" && stream.match(/^[a-z_\d+-]+:/)) {
-      state.emoji = true;
-      if (modeCfg.highlightFormatting) state.formatting = "emoji";
-      var retType = getType(state);
-      state.emoji = false;
-      return retType;
-    }
-
-    if (ch === ' ') {
-      if (stream.match(/ +$/, false)) {
-        state.trailingSpace++;
-      } else if (state.trailingSpace) {
-        state.trailingSpaceNewLine = true;
-      }
-    }
-
-    return getType(state);
-  }
-
-  function linkInline(stream, state) {
-    var ch = stream.next();
-
-    if (ch === ">") {
-      state.f = state.inline = inlineNormal;
-      if (modeCfg.highlightFormatting) state.formatting = "link";
-      var type = getType(state);
-      if (type){
-        type += " ";
-      } else {
-        type = "";
-      }
-      return type + tokenTypes.linkInline;
-    }
-
-    stream.match(/^[^>]+/, true);
-
-    return tokenTypes.linkInline;
-  }
-
-  function linkHref(stream, state) {
-    // Check if space, and return NULL if so (to avoid marking the space)
-    if(stream.eatSpace()){
-      return null;
-    }
-    var ch = stream.next();
-    if (ch === '(' || ch === '[') {
-      state.f = state.inline = getLinkHrefInside(ch === "(" ? ")" : "]");
-      if (modeCfg.highlightFormatting) state.formatting = "link-string";
-      state.linkHref = true;
-      return getType(state);
-    }
-    return 'error';
-  }
-
-  var linkRE = {
-    ")": /^(?:[^\\\(\)]|\\.|\((?:[^\\\(\)]|\\.)*\))*?(?=\))/,
-    "]": /^(?:[^\\\[\]]|\\.|\[(?:[^\\\[\]]|\\.)*\])*?(?=\])/
-  }
-
-  function getLinkHrefInside(endChar) {
-    return function(stream, state) {
-      var ch = stream.next();
-
-      if (ch === endChar) {
-        state.f = state.inline = inlineNormal;
-        if (modeCfg.highlightFormatting) state.formatting = "link-string";
-        var returnState = getType(state);
-        state.linkHref = false;
-        return returnState;
-      }
-
-      stream.match(linkRE[endChar])
-      state.linkHref = true;
-      return getType(state);
-    };
-  }
-
-  function footnoteLink(stream, state) {
-    if (stream.match(/^([^\]\\]|\\.)*\]:/, false)) {
-      state.f = footnoteLinkInside;
-      stream.next(); // Consume [
-      if (modeCfg.highlightFormatting) state.formatting = "link";
-      state.linkText = true;
-      return getType(state);
-    }
-    return switchInline(stream, state, inlineNormal);
-  }
-
-  function footnoteLinkInside(stream, state) {
-    if (stream.match(/^\]:/, true)) {
-      state.f = state.inline = footnoteUrl;
-      if (modeCfg.highlightFormatting) state.formatting = "link";
-      var returnType = getType(state);
-      state.linkText = false;
-      return returnType;
-    }
-
-    stream.match(/^([^\]\\]|\\.)+/, true);
-
-    return tokenTypes.linkText;
-  }
-
-  function footnoteUrl(stream, state) {
-    // Check if space, and return NULL if so (to avoid marking the space)
-    if(stream.eatSpace()){
-      return null;
-    }
-    // Match URL
-    stream.match(/^[^\s]+/, true);
-    // Check for link title
-    if (stream.peek() === undefined) { // End of line, set flag to check next line
-      state.linkTitle = true;
-    } else { // More content on line, check if link title
-      stream.match(/^(?:\s+(?:"(?:[^"\\]|\\\\|\\.)+"|'(?:[^'\\]|\\\\|\\.)+'|\((?:[^)\\]|\\\\|\\.)+\)))?/, true);
-    }
-    state.f = state.inline = inlineNormal;
-    return tokenTypes.linkHref + " url";
-  }
-
-  var mode = {
-    startState: function() {
-      return {
-        f: blockNormal,
-
-        prevLine: {stream: null},
-        thisLine: {stream: null},
-
-        block: blockNormal,
-        htmlState: null,
-        indentation: 0,
-
-        inline: inlineNormal,
-        text: handleText,
-
-        formatting: false,
-        linkText: false,
-        linkHref: false,
-        linkTitle: false,
-        code: 0,
-        em: false,
-        strong: false,
-        header: 0,
-        setext: 0,
-        hr: false,
-        taskList: false,
-        list: false,
-        listStack: [],
-        quote: 0,
-        trailingSpace: 0,
-        trailingSpaceNewLine: false,
-        strikethrough: false,
-        emoji: false,
-        fencedEndRE: null
-      };
-    },
-
-    copyState: function(s) {
-      return {
-        f: s.f,
-
-        prevLine: s.prevLine,
-        thisLine: s.thisLine,
-
-        block: s.block,
-        htmlState: s.htmlState && CodeMirror.copyState(htmlMode, s.htmlState),
-        indentation: s.indentation,
-
-        localMode: s.localMode,
-        localState: s.localMode ? CodeMirror.copyState(s.localMode, s.localState) : null,
-
-        inline: s.inline,
-        text: s.text,
-        formatting: false,
-        linkText: s.linkText,
-        linkTitle: s.linkTitle,
-        code: s.code,
-        em: s.em,
-        strong: s.strong,
-        strikethrough: s.strikethrough,
-        emoji: s.emoji,
-        header: s.header,
-        setext: s.setext,
-        hr: s.hr,
-        taskList: s.taskList,
-        list: s.list,
-        listStack: s.listStack.slice(0),
-        quote: s.quote,
-        indentedCode: s.indentedCode,
-        trailingSpace: s.trailingSpace,
-        trailingSpaceNewLine: s.trailingSpaceNewLine,
-        md_inside: s.md_inside,
-        fencedEndRE: s.fencedEndRE
-      };
-    },
-
-    token: function(stream, state) {
-
-      // Reset state.formatting
-      state.formatting = false;
-
-      if (stream != state.thisLine.stream) {
-        state.header = 0;
-        state.hr = false;
-
-        if (stream.match(/^\s*$/, true)) {
-          blankLine(state);
-          return null;
-        }
-
-        state.prevLine = state.thisLine
-        state.thisLine = {stream: stream}
-
-        // Reset state.taskList
-        state.taskList = false;
-
-        // Reset state.trailingSpace
-        state.trailingSpace = 0;
-        state.trailingSpaceNewLine = false;
-
-        state.f = state.block;
-        if (state.f != htmlBlock) {
-          var indentation = stream.match(/^\s*/, true)[0].replace(/\t/g, expandedTab).length;
-          state.indentation = indentation;
-          state.indentationDiff = null;
-          if (indentation > 0) return null;
-        }
-      }
-      return state.f(stream, state);
-    },
-
-    innerMode: function(state) {
-      if (state.block == htmlBlock) return {state: state.htmlState, mode: htmlMode};
-      if (state.localState) return {state: state.localState, mode: state.localMode};
-      return {state: state, mode: mode};
-    },
-
-    indent: function(state, textAfter, line) {
-      if (state.block == htmlBlock) return htmlMode.indent(state.htmlState, textAfter, line)
-      if (state.localState) return state.localMode.indent(state.localState, textAfter, line)
-      return CodeMirror.Pass
-    },
-
-    blankLine: blankLine,
-
-    getType: getType,
-
-    closeBrackets: "()[]{}''\"\"``",
-    fold: "markdown"
-  };
-  return mode;
-}, "xml");
-
-CodeMirror.defineMIME("text/x-markdown", "markdown");
-
 });
 
 

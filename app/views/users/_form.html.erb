@@ -4,7 +4,7 @@
       <%= render 'shared/error_messages', object: f.object %>
     </div>
   <% end %>
-  
+
   <% if logged_in? %>
   <div class="gravatar_edit">
     <%= avatar_for @user %>
@@ -12,22 +12,22 @@
   </div>
   <% end %>
 
-  <%= field_set_tag 'Name', class: '' do %>
+  <%= field_set_tag t('.name'), class: '' do %>
     <%= f.text_field :name, class: 'form-control' %>
 
   <% end %>
 
-  <%= field_set_tag 'Email', class: '' do %>
+  <%= field_set_tag t('.email'), class: '' do %>
     <%= f.email_field :email, class: 'form-control' %>
 
   <% end %>
 
-  <%= field_set_tag 'Password', class: '' do %>
+  <%= field_set_tag t('.password'), class: '' do %>
     <%= f.password_field :password, class: 'form-control' %>
 
   <% end %>
-  
-  <%= field_set_tag 'Password confirmation', class: '' do %>
+
+  <%= field_set_tag t('.password_confirmation'), class: '' do %>
     <%= f.password_field :password_confirmation, class: 'form-control' %>
 
   <% end %>
@@ -36,5 +36,5 @@
   <div class="row">
     <%= f.submit yield(:button_text), class: "btn btn-submit" %>
   </div>
-  
+
 <% end %>

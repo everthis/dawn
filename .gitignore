@@ -23,6 +23,8 @@ npm-debug.log
 # Ignore uploaded test images.
 /public/uploads
 /public/assets
+/public/pt-task
+!/public/pt-task/.gitkeep
 
 /.sass-cache
 /.tmp

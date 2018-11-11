@@ -79,7 +79,7 @@
 "use strict";
 
 
-var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 77);
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 81);
 
 (function () {
   var cname = A.gc.currentName;
@@ -145,7 +145,7 @@ var rorParams = exports.rorParams = {
 
 /***/ }),
 
-/***/ 77:
+/***/ 81:
 /* no static exports found */
 /* all exports used */
 /*!******************************************************!*\
