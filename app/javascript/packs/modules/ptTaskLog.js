@@ -97,6 +97,8 @@ Vue.component("ptTaskLog", {
     return {
       tasksInput: [],
       showLogs: false,
+      showDetail: false,
+      currentTask: {},
       steps: [
         "downloadTorrent",
         "addToTransmission",
@@ -129,22 +131,24 @@ Vue.component("ptTaskLog", {
                 <span class="torrent-size c-pad-sm">文件大小: <b>{{ task.torrent_base_info['torrentSize'] }}</b></span>
                 <span class="torrent-seeders c-pad-sm">做种数量: <b>{{ task.torrent_base_info['peersCount'] }}</b></span>
                 <span class="torrent-downloading c-pad-sm">正在下载数量: <b>{{ task.torrent_base_info['downloadingCount'] }}</b></span>
+                <span class="torrent-status c-pad-sm"><b>{{ task.status }}</b></span>
               </div>
             </div>
             <div class="pt-source-op">
               <span class="pt-source c-pad-sm c-center">种子来源: {{ task.torrent_base_info['torrentSource'] }}</span>
               <span class="c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer"
               :data-source="task.torrent_base_info['torrentSource']"
-              :data-id="task.torrent_base_info['torrentId']">种子详情</span>
+              :data-id="task.torrent_base_info['torrentId']"
+              @click="showTorrentDetail(task)">{{ task.showTorrentDetail ? '关闭种子详情' : '显示种子详情' }}</span>
 
               <span class="c-center c-gap-top c-pad-sm c-pointer pt-task-progress"
-              @click="toggleLog(task)">任务进度</span>
+              @click="toggleLog(task)">{{ task.showLogs ? '关闭任务进度' : '显示任务进度' }}</span>
             </div>
           </div>
 
-          <template v-if="task.qrCode.length > 0 && task.showLogs">
-            <img :src="qrcodeSrc(task)" />
-          </template>
+          <div v-if="task.showLogs && taskType === 'completed' " class="pt-task-qrcode">
+            <img :src="qrcodeSrc(task)" v-if="task.signUrl.length > 0" />
+          </div>
 
           <div v-if="task.showLogs && task.signUrl.length > 0" class="pt-task-play-online c-gap-bottom">
             <a href="javascript:;" @click="togglePlay(task)">{{ task.playVideoOnline ? '关闭在线播放' : '在线播放' }}</a>
@@ -184,6 +188,15 @@ Vue.component("ptTaskLog", {
           </template>
         </div>
       </div>
+      <div :class="['torrent-detail-wrap', showDetail ? '' : 'c-hide']" ref="popupWrap">
+        <div class="torrent-detail-bg"></div>
+        <div class="torrent-detail-popup-wrap">
+          <div class="torrent-detail-popup-inner-wrap">
+            <div class="torrent-detail-popup" ref="popup"></div>
+          </div>
+          <span class="torrent-detail-popup-close c-center c-pointer" @click="closeTorrentDetail">关闭详情</span>
+        </div>
+      </div>
     </div>`,
   computed: {
     taskType() {
@@ -196,6 +209,17 @@ Vue.component("ptTaskLog", {
     }
   },
   methods: {
+    closeTorrentDetail(el) {
+      this.showDetail = false;
+      this.$refs.popup.innerHTML = "";
+      this.currentTask.showTorrentDetail = false;
+    },
+    showTorrentDetail(el) {
+      this.currentTask = el;
+      el.showTorrentDetail = true;
+      this.$refs.popup.innerHTML = el.torrent_detail;
+      this.showDetail = true;
+    },
     togglePlay(el) {
       el.playVideoOnline = !el.playVideoOnline;
     },
@@ -264,6 +288,7 @@ Vue.component("ptTaskLog", {
           el.log = {};
           el.showLogs = false;
           el.playVideoOnline = false;
+          el.showTorrentDetail = false;
           el.qrCode = "";
           el.signUrl = "";
           el.logDetail = {};

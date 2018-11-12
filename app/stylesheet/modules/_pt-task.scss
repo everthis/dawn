@@ -122,6 +122,9 @@
 .torrent-downloading {
   background-color: $cyan;
 }
+.torrent-status {
+  color: $blue;
+}
 .pt-task-cover {
   width: 100%;
 }
@@ -137,4 +140,11 @@
 }
 .pt-task-video {
   box-shadow: 1px 1px 4px 1px #ddd;
+}
+.pt-task-qrcode {
+  display: block;
+  width: 480px;
+  height: 480px;
+  margin: 0 auto;
+  background-color: #ddd;
 }

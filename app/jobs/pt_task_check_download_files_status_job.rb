@@ -6,10 +6,12 @@ class PtTaskCheckDownloadFilesStatusJob < ApplicationJob
   after_perform do |job|
     hash = job.arguments.first
     pt_task = PtTask.find_by(transmission_hash: hash)
-    if pt_task.pt_task_log.detail['downloadFiles']['progress'] < 100
-      self.class.set(wait: 5.seconds).perform_later(hash)
-    else
-      PtTaskFindTargetFileJob.perform_later(hash)
+    unless pt_task.nil?
+      if pt_task.pt_task_log.detail['downloadFiles']['progress'] < 100
+        self.class.set(wait: 5.seconds).perform_later(hash)
+      else
+        PtTaskFindTargetFileJob.perform_later(hash)
+      end
     end
 
   end
@@ -18,11 +20,14 @@ class PtTaskCheckDownloadFilesStatusJob < ApplicationJob
     hash = args[0]
     res = cfetch(ENV['PT_TASK_ORIGIN'] + '/checkProgress?hash=' + hash)
     obj = JSON.parse(res)
-    pt_task_log = PtTask.find_by(transmission_hash: hash).pt_task_log
-    pt_task_log.detail = {} if pt_task_log.detail.nil?
-    pt_task_log.detail['downloadFiles'] = obj
+    pt_task = PtTask.find_by(transmission_hash: hash)
+    unless pt_task.nil?
+      pt_task_log = pt_task.pt_task_log
+      pt_task_log.detail = {} if pt_task_log.detail.nil?
+      pt_task_log.detail['downloadFiles'] = obj
 
-    pt_task_log.save!
+      pt_task_log.save!
+    end
   end
 
   def cfetch(str)

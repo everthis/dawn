@@ -4702,6 +4702,14 @@ table.CodeRay {
           box-shadow: 1px 1px 4px 1px #ddd;
 }
 
+.pt-task-qrcode {
+  display: block;
+  width: 480px;
+  height: 480px;
+  margin: 0 auto;
+  background-color: #ddd;
+}
+
 /* import all pages */
 
 .user-info-card + .micropost-form {
