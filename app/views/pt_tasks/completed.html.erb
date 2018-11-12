@@ -10,6 +10,12 @@
     <%= link_to t('.pending-pt-task'), pending_pt_task_path, class: 'fnpu-link' %>
   </div>
 
+  <div class="pt-task-hints c-pad-top c-pad-bottom c-gap-top">
+    <ul>
+      <li>每当有任务完成，会向该任务的创建者发送邮件通知</li>
+      <li>每个已完成的任务，可以选择在线观看，或者扫描二维码观看</li>
+    </ul>
+  </div>
   <div id="app">
     <pt-task-log></pt-task-log>
   </div>
