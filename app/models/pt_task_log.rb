@@ -4,7 +4,6 @@ class PtTaskLog < ApplicationRecord
   after_update_commit :broadcast_log, :update_status
 
   def broadcast_log
-    puts
     ActionCable.server.broadcast("pt_task_log_#{self.pt_task.transmission_hash}", self)
   end
 

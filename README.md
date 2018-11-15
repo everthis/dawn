@@ -391,7 +391,7 @@ uninitialized constant
 solution: [rails-lib-files](https://github.com/radar/guides/blob/master/rails-lib-files.md)
 For Class defined in `lib` directory, with Rails 5 and it appeared in production but not in development.
 
-> We can place any Ruby file in the lib directory and require it anywhere in our application, because Rails adds this directory to the $LOAD_PATH variable. Let's say we had a file in our application at lib/wildcard_search.rb which defined some additional functionality to any model it was included in. Note that this file isn't a model itself, it simply provides extensions to models. Therefore it's best to place it in the lib directory. Inside this file, the WildcardSearch module is defined.
+> We can place any Ruby file in the lib directory and require it anywhere in our application, because Rails adds this directory to the \$LOAD_PATH variable. Let's say we had a file in our application at lib/wildcard_search.rb which defined some additional functionality to any model it was included in. Note that this file isn't a model itself, it simply provides extensions to models. Therefore it's best to place it in the lib directory. Inside this file, the WildcardSearch module is defined.
 
 > To require this file, we can do this in our application:
 
@@ -419,6 +419,12 @@ source ${JUMBO_ROOT}/opt/sun-java7/sun-java7.sh
 cat /proc/cpuinfo
 # OR
 grep ^model\ name /proc/cpuinfo
+```
+
+### configure ffmpeg
+
+```
+ ./configure --enable-libfdk-aac --enable-nonfree --disable-x86asm --enable-libx264 --enable-gpl --enable-libass
 ```
 
 ### TODO

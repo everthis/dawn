@@ -94,7 +94,18 @@
   color: $white;
   > span {
     display: inline-block;
-    width: 11rem;
+  }
+  .torrent-category {
+    width: 15rem;
+  }
+  .torrent-size {
+    width: 10rem;
+  }
+  .torrent-seeders {
+    width: 9rem;
+  }
+  .torrent-downloading {
+    width: 9rem;
   }
 }
 #pt-tasks-q {
@@ -132,6 +143,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   flex-basis: 8rem;
+  min-width: 8rem;
 }
 .pt-task-play-online,
 .pt-task-step-log {

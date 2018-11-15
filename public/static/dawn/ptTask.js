@@ -92,7 +92,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
   \*******************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(/*! ./_shared */ 22)('wks');
+var store = __webpack_require__(/*! ./_shared */ 23)('wks');
 var uid = __webpack_require__(/*! ./_uid */ 13);
 var Symbol = __webpack_require__(/*! ./_global */ 0).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
@@ -421,7 +421,7 @@ module.exports = function (it, tag, stat) {
   \**************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(/*! ./_shared */ 22)('keys');
+var shared = __webpack_require__(/*! ./_shared */ 23)('keys');
 var uid = __webpack_require__(/*! ./_uid */ 13);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
@@ -470,50 +470,6 @@ module.exports = function (it, S) {
 
 /***/ }),
 /* 20 */
-/* no static exports found */
-/* all exports used */
-/*!*****************************************************!*\
-  !*** ./~/core-js/library/modules/_enum-bug-keys.js ***!
-  \*****************************************************/
-/***/ (function(module, exports) {
-
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-
-/***/ }),
-/* 21 */
-/* no static exports found */
-/* all exports used */
-/*!***********************************************!*\
-  !*** ./~/core-js/library/modules/_library.js ***!
-  \***********************************************/
-/***/ (function(module, exports) {
-
-module.exports = true;
-
-
-/***/ }),
-/* 22 */
-/* no static exports found */
-/* all exports used */
-/*!**********************************************!*\
-  !*** ./~/core-js/library/modules/_shared.js ***!
-  \**********************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(/*! ./_global */ 0);
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-module.exports = function (key) {
-  return store[key] || (store[key] = {});
-};
-
-
-/***/ }),
-/* 23 */
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -637,6 +593,50 @@ function generateUUID() {
 }
 
 /***/ }),
+/* 21 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_enum-bug-keys.js ***!
+  \*****************************************************/
+/***/ (function(module, exports) {
+
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+
+/***/ }),
+/* 22 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/core-js/library/modules/_library.js ***!
+  \***********************************************/
+/***/ (function(module, exports) {
+
+module.exports = true;
+
+
+/***/ }),
+/* 23 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_shared.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ 0);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+module.exports = function (key) {
+  return store[key] || (store[key] = {});
+};
+
+
+/***/ }),
 /* 24 */
 /* no static exports found */
 /* all exports used */
@@ -647,7 +647,7 @@ function generateUUID() {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = __webpack_require__(/*! ./_object-keys-internal */ 36);
-var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20);
+var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 21);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -748,7 +748,7 @@ module.exports = function (fn, that, length) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(/*! ./_library */ 21);
+var LIBRARY = __webpack_require__(/*! ./_library */ 22);
 var $export = __webpack_require__(/*! ./_export */ 14);
 var redefine = __webpack_require__(/*! ./_redefine */ 37);
 var hide = __webpack_require__(/*! ./_hide */ 5);
@@ -846,7 +846,7 @@ module.exports = function (it) {
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(/*! ./_an-object */ 7);
 var dPs = __webpack_require__(/*! ./_object-dps */ 45);
-var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20);
+var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 21);
 var IE_PROTO = __webpack_require__(/*! ./_shared-key */ 17)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
@@ -1369,11 +1369,58 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /* 79 */,
 /* 80 */,
 /* 81 */,
-/* 82 */,
+/* 82 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./app/javascript/packs/common/flash.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.flash = flash;
+exports.parseAndFlash = parseAndFlash;
+
+var _utilities = __webpack_require__(/*! ./utilities */ 20);
+
+function flash(data) {
+  var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+  var flashEle = (0, _utilities.strToDom)(flashTpl(data));
+  document.body.appendChild(flashEle);
+  setTimeout(destory.bind(null, flashEle, callback), 2000);
+}
+
+function flashTpl(data) {
+  var str = '\n\t\t<div class="flash-layer ' + (data.error ? 'error' : 'success') + '">\n\t\t\t<div class="message">' + (data.error || data.message) + '</div>\n\t\t</div>\n\t';
+  return str;
+}
+
+function destory(ele, callback) {
+  ele.addEventListener('animationend', function () {
+    document.body.removeChild(ele);
+  });
+  ele.classList.add('blink');
+  callback();
+}
+
+function parseAndFlash(data, callback) {
+  var jsonData = JSON.parse(data);
+  flash(jsonData, callback);
+  return jsonData;
+}
+
+/***/ }),
 /* 83 */,
 /* 84 */,
 /* 85 */,
-/* 86 */
+/* 86 */,
+/* 87 */
 /* no static exports found */
 /* all exports used */
 /*!***********************************************!*\
@@ -1407,7 +1454,6 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 87 */,
 /* 88 */
 /* no static exports found */
 /* all exports used */
@@ -1557,7 +1603,7 @@ module.exports.f = function (C) {
   \***************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(/*! ./_classof */ 86);
+var classof = __webpack_require__(/*! ./_classof */ 87);
 var ITERATOR = __webpack_require__(/*! ./_wks */ 1)('iterator');
 var Iterators = __webpack_require__(/*! ./_iterators */ 12);
 module.exports = __webpack_require__(/*! ./_core */ 8).getIteratorMethod = function (it) {
@@ -1794,11 +1840,20 @@ var addPtTask = function () {
               },
               body: JSON.stringify({
                 source_id: source + "_" + id,
-                torrent_detail: c,
+                torrent_detail: c.detailHtml,
+                cover: c.cover,
                 torrent_base_info: JSON.stringify(listData.filter(function (el) {
                   return +el.torrentId === +id && el.torrentSource === source;
                 })[0])
               })
+            }).then(function (r) {
+              return r.json();
+            }).then(function (r) {
+              if (r.id) {
+                (0, _flash.parseAndFlash)(JSON.stringify({
+                  message: "添加成功"
+                }));
+              }
             }));
 
           case 5:
@@ -1817,13 +1872,15 @@ var addPtTask = function () {
 exports.initPtTask = initPtTask;
 exports.disposePtTask = disposePtTask;
 
-var _utilities = __webpack_require__(/*! ../common/utilities */ 23);
+var _utilities = __webpack_require__(/*! ../common/utilities */ 20);
 
 var _inViewport = __webpack_require__(/*! ../common/inViewport */ 88);
 
 var _inViewport2 = _interopRequireDefault(_inViewport);
 
 var _toggleScroll = __webpack_require__(/*! ../common/toggleScroll */ 42);
+
+var _flash = __webpack_require__(/*! ../common/flash */ 82);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1866,7 +1923,7 @@ function getDetailContent(_ref) {
       "Content-Type": "application/json"
     }
   }).then(function (res) {
-    return res.text();
+    return res.json();
   });
 }
 
@@ -1875,33 +1932,33 @@ function getTorrentDetail(_ref2) {
       source = _ref2.source;
 
   getDetailContent({ id: id, source: source }).then(function (data) {
-    console.log(data);
-    torrentDetailEl.innerHTML = data;
+    torrentDetailEl.innerHTML = data.detailHtml;
     torrentDetailWrapEl.classList.remove("c-hide");
   });
 }
 
-function getTtgCover(el) {
+function getTorrentCover(el) {
   var id = el.dataset.id;
   var source = el.dataset.source;
   var coverEl = Array.prototype.slice.call(el.children).filter(function (el) {
     return el.classList.contains("pt-task-cover");
   })[0];
-  if (coverEl.style.backgroundImage.indexOf("ttg_logo") === -1) {
+  if (coverEl.style.backgroundImage.indexOf("ttg_logo") === -1 && coverEl.style.backgroundImage.indexOf("logo_hdchina") === -1) {
     return;
   }
-  return fetch("/pt_task_ttg_cover?id=" + id + "&source=" + source, {
+
+  return fetch("/pt_task_torrent_detail?id=" + id + "&source=" + source, {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json"
     }
   }).then(function (res) {
-    return res.text();
+    return res.json();
   }).then(function (data) {
-    if (data == null || data === "null" || data === "") {
+    if (data.cover == null || data.cover === "null" || data.cover === "") {
       return;
     }
-    coverEl.style.backgroundImage = "url(" + data + ")";
+    coverEl.style.backgroundImage = "url(" + data.cover + ")";
   });
 }
 function shouldContinue(data, q) {
@@ -1916,7 +1973,7 @@ function renderList(arr) {
     res.push("\n      <div class=\"per-pt-task c-border c-center c-padding " + (el.torrentSource ? el.torrentSource : "") + " " + (checkAvailability(el) ? "" : "not-available") + "\" data-id=\"" + el.torrentId + "\" data-source=\"" + el.torrentSource + "\">\n        <div class=\"pt-task-cover\" style=\"background-image: url(" + el.coverPic + "); \">\n        </div>\n        <div class=\"pt-task-info\">\n            <h3>" + el.chsTitle + "</h3>\n            <h3>" + el.engTitle + "</h3>\n            <div class=\"torrent-status-info\">\n                <span class=\"torrent-category c-pad-sm\">\u79CD\u5B50\u7C7B\u578B: " + el.torrentCategory + "</span>\n                <span class=\"torrent-size c-pad-sm\">\u6587\u4EF6\u5927\u5C0F: <b>" + el.torrentSize + "</b></span>\n                <span class=\"torrent-seeders c-pad-sm\">\u505A\u79CD\u6570\u91CF: <b>" + el.peersCount + "</b></span>\n                <span class=\"torrent-downloading c-pad-sm\">\u6B63\u5728\u4E0B\u8F7D\u6570\u91CF: <b>" + el.downloadingCount + "</b></span>\n            </div>\n        </div>\n        <div class=\"pt-source-op\">\n          <span class=\"pt-source c-pad-sm c-center\">\u79CD\u5B50\u6765\u6E90: " + el.torrentSource + "</span>\n          <span class=\"c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer\"\n          data-source=\"" + el.torrentSource + "\"\n          data-id=\"" + el.torrentId + "\">\u79CD\u5B50\u8BE6\u60C5</span>\n          " + (checkAvailability(el) ? addTaskHtml(el) : "") + "\n        </div>\n      </div>\n    ");
   });
   resEle.innerHTML = res.join("");
-  ptTasks = Array.prototype.slice.call(document.querySelectorAll(".per-pt-task.ttg"));
+  ptTasks = Array.prototype.slice.call(document.querySelectorAll(".per-pt-task.ttg")).concat(Array.prototype.slice.call(document.querySelectorAll(".per-pt-task.hdchina")));
   checkInViewport();
   //   disableScroll();
 }
@@ -1941,7 +1998,7 @@ function validType(str) {
   }
 }
 function validSize(str) {
-  var regex = /(\d*\.*\d*)(.*)/;
+  var regex = /(\d*\.*\d*)\s*(.*)/;
   var res = regex.exec(str);
   if (res[2] === "GB") {
     if (+res[1] > 10) {
@@ -2028,7 +2085,7 @@ function checkInViewport(ev) {
       var el = _step.value;
 
       if ((0, _inViewport2.default)(el)) {
-        getTtgCover(el);
+        getTorrentCover(el);
       }
     }
   } catch (err) {
@@ -2442,10 +2499,10 @@ module.exports = function (KEY) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(/*! ./_library */ 21);
+var LIBRARY = __webpack_require__(/*! ./_library */ 22);
 var global = __webpack_require__(/*! ./_global */ 0);
 var ctx = __webpack_require__(/*! ./_ctx */ 32);
-var classof = __webpack_require__(/*! ./_classof */ 86);
+var classof = __webpack_require__(/*! ./_classof */ 87);
 var $export = __webpack_require__(/*! ./_export */ 14);
 var isObject = __webpack_require__(/*! ./_is-object */ 9);
 var aFunction = __webpack_require__(/*! ./_a-function */ 34);

@@ -4643,7 +4643,22 @@ table.CodeRay {
 
 .torrent-status-info > span {
   display: inline-block;
-  width: 11rem;
+}
+
+.torrent-status-info .torrent-category {
+  width: 15rem;
+}
+
+.torrent-status-info .torrent-size {
+  width: 10rem;
+}
+
+.torrent-status-info .torrent-seeders {
+  width: 9rem;
+}
+
+.torrent-status-info .torrent-downloading {
+  width: 9rem;
 }
 
 #pt-tasks-q {
@@ -4651,7 +4666,7 @@ table.CodeRay {
 }
 
 .pt-task-info {
-  padding: 0 0 0 0.5rem;
+  padding: 0 0.5rem 0 0.5rem;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -4681,6 +4696,10 @@ table.CodeRay {
   background-color: #0cc;
 }
 
+.torrent-status {
+  color: #2d8cf0;
+}
+
 .pt-task-cover {
   width: 100%;
 }
@@ -4690,6 +4709,7 @@ table.CodeRay {
   background-repeat: no-repeat;
   -ms-flex-preferred-size: 8rem;
       flex-basis: 8rem;
+  min-width: 8rem;
 }
 
 .pt-task-play-online, .pt-task-step-log {

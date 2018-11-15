@@ -1,6 +1,7 @@
 import { debounce } from "../common/utilities";
 import inViewport from "../common/inViewport";
 import { disableScroll, enableScroll } from "../common/toggleScroll";
+import { parseAndFlash } from "../common/flash";
 const stack = [];
 const torrentDetailEl = document.getElementsByClassName(
   "torrent-detail-popup"
@@ -40,38 +41,41 @@ function getDetailContent({ id, source }) {
     headers: {
       "Content-Type": "application/json"
     }
-  }).then(res => res.text());
+  }).then(res => res.json());
 }
 
 function getTorrentDetail({ id, source }) {
   getDetailContent({ id, source }).then(data => {
-    console.log(data);
-    torrentDetailEl.innerHTML = data;
+    torrentDetailEl.innerHTML = data.detailHtml;
     torrentDetailWrapEl.classList.remove("c-hide");
   });
 }
 
-function getTtgCover(el) {
+function getTorrentCover(el) {
   const id = el.dataset.id;
   const source = el.dataset.source;
   const coverEl = Array.prototype.slice
     .call(el.children)
     .filter(el => el.classList.contains("pt-task-cover"))[0];
-  if (coverEl.style.backgroundImage.indexOf("ttg_logo") === -1) {
+  if (
+    coverEl.style.backgroundImage.indexOf("ttg_logo") === -1 &&
+    coverEl.style.backgroundImage.indexOf("logo_hdchina") === -1
+  ) {
     return;
   }
-  return fetch(`/pt_task_ttg_cover?id=${id}&source=${source}`, {
+
+  return fetch(`/pt_task_torrent_detail?id=${id}&source=${source}`, {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json"
     }
   })
-    .then(res => res.text())
+    .then(res => res.json())
     .then(data => {
-      if (data == null || data === "null" || data === "") {
+      if (data.cover == null || data.cover === "null" || data.cover === "") {
         return;
       }
-      coverEl.style.backgroundImage = `url(${data})`;
+      coverEl.style.backgroundImage = `url(${data.cover})`;
     });
 }
 function shouldContinue(data, q) {
@@ -124,9 +128,13 @@ function renderList(arr) {
     `);
   });
   resEle.innerHTML = res.join("");
-  ptTasks = Array.prototype.slice.call(
-    document.querySelectorAll(".per-pt-task.ttg")
-  );
+  ptTasks = Array.prototype.slice
+    .call(document.querySelectorAll(".per-pt-task.ttg"))
+    .concat(
+      Array.prototype.slice.call(
+        document.querySelectorAll(".per-pt-task.hdchina")
+      )
+    );
   checkInViewport();
   //   disableScroll();
 }
@@ -157,7 +165,7 @@ function validType(str) {
   }
 }
 function validSize(str) {
-  const regex = /(\d*\.*\d*)(.*)/;
+  const regex = /(\d*\.*\d*)\s*(.*)/;
   const res = regex.exec(str);
   if (res[2] === "GB") {
     if (+res[1] > 10) {
@@ -236,14 +244,25 @@ async function addPtTask(el) {
     },
     body: JSON.stringify({
       source_id: `${source}_${id}`,
-      torrent_detail: c,
+      torrent_detail: c.detailHtml,
+      cover: c.cover,
       torrent_base_info: JSON.stringify(
         listData.filter(
           el => +el.torrentId === +id && el.torrentSource === source
         )[0]
       )
     })
-  });
+  })
+    .then(r => r.json())
+    .then(r => {
+      if (r.id) {
+        parseAndFlash(
+          JSON.stringify({
+            message: "添加成功"
+          })
+        );
+      }
+    });
 }
 
 function goToTaskDetail(task_id) {
@@ -253,7 +272,7 @@ function goToTaskDetail(task_id) {
 function checkInViewport(ev) {
   for (let el of ptTasks) {
     if (inViewport(el)) {
-      getTtgCover(el);
+      getTorrentCover(el);
     }
   }
 }

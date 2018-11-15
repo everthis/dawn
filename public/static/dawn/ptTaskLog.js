@@ -92,7 +92,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
   \*******************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(/*! ./_shared */ 22)('wks');
+var store = __webpack_require__(/*! ./_shared */ 23)('wks');
 var uid = __webpack_require__(/*! ./_uid */ 13);
 var Symbol = __webpack_require__(/*! ./_global */ 0).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
@@ -421,7 +421,7 @@ module.exports = function (it, tag, stat) {
   \**************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(/*! ./_shared */ 22)('keys');
+var shared = __webpack_require__(/*! ./_shared */ 23)('keys');
 var uid = __webpack_require__(/*! ./_uid */ 13);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
@@ -470,50 +470,6 @@ module.exports = function (it, S) {
 
 /***/ }),
 /* 20 */
-/* no static exports found */
-/* all exports used */
-/*!*****************************************************!*\
-  !*** ./~/core-js/library/modules/_enum-bug-keys.js ***!
-  \*****************************************************/
-/***/ (function(module, exports) {
-
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-
-/***/ }),
-/* 21 */
-/* no static exports found */
-/* all exports used */
-/*!***********************************************!*\
-  !*** ./~/core-js/library/modules/_library.js ***!
-  \***********************************************/
-/***/ (function(module, exports) {
-
-module.exports = true;
-
-
-/***/ }),
-/* 22 */
-/* no static exports found */
-/* all exports used */
-/*!**********************************************!*\
-  !*** ./~/core-js/library/modules/_shared.js ***!
-  \**********************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(/*! ./_global */ 0);
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-module.exports = function (key) {
-  return store[key] || (store[key] = {});
-};
-
-
-/***/ }),
-/* 23 */
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -637,6 +593,50 @@ function generateUUID() {
 }
 
 /***/ }),
+/* 21 */
+/* no static exports found */
+/* all exports used */
+/*!*****************************************************!*\
+  !*** ./~/core-js/library/modules/_enum-bug-keys.js ***!
+  \*****************************************************/
+/***/ (function(module, exports) {
+
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+
+/***/ }),
+/* 22 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************************!*\
+  !*** ./~/core-js/library/modules/_library.js ***!
+  \***********************************************/
+/***/ (function(module, exports) {
+
+module.exports = true;
+
+
+/***/ }),
+/* 23 */
+/* no static exports found */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./~/core-js/library/modules/_shared.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ 0);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+module.exports = function (key) {
+  return store[key] || (store[key] = {});
+};
+
+
+/***/ }),
 /* 24 */
 /* no static exports found */
 /* all exports used */
@@ -647,7 +647,7 @@ function generateUUID() {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = __webpack_require__(/*! ./_object-keys-internal */ 36);
-var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20);
+var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 21);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -711,7 +711,7 @@ exports.f = {}.propertyIsEnumerable;
 
 var global = __webpack_require__(/*! ./_global */ 0);
 var core = __webpack_require__(/*! ./_core */ 8);
-var LIBRARY = __webpack_require__(/*! ./_library */ 21);
+var LIBRARY = __webpack_require__(/*! ./_library */ 22);
 var wksExt = __webpack_require__(/*! ./_wks-ext */ 29);
 var defineProperty = __webpack_require__(/*! ./_object-dp */ 4).f;
 module.exports = function (name) {
@@ -789,7 +789,7 @@ module.exports = function (fn, that, length) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(/*! ./_library */ 21);
+var LIBRARY = __webpack_require__(/*! ./_library */ 22);
 var $export = __webpack_require__(/*! ./_export */ 14);
 var redefine = __webpack_require__(/*! ./_redefine */ 37);
 var hide = __webpack_require__(/*! ./_hide */ 5);
@@ -887,7 +887,7 @@ module.exports = function (it) {
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(/*! ./_an-object */ 7);
 var dPs = __webpack_require__(/*! ./_object-dps */ 45);
-var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20);
+var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 21);
 var IE_PROTO = __webpack_require__(/*! ./_shared-key */ 17)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
@@ -1027,7 +1027,7 @@ var rorParams = exports.rorParams = {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = __webpack_require__(/*! ./_object-keys-internal */ 36);
-var hiddenKeys = __webpack_require__(/*! ./_enum-bug-keys */ 20).concat('length', 'prototype');
+var hiddenKeys = __webpack_require__(/*! ./_enum-bug-keys */ 21).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -1731,7 +1731,7 @@ var $export = __webpack_require__(/*! ./_export */ 14);
 var redefine = __webpack_require__(/*! ./_redefine */ 37);
 var META = __webpack_require__(/*! ./_meta */ 62).KEY;
 var $fails = __webpack_require__(/*! ./_fails */ 10);
-var shared = __webpack_require__(/*! ./_shared */ 22);
+var shared = __webpack_require__(/*! ./_shared */ 23);
 var setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 16);
 var uid = __webpack_require__(/*! ./_uid */ 13);
 var wks = __webpack_require__(/*! ./_wks */ 1);
@@ -1874,7 +1874,7 @@ if (!USE_NATIVE) {
   __webpack_require__(/*! ./_object-pie */ 27).f = $propertyIsEnumerable;
   __webpack_require__(/*! ./_object-gops */ 41).f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(/*! ./_library */ 21)) {
+  if (DESCRIPTORS && !__webpack_require__(/*! ./_library */ 22)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -2001,7 +2001,7 @@ exports.$http = $http;
 
 var _serialize = __webpack_require__(/*! ./serialize */ 78);
 
-var _utilities = __webpack_require__(/*! ./utilities */ 23);
+var _utilities = __webpack_require__(/*! ./utilities */ 20);
 
 var _csrf = __webpack_require__(/*! ./csrf */ 39);
 
@@ -9634,7 +9634,8 @@ module.exports = g;
 
 /***/ }),
 /* 81 */,
-/* 82 */
+/* 82 */,
+/* 83 */
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\
@@ -9659,7 +9660,7 @@ var _vue = __webpack_require__(/*! vue */ 79);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _utilities = __webpack_require__(/*! ../common/utilities */ 23);
+var _utilities = __webpack_require__(/*! ../common/utilities */ 20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9731,7 +9732,7 @@ _vue2.default.component("ptTaskLog", {
       steps: ["downloadTorrent", "addToTransmission", "downloadFiles", "findTargetFile", "convert", "upload", "removeTorrentAndData"]
     };
   },
-  template: "\n    <div class=\"pt-task-log-wrap\">\n      <div class=\"pt-tasks-container pt-tasks-wrap c-gap-top\" v-for=\"(task, idx) in tasksInput\">\n        <div :class=\"['c-border', 'c-center', 'c-padding', task.torrentSource ? task.torrentSource : '']\"\n        :data-id=\"task.torrent_base_info['torrentId']\"\n        :data-source=\"task.torrent_base_info['torrentSource']\"\n        :data-user-id=\"task.user_id\"\n        :data-source-id=\"task.source_id\"\n        :data-transmission-hash=\"task.transmission_hash\"\n        >\n          <div class=\"per-pt-task\">\n            <div class=\"pt-task-cover\" :style=\"{ backgroundImage: 'url(' + task.torrent_base_info['coverPic'] + ')' }\">\n            </div>\n            <div class=\"pt-task-info\">\n              <h3>{{ task.torrent_base_info['chsTitle'] }}</h3>\n              <h3>{{ task.torrent_base_info['engTitle'] }}</h3>\n              <div class=\"torrent-status-info\">\n                <span class=\"torrent-category c-pad-sm\">\u79CD\u5B50\u7C7B\u578B: {{ task.torrent_base_info['torrentCategory'] }}</span>\n                <span class=\"torrent-size c-pad-sm\">\u6587\u4EF6\u5927\u5C0F: <b>{{ task.torrent_base_info['torrentSize'] }}</b></span>\n                <span class=\"torrent-seeders c-pad-sm\">\u505A\u79CD\u6570\u91CF: <b>{{ task.torrent_base_info['peersCount'] }}</b></span>\n                <span class=\"torrent-downloading c-pad-sm\">\u6B63\u5728\u4E0B\u8F7D\u6570\u91CF: <b>{{ task.torrent_base_info['downloadingCount'] }}</b></span>\n                <span class=\"torrent-status c-pad-sm\"><b>{{ task.status }}</b></span>\n              </div>\n            </div>\n            <div class=\"pt-source-op\">\n              <span class=\"pt-source c-pad-sm c-center\">\u79CD\u5B50\u6765\u6E90: {{ task.torrent_base_info['torrentSource'] }}</span>\n              <span class=\"c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer\"\n              :data-source=\"task.torrent_base_info['torrentSource']\"\n              :data-id=\"task.torrent_base_info['torrentId']\"\n              @click=\"showTorrentDetail(task)\">{{ task.showTorrentDetail ? '\u5173\u95ED\u79CD\u5B50\u8BE6\u60C5' : '\u663E\u793A\u79CD\u5B50\u8BE6\u60C5' }}</span>\n\n              <span class=\"c-center c-gap-top c-pad-sm c-pointer pt-task-progress\"\n              @click=\"toggleLog(task)\">{{ task.showLogs ? '\u5173\u95ED\u4EFB\u52A1\u8FDB\u5EA6' : '\u663E\u793A\u4EFB\u52A1\u8FDB\u5EA6' }}</span>\n            </div>\n          </div>\n\n          <div v-if=\"task.showLogs && taskType === 'completed' \" class=\"pt-task-qrcode\">\n            <img :src=\"qrcodeSrc(task)\" v-if=\"task.signUrl.length > 0\" />\n          </div>\n\n          <div v-if=\"task.showLogs && task.signUrl.length > 0\" class=\"pt-task-play-online c-gap-bottom\">\n            <a href=\"javascript:;\" @click=\"togglePlay(task)\">{{ task.playVideoOnline ? '\u5173\u95ED\u5728\u7EBF\u64AD\u653E' : '\u5728\u7EBF\u64AD\u653E' }}</a>\n          </div>\n          <div v-if=\"task.signUrl.length > 0 && task.showLogs && task.playVideoOnline\" class=\"pt-task-video c-gap-bottom\">\n            <video class=\"c-full-width\" :src=\"task.signUrl\" controls />\n          </div>\n\n          <template v-for=\"(el, idx) in steps\" v-if=\"task.showLogs\">\n            <div v-if=\"task.logDetail && task.logDetail.hasOwnProperty(el)\" class=\"pt-task-step-log\">\n              <div v-if=\"el === 'downloadFiles'\">\n                <span><b>\u79CD\u5B50\u540D</b>: {{ task.logDetail[el].name }}</span>\n                <span><b>\u5E73\u5747\u4E0B\u8F7D\u901F\u5EA6\uFF1A</b>{{ task.logDetail[el].avg_speed }}</span>\n                <span><b>\u4F53\u79EF\u5927\u5C0F\uFF1A</b>{{ task.logDetail[el].total_size }}</span>\n                <span><b>\u4E0B\u8F7D\u8017\u65F6\uFF1A</b>{{ task.logDetail[el].time_taken }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'findTargetFile'\">\n                <span><b>\u76EE\u6807\u6587\u4EF6\u8DEF\u5F84\uFF1A</b>{{ task.logDetail[el].fpath }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'convert'\">\n                <span><b>\u8F6C\u7801\u8F93\u51FA\u6587\u4EF6\u8DEF\u5F84\uFF1A</b>{{ task.logDetail[el].fpath }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'upload'\">\n                <span><b>\u4E0A\u4F20\u963F\u91CC\u4E91OSS\u6587\u4EF6\u540D\uFF1A</b>{{ task.logDetail[el].fileName }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'removeTorrentAndData'\">\n                <span><b>\u4E0A\u4F20\u5B8C\u6210\u540E\u4ECEtransmission\u79FB\u9664\u79CD\u5B50\u53CA\u6570\u636E\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else>\n                <b>{{ el }}:</b> {{ task.logDetail[el].progress }}%\n              </div>\n            </div>\n          </template>\n        </div>\n      </div>\n      <div :class=\"['torrent-detail-wrap', showDetail ? '' : 'c-hide']\" ref=\"popupWrap\">\n        <div class=\"torrent-detail-bg\"></div>\n        <div class=\"torrent-detail-popup-wrap\">\n          <div class=\"torrent-detail-popup-inner-wrap\">\n            <div class=\"torrent-detail-popup\" ref=\"popup\"></div>\n          </div>\n          <span class=\"torrent-detail-popup-close c-center c-pointer\" @click=\"closeTorrentDetail\">\u5173\u95ED\u8BE6\u60C5</span>\n        </div>\n      </div>\n    </div>",
+  template: "\n    <div class=\"pt-task-log-wrap\">\n      <div class=\"pt-tasks-container pt-tasks-wrap c-gap-top\" v-for=\"(task, idx) in tasksInput\">\n        <div :class=\"['c-border', 'c-center', 'c-padding', task.torrentSource ? task.torrentSource : '']\"\n        :data-id=\"task.torrent_base_info['torrentId']\"\n        :data-source=\"task.torrent_base_info['torrentSource']\"\n        :data-user-id=\"task.user_id\"\n        :data-source-id=\"task.source_id\"\n        :data-transmission-hash=\"task.transmission_hash\"\n        >\n          <div class=\"per-pt-task\">\n            <div class=\"pt-task-cover\" :style=\"{ backgroundImage: 'url(' + coverAddress(task) + ')' }\">\n            </div>\n            <div class=\"pt-task-info\">\n              <h3>{{ task.torrent_base_info['chsTitle'] }}</h3>\n              <h3>{{ task.torrent_base_info['engTitle'] }}</h3>\n              <div class=\"torrent-status-info\">\n                <span class=\"torrent-category c-pad-sm\">\u79CD\u5B50\u7C7B\u578B: {{ task.torrent_base_info['torrentCategory'] }}</span>\n                <span class=\"torrent-size c-pad-sm\">\u6587\u4EF6\u5927\u5C0F: <b>{{ task.torrent_base_info['torrentSize'] }}</b></span>\n                <span class=\"torrent-seeders c-pad-sm\">\u505A\u79CD\u6570\u91CF: <b>{{ task.torrent_base_info['peersCount'] }}</b></span>\n                <span class=\"torrent-downloading c-pad-sm\">\u6B63\u5728\u4E0B\u8F7D\u6570\u91CF: <b>{{ task.torrent_base_info['downloadingCount'] }}</b></span>\n                <span class=\"torrent-status c-pad-sm\"><b>{{ task.status }}</b></span>\n              </div>\n            </div>\n            <div class=\"pt-source-op\">\n              <span class=\"pt-source c-pad-sm c-center\">\u79CD\u5B50\u6765\u6E90: {{ task.torrent_base_info['torrentSource'] }}</span>\n              <span class=\"c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer\"\n              :data-source=\"task.torrent_base_info['torrentSource']\"\n              :data-id=\"task.torrent_base_info['torrentId']\"\n              @click=\"showTorrentDetail(task)\">{{ task.showTorrentDetail ? '\u5173\u95ED\u79CD\u5B50\u8BE6\u60C5' : '\u663E\u793A\u79CD\u5B50\u8BE6\u60C5' }}</span>\n\n              <span class=\"c-center c-gap-top c-pad-sm c-pointer pt-task-progress\"\n              @click=\"toggleLog(task)\">{{ task.showLogs ? '\u5173\u95ED\u4EFB\u52A1\u8FDB\u5EA6' : '\u663E\u793A\u4EFB\u52A1\u8FDB\u5EA6' }}</span>\n            </div>\n          </div>\n\n          <div v-if=\"task.showLogs && taskType === 'completed' \" class=\"pt-task-qrcode\">\n            <img :src=\"qrcodeSrc(task)\" v-if=\"task.signUrl.length > 0\" />\n          </div>\n\n          <div v-if=\"task.showLogs && task.signUrl.length > 0\" class=\"pt-task-play-online c-gap-bottom\">\n            <a href=\"javascript:;\" @click=\"togglePlay(task)\">{{ task.playVideoOnline ? '\u5173\u95ED\u5728\u7EBF\u64AD\u653E' : '\u5728\u7EBF\u64AD\u653E' }}</a>\n          </div>\n          <div v-if=\"task.signUrl.length > 0 && task.showLogs && task.playVideoOnline\" class=\"pt-task-video c-gap-bottom\">\n            <video class=\"c-full-width\" :src=\"task.signUrl\" controls />\n          </div>\n\n          <template v-for=\"(el, idx) in steps\" v-if=\"task.showLogs\">\n            <div v-if=\"task.logDetail && task.logDetail.hasOwnProperty(el)\" class=\"pt-task-step-log\">\n              <div v-if=\"el === 'downloadFiles'\">\n                <span><b>\u79CD\u5B50\u540D</b>: {{ task.logDetail[el].name }}</span>\n                <span><b>\u5E73\u5747\u4E0B\u8F7D\u901F\u5EA6\uFF1A</b>{{ task.logDetail[el].avg_speed }}</span>\n                <span><b>\u4F53\u79EF\u5927\u5C0F\uFF1A</b>{{ task.logDetail[el].total_size }}</span>\n                <span><b>\u4E0B\u8F7D\u8017\u65F6\uFF1A</b>{{ task.logDetail[el].time_taken }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'findTargetFile'\">\n                <span><b>\u76EE\u6807\u6587\u4EF6\u8DEF\u5F84\uFF1A</b>{{ task.logDetail[el].fpath }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'convert'\">\n                <span><b>\u8F6C\u7801\u8F93\u51FA\u6587\u4EF6\u8DEF\u5F84\uFF1A</b>{{ task.logDetail[el].fpath }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'upload'\">\n                <span><b>\u4E0A\u4F20\u963F\u91CC\u4E91OSS\u6587\u4EF6\u540D\uFF1A</b>{{ task.logDetail[el].fileName }}</span>\n                <span><b>\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else-if=\"el === 'removeTorrentAndData'\">\n                <span><b>\u4E0A\u4F20\u5B8C\u6210\u540E\u4ECEtransmission\u79FB\u9664\u79CD\u5B50\u53CA\u6570\u636E\u8FDB\u5EA6\uFF1A</b>{{ task.logDetail[el].progress }}%</span>\n              </div>\n              <div v-else>\n                <b>{{ el }}:</b> {{ task.logDetail[el].progress }}%\n              </div>\n            </div>\n          </template>\n        </div>\n      </div>\n      <div :class=\"['torrent-detail-wrap', showDetail ? '' : 'c-hide']\" ref=\"popupWrap\">\n        <div class=\"torrent-detail-bg\"></div>\n        <div class=\"torrent-detail-popup-wrap\">\n          <div class=\"torrent-detail-popup-inner-wrap\">\n            <div class=\"torrent-detail-popup\" ref=\"popup\"></div>\n          </div>\n          <span class=\"torrent-detail-popup-close c-center c-pointer\" @click=\"closeTorrentDetail\">\u5173\u95ED\u8BE6\u60C5</span>\n        </div>\n      </div>\n    </div>",
   computed: {
     taskType: function taskType() {
       var wlp = window.location.pathname;
@@ -9743,6 +9744,9 @@ _vue2.default.component("ptTaskLog", {
     }
   },
   methods: {
+    coverAddress: function coverAddress(task) {
+      return task.cover || task.torrent_base_info && task.torrent_base_info["coverPic"];
+    },
     closeTorrentDetail: function closeTorrentDetail(el) {
       this.showDetail = false;
       this.$refs.popup.innerHTML = "";
@@ -9815,6 +9819,7 @@ _vue2.default.component("ptTaskLog", {
       _this.tasksInput = arr.map(function (el) {
         el.torrent_base_info = JSON.parse(el.torrent_base_info);
         el.log = {};
+        el.cover = el.cover == null ? "" : el.cover;
         el.showLogs = false;
         el.playVideoOnline = false;
         el.showTorrentDetail = false;
@@ -9827,7 +9832,7 @@ _vue2.default.component("ptTaskLog", {
       var gc = _this.tasksInput;
       if (gc.length > 0) {
         var _loop = function _loop(i, length1) {
-          if (gc[i]["status"] !== "failed" && gc[i]["status"] !== "success") {
+          if (gc[i]["status"] !== "failed" && gc[i]["status"] !== "completed") {
             gc[i]["gcp"] = App.cable.subscriptions.create({
               channel: "PtTaskStatusChannel",
               hash: gc[i]["transmission_hash"]
@@ -9838,8 +9843,8 @@ _vue2.default.component("ptTaskLog", {
                 });
               },
               received: function received(data) {
-                gc[i]["status"] = data.pt_task_status;
-                if (data.pt_task_status === "failed" || data.pt_task_status === "success") {
+                gc[i]["status"] = data.status;
+                if (data.status === "failed" || data.status === "completed") {
                   gc[i]["gcp"].unsubscribe();
                 }
               }
@@ -9875,7 +9880,6 @@ function exitPtTaskLog() {
 }
 
 /***/ }),
-/* 83 */,
 /* 84 */,
 /* 85 */,
 /* 86 */,
@@ -9970,7 +9974,7 @@ function exitPtTaskLog() {
 "use strict";
 
 
-var _ptTaskLog = __webpack_require__(/*! ../modules/ptTaskLog */ 82);
+var _ptTaskLog = __webpack_require__(/*! ../modules/ptTaskLog */ 83);
 
 (function () {
   A.init[A.gc.currentName] = _ptTaskLog.PtTaskLog;

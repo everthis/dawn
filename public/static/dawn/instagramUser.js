@@ -85,7 +85,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.initInstagramUser = initInstagramUser;
 exports.disposeInstagramUser = disposeInstagramUser;
 
-var _utilities = __webpack_require__(/*! ../common/utilities */ 23);
+var _utilities = __webpack_require__(/*! ../common/utilities */ 20);
 
 var _toggleScroll = __webpack_require__(/*! ../common/toggleScroll */ 42);
 
@@ -181,7 +181,7 @@ var _instagramUser = __webpack_require__(/*! ../modules/instagramUser */ 135);
 
 /***/ }),
 
-/***/ 23:
+/***/ 20:
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\

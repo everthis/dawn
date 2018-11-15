@@ -166,7 +166,7 @@ class PtTasksController < CBaseController
     end
 
     def pt_task_params(param)
-      param.permit(:source_id, :torrent_base_info, :torrent_detail)
+      param.permit(:source_id, :torrent_base_info, :torrent_detail, :cover)
     end
 
     def cfetch(str)

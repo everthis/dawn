@@ -121,7 +121,7 @@ Vue.component("ptTaskLog", {
         :data-transmission-hash="task.transmission_hash"
         >
           <div class="per-pt-task">
-            <div class="pt-task-cover" :style="{ backgroundImage: 'url(' + task.torrent_base_info['coverPic'] + ')' }">
+            <div class="pt-task-cover" :style="{ backgroundImage: 'url(' + coverAddress(task) + ')' }">
             </div>
             <div class="pt-task-info">
               <h3>{{ task.torrent_base_info['chsTitle'] }}</h3>
@@ -209,6 +209,12 @@ Vue.component("ptTaskLog", {
     }
   },
   methods: {
+    coverAddress(task) {
+      return (
+        task.cover ||
+        (task.torrent_base_info && task.torrent_base_info["coverPic"])
+      );
+    },
     closeTorrentDetail(el) {
       this.showDetail = false;
       this.$refs.popup.innerHTML = "";
@@ -286,6 +292,7 @@ Vue.component("ptTaskLog", {
         this.tasksInput = arr.map(el => {
           el.torrent_base_info = JSON.parse(el.torrent_base_info);
           el.log = {};
+          el.cover = el.cover == null ? "" : el.cover;
           el.showLogs = false;
           el.playVideoOnline = false;
           el.showTorrentDetail = false;
@@ -298,7 +305,10 @@ Vue.component("ptTaskLog", {
         let gc = this.tasksInput;
         if (gc.length > 0) {
           for (let i = 0, length1 = gc.length; i < length1; i++) {
-            if (gc[i]["status"] !== "failed" && gc[i]["status"] !== "success") {
+            if (
+              gc[i]["status"] !== "failed" &&
+              gc[i]["status"] !== "completed"
+            ) {
               gc[i]["gcp"] = App.cable.subscriptions.create(
                 {
                   channel: "PtTaskStatusChannel",
@@ -311,10 +321,10 @@ Vue.component("ptTaskLog", {
                     });
                   },
                   received: function(data) {
-                    gc[i]["status"] = data.pt_task_status;
+                    gc[i]["status"] = data.status;
                     if (
-                      data.pt_task_status === "failed" ||
-                      data.pt_task_status === "success"
+                      data.status === "failed" ||
+                      data.status === "completed"
                     ) {
                       gc[i]["gcp"].unsubscribe();
                     }
