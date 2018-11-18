@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 164);
+/******/ 	return __webpack_require__(__webpack_require__.s = 161);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 136:
+/***/ 133:
 /* no static exports found */
 /* all exports used */
 /*!**********************************************************!*\
@@ -85,7 +85,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.initNewCiNpmPackages = initNewCiNpmPackages;
 exports.exitNewCiNpmPackages = exitNewCiNpmPackages;
 
-var _vue = __webpack_require__(/*! vue */ 79);
+var _vue = __webpack_require__(/*! vue */ 81);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -257,7 +257,7 @@ function exitNewCiNpmPackages() {
 
 /***/ }),
 
-/***/ 164:
+/***/ 161:
 /* no static exports found */
 /* all exports used */
 /*!**********************************************************!*\
@@ -268,7 +268,7 @@ function exitNewCiNpmPackages() {
 "use strict";
 
 
-var _newCiNpmPackages = __webpack_require__(/*! ../modules/newCiNpmPackages */ 136);
+var _newCiNpmPackages = __webpack_require__(/*! ../modules/newCiNpmPackages */ 133);
 
 (function () {
   A.init[A.gc.currentName] = _newCiNpmPackages.initNewCiNpmPackages;
@@ -277,7 +277,40 @@ var _newCiNpmPackages = __webpack_require__(/*! ../modules/newCiNpmPackages */ 1
 
 /***/ }),
 
-/***/ 79:
+/***/ 63:
+/* no static exports found */
+/* all exports used */
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 81:
 /* exports provided: default */
 /* all exports used */
 /*!***************************************!*\
@@ -7715,40 +7748,7 @@ setTimeout(function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (Vue$3);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 80)))
-
-/***/ }),
-
-/***/ 80:
-/* no static exports found */
-/* all exports used */
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 63)))
 
 /***/ })
 
