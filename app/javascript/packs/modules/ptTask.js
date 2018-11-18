@@ -61,6 +61,7 @@ function countDown() {
   ptTaskCountDownEl.innerHTML = `查询Timeout倒计时：${remainingSeconds}秒`;
   if (remainingSeconds === 0) {
     clearTimeout(timer);
+    stopCountDown();
   } else {
     timer = setTimeout(() => {
       countDown();
