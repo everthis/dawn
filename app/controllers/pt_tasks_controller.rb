@@ -68,17 +68,17 @@ class PtTasksController < CBaseController
   end
 
   def query
-    res = cfetch('http://localhost:3000/query?keyword=' + params[:q])
+    res = cfetch(ENV["PT_TASK_ORIGIN"] + '/query?keyword=' + params[:q])
     render json: res, status: :ok
   end
 
   def torrentDetail
-    res = cfetch('http://localhost:3000/torrentDetail?id=' + params[:id] + '&source=' + params[:source])
+    res = cfetch(ENV["PT_TASK_ORIGIN"] + '/torrentDetail?id=' + params[:id] + '&source=' + params[:source])
     render json: res, status: :ok
   end
 
   def ttgCover
-    res = cfetch('http://localhost:3000/ttgCover?id=' + params[:id] + '&source=' + params[:source])
+    res = cfetch(ENV["PT_TASK_ORIGIN"] + '/ttgCover?id=' + params[:id] + '&source=' + params[:source])
     render json: res, status: :ok
   end
 
