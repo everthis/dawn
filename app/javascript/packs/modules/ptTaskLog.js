@@ -376,7 +376,7 @@ export function PtTaskLog() {
 
   App.cable = ActionCable.createConsumer();
   vueApp = new Vue({
-    el: "pt-task-log"
+    el: "#app"
   });
 
   // listenApiQuery();

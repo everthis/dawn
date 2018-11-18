@@ -9840,7 +9840,7 @@ function PtTaskLog() {
 
   App.cable = ActionCable.createConsumer();
   vueApp = new _vue2.default({
-    el: "pt-task-log"
+    el: "#app"
   });
 
   // listenApiQuery();

@@ -204,8 +204,8 @@ namespace :assets do
     run_locally do
       with rails_env: fetch(:stage) do
         execute 'rm -rf public/assets'
-        execute :bundle, 'exec rake assets:precompile'
         execute :bundle, 'exec rake webpacker:compile'
+        execute :bundle, 'exec rake assets:precompile'
       end
     end
   end
