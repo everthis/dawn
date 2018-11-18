@@ -101,7 +101,7 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-Vue.component("ptTaskLog", {
+Vue.component("pt-task-log", {
   data: function() {
     return {
       tasksInput: [],
