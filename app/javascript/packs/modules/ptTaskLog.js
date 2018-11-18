@@ -375,15 +375,17 @@ export function PtTaskLog() {
   App = {};
 
   App.cable = ActionCable.createConsumer();
-
-  vueApp = new Vue({
-    el: "#app"
-  });
+  setTimeout(() => {
+    vueApp = new Vue({
+      el: "#app"
+    });
+  }, 200);
 
   // listenApiQuery();
 }
 
 export function exitPtTaskLog() {
   if (vueApp) vueApp.$destroy();
+  vueApp = null;
   App.cable.disconnect();
 }

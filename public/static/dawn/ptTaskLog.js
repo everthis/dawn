@@ -9890,16 +9890,18 @@ function PtTaskLog() {
   App = {};
 
   App.cable = ActionCable.createConsumer();
-
-  vueApp = new _vue2.default({
-    el: "#app"
-  });
+  setTimeout(function () {
+    vueApp = new _vue2.default({
+      el: "#app"
+    });
+  }, 200);
 
   // listenApiQuery();
 }
 
 function exitPtTaskLog() {
   if (vueApp) vueApp.$destroy();
+  vueApp = null;
   App.cable.disconnect();
 }
 

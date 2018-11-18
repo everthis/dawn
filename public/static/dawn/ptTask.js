@@ -1948,6 +1948,7 @@ function countDown() {
   ptTaskCountDownEl.innerHTML = "\u67E5\u8BE2Timeout\u5012\u8BA1\u65F6\uFF1A" + remainingSeconds + "\u79D2";
   if (remainingSeconds === 0) {
     clearTimeout(timer);
+    stopCountDown();
   } else {
     timer = setTimeout(function () {
       countDown();
