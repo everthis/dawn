@@ -9,16 +9,18 @@
     <%= link_to t('.pt-tasks'), pt_tasks_path, class: 'fnpu-link' %>
     <%= link_to t('.pending-pt-task'), pending_pt_task_path, class: 'fnpu-link' %>
   </div>
-
   <div class="pt-task-hints c-pad-top c-pad-bottom c-gap-top">
     <ul>
       <li>每当有任务完成，会向该任务的创建者发送邮件通知</li>
       <li>每个已完成的任务，可以选择在线观看，或者扫描二维码观看</li>
+      <li>每个二维码的有效期为三个小时</li>
     </ul>
   </div>
+  <%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>
   <div id="app">
     <pt-task-log></pt-task-log>
   </div>
+  <%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>
 </div>
 
 

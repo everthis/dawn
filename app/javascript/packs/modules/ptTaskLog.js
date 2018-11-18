@@ -91,6 +91,15 @@ function clearSearchResult() {
   apiSearchResultEle.classList.add("hide");
   enableScroll();
 }
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return "";
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
 Vue.component("ptTaskLog", {
   data: function() {
@@ -142,7 +151,7 @@ Vue.component("ptTaskLog", {
               @click="showTorrentDetail(task)">{{ task.showTorrentDetail ? '关闭种子详情' : '显示种子详情' }}</span>
 
               <span class="c-center c-gap-top c-pad-sm c-pointer pt-task-progress"
-              @click="toggleLog(task)">{{ task.showLogs ? '关闭任务进度' : '显示任务进度' }}</span>
+              @click="toggleLog(task)">{{ task.showLogs ? taskLogUnfoldedText : taskLogFoldedText }}</span>
             </div>
           </div>
 
@@ -151,15 +160,16 @@ Vue.component("ptTaskLog", {
           </div>
 
           <div v-if="task.showLogs && task.signUrl.length > 0" class="pt-task-play-online c-gap-bottom">
-            <a href="javascript:;" @click="togglePlay(task)">{{ task.playVideoOnline ? '关闭在线播放' : '在线播放' }}</a>
+            <a href="javascript:;" @click="togglePlay(task)">{{ task.playVideoOnline ? '关闭在线播放' : '在线播放(自动播放)' }}</a>
           </div>
           <div v-if="task.signUrl.length > 0 && task.showLogs && task.playVideoOnline" class="pt-task-video c-gap-bottom">
-            <video class="c-full-width" :src="task.signUrl" controls />
+            <video class="c-full-width" :src="task.signUrl" controls autoplay />
           </div>
 
           <template v-for="(el, idx) in steps" v-if="task.showLogs">
             <div v-if="task.logDetail && task.logDetail.hasOwnProperty(el)" class="pt-task-step-log">
               <div v-if="el === 'downloadFiles'">
+                <span><b>耗时:</b> {{ duration(task.logDetail[el]) }}</span>
                 <span><b>种子名</b>: {{ task.logDetail[el].name }}</span>
                 <span><b>平均下载速度：</b>{{ task.logDetail[el].avg_speed }}</span>
                 <span><b>体积大小：</b>{{ task.logDetail[el].total_size }}</span>
@@ -171,10 +181,12 @@ Vue.component("ptTaskLog", {
                 <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
               </div>
               <div v-else-if="el === 'convert'">
+                <span><b>耗时:</b> {{ duration(task.logDetail[el]) }}</span>
                 <span><b>转码输出文件路径：</b>{{ task.logDetail[el].fpath }}</span>
                 <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
               </div>
               <div v-else-if="el === 'upload'">
+                <span><b>耗时:</b> {{ duration(task.logDetail[el]) }}</span>
                 <span><b>上传阿里云OSS文件名：</b>{{ task.logDetail[el].fileName }}</span>
                 <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
               </div>
@@ -199,6 +211,12 @@ Vue.component("ptTaskLog", {
       </div>
     </div>`,
   computed: {
+    taskLogFoldedText() {
+      return this.taskType === "completed" ? "显示任务结果" : "显示任务进度";
+    },
+    taskLogUnfoldedText() {
+      return this.taskType === "completed" ? "关闭任务结果" : "关闭任务进度";
+    },
     taskType() {
       const wlp = window.location.pathname;
       if (wlp.indexOf("pending_pt_task") !== -1) {
@@ -209,6 +227,11 @@ Vue.component("ptTaskLog", {
     }
   },
   methods: {
+    duration(el) {
+      return `${((el.end_ts - el.start_ts) / (1000 * 60 * 60)).toFixed(
+        3
+      )} 小时`;
+    },
     coverAddress(task) {
       return (
         task.cover ||
@@ -260,14 +283,20 @@ Vue.component("ptTaskLog", {
             received: function(data) {
               item.log = data;
               item.logDetail = data.detail;
-              if (item.status === "failed" || item.status === "success") {
+              if (
+                data.detail["removeTorrentAndData"] &&
+                data.detail.removeTorrentAndData.progress === 100
+              ) {
+                item.status = "completed";
+              }
+              if (item.status === "failed" || item.status === "completed") {
                 item.gc.unsubscribe();
               }
             }
           }
         );
       } else {
-        if (item.status === "failed" || item.status === "success") {
+        if (item.status === "failed" || item.status === "completed") {
         } else {
           item.gc.unsubscribe();
         }
@@ -280,6 +309,9 @@ Vue.component("ptTaskLog", {
     const payload = {};
     const wlp = window.location.pathname;
     let apiPath = "";
+    const pageFromQuery = getParameterByName("page");
+    const queryPage = pageFromQuery ? pageFromQuery : 1;
+    payload.page = queryPage;
     if (wlp.indexOf("pending_pt_task") !== -1) {
       apiPath = "/pending_pt_task_data";
     } else if (wlp.indexOf("completed_pt_task") !== -1) {

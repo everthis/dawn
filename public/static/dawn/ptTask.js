@@ -1885,11 +1885,12 @@ var _flash = __webpack_require__(/*! ../common/flash */ 82);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var stack = [];
-var torrentDetailEl = document.getElementsByClassName("torrent-detail-popup")[0];
-var torrentDetailWrapEl = document.getElementsByClassName("torrent-detail-wrap")[0];
 
 var listData = [];
 var ptTasks = [];
+var timer = void 0;
+var remainingSeconds = 10;
+var ptTaskCountDownEl = void 0;
 function queryId(ev) {
   var searchInputEl = document.getElementById("pt-tasks-q");
   var q = searchInputEl.value;
@@ -1898,6 +1899,7 @@ function queryId(ev) {
     return;
   }
   stack.push(q);
+  startCountDown();
   fetch("/pt_task_search?q=" + q, {
     credentials: "same-origin",
     headers: {
@@ -1906,6 +1908,7 @@ function queryId(ev) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
+    stopCountDown();
     shouldContinue(data, q);
   });
 }
@@ -1927,10 +1930,36 @@ function getDetailContent(_ref) {
   });
 }
 
+function startCountDown() {
+  ptTaskCountDownEl = document.getElementById("pt-task-query-timer");
+  initCountDown();
+  countDown();
+}
+function stopCountDown() {
+  initCountDown();
+  ptTaskCountDownEl.innerHTML = "";
+}
+function initCountDown() {
+  remainingSeconds = 10;
+  clearTimeout(timer);
+}
+function countDown() {
+  remainingSeconds -= 1;
+  ptTaskCountDownEl.innerHTML = "\u67E5\u8BE2Timeout\u5012\u8BA1\u65F6\uFF1A" + remainingSeconds + "\u79D2";
+  if (remainingSeconds === 0) {
+    clearTimeout(timer);
+  } else {
+    timer = setTimeout(function () {
+      countDown();
+    }, 1000);
+  }
+}
 function getTorrentDetail(_ref2) {
   var id = _ref2.id,
       source = _ref2.source;
 
+  var torrentDetailEl = document.getElementsByClassName("torrent-detail-popup")[0];
+  var torrentDetailWrapEl = document.getElementsByClassName("torrent-detail-wrap")[0];
   getDetailContent({ id: id, source: source }).then(function (data) {
     torrentDetailEl.innerHTML = data.detailHtml;
     torrentDetailWrapEl.classList.remove("c-hide");
@@ -1969,9 +1998,23 @@ function shouldContinue(data, q) {
 }
 function renderList(arr) {
   var res = [];
-  arr.forEach(function (el) {
-    res.push("\n      <div class=\"per-pt-task c-border c-center c-padding " + (el.torrentSource ? el.torrentSource : "") + " " + (checkAvailability(el) ? "" : "not-available") + "\" data-id=\"" + el.torrentId + "\" data-source=\"" + el.torrentSource + "\">\n        <div class=\"pt-task-cover\" style=\"background-image: url(" + el.coverPic + "); \">\n        </div>\n        <div class=\"pt-task-info\">\n            <h3>" + el.chsTitle + "</h3>\n            <h3>" + el.engTitle + "</h3>\n            <div class=\"torrent-status-info\">\n                <span class=\"torrent-category c-pad-sm\">\u79CD\u5B50\u7C7B\u578B: " + el.torrentCategory + "</span>\n                <span class=\"torrent-size c-pad-sm\">\u6587\u4EF6\u5927\u5C0F: <b>" + el.torrentSize + "</b></span>\n                <span class=\"torrent-seeders c-pad-sm\">\u505A\u79CD\u6570\u91CF: <b>" + el.peersCount + "</b></span>\n                <span class=\"torrent-downloading c-pad-sm\">\u6B63\u5728\u4E0B\u8F7D\u6570\u91CF: <b>" + el.downloadingCount + "</b></span>\n            </div>\n        </div>\n        <div class=\"pt-source-op\">\n          <span class=\"pt-source c-pad-sm c-center\">\u79CD\u5B50\u6765\u6E90: " + el.torrentSource + "</span>\n          <span class=\"c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer\"\n          data-source=\"" + el.torrentSource + "\"\n          data-id=\"" + el.torrentId + "\">\u79CD\u5B50\u8BE6\u60C5</span>\n          " + (checkAvailability(el) ? addTaskHtml(el) : "") + "\n        </div>\n      </div>\n    ");
+  var summary = {
+    hdchina: {},
+    ttg: {},
+    hdroute: {}
+  };
+  arr.forEach(function (ele) {
+    if (ele._type === "timeout") {
+      summary[ele.source]["status"] = ele._type;
+    } else {
+      summary[ele.source]["total"] = ele.total;
+      ele.list.forEach(function (el) {
+        res.push("\n          <div class=\"per-pt-task c-border c-center c-padding " + (el.torrentSource ? el.torrentSource : "") + " " + (checkAvailability(el) ? "" : "not-available") + "\" data-id=\"" + el.torrentId + "\" data-source=\"" + el.torrentSource + "\">\n            <div class=\"pt-task-cover\" style=\"background-image: url(" + el.coverPic + "); \">\n            </div>\n            <div class=\"pt-task-info\">\n                <h3>" + el.chsTitle + "</h3>\n                <h3>" + el.engTitle + "</h3>\n                <div class=\"torrent-status-info\">\n                    <span class=\"torrent-category c-pad-sm\">\u79CD\u5B50\u7C7B\u578B: " + el.torrentCategory + "</span>\n                    <span class=\"torrent-size c-pad-sm\">\u6587\u4EF6\u5927\u5C0F: <b>" + el.torrentSize + "</b></span>\n                    <span class=\"torrent-seeders c-pad-sm\">\u505A\u79CD\u6570\u91CF: <b>" + el.peersCount + "</b></span>\n                    <span class=\"torrent-downloading c-pad-sm\">\u6B63\u5728\u4E0B\u8F7D\u6570\u91CF: <b>" + el.downloadingCount + "</b></span>\n                </div>\n            </div>\n            <div class=\"pt-source-op\">\n              <span class=\"pt-source c-pad-sm c-center\">\u79CD\u5B50\u6765\u6E90: " + el.torrentSource + "</span>\n              <span class=\"c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer\"\n              data-source=\"" + el.torrentSource + "\"\n              data-id=\"" + el.torrentId + "\">\u79CD\u5B50\u8BE6\u60C5</span>\n              " + (checkAvailability(el) ? addTaskHtml(el) : "") + "\n            </div>\n          </div>\n        ");
+      });
+    }
   });
+  var summaryHtmlStr = "<p>\n    <span>hdchina: " + (summary["hdchina"]["status"] === "timeout" ? "<b class='c-red c-bold'>Timeout</b>" : "<b class='c-green c-bold'>OK</b>(" + summary.hdchina.total + "条结果)") + "</span>\n    <span class='c-gap-left'>ttg: " + (summary["ttg"]["status"] === "timeout" ? "<b class='c-red c-bold'>Timeout</b>" : "<b class='c-green c-bold'>OK</b>(" + summary.ttg.total + "条结果)") + "</span>\n    <span class='c-gap-left'>hdroute: " + (summary["hdroute"]["status"] === "timeout" ? "<b class='c-red c-bold'>Timeout</b>" : "<b class='c-green c-bold'>OK</b>(" + summary.hdroute.total + "+条结果)") + "</span>\n  </p>";
+  res.unshift(summaryHtmlStr);
   resEle.innerHTML = res.join("");
   ptTasks = Array.prototype.slice.call(document.querySelectorAll(".per-pt-task.ttg")).concat(Array.prototype.slice.call(document.querySelectorAll(".per-pt-task.hdchina")));
   checkInViewport();

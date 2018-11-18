@@ -17,12 +17,16 @@
           <%= link_to t('.completed-pt-task'), completed_pt_task_path, class: 'fnpu-link' %>
         </span>
       </div>
+      <div id="pt-task-query-timer"></div>
       <div class="pt-task-hints c-pad-top c-pad-bottom c-gap-top">
         <ul>
           <li>资源来源于TTG(种子总容量2.4PB), HDC(种子总容量1.04PB), HDR(种子容量未公布)</li>
+          <li>由于各个资源站的服务状况各不相同，目前单个查询的timeout时间设置为10s</li>
+          <li>目前对于关键字查询的结果，每个PT站按做种数量由多到少取前100条</li>
           <li>做种数量为0的种子默认不能被加入任务</li>
-          <li>由于服务器资源限制，大小超过10GB的单个种子不能被加入任务</li>
-          <li>目前不能处理剧包，音乐，只能处理单集剧或者单个电影(类型为720p, 或部分体积较小的1080p)</li>
+          <li>由于本站服务器资源限制，大小超过10GB的单个种子不能被加入任务</li>
+          <li>目前不能处理剧包，音乐，纪录片，综艺等，只能处理电影(类型为720p, 或部分体积较小的1080p)</li>
+          <li>若有相关疑问和需要，请联系管理员:)</li>
         </ul>
       </div>
       <div class="pt-tasks-search-result pt-tasks-container c-pad-top"></div>

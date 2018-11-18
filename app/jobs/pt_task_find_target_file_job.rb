@@ -5,7 +5,15 @@ class PtTaskFindTargetFileJob < ApplicationJob
 
   after_perform do |job|
     hash = job.arguments.first
-    PtTaskConvertJob.perform_later(hash)
+
+    pt_task = PtTask.find_by(transmission_hash: hash)
+    unless pt_task.nil?
+      if pt_task.pt_task_log.detail['findTargetFile'].nil? || pt_task.pt_task_log.detail['findTargetFile']['progress'] < 100
+        self.class.set(wait: 5.seconds).perform_later(hash)
+      else
+        PtTaskConvertJob.perform_later(hash)
+      end
+    end
   end
 
   def perform(*args)

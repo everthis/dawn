@@ -3,15 +3,12 @@ import inViewport from "../common/inViewport";
 import { disableScroll, enableScroll } from "../common/toggleScroll";
 import { parseAndFlash } from "../common/flash";
 const stack = [];
-const torrentDetailEl = document.getElementsByClassName(
-  "torrent-detail-popup"
-)[0];
-const torrentDetailWrapEl = document.getElementsByClassName(
-  "torrent-detail-wrap"
-)[0];
 
 let listData = [];
 let ptTasks = [];
+let timer;
+let remainingSeconds = 10;
+let ptTaskCountDownEl;
 function queryId(ev) {
   const searchInputEl = document.getElementById("pt-tasks-q");
   const q = searchInputEl.value;
@@ -20,6 +17,7 @@ function queryId(ev) {
     return;
   }
   stack.push(q);
+  startCountDown();
   fetch(`/pt_task_search?q=${q}`, {
     credentials: "same-origin",
     headers: {
@@ -28,6 +26,7 @@ function queryId(ev) {
   })
     .then(res => res.json())
     .then(data => {
+      stopCountDown();
       shouldContinue(data, q);
     });
 }
@@ -44,7 +43,37 @@ function getDetailContent({ id, source }) {
   }).then(res => res.json());
 }
 
+function startCountDown() {
+  ptTaskCountDownEl = document.getElementById("pt-task-query-timer");
+  initCountDown();
+  countDown();
+}
+function stopCountDown() {
+  initCountDown();
+  ptTaskCountDownEl.innerHTML = "";
+}
+function initCountDown() {
+  remainingSeconds = 10;
+  clearTimeout(timer);
+}
+function countDown() {
+  remainingSeconds -= 1;
+  ptTaskCountDownEl.innerHTML = `查询Timeout倒计时：${remainingSeconds}秒`;
+  if (remainingSeconds === 0) {
+    clearTimeout(timer);
+  } else {
+    timer = setTimeout(() => {
+      countDown();
+    }, 1000);
+  }
+}
 function getTorrentDetail({ id, source }) {
+  const torrentDetailEl = document.getElementsByClassName(
+    "torrent-detail-popup"
+  )[0];
+  const torrentDetailWrapEl = document.getElementsByClassName(
+    "torrent-detail-wrap"
+  )[0];
   getDetailContent({ id, source }).then(data => {
     torrentDetailEl.innerHTML = data.detailHtml;
     torrentDetailWrapEl.classList.remove("c-hide");
@@ -86,47 +115,81 @@ function shouldContinue(data, q) {
 }
 function renderList(arr) {
   const res = [];
-  arr.forEach(el => {
-    res.push(`
-      <div class="per-pt-task c-border c-center c-padding ${
-        el.torrentSource ? el.torrentSource : ""
-      } ${checkAvailability(el) ? "" : "not-available"}" data-id="${
-      el.torrentId
-    }" data-source="${el.torrentSource}">
-        <div class="pt-task-cover" style="background-image: url(${
-          el.coverPic
-        }); ">
-        </div>
-        <div class="pt-task-info">
-            <h3>${el.chsTitle}</h3>
-            <h3>${el.engTitle}</h3>
-            <div class="torrent-status-info">
-                <span class="torrent-category c-pad-sm">种子类型: ${
-                  el.torrentCategory
-                }</span>
-                <span class="torrent-size c-pad-sm">文件大小: <b>${
-                  el.torrentSize
-                }</b></span>
-                <span class="torrent-seeders c-pad-sm">做种数量: <b>${
-                  el.peersCount
-                }</b></span>
-                <span class="torrent-downloading c-pad-sm">正在下载数量: <b>${
-                  el.downloadingCount
-                }</b></span>
+  const summary = {
+    hdchina: {},
+    ttg: {},
+    hdroute: {}
+  };
+  arr.forEach(ele => {
+    if (ele._type === "timeout") {
+      summary[ele.source]["status"] = ele._type;
+    } else {
+      summary[ele.source]["total"] = ele.total;
+      ele.list.forEach(el => {
+        res.push(`
+          <div class="per-pt-task c-border c-center c-padding ${
+            el.torrentSource ? el.torrentSource : ""
+          } ${checkAvailability(el) ? "" : "not-available"}" data-id="${
+          el.torrentId
+        }" data-source="${el.torrentSource}">
+            <div class="pt-task-cover" style="background-image: url(${
+              el.coverPic
+            }); ">
             </div>
-        </div>
-        <div class="pt-source-op">
-          <span class="pt-source c-pad-sm c-center">种子来源: ${
-            el.torrentSource
-          }</span>
-          <span class="c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer"
-          data-source="${el.torrentSource}"
-          data-id="${el.torrentId}">种子详情</span>
-          ${checkAvailability(el) ? addTaskHtml(el) : ""}
-        </div>
-      </div>
-    `);
+            <div class="pt-task-info">
+                <h3>${el.chsTitle}</h3>
+                <h3>${el.engTitle}</h3>
+                <div class="torrent-status-info">
+                    <span class="torrent-category c-pad-sm">种子类型: ${
+                      el.torrentCategory
+                    }</span>
+                    <span class="torrent-size c-pad-sm">文件大小: <b>${
+                      el.torrentSize
+                    }</b></span>
+                    <span class="torrent-seeders c-pad-sm">做种数量: <b>${
+                      el.peersCount
+                    }</b></span>
+                    <span class="torrent-downloading c-pad-sm">正在下载数量: <b>${
+                      el.downloadingCount
+                    }</b></span>
+                </div>
+            </div>
+            <div class="pt-source-op">
+              <span class="pt-source c-pad-sm c-center">种子来源: ${
+                el.torrentSource
+              }</span>
+              <span class="c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer"
+              data-source="${el.torrentSource}"
+              data-id="${el.torrentId}">种子详情</span>
+              ${checkAvailability(el) ? addTaskHtml(el) : ""}
+            </div>
+          </div>
+        `);
+      });
+    }
   });
+  const summaryHtmlStr = `<p>
+    <span>hdchina: ${
+      summary["hdchina"]["status"] === "timeout"
+        ? "<b class='c-red c-bold'>Timeout</b>"
+        : "<b class='c-green c-bold'>OK</b>(" +
+          summary.hdchina.total +
+          "条结果)"
+    }</span>
+    <span class='c-gap-left'>ttg: ${
+      summary["ttg"]["status"] === "timeout"
+        ? "<b class='c-red c-bold'>Timeout</b>"
+        : "<b class='c-green c-bold'>OK</b>(" + summary.ttg.total + "条结果)"
+    }</span>
+    <span class='c-gap-left'>hdroute: ${
+      summary["hdroute"]["status"] === "timeout"
+        ? "<b class='c-red c-bold'>Timeout</b>"
+        : "<b class='c-green c-bold'>OK</b>(" +
+          summary.hdroute.total +
+          "+条结果)"
+    }</span>
+  </p>`;
+  res.unshift(summaryHtmlStr);
   resEle.innerHTML = res.join("");
   ptTasks = Array.prototype.slice
     .call(document.querySelectorAll(".per-pt-task.ttg"))

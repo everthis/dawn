@@ -65,6 +65,11 @@
     max-width: 100%;
   }
 }
+.mobile {
+  .torrent-detail-popup-wrap {
+    width: 80%;
+  }
+}
 .torrent-detail-popup-close {
   position: absolute;
   display: inline-block;

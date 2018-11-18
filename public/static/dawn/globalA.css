@@ -979,6 +979,18 @@ textarea[type="hidden"] {
   padding: 0.1rem 0.15rem;
 }
 
+.c-bold {
+  font-weight: bold;
+}
+
+.c-red {
+  color: #ed3f14;
+}
+
+.c-green {
+  color: #19be6b;
+}
+
 .c-tag.c-tag-blue, .c-tag.c-tag-green, .c-tag.c-tag-red, .c-tag.c-tag-yellow {
   color: #fff;
   border: none;
@@ -1415,7 +1427,7 @@ textarea[type="hidden"] {
 }
 
 .users .row + .row {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .users input {
@@ -1452,6 +1464,10 @@ textarea[type="hidden"] {
 .form-container {
   margin: 0 auto;
   width: 40rem;
+}
+
+.mobile .form-container {
+  width: initial;
 }
 
 .row {
@@ -1504,6 +1520,28 @@ textarea[type="hidden"] {
   height: initial;
 }
 
+.mobile .signin-form {
+  width: 85%;
+}
+
+.mobile .signin-form * {
+  line-height: 6rem;
+  font-size: 36px;
+}
+
+.mobile .signin-form input {
+  height: 6rem;
+}
+
+.mobile .signin-form .password-set .forget-pwd-link {
+  top: 5.8rem;
+  right: 2rem;
+}
+
+.mobile .signin-form .remember-checkbox {
+  width: 6rem;
+}
+
 .signup-form {
   position: relative;
   width: 30rem;
@@ -1546,6 +1584,12 @@ textarea[type="hidden"] {
   text-align: center;
 }
 
+.mobile .extra {
+  height: 6rem;
+  line-height: 6rem;
+  font-size: 48px;
+}
+
 .users-list {
   margin: 0 auto;
   width: 50rem;
@@ -1560,19 +1604,19 @@ textarea[type="hidden"] {
 }
 
 .userName, .email {
-  padding: 0 .2rem;
+  padding: 0 0.2rem;
 }
 
 .show-link {
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .show-link + .edit-link {
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .edit-link + .delete-user {
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .tweet-box[contenteditable="true"] {
@@ -1781,7 +1825,7 @@ textarea[type="hidden"] {
 }
 
 .sessions .row + .row {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .sessions input {
@@ -1805,6 +1849,11 @@ textarea[type="hidden"] {
   background-color: #fff;
   border: 1px solid #999;
   border-radius: 4px;
+}
+
+.mobile .sessions .row {
+  height: 6rem;
+  line-height: 6rem;
 }
 
 .password_resets .row {
@@ -4602,6 +4651,10 @@ table.CodeRay {
 
 .torrent-detail-popup-wrap img {
   max-width: 100%;
+}
+
+.mobile .torrent-detail-popup-wrap {
+  width: 80%;
 }
 
 .torrent-detail-popup-close {

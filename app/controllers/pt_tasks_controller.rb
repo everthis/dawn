@@ -1,9 +1,11 @@
 require 'uri'
 require 'net/http'
 require 'rqrcode'
+require 'pagination_list_link_renderer'
 class PtTasksController < CBaseController
   skip_before_action :verify_authenticity_token
   before_action :set_pt_task, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :create, :new, :show, :edit, :update, :destroy, :query, :torrentDetail, :ttgCover, :addTask, :pending, :pendingData, :completed, :completedData]
 
   # GET /pt_tasks
   # GET /pt_tasks.json
@@ -98,20 +100,20 @@ class PtTasksController < CBaseController
   end
 
   def pending
-    @pt_tasks = PtTask.where('status IN (?)', ['waiting', 'pending']).paginate(page: params[:page]).order("created_at ASC")
+    @pt_tasks = PtTask.where('status IN (?)', ['waiting', 'pending']).paginate(page: params[:page], :per_page => 10).order("created_at ASC")
   end
 
   def pendingData
-    @pt_tasks = PtTask.where('status IN (?)', ['waiting', 'pending']).paginate(page: params[:page]).order("created_at ASC")
+    @pt_tasks = PtTask.where('status IN (?)', ['waiting', 'pending']).paginate(page: params[:page], :per_page => 10).order("created_at ASC")
     render json: @pt_tasks, status: :ok
   end
 
   def completed
-    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page]).order("created_at ASC")
+    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page], :per_page => 10).order("created_at ASC")
   end
 
   def completedData
-    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page]).order("created_at ASC")
+    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page], :per_page => 10).order("created_at ASC")
     render json: @pt_tasks, status: :ok
   end
 

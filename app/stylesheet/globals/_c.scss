@@ -238,3 +238,12 @@
     @extend .c-input;
   }
 }
+.c-bold {
+  font-weight: bold;
+}
+.c-red {
+  color: $red;
+}
+.c-green {
+  color: $green;
+}

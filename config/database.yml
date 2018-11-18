@@ -6,7 +6,7 @@
 #
 default: &default
   adapter: sqlite3
-  pool: 5
+  pool: 10
   timeout: 5000
 
 development:
@@ -14,7 +14,7 @@ development:
   encoding: unicode
   host: localhost
   database: dawn_<%= Rails.env %>
-  pool: 5
+  pool: 10
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
 
@@ -36,12 +36,10 @@ test:
   database: dawn_<%= Rails.env %>
   # username: <%= ENV['TRAVIS'] ? "postgres" : ENV["DB_USERNAME"] %>
   # password: <%= ENV['TRAVIS'] ? "" : ENV["DB_PASSWORD"] %>
-
 # production:
 #   adapter: postgresql
 #   database: dawn_<%= Rails.env %>
 #   statement_limit: 200
 #   username: <%= ENV['TRAVIS'] ? 'postgres' : ENV["DB_USERNAME"] %>
 #   password: <%= ENV['TRAVIS'] ? '' : ENV["DB_PASSWORD"] %>
-
 

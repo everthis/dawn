@@ -9,6 +9,8 @@
     <%= link_to t('.pt-tasks'), pt_tasks_path, class: 'fnpu-link' %>
     <%= link_to t('.completed-pt-task'), completed_pt_task_path, class: 'fnpu-link' %>
   </div>
+
+  <%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>
   <div class="pt-task-hints c-pad-top c-pad-bottom c-gap-top">
     <ul>
       <li>每个任务有三种状态：waiting（已被添加，等待执行），pending（正在执行），completed（执行完毕）</li>
@@ -18,7 +20,7 @@
   <div id="app">
     <pt-task-log></pt-task-log>
   </div>
-  <%= will_paginate @ci_packages, :renderer => PaginationListLinkRenderer %>
+  <%= will_paginate @pt_tasks, :renderer => PaginationListLinkRenderer %>
 </div>
 
 
