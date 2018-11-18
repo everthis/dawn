@@ -372,19 +372,19 @@ Vue.component("ptTaskLog", {
 });
 
 export function PtTaskLog() {
+  console.log("init");
   App = {};
 
   App.cable = ActionCable.createConsumer();
-  setTimeout(() => {
-    vueApp = new Vue({
-      el: "#app"
-    });
-  }, 200);
+  vueApp = new Vue({
+    el: "#app"
+  });
 
   // listenApiQuery();
 }
 
 export function exitPtTaskLog() {
+  console.log("exit");
   if (vueApp) vueApp.$destroy();
   vueApp = null;
   App.cable.disconnect();

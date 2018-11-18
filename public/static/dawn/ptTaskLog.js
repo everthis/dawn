@@ -9836,19 +9836,19 @@ _vue2.default.component("ptTaskLog", {
 });
 
 function PtTaskLog() {
+  console.log("init");
   App = {};
 
   App.cable = ActionCable.createConsumer();
-  setTimeout(function () {
-    vueApp = new _vue2.default({
-      el: "#app"
-    });
-  }, 200);
+  vueApp = new _vue2.default({
+    el: "#app"
+  });
 
   // listenApiQuery();
 }
 
 function exitPtTaskLog() {
+  console.log("exit");
   if (vueApp) vueApp.$destroy();
   vueApp = null;
   App.cable.disconnect();
