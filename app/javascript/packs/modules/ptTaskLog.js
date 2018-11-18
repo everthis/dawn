@@ -372,19 +372,17 @@ Vue.component("pt-task-log", {
 });
 
 export function PtTaskLog() {
-  console.log("init");
   App = {};
 
   App.cable = ActionCable.createConsumer();
   vueApp = new Vue({
-    el: "#app"
+    el: "pt-task-log"
   });
 
   // listenApiQuery();
 }
 
 export function exitPtTaskLog() {
-  console.log("exit");
   if (vueApp) vueApp.$destroy();
   vueApp = null;
   App.cable.disconnect();

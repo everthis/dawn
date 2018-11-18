@@ -9680,7 +9680,7 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-_vue2.default.component("ptTaskLog", {
+_vue2.default.component("pt-task-log", {
   data: function data() {
     return {
       tasksInput: [],
@@ -9836,19 +9836,17 @@ _vue2.default.component("ptTaskLog", {
 });
 
 function PtTaskLog() {
-  console.log("init");
   App = {};
 
   App.cable = ActionCable.createConsumer();
   vueApp = new _vue2.default({
-    el: "#app"
+    el: "pt-task-log"
   });
 
   // listenApiQuery();
 }
 
 function exitPtTaskLog() {
-  console.log("exit");
   if (vueApp) vueApp.$destroy();
   vueApp = null;
   App.cable.disconnect();
