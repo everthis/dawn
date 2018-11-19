@@ -110,7 +110,7 @@ function getTorrentCover(el) {
 }
 function shouldContinue(data, q) {
   if (stack.length > 0 && q === stack[stack.length - 1]) {
-    listData = data;
+    listData = []
     renderList(data);
   }
 }
@@ -126,6 +126,7 @@ function renderList(arr) {
       summary[ele.source]["status"] = ele._type;
     } else {
       summary[ele.source]["total"] = ele.total;
+      listData = listData.concat(ele.list)
       ele.list.forEach(el => {
         res.push(`
           <div class="per-pt-task c-border c-center c-padding ${
