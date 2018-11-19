@@ -1,6 +1,5 @@
 import { $http } from "../common/ajax";
 import { disableScroll, enableScroll } from "../common/toggleScroll";
-import Vue from "vue";
 import { insertAfter, strToDom, debounce } from "../common/utilities";
 
 let vueApp;

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 let vueApp
 Vue.component('new-packages', {
   props: ['textareaInput'],
