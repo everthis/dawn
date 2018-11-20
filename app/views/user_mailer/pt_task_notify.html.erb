@@ -1,9 +1,23 @@
 <% base_info = JSON.parse @pt_task['torrent_base_info']%>
-<h3><%= base_info['chsTitle'] %></h3>
-<h3><%= base_info['engTitle'] %></h3>
-<p>
-<img style="display:block;width:480px;height:480px;"
-src="<%= @qrcodeUrl %>" /></p>
-<div>
-   has alreay been uploaded.
+<div style="width: 540px;
+  padding: 15px;
+  border: 1px solid #B2EBF2;
+  box-sizing: border-box;
+  border-radius: 4px;
+  -webkit-border-radius: 5px;
+  font-family: 'Verdana', 'Georgia', 'Calibri', 'Serif', 'Times New Roman';
+  margin:0 auto;
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 60%, #fff), -webkit-linear-gradient(20deg, #e0f1ff 32%, #fffae3);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #fff), linear-gradient(70deg, #e0f1ff 32%, #fffae3);">
+<h4>Hi, <%= @user.name %></h4>
+<p style="word-break: break-all; font-size: 14px;">你添加的任务：<b><%= base_info['chsTitle'] %>（<%= base_info['engTitle'] %>）</b>已经处理完成。</p>
+<p style="word-break: break-all; font-size: 14px;">你可以选择扫描二维码，或者点击下方链接观看。</p>
+<p style="word-break: break-all; font-size: 14px;">二维码和链接的有效期均为三个小时，如果超过有效期，可前往<a style="outline: none;"
+href="https://www.everthis.com/pt_tasks">https://www.everthis.com/pt_tasks</a>自行观看。</p>
+<p style="text-align:center;">
+  <img style="display:inline-block;width:480px;height:480px;" src="<%= @qrcodeUrl %>" />
+</p>
+<p><a style="word-break: break-all; font-size: 14px;" href="<%= @signUrl %>"><%= @signUrl %></a></p>
+<h1 style="text-align:center;">:)</h1>
+
 </div>
