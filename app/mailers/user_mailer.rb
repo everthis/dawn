@@ -43,7 +43,7 @@ class UserMailer < ApplicationMailer
     @signUrl = cfetch(ENV["PT_TASK_ORIGIN"] + '/getSignUrl?fpath=' + encodeUri(fileName))
     qrcode = RQRCode::QRCode.new(@signUrl)
     fileName = hash + '-' + DateTime.now.to_i.to_s + '.png'
-    @imgPath = 'pt-task/' + fileName
+    @imgPath = 'uploads/qrcode/' + fileName
     qrcode_str = qrcode.as_png(
       resize_gte_to: false,
       resize_exactly_to: false,
@@ -61,7 +61,7 @@ class UserMailer < ApplicationMailer
       hostPath = 'http://192.168.1.209:8678/'
     end
     # @qrcode = Base64.encode64(qrcode_str)
-    @qrcodeUrl = hostPath + 'ext-assets/' + @imgPath
+    @qrcodeUrl = hostPath + @imgPath
     mail to: @user.email, subject: "Task notification"
   end
 

@@ -1,26 +1,23 @@
-class PtTaskCheckConvertProgressJob < ApplicationJob
+class PtTaskRsyncProgressJob < ApplicationJob
   queue_as :default
 
   after_perform do |job|
     hash = job.arguments.first
     pt_task_log = PtTask.find_by(transmission_hash: hash).pt_task_log
-    pt_task_log.detail['convert'] = {} if pt_task_log.detail['convert'].nil?
+    pt_task_log.detail['rsync'] = {} if pt_task_log.detail['rsync'].nil?
 
-    if pt_task_log.detail['convert']['progress'].nil?
+    if pt_task_log.detail['rsync']['progress'].nil?
       self.class.set(wait: 5.seconds).perform_later(hash)
     else
-      if pt_task_log.detail['convert']['progress'] < 100
+      if pt_task_log.detail['rsync']['progress'] < 100
         self.class.set(wait: 5.seconds).perform_later(hash)
       else
-        PtTaskRsyncJob.perform_later(hash)
+        PtTaskUploadJob.perform_later(hash)
       end
-
     end
-
   end
 
-
   def perform(*args)
-    hash = args[0]
+    # Do something later
   end
 end
