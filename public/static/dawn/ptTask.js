@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 162);
+/******/ 	return __webpack_require__(__webpack_require__.s = 161);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1291,38 +1291,7 @@ for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList'
 /* 60 */,
 /* 61 */,
 /* 62 */,
-/* 63 */
-/* no static exports found */
-/* all exports used */
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
+/* 63 */,
 /* 64 */,
 /* 65 */,
 /* 66 */,
@@ -1340,9 +1309,7 @@ module.exports = g;
 /* 78 */,
 /* 79 */,
 /* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */
+/* 81 */
 /* no static exports found */
 /* all exports used */
 /*!**********************************************!*\
@@ -1389,11 +1356,11 @@ function parseAndFlash(data, callback) {
 }
 
 /***/ }),
+/* 82 */,
+/* 83 */,
 /* 84 */,
 /* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */
+/* 86 */
 /* no static exports found */
 /* all exports used */
 /*!***********************************************!*\
@@ -1426,7 +1393,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 89 */
+/* 87 */
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\
@@ -1447,6 +1414,8 @@ function isInViewport(elem) {
 }
 
 /***/ }),
+/* 88 */,
+/* 89 */,
 /* 90 */,
 /* 91 */,
 /* 92 */,
@@ -1460,9 +1429,7 @@ function isInViewport(elem) {
 /* 100 */,
 /* 101 */,
 /* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */
+/* 103 */
 /* no static exports found */
 /* all exports used */
 /*!*****************************************************!*\
@@ -1480,7 +1447,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 106 */
+/* 104 */
 /* no static exports found */
 /* all exports used */
 /*!*************************************************!*\
@@ -1502,7 +1469,7 @@ module.exports = function(iterator, fn, value, entries){
 };
 
 /***/ }),
-/* 107 */
+/* 105 */
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\
@@ -1533,7 +1500,7 @@ module.exports = function(exec, skipClosing){
 };
 
 /***/ }),
-/* 108 */
+/* 106 */
 /* no static exports found */
 /* all exports used */
 /*!***************************************************************!*\
@@ -1541,7 +1508,7 @@ module.exports = function(exec, skipClosing){
   \***************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof   = __webpack_require__(/*! ./_classof */ 88)
+var classof   = __webpack_require__(/*! ./_classof */ 86)
   , ITERATOR  = __webpack_require__(/*! ./_wks */ 1)('iterator')
   , Iterators = __webpack_require__(/*! ./_iterators */ 12);
 module.exports = __webpack_require__(/*! ./_core */ 8).getIteratorMethod = function(it){
@@ -1551,6 +1518,8 @@ module.exports = __webpack_require__(/*! ./_core */ 8).getIteratorMethod = funct
 };
 
 /***/ }),
+/* 107 */,
+/* 108 */,
 /* 109 */,
 /* 110 */,
 /* 111 */,
@@ -1563,9 +1532,7 @@ module.exports = __webpack_require__(/*! ./_core */ 8).getIteratorMethod = funct
 /* 118 */,
 /* 119 */,
 /* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */
+/* 121 */
 /* no static exports found */
 /* all exports used */
 /*!********************************************!*\
@@ -1574,7 +1541,7 @@ module.exports = __webpack_require__(/*! ./_core */ 8).getIteratorMethod = funct
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx                = __webpack_require__(/*! ./_ctx */ 32)
-  , invoke             = __webpack_require__(/*! ./_invoke */ 189)
+  , invoke             = __webpack_require__(/*! ./_invoke */ 188)
   , html               = __webpack_require__(/*! ./_html */ 44)
   , cel                = __webpack_require__(/*! ./_dom-create */ 26)
   , global             = __webpack_require__(/*! ./_global */ 0)
@@ -1650,6 +1617,39 @@ module.exports = {
 };
 
 /***/ }),
+/* 122 */
+/* no static exports found */
+/* all exports used */
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 123 */,
 /* 124 */,
 /* 125 */,
 /* 126 */,
@@ -1660,8 +1660,7 @@ module.exports = {
 /* 131 */,
 /* 132 */,
 /* 133 */,
-/* 134 */,
-/* 135 */
+/* 134 */
 /* no static exports found */
 /* all exports used */
 /*!************************************************!*\
@@ -1676,11 +1675,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ 178);
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ 177);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ 175);
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ 174);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -1740,13 +1739,13 @@ exports.disposePtTask = disposePtTask;
 
 var _utilities = __webpack_require__(/*! ../common/utilities */ 21);
 
-var _inViewport = __webpack_require__(/*! ../common/inViewport */ 89);
+var _inViewport = __webpack_require__(/*! ../common/inViewport */ 87);
 
 var _inViewport2 = _interopRequireDefault(_inViewport);
 
 var _toggleScroll = __webpack_require__(/*! ../common/toggleScroll */ 42);
 
-var _flash = __webpack_require__(/*! ../common/flash */ 83);
+var _flash = __webpack_require__(/*! ../common/flash */ 81);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1859,7 +1858,7 @@ function getTorrentCover(el) {
 }
 function shouldContinue(data, q) {
   if (stack.length > 0 && q === stack[stack.length - 1]) {
-    listData = data;
+    listData = [];
     renderList(data);
   }
 }
@@ -1875,6 +1874,7 @@ function renderList(arr) {
       summary[ele.source]["status"] = ele._type;
     } else {
       summary[ele.source]["total"] = ele.total;
+      listData = listData.concat(ele.list);
       ele.list.forEach(function (el) {
         res.push("\n          <div class=\"per-pt-task c-border c-center c-padding " + (el.torrentSource ? el.torrentSource : "") + " " + (checkAvailability(el) ? "" : "not-available") + "\" data-id=\"" + el.torrentId + "\" data-source=\"" + el.torrentSource + "\">\n            <div class=\"pt-task-cover\" style=\"background-image: url(" + el.coverPic + "); \">\n            </div>\n            <div class=\"pt-task-info\">\n                <h3>" + el.chsTitle + "</h3>\n                <h3>" + el.engTitle + "</h3>\n                <div class=\"torrent-status-info\">\n                    <span class=\"torrent-category c-pad-sm\">\u79CD\u5B50\u7C7B\u578B: " + el.torrentCategory + "</span>\n                    <span class=\"torrent-size c-pad-sm\">\u6587\u4EF6\u5927\u5C0F: <b>" + el.torrentSize + "</b></span>\n                    <span class=\"torrent-seeders c-pad-sm\">\u505A\u79CD\u6570\u91CF: <b>" + el.peersCount + "</b></span>\n                    <span class=\"torrent-downloading c-pad-sm\">\u6B63\u5728\u4E0B\u8F7D\u6570\u91CF: <b>" + el.downloadingCount + "</b></span>\n                </div>\n            </div>\n            <div class=\"pt-source-op\">\n              <span class=\"pt-source c-pad-sm c-center\">\u79CD\u5B50\u6765\u6E90: " + el.torrentSource + "</span>\n              <span class=\"c-center c-gap-top c-pad-sm pt-torrent-detail c-pointer\"\n              data-source=\"" + el.torrentSource + "\"\n              data-id=\"" + el.torrentId + "\">\u79CD\u5B50\u8BE6\u60C5</span>\n              " + (checkAvailability(el) ? addTaskHtml(el) : "") + "\n            </div>\n          </div>\n        ");
       });
@@ -2038,6 +2038,7 @@ function disposePtTask() {
 }
 
 /***/ }),
+/* 135 */,
 /* 136 */,
 /* 137 */,
 /* 138 */,
@@ -2063,8 +2064,7 @@ function disposePtTask() {
 /* 158 */,
 /* 159 */,
 /* 160 */,
-/* 161 */,
-/* 162 */
+/* 161 */
 /* no static exports found */
 /* all exports used */
 /*!************************************************!*\
@@ -2075,7 +2075,7 @@ function disposePtTask() {
 "use strict";
 
 
-var _ptTask = __webpack_require__(/*! ../modules/ptTask */ 135);
+var _ptTask = __webpack_require__(/*! ../modules/ptTask */ 134);
 
 (function () {
   A.init[A.gc.currentName] = _ptTask.initPtTask;
@@ -2083,6 +2083,7 @@ var _ptTask = __webpack_require__(/*! ../modules/ptTask */ 135);
 })();
 
 /***/ }),
+/* 162 */,
 /* 163 */,
 /* 164 */,
 /* 165 */,
@@ -2093,8 +2094,7 @@ var _ptTask = __webpack_require__(/*! ../modules/ptTask */ 135);
 /* 170 */,
 /* 171 */,
 /* 172 */,
-/* 173 */,
-/* 174 */
+/* 173 */
 /* no static exports found */
 /* all exports used */
 /*!********************************************!*\
@@ -2102,10 +2102,10 @@ var _ptTask = __webpack_require__(/*! ../modules/ptTask */ 135);
   \********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(/*! core-js/library/fn/promise */ 185), __esModule: true };
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/promise */ 184), __esModule: true };
 
 /***/ }),
-/* 175 */
+/* 174 */
 /* no static exports found */
 /* all exports used */
 /*!*****************************************************!*\
@@ -2118,7 +2118,7 @@ module.exports = { "default": __webpack_require__(/*! core-js/library/fn/promise
 
 exports.__esModule = true;
 
-var _promise = __webpack_require__(/*! ../core-js/promise */ 174);
+var _promise = __webpack_require__(/*! ../core-js/promise */ 173);
 
 var _promise2 = _interopRequireDefault(_promise);
 
@@ -2154,9 +2154,9 @@ exports.default = function (fn) {
 };
 
 /***/ }),
+/* 175 */,
 /* 176 */,
-/* 177 */,
-/* 178 */
+/* 177 */
 /* no static exports found */
 /* all exports used */
 /*!**********************************************!*\
@@ -2164,17 +2164,17 @@ exports.default = function (fn) {
   \**********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 199);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 198);
 
 
 /***/ }),
+/* 178 */,
 /* 179 */,
 /* 180 */,
 /* 181 */,
 /* 182 */,
 /* 183 */,
-/* 184 */,
-/* 185 */
+/* 184 */
 /* no static exports found */
 /* all exports used */
 /*!*****************************************!*\
@@ -2185,11 +2185,11 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 199);
 __webpack_require__(/*! ../modules/es6.object.to-string */ 57);
 __webpack_require__(/*! ../modules/es6.string.iterator */ 47);
 __webpack_require__(/*! ../modules/web.dom.iterable */ 58);
-__webpack_require__(/*! ../modules/es6.promise */ 198);
+__webpack_require__(/*! ../modules/es6.promise */ 197);
 module.exports = __webpack_require__(/*! ../modules/_core */ 8).Promise;
 
 /***/ }),
-/* 186 */
+/* 185 */
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\
@@ -2204,8 +2204,8 @@ module.exports = function(it, Constructor, name, forbiddenField){
 };
 
 /***/ }),
-/* 187 */,
-/* 188 */
+/* 186 */,
+/* 187 */
 /* no static exports found */
 /* all exports used */
 /*!**********************************************!*\
@@ -2214,11 +2214,11 @@ module.exports = function(it, Constructor, name, forbiddenField){
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx         = __webpack_require__(/*! ./_ctx */ 32)
-  , call        = __webpack_require__(/*! ./_iter-call */ 106)
-  , isArrayIter = __webpack_require__(/*! ./_is-array-iter */ 105)
+  , call        = __webpack_require__(/*! ./_iter-call */ 104)
+  , isArrayIter = __webpack_require__(/*! ./_is-array-iter */ 103)
   , anObject    = __webpack_require__(/*! ./_an-object */ 7)
   , toLength    = __webpack_require__(/*! ./_to-length */ 43)
-  , getIterFn   = __webpack_require__(/*! ./core.get-iterator-method */ 108)
+  , getIterFn   = __webpack_require__(/*! ./core.get-iterator-method */ 106)
   , BREAK       = {}
   , RETURN      = {};
 var exports = module.exports = function(iterable, entries, fn, that, ITERATOR){
@@ -2240,7 +2240,7 @@ exports.BREAK  = BREAK;
 exports.RETURN = RETURN;
 
 /***/ }),
-/* 189 */
+/* 188 */
 /* no static exports found */
 /* all exports used */
 /*!**********************************************!*\
@@ -2266,7 +2266,7 @@ module.exports = function(fn, args, that){
 };
 
 /***/ }),
-/* 190 */
+/* 189 */
 /* no static exports found */
 /* all exports used */
 /*!*************************************************!*\
@@ -2275,7 +2275,7 @@ module.exports = function(fn, args, that){
 /***/ (function(module, exports, __webpack_require__) {
 
 var global    = __webpack_require__(/*! ./_global */ 0)
-  , macrotask = __webpack_require__(/*! ./_task */ 123).set
+  , macrotask = __webpack_require__(/*! ./_task */ 121).set
   , Observer  = global.MutationObserver || global.WebKitMutationObserver
   , process   = global.process
   , Promise   = global.Promise
@@ -2344,8 +2344,8 @@ module.exports = function(){
 };
 
 /***/ }),
-/* 191 */,
-/* 192 */
+/* 190 */,
+/* 191 */
 /* no static exports found */
 /* all exports used */
 /*!****************************************************!*\
@@ -2362,7 +2362,7 @@ module.exports = function(target, src, safe){
 };
 
 /***/ }),
-/* 193 */
+/* 192 */
 /* no static exports found */
 /* all exports used */
 /*!***************************************************!*\
@@ -2387,7 +2387,7 @@ module.exports = function(KEY){
 };
 
 /***/ }),
-/* 194 */
+/* 193 */
 /* no static exports found */
 /* all exports used */
 /*!***********************************************************!*\
@@ -2405,10 +2405,10 @@ module.exports = function(O, D){
 };
 
 /***/ }),
+/* 194 */,
 /* 195 */,
 /* 196 */,
-/* 197 */,
-/* 198 */
+/* 197 */
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -2421,15 +2421,15 @@ module.exports = function(O, D){
 var LIBRARY            = __webpack_require__(/*! ./_library */ 23)
   , global             = __webpack_require__(/*! ./_global */ 0)
   , ctx                = __webpack_require__(/*! ./_ctx */ 32)
-  , classof            = __webpack_require__(/*! ./_classof */ 88)
+  , classof            = __webpack_require__(/*! ./_classof */ 86)
   , $export            = __webpack_require__(/*! ./_export */ 16)
   , isObject           = __webpack_require__(/*! ./_is-object */ 9)
   , aFunction          = __webpack_require__(/*! ./_a-function */ 38)
-  , anInstance         = __webpack_require__(/*! ./_an-instance */ 186)
-  , forOf              = __webpack_require__(/*! ./_for-of */ 188)
-  , speciesConstructor = __webpack_require__(/*! ./_species-constructor */ 194)
-  , task               = __webpack_require__(/*! ./_task */ 123).set
-  , microtask          = __webpack_require__(/*! ./_microtask */ 190)()
+  , anInstance         = __webpack_require__(/*! ./_an-instance */ 185)
+  , forOf              = __webpack_require__(/*! ./_for-of */ 187)
+  , speciesConstructor = __webpack_require__(/*! ./_species-constructor */ 193)
+  , task               = __webpack_require__(/*! ./_task */ 121).set
+  , microtask          = __webpack_require__(/*! ./_microtask */ 189)()
   , PROMISE            = 'Promise'
   , TypeError          = global.TypeError
   , process            = global.process
@@ -2621,7 +2621,7 @@ if(!USE_NATIVE){
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(/*! ./_redefine-all */ 192)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(/*! ./_redefine-all */ 191)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected){
       var reaction    = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -2648,7 +2648,7 @@ if(!USE_NATIVE){
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
 __webpack_require__(/*! ./_set-to-string-tag */ 17)($Promise, PROMISE);
-__webpack_require__(/*! ./_set-species */ 193)(PROMISE);
+__webpack_require__(/*! ./_set-species */ 192)(PROMISE);
 Wrapper = __webpack_require__(/*! ./_core */ 8)[PROMISE];
 
 // statics
@@ -2672,7 +2672,7 @@ $export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
     return capability.promise;
   }
 });
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(/*! ./_iter-detect */ 107)(function(iter){
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(/*! ./_iter-detect */ 105)(function(iter){
   $Promise.all(iter)['catch'](empty);
 })), PROMISE, {
   // 25.4.4.1 Promise.all(iterable)
@@ -2718,7 +2718,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(/*! ./_iter-
 });
 
 /***/ }),
-/* 199 */
+/* 198 */
 /* no static exports found */
 /* all exports used */
 /*!*************************************************!*\
@@ -2744,7 +2744,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 200);
+module.exports = __webpack_require__(/*! ./runtime */ 199);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -2758,10 +2758,10 @@ if (hadRuntime) {
   }
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 63)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 122)))
 
 /***/ }),
-/* 200 */
+/* 199 */
 /* no static exports found */
 /* all exports used */
 /*!******************************************!*\
@@ -3506,7 +3506,7 @@ if (hadRuntime) {
   typeof self === "object" ? self : this
 );
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 63)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 122)))
 
 /***/ })
 /******/ ]);

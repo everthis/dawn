@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 156);
+/******/ 	return __webpack_require__(__webpack_require__.s = 155);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 156:
+/***/ 155:
 /* no static exports found */
 /* all exports used */
 /*!*******************************************************!*\
@@ -79,7 +79,7 @@
 "use strict";
 
 
-var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 82);
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 80);
 
 (function () {
   var cname = A.gc.currentName;
@@ -145,7 +145,7 @@ var rorParams = exports.rorParams = {
 
 /***/ }),
 
-/***/ 82:
+/***/ 80:
 /* no static exports found */
 /* all exports used */
 /*!******************************************************!*\

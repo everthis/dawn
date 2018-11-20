@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 159);
+/******/ 	return __webpack_require__(__webpack_require__.s = 158);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 137:
+/***/ 136:
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -221,7 +221,7 @@ function exitTweetBox() {
 
 /***/ }),
 
-/***/ 159:
+/***/ 158:
 /* no static exports found */
 /* all exports used */
 /*!**************************************************!*\
@@ -232,9 +232,9 @@ function exitTweetBox() {
 "use strict";
 
 
-var _tweetBox = __webpack_require__(/*! ../modules/tweetBox */ 137);
+var _tweetBox = __webpack_require__(/*! ../modules/tweetBox */ 136);
 
-var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 82);
+var _handleMethod = __webpack_require__(/*! ../common/handleMethod2 */ 80);
 
 var cname = A.gc.currentName;
 var hmInstance = void 0;
@@ -340,7 +340,7 @@ var rorParams = exports.rorParams = {
 
 /***/ }),
 
-/***/ 82:
+/***/ 80:
 /* no static exports found */
 /* all exports used */
 /*!******************************************************!*\

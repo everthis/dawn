@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "/static/dawn/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 160);
+/******/ 	return __webpack_require__(__webpack_require__.s = 159);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 132:
+/***/ 131:
 /* no static exports found */
 /* all exports used */
 /*!*******************************************************!*\
@@ -161,7 +161,7 @@ function disposeInstagramUser() {
 
 /***/ }),
 
-/***/ 160:
+/***/ 159:
 /* no static exports found */
 /* all exports used */
 /*!*******************************************************!*\
@@ -172,7 +172,7 @@ function disposeInstagramUser() {
 "use strict";
 
 
-var _instagramUser = __webpack_require__(/*! ../modules/instagramUser */ 132);
+var _instagramUser = __webpack_require__(/*! ../modules/instagramUser */ 131);
 
 (function () {
   A.init[A.gc.currentName] = _instagramUser.initInstagramUser;

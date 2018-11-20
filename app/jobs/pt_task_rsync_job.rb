@@ -10,7 +10,7 @@ class PtTaskRsyncJob < ApplicationJob
     hash = args[0]
     pt_task_log = PtTask.find_by(transmission_hash: hash).pt_task_log
     fpath = pt_task_log.detail['convert']['fpath']
-    res = cfetch(ENV['PT_TASK_ORIGIN'] + '/rsync?hash=' + encodeUri(hash) + '&fpath=' + encodeUri(fpath))
+    res = cfetch(ENV['RSYNC_UPLOAD_HOST'] + '/rsync?hash=' + encodeUri(hash) + '&fpath=' + encodeUri(fpath))
   end
 
   def encodeUri(str)
