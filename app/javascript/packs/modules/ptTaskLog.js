@@ -113,6 +113,7 @@ Vue.component("pt-task-log", {
         "downloadFiles",
         "findTargetFile",
         "convert",
+        "rsync",
         "upload",
         "removeTorrentAndData"
       ]
@@ -153,7 +154,7 @@ Vue.component("pt-task-log", {
               @click="toggleLog(task)">{{ task.showLogs ? taskLogUnfoldedText : taskLogFoldedText }}</span>
             </div>
           </div>
-
+          <p v-if="task.showLogs && !task.logReceived" class="c-center">正在建立日志连接...</p>
           <div v-if="task.showLogs && taskType === 'completed' " class="pt-task-qrcode">
             <img :src="qrcodeSrc(task)" v-if="task.signUrl.length > 0" />
           </div>
@@ -182,6 +183,11 @@ Vue.component("pt-task-log", {
               <div v-else-if="el === 'convert'">
                 <span><b>耗时:</b> {{ duration(task.logDetail[el]) }}</span>
                 <span><b>转码输出文件路径：</b>{{ task.logDetail[el].fpath }}</span>
+                <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
+              </div>
+              <div v-else-if="el === 'rsync'">
+                <span><b>耗时:</b> {{ duration(task.logDetail[el]) }}</span>
+                <span><b>rsync同步文件：</b></span>
                 <span><b>进度：</b>{{ task.logDetail[el].progress }}%</span>
               </div>
               <div v-else-if="el === 'upload'">
@@ -280,6 +286,7 @@ Vue.component("pt-task-log", {
               });
             },
             received: function(data) {
+              item.logReceived = true;
               item.log = data;
               item.logDetail = data.detail;
               if (
@@ -330,6 +337,7 @@ Vue.component("pt-task-log", {
           el.qrCode = "";
           el.signUrl = "";
           el.logDetail = {};
+          el.logReceived = false;
           return el;
         });
         /* use ActionCable to update status of pending plugin */
