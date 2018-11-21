@@ -34,6 +34,8 @@ class UserMailer < ApplicationMailer
   def pt_task_notify(hash)
     @pt_task = PtTask.find_by(transmission_hash: hash)
     @user = User.find(@pt_task.user_id)
+    cherry_mail_users = ENV['CHERRY_MAIL_USERS'].split('|')
+    @is_cherry_mail = cherry_mail_users.include? @user.name
     @pt_task_log = @pt_task.pt_task_log
     if @pt_task_log.detail['upload']['fileName'].nil?
       fileName = "Butterfly.Sleep.2017.720p.BluRay.x264-WiKi.mp4"
@@ -44,11 +46,14 @@ class UserMailer < ApplicationMailer
     qrcode = RQRCode::QRCode.new(@signUrl)
     fileName = hash + '-' + DateTime.now.to_i.to_s + '.png'
     @imgPath = 'uploads/qrcode/' + fileName
+    p @is_cherry_mail
+    fill_color = @is_cherry_mail ? 'pink' : 'black'
+    qr_color = @is_cherry_mail ? 'red' : 'white'
     qrcode_str = qrcode.as_png(
       resize_gte_to: false,
       resize_exactly_to: false,
-      fill: 'white',
-      color: 'black',
+      fill: fill_color,
+      color: qr_color,
       size: 480,
       border_modules: 2,
       module_px_size: 6,
@@ -62,7 +67,11 @@ class UserMailer < ApplicationMailer
     end
     # @qrcode = Base64.encode64(qrcode_str)
     @qrcodeUrl = hostPath + @imgPath
-    mail to: @user.email, subject: "Task notification"
+    mail_template = 'pt_task_notify'
+    if @is_cherry_mail
+      mail_template = 'pt_task_notify_cherry'
+    end
+    mail to: @user.email, subject: "Task notification", template_name: mail_template
   end
 
   private
