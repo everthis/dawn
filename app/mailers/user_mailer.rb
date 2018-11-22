@@ -3,7 +3,7 @@ require 'net/http'
 require 'rqrcode'
 
 class UserMailer < ApplicationMailer
-
+  include CarrierWave::MiniMagick
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -42,24 +42,46 @@ class UserMailer < ApplicationMailer
     else
       fileName = @pt_task_log.detail['upload']['fileName']
     end
-    @signUrl = cfetch(ENV["PT_TASK_ORIGIN"] + '/getSignUrl?fpath=' + encodeUri(fileName))
+    if @is_cherry_mail
+      expires = '1y'
+    else
+      expires = ''
+    end
+    @signUrl = cfetch(ENV["PT_TASK_ORIGIN"] + '/getSignUrl?expires=' + expires + '&fpath=' + encodeUri(fileName))
     qrcode = RQRCode::QRCode.new(@signUrl)
-    fileName = hash + '-' + DateTime.now.to_i.to_s + '.png'
-    @imgPath = 'uploads/qrcode/' + fileName
-    p @is_cherry_mail
-    fill_color = @is_cherry_mail ? 'pink' : 'black'
-    qr_color = @is_cherry_mail ? 'red' : 'white'
-    qrcode_str = qrcode.as_png(
-      resize_gte_to: false,
-      resize_exactly_to: false,
-      fill: fill_color,
-      color: qr_color,
-      size: 480,
-      border_modules: 2,
-      module_px_size: 6,
-      file: Rails.root.join('public', @imgPath)
-      # file: nil # path to write
+    fileName = hash + '-' + DateTime.now.to_i.to_s
+    svgPath = 'uploads/qrcode/' + fileName + '.svg'
+
+    @imgPath = 'uploads/qrcode/' + fileName + '.png'
+    # fill_color = @is_cherry_mail ? 'pink' : 'black'
+    # qr_color = @is_cherry_mail ? 'red' : 'white'
+
+
+    svg = qrcode.as_svg(offset: 10,
+      color: 'd92c8e',
+      fill:'fff',
+      shape_rendering: 'crispEdges',
+      module_size: 11
     )
+    sp = Rails.root.join('public', svgPath)
+    np = Rails.root.join('public', @imgPath)
+    File.write(sp, svg)
+    MiniMagick::Tool::Convert.new do |convert|
+      convert.background("white")
+      convert << sp
+      convert << np
+    end
+    # qrcode_str = qrcode.as_png(
+    #   resize_gte_to: false,
+    #   resize_exactly_to: false,
+    #   fill: fill_color,
+    #   color: qr_color,
+    #   size: 480,
+    #   border_modules: 2,
+    #   module_px_size: 6,
+    #   file: Rails.root.join('public', @imgPath)
+    #   # file: nil # path to write
+    # )
     if Rails.env.production?
       hostPath = 'https://www.everthis.com/'
     else
