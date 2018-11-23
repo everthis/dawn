@@ -1,6 +1,7 @@
 <% base_info = JSON.parse @pt_task['torrent_base_info']%>
 <div style="background-color: #f4f5f9;
-background-image: url(https://www.everthis.com/uploads/micropost/picture/18/baf12c13265309.56271db2234be.jpg);">
+padding: 10px;
+background-image: url(https://www.everthis.com/uploads/micropost/picture/20/baf12c13265309.56271db2234be-min.jpg);">
   <div style="height: 20px;"></div>
   <div style="width: 540px;
     padding: 15px;
@@ -10,17 +11,68 @@ background-image: url(https://www.everthis.com/uploads/micropost/picture/18/baf1
     -webkit-border-radius: 5px;
     font-family: 'Verdana', 'Georgia', 'Calibri', 'Serif', 'Times New Roman';
     margin:0 auto;
-    background-color: rgba(255,255,255,.75);">
+    background-color: rgba(255,255,255,.75);
+      border-image:
+      url('https://www.everthis.com/uploads/micropost/picture/21/sakuranbo_cherry_frame_8090-500x375-min.jpg')  /* source */
+      40 /                    /* slice */
+      20px /    /* width */
+      10px       /* outset */
+      round;                  /* repeat */">
     <h4>Hi, <%= @user.name %></h4>
-    <p style="word-break: break-all; font-size: 14px;">你添加的任务：<b><%= base_info['chsTitle'] %>（<%= base_info['engTitle'] %>）</b>已经处理完成。</p>
-    <p style="word-break: break-all; font-size: 14px;">你可以选择扫描二维码，或者点击下方链接观看。</p>
-    <p style="word-break: break-all; font-size: 14px;">二维码和链接的有效期均为一年，如果超过有效期，可前往<a style="outline: none;"
-    href="https://www.everthis.com/pt_tasks">https://www.everthis.com/pt_tasks</a>自行观看。</p>
+    <p style="word-break: break-all; font-size: 14px; padding: 15px;">你添加的任务：<b><%= base_info['chsTitle'] %>（<%= base_info['engTitle'] %>）</b>已经处理完成。</p>
+    <p style="word-break: break-all; font-size: 14px; padding: 15px;">你可以选择扫描二维码，或者点击下方按钮观看。</p>
+
     <p style="text-align:center;">
       <img style="display:inline-block;width:480px;height:480px;" src="<%= @qrcodeUrl %>" />
     </p>
-    <p><a style="word-break: break-all; font-size: 14px;" href="<%= @signUrl %>"><%= @signUrl %></a></p>
-    <h1 style="text-align:center;">:)</h1>
+    <p style="padding: 15px;">
+      <a style="word-break: break-all;
+      text-decoration: none;
+      display: block;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      -webkit-box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+      -moz-box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+      box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+      -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+      -moz-transition: -moz-box-shadow .1s ease-in-out;
+      -o-transition: -o-box-shadow .1s ease-in-out;
+      transition: box-shadow .1s ease-in-out;
+      font-size: 50px;
+      color: #fff;
+      " href="<%= @signUrl %>">
+        <span style="display: block;
+        text-align: center;
+        padding: 20px 30px;
+        background-color: #ec528d;
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(338, 90%, 80%, .8)), to(hsla(338, 90%, 70%, .2)));
+        background-image: -webkit-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+        background-image: -moz-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+        background-image: -o-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+        -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+        box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+        font-family: '\005b8b\004f53',sans-serif;
+        line-height: 1;
+        text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
+        -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+        -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+        -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+        transition: background-color .2s ease-in-out, transform .1s ease-in-out;">点击观看</span>
+      </a>
+    </p>
+
+    <p style="word-break: break-all; font-size: 14px; padding: 15px;">此邮件里的二维码和按钮的有效期均为一年，如果超过有效期，可前往<a style="outline: none;"
+    href="https://www.everthis.com/pt_tasks">https://www.everthis.com/pt_tasks</a>自行观看。</p>
+    <div style="text-align:center;">
+      <h1 style="transform: rotate(90deg); display: inline-block; color: #320eea;">:)</h1>
+    </div>
   </div>
+  <div style="height: 20px;"></div>
+  <p style="text-align:center; font-size: 12px; color: #aaa;">cherry template by everthis.com</p>
   <div style="height: 20px;"></div>
 </div>

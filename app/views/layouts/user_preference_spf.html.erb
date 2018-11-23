@@ -4,7 +4,7 @@
   <%= favicon_link_tag 'favicon.ico' %>
   <%= csrf_meta_tags %>
 
-  <%= c_stylesheet_link_tag 'globalA' %>
+  <%= stylesheet_pack_tag 'globalA' %>
 
   <%= content_for?(:head) ? yield(:head) : nil %>
 </head>
@@ -18,7 +18,7 @@
     <div id="flash-container">
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>      
+      <% end %>
     </div>
 
     <div id="header-container">

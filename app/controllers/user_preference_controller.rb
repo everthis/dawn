@@ -55,7 +55,7 @@ class UserPreferenceController < CBaseController
   private
 
     def preference_params
-      params.require(:user_preference).permit(:locale)
+      params.require(:user_preference).permit(:locale, :pt_task_mail_template)
     end
 
     def set_user_locale

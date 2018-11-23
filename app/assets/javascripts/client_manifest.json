@@ -5,7 +5,7 @@
   "createOrEditGist.js": "createOrEditGist.js",
   "documentation.js": "documentation.js",
   "gist.js": "gist.js",
-  "globalA.css": "../stylesheets/globalA-bundle.css",
+  "globalA.css": "../stylesheets/globalA.css",
   "globalA.js": "globalA.js",
   "homepage.js": "homepage.js",
   "instagramUser.js": "instagramUser.js",

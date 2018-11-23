@@ -18,10 +18,20 @@
     <% end %>
 
     <% if logged_in? %>
+    <div class="per-user-preference c-pad-left">
+    <%= label_tag 'user_preference_locale', '语言:', class: '' %>
     <%= f.select :locale,
       options_for_select(LANGUAGES, @user_pref.locale),
       {},
       {:class => "select-change-trigger c-bg-gray"} %>
+    </div>
+    <div class="per-user-preference c-pad-left">
+      <%= label_tag 'user_preference_pt_task_mail_template', 'PT任务邮件模板:', class: '' %>
+      <%= f.select :pt_task_mail_template,
+        options_for_select({ "default" => "", "cherry" => "cherry" }, @user_pref.pt_task_mail_template || ''),
+        {},
+        {:class => "select-change-trigger c-bg-gray"} %>
+    </div>
     <% end %>
 
     <div class="row c-hide">
@@ -38,7 +48,7 @@
       var sct;
       var cname = A.gc.currentName;
       function getSelectEle() {
-        sct = document.getElementsByClassName('select-change-trigger')[0]
+        sct = document.getElementById('locale-container')
       }
       function initUserPreference() {
         getSelectEle();

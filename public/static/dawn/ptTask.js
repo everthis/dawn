@@ -1901,7 +1901,7 @@ function checkAvailability(el) {
 }
 
 function validType(str) {
-  if (str.indexOf(720) !== -1 || str.indexOf("1080") !== -1) {
+  if (str.indexOf(720) !== -1 || str.indexOf("1080") !== -1 || str.toLowerCase().indexOf("ipad") !== -1) {
     return true;
   } else {
     return false;
