@@ -160,7 +160,7 @@ Vue.component("pt-task-log", {
           </div>
 
           <div v-if="task.showLogs && task.signUrl.length > 0" class="pt-task-play-online c-gap-bottom">
-            <a href="javascript:;" @click="togglePlay(task)">{{ task.playVideoOnline ? '关闭在线播放' : '在线播放(自动播放)' }}</a>
+            <a href="javascript:;" @click="togglePlay(task)">{{ task.playVideoOnline ? '关闭在线播放' : '在线播放' }}</a>
           </div>
           <div v-if="task.signUrl.length > 0 && task.showLogs && task.playVideoOnline" class="pt-task-video c-gap-bottom">
             <video class="c-full-width" :src="task.signUrl" controls />

@@ -3945,6 +3945,25 @@ div.field, div.actions {
           transform: translate(0%, 0%);
 }
 
+.locale-form {
+  position: relative;
+  width: 30rem;
+  margin: 0.5rem auto;
+  padding: 1rem 0;
+  background-color: #f7f7f7;
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.locale-form .per-user-preference {
+  line-height: 2.5em;
+}
+
+.locale-form .per-user-preference label {
+  display: inline-block;
+  width: 10em;
+}
+
 /*
  * <div class="slider">
  *   <div class="line"></div>
@@ -4010,16 +4029,6 @@ div.field, div.actions {
   to {
     left: 100%;
   }
-}
-
-.locale-form {
-  position: relative;
-  width: 30rem;
-  margin: .5rem auto;
-  padding: 1rem 0;
-  background-color: #f7f7f7;
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .CodeRay {

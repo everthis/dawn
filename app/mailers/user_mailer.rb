@@ -34,7 +34,6 @@ class UserMailer < ApplicationMailer
   def pt_task_notify(hash)
     @pt_task = PtTask.find_by(transmission_hash: hash)
     @user = User.find(@pt_task.user_id)
-    cherry_mail_users = ENV['CHERRY_MAIL_USERS'].split('|')
     mail_tpl = @user.user_preference.pt_task_mail_template
     @pt_task_log = @pt_task.pt_task_log
     if @pt_task_log.detail['upload']['fileName'].nil?
@@ -64,7 +63,8 @@ class UserMailer < ApplicationMailer
     )
     sp = Rails.root.join('public', svgPath)
     np = Rails.root.join('public', @imgPath)
-    File.write(sp, svg)
+    # File.write(sp, svg)
+    File.open(sp, 'w') {|f| f.write(svg) }
     MiniMagick::Tool::Convert.new do |convert|
       convert.background("white")
       convert << sp
