@@ -2278,7 +2278,7 @@ Vue.component("pt-task-log", {
             item.logReceived = true;
             item.log = data;
             item.logDetail = data.detail;
-            if (data.detail["removeTorrentAndData"] && data.detail.removeTorrentAndData.progress === 100) {
+            if (data.detail && data.detail["removeTorrentAndData"] && data.detail.removeTorrentAndData.progress === 100) {
               item.status = "completed";
             }
             if (item.status === "failed" || item.status === "completed") {

@@ -1893,15 +1893,31 @@ function addTaskHtml(el) {
 }
 
 function checkAvailability(el) {
-  if (el.peersCount > 0 && validSize(el.torrentSize) && validType(el.torrentCategory)) {
+  if (el.peersCount > 0 && validSize(el.torrentSize) && validType(el.torrentCategory, el)) {
     return true;
   } else {
     return false;
   }
 }
 
-function validType(str) {
-  if (str.indexOf(720) !== -1 || str.indexOf("1080") !== -1 || str.toLowerCase().indexOf("ipad") !== -1) {
+function validTvShows(el) {
+  if (el.torrentSource === "hdchina" && el.torrentCategory === "综艺(TV Shows)" || el.torrentSource === "ttg" && el.torrentCategory.indexOf("综艺") !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function validDrama(el) {
+  if (el.torrentSource === "hdchina" && ["韩剧(Kor Drama)", "日剧(Jpn Drama)"].indexOf(el.torrentCategory) !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function validType(str, el) {
+  if (str.indexOf(720) !== -1 || str.indexOf("1080") !== -1 || str.toLowerCase().indexOf("ipad") !== -1 || validTvShows(el)) {
     return true;
   } else {
     return false;
