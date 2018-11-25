@@ -190,7 +190,7 @@ namespace :deploy do
   end
 
 
-  before "deploy:assets:precompile", "deploy:npm_install"
+  # before "deploy:assets:precompile", "deploy:npm_install"
   before 'check:linked_files', :check_env
   before 'assets:precompile', :compile_fe
   before :starting,     :check_revision
