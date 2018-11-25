@@ -35,7 +35,7 @@ lock '3.7.2'
 # set :keep_releases, 5
 
 # Change these
-server 'everthis.com', port: 8022, roles: [:web, :app, :db], primary: true
+server 'everthis.com', port: 22, roles: [:web, :app, :db], primary: true
 
 set :rvm_ruby_version, '2.5.1'
 set :repo_url,        'https://github.com/everthis/dawn.git'
