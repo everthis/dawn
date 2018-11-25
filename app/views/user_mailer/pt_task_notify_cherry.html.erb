@@ -49,13 +49,13 @@ background-image: url(https://www.everthis.com/uploads/micropost/picture/20/baf1
               background-size: contain;
             "></div>
             <h4 style="font-size: 16px;">Hi, <%= @user.name %></h4>
-            <p style="word-break: break-all; font-size: 14px; padding: 15px;">你添加的任务：<b><%= base_info['chsTitle'] %>（<%= base_info['engTitle'] %>）</b>已经处理完成。</p>
-            <p style="word-break: break-all; font-size: 14px; padding: 15px;">你可以选择扫描二维码，或者点击下方按钮观看。</p>
+            <p style="word-break: break-all; font-size: 14px; padding: 5px;">你添加的任务：<b><%= base_info['chsTitle'] %>（<%= base_info['engTitle'] %>）</b>已经处理完成。</p>
+            <p style="word-break: break-all; font-size: 14px; padding: 5px;">你可以选择扫描二维码，或者点击下方按钮观看。</p>
 
             <p style="text-align:center;">
               <img style="display:inline-block;width:100%;" src="<%= @qrcodeUrl %>" />
             </p>
-            <p style="padding: 15px;">
+            <p style="padding: 15px 0;">
               <a style="word-break: break-all;
               text-decoration: none;
               display: block;
@@ -78,6 +78,20 @@ background-image: url(https://www.everthis.com/uploads/micropost/picture/20/baf1
                   font-family: '\005b8b\004f53',sans-serif;
                   line-height: 1;
               ">点击观看</span>
+              </a>
+            </p>
+
+            <div style="word-break: break-word;
+              text-decoration: none;
+              padding: 5px;
+              font-size: 12px;
+              ">由于一些邮箱会对邮件里的链接做重定向，比如gmail里的链接会先访问https://www.google.com/url?q=，成功后再访问真实的链接内容，如果所处的网络无法访问google，那么这种时候就需要手动复制一下链接。</div>
+            <p style="padding: 5px 5px 15px;">
+              <a style="word-break: break-all;
+              text-decoration: none;
+              font-size: 12px;
+              " href="<%= @signUrl %>">
+              <%= @signUrl %>
               </a>
             </p>
 
