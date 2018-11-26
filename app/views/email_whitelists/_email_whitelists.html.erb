@@ -5,7 +5,7 @@
     </div>
       <% @email_whitelists.each do |email_whitelist| %>
         <div class="c-simulate-tr c-grid-row">
-          <span class="c-simulate-td c-grid-span32 c-text"><%= email_whitelist.email %></span>
+          <span class="c-simulate-td c-grid-span32 c-text"><%= truncate(email_whitelist.email, :length => 9)  %></span>
           <span class="c-simulate-td c-grid-span16">
             <span class="c-grid-row">
               <span class="c-grid-span6 c-text"><%= link_to 'Show', email_whitelist %></span>

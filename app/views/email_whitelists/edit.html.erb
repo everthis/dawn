@@ -1,4 +1,9 @@
-<div class="email-whitelist">
+<% provide(:title, 'Email whitelist') %>
+<% provide(:name, 'dawn') %>
+
+<% content_for :content do %>
+
+<div class="email-whitelist c-card-box">
 	<h1>Editing Email Whitelist</h1>
 
 	<%= render 'form' %>
@@ -6,3 +11,5 @@
 	<%= link_to 'Show', @email_whitelist %> |
 	<%= link_to 'Back', email_whitelists_path %>
 </div>
+
+<% end %>
