@@ -109,11 +109,11 @@ class PtTasksController < CBaseController
   end
 
   def completed
-    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page], :per_page => 10).order("created_at ASC")
+    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page], :per_page => 10).order("created_at DESC")
   end
 
   def completedData
-    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page], :per_page => 10).order("created_at ASC")
+    @pt_tasks = PtTask.where(status: 'completed').paginate(page: params[:page], :per_page => 10).order("created_at DESC")
     render json: @pt_tasks, status: :ok
   end
 
