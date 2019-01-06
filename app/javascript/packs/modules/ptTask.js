@@ -261,7 +261,7 @@ function validSize(str) {
   const regex = /(\d*\.*\d*)\s*(.*)/;
   const res = regex.exec(str);
   if (res[2] === "GB") {
-    if (+res[1] > 10) {
+    if (+res[1] > 15) {
       return false;
     }
   }
