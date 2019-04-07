@@ -3,7 +3,8 @@ require 'pagination_list_link_renderer'
 class DocsController < CBaseController
   before_action :logged_in_user, only: [:index, :show, :create, :destroy, :update, :edit ]
   before_action :set_doc, only: [:show, :update, :destroy]
-  before_action :correct_user,   only: :destroy
+  # before_action :correct_user,   only: :destroy
+  before_action :admin_user,     only: [:new, :create, :edit, :update, :destroy]
   # GET /docs
   # GET /docs.json
   def index
@@ -109,5 +110,10 @@ class DocsController < CBaseController
         @api = current_user.docs.find_by(id: params[:id])
         redirect_to(docs_url, alert: "Not authorized!") if @api.nil?
       end
+    end
+
+    # Confirms an admin user.
+    def admin_user
+      redirect_to(docs_url, alert: "Not authorized!") unless current_user.admin?
     end
 end

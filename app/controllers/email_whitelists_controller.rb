@@ -6,7 +6,11 @@ class EmailWhitelistsController < CBaseController
   # GET /email_whitelists
   # GET /email_whitelists.json
   def index
-    @email_whitelists = EmailWhitelist.all
+    if current_user.admin?
+      @email_whitelists = EmailWhitelist.all
+    else
+      @email_whitelists = []
+    end
   end
 
   # GET /email_whitelists/1

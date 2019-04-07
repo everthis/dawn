@@ -1,12 +1,16 @@
 class UsersController < CBaseController
   before_action :logged_in_user, only: [:index, :edit, :update, :show, :destroy, :following, :followers, :settings]
   before_action :correct_user,   only: [:edit, :update, :get_token]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:destroy]
   # before_action :authenticate,   only: [:]
 
   def index
-  	# @users = User.all
+    # @users = User.all
+    if current_user.admin?
       @users = User.includes(:following).paginate(page: params[:page])
+    else
+      @users = []
+    end
   end
 
 	def show
