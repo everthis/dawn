@@ -1,2 +1,0 @@
-class InstagramUser < ApplicationRecord
-end

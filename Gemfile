@@ -1,71 +1,54 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'dotenv-rails', :require => 'dotenv/rails-now'
-gem 'rails'
-gem 'bcrypt'
-gem 'jwt', '~> 1.5.6'
-gem 'simple_command'
-gem 'faker'
-gem 'carrierwave'
-gem 'mini_magick'
-# gem 'fog'
-gem 'will_paginate'
-gem 'uglifier'
-gem 'sass'
-gem 'jbuilder'
-gem 'net-ssh'
-gem 'sdoc', group: :doc
-gem 'pg'
-gem 'regexp-examples'
-# gem 'structured_warnings'
-gem 'addressable'
-gem 'rack'
-gem 'rack-proxy'
-gem 'puma'
-gem 'redis'
-gem 'redcarpet'
-gem 'coderay'
-gem 'sidekiq'
-gem 'nav_lynx'
-gem 'rqrcode'
-gem "browser"
-gem 'redis-namespace'
-gem 'whenever', :require => false
-gem 'rails-i18n', '~> 5.0.0'
-gem 'webpacker', '~> 3.0.0'
+ruby '2.6.3'
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.0.1'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3', '~> 1.4'
+# Use Puma as the app server
+gem 'puma', '~> 4.1'
+# Use SCSS for stylesheets
+gem 'sass-rails', '>= 6'
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem 'webpacker', '~> 4.0'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.7'
+# Use Redis adapter to run Action Cable in production
+# gem 'redis', '~> 4.0'
+# Use Active Model has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+# Use Active Storage variant
+# gem 'image_processing', '~> 1.2'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.4.2', require: false
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+end
 
 group :development do
-  gem 'pry-rails'
-  gem 'foreman'
-  gem "letter_opener"
-  gem "awesome_print"
-  gem "binding_of_caller"
-  gem "guard"
-  # gem "rack-livereload", '0.3.15'
-  # gem 'guard-livereload'
-  gem 'byebug'
-  gem 'better_errors'
-  gem 'bullet'
-  gem 'web-console'
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'capistrano', '~>3.7.2',    require: false
-  gem 'capistrano-rvm',           require: false
-  gem 'capistrano-rails',         require: false
-  gem 'capistrano-bundler',       require: false
-  gem 'capistrano-sidekiq', '~>0.10.0',      require: false
-  gem 'capistrano3-puma',         require: false
-  gem 'capistrano-rails-console', require: false
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
-  gem 'rails-controller-testing'
-  gem 'coveralls',                require: false
-  gem 'jasmine'
-  gem 'minitest-reporters'
-  gem 'mini_backtrace'
-  gem 'guard-minitest'
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  # Easy installation and use of web drivers to run system tests with browsers
+  gem 'webdrivers'
 end
 
-group :production do
-  gem 'rails_12factor'
-end
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

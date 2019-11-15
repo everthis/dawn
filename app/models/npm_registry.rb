@@ -1,2 +1,0 @@
-class NpmRegistry < ApplicationRecord
-end

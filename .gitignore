@@ -6,54 +6,31 @@
 
 # Ignore bundler config.
 /.bundle
-npm-debug.log
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/*.sqlite3-*
 
 # Ignore all logfiles and tempfiles.
 /log/*
+/tmp/*
 !/log/.keep
-/tmp
+!/tmp/.keep
 
-# Ignore Spring files.
-/spring/*.pid
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
 
-# Ignore uploaded test images.
-/public/uploads
 /public/assets
-/public/pt-task
-!/public/pt-task/.gitkeep
+.byebug_history
 
-/.sass-cache
-/.tmp
-# Ignore node_modules
-/front-end/node_modules
-/node_modules
-# /app/assets/javascripts/*
-# /app/assets/stylesheets/*
-# /app/*.js
-# /app/*.css
+# Ignore master key for decrypting credentials and more.
+/config/master.key
 
-/shared/pids/*
-/shared/log/*
-/shared/sockets/*
-
-/.dev-shared/pids/*
-/.dev-shared/log/*
-/.dev-shared/sockets/*
-!/.dev-shared/pids/.gitkeep
-!/.dev-shared/log/.gitkeep
-!/.dev-shared/sockets/.gitkeep
-# sensitive
-/.env.production
-/.env
-
-# coverage
-/coverage
-
-# shared
-/shared
 /public/packs
+/public/packs-test
 /node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

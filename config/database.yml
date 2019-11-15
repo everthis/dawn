@@ -1,4 +1,4 @@
-# SQLite version 3.x
+# SQLite. Versions 3.8.0 and up are supported.
 #   gem install sqlite3
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
@@ -6,40 +6,20 @@
 #
 default: &default
   adapter: sqlite3
-  pool: 10
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
-  adapter: postgresql
-  encoding: unicode
-  host: localhost
-  database: dawn_<%= Rails.env %>
-  pool: 10
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-
-production:
-  adapter: postgresql
-  host: localhost
-  database: dawn_<%= Rails.env %>
-  statement_limit: 200
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  <<: *default
+  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  host: localhost
-  adapter: postgresql
-  encoding: unicode
-  database: dawn_<%= Rails.env %>
-  # username: <%= ENV['TRAVIS'] ? "postgres" : ENV["DB_USERNAME"] %>
-  # password: <%= ENV['TRAVIS'] ? "" : ENV["DB_PASSWORD"] %>
-# production:
-#   adapter: postgresql
-#   database: dawn_<%= Rails.env %>
-#   statement_limit: 200
-#   username: <%= ENV['TRAVIS'] ? 'postgres' : ENV["DB_USERNAME"] %>
-#   password: <%= ENV['TRAVIS'] ? '' : ENV["DB_PASSWORD"] %>
+  <<: *default
+  database: db/test.sqlite3
 
+production:
+  <<: *default
+  database: db/production.sqlite3

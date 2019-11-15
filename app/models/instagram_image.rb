@@ -1,2 +1,0 @@
-class InstagramImage < ApplicationRecord
-end

@@ -16,166 +16,18 @@
 #
 # This would use the information in config/locales/es.yml.
 #
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
 # To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
+# available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  sessions:
-    new:
-      email: "Email"
-      password: "Password"
-      forget_password: "Forget password?"
-      remember_me_on_this_computer: "Remember me on this computer"
-      log_in: "Log in"
-      new_user: "New user"
-      sign_up_now: "Sign Up now"
-
   hello: "Hello world"
-
-  number:
-    currency:
-      format:
-        unit: "$"
-        precision: 2
-        separator: "."
-        delimiter: ","
-        format: "%u%n"
-
-  errors:
-    template:
-      body: "There were problems with the following fields:"
-      header:
-        one: "1 error prohibited this %{model} from being saved"
-        other: "%{count} errors prohibited this %{model} from being saved"
-
-  layouts:
-    application:
-      title: "The Pragmatic Bookshelf"
-      home: "Home"
-      questions: "Questions"
-      news: "News"
-      contact: "Contact"
-    header:
-      home: "Homepage"
-      dev: "API"
-      third-paty-accounts: "Third-party-accounts"
-      email-whitelist: "Email-whitelist"
-      documentation: "Documentation"
-      users: "Users"
-      profile: "Profile"
-      logout: "Log out"
-      settings: "Settings"
-      ci-npm-packages: "CI-npm-packages"
-      npm-registries: "npm-registries"
-      uuap-login-logs: "UUAP-login-logs"
-      test: "Test"
-      about: "About"
-      gists: "Gist"
-      instagram: "Instagram"
-      films: "Films"
-      pt-task: "PT-task"
-      front-end-job-interview-questions: "front-end-job-interview-questions"
-      log_in: "Log in"
-      sign_up: "Sign up"
-
-  will_paginate:
-    previous_label: "previous_page"
-    next_label: "next_page"
-    page_gap: "..."
-
-  users:
-    form:
-      name: "Name"
-      email: "Email"
-      password: "Password"
-      password_confirmation: "Password confirmation"
-    settings:
-      language: "Language"
-      profile: "Profile"
-      token-text: "The token that is currently being used :"
-
-  thanks: "Thanks"
-
-  ci_packages:
-    index:
-      search: "Search"
-      new_ci_packages_link: "Add new CI npm packages"
-    new:
-      install_new_ci_npm_packages: "Install New CI npm Packages"
-      format: "Format"
-  microposts:
-    micropost:
-      ago: "ago"
-      delete: "delete"
-
-  shared:
-    img_upload:
-      choose_an_img: "choose an image"
-    micropost_form:
-      post: "Post"
-      what_is_happening: "What's happening?"
-    stats:
-      following: "following"
-      followers: "followers"
-
-  docs:
-    new:
-      new_doc: "New documentation"
-      back: "Back"
-    show:
-      edit: "Edit"
-      back: "Back"
-    edit:
-      edit: "Edit"
-      back: "Back"
-    form:
-      title: "Title"
-      content: "Content"
-      submit_btn: "Create new documentation"
-    docs:
-      new_documentation: "New documentation"
-      show: "Show"
-      edit: "Edit"
-      destroy: "destroy"
-
-  gists:
-    edit:
-      show: "show"
-      back: "back"
-      title: "title"
-    form:
-      description: "description"
-      extension: "extension"
-      content: "content"
-      hasAnswer: "hasAnswer"
-      answer: "answer"
-    index:
-      new: "new"
-      title: "title"
-      show: "show"
-      edit: "edit"
-      destroy: "destroy"
-      hasAnswer: "hasAnswer"
-    new:
-      title: "title"
-      back: "back"
-    show:
-      edit: "edit"
-      back: "back"
-      description: "description"
-      extension: "extension"
-      content: "content"
-      hasAnswer: "hasAnswer"
-      answer: "answer"
-      externalId: "externalId"
-
-  pt_tasks:
-    index:
-      pending-pt-task: "pending PT task"
-      completed-pt-task: "completed PT task"
-    pending:
-      pt-tasks: "search"
-      completed-pt-task: "completed PT task"
-    completed:
-      pt-tasks: "search"
-      pending-pt-task: "pending PT task"

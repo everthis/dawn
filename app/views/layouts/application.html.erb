@@ -1,1 +1,15 @@
-<%= render :template => "layouts/#{content_for?(:c_layout) ? (params['fnpu'] ? "#{yield(:c_layout).squish}.json" : "#{yield(:c_layout).squish}.html" ) : (params['fnpu'] ? "c_base_spf.json" : "c_base_spf.html")}" %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dawn</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

@@ -1,2 +1,0 @@
-class UuapLoginLog < ApplicationRecord
-end
